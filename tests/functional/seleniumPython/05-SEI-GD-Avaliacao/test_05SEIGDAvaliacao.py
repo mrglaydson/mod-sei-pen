@@ -158,7 +158,7 @@ class Test05SEIGDAvaliacao():
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//span[. = 'Preparação da Listagem']")))    
     self.driver.find_element(By.XPATH, "//span[. = 'Preparação da Listagem' ]").click()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos (5 registros):"
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos para Eliminação (5 registros):"
     #self.driver.find_element(By.XPATH, "//span[text()='Avaliação de Processos']/../../../../a").click()
     self.driver.find_element(By.LINK_TEXT, "Avaliação de Processos").click()
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//button[@id='sbmPesquisar']")))

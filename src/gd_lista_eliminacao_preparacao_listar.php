@@ -18,7 +18,7 @@ try {
     switch ($_GET['acao']) {
 
         case 'gd_lista_eliminacao_preparacao_listar':
-            PaginaSEI::getInstance()->salvarCamposPost(array('selOrgao', 'selUnidade'));
+            PaginaSEI::getInstance()->salvarCamposPost(array('selOrgao', 'selUnidade', 'selAssunto', 'selTipoProcedimento'));
 
             break;
 
@@ -106,6 +106,29 @@ try {
         $objMdGdArquivamentoDTO->setNumIdUnidadeCorrente($selUnidade);
     }
 
+    $selTipoProcedimento = PaginaSEI::getInstance()->recuperarCampo('selTipoProcedimento');
+    if ($selTipoProcedimento && $selTipoProcedimento !== 'null') {
+        $objMdGdArquivamentoDTO->setNumIdTipoProcedimento($selTipoProcedimento);
+    }
+
+    $objRelProtoloAssuntoRN = new RelProtocoloAssuntoRN();
+    $selAssunto = PaginaSEI::getInstance()->recuperarCampo('selAssunto');
+
+    // Faz a pesquisa por assunto caso o filtro tenha sido acionado
+    if($selAssunto && $selAssunto !== 'null'){
+        $objRelProtocoloAssuntoDTO = new RelProtocoloAssuntoDTO();
+        $objRelProtocoloAssuntoDTO->setNumIdAssunto($selAssunto);
+        $objRelProtocoloAssuntoDTO->retDblIdProtocolo();
+
+        $arrIdsProcedimento = InfraArray::converterArrInfraDTO($objRelProtoloAssuntoRN->listarRN0188($objRelProtocoloAssuntoDTO),'IdProtocolo');
+
+        if($arrIdsProcedimento){
+            $objMdGdArquivamentoDTO->setDblIdProcedimento($arrIdsProcedimento, InfraDTO::$OPER_IN);
+        }else{
+            $objMdGdArquivamentoDTO->setDblIdProcedimento([0], InfraDTO::$OPER_IN);
+        }
+    }
+
     PaginaSEI::getInstance()->prepararOrdenacao($objMdGdArquivamentoDTO, 'DataArquivamento', InfraDTO::$TIPO_ORDENACAO_ASC);
     PaginaSEI::getInstance()->prepararPaginacao($objMdGdArquivamentoDTO);
 
@@ -118,7 +141,7 @@ try {
         $strResultado = '';
 
         $strSumarioTabela = 'Lista de Processos';
-        $strCaptionTabela = 'Processos';
+        $strCaptionTabela = 'Processos para Eliminação';
 
         $strResultado .= '<table width="99%" class="infraTable" summary="' . $strSumarioTabela . '">' . "\n";
         $strResultado .= '<caption class="infraCaption">' . PaginaSEI::getInstance()->gerarCaptionTabela($strCaptionTabela, $numRegistros) . '</caption>';
@@ -191,6 +214,7 @@ try {
     // Busca uma lista de unidades
     $strItensSelUnidade = UnidadeINT::montarSelectSiglaDescricao('null', '&nbsp;', $selUnidade);
     $strItensSelTipoProcedimento = TipoProcedimentoINT::montarSelectNome('null', 'Todos', $selTipoProcedimento);
+    $strItensSelAssunto = MdGdArquivamentoINT::montarSelectAssuntos('null', 'Todos', $selAssunto);
 
     //  $arrComandos[] = '<button type="button" accesskey="F" id="btnFechar" value="Fechar" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . PaginaSEI::getInstance()->getAcaoRetorno() . '&acao_origem=' . $_GET['acao'] . '\'" class="infraButton"><span class="infraTeclaAtalho">F</span>echar</button>';
 } catch (Exception $e) {
@@ -206,11 +230,16 @@ PaginaSEI::getInstance()->montarStyle();
 PaginaSEI::getInstance()->abrirStyle();
 ?>
 #lblOrgao {position:absolute;left:0%;top:0%;width:20%;}
-#selOrgao {position:absolute;left:0%;top:20%;width:20%;}
+#selOrgao {position:absolute;left:0%;top:38%;width:20%;}
 
-#lblUnidade {position:absolute;left:21%;top:0%;width:20%;}
-#selUnidade {position:absolute;left:21%;top:20%;width:20%;}
+#lblUnidade {position:absolute;left:22%;top:0%;width:20%;}
+#selUnidade {position:absolute;left:22%;top:38%;width:20%;}
 
+#lblTiposProcedimento {position:absolute;left:44%;top:0%;width:20%;}
+#selTipoProcedimento {position:absolute;left:44%;top:38%;width:20%;}
+
+#lblAssunto {position:absolute;left:0%;top:0%;width:20%;}
+#selAssunto {position:absolute;left:0%;top:38%;width:38%;}
 <?
 PaginaSEI::getInstance()->fecharStyle();
 PaginaSEI::getInstance()->montarJavaScript();
@@ -275,15 +304,29 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
           PaginaSEI::getInstance()->abrirAreaDados('9.5em');
           ?>
 
-    <label id="lblOrgao" for="selOrgao" accesskey="" class="infraLabelOpcional">Órgão:</label>
-    <select id="selOrgao" name="selOrgao" onchange="this.form.submit();" class="infraSelect" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" >
-        <option><?= SessaoSEI::getInstance()->getStrDescricaoOrgaoSistema() ?></option>
-    </select>
+        <div class="infraAreaDados" style="height:5em;">
+            <label id="lblOrgao" for="selOrgao" accesskey="" class="infraLabelOpcional">Órgão:</label>
+            <select id="selOrgao" name="selOrgao" onchange="this.form.submit();" class="infraSelect" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" >
+                <option><?= SessaoSEI::getInstance()->getStrDescricaoOrgaoSistema() ?></option>
+            </select>
 
-    <label id="lblUnidade" for="selUnidade" accesskey="" class="infraLabelOpcional">Unidade:</label>
-    <select id="selUnidade" name="selUnidade" onchange="this.form.submit();" class="infraSelect" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" >
-    <?= $strItensSelUnidade ?>
-    </select>
+            <label id="lblUnidade" for="selUnidade" accesskey="" class="infraLabelOpcional">Unidade:</label>
+            <select id="selUnidade" name="selUnidade" onchange="this.form.submit();" class="infraSelect" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" >
+            <?= $strItensSelUnidade ?>
+            </select>
+
+            <label id="lblTiposProcedimento" for="selTipoProcedimento" accesskey="" class="infraLabelOpcional">Tipo de Processo:</label>
+            <select id="selTipoProcedimento" name="selTipoProcedimento" onchange="this.form.submit();" class="infraSelect" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" >
+                <?= $strItensSelTipoProcedimento; ?>
+            </select>
+        </div>
+
+        <div class="infraAreaDados" style="height:5em;">
+            <label id="lblAssunto" for="lblAssunto" accesskey="" class="infraLabelOpcional">Assunto:</label>
+            <select id="selAssunto" name="selAssunto" onchange="this.form.submit();" class="infraSelect" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" >
+                <?= $strItensSelAssunto; ?>
+            </select>
+        </div>
     <?
     PaginaSEI::getInstance()->fecharAreaDados();
     PaginaSEI::getInstance()->montarAreaTabela($strResultado, $numRegistros);
