@@ -47,7 +47,7 @@ try {
     switch ($_GET['acao']) {
         case 'gd_procedimento_desarquivar':
 
-            $arrComandos[] = '<button type="button" accesskey="S" name="sbmSalvar" id="sbmSalvar" value="Salvar" class="infraButton"  onclick="infraAbrirBarraProgresso(this.form,\''.SessaoSEI::getInstance()->assinarLink('controlador.php?acao='.$_GET['acao'].'&acao_origem='.$_GET['acao']).'\', 600, 250);" ><span class="infraTeclaAtalho">S</span>alvar</button>';
+            $arrComandos[] = '<button type="button" accesskey="A" name="btnAssinar" id="btnAssinar" value="Assinar" class="infraButton"  onclick="infraAbrirBarraProgresso(this.form,\''.SessaoSEI::getInstance()->assinarLink('controlador.php?acao='.$_GET['acao'].'&acao_origem='.$_GET['acao']).'\', 600, 250);" ><span class="infraTeclaAtalho">A</span>ssinar</button>';
 
             if ($_GET['acao_origem'] == 'gd_arquivamento_listar') {
                 $arrComandos[] = '<button type="button" accesskey="C" id="btnCancelar" name="btnCancelar" value="Cancelar" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_arquivamento_listar&acao_origem=' . $_GET['acao'] . $strParametros) . '\';" class="infraButton"><span class="infraTeclaAtalho">C</span>ancelar</button>';
@@ -176,7 +176,7 @@ PaginaSEI::getInstance()->abrirJavaScript();
     var validConfiguracao = false;
 
     function inicializar() {
-        document.getElementById('sbmSalvar').focus();
+        document.getElementById('btnAssinar').focus();
         infraEfeitoTabelas();
     }
 
@@ -270,10 +270,10 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
               <? PaginaSEI::getInstance()->montarBarraComandosSuperior($arrComandos); ?>
 
         <fieldset class="infraFieldset" id="fieldsetDadosArquivamento">
-            <legend class="infraLegend">Dados do Arquivamento</legend>
+            <legend class="infraLegend">Dados do Desarquivamento</legend>
 
             <div id="divProcedimentos" class="infraAreaDados" style="height:10em;">
-                <label id="lblProcedimentos" for="selProcedimentos" class="infraLabelObrigatorio">Processos:</label>
+                <label id="lblProcedimentos" for="selProcedimentos" class="infraLabelObrigatorio">Processo(s):</label>
                 <select id="selProcedimentos" name="selProcedimentos" size="4" class="infraSelect"
                         tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
                             <?= $strItensSelProcedimentos ?>
@@ -281,7 +281,7 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
             </div>
 
             <div id="divJustificativa" class="infraAreaDados" style="height:4.5em;">
-                <label id="lblJustificativa" for="selJustificativa" class="infraLabelObrigatorio">Motivo:</label>
+                <label id="lblJustificativa" for="selJustificativa" class="infraLabelObrigatorio">Justificativa:</label>
                 <select id="selJustificativa" name="selJustificativa"
                         class="infraSelect"
                         tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">

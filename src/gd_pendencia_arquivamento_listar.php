@@ -156,7 +156,7 @@ try {
             $strResultado .= '<caption class="infraCaption">' . PaginaSEI::getInstance()->gerarCaptionTabela($strCaptionTabela, $numRegistros) . '</caption>';
             $strResultado .= '<tr>';
             $strResultado .= '<th class="infraTh" width="1%">' . PaginaSEI::getInstance()->getThCheck() . '</th>' . "\n";
-            $strResultado .= '<th class="infraTh" width="13%">Processo</th>' . "\n";
+            $strResultado .= '<th class="infraTh" width="13%">Nº do Processo</th>' . "\n";
             $strResultado .= '<th class="infraTh" width="23%">Especificação</th>' . "\n";
             $strResultado .= '<th class="infraTh" width="10%">Código de Classificação</th>' . "\n";
             $strResultado .= '<th class="infraTh" width="20%">Tipo de Processo</th>' . "\n";

@@ -81,7 +81,7 @@ class Test03GDPendenciasArquivamento():
     self.driver.find_element(By.ID, "selCargoFuncao").click()
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
-    self.driver.find_element(By.ID, "sbmSalvar").click()
+    self.driver.find_element(By.ID, "btnAssinar").click()
     time.sleep(10)
     WebDriverWait(self.driver, 180000).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".infraCaption")))
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Pendências de Arquivamento (12 registros):"
@@ -104,7 +104,7 @@ class Test03GDPendenciasArquivamento():
     self.driver.find_element(By.ID, "selCargoFuncao").click()
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
-    self.driver.find_element(By.ID, "sbmSalvar").click()
+    self.driver.find_element(By.ID, "btnAssinar").click()
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//a[starts-with(.,\'99993.000057\')]")))
     elements = self.driver.find_elements(By.XPATH, "//a[starts-with(.,\'99993.000056\') and contains(.,\'9\')]")
     assert len(elements) == 0
@@ -127,7 +127,7 @@ class Test03GDPendenciasArquivamento():
     self.driver.find_element(By.ID, "selCargoFuncao").click()
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
-    self.driver.find_element(By.ID, "sbmSalvar").click()
+    self.driver.find_element(By.ID, "btnAssinar").click()
     WebDriverWait(self.driver, 180000).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".infraCaption")))
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (1 registro):"
@@ -150,7 +150,7 @@ class Test03GDPendenciasArquivamento():
     self.driver.find_element(By.ID, "selCargoFuncao").click()
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
-    self.driver.find_element(By.ID, "sbmSalvar").click()
+    self.driver.find_element(By.ID, "btnAssinar").click()
     time.sleep(10)
     elements = self.driver.find_elements(By.CSS_SELECTOR, "td .infraImg")
     assert len(elements) == 0
@@ -177,7 +177,7 @@ class Test03GDPendenciasArquivamento():
     self.driver.find_element(By.ID, "selCargoFuncao").click()
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
-    self.driver.find_element(By.ID, "sbmSalvar").click()
+    self.driver.find_element(By.ID, "btnAssinar").click()
     WebDriverWait(self.driver, 180000).until(expected_conditions.presence_of_element_located((By.CSS_SELECTOR, ".infraCaption")))
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Pendências de Arquivamento (13 registros):"
@@ -197,7 +197,7 @@ class Test03GDPendenciasArquivamento():
     self.driver.find_element(By.ID, "selCargoFuncao").click()
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
-    self.driver.find_element(By.ID, "sbmSalvar").click()
+    self.driver.find_element(By.ID, "btnAssinar").click()
     time.sleep(5)
     elements = self.driver.find_elements(By.XPATH, "//a[starts-with(.,\'99993.000056\') and contains(.,\'9\')]")
     assert len(elements) == 0
