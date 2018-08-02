@@ -1,54 +1,46 @@
 <?
 
-class MdGestaoDocumentalIntegracao extends SeiIntegracao
-{
+class MdGestaoDocumentalIntegracao extends SeiIntegracao {
 
-    public function __construct()
-    {
+    public function __construct() {
+        
     }
 
-    public function getNome()
-    {
+    public function getNome() {
         return 'Módulo de Gestão Documental';
     }
 
-    public function getVersao()
-    {
+    public function getVersao() {
         return '1.0.0';
     }
 
-    public function getInstituicao()
-    {
+    public function getInstituicao() {
         return 'Ministério do Planejamento, Desenvolvimento e Gestão';
     }
 
-    public function inicializar($strVersaoSEI)
-    {
+    public function inicializar($strVersaoSEI) {
+        
     }
 
-    public function montarBotaoControleProcessos()
-    {
+    public function montarBotaoControleProcessos() {
 
         $arrBotoes = array();
         return $arrBotoes;
     }
 
-    public function montarIconeControleProcessos($arrObjProcedimentoAPI)
-    {
+    public function montarIconeControleProcessos($arrObjProcedimentoAPI) {
 
         $arrIcones = array();
         return $arrIcones;
     }
 
-    public function montarIconeAcompanhamentoEspecial($arrObjProcedimentoAPI)
-    {
+    public function montarIconeAcompanhamentoEspecial($arrObjProcedimentoAPI) {
 
         $arrIcones = array();
         return $arrIcones;
     }
 
-    public function montarIconeProcesso(ProcedimentoAPI $objProcedimentoAPI)
-    {
+    public function montarIconeProcesso(ProcedimentoAPI $objProcedimentoAPI) {
 
         $arrObjArvoreAcaoItemAPI = array();
         $dblIdProcedimento = $objProcedimentoAPI->getIdProcedimento();
@@ -71,14 +63,12 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao
             $objArvoreAcaoItemAPI->setHref('javascript:alert(\'Processo Arquivado\');');
             $objArvoreAcaoItemAPI->setSinHabilitado('S');
             $arrObjArvoreAcaoItemAPI[] = $objArvoreAcaoItemAPI;
-
         }
 
         return $arrObjArvoreAcaoItemAPI;
     }
 
-    public function montarBotaoProcesso(ProcedimentoAPI $objProcedimentoAPI)
-    {
+    public function montarBotaoProcesso(ProcedimentoAPI $objProcedimentoAPI) {
         $arrBotoes = array();
 
         // Valida as permissões dos botões
@@ -106,80 +96,80 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao
         return $arrBotoes;
     }
 
-    public function montarIconeDocumento(ProcedimentoAPI $objProcedimentoAPI, $arrObjDocumentoAPI)
-    {
+    public function montarIconeDocumento(ProcedimentoAPI $objProcedimentoAPI, $arrObjDocumentoAPI) {
 
         $arrIcones = array();
         return $arrIcones;
     }
 
-    public function montarBotaoDocumento(ProcedimentoAPI $objProcedimentoAPI, $arrObjDocumentoAPI)
-    {
+    public function montarBotaoDocumento(ProcedimentoAPI $objProcedimentoAPI, $arrObjDocumentoAPI) {
 
         $arrBotoes = array();
         return $arrBotoes;
     }
 
-    public function alterarIconeArvoreDocumento(ProcedimentoAPI $objProcedimentoAPI, $arrObjDocumentoAPI)
-    {
+    public function alterarIconeArvoreDocumento(ProcedimentoAPI $objProcedimentoAPI, $arrObjDocumentoAPI) {
         $arrIcones = array();
         return $arrIcones;
     }
 
-    public function adicionarElementoMenu()
-    {
+    public function adicionarElementoMenu() {
         return '';
     }
 
-    public function montarMenuPublicacoes()
-    {
+    public function montarMenuPublicacoes() {
         $arrMenu = array();
         return $arrMenu;
     }
 
-    public function montarMenuUsuarioExterno()
-    {
+    public function montarMenuUsuarioExterno() {
 
         $arrMenu = array();
         return $arrMenu;
     }
 
-    public function montarAcaoControleAcessoExterno($arrObjAcessoExternoAPI)
-    {
+    public function montarAcaoControleAcessoExterno($arrObjAcessoExternoAPI) {
 
         $arrIcones = array();
         return $arrIcones;
     }
 
-    public function montarAcaoDocumentoAcessoExternoAutorizado($arrObjDocumentoAPI)
-    {
+    public function montarAcaoDocumentoAcessoExternoAutorizado($arrObjDocumentoAPI) {
         $arrIcones = array();
         return $arrIcones;
     }
 
-    public function montarAcaoProcessoAnexadoAcessoExternoAutorizado($arrObjProcedimentoAPI)
-    {
+    public function montarAcaoProcessoAnexadoAcessoExternoAutorizado($arrObjProcedimentoAPI) {
         $arrIcones = array();
         return $arrIcones;
     }
 
-    public function montarBotaoAcessoExternoAutorizado(ProcedimentoAPI $objProcedimentoAPI)
-    {
+    public function montarBotaoAcessoExternoAutorizado(ProcedimentoAPI $objProcedimentoAPI) {
         $arrBotoes = array();
         return $arrBotoes;
     }
 
-    public function montarBotaoControleAcessoExterno()
-    {
+    public function montarBotaoControleAcessoExterno() {
         $arrBotoes = array();
         return $arrBotoes;
     }
 
-    public function processarControlador($strAcao)
-    {
+    public function processarControlador($strAcao) {
+        // gd_modelos_documento_alterar
 
         switch ($strAcao) {
 
+            case 'gd_avaliacao_processos_listar':
+                require_once dirname(__FILE__) . '/gd_avaliacao_processos_listar.php';
+                return true;
+            case 'gd_modelo_documento_alterar':
+                require_once dirname(__FILE__) . '/gd_modelo_documento_alterar.php';
+                return true;
+
+            case 'gd_ajuda_variaveis_modelo_arquivamento':
+            case 'gd_ajuda_variaveis_modelo_desarquivamento':
+                require_once dirname(__FILE__) . '/gd_ajuda_variaveis_modelo.php';
+                return true;
             case 'gd_justificativas_listar':
             case 'gd_justificativas_excluir':
                 require_once dirname(__FILE__) . '/gd_justificativa_lista.php';
@@ -190,7 +180,15 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao
             case 'gd_justificativas_consultar':
                 require_once dirname(__FILE__) . '/gd_justificativa_cadastro.php';
                 return true;
-
+            case 'gd_unidade_arquivamento_listar':
+            case 'gd_unidade_arquivamento_excluir':
+                require_once dirname(__FILE__) . '/gd_unidade_arquivamento_lista.php';
+                return true;
+            case 'gd_unidade_arquivamento_cadastrar':
+            case 'gd_unidade_arquivamento_alterar':
+            case 'gd_unidade_arquivamento_visualizar':
+                require_once dirname(__FILE__) . '/gd_unidade_arquivamento_cadastro.php';
+                return true;
             case 'gd_parametros_alterar':
                 require_once dirname(__FILE__) . '/gd_parametros_alterar.php';
                 return true;
@@ -202,7 +200,7 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao
             case 'gd_desarquivar_procedimento':
                 require_once dirname(__FILE__) . '/gd_desarquivar_procedimento.php';
                 return true;
-                
+
             case 'gd_pendencias_arquivamento':
             case 'gd_procedimento_reabrir':
             case 'gd_procedimento_arquivar':
@@ -213,8 +211,7 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao
         return false;
     }
 
-    public function processarControladorAjax($strAcao)
-    {
+    public function processarControladorAjax($strAcao) {
 
         $xml = null;
 
@@ -227,8 +224,7 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao
         return $xml;
     }
 
-    public function processarControladorPublicacoes($strAcao)
-    {
+    public function processarControladorPublicacoes($strAcao) {
 
         switch ($strAcao) {
 
@@ -240,8 +236,7 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao
         return false;
     }
 
-    public function processarControladorExterno($strAcao)
-    {
+    public function processarControladorExterno($strAcao) {
 
         switch ($strAcao) {
 
@@ -253,25 +248,23 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao
         return false;
     }
 
-    public function verificarAcessoProtocolo($arrObjProcedimentoAPI, $arrObjDocumentoAPI)
-    {
+    public function verificarAcessoProtocolo($arrObjProcedimentoAPI, $arrObjDocumentoAPI) {
 
         $ret = null;
         return $ret;
     }
 
-    public function verificarAcessoProtocoloExterno($arrObjProcedimentoAPI, $arrObjDocumentoAPI)
-    {
+    public function verificarAcessoProtocoloExterno($arrObjProcedimentoAPI, $arrObjDocumentoAPI) {
 
         $ret = null;
         return $ret;
     }
 
-    public function montarMensagemProcesso(ProcedimentoAPI $objProcedimentoAPI)
-    {
+    public function montarMensagemProcesso(ProcedimentoAPI $objProcedimentoAPI) {
         $strMsg = null;
         return $strMsg;
     }
+
 }
 
 ?>

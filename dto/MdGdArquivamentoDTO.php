@@ -28,6 +28,18 @@ class MdGdArquivamentoDTO extends InfraDTO
             'IdJustificativa',
             'id_justificativa');
 
+        $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_NUM,
+            'IdUsuario',
+            'id_usuario');
+         
+        $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_NUM,
+            'IdUnidadeCorrente',
+            'id_unidade_corrente');
+          
+        $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_NUM,
+            'IdUnidadeIntermediaria',
+            'id_unidade_intermediaria');
+           
         $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_DTH,
             'DataArquivamento',
             'dta_arquivamento');
@@ -47,10 +59,45 @@ class MdGdArquivamentoDTO extends InfraDTO
         $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_STR,
             'SinAtivo',
             'sin_ativo');
-
-
+        
+         $this->adicionarAtributoTabelaRelacionada(InfraDTO::$PREFIXO_STR,
+                                              'NomeUsuario',
+                                              'u.nome',
+                                              'usuario u');
+        
+        $this->adicionarAtributoTabelaRelacionada(InfraDTO::$PREFIXO_STR,
+                                     'DescricaoUnidadeCorrente',
+                                     'unc.descricao',
+                                     'unidade unc');
+        
+        $this->adicionarAtributoTabelaRelacionada(InfraDTO::$PREFIXO_DBL,
+                                              'IdProtocoloProcedimento',
+                                              'p.id_procedimento',
+                                              'procedimento p');
+        
+        $this->adicionarAtributoTabelaRelacionada(InfraDTO::$PREFIXO_STR,
+                                              'ProtocoloFormatado',
+                                              'pro.protocolo_formatado',
+                                              'protocolo pro');
+        
+         $this->adicionarAtributoTabelaRelacionada(InfraDTO::$PREFIXO_NUM,
+                                              'IdTipoProcedimento',
+                                              'p.id_tipo_procedimento',
+                                              'procedimento p');
+         
+         $this->adicionarAtributoTabelaRelacionada(InfraDTO::$PREFIXO_STR,
+                                              'NomeTipoProcedimento',
+                                              't.nome',
+                                              'tipo_procedimento t');
+         
         $this->configurarPK('IdArquivamento', InfraDTO::$TIPO_PK_SEQUENCIAL);
         $this->configurarFK('IdProcedimento', 'procedimento p', 'p.id_procedimento');
+        $this->configurarFK('IdProtocoloProcedimento', 'protocolo pro', 'pro.id_protocolo');
+        $this->configurarFK('IdTipoProcedimento', 'tipo_procedimento t', 't.id_tipo_procedimento');
+        $this->configurarFK('IdUsuario', 'usuario u', 'u.id_usuario');
+        $this->configurarFK('IdUnidadeCorrente', 'unidade unc', 'unc.id_unidade');
+        $this->configurarFK('IdUnidadeIntermediaria', 'unidade uni', 'uni.id_unidade');
+        
         $this->configurarFK('IdDespachoArquivamento', 'documento d', 'd.id_documento');
         $this->configurarFK('IdJustificativa', 'justificativa j', 'j.id_justificativa');
     }

@@ -104,7 +104,8 @@ class MdGdArquivamentoRN extends InfraRN
             $objMdGdArquivamentoDTO->setStrSinAtivo('S');
             $objMdGdArquivamentoDTO->setNumGuardaCorrente($numTempoGuardaCorrente); // BOTAR A GUARDA CORRETA VINDA DOS ASSUNTOS!!!
             $objMdGdArquivamentoDTO->setNumGuardaIntermediaria($numTempoGuardaIntermediaria); // BOTAR A GUARDA CORRETA VINDA DOS ASSUNTOS!!!
-
+            $objMdGdArquivamentoDTO->setNumIdUnidadeCorrente(SessaoSEI::getInstance()->getNumIdUnidadeAtual());
+            $objMdGdArquivamentoDTO->setNumIdUsuario(SessaoSEI::getInstance()->getNumIdUsuario());
             $objMdGdArquivamentoBD = new MdGdArquivamentoBD($this->inicializarObjInfraIBanco());
             $objMdGdArquivamentoBD->cadastrar($objMdGdArquivamentoDTO);
 

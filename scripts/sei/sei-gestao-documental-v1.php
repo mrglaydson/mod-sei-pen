@@ -97,7 +97,21 @@ try {
     if (!$objInfraSequencia->verificarSequencia('md_gd_desarquivamento')) {
         $objInfraSequencia->criarSequencia('md_gd_desarquivamento', '1', '1', '9999999999');
     }
-
+    
+    // Função anonima para inserção dos parãmetros
+    $fnParametroIncluir = function($nome, $valor) use($objBanco){
+        $objMdGdParametroDTO = new MdGdParametroDTO();
+        $objMdGdParametroDTO->setStrNome($nome);
+        $objMdGdParametroDTO->setStrValor($valor);
+        
+        $objMdGdParametroBD = new MdGdParametroBD($objBanco);
+        $objMdGdParametroBD->cadastrar($objMdGdParametroDTO);
+    };
+    
+    $fnParametroIncluir('UNIDADE_ARQUIVAMENTO', ' ');
+    $fnParametroIncluir('DESPACHO_ARQUIVAMENTO', ' ');
+    $fnParametroIncluir('DESPACHO_DESARQUIVAMENTO', ' ');
+    
     $objBanco->fecharConexao();
     echo "ATUALIZAÇÃO FINALIZADA COM SUCESSO! ";
 
