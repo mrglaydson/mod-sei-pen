@@ -37,19 +37,19 @@ try {
 
     // Criação da tabela de unidades de arquivamento
     $objBanco->executarSql('CREATE TABLE md_gd_unidade_arquivamento (
-          gd_id_unidade_arquivamento ' . $objMetaBD->tipoNumeroGrande() . ' NOT NULL,
+          id_unidade_arquivamento ' . $objMetaBD->tipoNumeroGrande() . ' NOT NULL,
           id_unidade_origem ' . $objMetaBD->tipoNumero() . ' NOT NULL,
           id_unidade_destino ' . $objMetaBD->tipoNumero() . ' NOT NULL
     )');
 
-    $objMetaBD->adicionarChavePrimaria('md_gd_unidade_arquivamento', 'pk_md_gd_justificativa_gd_id_unidade_arquivamento', array('gd_id_unidade_arquivamento'));
+    $objMetaBD->adicionarChavePrimaria('md_gd_unidade_arquivamento', 'pk_md_gd_justificativa_id_unidade_arquivamento', array('id_unidade_arquivamento'));
     $objMetaBD->adicionarChaveEstrangeira('fk_md_gd_unidade_arquivamento_origem',  'md_gd_unidade_arquivamento', array('id_unidade_origem'), 'unidade', array('id_unidade'));
     $objMetaBD->adicionarChaveEstrangeira('fk_md_gd_unidade_arquivamento_destino',  'md_gd_unidade_arquivamento', array('id_unidade_destino'), 'unidade', array('id_unidade'));
 
     $objInfraSequencia = new InfraSequencia($objBanco);
 
-    if (!$objInfraSequencia->verificarSequencia('md_gd_unidade_arquiamento')) {
-        $objInfraSequencia->criarSequencia('md_gd_unidade_arquiamento', '1', '1', '9999999999');
+    if (!$objInfraSequencia->verificarSequencia('md_gd_unidade_arquivamento')) {
+        $objInfraSequencia->criarSequencia('md_gd_unidade_arquivamento', '1', '1', '9999999999');
     }
     
      // Função anonima para inserção dos parãmetros
@@ -64,7 +64,8 @@ try {
     
     $fnParametroModeloDocumento('MODELO_DESPACHO_ARQUIVAMENTO', ' ');
     $fnParametroModeloDocumento('MODELO_DESPACHO_DESARQUIVAMENTO', ' ');
-    
+    $fnParametroModeloDocumento('MODELO_LISTAGEM_ELIMINACAO', ' ');
+
     $objBanco->fecharConexao();
     echo "ATUALIZAÇÃO FINALIZADA COM SUCESSO! ";
 

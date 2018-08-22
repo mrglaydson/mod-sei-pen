@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * Migrao para alterao da base de dados do SEI para dar suporte a autenticao via e-cidado.
  *
@@ -55,19 +54,30 @@ try {
     $objBanco->executarSql(' CREATE TABLE md_gd_arquivamento (
         id_arquivamento ' . $objMetaBD->tipoNumeroGrande() . ' NOT NULL,
         id_procedimento ' . $objMetaBD->tipoNumeroGrande() . ' NOT NULL,
+        id_usuario ' . $objMetaBD->tipoNumero() . ' NOT NULL,
+        id_unidade_corrente ' . $objMetaBD->tipoNumero() . ' NOT NULL,
+        id_unidade_intermediaria ' . $objMetaBD->tipoNumero() . ' ,
         id_despacho_arquivamento ' . $objMetaBD->tipoNumeroGrande() . ' NOT NULL,
         id_justificativa ' . $objMetaBD->tipoNumeroGrande() . ' NOT NULL,
+        id_lista_eliminacao ' . $objMetaBD->tipoNumeroGrande() . ' ,
+        id_lista_recolhimento ' . $objMetaBD->tipoNumeroGrande() . ' ,
         dta_arquivamento ' . $objMetaBD->tipoDataHora() . ' NOT NULL,
         guarda_corrente ' . $objMetaBD->tipoNumero() . ' NOT NULL,
         guarda_intermediaria ' . $objMetaBD->tipoNumero() . ' NOT NULL,
         sta_guarda ' . $objMetaBD->tipoTextoFixo(1) . ' NOT NULL,
-        sin_ativo ' . $objMetaBD->tipoTextoFixo(1) . ' NOT NULL  
+        sin_ativo ' . $objMetaBD->tipoTextoFixo(1) . ' NOT NULL,
+        situacao ' . $objMetaBD->tipoTextoFixo(2) . ' NOT NULL,
+        observacao_eliminacao ' . $objMetaBD->tipoTextoGrande() . ',
+        observacao_recolhimento ' . $objMetaBD->tipoTextoGrande() . '
     )');
 
     $objMetaBD->adicionarChavePrimaria('md_gd_arquivamento', 'pk_md_gd_arquivamento_id_arquivamento', array('id_arquivamento'));
-    $objMetaBD->adicionarChaveEstrangeira('fk_md_gd_arquivamento_procedimento',  'md_gd_arquivamento', array('id_procedimento'), 'procedimento', array('id_procedimento'));
-    $objMetaBD->adicionarChaveEstrangeira('fk_md_gd_arquivamento_documento',  'md_gd_arquivamento', array('id_despacho_arquivamento'), 'documento', array('id_documento'));
-    $objMetaBD->adicionarChaveEstrangeira('fk_md_gd_arquivamento_md_gd_justificativa',  'md_gd_arquivamento', array('id_justificativa'), 'md_gd_justificativa', array('id_justificativa'));
+    $objMetaBD->adicionarChaveEstrangeira('fk_md_gd_arquivamento_procedimento', 'md_gd_arquivamento', array('id_procedimento'), 'procedimento', array('id_procedimento'));
+    $objMetaBD->adicionarChaveEstrangeira('fk_md_gd_arquivamento_documento', 'md_gd_arquivamento', array('id_despacho_arquivamento'), 'documento', array('id_documento'));
+    $objMetaBD->adicionarChaveEstrangeira('fk_md_gd_arquivamento_md_gd_justificativa', 'md_gd_arquivamento', array('id_justificativa'), 'md_gd_justificativa', array('id_justificativa'));
+    $objMetaBD->adicionarChaveEstrangeira('fk_md_gd_arquivamento_usuario', 'md_gd_arquivamento', array('id_usuario'), 'usuario', array('id_usuario'));
+    $objMetaBD->adicionarChaveEstrangeira('fk_md_gd_arquivamento_unidade_corrente', 'md_gd_arquivamento', array('id_unidade_corrente'), 'unidade', array('id_unidade'));
+    $objMetaBD->adicionarChaveEstrangeira('fk_md_gd_arquivamento_unidade_intermediaria', 'md_gd_arquivamento', array('id_unidade_intermediaria'), 'unidade', array('id_unidade'));
 
     $objInfraSequencia = new InfraSequencia($objBanco);
 
@@ -86,10 +96,10 @@ try {
     )');
 
     $objMetaBD->adicionarChavePrimaria('md_gd_desarquivamento', 'pk_gd_desarquivamento_id_arquivamento', array('id_desarquivamento'));
-    $objMetaBD->adicionarChaveEstrangeira('fk_md_gd_desarquivamento_md_gd_arquivamento',  'md_gd_desarquivamento', array('id_arquivamento'), 'md_gd_arquivamento', array('id_arquivamento'));
-    $objMetaBD->adicionarChaveEstrangeira('fk_md_gd_desarquivamento_procedimento',  'md_gd_desarquivamento', array('id_procedimento'), 'procedimento', array('id_procedimento'));
-    $objMetaBD->adicionarChaveEstrangeira('fk_md_gd_desarquivamento_documento',  'md_gd_desarquivamento', array('id_despacho_desarquivamento'), 'documento', array('id_documento'));
-    $objMetaBD->adicionarChaveEstrangeira('fk_md_gd_desarquivamento_md_gd_justificativa_desarquivamento',  'md_gd_desarquivamento', array('id_justificativa_desarquivamento'), 'md_gd_justificativa', array('id_justificativa'));
+    $objMetaBD->adicionarChaveEstrangeira('fk_md_gd_desarquivamento_md_gd_arquivamento', 'md_gd_desarquivamento', array('id_arquivamento'), 'md_gd_arquivamento', array('id_arquivamento'));
+    $objMetaBD->adicionarChaveEstrangeira('fk_md_gd_desarquivamento_procedimento', 'md_gd_desarquivamento', array('id_procedimento'), 'procedimento', array('id_procedimento'));
+    $objMetaBD->adicionarChaveEstrangeira('fk_md_gd_desarquivamento_documento', 'md_gd_desarquivamento', array('id_despacho_desarquivamento'), 'documento', array('id_documento'));
+    $objMetaBD->adicionarChaveEstrangeira('fk_md_gd_desarquivamento_md_gd_justificativa_desarquivamento', 'md_gd_desarquivamento', array('id_justificativa_desarquivamento'), 'md_gd_justificativa', array('id_justificativa'));
 
 
     $objInfraSequencia = new InfraSequencia($objBanco);
@@ -97,24 +107,24 @@ try {
     if (!$objInfraSequencia->verificarSequencia('md_gd_desarquivamento')) {
         $objInfraSequencia->criarSequencia('md_gd_desarquivamento', '1', '1', '9999999999');
     }
-    
+
     // Função anonima para inserção dos parãmetros
-    $fnParametroIncluir = function($nome, $valor) use($objBanco){
+    $fnParametroIncluir = function($nome, $valor) use($objBanco) {
         $objMdGdParametroDTO = new MdGdParametroDTO();
         $objMdGdParametroDTO->setStrNome($nome);
         $objMdGdParametroDTO->setStrValor($valor);
-        
+
         $objMdGdParametroBD = new MdGdParametroBD($objBanco);
         $objMdGdParametroBD->cadastrar($objMdGdParametroDTO);
     };
-    
+
     $fnParametroIncluir('UNIDADE_ARQUIVAMENTO', ' ');
     $fnParametroIncluir('DESPACHO_ARQUIVAMENTO', ' ');
     $fnParametroIncluir('DESPACHO_DESARQUIVAMENTO', ' ');
-    
+    $fnParametroIncluir('LISTAGEM_ELIMINACAO', ' ');
+
     $objBanco->fecharConexao();
     echo "ATUALIZAÇÃO FINALIZADA COM SUCESSO! ";
-
 } catch (Exception $e) {
     echo InfraException::inspecionar($e);
     LogSEI::getInstance()->gravar(InfraException::inspecionar($e));
