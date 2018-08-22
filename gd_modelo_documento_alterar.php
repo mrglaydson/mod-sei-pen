@@ -46,6 +46,9 @@ try {
         case MdGdModeloDocumentoRN::MODELO_DESPACHO_DESARQUIVAMENTO:
             $link = 'gd_ajuda_variaveis_modelo_desarquivamento';
             break;
+        case MdGdModeloDocumentoRN::MODELO_LISTAGEM_ELIMINACAO:
+            $link = 'gd_ajuda_variaveis_modelo_listagem_eliminacao';
+            break;
     }
     //Cria o editor que ir ser exibido na tela
     $objEditorRN = new EditorRN();
@@ -93,6 +96,9 @@ $objPagina->montarJavaScript();
             </option>
             <option value="<?= MdGdModeloDocumentoRN::MODELO_DESPACHO_DESARQUIVAMENTO ?>" <?= $_POST['selModeloDocumento'] == MdGdModeloDocumentoRN::MODELO_DESPACHO_DESARQUIVAMENTO ? 'selected' : '' ?>>
                 Despacho de desarquivamento
+            </option>
+            <option value="<?= MdGdModeloDocumentoRN::MODELO_LISTAGEM_ELIMINACAO ?>" <?= $_POST['selModeloDocumento'] == MdGdModeloDocumentoRN::MODELO_LISTAGEM_ELIMINACAO ? 'selected' : '' ?>>
+                Listagem de eliminação
             </option>
         </select><br>
         <? if (isset($_POST['selModeloDocumento']) && !empty($_POST['selModeloDocumento'])): ?>

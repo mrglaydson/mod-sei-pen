@@ -23,7 +23,7 @@ class MdGdArquivamentoDTO extends InfraDTO
         $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_DBL,
             'IdDespachoArquivamento',
             'id_despacho_arquivamento');
-
+        
         $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_NUM,
             'IdJustificativa',
             'id_justificativa');
@@ -39,7 +39,15 @@ class MdGdArquivamentoDTO extends InfraDTO
         $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_NUM,
             'IdUnidadeIntermediaria',
             'id_unidade_intermediaria');
-           
+        
+        $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_NUM,
+            'IdListaEliminacao',
+            'id_lista_eliminacao');
+        
+        $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_NUM,
+            'IdListaRecolhimento',
+            'id_lista_recolhimento');
+        
         $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_DTH,
             'DataArquivamento',
             'dta_arquivamento');
@@ -59,6 +67,18 @@ class MdGdArquivamentoDTO extends InfraDTO
         $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_STR,
             'SinAtivo',
             'sin_ativo');
+        
+        $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_STR,
+            'Situacao',
+            'situacao');
+        
+        $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_STR,
+            'ObservacaoEliminacao',
+            'observacao_eliminacao');
+            
+        $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_STR,
+            'ObservacaoRecolhimento',
+            'observacao_recolhimento');
         
          $this->adicionarAtributoTabelaRelacionada(InfraDTO::$PREFIXO_STR,
                                               'NomeUsuario',
@@ -89,7 +109,7 @@ class MdGdArquivamentoDTO extends InfraDTO
                                               'NomeTipoProcedimento',
                                               't.nome',
                                               'tipo_procedimento t');
-         
+             
         $this->configurarPK('IdArquivamento', InfraDTO::$TIPO_PK_SEQUENCIAL);
         $this->configurarFK('IdProcedimento', 'procedimento p', 'p.id_procedimento');
         $this->configurarFK('IdProtocoloProcedimento', 'protocolo pro', 'pro.id_protocolo');
@@ -97,7 +117,9 @@ class MdGdArquivamentoDTO extends InfraDTO
         $this->configurarFK('IdUsuario', 'usuario u', 'u.id_usuario');
         $this->configurarFK('IdUnidadeCorrente', 'unidade unc', 'unc.id_unidade');
         $this->configurarFK('IdUnidadeIntermediaria', 'unidade uni', 'uni.id_unidade');
-        
+        $this->configurarFK('IdListaEliminacao', 'md_gd_lista_eliminacao le', 'le.id_lista_eliminacao');
+        $this->configurarFK('IdListaRecolhimento', 'md_gd_lista_eliminacao lr', 'lr.id_lista_recolhimento');
+
         $this->configurarFK('IdDespachoArquivamento', 'documento d', 'd.id_documento');
         $this->configurarFK('IdJustificativa', 'justificativa j', 'j.id_justificativa');
     }

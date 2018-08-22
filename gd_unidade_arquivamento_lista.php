@@ -109,15 +109,15 @@ try {
     if ($numRegistros > 0) {
         $strResultado = '';
 
-        $strSumarioTabela = 'Tabela de Unidades de Arquivamento.';
-        $strCaptionTabela = 'Unidades de Arquivamento';
+        $strSumarioTabela = 'Tabela de Unidades de Arquivo.';
+        $strCaptionTabela = 'Unidades de Arquivo';
 
         $strResultado .= '<table width="99%" class="infraTable" summary="' . $strSumarioTabela . '">' . "\n";
         $strResultado .= '<caption class="infraCaption">' . PaginaSEI::getInstance()->gerarCaptionTabela($strCaptionTabela, $numRegistros) . '</caption>';
         $strResultado .= '<tr>';
         $strResultado .= '<th class="infraTh" width="1%">' . PaginaSEI::getInstance()->getThCheck() . '</th>' . "\n";
         $strResultado .= '<th class="infraTh" width="40%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdUnidadeArquivamentoDTO, 'Unidade de Origem', 'DescricaoUnidadeOrigem', $arrMdGdUnidadeArquivamentoDTO) . '</th>' . "\n";
-        $strResultado .= '<th class="infraTh" width="40%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdUnidadeArquivamentoDTO, 'Unidade de Arquivamento', 'DescricaoUnidadeDestino', $arrMdGdUnidadeArquivamentoDTO) . '</th>' . "\n";
+        $strResultado .= '<th class="infraTh" width="40%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdUnidadeArquivamentoDTO, 'Unidade de Arquivo', 'DescricaoUnidadeDestino', $arrMdGdUnidadeArquivamentoDTO) . '</th>' . "\n";
         $strResultado .= '<th class="infraTh" width="15%">Ações</th>' . "\n";
         $strResultado .= '</tr>' . "\n";
         $strCssTr = '';
@@ -187,7 +187,7 @@ document.getElementById('btnFechar').focus();
 
 <? if ($bolAcaoExcluir) { ?>
     function acaoExcluir(id, unidade_origem, unidade_destino) {
-    if (confirm("Confirma exclusão da Unidade de Arquivamento \"" + unidade_destino + "\" para a unidade \"" + unidade_origem + "\" ?")) {
+    if (confirm("Confirma exclusão da Unidade de Arquivo \"" + unidade_destino + "\" para a unidade \"" + unidade_origem + "\" ?")) {
     document.getElementById('hdnInfraItemId').value = id;
     document.getElementById('frmUnidadesArquivamentoLista').action = '<?= $strLinkExcluir ?>';
     document.getElementById('frmUnidadesArquivamentoLista').submit();
@@ -199,7 +199,7 @@ document.getElementById('btnFechar').focus();
     alert('Nenhuma Unidade selecionada.');
     return;
     }
-    if (confirm("Confirma exclusão das Unidades de Arquivamento selecionadas?")) {
+    if (confirm("Confirma exclusão das Unidades de Arquivo selecionadas?")) {
     document.getElementById('hdnInfraItemId').value = '';
     document.getElementById('frmUnidadesArquivamentoLista').action = '<?= $strLinkExcluir ?>';
     document.getElementById('frmUnidadesArquivamentoLista').submit();
@@ -222,7 +222,7 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
         <?= $strItensSelUnidadesOrigem ?>
     </select>
 
-    <label id="lblUnidadeDestino" for="selUnidadeDestino" accesskey="" class="infraLabelOpcional">Unidade de Arquivamento:</label>
+    <label id="lblUnidadeDestino" for="selUnidadeDestino" accesskey="" class="infraLabelOpcional">Unidade de Arquivo:</label>
     <select id="selUnidadeDestino" name="selUnidadeDestino" onchange="this.form.submit();" class="infraSelect" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" >
         <?= $strItensSelUnidadesDestino ?>
     </select>

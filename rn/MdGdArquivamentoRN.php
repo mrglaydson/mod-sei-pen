@@ -4,7 +4,14 @@ require_once dirname(__FILE__) . '/../../../SEI.php';
 
 class MdGdArquivamentoRN extends InfraRN
 {
-
+    
+    public static $ST_FASE_CORRENTE = 'CO';
+    public static $ST_FASE_INTERMEDIARIA = 'IN';
+    public static $ST_PREPARACAO_RECOLHIMENTO = 'PR';
+    public static $ST_PREPARACAO_ELIMINACAO = 'PE';
+    public static $ST_ENVIADO_RECOLHIMENTO = 'ER';
+    public static $ST_ENVIADO_ELIMINACAO = 'EE';
+    
     public $reabrir = false;
 
     public function __construct()
@@ -106,6 +113,7 @@ class MdGdArquivamentoRN extends InfraRN
             $objMdGdArquivamentoDTO->setNumGuardaIntermediaria($numTempoGuardaIntermediaria); // BOTAR A GUARDA CORRETA VINDA DOS ASSUNTOS!!!
             $objMdGdArquivamentoDTO->setNumIdUnidadeCorrente(SessaoSEI::getInstance()->getNumIdUnidadeAtual());
             $objMdGdArquivamentoDTO->setNumIdUsuario(SessaoSEI::getInstance()->getNumIdUsuario());
+            $objMdGdArquivamentoDTO->setStrSituacao(self::$ST_FASE_CORRENTE);
             $objMdGdArquivamentoBD = new MdGdArquivamentoBD($this->inicializarObjInfraIBanco());
             $objMdGdArquivamentoBD->cadastrar($objMdGdArquivamentoDTO);
 
@@ -207,6 +215,20 @@ class MdGdArquivamentoRN extends InfraRN
             throw new InfraException('Erro ao contar condicionantes.', $e);
         }
 
+    }
+    
+    protected function retirarListaArquivamentoControlado(MdGdArquivamentoDTO $objMdGdArquivamentoDTO){
+         try {
+            
+            if(!$objMdGdArquivamentoDTO->isSetNumIdArquivamento()){
+                throw new InfraException('Informe o número do arquivamento');
+            }
+            $objMdGdArquivamentoDTO->setStrObservacaoEliminacao(null);
+            $objMdGdArquivamentoDTO->setStrSituacao(self::$ST_FASE_INTERMEDIARIA);
+            return $this->alterar($objMdGdArquivamentoDTO);
+        } catch (Exception $e) {
+            throw new InfraException('Erro ao contar condicionantes.', $e);
+        }
     }
 
 

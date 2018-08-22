@@ -8,7 +8,9 @@ class MdGdParametroRN extends InfraRN
     public static $PAR_UNIDADE_ARQUIVAMENTO = 'UNIDADE_ARQUIVAMENTO';
     public static $PAR_DESPACHO_ARQUIVAMENTO = 'DESPACHO_ARQUIVAMENTO';
     public static $PAR_DESPACHO_DESARQUIVAMENTO = 'DESPACHO_DESARQUIVAMENTO';
-
+    public static $PAR_TIPO_PROCEDIMENTO_LISTAGEM_ELIMINACAO = 'TIPO_PROCEDIMENTO_LISTAGEM_ELIMINACAO';
+    public static $PAR_TIPO_DOCUMENTO_LISTAGEM_ELIMINACAO = 'TIPO_DOCUMENTO_LISTAGEM_ELIMINACAO';
+    
     public function __construct()
     {
         parent::__construct();

@@ -156,9 +156,23 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
 
     public function processarControlador($strAcao) {
         // gd_modelos_documento_alterar
-
         switch ($strAcao) {
-
+            case 'gd_prep_list_eliminacao_observar':
+                require_once dirname(__FILE__) . '/gd_observar_listagem_eliminacao.php';
+                return true;
+            case 'gd_prep_list_recolhimento_observar':
+                require_once dirname(__FILE__) . '/gd_observar_listagem_recolhimento.php';
+                return true;
+            case 'gd_prep_list_eliminacao_gerar':
+            case 'gd_prep_list_eliminacao_listar':
+            case 'gd_prep_list_eliminacao_excluir':
+                require_once dirname(__FILE__) . '/gd_preparar_listagem_eliminacao.php';
+                return true;
+            case 'gd_prep_list_recolhimento_gerar':
+            case 'gd_prep_list_recolhimento_listar':
+            case 'gd_prep_list_recolhimento_excluir':
+                require_once dirname(__FILE__) . '/gd_preparar_listagem_recolhimento.php';
+                return true;
             case 'gd_avaliacao_processos_listar':
                 require_once dirname(__FILE__) . '/gd_avaliacao_processos_listar.php';
                 return true;

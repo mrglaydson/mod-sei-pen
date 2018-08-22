@@ -23,6 +23,7 @@ try {
 
     $objMdGdUnidadeArquivamentoDTO = new MdGdUnidadeArquivamentoDTO();
 
+
     $strDesabilitar = '';
 
     $arrComandos = array();
@@ -31,20 +32,30 @@ try {
         case 'gd_unidade_arquivamento_cadastrar':
             SessaoSEI::getInstance()->validarPermissao('gestao_documental_unidade_arquivamento_cadastrar');
 
-            $strTitulo = 'Nova Unidade de Arquivamento';
+            $objMdGdUnidadeArquivamentoDTO->setNumIdUnidadeOrigem(null);
+            $objMdGdUnidadeArquivamentoDTO->setNumIdUnidadeDestino(null);
+            $objMdGdUnidadeArquivamentoDTO->setNumIdUnidadeArquivamento(null);
+
+            $strTitulo = 'Nova Unidade de Arquivo';
             $arrComandos[] = '<button type="submit" accesskey="S" name="sbmCadastrarUnidadeArquivamento" value="Salvar" class="infraButton"><span class="infraTeclaAtalho">S</span>alvar</button>';
             $arrComandos[] = '<button type="button" accesskey="C" name="btnCancelar" id="btnCancelar" value="Cancelar" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . PaginaSEI::getInstance()->getAcaoRetorno() . '&acao_origem=' . $_GET['acao']) . '\';" class="infraButton"><span class="infraTeclaAtalho">C</span>ancelar</button>';
 
-            $objMdGdUnidadeArquivamentoDTO->setNumIdUnidadeArquivamento(null);
-            $objMdGdUnidadeArquivamentoDTO->setNumIdUnidadeOrigem($_POST['selUnidadeOrigem']);
-            $objMdGdUnidadeArquivamentoDTO->setNumIdUnidadeDestino($_POST['selUnidadeDestino']);
 
             if (isset($_POST['sbmCadastrarUnidadeArquivamento'])) {
-                try {
-                    $objMdGdUnidadeArquivamentoRN = new MdGdUnidadeArquivamentoRN();
-                    $objMdGdUnidadeArquivamentoDTO = $objMdGdUnidadeArquivamentoRN->cadastrar($objMdGdUnidadeArquivamentoDTO);
+                $arrUnidadesOrigem = PaginaSEI::getInstance()->getArrValuesSelect($_POST['hdnUnidadesOrigem']);
 
-                    PaginaSEI::getInstance()->adicionarMensagem('Unidade de arquivamento cadastrada com sucesso.');
+                try {
+                    foreach ($arrUnidadesOrigem as $numIdUnidadeOrigem) {
+                        $objMdGdUnidadeArquivamentoDTO = new MdGdUnidadeArquivamentoDTO();
+                        $objMdGdUnidadeArquivamentoDTO->setNumIdUnidadeArquivamento(null);
+                        $objMdGdUnidadeArquivamentoDTO->setNumIdUnidadeOrigem($numIdUnidadeOrigem);
+                        $objMdGdUnidadeArquivamentoDTO->setNumIdUnidadeDestino($_POST['selUnidadeDestino']);
+
+                        $objMdGdUnidadeArquivamentoRN = new MdGdUnidadeArquivamentoRN();
+                        $objMdGdUnidadeArquivamentoDTO = $objMdGdUnidadeArquivamentoRN->cadastrar($objMdGdUnidadeArquivamentoDTO);
+                    }
+
+                    PaginaSEI::getInstance()->adicionarMensagem('Unidade de arquivo cadastrada com sucesso.');
                     header('Location: ' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . PaginaSEI::getInstance()->getAcaoRetorno() . '&acao_origem=' . $_GET['acao'] . '&id_unidade_arquivamento=' . $objMdGdUnidadeArquivamentoDTO->getNumIdUnidadeArquivamento() . PaginaSEI::getInstance()->montarAncora($objMdGdUnidadeArquivamentoDTO->getNumIdUnidadeArquivamento())));
                     die;
                 } catch (Exception $e) {
@@ -56,10 +67,10 @@ try {
         case 'gd_unidade_arquivamento_alterar':
             SessaoSEI::getInstance()->validarPermissao('gestao_documental_unidade_arquivamento_alterar');
 
-            $strTitulo = 'Alterar Unidade de Arquivamento';
+            $strTitulo = 'Alterar Unidade de Arquivo';
             $arrComandos[] = '<button type="submit" accesskey="S" name="sbmAlterarJustificativa" value="Salvar" class="infraButton"><span class="infraTeclaAtalho">S</span>alvar</button>';
             $strDesabilitar = 'disabled="disabled"';
-            
+
             if (isset($_GET['id_unidade_arquivamento'])) {
                 $objMdGdUnidadeArquivamentoDTO->setNumIdUnidadeArquivamento($_GET['id_unidade_arquivamento']);
                 $objMdGdUnidadeArquivamentoDTO->retTodos();
@@ -81,7 +92,7 @@ try {
                 try {
                     $objMdGdUnidadeArquivamentoRN = new MdGdUnidadeArquivamentoRN();
                     $objMdGdUnidadeArquivamentoRN->alterar($objMdGdUnidadeArquivamentoDTO);
-                    PaginaSEI::getInstance()->adicionarMensagem('Unidade de arquivamento alterado com sucesso.');
+                    PaginaSEI::getInstance()->adicionarMensagem('Unidade de arquivo alterado com sucesso.');
                     header('Location: ' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . PaginaSEI::getInstance()->getAcaoRetorno() . '&acao_origem=' . $_GET['acao'] . PaginaSEI::getInstance()->montarAncora($objMdGdUnidadeArquivamentoDTO->getNumIdUnidadeArquivamento())));
                     die;
                 } catch (Exception $e) {
@@ -93,7 +104,7 @@ try {
         case 'gd_unidade_arquivamento_visualizar':
             SessaoSEI::getInstance()->validarPermissao('gestao_documental_unidade_arquivamento_visualizar');
 
-            $strTitulo = 'Consultar Unidade de Arquivamento';
+            $strTitulo = 'Consultar Unidade de Arquivo';
             $arrComandos[] = '<button type="button" accesskey="F" name="btnFechar" value="Fechar" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . PaginaSEI::getInstance()->getAcaoRetorno() . '&acao_origem=' . $_GET['acao'] . PaginaSEI::getInstance()->montarAncora($_GET['id_justificativa'])) . '\';" class="infraButton"><span class="infraTeclaAtalho">F</span>echar</button>';
             $objMdGdUnidadeArquivamentoDTO->setNumIdUnidadeArquivamento($_GET['id_unidade_arquivamento']);
             $objMdGdUnidadeArquivamentoDTO->retTodos();
@@ -112,6 +123,10 @@ try {
     // Busca uma lista de unidades
     $strItensSelUnidadesOrigem = UnidadeINT::montarSelectSiglaDescricao('null', '&nbsp;', $objMdGdUnidadeArquivamentoDTO->getNumIdUnidadeOrigem());
     $strItensSelUnidadesDestino = UnidadeINT::montarSelectSiglaDescricao('null', '&nbsp;', $objMdGdUnidadeArquivamentoDTO->getNumIdUnidadeDestino());
+
+    //Monta os links de seleção das unidades
+    $strLinkAjaxUnidade = SessaoSEI::getInstance()->assinarLink('controlador_ajax.php?acao_ajax=unidade_auto_completar_todas');
+    $strLinkUnidadeSelecao = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=unidade_selecionar_todas&tipo_selecao=2&id_object=objLupaUnidades');
 } catch (Exception $e) {
     PaginaSEI::getInstance()->processarExcecao($e);
 }
@@ -125,51 +140,90 @@ PaginaSEI::getInstance()->montarStyle();
 PaginaSEI::getInstance()->abrirStyle();
 ?>
 
-#lblUnidadeOrigem {position:absolute;left:0%;top:0%;width:35%;}
-#selUnidadeOrigem {position:absolute;left:0%;top:6%;width:35%;}
+#lblUnidadeDestino {position:absolute;left:0%;top:0%;width:35%;}
+#selUnidadeDestino {position:absolute;left:0%;top:6%;width:35%;}
 
-#lblUnidadeDestino {position:absolute;left:0%;top:16%;width:35%;}
-#selUnidadeDestino {position:absolute;left:0%;top:22%;width:35%;}
+<? if ($_GET['acao'] == 'gd_unidade_arquivamento_cadastrar') { ?>
+    #lblUnidadesOrigem {position:absolute;left:0%;top:16%;}
+    #txtUnidadeOrigem {position:absolute;left:0%;top:22%;width:67%;}
+    #selUnidadesOrigem {position:absolute;left:0%;top:30%;width:86%;}
+    #divOpcoesUnidadesOrigem {position:absolute;left:87%;top:30%;}
+<? } else { ?>
+    #lblUnidadeOrigem {position:absolute;left:0%;top:16%;}
+    #selUnidadeOrigem {position:absolute;left:0%;top:22%;width:35%;}
+<? } ?>
+
 
 <?
 PaginaSEI::getInstance()->fecharStyle();
 PaginaSEI::getInstance()->montarJavaScript();
-PaginaSEI::getInstance()->abrirJavaScript();
+// PaginaSEI::getInstance()->abrirJavaScript();
 ?>
-function inicializar() {
-    if ('<?= $_GET['acao'] ?>' == 'gd_unidade_arquivamento_cadastrar') {
-        document.getElementById('selUnidadeOrigem').focus();
+<script type='text/javascript'>
+    var objLupaUnidades = null;
+    var objAutoCompletarUnidade = null;
+    var objLupaTramitacao = null;
 
-    } else if ('<?= $_GET['acao'] ?>' == 'gd_unidade_arquivamento_visualizar') {
-        infraDesabilitarCamposAreaDados();
-    } else {
-        document.getElementById('btnCancelar').focus();
+    function inicializar() {
+        if ('<?= $_GET['acao'] ?>' == 'gd_unidade_arquivamento_cadastrar') {
+            document.getElementById('selUnidadesOrigem').focus();
+
+            objLupaUnidades = new infraLupaSelect('selUnidadesOrigem', 'hdnUnidadesOrigem', '<?= $strLinkUnidadeSelecao ?>');
+            objAutoCompletarUnidade = new infraAjaxAutoCompletar('hdnIdUnidadeOrigem', 'txtUnidadeOrigem', '<?= $strLinkAjaxUnidade ?>');
+            objAutoCompletarUnidade.limparCampo = true;
+
+            objAutoCompletarUnidade.prepararExecucao = function () {
+                return 'palavras_pesquisa=' + document.getElementById('txtUnidadeOrigem').value;
+            };
+
+            objAutoCompletarUnidade.processarResultado = function (id, descricao, complemento) {
+                if (id != '') {
+                    objLupaUnidades.adicionar(id, descricao, document.getElementById('txtUnidadeOrigem'));
+                }
+            };
+            document.getElementById('txtUnidadeOrigem').focus();
+
+
+        } else if ('<?= $_GET['acao'] ?>' == 'gd_unidade_arquivamento_visualizar') {
+            infraDesabilitarCamposAreaDados();
+        } else {
+            document.getElementById('btnCancelar').focus();
+        }
+        infraEfeitoTabelas();
     }
-    infraEfeitoTabelas();
-}
 
-function validarCadastro() {
+    function validarCadastro() {
+        if (infraTrim(document.getElementById('selUnidadeDestino').value) == 'null') {
+            alert('Informe a Unidade de Arquivo.');
+            document.getElementById('selUnidadeDestino').focus();
+            return false;
+        }
 
-if (infraTrim(document.getElementById('selUnidadeOrigem').value) == 'null') {
-alert('Informe a Unidade de Origem.');
-document.getElementById('selUnidadeOrigem').focus();
-return false;
-}
+<? if ($_GET['acao'] == 'gd_unidade_arquivamento_cadastrar') { ?>
+            if (infraTrim(document.getElementById('hdnUnidadesOrigem').value) == '') {
+                alert('Informe uma Unidade de Origem.');
+                document.getElementById('txtUnidadeOrigem').focus();
+                return false;
+            }
+<? } else { ?>
+            if (infraTrim(document.getElementById('selUnidadeOrigem').value) == 'null') {
+                alert('Informe a Unidade de Origem.');
+                document.getElementById('selUnidadeOrigem').focus();
+                return false;
+            }
+<? } ?>
 
-if (infraTrim(document.getElementById('selUnidadeDestino').value) == 'null') {
-alert('Informe a Unidade de Arquivamento.');
-document.getElementById('selUnidadeDestino').focus();
-return false;
-}
 
-return true;
-}
 
-function OnSubmitForm() {
-return validarCadastro();
-}
+        return true;
+    }
+
+    function OnSubmitForm() {
+        return validarCadastro();
+    }
+</script>
 <?
-PaginaSEI::getInstance()->fecharJavaScript();
+//PaginaSEI::getInstance()->fecharJavaScript();
 PaginaSEI::getInstance()->fecharHead();
 PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
 ?>
@@ -180,17 +234,33 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
     PaginaSEI::getInstance()->abrirAreaDados('30em');
     ?>
 
-    <label id="lblUnidadeOrigem" for="selUnidadeOrigem" accesskey="" class="infraLabelObrigatorio">Unidade de Origem:</label>
-    <select id="selUnidadeOrigem" name="selUnidadeOrigem" class="infraSelect" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" >
-        <?= $strItensSelUnidadesOrigem ?>
-    </select>
-
-    <label id="lblUnidadeDestino" for="selUnidadeDestino" accesskey="" class="infraLabelObrigatorio">Unidade de Arquivamento:</label>
+    <label id="lblUnidadeDestino" for="selUnidadeDestino" accesskey="" class="infraLabelObrigatorio">Unidade de Arquivo:</label>
     <select id="selUnidadeDestino" name="selUnidadeDestino" class="infraSelect" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" >
         <?= $strItensSelUnidadesDestino ?>
     </select>
 
-    <input type="hidden" id="hdnIdJustificativa" name="hdnIdUnidadeArquivamento" value="<?= $objMdGdUnidadeArquivamentoDTO->getNumIdUnidadeArquivamento(); ?>" />
+    <? if ($_GET['acao'] == 'gd_unidade_arquivamento_cadastrar') { ?>
+        <label id="lblUnidadesOrigem" for="selUnidadesOrigem" class="infraLabelObrigatorio">Unidades de Origem:</label>
+        <input type="text" id="txtUnidadeOrigem" name="txtUnidadeOrigem" class="infraText" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />
+        <?= $strLinkUnidadesTramitacao ?>
+        <input type="hidden" id="hdnIdUnidadeOrigem" name="hdnIdUnidadeOrigem" class="infraText" value="" />
+        <select id="selUnidadesOrigem" name="selUnidadesOrigem" size="4" multiple="multiple" class="infraSelect" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
+        </select>
+        <div id="divOpcoesUnidadesOrigem">
+            <img id="imgLupaUnidades" onclick="objLupaUnidades.selecionar(700, 500);" src="/infra_css/imagens/lupa.gif" alt="Selecionar Unidades" title="Selecionar Unidades" class="infraImg" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />
+            <br />
+            <img id="imgExcluirUnidades" onclick="objLupaUnidades.remover();" src="/infra_css/imagens/remover.gif" alt="Remover Unidades Selecionadas" title="Remover Unidades Selecionadas" class="infraImg" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />
+        </div>
+        <input type="hidden" id="hdnUnidadesOrigem" name="hdnUnidadesOrigem" value="<?= $_POST['hdnUnidadesOrigem'] ?>" />
+    <? } else { ?>
+        <label id="lblUnidadeOrigem" for="selUnidadeOrigem" accesskey="" class="infraLabelObrigatorio">Unidade de Origem:</label>
+        <select id="selUnidadeOrigem" name="selUnidadeOrigem" class="infraSelect" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" >
+            <?= $strItensSelUnidadesOrigem ?>
+        </select>
+    <? } ?>
+
+    <input type="hidden" id="hdnIdUnidadeArquivamento" name="hdnIdUnidadeArquivamento" value="<?= $objMdGdUnidadeArquivamentoDTO->getNumIdUnidadeArquivamento(); ?>" />
+
     <?
     PaginaSEI::getInstance()->fecharAreaDados();
 //PaginaSEI::getInstance()->montarAreaDebug();
