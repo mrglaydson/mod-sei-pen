@@ -3,17 +3,28 @@
 require_once dirname(__FILE__) . '/../../../SEI.php';
 
 class MdGdModeloDocumentoRN extends InfraRN {
-    
+
     const MODELO_DESPACHO_ARQUIVAMENTO = 'MODELO_DESPACHO_ARQUIVAMENTO';
     const MODELO_DESPACHO_DESARQUIVAMENTO = 'MODELO_DESPACHO_DESARQUIVAMENTO';
     const MODELO_LISTAGEM_ELIMINACAO = 'MODELO_LISTAGEM_ELIMINACAO';
-    
+
     public function __construct() {
         parent::__construct();
     }
 
     protected function inicializarObjInfraIBanco() {
         return BancoSEI::getInstance();
+    }
+
+    protected function cadastrarControlado(MdGdModeloDocumentoDTO $objMdGdModeloDocumentoDTO) {
+        try {
+
+            $objMdGdModeloDocumentoBD = new MdGdModeloDocumentoBD($this->inicializarObjInfraIBanco());
+            $objMdGdModeloDocumentoDTO = $objMdGdModeloDocumentoBD->cadastrar($objMdGdModeloDocumentoDTO);
+            return $objMdGdModeloDocumentoDTO;
+        } catch (Exception $e) {
+            throw new InfraException('Erro alterando o modelo de documento.', $e);
+        }
     }
 
     protected function alterarControlado(MdGdModeloDocumentoDTO $objMdGdModeloDocumentoDTO) {

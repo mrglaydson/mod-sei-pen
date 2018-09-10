@@ -2,31 +2,25 @@
 
 require_once dirname(__FILE__) . '/../../../SEI.php';
 
-class MdGdArquivamentoRN extends InfraRN
-{
-    
+class MdGdArquivamentoRN extends InfraRN {
+
     public static $ST_FASE_CORRENTE = 'CO';
     public static $ST_FASE_INTERMEDIARIA = 'IN';
     public static $ST_PREPARACAO_RECOLHIMENTO = 'PR';
     public static $ST_PREPARACAO_ELIMINACAO = 'PE';
     public static $ST_ENVIADO_RECOLHIMENTO = 'ER';
     public static $ST_ENVIADO_ELIMINACAO = 'EE';
-    
     public $reabrir = false;
 
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct();
     }
 
-    protected function inicializarObjInfraIBanco()
-    {
+    protected function inicializarObjInfraIBanco() {
         return BancoSEI::getInstance();
     }
 
-
-    protected function arquivarControlado(MdGdArquivamentoDTO $objMdGdArquivamentoDTO)
-    {
+    protected function arquivarControlado(MdGdArquivamentoDTO $objMdGdArquivamentoDTO) {
         try {
 
             //Valida Permissao
@@ -50,6 +44,7 @@ class MdGdArquivamentoRN extends InfraRN
                 $objProcedimentoRN = new ProcedimentoRN();
                 $objProcedimentoRN->reabrirRN0966($objReabrirProcessoDTO);
             }
+
             // Cria o despacho de arquivamento
             $objProtocoloDTO = new ProtocoloDTO();
             $objProtocoloDTO->setDblIdProtocolo(null);
@@ -72,6 +67,19 @@ class MdGdArquivamentoRN extends InfraRN
             $objDocumentoDTO->setObjProtocoloDTO($objProtocoloDTO);
 
             $objDocumentoDTO = $objDocumentoRN->cadastrarRN0003($objDocumentoDTO);
+            
+            // Assinatura do despacho de arquivamento
+            /*$objAssinaturaDTO = new AssinaturaDTO();
+            $objAssinaturaDTO->setStrStaFormaAutenticacao($_POST['hdnFormaAutenticacao']);
+            $objAssinaturaDTO->setNumIdOrgaoUsuario(SessaoSEI::getInstance()->getNumIdOrgaoUsuario());
+            $objAssinaturaDTO->setNumIdUsuario($_POST['hdnIdUsuario']);
+            $objAssinaturaDTO->setStrSenhaUsuario($_POST['pwdSenha']);
+            $objAssinaturaDTO->setStrCargoFuncao($_POST['selCargoFuncao']);
+            $objAssinaturaDTO->setArrObjDocumentoDTO(InfraArray::gerarArrInfraDTO('DocumentoDTO', 'IdDocumento', $arrIdDocumentos));
+
+            $objDocumentoRN = new DocumentoRN();
+            $arrObjAssinaturaDTO = $objDocumentoRN->assinar($objAssinaturaDTO);*/
+
 
             //Busca os assuntos
             $arrRelProtocoloAssunto = array();
@@ -101,7 +109,6 @@ class MdGdArquivamentoRN extends InfraRN
                 if ($numTempoGuardaIntermediaria < $objAssuntoDTO->getNumPrazoIntermediario()) {
                     $numTempoGuardaIntermediaria = $objAssuntoDTO->getNumPrazoIntermediario();
                 }
-
             }
 
             // Cria o registro de arquivamento
@@ -130,20 +137,16 @@ class MdGdArquivamentoRN extends InfraRN
         }
     }
 
-    protected function alterarConectado(MdGdArquivamentoDTO $objMdGdArquivamentoDTO)
-    {
+    protected function alterarConectado(MdGdArquivamentoDTO $objMdGdArquivamentoDTO) {
         try {
             $objMdGdArquivamentoBD = new MdGdArquivamentoBD($this->inicializarObjInfraIBanco());
             return $objMdGdArquivamentoBD->alterar($objMdGdArquivamentoDTO);
-
         } catch (Exception $e) {
             throw new InfraException('Erro ao atualizar arquivamento de processo', $e);
         }
-
     }
 
-    protected function consultarConectado(MdGdArquivamentoDTO $objMdGdArquivamentoDTO)
-    {
+    protected function consultarConectado(MdGdArquivamentoDTO $objMdGdArquivamentoDTO) {
         try {
 
             $objMdGdArquivamentoBD = new MdGdArquivamentoBD($this->inicializarObjInfraIBanco());
@@ -153,8 +156,7 @@ class MdGdArquivamentoRN extends InfraRN
         }
     }
 
-    protected function listarConectado(MdGdArquivamentoDTO $objMdGdArquivamentoDTO)
-    {
+    protected function listarConectado(MdGdArquivamentoDTO $objMdGdArquivamentoDTO) {
         try {
 
             $objMdGdArquivamentoBD = new MdGdArquivamentoBD($this->inicializarObjInfraIBanco());
@@ -164,9 +166,7 @@ class MdGdArquivamentoRN extends InfraRN
         }
     }
 
-
-    protected function contarConectado(MdGdArquivamentoDTO $objMdGdArquivamentoDTO)
-    {
+    protected function contarConectado(MdGdArquivamentoDTO $objMdGdArquivamentoDTO) {
         try {
 
             $objMdGdArquivamentoBD = new MdGdArquivamentoBD($this->inicializarObjInfraIBanco());
@@ -176,16 +176,13 @@ class MdGdArquivamentoRN extends InfraRN
         }
     }
 
-    public function contarCondicionantes($numIdProtocolo)
-    {
+    public function contarCondicionantes($numIdProtocolo) {
         $objProtocoloDTO = new ProtocoloDTO();
         $objProtocoloDTO->setDblIdProtocolo($numIdProtocolo);
         return $this->contarCondicionante($objProtocoloDTO);
-
     }
 
-    protected function contarCondicionanteConectado(ProtocoloDTO $objProtocoloDTO)
-    {
+    protected function contarCondicionanteConectado(ProtocoloDTO $objProtocoloDTO) {
         try {
             $objAssuntoRN = new AssuntoRN();
 
@@ -207,20 +204,18 @@ class MdGdArquivamentoRN extends InfraRN
                 if (!empty($objAssuntoDTO->getStrObservacao())) {
                     $numTotalCondicionantes++;
                 }
-
             }
 
             return $numTotalCondicionantes;
         } catch (Exception $e) {
             throw new InfraException('Erro ao contar condicionantes.', $e);
         }
-
     }
-    
-    protected function retirarListaArquivamentoControlado(MdGdArquivamentoDTO $objMdGdArquivamentoDTO){
-         try {
-            
-            if(!$objMdGdArquivamentoDTO->isSetNumIdArquivamento()){
+
+    protected function retirarListaArquivamentoControlado(MdGdArquivamentoDTO $objMdGdArquivamentoDTO) {
+        try {
+
+            if (!$objMdGdArquivamentoDTO->isSetNumIdArquivamento()) {
                 throw new InfraException('Informe o número do arquivamento');
             }
             $objMdGdArquivamentoDTO->setStrObservacaoEliminacao(null);
@@ -230,7 +225,6 @@ class MdGdArquivamentoRN extends InfraRN
             throw new InfraException('Erro ao contar condicionantes.', $e);
         }
     }
-
 
 }
 

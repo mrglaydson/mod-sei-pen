@@ -1,5 +1,4 @@
 <?
-
 try {
     require_once dirname(__FILE__) . '/../../SEI.php';
 
@@ -39,7 +38,7 @@ try {
                 try {
 
                     foreach ($arrObjMdGdParametroDTO as $objMdGdParametroDTO) {
-                        $objMdGdParametroDTO->setStrValor($_POST['sel'.$objMdGdParametroDTO->getStrNome()]);
+                        $objMdGdParametroDTO->setStrValor($_POST['sel' . $objMdGdParametroDTO->getStrNome()]);
                         $objMdGdParametroRN->alterar($objMdGdParametroDTO);
                     }
 
@@ -56,12 +55,13 @@ try {
     // Busca os valores dos selects
     $strSelSerieArquivamento = SerieINT::montarSelectNomeGerados('', '&nbsp;', $arrObjMdGdParametroDTO['DESPACHO_ARQUIVAMENTO']->getStrValor());
     $strSelSerieDesarquivamento = SerieINT::montarSelectNomeGerados('', '&nbsp;', $arrObjMdGdParametroDTO['DESPACHO_DESARQUIVAMENTO']->getStrValor());
-    $strSelUnidadeArquivamento = UnidadeINT::montarSelectSiglaDescricao('', '', $arrObjMdGdParametroDTO['UNIDADE_ARQUIVAMENTO']->getStrValor());
+    $strSelTipoProcedimentoListagemEliminacao = TipoProcedimentoINT::montarSelectNome('', '&nbsp;', $arrObjMdGdParametroDTO['TIPO_PROCEDIMENTO_LISTAGEM_ELIMINACAO']->getStrValor());
+    $strSelSerieListagemEliminacao = SerieINT::montarSelectNomeGerados('', '&nbsp;', $arrObjMdGdParametroDTO['TIPO_DOCUMENTO_LISTAGEM_ELIMINACAO']->getStrValor());
 
-    $strNomeUnidadeArquivamento = $arrObjMdGdParametroDTO[MdGdParametroRN::$PAR_UNIDADE_ARQUIVAMENTO]->getStrNome();
     $strNomeDespachoArquivamento = $arrObjMdGdParametroDTO[MdGdParametroRN::$PAR_DESPACHO_ARQUIVAMENTO]->getStrNome();
     $strNomeDespachoDesarquivamento = $arrObjMdGdParametroDTO[MdGdParametroRN::$PAR_DESPACHO_DESARQUIVAMENTO]->getStrNome();
-
+    $strNomeTipoProcedimentoListagemEliminacao = $arrObjMdGdParametroDTO[MdGdParametroRN::$PAR_TIPO_PROCEDIMENTO_LISTAGEM_ELIMINACAO]->getStrNome();
+    $strNomeTipoDocumentoListagemEliminacao = $arrObjMdGdParametroDTO[MdGdParametroRN::$PAR_TIPO_DOCUMENTO_LISTAGEM_ELIMINACAO]->getStrNome();
 } catch (Exception $e) {
     PaginaSEI::getInstance()->processarExcecao($e);
 }
@@ -75,96 +75,115 @@ PaginaSEI::getInstance()->montarStyle();
 PaginaSEI::getInstance()->abrirStyle();
 ?>
 
-    #lbl<?= $strNomeUnidadeArquivamento; ?> {position:absolute;left:0%;top:0%;width:50%;}
-    #sel<?= $strNomeUnidadeArquivamento; ?> {position:absolute;left:0%;top:6%;width:50%;}
+#lbl<?= $strNomeDespachoArquivamento; ?> {position:absolute;left:0%;top:0%;width:50%;}
+#sel<?= $strNomeDespachoArquivamento; ?> {position:absolute;left:0%;top:6%;width:50%;}
 
-    #lbl<?= $strNomeDespachoArquivamento; ?> {position:absolute;left:0%;top:14%;width:20%;}
-    #sel<?= $strNomeDespachoArquivamento; ?> {position:absolute;left:0%;top:20%;width:20%;}
+#lbl<?= $strNomeDespachoDesarquivamento; ?> {position:absolute;left:0%;top:14%;width:20%;}
+#sel<?= $strNomeDespachoDesarquivamento; ?> {position:absolute;left:0%;top:20%;width:20%;}
 
-    #lbl<?= $strNomeDespachoDesarquivamento; ?> {position:absolute;left:0%;top:28%;width:30%;}
-    #sel<?= $strNomeDespachoDesarquivamento; ?> {position:absolute;left:0%;top:34%;width:40%;}
+#lbl<?= $strNomeTipoProcedimentoListagemEliminacao; ?> {position:absolute;left:0%;top:28%;width:30%;}
+#sel<?= $strNomeTipoProcedimentoListagemEliminacao; ?> {position:absolute;left:0%;top:34%;width:40%;}
+
+#lbl<?= $strNomeTipoDocumentoListagemEliminacao; ?> {position:absolute;left:0%;top:43%;width:30%;}
+#sel<?= $strNomeTipoDocumentoListagemEliminacao; ?> {position:absolute;left:0%;top:49%;width:40%;}
 
 <?
 PaginaSEI::getInstance()->fecharStyle();
 PaginaSEI::getInstance()->montarJavaScript();
 PaginaSEI::getInstance()->abrirJavaScript();
 ?>
-    function inicializar(){
-    document.getElementById('sbmSalvarParametro').focus();
-    infraEfeitoTabelas();
-    }
+function inicializar(){
+document.getElementById('sbmSalvarParametro').focus();
+infraEfeitoTabelas();
+}
 
-    function validarCadastro() {
-    if (infraTrim(document.getElementById('sel<?= $strNomeUnidadeArquivamento; ?>').value)=='') {
-    alert('Informe a Unidade de Arquivamento.');
-    document.getElementById('sel<?= $strNomeUnidadeArquivamento; ?>').focus();
-    return false;
-    }
+function validarCadastro() {
 
-    if (infraTrim(document.getElementById('sel<?= $strNomeDespachoArquivamento; ?>').value)=='') {
-    alert('Informe o Despacho de Arquivamento.');
-    document.getElementById('sel<?= $strNomeDespachoArquivamento; ?>').focus();
-    return false;
-    }
+if (infraTrim(document.getElementById('sel<?= $strNomeDespachoArquivamento; ?>').value)=='') {
+alert('Informe o Despacho de Arquivamento.');
+document.getElementById('sel<?= $strNomeDespachoArquivamento; ?>').focus();
+return false;
+}
 
-    if (infraTrim(document.getElementById('sel<?= $strNomeDespachoDesarquivamento; ?>').value)=='') {
-    alert('Informe o Despacho de Desarquivamento.');
-    document.getElementById('sel<?= $strNomeDespachoDesarquivamento; ?>').focus();
-    return false;
-    }
+if (infraTrim(document.getElementById('sel<?= $strNomeDespachoDesarquivamento; ?>').value)=='') {
+alert('Informe o Despacho de Desarquivamento.');
+document.getElementById('sel<?= $strNomeDespachoDesarquivamento; ?>').focus();
+return false;
+}
 
-    return true;
-    }
+if (infraTrim(document.getElementById('sel<?= $strNomeTipoProcedimentoListagemEliminacao; ?>').value)=='') {
+alert('Informe o tipo de processo da listagem de eliminação.');
+document.getElementById('sel<?= $strNomeTipoProcedimentoListagemEliminacao; ?>').focus();
+return false;
+}
 
-    function OnSubmitForm() {
-    return validarCadastro();
-    }
+if (infraTrim(document.getElementById('sel<?= $strNomeTipoDocumentoListagemEliminacao; ?>').value)=='') {
+alert('Informe o tipo de documento da listagem de eliminação.');
+document.getElementById('sel<?= $strNomeTipoDocumentoListagemEliminacao; ?>').focus();
+return false;
+}
+
+return true;
+}
+
+function OnSubmitForm() {
+return validarCadastro();
+}
 
 <?
 PaginaSEI::getInstance()->fecharJavaScript();
 PaginaSEI::getInstance()->fecharHead();
 PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
 ?>
-    <form id="frmParametros" method="post" onsubmit="return OnSubmitForm();"
-          action="<?= SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . $_GET['acao'] . '&acao_origem=' . $_GET['acao']) ?>">
-        <?
-        PaginaSEI::getInstance()->montarBarraComandosSuperior($arrComandos);
-        //PaginaSEI::getInstance()->montarAreaValidacao();
-        PaginaSEI::getInstance()->abrirAreaDados('30em');
-        ?>
+<form id="frmParametros" method="post" onsubmit="return OnSubmitForm();"
+      action="<?= SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . $_GET['acao'] . '&acao_origem=' . $_GET['acao']) ?>">
+          <?
+          PaginaSEI::getInstance()->montarBarraComandosSuperior($arrComandos);
+//PaginaSEI::getInstance()->montarAreaValidacao();
+          PaginaSEI::getInstance()->abrirAreaDados('30em');
+          ?>
 
-        <label id="lbl<?= $strNomeUnidadeArquivamento ?>" for="sel<?= $strNomeUnidadeArquivamento ?>" accesskey="p"
-               class="infraLabelObrigatorio"><span
-                    class="infraTeclaAtalho">U</span>nidades de Arquivamento:</label>
-        <select name="sel<?= $strNomeUnidadeArquivamento ?>" id="sel<?= $strNomeUnidadeArquivamento ?>"
-                class="infraSelect"
-                tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
-            <?= $strSelUnidadeArquivamento; ?>
-        </select>
+    <label id="lbl<?= $strNomeDespachoArquivamento ?>" for="sel<?= $strNomeDespachoArquivamento ?>" accesskey="p"
+           class="infraLabelObrigatorio"><span class="infraTeclaAtalho">D</span>espacho de Arquivamento:</label>
+    <select name="sel<?= $strNomeDespachoArquivamento ?>" id="sel<?= $strNomeDespachoArquivamento ?>"
+            class="infraSelect"
+            tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
+                <?= $strSelSerieArquivamento; ?>
+    </select>
 
-        <label id="lbl<?= $strNomeDespachoArquivamento ?>" for="sel<?= $strNomeDespachoArquivamento ?>" accesskey="p"
-               class="infraLabelObrigatorio"><span class="infraTeclaAtalho">D</span>espacho de Arquivamento:</label>
-        <select name="sel<?= $strNomeDespachoArquivamento ?>" id="sel<?= $strNomeDespachoArquivamento ?>"
-                class="infraSelect"
-                tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
-            <?= $strSelSerieArquivamento; ?>
-        </select>
+    <label id="lbl<?= $strNomeDespachoDesarquivamento ?>" for="sel<?= $strNomeDespachoDesarquivamento ?>"
+           accesskey="p"
+           class="infraLabelObrigatorio"><span class="infraTeclaAtalho">D</span>espacho de Desarquivamento:</label>
+    <select name="sel<?= $strNomeDespachoDesarquivamento ?>" id="sel<?= $strNomeDespachoDesarquivamento ?>"
+            class="infraSelect"
+            tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
+                <?= $strSelSerieDesarquivamento; ?>
+    </select>
 
-        <label id="lbl<?= $strNomeDespachoDesarquivamento ?>" for="sel<?= $strNomeDespachoDesarquivamento ?>"
-               accesskey="p"
-               class="infraLabelObrigatorio"><span class="infraTeclaAtalho">D</span>espacho de Desarquivamento:</label>
-        <select name="sel<?= $strNomeDespachoDesarquivamento ?>" id="sel<?= $strNomeDespachoDesarquivamento ?>"
-                class="infraSelect"
-                tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
-            <?= $strSelSerieDesarquivamento; ?>
-        </select>
+    <label id="lbl<?= $strNomeTipoProcedimentoListagemEliminacao ?>" for="sel<?= $strNomeTipoProcedimentoListagemEliminacao ?>" accesskey="p"
+           class="infraLabelObrigatorio"><span
+            class="infraTeclaAtalho">T</span>ipo de processo da listagem de eliminação:</label>
+    <select name="sel<?= $strNomeTipoProcedimentoListagemEliminacao ?>" id="sel<?= $strNomeTipoProcedimentoListagemEliminacao ?>"
+            class="infraSelect"
+            tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
+                <?= $strSelTipoProcedimentoListagemEliminacao; ?>
+    </select>
 
-        <?
-        PaginaSEI::getInstance()->fecharAreaDados();
-        //PaginaSEI::getInstance()->montarAreaDebug();
-        //PaginaSEI::getInstance()->montarBarraComandosInferior($arrComandos);
-        ?>
-    </form>
+    <label id="lbl<?= $strNomeTipoDocumentoListagemEliminacao ?>" for="sel<?= $strNomeTipoDocumentoListagemEliminacao ?>" accesskey="p"
+           class="infraLabelObrigatorio"><span
+            class="infraTeclaAtalho">T</span>ipo de documento da listagem de eliminação:</label>
+    <select name="sel<?= $strNomeTipoDocumentoListagemEliminacao ?>" id="sel<?= $strNomeTipoDocumentoListagemEliminacao ?>"
+            class="infraSelect"
+            tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
+                <?= $strSelSerieListagemEliminacao; ?>
+    </select>
+
+    <?
+    PaginaSEI::getInstance()->fecharAreaDados();
+//PaginaSEI::getInstance()->montarAreaDebug();
+//PaginaSEI::getInstance()->montarBarraComandosInferior($arrComandos);
+    ?>
+</form>
 <?
 PaginaSEI::getInstance()->fecharBody();
 PaginaSEI::getInstance()->fecharHtml();

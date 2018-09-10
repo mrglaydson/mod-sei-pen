@@ -157,6 +157,9 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
     public function processarControlador($strAcao) {
         // gd_modelos_documento_alterar
         switch ($strAcao) {
+            case 'gd_enviar_arquivamento':
+                require_once dirname(__FILE__) . '/gd_enviar_arquivamento.php';
+                return true;
             case 'gd_prep_list_eliminacao_observar':
                 require_once dirname(__FILE__) . '/gd_observar_listagem_eliminacao.php';
                 return true;

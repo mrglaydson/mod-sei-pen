@@ -18,7 +18,7 @@ try {
 
     switch ($_GET['acao']) {
         case 'gd_procedimento_arquivar':
-            header('Location: ' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_arquivar_procedimento&acao_origem=' . $_GET['acao'].'&id_procedimento='.$_GET['id_procedimento']));
+            header('Location: ' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_arquivar_procedimento&acao_origem=' . $_GET['acao'] . '&id_procedimento=' . $_GET['id_procedimento']));
             die;
 
 
@@ -73,14 +73,16 @@ try {
     }
     $strTitulo = 'Pendências de Arquivamento';
 
-    foreach ($arrIdsProcedimento as $k => $item) {
-        $arquivamentoDTO = new MdGdArquivamentoDTO();
-        $arquivamentoDTO->setDblIdProcedimento($item);
-        $arquivamentoDTO->setStrSinAtivo('S');
+    if ($arrIdsProcedimento) {
+        foreach ($arrIdsProcedimento as $k => $item) {
+            $arquivamentoDTO = new MdGdArquivamentoDTO();
+            $arquivamentoDTO->setDblIdProcedimento($item);
+            $arquivamentoDTO->setStrSinAtivo('S');
 
-        $arquivamentoRN = new MdGdArquivamentoRN();
-        if($arquivamentoRN->contar($arquivamentoDTO)){
-            unset($arrIdsProcedimento[$k]);
+            $arquivamentoRN = new MdGdArquivamentoRN();
+            if ($arquivamentoRN->contar($arquivamentoDTO)) {
+                unset($arrIdsProcedimento[$k]);
+            }
         }
     }
     if ($arrIdsProcedimento) {
@@ -185,7 +187,6 @@ try {
 
         //  $arrComandos[] = '<button type="button" accesskey="F" id="btnFechar" value="Fechar" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . PaginaSEI::getInstance()->getAcaoRetorno() . '&acao_origem=' . $_GET['acao'] . '\'" class="infraButton"><span class="infraTeclaAtalho">F</span>echar</button>';
     }
-
 } catch (Exception $e) {
     PaginaSEI::getInstance()->processarExcecao($e);
 }
@@ -198,14 +199,14 @@ PaginaSEI::getInstance()->montarTitle(PaginaSEI::getInstance()->getStrNomeSistem
 PaginaSEI::getInstance()->montarStyle();
 PaginaSEI::getInstance()->abrirStyle();
 ?>
-    #lblNomeJustificativaPesquisa {position:absolute;left:0%;top:0%;width:30%;}
-    #txtNomeJustificativaPesquisa {position:absolute;left:0%;top:40%;width:30%;}
+#lblNomeJustificativaPesquisa {position:absolute;left:0%;top:0%;width:30%;}
+#txtNomeJustificativaPesquisa {position:absolute;left:0%;top:40%;width:30%;}
 
-    #lblDescricaoJustificativaPesquisa {position:absolute;left:32%;top:0%;width:30%;}
-    #txtDescricaoJustificativaPesquisa {position:absolute;left:32%;top:40%;width:30%;}
+#lblDescricaoJustificativaPesquisa {position:absolute;left:32%;top:0%;width:30%;}
+#txtDescricaoJustificativaPesquisa {position:absolute;left:32%;top:40%;width:30%;}
 
-    #lblTipoJustificativaPesquisa {position:absolute;left:64%;top:2%;width:15%;}
-    #selTipoJustificativaPesquisa {position:absolute;left:64%;top:42%;width:15%;}
+#lblTipoJustificativaPesquisa {position:absolute;left:64%;top:2%;width:15%;}
+#selTipoJustificativaPesquisa {position:absolute;left:64%;top:42%;width:15%;}
 
 <?
 PaginaSEI::getInstance()->fecharStyle();
@@ -215,12 +216,12 @@ PaginaSEI::getInstance()->abrirJavaScript();
 <?php if ($_GET['acao_origem'] == 'gd_procedimento_reabrir'): ?>
     alert('Processo(s) reaberto(s) na unidade!');
 <?php endif; ?>
-    function inicializar() {
+function inicializar() {
 
-    infraEfeitoTabelas();
-    document.getElementById('btnFechar').focus();
+infraEfeitoTabelas();
+document.getElementById('btnFechar').focus();
 
-    }
+}
 
 <? if ($bolAcaoExcluir) { ?>
     function acaoExcluir(id, desc) {
@@ -248,19 +249,19 @@ PaginaSEI::getInstance()->fecharJavaScript();
 PaginaSEI::getInstance()->fecharHead();
 PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
 ?>
-    <form id="frmJustificativasLista" method="post"
-          action="<?= SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . $_GET['acao'] . '&acao_origem=' . $_GET['acao']) ?>">
-        <?
-        //PaginaSEI::getInstance()->montarBarraLocalizacao($strTitulo);
-        PaginaSEI::getInstance()->montarBarraComandosSuperior($arrComandos);
-        PaginaSEI::getInstance()->abrirAreaDados('4.5em');
+<form id="frmJustificativasLista" method="post"
+      action="<?= SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . $_GET['acao'] . '&acao_origem=' . $_GET['acao']) ?>">
+          <?
+          //PaginaSEI::getInstance()->montarBarraLocalizacao($strTitulo);
+          PaginaSEI::getInstance()->montarBarraComandosSuperior($arrComandos);
+          PaginaSEI::getInstance()->abrirAreaDados('4.5em');
 
-        PaginaSEI::getInstance()->fecharAreaDados();
-        PaginaSEI::getInstance()->montarAreaTabela($strResultado, $numRegistros);
-        PaginaSEI::getInstance()->montarAreaDebug();
-        PaginaSEI::getInstance()->montarBarraComandosInferior($arrComandos);
-        ?>
-    </form>
+          PaginaSEI::getInstance()->fecharAreaDados();
+          PaginaSEI::getInstance()->montarAreaTabela($strResultado, $numRegistros);
+          PaginaSEI::getInstance()->montarAreaDebug();
+          PaginaSEI::getInstance()->montarBarraComandosInferior($arrComandos);
+          ?>
+</form>
 <?
 PaginaSEI::getInstance()->fecharBody();
 PaginaSEI::getInstance()->fecharHtml();

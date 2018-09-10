@@ -123,6 +123,111 @@ try {
     $fnParametroIncluir('DESPACHO_DESARQUIVAMENTO', ' ');
     $fnParametroIncluir('LISTAGEM_ELIMINACAO', ' ');
 
+    // Criação da tabela de modelos de documento
+    $objBanco->executarSql('CREATE TABLE md_gd_modelo_documento (
+            nome  ' . $objMetaBD->tipoTextoVariavel(100) . '  NOT NULL ,
+            valor ' . $objMetaBD->tipoTextoGrande() . ' NOT NULL 
+        )');
+
+    $objMetaBD->adicionarChavePrimaria('md_gd_modelo_documento', 'pk_md_gd_modelo_documento_nome', array('nome'));
+
+    // Criação da tabela de unidades de arquivamento
+    $objBanco->executarSql('CREATE TABLE md_gd_unidade_arquivamento (
+          id_unidade_arquivamento ' . $objMetaBD->tipoNumeroGrande() . ' NOT NULL,
+          id_unidade_origem ' . $objMetaBD->tipoNumero() . ' NOT NULL,
+          id_unidade_destino ' . $objMetaBD->tipoNumero() . ' NOT NULL
+    )');
+
+    $objMetaBD->adicionarChavePrimaria('md_gd_unidade_arquivamento', 'pk_md_gd_justificativa_id_unidade_arquivamento', array('id_unidade_arquivamento'));
+    $objMetaBD->adicionarChaveEstrangeira('fk_md_gd_unidade_arquivamento_origem', 'md_gd_unidade_arquivamento', array('id_unidade_origem'), 'unidade', array('id_unidade'));
+    $objMetaBD->adicionarChaveEstrangeira('fk_md_gd_unidade_arquivamento_destino', 'md_gd_unidade_arquivamento', array('id_unidade_destino'), 'unidade', array('id_unidade'));
+
+    $objInfraSequencia = new InfraSequencia($objBanco);
+
+    if (!$objInfraSequencia->verificarSequencia('md_gd_unidade_arquivamento')) {
+        $objInfraSequencia->criarSequencia('md_gd_unidade_arquivamento', '1', '1', '9999999999');
+    }
+
+    // Função anonima para inserção dos parãmetros
+    $fnParametroModeloDocumento = function($nome, $valor) use($objBanco) {
+        $objMdGdModeloDocumentoDTO = new MdGdModeloDocumentoDTO();
+        $objMdGdModeloDocumentoDTO->setStrNome($nome);
+        $objMdGdModeloDocumentoDTO->setStrValor($valor);
+
+        $objMdGdModeloDocumentoBD = new MdGdModeloDocumentoBD($objBanco);
+        $objMdGdModeloDocumentoBD->cadastrar($objMdGdModeloDocumentoDTO);
+    };
+
+    $fnParametroModeloDocumento('MODELO_DESPACHO_ARQUIVAMENTO', ' ');
+    $fnParametroModeloDocumento('MODELO_DESPACHO_DESARQUIVAMENTO', ' ');
+    $fnParametroModeloDocumento('MODELO_LISTAGEM_ELIMINACAO', ' ');
+
+    // Criação da tabela da listagem de eliminação
+    $objBanco->executarSql('CREATE TABLE md_gd_lista_eliminacao (
+        id_lista_eliminacao ' . $objMetaBD->tipoNumeroGrande() . ' NOT NULL,
+        id_procedimento_eliminacao ' . $objMetaBD->tipoNumeroGrande() . ' NOT NULL,
+        id_documento_eliminacao ' . $objMetaBD->tipoNumeroGrande() . ' NOT NULL,
+        numero ' . $objMetaBD->tipoTextoVariavel(50) . ' NOT NULL,
+        dth_emissao_listagem ' . $objMetaBD->tipoDataHora() . ' NOT NULL,
+        ano_limite_inicio ' . $objMetaBD->tipoNumero() . ' NOT NULL,
+        ano_limite_fim ' . $objMetaBD->tipoNumero() . ' NOT NULL
+    )');
+
+    $objMetaBD->adicionarChavePrimaria('md_gd_lista_eliminacao', 'pk_md_gd_lista_eliminacao_id_lista_eliminacao', array('id_lista_eliminacao'));
+    $objMetaBD->adicionarChaveEstrangeira('fk_md_gd_lista_eliminacao_procedimento', 'md_gd_lista_eliminacao', array('id_procedimento_eliminacao'), 'procedimento', array('id_procedimento'));
+    $objMetaBD->adicionarChaveEstrangeira('fk_md_gd_lista_eliminacao_documento', 'md_gd_lista_eliminacao', array('id_documento_eliminacao'), 'documento', array('id_documento'));
+
+    $objInfraSequencia = new InfraSequencia($objBanco);
+
+    if (!$objInfraSequencia->verificarSequencia('md_gd_lista_eliminacao')) {
+        $objInfraSequencia->criarSequencia('md_gd_lista_eliminacao', '1', '1', '9999999999');
+    }
+
+    // Cria a tabela ternária entre a listagem de eliminação e os procedimentos
+    $objBanco->executarSql('CREATE TABLE md_gd_lista_elim_procedimento (
+        id_lista_eliminacao ' . $objMetaBD->tipoNumeroGrande() . ' NOT NULL,
+        id_procedimento ' . $objMetaBD->tipoNumeroGrande() . ' NOT NULL
+    )');
+
+    $objMetaBD->adicionarChavePrimaria('md_gd_lista_elim_procedimento', 'pk_md_gd_lista_elim_procedimento', array('id_lista_eliminacao', 'id_procedimento'));
+    $objMetaBD->adicionarChaveEstrangeira('md_gd_lista_elim_procedimento_lista_eliminacao', 'md_gd_lista_elim_procedimento', array('id_lista_eliminacao'), 'md_gd_lista_eliminacao', array('id_lista_eliminacao'));
+    $objMetaBD->adicionarChaveEstrangeira('md_gd_lista_elim_procedimento_procedimento', 'md_gd_lista_elim_procedimento', array('id_procedimento'), 'procedimento', array('id_procedimento'));
+
+
+    // Criação da tabela da listagem de recolhimento
+    $objBanco->executarSql('CREATE TABLE md_gd_lista_recolhimento (
+        id_lista_recolhimento ' . $objMetaBD->tipoNumeroGrande() . ' NOT NULL,
+        numero ' . $objMetaBD->tipoTextoVariavel(50) . ' NOT NULL,
+        dth_emissao_listagem ' . $objMetaBD->tipoDataHora() . ' NOT NULL,
+        ano_limite_inicio ' . $objMetaBD->tipoNumero() . ' NOT NULL,
+        ano_limite_fim ' . $objMetaBD->tipoNumero() . ' NOT NULL,
+        qtd_processos ' . $objMetaBD->tipoNumero() . ' NOT NULL 
+    )');
+
+    $objMetaBD->adicionarChavePrimaria('md_gd_lista_recolhimento', 'pk_md_gd_lista_recolhimento_id_lista_recolhimento', array('id_lista_recolhimento'));
+
+    $objInfraSequencia = new InfraSequencia($objBanco);
+
+    if (!$objInfraSequencia->verificarSequencia('md_gd_lista_recolhimento')) {
+        $objInfraSequencia->criarSequencia('md_gd_lista_recolhimento', '1', '1', '9999999999');
+    }
+
+    // Cria a tabela ternária entre a listagem de recolhimento
+    $objBanco->executarSql('CREATE TABLE md_gd_lista_recol_procedimento (
+        id_lista_recolhimento ' . $objMetaBD->tipoNumeroGrande() . ' NOT NULL,
+        id_procedimento ' . $objMetaBD->tipoNumeroGrande() . ' NOT NULL
+    )');
+
+    $objMetaBD->adicionarChavePrimaria('md_gd_lista_recol_procedimento', 'pk_md_gd_lista_recol_procedimento', array('id_lista_recolhimento', 'id_procedimento'));
+    $objMetaBD->adicionarChaveEstrangeira('md_gd_lista_recol_procedimento_lista_recolhimento', 'md_gd_lista_recol_procedimento', array('id_lista_recolhimento'), 'md_gd_lista_recolhimento', array('id_lista_recolhimento'));
+    $objMetaBD->adicionarChaveEstrangeira('md_gd_lista_recol_procedimento_procedimento', 'md_gd_lista_recol_procedimento', array('id_procedimento'), 'procedimento', array('id_procedimento'));
+
+
+    $objMetaBD->adicionarChaveEstrangeira('fk_md_gd_arquivamento_lista_eliminacao', 'md_gd_arquivamento', array('id_lista_eliminacao'), 'md_gd_lista_eliminacao', array('id_lista_eliminacao'));
+    $objMetaBD->adicionarChaveEstrangeira('fk_md_gd_arquivamento_lista_recolhimento', 'md_gd_arquivamento', array('id_lista_recolhimento'), 'md_gd_lista_recolhimento', array('id_lista_recolhimento'));
+
+    $objBanco->fecharConexao();
+
     $objBanco->fecharConexao();
     echo "ATUALIZAÇÃO FINALIZADA COM SUCESSO! ";
 } catch (Exception $e) {

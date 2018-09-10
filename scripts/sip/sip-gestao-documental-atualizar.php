@@ -192,7 +192,7 @@ try {
     $id_recurso_visualizacao_listagem_eliminacao = $fnCadastrarRecurso($id_sistema, 'gestao_documental_visualizacao_listagem_eliminacao', 'Visualização da listagem de eliminação', 'controlador.php?acao=gd_visualizacao_listagem_eliminacao', 'S');
 
     // Cadastra o recurso de listagem documentos fisicos para eliminação
-    $id_recurso_listagem_eliminacao_documentos_fisicos = $fnCadastrarRecurso($id_sistema, 'gestao_documental_listagem_eliminacao_documentos_fisicos', 'Listagem dos documentos físicos para eliminação', 'controlador.php?acao=gd_listagem_eliminacao_documentos_fisicos', 'S');
+    $id_recurso_listagem_eliminacao_documentos_fisicos = $fnCadastrarRecurso($id_sistema, 'gestao_documental_list_elim_documentos_fisicos', 'Listagem dos documentos físicos para eliminação', 'controlador.php?acao=gd_listagem_eliminacao_documentos_fisicos', 'S');
 
     // Cadastra o recurso de registro da eliminação de documentos fisicos
     $id_recurso_eliminacao_documentos_fisicos = $fnCadastrarRecurso($id_sistema, 'gestao_documental_eliminacao_documentos_fisicos', 'Eliminação dos documentos físicos', 'controlador.php?acao=gd_eliminacao_documentos_fisicos', 'S');
@@ -201,13 +201,13 @@ try {
     $id_recurso_eliminacao = $fnCadastrarRecurso($id_sistema, 'gestao_documental_eliminacao', 'Eliminação de processos', 'controlador.php?acao=gd_eliminacao', 'S');
 
     //Cadasta o recurso da gestão de listagem de recolhimento
-    $id_recurso_gestao_listagem_recolhimento = $fnCadastrarRecurso($id_sistema, 'gestao_documental_gestao_listagem_recolhimento', 'Gestão da listagem de recolhimento', 'controlador.php?acao=gd_gestao_listagem_recolhimento', 'S');
+    $id_recurso_gestao_listagem_recolhimento = $fnCadastrarRecurso($id_sistema, 'gestao_documental_gestao_listrecolhimento', 'Gestão da listagem de recolhimento', 'controlador.php?acao=gd_gestao_listagem_recolhimento', 'S');
 
     // Cadastra o recurso de geração do pdf da listagem de recolhimento
-    $id_recurso_geracao_pdf_listagem_recolhimento = $fnCadastrarRecurso($id_sistema, 'gestao_documental_geracao_pdf_listagem_recolhimento', 'Geração de pdf da listagem de recolhimento', 'controlador.php?acao=gd_geracao_pdf_listagem_recolhimento', 'S');
+    $id_recurso_geracao_pdf_listagem_recolhimento = $fnCadastrarRecurso($id_sistema, 'gestao_documental_geracao_pdf_list_recolhimento', 'Geração de pdf da listagem de recolhimento', 'controlador.php?acao=gd_geracao_pdf_listagem_recolhimento', 'S');
 
     // Cadastra o recurso de visualização da listagem de recolhimento
-    $id_recurso_visualizacao_listagem_recolhimento = $fnCadastrarRecurso($id_sistema, 'gestao_documental_visualizacao_listagem_recolhimento', 'Visualização da listagem de recolhimento', 'controlador.php?acao=gd_visualizacao_listagem_recolhimento', 'S');
+    $id_recurso_visualizacao_listagem_recolhimento = $fnCadastrarRecurso($id_sistema, 'gestao_documental_visualizacao_list_recolhimento', 'Visualização da listagem de recolhimento', 'controlador.php?acao=gd_visualizacao_listagem_recolhimento', 'S');
 
     // Cadastra o recurso de recolhimento
     $id_recurso_recolhimento = $fnCadastrarRecurso($id_sistema, 'gestao_documental_recolhimento', 'Recolhimento de processos', 'controlador.php?acao=gd_recolhimento', 'S');
@@ -239,7 +239,6 @@ try {
     $id_menu_unidades_arquivamento_novo = $fnItemMenu($id_menu, $id_menu_unidades_arquivamento, $id_sistema, $id_recurso_unidades_arquivamento_cadastrar, 'Novo', 'N', 'S', 1);
     $id_menu_unidades_arquivamento_listar = $fnItemMenu($id_menu, $id_menu_unidades_arquivamento, $id_sistema, $id_recurso_unidades_arquivamento_listar, 'Listar', 'N', 'S', 2);
 
-
     // Cria o item de menu principal gestão documental
     $id_menu_gestao_documental = $fnItemMenu($id_menu, null, $id_sistema, null, 'Gestão Documental', 'N', 'S', 50);
     $id_menu_avaliacao_processos_listar = $fnItemMenu($id_menu, $id_menu_gestao_documental, $id_sistema, $id_recurso_avaliacao_processos_listar, 'Avaliação de Processos', 'N', 'S', 1);
@@ -255,7 +254,7 @@ try {
     $id_menu_gestao_listagem_recolhimento = $fnItemMenu($id_menu, $id_menu_listagem_recolhimento, $id_sistema, $id_recurso_gestao_listagem_recolhimento, 'Gestão das Listagens', 'N', 'S', 2);
 
     // Cria o item de menu de relatórios
-
+    $id_menu_relatorio = $fnItemMenu($id_menu, $id_menu_gestao_documental, $id_sistema, $id_recurso_relatorio, 'Relatórios', 'N', 'S', 1);
 
     echo "ATUALIZAO FINALIZADA COM SUCESSO! ";
 } catch (Exception $e) {
