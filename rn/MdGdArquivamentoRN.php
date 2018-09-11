@@ -69,17 +69,11 @@ class MdGdArquivamentoRN extends InfraRN {
             $objDocumentoDTO = $objDocumentoRN->cadastrarRN0003($objDocumentoDTO);
             
             // Assinatura do despacho de arquivamento
-            /*$objAssinaturaDTO = new AssinaturaDTO();
-            $objAssinaturaDTO->setStrStaFormaAutenticacao($_POST['hdnFormaAutenticacao']);
-            $objAssinaturaDTO->setNumIdOrgaoUsuario(SessaoSEI::getInstance()->getNumIdOrgaoUsuario());
-            $objAssinaturaDTO->setNumIdUsuario($_POST['hdnIdUsuario']);
-            $objAssinaturaDTO->setStrSenhaUsuario($_POST['pwdSenha']);
-            $objAssinaturaDTO->setStrCargoFuncao($_POST['selCargoFuncao']);
-            $objAssinaturaDTO->setArrObjDocumentoDTO(InfraArray::gerarArrInfraDTO('DocumentoDTO', 'IdDocumento', $arrIdDocumentos));
-
+            $objAssinaturaDTO = $objMdGdArquivamentoDTO->getObjAssinaturaDTO();
+            $objAssinaturaDTO->setArrObjDocumentoDTO([$objDocumentoDTO]);
+            
             $objDocumentoRN = new DocumentoRN();
-            $arrObjAssinaturaDTO = $objDocumentoRN->assinar($objAssinaturaDTO);*/
-
+            $objDocumentoRN->assinar($objAssinaturaDTO);
 
             //Busca os assuntos
             $arrRelProtocoloAssunto = array();
@@ -116,8 +110,8 @@ class MdGdArquivamentoRN extends InfraRN {
             $objMdGdArquivamentoDTO->setDblIdDespachoArquivamento($objDocumentoDTO->getDblIdDocumento());
             $objMdGdArquivamentoDTO->setStrStaGuarda('C');
             $objMdGdArquivamentoDTO->setStrSinAtivo('S');
-            $objMdGdArquivamentoDTO->setNumGuardaCorrente($numTempoGuardaCorrente); // BOTAR A GUARDA CORRETA VINDA DOS ASSUNTOS!!!
-            $objMdGdArquivamentoDTO->setNumGuardaIntermediaria($numTempoGuardaIntermediaria); // BOTAR A GUARDA CORRETA VINDA DOS ASSUNTOS!!!
+            $objMdGdArquivamentoDTO->setNumGuardaCorrente($numTempoGuardaCorrente); 
+            $objMdGdArquivamentoDTO->setNumGuardaIntermediaria($numTempoGuardaIntermediaria); 
             $objMdGdArquivamentoDTO->setNumIdUnidadeCorrente(SessaoSEI::getInstance()->getNumIdUnidadeAtual());
             $objMdGdArquivamentoDTO->setNumIdUsuario(SessaoSEI::getInstance()->getNumIdUsuario());
             $objMdGdArquivamentoDTO->setStrSituacao(self::$ST_FASE_CORRENTE);

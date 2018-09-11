@@ -64,10 +64,21 @@ try {
 
             if (isset($_POST['sbmSalvar'])) {
                 try {
+                    
+                    $objAssinaturaDTO = new AssinaturaDTO();
+                    $objAssinaturaDTO->setStrStaFormaAutenticacao(AssinaturaRN::$TA_SENHA);
+                    $objAssinaturaDTO->setNumIdOrgaoUsuario($_POST['selOrgao']);
+                    $objAssinaturaDTO->setNumIdUsuario(SessaoSEI::getInstance()->getNumIdUsuario());
+                    $objAssinaturaDTO->setNumIdContextoUsuario(SessaoSEI::getInstance()->getNumIdContextoUsuario());
+                    $objAssinaturaDTO->setStrSenhaUsuario($_POST['pwdSenha']);
+                    $objAssinaturaDTO->setStrCargoFuncao($_POST['selCargoFuncao']);
+                    
+                    
                     foreach ($arrProtocolosOrigem as $numIdProcedimento) {
                         $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
                         $objMdGdArquivamentoDTO->setDblIdProcedimento($numIdProcedimento);
                         $objMdGdArquivamentoDTO->setNumIdJustificativa($_POST['selJustificativa']);
+                        $objMdGdArquivamentoDTO->setObjAssinaturaDTO($objAssinaturaDTO);
 
                         if ($_POST['hdnOrigem'] == 'gd_pendencias_arquivamento') {
                             $objMdArquivamentoRN->reabrir = true;
@@ -105,6 +116,8 @@ try {
     // Monta as combos de seleção que irão aparecer na tela
     $strItensSelProcedimentos = ProcedimentoINT::conjuntoCompletoFormatadoRI0903($arrProtocolosOrigem);
     $strItensSelJustificativas = InfraINT::montarSelectArrInfraDTO('null', '', '', $arrMdGdJustificativaDTO, 'IdJustificativa', 'Nome');
+    $strItensSelOrgaos = OrgaoINT::montarSelectSiglaRI1358('null', '&nbsp;', SessaoSEI::getInstance()->getNumIdOrgaoUsuario());
+    $strItensSelCargoFuncao = AssinanteINT::montarSelectCargoFuncaoUnidadeUsuarioRI1344('null', '&nbsp;', null, SessaoSEI::getInstance()->getNumIdUsuario());
 
     $strIdProtocolos = implode(',', $arrProtocolosOrigem);
 
@@ -125,11 +138,23 @@ PaginaSEI::getInstance()->montarStyle();
 PaginaSEI::getInstance()->abrirStyle();
 ?>
 
-#lblProcedimentos {position:absolute;left:1%;top:9%;}
-#selProcedimentos {position:absolute;left:1%;top:16%;width:96%;}
+#lblProcedimentos {position:absolute;left:1%;top:12%;}
+#selProcedimentos {position:absolute;left:1%;top:24%;width:96%;}
 
-#lblJustificativa {position:absolute;left:0%;top:66%;}
-#selJustificativa {position:absolute;left:0%;top:77%;width:99%;}
+#lblJustificativa {position:absolute;left:1%;top:72%;}
+#selJustificativa {position:absolute;left:1%;top:83%;width:96%;}
+
+#fieldsetDadosArquivamento {position: absolute; left: 0%; top: 6%; height: 30%; width: 97%;} 
+#fieldsetDadosAssinatura   {position: absolute; left: 0%; top: 42%; height: 46%; width: 97%;}
+
+#lblOrgao {position: absolute; top: 7%; left: 0%;}
+#selOrgao {position: absolute; top: 50%; width: 50%;}
+
+#lblUsuario {position: absolute; top: 29%;}
+#txtUsuario {position: absolute; left: 8%; top: 29%; width: 41%;}
+
+#lblCargoFuncao {position: absolute;}
+#selCargoFuncao {position: absolute; top: 46%; width: 50%;}
 <?
 PaginaSEI::getInstance()->fecharStyle();
 PaginaSEI::getInstance()->montarJavaScript();
@@ -152,30 +177,31 @@ PaginaSEI::getInstance()->abrirJavaScript();
             return false;
         }
 
+        if (document.getElementById('selOrgao').value == 'null') {
+            alert('Informe o órgão do assinante.');
+            return false;
+        }
+
+        if (document.getElementById('selCargoFuncao').value == 'null') {
+            alert('Informe o cargo e função.');
+            return false;
+        }
+
+        if (document.getElementById('pwdSenha').value == '') {
+            alert('Informe a senha.');
+            return false;
+        }
+
+
         if (document.getElementById('hdnTotalCondicionantes').value > 0) {
             if (confirm('Esse processo possuí condicional de arquivamento. Deseja prosseguir com o arquivamento?')) {
-                return validarAssinatura();
+                return true;
             } else {
                 return false;
             }
         }
 
-        return validarAssinatura();
-
-    }
-
-    function validarAssinatura() {
-        if (document.getElementById('hdnSenhaAssinatura').value == '') {
-            exibirJanelaAssinatura();
-            return false;
-
-        } else {
-            return true;
-        }
-    }
-
-    function exibirJanelaAssinatura() {
-        infraAbrirJanela('<?= SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_enviar_arquivamento') ?>', 'janelaAjudaVariaveisModelo', 800, 600, 'location=0,status=1,resizable=1,scrollbars=1', false);
+        return true;
     }
 
 //</script>
@@ -188,34 +214,35 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
 
     <form id="frmConcluirArquivar" method="post" onsubmit="return OnSubmitForm();"
           action="<?= SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . $_GET['acao'] . '&acao_origem=' . $_GET['acao'] . $strParametros) ?>">
-              <? PaginaSEI::getInstance()->montarBarraComandosSuperior($arrComandos); ?>
+<? PaginaSEI::getInstance()->montarBarraComandosSuperior($arrComandos); ?>
 
-        <fieldset class="infraFieldset" style="position:absolute;left:0%;top: 6%;height: 53%;width: 97%;">
+        <fieldset class="infraFieldset" id="fieldsetDadosArquivamento">
             <legend class="infraLegend">Dados do Arquivamento</legend>
             <label id="lblProcedimentos" for="selProcedimentos" class="infraLabelObrigatorio">Processos:</label>
             <select id="selProcedimentos" name="selProcedimentos" size="4" class="infraSelect"
                     tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
-                        <?= $strItensSelProcedimentos ?>
+<?= $strItensSelProcedimentos ?>
             </select>
 
             <label id="lblJustificativa" for="selJustificativa" class="infraLabelObrigatorio">Motivo:</label>
             <select id="selJustificativa" name="selJustificativa"
                     class="infraSelect"
                     tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
-                        <?= $strItensSelJustificativas ?>
+<?= $strItensSelJustificativas ?>
 
 
             </select>
             <input type="hidden" id="hdnTotalCondicionantes" name="hdnTotalCondicionantes"
                    value="<?= $numTotalCondicionantes ?>"/>
         </fieldset>
-        
-        <fieldset class="infraFieldset" style="position:absolute;left:0%;top: 62%;height: 53%;width: 97%;">
+
+        <fieldset class="infraFieldset" id="fieldsetDadosAssinatura">
             <legend class="infraLegend">Dados da Assinatura</legend>
+            <p>Dados para assinatura do despacho de arquivamento</p>
             <div id="divOrgao" class="infraAreaDados" style="height:4.5em;">
                 <label id="lblOrgao" for="selOrgao" accesskey="r" class="infraLabelObrigatorio">Ó<span class="infraTeclaAtalho">r</span>gão do Assinante:</label>
                 <select id="selOrgao" name="selOrgao" class="infraSelect" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
-                    <?= $strItensSelOrgaos ?>
+<?= $strItensSelOrgaos ?>
                 </select>
             </div>
 
@@ -227,7 +254,7 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
             <div id="divCargoFuncao" class="infraAreaDados" style="height:4.5em;">
                 <label id="lblCargoFuncao" for="selCargoFuncao" accesskey="F" class="infraLabelObrigatorio">Cargo / <span class="infraTeclaAtalho">F</span>unção:</label>
                 <select id="selCargoFuncao" name="selCargoFuncao" class="infraSelect" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
-                    <?= $strItensSelCargoFuncao ?>
+<?= $strItensSelCargoFuncao ?>
                 </select>
             </div>
             <br />
@@ -238,10 +265,7 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
         </fieldset>
 
         <input type="hidden" id="hdnOrigem" name="hdnOrigem" value="<?= $_GET['acao_origem']; ?>"/>
-        <input type="hidden" id="hdnOrgaoAssinatura" name="hdnOrgaoAssinatura" value="" />
-        <input type="hidden" id="hdnCargoFuncaoAssinatura" name="hdnCargoFuncaoAssinatura" value="" />
-        <input type="hidden" id="hdnSenhaAssinatura" name="hdnSenhaAssinatura" value="" />
-        <input type="hidden" id="hdnIdProtocolos" name="hdnIdProtocolos" />
+        <input type="hidden" id="hdnIdProtocolos" name="hdnIdProtocolos" value='<?= $strIdProtocolos ?>'/>
     </form>
 </div>
 <?

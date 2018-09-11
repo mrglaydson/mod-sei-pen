@@ -8,7 +8,6 @@
  *
  * Versão no CVS: $Id$
  */
-
 try {
     require_once dirname(__FILE__) . '/../../SEI.php';
 
@@ -53,7 +52,7 @@ try {
                 $arrProtocolosOrigem = array($_GET['id_procedimento']);
             } else if ($_GET['acao_origem'] == 'procedimento_controlar') {
                 $arrProtocolosOrigem = array_merge(PaginaSEI::getInstance()->getArrStrItensSelecionados('Gerados'), PaginaSEI::getInstance()->getArrStrItensSelecionados('Recebidos'), PaginaSEI::getInstance()->getArrStrItensSelecionados('Detalhado'));
-            }else if (isset($_POST['hdnIdProtocolos'])){
+            } else if (isset($_POST['hdnIdProtocolos'])) {
                 $arrProtocolosOrigem = explode(',', $_POST['hdnIdProtocolos']);
             }
 
@@ -93,8 +92,6 @@ try {
     $strItensSelProcedimentos = ProcedimentoINT::conjuntoCompletoFormatadoRI0903($arrProtocolosOrigem);
     $strItensSelJustificativas = InfraINT::montarSelectArrInfraDTO('null', '', '', $arrMdGdJustificativaDTO, 'IdJustificativa', 'Nome');
     $strIdProtocolos = implode(',', $arrProtocolosOrigem);
-
-
 } catch (Exception $e) {
     PaginaSEI::getInstance()->processarExcecao($e);
 }
@@ -108,39 +105,51 @@ PaginaSEI::getInstance()->montarStyle();
 PaginaSEI::getInstance()->abrirStyle();
 ?>
 
-    #lblProcedimentos {position:absolute;left:0%;top:20%;}
-    #selProcedimentos {position:absolute;left:0%;top:30%;width:99%;}
+#lblProcedimentos {position:absolute;left:1%;top:12%;}
+#selProcedimentos {position:absolute;left:1%;top:24%;width:96%;}
 
-    #lblJustificativa {position:absolute;left:0%;top:66%;}
-    #selJustificativa {position:absolute;left:0%;top:77%;width:99%;}
+#lblJustificativa {position:absolute;left:1%;top:72%;}
+#selJustificativa {position:absolute;left:1%;top:83%;width:96%;}
+
+#fieldsetDadosArquivamento {position: absolute; left: 0%; top: 6%; height: 30%; width: 97%;} 
+#fieldsetDadosAssinatura   {position: absolute; left: 0%; top: 42%; height: 46%; width: 97%;}
+
+#lblOrgao {position: absolute; top: 7%; left: 0%;}
+#selOrgao {position: absolute; top: 50%; width: 50%;}
+
+#lblUsuario {position: absolute; top: 29%;}
+#txtUsuario {position: absolute; left: 8%; top: 29%; width: 41%;}
+
+#lblCargoFuncao {position: absolute;}
+#selCargoFuncao {position: absolute; top: 46%; width: 50%;}
 <?
 PaginaSEI::getInstance()->fecharStyle();
 PaginaSEI::getInstance()->montarJavaScript();
 PaginaSEI::getInstance()->abrirJavaScript();
 ?>
 
-    function inicializar(){
-        document.getElementById('sbmSalvar').focus();
-        infraEfeitoTabelas();
-    }
+function inicializar(){
+document.getElementById('sbmSalvar').focus();
+infraEfeitoTabelas();
+}
 
-    function OnSubmitForm() {
-        return validarConcluirArquivar();
-    }
+function OnSubmitForm() {
+return validarConcluirArquivar();
+}
 
-    function validarConcluirArquivar(){
+function validarConcluirArquivar(){
 
-        if (document.getElementById('selJustificativa').value == 'null'){
-            alert('Informe um motivo.');
-            return false;
-        }
+if (document.getElementById('selJustificativa').value == 'null'){
+alert('Informe um motivo.');
+return false;
+}
 
-        if(confirm('Deseja mesmo desarquivar esse processo? Após essa ação o seu tempo de guarda será zerado.')){
-            return true;
-        }else{
-            return false;
-        }
-    }
+if(confirm('Deseja mesmo desarquivar esse processo? Após essa ação o seu tempo de guarda será zerado.')){
+return true;
+}else{
+return false;
+}
+}
 
 
 <?
@@ -148,29 +157,63 @@ PaginaSEI::getInstance()->fecharJavaScript();
 PaginaSEI::getInstance()->fecharHead();
 PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
 ?>
-    <div id="divGeral" class="infraAreaDados" style="height:20em;">
+<div id="divGeral" class="infraAreaDados" style="height:20em;">
 
-        <form id="frmDesarquivar" method="post" onsubmit="return OnSubmitForm();"
-              action="<?= SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . $_GET['acao'] . '&acao_origem=' . $_GET['acao'] . $strParametros) ?>">
-            <? PaginaSEI::getInstance()->montarBarraComandosSuperior($arrComandos); ?>
+    <form id="frmDesarquivar" method="post" onsubmit="return OnSubmitForm();"
+          action="<?= SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . $_GET['acao'] . '&acao_origem=' . $_GET['acao'] . $strParametros) ?>">
+              <? PaginaSEI::getInstance()->montarBarraComandosSuperior($arrComandos); ?>
 
+        <fieldset class="infraFieldset" id="fieldsetDadosArquivamento">
+            <legend class="infraLegend">Dados do Arquivamento</legend>
             <label id="lblProcedimentos" for="selProcedimentos" class="infraLabelObrigatorio">Processos:</label>
             <select id="selProcedimentos" name="selProcedimentos" size="4" class="infraSelect"
                     tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
-                <?= $strItensSelProcedimentos ?>
+                        <?= $strItensSelProcedimentos ?>
             </select>
 
             <label id="lblJustificativa" for="selJustificativa" class="infraLabelObrigatorio">Motivo:</label>
             <select id="selJustificativa" name="selJustificativa"
                     class="infraSelect"
                     tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
-                <?= $strItensSelJustificativas ?>
+                        <?= $strItensSelJustificativas ?>
 
 
             </select>
-            <input type="hidden" id="hdnIdProtocolos" name="hdnIdProtocolos" value="<?= $strIdProtocolos; ?>"/>
-        </form>
-    </div>
+            <input type="hidden" id="hdnTotalCondicionantes" name="hdnTotalCondicionantes"
+                   value="<?= $numTotalCondicionantes ?>"/>
+        </fieldset>
+
+        <fieldset class="infraFieldset" id="fieldsetDadosAssinatura">
+            <legend class="infraLegend">Dados da Assinatura</legend>
+            <div id="divOrgao" class="infraAreaDados" style="height:4.5em;">
+                <label id="lblOrgao" for="selOrgao" accesskey="r" class="infraLabelObrigatorio">Ó<span class="infraTeclaAtalho">r</span>gão do Assinante:</label>
+                <select id="selOrgao" name="selOrgao" class="infraSelect" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
+                    <?= $strItensSelOrgaos ?>
+                </select>
+            </div>
+
+            <div id="divUsuario" class="infraAreaDados" style="height:4.5em;">
+                <label id="lblUsuario" for="txtUsuario" accesskey="e" class="infraLabelObrigatorio">Assinant<span class="infraTeclaAtalho">e</span>:</label>
+                <input type="text" id="txtUsuario" name="txtUsuario" class="infraText" value="<?= SessaoSEI::getInstance()->getStrNomeUsuario() ?>" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" disabled />
+            </div>  
+
+            <div id="divCargoFuncao" class="infraAreaDados" style="height:4.5em;">
+                <label id="lblCargoFuncao" for="selCargoFuncao" accesskey="F" class="infraLabelObrigatorio">Cargo / <span class="infraTeclaAtalho">F</span>unção:</label>
+                <select id="selCargoFuncao" name="selCargoFuncao" class="infraSelect" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
+                    <?= $strItensSelCargoFuncao ?>
+                </select>
+            </div>
+            <br />
+            <div id="divAutenticacao" class="infraAreaDados" style="height:2.5em;">
+                <label id="lblSenha" for="pwdSenha" accesskey="S" class="infraLabelRadio infraLabelObrigatorio" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>"><span class="infraTeclaAtalho">S</span>enha</label>&nbsp;&nbsp;
+                <input type="password" id="pwdSenha" name="pwdSenha" autocomplete="off" class="infraText"  value="" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />&nbsp;&nbsp;&nbsp;&nbsp;
+            </div>
+        </fieldset>
+
+
+        <input type="hidden" id="hdnIdProtocolos" name="hdnIdProtocolos" value="<?= $strIdProtocolos; ?>"/>
+    </form>
+</div>
 <?
 PaginaSEI::getInstance()->fecharBody();
 PaginaSEI::getInstance()->fecharHtml();

@@ -110,6 +110,9 @@ class MdGdArquivamentoDTO extends InfraDTO
                                               't.nome',
                                               'tipo_procedimento t');
              
+         # Assinatura do despacho de arquivamento
+        $this->adicionarAtributo(InfraDTO::$PREFIXO_OBJ,'AssinaturaDTO');
+
         $this->configurarPK('IdArquivamento', InfraDTO::$TIPO_PK_SEQUENCIAL);
         $this->configurarFK('IdProcedimento', 'procedimento p', 'p.id_procedimento');
         $this->configurarFK('IdProtocoloProcedimento', 'protocolo pro', 'pro.id_protocolo');
