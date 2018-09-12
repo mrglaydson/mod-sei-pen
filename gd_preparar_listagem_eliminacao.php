@@ -96,6 +96,7 @@ try {
     $objMdGdArquivamentoDTO->retStrObservacaoEliminacao();
     $objMdGdArquivamentoDTO->retDblIdProtocoloProcedimento();
     $objMdGdArquivamentoDTO->setStrSituacao(MdGdArquivamentoRN::$ST_PREPARACAO_ELIMINACAO);
+    $objMdGdArquivamentoDTO->setStrSinAtivo('S');
 
     $selUnidade = PaginaSEI::getInstance()->recuperarCampo('selUnidade');
     if ($selUnidade && $selUnidade !== 'null') {

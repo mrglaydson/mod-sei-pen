@@ -201,7 +201,7 @@ try {
     $id_recurso_eliminacao = $fnCadastrarRecurso($id_sistema, 'gestao_documental_eliminacao', 'Eliminação de processos', 'controlador.php?acao=gd_eliminacao', 'S');
 
     //Cadasta o recurso da gestão de listagem de recolhimento
-    $id_recurso_gestao_listagem_recolhimento = $fnCadastrarRecurso($id_sistema, 'gestao_documental_gestao_listrecolhimento', 'Gestão da listagem de recolhimento', 'controlador.php?acao=gd_gestao_listagem_recolhimento', 'S');
+    $id_recurso_gestao_listagem_recolhimento = $fnCadastrarRecurso($id_sistema, 'gestao_documental_gestao_list_recolhimento', 'Gestão da listagem de recolhimento', 'controlador.php?acao=gd_gestao_listagem_recolhimento', 'S');
 
     // Cadastra o recurso de geração do pdf da listagem de recolhimento
     $id_recurso_geracao_pdf_listagem_recolhimento = $fnCadastrarRecurso($id_sistema, 'gestao_documental_geracao_pdf_list_recolhimento', 'Geração de pdf da listagem de recolhimento', 'controlador.php?acao=gd_geracao_pdf_listagem_recolhimento', 'S');

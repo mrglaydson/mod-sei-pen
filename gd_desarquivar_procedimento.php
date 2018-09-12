@@ -58,10 +58,19 @@ try {
 
             if (isset($_POST['sbmSalvar'])) {
                 try {
+                    $objAssinaturaDTO = new AssinaturaDTO();
+                    $objAssinaturaDTO->setStrStaFormaAutenticacao(AssinaturaRN::$TA_SENHA);
+                    $objAssinaturaDTO->setNumIdOrgaoUsuario($_POST['selOrgao']);
+                    $objAssinaturaDTO->setNumIdUsuario(SessaoSEI::getInstance()->getNumIdUsuario());
+                    $objAssinaturaDTO->setNumIdContextoUsuario(SessaoSEI::getInstance()->getNumIdContextoUsuario());
+                    $objAssinaturaDTO->setStrSenhaUsuario($_POST['pwdSenha']);
+                    $objAssinaturaDTO->setStrCargoFuncao($_POST['selCargoFuncao']);
+
                     foreach ($arrProtocolosOrigem as $numIdProcedimento) {
                         $objMdGdDesarquivamentoDTO = new MdGdDesarquivamentoDTO();
                         $objMdGdDesarquivamentoDTO->setDblIdProcedimento($numIdProcedimento);
                         $objMdGdDesarquivamentoDTO->setNumIdJustificativa($_POST['selJustificativa']);
+                        $objMdGdDesarquivamentoDTO->setObjAssinaturaDTO($objAssinaturaDTO);
 
                         $objMdDesarquivamentoRN->desarquivar($objMdGdDesarquivamentoDTO);
                     }
@@ -89,6 +98,8 @@ try {
     $arrMdGdJustificativaDTO = $objMdGdJustificativaRN->listar($objMdGdJustificativaDTO);
 
     // Monta as combos de seleção que irão aparecer na tela
+    $strItensSelOrgaos = OrgaoINT::montarSelectSiglaRI1358('null', '&nbsp;', SessaoSEI::getInstance()->getNumIdOrgaoUsuario());
+    $strItensSelCargoFuncao = AssinanteINT::montarSelectCargoFuncaoUnidadeUsuarioRI1344('null', '&nbsp;', null, SessaoSEI::getInstance()->getNumIdUsuario());
     $strItensSelProcedimentos = ProcedimentoINT::conjuntoCompletoFormatadoRI0903($arrProtocolosOrigem);
     $strItensSelJustificativas = InfraINT::montarSelectArrInfraDTO('null', '', '', $arrMdGdJustificativaDTO, 'IdJustificativa', 'Nome');
     $strIdProtocolos = implode(',', $arrProtocolosOrigem);
@@ -122,42 +133,54 @@ PaginaSEI::getInstance()->abrirStyle();
 
 #lblCargoFuncao {position: absolute;}
 #selCargoFuncao {position: absolute; top: 46%; width: 50%;}
+
 <?
 PaginaSEI::getInstance()->fecharStyle();
 PaginaSEI::getInstance()->montarJavaScript();
 PaginaSEI::getInstance()->abrirJavaScript();
 ?>
+//<script>
+    function inicializar() {
+        document.getElementById('sbmSalvar').focus();
+        infraEfeitoTabelas();
+    }
 
-function inicializar(){
-document.getElementById('sbmSalvar').focus();
-infraEfeitoTabelas();
-}
+    function OnSubmitForm() {
+        return validarDesarquivar();
+    }
 
-function OnSubmitForm() {
-return validarConcluirArquivar();
-}
+    function validarDesarquivar() {
 
-function validarConcluirArquivar(){
+        if (document.getElementById('selJustificativa').value == 'null') {
+            alert('Informe uma motivo.');
+            return false;
+        }
 
-if (document.getElementById('selJustificativa').value == 'null'){
-alert('Informe um motivo.');
-return false;
-}
+        if (document.getElementById('selOrgao').value == 'null') {
+            alert('Informe o órgão do assinante.');
+            return false;
+        }
 
-if(confirm('Deseja mesmo desarquivar esse processo? Após essa ação o seu tempo de guarda será zerado.')){
-return true;
-}else{
-return false;
-}
-}
+        if (document.getElementById('selCargoFuncao').value == 'null') {
+            alert('Informe o cargo e função.');
+            return false;
+        }
 
+        if (document.getElementById('pwdSenha').value == '') {
+            alert('Informe a senha.');
+            return false;
+        }
 
+        return true;
+    }
+
+// </script>
 <?
 PaginaSEI::getInstance()->fecharJavaScript();
 PaginaSEI::getInstance()->fecharHead();
 PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
 ?>
-<div id="divGeral" class="infraAreaDados" style="height:20em;">
+<div id="divGeral" class="infraAreaDados" style="height:50em;">
 
     <form id="frmDesarquivar" method="post" onsubmit="return OnSubmitForm();"
           action="<?= SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . $_GET['acao'] . '&acao_origem=' . $_GET['acao'] . $strParametros) ?>">
@@ -185,6 +208,7 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
 
         <fieldset class="infraFieldset" id="fieldsetDadosAssinatura">
             <legend class="infraLegend">Dados da Assinatura</legend>
+            <p>Dados para assinatura do despacho de arquivamento</p>
             <div id="divOrgao" class="infraAreaDados" style="height:4.5em;">
                 <label id="lblOrgao" for="selOrgao" accesskey="r" class="infraLabelObrigatorio">Ó<span class="infraTeclaAtalho">r</span>gão do Assinante:</label>
                 <select id="selOrgao" name="selOrgao" class="infraSelect" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
@@ -209,7 +233,6 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
                 <input type="password" id="pwdSenha" name="pwdSenha" autocomplete="off" class="infraText"  value="" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />&nbsp;&nbsp;&nbsp;&nbsp;
             </div>
         </fieldset>
-
 
         <input type="hidden" id="hdnIdProtocolos" name="hdnIdProtocolos" value="<?= $strIdProtocolos; ?>"/>
     </form>

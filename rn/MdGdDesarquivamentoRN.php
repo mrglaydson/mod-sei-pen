@@ -2,21 +2,17 @@
 
 require_once dirname(__FILE__) . '/../../../SEI.php';
 
-class MdGdDesarquivamentoRN extends InfraRN
-{
+class MdGdDesarquivamentoRN extends InfraRN {
 
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct();
     }
 
-    protected function inicializarObjInfraIBanco()
-    {
+    protected function inicializarObjInfraIBanco() {
         return BancoSEI::getInstance();
     }
 
-    protected function desarquivarControlado(MdGdDesarquivamentoDTO $objMdGdDesarquivamentoDTO)
-    {
+    protected function desarquivarControlado(MdGdDesarquivamentoDTO $objMdGdDesarquivamentoDTO) {
         try {
 
             //Valida Permissao
@@ -38,6 +34,7 @@ class MdGdDesarquivamentoRN extends InfraRN
             // Cria os valores padrões para o arquivamento
             $dtaDesarquivamento = date('d/m/Y H:i:s');
             $numIdSerie = $objMdGdParametroRN->obterParametro(MdGdParametroRN::$PAR_DESPACHO_DESARQUIVAMENTO);
+            $strConteudo = $this->obterConteudoDespachoDesarquivamento($objMdGdDesarquivamentoDTO->getNumIdJustificativa(), $dtaDesarquivamento, SessaoSEI::getInstance()->getStrNomeUsuario());
 
             // Cria o despacho de arquivamento
             $objProtocoloDTO = new ProtocoloDTO();
@@ -58,9 +55,17 @@ class MdGdDesarquivamentoRN extends InfraRN
             $objDocumentoDTO->setNumIdUnidadeResponsavel(SessaoSEI::getInstance()->getNumIdUnidadeAtual());
             $objDocumentoDTO->setNumIdTipoConferencia(null);
             $objDocumentoDTO->setStrNumero('');
+            $objDocumentoDTO->setStrConteudo($strConteudo);
             $objDocumentoDTO->setObjProtocoloDTO($objProtocoloDTO);
 
             $objDocumentoDTO = $objDocumentoRN->cadastrarRN0003($objDocumentoDTO);
+
+            // Assinatura do despacho de desarquivamento
+            $objAssinaturaDTO = $objMdGdDesarquivamentoDTO->getObjAssinaturaDTO();
+            $objAssinaturaDTO->setArrObjDocumentoDTO([$objDocumentoDTO]);
+
+            $objDocumentoRN = new DocumentoRN();
+            $objDocumentoRN->assinar($objAssinaturaDTO);
 
             // Inativa os registros de arquivamento
             $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
@@ -91,6 +96,33 @@ class MdGdDesarquivamentoRN extends InfraRN
         } catch (Exception $e) {
             throw new InfraException('Erro ao arquivar processo.', $e);
         }
+    }
+
+    public function obterConteudoDespachoDesarquivamento($numIdJustificativa, $dthArquivamento, $strResponsavelArquivamento) {
+        // Busca o motivo
+        $objMdGdJustificativaDTO = new MdGdJustificativaDTO();
+        $objMdGdJustificativaDTO->setNumIdJustificativa($numIdJustificativa);
+        $objMdGdJustificativaDTO->retStrNome();
+
+        $objMdGdJustificativaRN = new MdGdJustificativaRN();
+        $objMdGdJustificativaDTO = $objMdGdJustificativaRN->consultar($objMdGdJustificativaDTO);
+
+        $arrVariaveisModelo = [
+            '@motivo@' => $objMdGdJustificativaDTO->getStrNome(),
+            '@data_desarquivamento@' => $dthArquivamento,
+            '@responsavel_desarquivamento@' => $strResponsavelArquivamento
+        ];
+
+        $objMdGdModeloDocumentoDTO = new MdGdModeloDocumentoDTO();
+        $objMdGdModeloDocumentoDTO->setStrNome(MdGdModeloDocumentoRN::MODELO_DESPACHO_DESARQUIVAMENTO);
+        $objMdGdModeloDocumentoDTO->retTodos();
+
+        $objMdGdModeloDocumentoRN = new MdGdModeloDocumentoRN();
+        $objMdGdModeloDocumentoDTO = $objMdGdModeloDocumentoRN->consultar($objMdGdModeloDocumentoDTO);
+
+        $str = $objMdGdModeloDocumentoDTO->getStrValor();
+        $str = strtr($str, $arrVariaveisModelo);
+        return $str;
     }
 
 }

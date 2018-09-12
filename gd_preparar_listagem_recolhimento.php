@@ -93,7 +93,8 @@ try {
     $objMdGdArquivamentoDTO->retStrObservacaoRecolhimento();
     $objMdGdArquivamentoDTO->retDblIdProtocoloProcedimento();
     $objMdGdArquivamentoDTO->setStrSituacao(MdGdArquivamentoRN::$ST_PREPARACAO_RECOLHIMENTO);
-
+    $objMdGdArquivamentoDTO->setStrSinAtivo('S');
+    
     $selUnidade = PaginaSEI::getInstance()->recuperarCampo('selUnidade');
     if ($selUnidade && $selUnidade !== 'null') {
         $objMdGdArquivamentoDTO->setNumIdUnidadeCorrente($selUnidade);

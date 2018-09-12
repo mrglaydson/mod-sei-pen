@@ -3,7 +3,7 @@
 require_once dirname(__FILE__) . '/../../../SEI.php';
 
 class MdGdArquivamentoRN extends InfraRN {
-
+    
     public static $ST_FASE_CORRENTE = 'CO';
     public static $ST_FASE_INTERMEDIARIA = 'IN';
     public static $ST_PREPARACAO_RECOLHIMENTO = 'PR';
@@ -33,6 +33,7 @@ class MdGdArquivamentoRN extends InfraRN {
             // Cria os valores padrões para o arquivamento
             $dtaArquivamento = date('d/m/Y H:i:s');
             $numIdSerie = $objMdGdParametroRN->obterParametro(MdGdParametroRN::$PAR_DESPACHO_ARQUIVAMENTO);
+            $strConteudo = $this->obterConteudoDespachoArquivamento($objMdGdArquivamentoDTO->getNumIdJustificativa(), $dtaArquivamento, SessaoSEI::getInstance()->getStrNomeUsuario());
 
             if ($this->reabrir) {
                 // Reabre o processo
@@ -64,14 +65,15 @@ class MdGdArquivamentoRN extends InfraRN {
             $objDocumentoDTO->setNumIdUnidadeResponsavel(SessaoSEI::getInstance()->getNumIdUnidadeAtual());
             $objDocumentoDTO->setNumIdTipoConferencia(null);
             $objDocumentoDTO->setStrNumero('');
+            $objDocumentoDTO->setStrConteudo($strConteudo);
             $objDocumentoDTO->setObjProtocoloDTO($objProtocoloDTO);
 
             $objDocumentoDTO = $objDocumentoRN->cadastrarRN0003($objDocumentoDTO);
-            
+
             // Assinatura do despacho de arquivamento
             $objAssinaturaDTO = $objMdGdArquivamentoDTO->getObjAssinaturaDTO();
             $objAssinaturaDTO->setArrObjDocumentoDTO([$objDocumentoDTO]);
-            
+
             $objDocumentoRN = new DocumentoRN();
             $objDocumentoRN->assinar($objAssinaturaDTO);
 
@@ -110,8 +112,8 @@ class MdGdArquivamentoRN extends InfraRN {
             $objMdGdArquivamentoDTO->setDblIdDespachoArquivamento($objDocumentoDTO->getDblIdDocumento());
             $objMdGdArquivamentoDTO->setStrStaGuarda('C');
             $objMdGdArquivamentoDTO->setStrSinAtivo('S');
-            $objMdGdArquivamentoDTO->setNumGuardaCorrente($numTempoGuardaCorrente); 
-            $objMdGdArquivamentoDTO->setNumGuardaIntermediaria($numTempoGuardaIntermediaria); 
+            $objMdGdArquivamentoDTO->setNumGuardaCorrente($numTempoGuardaCorrente);
+            $objMdGdArquivamentoDTO->setNumGuardaIntermediaria($numTempoGuardaIntermediaria);
             $objMdGdArquivamentoDTO->setNumIdUnidadeCorrente(SessaoSEI::getInstance()->getNumIdUnidadeAtual());
             $objMdGdArquivamentoDTO->setNumIdUsuario(SessaoSEI::getInstance()->getNumIdUsuario());
             $objMdGdArquivamentoDTO->setStrSituacao(self::$ST_FASE_CORRENTE);
@@ -129,6 +131,33 @@ class MdGdArquivamentoRN extends InfraRN {
         } catch (Exception $e) {
             throw new InfraException('Erro ao arquivar processo.', $e);
         }
+    }
+
+    public function obterConteudoDespachoArquivamento($numIdJustificativa, $dthArquivamento, $strResponsavelArquivamento) {
+        // Busca o motivo
+        $objMdGdJustificativaDTO = new MdGdJustificativaDTO();
+        $objMdGdJustificativaDTO->setNumIdJustificativa($numIdJustificativa);
+        $objMdGdJustificativaDTO->retStrNome();
+
+        $objMdGdJustificativaRN = new MdGdJustificativaRN();
+        $objMdGdJustificativaDTO = $objMdGdJustificativaRN->consultar($objMdGdJustificativaDTO);
+
+        $arrVariaveisModelo = [
+            '@motivo@' => $objMdGdJustificativaDTO->getStrNome(),
+            '@data_arquivamento@' => $dthArquivamento,
+            '@responsavel_arquivamento@' => $strResponsavelArquivamento
+        ];
+
+        $objMdGdModeloDocumentoDTO = new MdGdModeloDocumentoDTO();
+        $objMdGdModeloDocumentoDTO->setStrNome(MdGdModeloDocumentoRN::MODELO_DESPACHO_ARQUIVAMENTO);
+        $objMdGdModeloDocumentoDTO->retTodos();
+
+        $objMdGdModeloDocumentoRN = new MdGdModeloDocumentoRN();
+        $objMdGdModeloDocumentoDTO = $objMdGdModeloDocumentoRN->consultar($objMdGdModeloDocumentoDTO);
+
+        $str = $objMdGdModeloDocumentoDTO->getStrValor();
+        $str = strtr($str, $arrVariaveisModelo);
+        return $str;
     }
 
     protected function alterarConectado(MdGdArquivamentoDTO $objMdGdArquivamentoDTO) {

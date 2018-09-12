@@ -37,6 +37,9 @@ class MdGdDesarquivamentoDTO extends InfraDTO
             'dta_desarquivamento');
 
 
+        # Assinatura do despacho de desarquivamento
+        $this->adicionarAtributo(InfraDTO::$PREFIXO_OBJ,'AssinaturaDTO');
+        
         $this->configurarPK('IdDesarquivamento', InfraDTO::$TIPO_PK_SEQUENCIAL);
         $this->configurarFK('IdArquivamento', 'arquivamento a', 'a.id_arquivamento');
         $this->configurarFK('IdProcedimento', 'procedimento p', 'p.id_procedimento');

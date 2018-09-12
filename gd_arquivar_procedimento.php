@@ -64,7 +64,7 @@ try {
 
             if (isset($_POST['sbmSalvar'])) {
                 try {
-                    
+
                     $objAssinaturaDTO = new AssinaturaDTO();
                     $objAssinaturaDTO->setStrStaFormaAutenticacao(AssinaturaRN::$TA_SENHA);
                     $objAssinaturaDTO->setNumIdOrgaoUsuario($_POST['selOrgao']);
@@ -72,8 +72,8 @@ try {
                     $objAssinaturaDTO->setNumIdContextoUsuario(SessaoSEI::getInstance()->getNumIdContextoUsuario());
                     $objAssinaturaDTO->setStrSenhaUsuario($_POST['pwdSenha']);
                     $objAssinaturaDTO->setStrCargoFuncao($_POST['selCargoFuncao']);
-                    
-                    
+
+
                     foreach ($arrProtocolosOrigem as $numIdProcedimento) {
                         $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
                         $objMdGdArquivamentoDTO->setDblIdProcedimento($numIdProcedimento);
@@ -114,11 +114,10 @@ try {
     $arrMdGdJustificativaDTO = $objMdGdJustificativaRN->listar($objMdGdJustificativaDTO);
 
     // Monta as combos de seleção que irão aparecer na tela
-    $strItensSelProcedimentos = ProcedimentoINT::conjuntoCompletoFormatadoRI0903($arrProtocolosOrigem);
-    $strItensSelJustificativas = InfraINT::montarSelectArrInfraDTO('null', '', '', $arrMdGdJustificativaDTO, 'IdJustificativa', 'Nome');
     $strItensSelOrgaos = OrgaoINT::montarSelectSiglaRI1358('null', '&nbsp;', SessaoSEI::getInstance()->getNumIdOrgaoUsuario());
     $strItensSelCargoFuncao = AssinanteINT::montarSelectCargoFuncaoUnidadeUsuarioRI1344('null', '&nbsp;', null, SessaoSEI::getInstance()->getNumIdUsuario());
-
+    $strItensSelProcedimentos = ProcedimentoINT::conjuntoCompletoFormatadoRI0903($arrProtocolosOrigem);
+    $strItensSelJustificativas = InfraINT::montarSelectArrInfraDTO('null', '', '', $arrMdGdJustificativaDTO, 'IdJustificativa', 'Nome');
     $strIdProtocolos = implode(',', $arrProtocolosOrigem);
 
     $numTotalCondicionantes = 0;
@@ -214,21 +213,21 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
 
     <form id="frmConcluirArquivar" method="post" onsubmit="return OnSubmitForm();"
           action="<?= SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . $_GET['acao'] . '&acao_origem=' . $_GET['acao'] . $strParametros) ?>">
-<? PaginaSEI::getInstance()->montarBarraComandosSuperior($arrComandos); ?>
+              <? PaginaSEI::getInstance()->montarBarraComandosSuperior($arrComandos); ?>
 
         <fieldset class="infraFieldset" id="fieldsetDadosArquivamento">
             <legend class="infraLegend">Dados do Arquivamento</legend>
             <label id="lblProcedimentos" for="selProcedimentos" class="infraLabelObrigatorio">Processos:</label>
             <select id="selProcedimentos" name="selProcedimentos" size="4" class="infraSelect"
                     tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
-<?= $strItensSelProcedimentos ?>
+                        <?= $strItensSelProcedimentos ?>
             </select>
 
             <label id="lblJustificativa" for="selJustificativa" class="infraLabelObrigatorio">Motivo:</label>
             <select id="selJustificativa" name="selJustificativa"
                     class="infraSelect"
                     tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
-<?= $strItensSelJustificativas ?>
+                        <?= $strItensSelJustificativas ?>
 
 
             </select>
@@ -242,7 +241,7 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
             <div id="divOrgao" class="infraAreaDados" style="height:4.5em;">
                 <label id="lblOrgao" for="selOrgao" accesskey="r" class="infraLabelObrigatorio">Ó<span class="infraTeclaAtalho">r</span>gão do Assinante:</label>
                 <select id="selOrgao" name="selOrgao" class="infraSelect" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
-<?= $strItensSelOrgaos ?>
+                    <?= $strItensSelOrgaos ?>
                 </select>
             </div>
 
@@ -254,7 +253,7 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
             <div id="divCargoFuncao" class="infraAreaDados" style="height:4.5em;">
                 <label id="lblCargoFuncao" for="selCargoFuncao" accesskey="F" class="infraLabelObrigatorio">Cargo / <span class="infraTeclaAtalho">F</span>unção:</label>
                 <select id="selCargoFuncao" name="selCargoFuncao" class="infraSelect" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
-<?= $strItensSelCargoFuncao ?>
+                    <?= $strItensSelCargoFuncao ?>
                 </select>
             </div>
             <br />
