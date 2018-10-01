@@ -4,6 +4,9 @@ require_once dirname(__FILE__) . '/../../../SEI.php';
 
 class MdGdListaRecolhimentoRN extends InfraRN {
 
+    public static $ST_GERADA = 'GE';
+    public static $ST_RECOLHIDA = 'RE';
+
     public function __construct() {
         parent::__construct();
     }
@@ -28,7 +31,8 @@ class MdGdListaRecolhimentoRN extends InfraRN {
             $objMdGdListaRecolhimentoDTO->setNumAnoLimiteInicio(2004); // TODO NOW
             $objMdGdListaRecolhimentoDTO->setNumAnoLimiteFim(2018); // TODO NOW
             $objMdGdListaRecolhimentoDTO->setNumQtdProcessos(count($arrObjMdGdArquivamentoDTO));
-            
+            $objMdGdListaRecolhimentoDTO->setStrSituacao(self::$ST_GERADA);
+
             $objMdGdListaRecolhimentoBD = new MdGdListaRecolhimentoBD($this->getObjInfraIBanco());
             $objMdGdListaRecolhimentoDTO = $objMdGdListaRecolhimentoBD->cadastrar($objMdGdListaRecolhimentoDTO);
 
@@ -57,7 +61,18 @@ class MdGdListaRecolhimentoRN extends InfraRN {
             throw new InfraException('Erro ao cadastrar a listagem de recolhimento.', $e);
         }
     }
+    
+    
+    protected function alterarConectado(MdGdListaRecolhimentoDTO $objMdGdListaRecolhimentoDTO) {
+        try {
 
+            $objMdGdListaRecolhimentoBD = new MdGdListaRecolhimentoBD($this->getObjInfraIBanco());
+            return $objMdGdListaRecolhimentoBD->alterar($objMdGdListaRecolhimentoDTO);
+        } catch (Exception $e) {
+            throw new InfraException('Erro consultando a listagem de eliminação.', $e);
+        }
+    }
+    
     protected function consultarConectado(MdGdListaRecolhimentoDTO $objMdGdListaRecolhimento) {
         try {
 
@@ -184,20 +199,19 @@ class MdGdListaRecolhimentoRN extends InfraRN {
         SeiINT::download(null, $strCaminhoArquivoPdf, 'listagem_recolhiment.pdf', 'attachment', true);
     }
 
-    public function obterConteudoDocumentoEliminacao($arrObjMdGdArquivamentoDTO)
-    {
+    public function obterConteudoDocumentoEliminacao($arrObjMdGdArquivamentoDTO) {
         $objSessaoSEI = SessaoSEI::getInstance();
 
         $arrVariaveisModelo = [
             '@orgao@' => $objSessaoSEI->getStrDescricaoOrgaoUsuario(),
-            '@unidade@' => $objSessaoSEI->getStrSiglaUnidadeAtual() . ' - '.$objSessaoSEI->getStrSiglaUnidadeAtual(),
+            '@unidade@' => $objSessaoSEI->getStrSiglaUnidadeAtual() . ' - ' . $objSessaoSEI->getStrSiglaUnidadeAtual(),
             '@numero_listagem@' => $this->obterProximaNumeroListagem(),
             '@folha@' => '1/1', // Verificar depois
             '@tabela' => '',
-            '@mensuracao_total@' => count($arrObjMdGdArquivamentoDTO).' processos',
+            '@mensuracao_total@' => count($arrObjMdGdArquivamentoDTO) . ' processos',
             '@datas_limites_gerais@' => '2010-2018'
         ];
-        
+
         $strHtmlTabela = '<table border="1" style="width: 1000px;">';
         $strHtmlTabela .= '<thead><tr>';
         $strHtmlTabela .= '<th>Código Referente a Classificação</th>';
@@ -209,12 +223,12 @@ class MdGdListaRecolhimentoRN extends InfraRN {
         $strHtmlTabela .= '</thead></tr>';
 
         $strHtmlTabela .= '<tbody>';
-        
-        foreach($arrObjMdGdArquivamentoDTO as $objMdGdArquivamentoDTO){
-             // Obtem os dados do assunto
+
+        foreach ($arrObjMdGdArquivamentoDTO as $objMdGdArquivamentoDTO) {
+            // Obtem os dados do assunto
             $objRelProtocoloAssuntoRN = new RelProtocoloAssuntoRN();
             $objRelProtocoloAssuntoDTO = new RelProtocoloAssuntoDTO();
-            
+
             $objRelProtocoloAssuntoDTO->setDblIdProtocolo($objMdGdArquivamentoDTO->getDblIdProtocoloProcedimento());
             $objRelProtocoloAssuntoDTO->retStrCodigoEstruturadoAssunto();
             $objRelProtocoloAssuntoDTO->retStrDescricaoAssunto();
@@ -235,31 +249,32 @@ class MdGdListaRecolhimentoRN extends InfraRN {
             }
 
             $strHtmlTabela .= '<tr>';
-            $strHtmlTabela .= '<td>'.$strCodigoClassificacao.'</td>';
-            $strHtmlTabela .= '<td>'.$strDescritorCodigo.'</td>';
+            $strHtmlTabela .= '<td>' . $strCodigoClassificacao . '</td>';
+            $strHtmlTabela .= '<td>' . $strDescritorCodigo . '</td>';
             $strHtmlTabela .= '<td>2010-2018</td>';
             $strHtmlTabela .= '<td>1</td>';
             $strHtmlTabela .= '<td></td>';
-            $strHtmlTabela .= '<td>'.$objMdGdArquivamentoDTO->getStrObservacaoEliminacao().'</td>';
+            $strHtmlTabela .= '<td>' . $objMdGdArquivamentoDTO->getStrObservacaoEliminacao() . '</td>';
             $strHtmlTabela .= '</tr>';
         }
-        
+
         $strHtmlTabela .= '</tbody>';
         $strHtmlTabela .= '</table>';
-        
+
         $arrVariaveisModelo['@tabela@'] = $strHtmlTabela;
-        
+
         $objMdGdModeloDocumentoDTO = new MdGdModeloDocumentoDTO();
         $objMdGdModeloDocumentoDTO->setStrNome(MdGdModeloDocumentoRN::MODELO_LISTAGEM_ELIMINACAO);
         $objMdGdModeloDocumentoDTO->retTodos();
-        
+
         $objMdGdModeloDocumentoRN = new MdGdModeloDocumentoRN();
         $objMdGdModeloDocumentoDTO = $objMdGdModeloDocumentoRN->consultar($objMdGdModeloDocumentoDTO);
-        
+
         $str = $objMdGdModeloDocumentoDTO->getStrValor();
         $str = strtr($str, $arrVariaveisModelo);
         return $str;
     }
+
 }
 
 ?>

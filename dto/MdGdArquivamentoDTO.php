@@ -51,7 +51,15 @@ class MdGdArquivamentoDTO extends InfraDTO
         $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_DTH,
             'DataArquivamento',
             'dta_arquivamento');
-
+        
+        $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_DTH,
+            'DataGuardaCorrente',
+            'dta_guarda_corrente');
+                
+        $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_DTH,
+            'DataGuardaIntermediaria',
+            'dta_guarda_intermediaria');
+        
         $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_NUM,
             'GuardaCorrente',
             'guarda_corrente');
@@ -63,14 +71,22 @@ class MdGdArquivamentoDTO extends InfraDTO
         $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_STR,
             'StaGuarda',
             'sta_guarda');
-
-        $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_STR,
-            'SinAtivo',
-            'sin_ativo');
         
         $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_STR,
             'Situacao',
-            'situacao');
+            'sta_situacao');
+        
+        $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_STR,
+            'StaDestinacaoFinal',
+            'sta_destinacao_final');  
+        
+        $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_STR,
+            'SinCondicionante',
+            'sin_condicionante');
+                
+        $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_STR,
+            'SinAtivo',
+            'sin_ativo');
         
         $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_STR,
             'ObservacaoEliminacao',

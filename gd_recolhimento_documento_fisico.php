@@ -12,41 +12,40 @@ try {
 
     SessaoSEI::getInstance()->validarLink();
 
-    $strTitulo = 'Eliminação de Documentos Físicos';
+    $strTitulo = 'Recolhimento de Documentos Físicos';
 
     switch ($_GET['acao']) {
 
-        case 'gd_eliminacao_documentos_fisicos':
+        case 'gd_recolhimento_documentos_fisicos':
 
-            SessaoSEI::getInstance()->validarPermissao('gestao_documental_list_elim_documentos_fisicos');
+            SessaoSEI::getInstance()->validarPermissao('gestao_documental_list_recol_documentos_fisicos');
             PaginaSEI::getInstance()->salvarCamposPost(array('txtPeriodoEmissaoDe', 'txtPeriodoEmissaoAte', 'txtAnoLimiteDe', 'txtAnoLimiteAte'));
 
-            if (!$_GET['id_listagem_eliminacao']) {
-                header('Location: ' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_gestao_listagem_eliminacao&acao_origem=' . $_GET['acao']));
+            if (!$_GET['id_listagem_recolhimento']) {
+                header('Location: ' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_gestao_listagem_recolhimento&acao_origem=' . $_GET['acao']));
             }
 
-            // Busca os dados da listagem de eliminação
-            $objMdGdListaEliminacaoDTO = new MdGdListaEliminacaoDTO();
-            $objMdGdListaEliminacaoDTO->setNumIdListaEliminacao($_GET['id_listagem_eliminacao']);
-            $objMdGdListaEliminacaoDTO->retNumAnoLimiteInicio();
-            $objMdGdListaEliminacaoDTO->retNumAnoLimiteFim();
-            $objMdGdListaEliminacaoDTO->retStrNumero();
-            $objMdGdListaEliminacaoDTO->retStrProtocoloProcedimentoEliminacaoFormatado();
+            // Busca os dados da listagem de recolhimento
+            $objMdGdListaRecolhimentoDTO = new MdGdListaRecolhimentoDTO();
+            $objMdGdListaRecolhimentoDTO->setNumIdListaRecolhimento($_GET['id_listagem_recolhimento']);
+            $objMdGdListaRecolhimentoDTO->retNumAnoLimiteInicio();
+            $objMdGdListaRecolhimentoDTO->retNumAnoLimiteFim();
+            $objMdGdListaRecolhimentoDTO->retStrNumero();
             
-            $objMdGdListaEliminacaoRN = new MdGdListaEliminacaoRN();
-            $objMdGdListaEliminacaoDTO = $objMdGdListaEliminacaoRN->consultar($objMdGdListaEliminacaoDTO);
+            $objMdGdListaRecolhimentoRN = new MdGdListaRecolhimentoRN();
+            $objMdGdListaRecolhimentoDTO = $objMdGdListaRecolhimentoRN->consultar($objMdGdListaRecolhimentoDTO);
             
-            // Busca os processos da listagem de eliminação
-            $objMdGdListaElimProcedimentoDTO = new MdGdListaElimProcedimentoDTO();
-            $objMdGdListaElimProcedimentoDTO->setNumIdListaEliminacao($_GET['id_listagem_eliminacao']);
-            $objMdGdListaElimProcedimentoDTO->retDblIdProcedimento();
+            // Busca os processos da listagem de recolhimento
+            $objMdGdListaRecolProcedimentoDTO = new MdGdListaRecolProcedimentoDTO();
+            $objMdGdListaRecolProcedimentoDTO->setNumIdListaRecolhimento($_GET['id_listagem_recolhimento']);
+            $objMdGdListaRecolProcedimentoDTO->retDblIdProcedimento();
 
-            $objMdGdListaElimProcedimentoRN = new MdGdListaElimProcedimentoRN();
-            $arrObjMdGdListaElimProcedimentoDTO = $objMdGdListaElimProcedimentoRN->listar($objMdGdListaElimProcedimentoDTO);
+            $objMdGdListaRecolProcedimentoRN = new MdGdListaRecolProcedimentoRN();
+            $arrObjMdGdListaRecolProcedimentoDTO = $objMdGdListaRecolProcedimentoRN->listar($objMdGdListaRecolProcedimentoDTO);
             $arrIdDocumento = [0];
 
-            if ($arrObjMdGdListaElimProcedimentoDTO) {
-                $arrIdProcedimento = explode(',', InfraArray::implodeArrInfraDTO($arrObjMdGdListaElimProcedimentoDTO, 'IdProcedimento'));
+            if ($arrObjMdGdListaRecolProcedimentoDTO) {
+                $arrIdProcedimento = explode(',', InfraArray::implodeArrInfraDTO($arrObjMdGdListaRecolProcedimentoDTO, 'IdProcedimento'));
 
                 $objRelProtocoloProtocoloDTO = new RelProtocoloProtocoloDTO();
                 $objRelProtocoloProtocoloDTO->setDblIdProtocolo1($arrIdProcedimento, InfraDTO::$OPER_IN);
@@ -68,18 +67,18 @@ try {
             throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
     }
 
-    $bolAcaoEliminarDocumentoFisico = SessaoSEI::getInstance()->verificarPermissao('gestao_documental_eliminacao_documentos_fisicos');
+    $bolAcaoRecolherDocumentoFisico = SessaoSEI::getInstance()->verificarPermissao('gestao_documental_recolhimento_documentos_fisicos');
 
     $arrComandos = array();
     $arrComandos[] = '<button type="submit" accesskey="P" id="sbmPesquisar" value="Pesquisar" class="infraButton"><span class="infraTeclaAtalho">P</span>esquisar</button>';
 
-    if ($bolAcaoEliminarDocumentoFisico) {
-        $strLinkConfirmarEliminacao = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_eliminar_documento_fisico&id_listagem_eliminacao=' . $_GET['id_listagem_eliminacao'] . '&acao_origem=' . $_GET['acao']);
-        $arrComandos[] = '<button type="button" accesskey="P" id="btnConfirmarEliminacao" value="Confirmar Eliminação" onclick="acaoConfirmarEliminacao(\'' . $strLinkConfirmarEliminacao . '\');" class="infraButton"><span class="infraTeclaAtalho">C</span>onfirmar Eliminação</button>';
+    if ($bolAcaoRecolherDocumentoFisico) {
+        $strLinkConfirmarRecolhimento = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_recolher_documento_fisico&id_listagem_recolhimento=' . $_GET['id_listagem_recolhimento'] . '&acao_origem=' . $_GET['acao']);
+        $arrComandos[] = '<button type="button" accesskey="P" id="btnConfirmarRecolhimento" value="Confirmar Recolhimento" onclick="acaoConfirmarRecolhimento(\'' . $strLinkConfirmarRecolhimento . '\');" class="infraButton"><span class="infraTeclaAtalho">C</span>onfirmar Recolhimento</button>';
     }
 
     $arrComandos[] = '<button type="button" accesskey="I" id="btnImprimir" value="Imprimir" onclick="infraImprimirTabela();" class="infraButton"><span class="infraTeclaAtalho">I</span>mprimir</button>';
-    $arrComandos[] = '<button type="button" accesskey="C" name="btnCancelar" id="btnCancelar" value="Cancelar" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_gestao_listagem_eliminacao&acao_origem=' . $_GET['acao']) . '\';" class="infraButton"><span class="infraTeclaAtalho">C</span>ancelar</button>';
+    $arrComandos[] = '<button type="button" accesskey="C" name="btnCancelar" id="btnCancelar" value="Cancelar" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_gestao_listagem_recolhimento&acao_origem=' . $_GET['acao']) . '\';" class="infraButton"><span class="infraTeclaAtalho">C</span>ancelar</button>';
 
     // Faz a busca de arquivamentos
     $objArquivamentoRN = new ArquivamentoRN();
@@ -128,7 +127,7 @@ try {
         $strCssTr = '';
 
         $objLocalizadorRN = new LocalizadorRN();
-        $objMdGdDocumentoFisicoElimRN = new MdGdDocumentoFisicoElimRN();
+        $objMdGdDocumentoFisicoRecolRN = new MdGdDocumentoFisicoRecolRN();
 
         for ($i = 0; $i < $numRegistros; $i++) {
 
@@ -142,14 +141,14 @@ try {
             $objLocalizadorDTO = $objLocalizadorRN->consultarRN0619($objLocalizadorDTO);
 
             // Verifica se o documento foi eliminado
-            $objMdGdDocumentoFisicoElimDTO = new MdGdDocumentoFisicoElimDTO();
-            $objMdGdDocumentoFisicoElimDTO->setDblIdDocumento($arrObjArquivamentoDTO[$i]->getDblIdProtocoloDocumento());
-            $countDocumentoFisicoEliminado = $objMdGdDocumentoFisicoElimRN->contar($objMdGdDocumentoFisicoElimDTO);
+            $objMdGdDocumentoFisicoRecolDTO = new MdGdDocumentoFisicoRecolDTO();
+            $objMdGdDocumentoFisicoRecolDTO->setDblIdDocumento($arrObjArquivamentoDTO[$i]->getDblIdProtocoloDocumento());
+            $countDocumentoFisicoRecolinado = $objMdGdDocumentoFisicoRecolRN->contar($objMdGdDocumentoFisicoRecolDTO);
 
             $strCssTr = ($strCssTr == '<tr class="infraTrClara">') ? '<tr class="infraTrEscura">' : '<tr class="infraTrClara">';
             $strResultado .= $strCssTr;
 
-            if ($countDocumentoFisicoEliminado == 0) {
+            if ($countDocumentoFisicoRecolinado == 0) {
                 $strResultado .= '<td valign="top">' . PaginaSEI::getInstance()->getTrCheck($i, $arrObjArquivamentoDTO[$i]->getDblIdProtocoloDocumento(), $arrObjArquivamentoDTO[$i]->getStrProtocoloFormatadoDocumento()) . '</td>';
             } else {
                 $strResultado .= '<td valign="top"></td>';
@@ -165,7 +164,7 @@ try {
             $strResultado .= '<td>' . PaginaSEI::tratarHTML($objLocalizadorDTO->getStrNomeTipoSuporte()) . '</td>';
             $strResultado .= '<td align="center">';
 
-            if ($countDocumentoFisicoEliminado) {
+            if ($countDocumentoFisicoRecolinado) {
                 $strResultado .= '<img src="imagens/circulo_verde.png" title="Eliminado" title="Eliminado" class="infraImg" />';
             } else {
                 $strResultado .= '<img src="imagens/circulo_vermelho.png" title="Não Eliminado" title="Não Eliminado" class="infraImg" />';
@@ -202,7 +201,7 @@ PaginaSEI::getInstance()->abrirStyle();
 #lblUnidade {position:absolute;left:21%;top:0%;width:20%;}
 #selUnidade {position:absolute;left:21%;top:20%;width:20%;}
 
-#lblListagemEliminacao { position: absolute; top: 45px; left: 0px; }
+#lblListagemRecolhimento { position: absolute; top: 45px; left: 0px; }
 #lblDatasLimite { position: absolute; top: 45px; left: 191px; }
 #lblProcessoSei { position: absolute; top: 45px; left: 329px; }
 
@@ -218,9 +217,9 @@ infraEfeitoTabelas();
 document.getElementById('btnFechar').focus();
 }
 
-<? if ($bolAcaoEliminarDocumentoFisico) { ?>
-    function acaoConfirmarEliminacao(link) {
-    infraAbrirJanela(link, 'janelaObservarPreparacaoListagemEliminacao', 720, 300, 'location=0,status=1,resizable=1,scrollbars=1', false);
+<? if ($bolAcaoRecolherDocumentoFisico) { ?>
+    function acaoConfirmarRecolhimento(link) {
+    infraAbrirJanela(link, 'janelaObservarPreparacaoListagemRecolhimento', 720, 300, 'location=0,status=1,resizable=1,scrollbars=1', false);
     }
 <? } ?>
 
@@ -229,7 +228,7 @@ PaginaSEI::getInstance()->fecharJavaScript();
 PaginaSEI::getInstance()->fecharHead();
 PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
 ?>
-<form id="frmPrepararListagemEliminacao" method="post"
+<form id="frmPrepararListagemRecolhimento" method="post"
       action="<?= SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . $_GET['acao'] . '&acao_origem=' . $_GET['acao']) ?>">
           <?
           PaginaSEI::getInstance()->montarBarraComandosSuperior($arrComandos);
@@ -246,15 +245,13 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
         <?= $strItensSelUnidade ?>
     </select>
 
-    <p id="lblListagemEliminacao">
-        <label class="infraLabelObrigatorio">Listagem de Eliminação: </label><?= $objMdGdListaEliminacaoDTO->getStrNumero(); ?>
+    <p id="lblListagemRecolhimento">
+        <label class="infraLabelObrigatorio">Listagem de Recolhimento: </label><?= $objMdGdListaRecolhimentoDTO->getStrNumero(); ?>
     </p>
     <p id="lblDatasLimite">
-        <label class="infraLabelObrigatorio">Datas-Limite: </label><?= $objMdGdListaEliminacaoDTO->getNumAnoLimiteInicio(). ' - '.$objMdGdListaEliminacaoDTO->getNumAnoLimiteFim(); ?>
+        <label class="infraLabelObrigatorio">Datas-Limite: </label><?= $objMdGdListaRecolhimentoDTO->getNumAnoLimiteInicio(). ' - '.$objMdGdListaRecolhimentoDTO->getNumAnoLimiteFim(); ?>
     </p>
-    <p id="lblProcessoSei">
-        <label class="infraLabelObrigatorio">Processo no SEI: </label><?= $objMdGdListaEliminacaoDTO->getStrProtocoloProcedimentoEliminacaoFormatado(); ?>
-    </p>
+
 
     <?
     PaginaSEI::getInstance()->fecharAreaDados();

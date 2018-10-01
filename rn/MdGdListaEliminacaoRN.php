@@ -4,6 +4,9 @@ require_once dirname(__FILE__) . '/../../../SEI.php';
 
 class MdGdListaEliminacaoRN extends InfraRN {
 
+    public static $ST_GERADA = 'GE';
+    public static $ST_ELIMINADA = 'EL';
+
     public function __construct() {
         parent::__construct();
     }
@@ -88,7 +91,7 @@ class MdGdListaEliminacaoRN extends InfraRN {
             $objMdGdListaEliminacaoDTO->setDthEmissaoListagem(date('d/m/Y H:i:s'));
             $objMdGdListaEliminacaoDTO->setNumAnoLimiteInicio(2004); // TODO NOW
             $objMdGdListaEliminacaoDTO->setNumAnoLimiteFim(2018); // TODO NOW
-
+            $objMdGdListaEliminacaoDTO->setStrSituacao(self::$ST_GERADA);
             $objMdGdListaEliminacaoBD = new MdGdListaEliminacaoBD($this->getObjInfraIBanco());
             $objMdGdListaEliminacaoDTO = $objMdGdListaEliminacaoBD->cadastrar($objMdGdListaEliminacaoDTO);
 
@@ -114,13 +117,23 @@ class MdGdListaEliminacaoRN extends InfraRN {
         }
     }
 
+    protected function alterarConectado(MdGdListaEliminacaoDTO $objMdGdListaEliminacao) {
+        try {
+
+            $objMdGdListaEliminacaoBD = new MdGdListaEliminacaoBD($this->getObjInfraIBanco());
+            return $objMdGdListaEliminacaoBD->alterar($objMdGdListaEliminacao);
+        } catch (Exception $e) {
+            throw new InfraException('Erro ao alterar a listagem de eliminação.', $e);
+        }
+    }
+
     protected function consultarConectado(MdGdListaEliminacaoDTO $objMdGdListaEliminacao) {
         try {
 
             $objMdGdListaEliminacaoBD = new MdGdListaEliminacaoBD($this->getObjInfraIBanco());
             return $objMdGdListaEliminacaoBD->consultar($objMdGdListaEliminacao);
         } catch (Exception $e) {
-            throw new InfraException('Erro consultando a listagem de eliminação.', $e);
+            throw new InfraException('Erro ao alterar a listagem de eliminação.', $e);
         }
     }
 

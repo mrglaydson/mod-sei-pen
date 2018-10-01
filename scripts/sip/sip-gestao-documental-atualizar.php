@@ -209,12 +209,26 @@ try {
     // Cadastra o recurso de visualização da listagem de recolhimento
     $id_recurso_visualizacao_listagem_recolhimento = $fnCadastrarRecurso($id_sistema, 'gestao_documental_visualizacao_list_recolhimento', 'Visualização da listagem de recolhimento', 'controlador.php?acao=gd_visualizacao_listagem_recolhimento', 'S');
 
+    // Cadastra o recurso de listagem documentos fisicos para recolhimento
+    $id_recurso_listagem_recolhimento_documentos_fisicos = $fnCadastrarRecurso($id_sistema, 'gestao_documental_list_recol_documentos_fisicos', 'Listagem dos documentos físicos para recolhimento', 'controlador.php?acao=gd_listagem_recolhimento_documentos_fisicos', 'S');
+
+    // Cadastra o recurso de registro da eliminação de documentos fisicos
+    $id_recurso_recolhimento_documentos_fisicos = $fnCadastrarRecurso($id_sistema, 'gestao_documental_recolhimento_documentos_fisicos', 'Recolhimento dos documentos físicos', 'controlador.php?acao=gd_recolhimento_documentos_fisicos', 'S');
+
     // Cadastra o recurso de recolhimento
     $id_recurso_recolhimento = $fnCadastrarRecurso($id_sistema, 'gestao_documental_recolhimento', 'Recolhimento de processos', 'controlador.php?acao=gd_recolhimento', 'S');
 
     // Cadastra o recurso de relatórios
     $id_recurso_relatorio = $fnCadastrarRecurso($id_sistema, 'gestao_documental_relatorio', 'Relatório da gestão documental', 'controlador.php?acao=gd_relatorio', 'S');
 
+    // Cadastro o recurso de listagem de eliminações
+    $id_recurso_eliminacao_listar = $fnCadastrarRecurso($id_sistema, 'gestao_documental_eliminacao_listar', 'Listagem de eliminações', 'controlador.php?acao=gd_eliminacao_listar', 'S');
+
+    // gestao_documental_recolhimento_listar
+    $id_recurso_recolhimento_listar = $fnCadastrarRecurso($id_sistema, 'gestao_documental_recolhimento_listar', 'Listar recolhimentos', 'controlador.php?acao=gd_recolhimento_listar', 'S');
+
+    // gestao_documental_processos_arquivados
+    $id_recurso_arquivamento_listar = $fnCadastrarRecurso($id_sistema, 'gestao_documental_arquivamento_listar', 'Listar arquivamento', 'controlador.php?acao=gd_arquivamento_listar', 'S');
 
     ###########################################################ITENS DE MENU#############################################################################################
     // Cria o item de menu gestão documental
@@ -228,14 +242,15 @@ try {
     $id_menu_listar_justificativas = $fnItemMenu($id_menu, $id_menu_justificativas, $id_sistema, $id_recurso_listar_justificativas, 'Listar', 'N', 'S', 1);
     $id_menu_incluir_justificativas = $fnItemMenu($id_menu, $id_menu_justificativas, $id_sistema, $id_recurso_incluir_justificativas, 'Novo', 'N', 'S', 2);
 
-    //Cria os itens de menu pendências de arquivamento
+    //Cria os itens de menu pendências de arquivamento e processos arquivados
     $id_menu_pendencias_arquivamento = $fnItemMenu($id_menu, null, $id_sistema, $id_recurso_pendencias_arquivamento, 'Pendências de arquivamento', 'N', 'S', 131);
+    $id_menu_arquivamento_listar = $fnItemMenu($id_menu, null, $id_sistema, $id_recurso_arquivamento_listar, 'Listagem de arquivamento', 'N', 'S', 132);
 
     //Cria o item de menu de modelos de documento
-    $id_menu_modelos_documento_alterar = $fnItemMenu($id_menu, $id_item_menu_pai, $id_sistema, $id_recurso_modelos_documento_alterar, 'Modelos de Documento', 'N', 'S', 1);
+    $id_menu_modelos_documento_alterar = $fnItemMenu($id_menu, $id_menu_gestao_documental, $id_sistema, $id_recurso_modelos_documento_alterar, 'Modelos de Documento', 'N', 'S', 3);
 
     //Cria os itens os itens de menu de unidades de arquivamento
-    $id_menu_unidades_arquivamento = $fnItemMenu($id_menu, $id_item_menu_pai, $id_sistema, null, 'Unidades de Arquivamento', 'N', 'S', 1);
+    $id_menu_unidades_arquivamento = $fnItemMenu($id_menu, $id_menu_gestao_documental, $id_sistema, null, 'Unidades de Arquivamento', 'N', 'S', 2);
     $id_menu_unidades_arquivamento_novo = $fnItemMenu($id_menu, $id_menu_unidades_arquivamento, $id_sistema, $id_recurso_unidades_arquivamento_cadastrar, 'Novo', 'N', 'S', 1);
     $id_menu_unidades_arquivamento_listar = $fnItemMenu($id_menu, $id_menu_unidades_arquivamento, $id_sistema, $id_recurso_unidades_arquivamento_listar, 'Listar', 'N', 'S', 2);
 
@@ -247,14 +262,16 @@ try {
     $id_menu_listagem_eliminacao = $fnItemMenu($id_menu, $id_menu_gestao_documental, $id_sistema, null, 'Listagens de Eliminação', 'N', 'S', 2);
     $id_menu_prep_list_eliminacao = $fnItemMenu($id_menu, $id_menu_listagem_eliminacao, $id_sistema, $id_recurso_prep_list_eliminacao_listar, 'Preparação da Listagem', 'N', 'S', 1);
     $id_menu_gestao_listagem_eliminacao = $fnItemMenu($id_menu, $id_menu_listagem_eliminacao, $id_sistema, $id_recurso_gestao_listagem_eliminacao, 'Gestão das Listagens', 'N', 'S', 2);
+//    $id_menu_eliminacao_listar = $fnItemMenu($id_menu, $id_menu_gestao_documental, $id_sistema, $id_recurso_eliminacao_listar, 'Eliminações', 'N', 'S', 3);
 
     // Cria os itens de menu gestao documental -> listagem recolhimento
     $id_menu_listagem_recolhimento = $fnItemMenu($id_menu, $id_menu_gestao_documental, $id_sistema, null, 'Listagens de Recolhimento', 'N', 'S', 3);
     $id_menu_prep_list_recolhimento = $fnItemMenu($id_menu, $id_menu_listagem_recolhimento, $id_sistema, $id_recurso_prep_list_recolhimento_listar, 'Preparação da Listagem', 'N', 'S', 1);
     $id_menu_gestao_listagem_recolhimento = $fnItemMenu($id_menu, $id_menu_listagem_recolhimento, $id_sistema, $id_recurso_gestao_listagem_recolhimento, 'Gestão das Listagens', 'N', 'S', 2);
+//    $id_menu_recolhimentos_listar = $fnItemMenu($id_menu, $id_menu_gestao_documental, $id_sistema, $id_recurso_recolhimento_listar, 'Recolhimentos', 'N', 'S', 3);
 
     // Cria o item de menu de relatórios
-    $id_menu_relatorio = $fnItemMenu($id_menu, $id_menu_gestao_documental, $id_sistema, $id_recurso_relatorio, 'Relatórios', 'N', 'S', 1);
+    $id_menu_relatorio = $fnItemMenu($id_menu, $id_menu_gestao_documental, $id_sistema, $id_recurso_relatorio, 'Relatórios', 'N', 'S', 4);
 
     echo "ATUALIZAO FINALIZADA COM SUCESSO! ";
 } catch (Exception $e) {

@@ -12,14 +12,17 @@ try {
 
     SessaoSEI::getInstance()->validarLink();
 
-    $strTitulo = 'Visualizar Listagem de Eliminacao';
 
     switch ($_GET['acao']) {
 
         case 'gd_visualizacao_listagem_eliminacao':
             SessaoSEI::getInstance()->validarPermissao('gestao_documental_gestao_listagem_eliminacao');
+            $strTitulo = 'Visualizar Listagem de Eliminação';
             break;
-
+        case 'gd_listagem_eliminacao_eliminar':
+            SessaoSEI::getInstance()->validarPermissao('gestao_documental_gestao_listagem_eliminacao');
+            $strTitulo = 'Eliminar Processos';
+            break;
         case 'gd_geracao_pdf_listagem_eliminacao':
             SessaoSEI::getInstance()->validarPermissao('gestao_documental_geracao_pdf_listagem_eliminacao');
 
@@ -33,11 +36,17 @@ try {
     }
 
     $bolAcaoGerarPdf = SessaoSEI::getInstance()->verificarPermissao('gestao_documental_geracao_pdf_listagem_eliminacao');
-
+    $bolAcaoEliminar = SessaoSEI::getInstance()->verificarPermissao('gestao_documental_eliminacao');
     $arrComandos = array();
-    if ($bolAcaoGerarPdf) {
+
+    if ($bolAcaoGerarPdf && $_GET['acao'] == 'gd_visualizacao_listagem_eliminacao') {
         $strLinkGerar = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_geracao_pdf_listagem_eliminacao&acao_origem=' . $_GET['acao'] . '&id_listagem_eliminacao=' . $_GET['id_listagem_eliminacao']);
         $arrComandos[] = '<button type="button" accesskey="P" id="btnGerarPdf" value="Gerar PDF" class="infraButton" onclick="location.href=\'' . $strLinkGerar . '\'"><span class="infraTeclaAtalho">G</span>erar PDF</button>';
+    }
+
+    if ($bolAcaoEliminar && $_GET['acao'] == 'gd_listagem_eliminacao_eliminar') {
+        $strLinkEliminar = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_eliminacao&acao_origem=' . $_GET['acao'] . '&id_listagem_eliminacao=' . $_GET['id_listagem_eliminacao']);
+        $arrComandos[] = '<button type="button" accesskey="P" id="btnGerarPdf" value="Gerar PDF" class="infraButton" onclick="acaoEliminar(\'' . $strLinkEliminar . '\')"><span class="infraTeclaAtalho">E</span>liminar Processos</button>';
     }
 
     $arrComandos[] = '<button type="button" accesskey="I" id="btnImprimir" value="Imprimir" onclick="infraImprimirTabela();" class="infraButton"><span class="infraTeclaAtalho">I</span>mprimir</button>';
@@ -157,6 +166,12 @@ function inicializar() {
 infraEfeitoTabelas();
 document.getElementById('btnFechar').focus();
 }
+
+<? if ($bolAcaoEliminar && $_GET['acao'] == 'gd_listagem_eliminacao_eliminar') { ?>
+    function acaoEliminar(link) {
+    infraAbrirJanela(link, 'janelaObservarPreparacaoListagemEliminacao', 750, 500, 'location=0,status=1,resizable=1,scrollbars=1', false);
+    }
+<? } ?>
 
 <?
 PaginaSEI::getInstance()->fecharJavaScript();

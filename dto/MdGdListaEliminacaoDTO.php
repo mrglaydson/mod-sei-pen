@@ -41,6 +41,10 @@ class MdGdListaEliminacaoDTO extends InfraDTO
             'AnoLimiteFim',
             'ano_limite_fim');
                        
+        $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_STR,
+            'Situacao',
+            'situacao');
+                
         $this->adicionarAtributoTabelaRelacionada(InfraDTO::$PREFIXO_DBL,
                                               'IdProtocoloProcedimentoEliminacao',
                                               'p.id_procedimento',

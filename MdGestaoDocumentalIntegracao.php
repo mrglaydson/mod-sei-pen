@@ -157,17 +157,40 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
     public function processarControlador($strAcao) {
         // gd_modelos_documento_alterar
         switch ($strAcao) {
+            case 'gd_arquivamento_listar':
+                require_once dirname(__FILE__) . '/gd_arquivamento_listar.php';
+                return true;
+            case 'gd_relatorio':
+                require_once dirname(__FILE__) . '/gd_relatorio.php';
+                return true;
             case 'gd_gestao_listagem_recolhimento':
+            case 'gd_recolhimento':
                 require_once dirname(__FILE__) . '/gd_gestao_listagem_recolhimento.php';
                 return true;
             case 'gd_visualizacao_listagem_recolhimento':
             case 'gd_geracao_pdf_listagem_recolhimento':
                 require_once dirname(__FILE__) . '/gd_visualizar_listagem_recolhimento.php';
                 return true;
+            case 'gd_recolhimento_documentos_fisicos':
+                require_once dirname(__FILE__) . '/gd_recolhimento_documento_fisico.php';
+                return true;
+            case 'gd_recolher_documento_fisico':
+                require_once dirname(__FILE__) . '/gd_recolher_documento_fisico.php';
+                return true;
             case 'gd_gestao_listagem_eliminacao':
                 require_once dirname(__FILE__) . '/gd_gestao_listagem_eliminacao.php';
                 return true;
+            case 'gd_eliminar_documento_fisico':
+                require_once dirname(__FILE__) . '/gd_eliminar_documento_fisico.php';
+                return true;
+            case 'gd_eliminacao':
+                require_once dirname(__FILE__) . '/gd_eliminar_processo.php';
+                return true;
+            case 'gd_eliminacao_documentos_fisicos':
+                require_once dirname(__FILE__) . '/gd_eliminacao_documento_fisico.php';
+                return true;
             case 'gd_visualizacao_listagem_eliminacao':
+            case 'gd_listagem_eliminacao_eliminar':
             case 'gd_geracao_pdf_listagem_eliminacao':
                 require_once dirname(__FILE__) . '/gd_visualizar_listagem_eliminacao.php';
                 return true;
@@ -196,6 +219,7 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
 
             case 'gd_ajuda_variaveis_modelo_arquivamento':
             case 'gd_ajuda_variaveis_modelo_desarquivamento':
+            case 'gd_ajuda_variaveis_modelo_listagem_eliminacao':
                 require_once dirname(__FILE__) . '/gd_ajuda_variaveis_modelo.php';
                 return true;
             case 'gd_justificativas_listar':

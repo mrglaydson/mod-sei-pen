@@ -27,6 +27,19 @@ class MdGdDesarquivamentoRN extends InfraRN {
             $objProcedimentoRN = new ProcedimentoRN();
             $objProcedimentoRN->reabrirRN0966($objReabrirProcessoDTO);
 
+            // Desbloqueia o processo
+            $objProcedimentoDTO = new ProcedimentoDTO();
+            $objProcedimentoDTO->setDblIdProcedimento($objMdGdDesarquivamentoDTO->getDblIdProcedimento());
+            $objProcedimentoDTO->retStrStaEstadoProtocolo();
+            $objProcedimentoDTO->retDblIdProcedimento();
+
+            $objProcedimentoRN = new ProcedimentoRN();
+            $objProcedimentoDTO = $objProcedimentoRN->consultarRN0201($objProcedimentoDTO);
+
+            if ($objProcedimentoDTO->getStrStaEstadoProtocolo() == ProtocoloRN::$TE_PROCEDIMENTO_BLOQUEADO) {
+                $objProcedimentoRN->desbloquear([$objProcedimentoDTO]);
+            }
+
             //Instancia as RN's necessárias
             $objMdGdParametroRN = new MdGdParametroRN();
             $objDocumentoRN = new DocumentoRN();
@@ -90,6 +103,7 @@ class MdGdDesarquivamentoRN extends InfraRN {
 
             $objMdGdDesarquivamentoBD = new MdGdDesarquivamentoBD($this->inicializarObjInfraIBanco());
             $objMdGdDesarquivamentoBD->cadastrar($objMdGdDesarquivamentoDTO);
+
 
 
             return true;

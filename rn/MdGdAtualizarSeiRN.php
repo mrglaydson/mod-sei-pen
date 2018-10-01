@@ -129,13 +129,15 @@ class MdGdAtualizarSeiRN extends InfraRN {
                 id_lista_eliminacao ' . $this->objMetaBD->tipoNumeroGrande() . ' ,
                 id_lista_recolhimento ' . $this->objMetaBD->tipoNumeroGrande() . ' ,
                 dta_arquivamento ' . $this->objMetaBD->tipoDataHora() . ' NOT NULL,
-                dt_guarda_corrente ' . $this->objMetaBD->tipoDataHora() . ' NOT NULL,
-                dt_guarda_intermediaria ' . $this->objMetaBD->tipoDataHora() . ' NOT NULL,
+                dta_guarda_corrente ' . $this->objMetaBD->tipoDataHora() . ' NOT NULL,
+                dta_guarda_intermediaria ' . $this->objMetaBD->tipoDataHora() . ' NOT NULL,
                 guarda_corrente ' . $this->objMetaBD->tipoNumero() . ' NOT NULL,
                 guarda_intermediaria ' . $this->objMetaBD->tipoNumero() . ' NOT NULL,
                 sta_guarda ' . $this->objMetaBD->tipoTextoFixo(1) . ' NOT NULL,
+                sta_situacao ' . $this->objMetaBD->tipoTextoFixo(2) . ' NOT NULL,
+                sta_destinacao_final ' .$this->objMetaBD->tipoTextoFixo(1). ' NOT NULL,
+                sin_condicionante ' .$this->objMetaBD->tipoTextoFixo(1). ' NOT NULL,
                 sin_ativo ' . $this->objMetaBD->tipoTextoFixo(1) . ' NOT NULL,
-                situacao ' . $this->objMetaBD->tipoTextoFixo(2) . ' NOT NULL,
                 observacao_eliminacao ' . $this->objMetaBD->tipoTextoGrande() . ',
                 observacao_recolhimento ' . $this->objMetaBD->tipoTextoGrande() . '
             )');
@@ -180,7 +182,6 @@ class MdGdAtualizarSeiRN extends InfraRN {
                 id_justificativa_desarquivamento ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL,
                 dta_desarquivamento ' . $this->objMetaBD->tipoDataHora() . ' NOT NULL
             )');
-
 
             $this->objMetaBD->adicionarChavePrimaria('md_gd_desarquivamento', 'pk_gd_desarquivamento_id_arquivamento', array('id_desarquivamento'));
             $this->objMetaBD->adicionarChaveEstrangeira('fk_md_gd_desarquivamento_md_gd_arquivamento', 'md_gd_desarquivamento', array('id_arquivamento'), 'md_gd_arquivamento', array('id_arquivamento'));
@@ -229,13 +230,14 @@ class MdGdAtualizarSeiRN extends InfraRN {
                 numero ' . $this->objMetaBD->tipoTextoVariavel(50) . ' NOT NULL,
                 dth_emissao_listagem ' . $this->objMetaBD->tipoDataHora() . ' NOT NULL,
                 ano_limite_inicio ' . $this->objMetaBD->tipoNumero() . ' NOT NULL,
-                ano_limite_fim ' . $this->objMetaBD->tipoNumero() . ' NOT NULL
+                ano_limite_fim ' . $this->objMetaBD->tipoNumero() . ' NOT NULL,
+                situacao ' . $this->objMetaBD->tipoTextoFixo(2) . ' NOT NULL
             )');
 
             $this->objMetaBD->adicionarChavePrimaria('md_gd_lista_eliminacao', 'pk_md_gd_lista_eliminacao_id_lista_eliminacao', array('id_lista_eliminacao'));
             $this->objMetaBD->adicionarChaveEstrangeira('fk_md_gd_lista_eliminacao_procedimento', 'md_gd_lista_eliminacao', array('id_procedimento_eliminacao'), 'procedimento', array('id_procedimento'));
             $this->objMetaBD->adicionarChaveEstrangeira('fk_md_gd_lista_eliminacao_documento', 'md_gd_lista_eliminacao', array('id_documento_eliminacao'), 'documento', array('id_documento'));
-
+            $this->objMetaBD->adicionarChaveEstrangeira('fk_md_gd_arquivamento_lista_eliminacao', 'md_gd_arquivamento', array('id_lista_eliminacao'), 'md_gd_lista_eliminacao', array('id_lista_eliminacao'));
 
             if (!$this->objInfraSequencia->verificarSequencia('md_gd_lista_eliminacao')) {
                 $this->objInfraSequencia->criarSequencia('md_gd_lista_eliminacao', '1', '1', '9999999999');
@@ -251,37 +253,6 @@ class MdGdAtualizarSeiRN extends InfraRN {
             $this->objMetaBD->adicionarChaveEstrangeira('md_gd_lista_elim_procedimento_lista_eliminacao', 'md_gd_lista_elim_procedimento', array('id_lista_eliminacao'), 'md_gd_lista_eliminacao', array('id_lista_eliminacao'));
             $this->objMetaBD->adicionarChaveEstrangeira('md_gd_lista_elim_procedimento_procedimento', 'md_gd_lista_elim_procedimento', array('id_procedimento'), 'procedimento', array('id_procedimento'));
 
-
-            // Criação da tabela da listagem de recolhimento
-            $this->objInfraBanco->executarSql('CREATE TABLE md_gd_lista_recolhimento (
-                id_lista_recolhimento ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL,
-                numero ' . $this->objMetaBD->tipoTextoVariavel(50) . ' NOT NULL,
-                dth_emissao_listagem ' . $this->objMetaBD->tipoDataHora() . ' NOT NULL,
-                ano_limite_inicio ' . $this->objMetaBD->tipoNumero() . ' NOT NULL,
-                ano_limite_fim ' . $this->objMetaBD->tipoNumero() . ' NOT NULL,
-                qtd_processos ' . $this->objMetaBD->tipoNumero() . ' NOT NULL 
-            )');
-
-            $this->objMetaBD->adicionarChavePrimaria('md_gd_lista_recolhimento', 'pk_md_gd_lista_recolhimento_id_lista_recolhimento', array('id_lista_recolhimento'));
-
-            if (!$this->objInfraSequencia->verificarSequencia('md_gd_lista_recolhimento')) {
-                $this->objInfraSequencia->criarSequencia('md_gd_lista_recolhimento', '1', '1', '9999999999');
-            }
-
-            // Cria a tabela ternária entre a listagem de recolhimento
-            $this->objInfraBanco->executarSql('CREATE TABLE md_gd_lista_recol_procedimento (
-                id_lista_recolhimento ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL,
-                id_procedimento ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL
-            )');
-
-            $this->objMetaBD->adicionarChavePrimaria('md_gd_lista_recol_procedimento', 'pk_md_gd_lista_recol_procedimento', array('id_lista_recolhimento', 'id_procedimento'));
-            $this->objMetaBD->adicionarChaveEstrangeira('md_gd_lista_recol_procedimento_lista_recolhimento', 'md_gd_lista_recol_procedimento', array('id_lista_recolhimento'), 'md_gd_lista_recolhimento', array('id_lista_recolhimento'));
-            $this->objMetaBD->adicionarChaveEstrangeira('md_gd_lista_recol_procedimento_procedimento', 'md_gd_lista_recol_procedimento', array('id_procedimento'), 'procedimento', array('id_procedimento'));
-
-
-            $this->objMetaBD->adicionarChaveEstrangeira('fk_md_gd_arquivamento_lista_eliminacao', 'md_gd_arquivamento', array('id_lista_eliminacao'), 'md_gd_lista_eliminacao', array('id_lista_eliminacao'));
-            $this->objMetaBD->adicionarChaveEstrangeira('fk_md_gd_arquivamento_lista_recolhimento', 'md_gd_arquivamento', array('id_lista_recolhimento'), 'md_gd_lista_recolhimento', array('id_lista_recolhimento'));
-
             // Cria a tabela que relaciona os documentos físicos eliminados
             $this->objInfraBanco->executarSql('CREATE TABLE md_gd_documento_fisico_elim (
                 id_documento ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL,
@@ -292,12 +263,58 @@ class MdGdAtualizarSeiRN extends InfraRN {
             $this->objMetaBD->adicionarChaveEstrangeira('md_gd_documentos_fisico_elim_documento', 'md_gd_documento_fisico_elim', array('id_documento'), 'documento', array('id_documento'));
             $this->objMetaBD->adicionarChaveEstrangeira('md_gd_documentos_fisico_elim_lista_eliminacao', 'md_gd_documento_fisico_elim', array('id_lista_eliminacao'), 'md_gd_lista_eliminacao', array('id_lista_eliminacao'));
 
+
+            // Criação da tabela da listagem de recolhimento
+            $this->objInfraBanco->executarSql('CREATE TABLE md_gd_lista_recolhimento (
+                id_lista_recolhimento ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL,
+                numero ' . $this->objMetaBD->tipoTextoVariavel(50) . ' NOT NULL,
+                dth_emissao_listagem ' . $this->objMetaBD->tipoDataHora() . ' NOT NULL,
+                ano_limite_inicio ' . $this->objMetaBD->tipoNumero() . ' NOT NULL,
+                ano_limite_fim ' . $this->objMetaBD->tipoNumero() . ' NOT NULL,
+                qtd_processos ' . $this->objMetaBD->tipoNumero() . ' NOT NULL,
+                situacao ' . $this->objMetaBD->tipoTextoFixo(2) . ' NOT NULL
+
+            )');
+
+            $this->objMetaBD->adicionarChavePrimaria('md_gd_lista_recolhimento', 'pk_md_gd_lista_recolhimento_id_lista_recolhimento', array('id_lista_recolhimento'));
+            $this->objMetaBD->adicionarChaveEstrangeira('fk_md_gd_arquivamento_lista_recolhimento', 'md_gd_arquivamento', array('id_lista_recolhimento'), 'md_gd_lista_recolhimento', array('id_lista_recolhimento'));
+
+            if (!$this->objInfraSequencia->verificarSequencia('md_gd_lista_recolhimento')) {
+                $this->objInfraSequencia->criarSequencia('md_gd_lista_recolhimento', '1', '1', '9999999999');
+            }
+
+            // Cria a tabela ternária entre a listagem de recolhimento e procedimento
+            $this->objInfraBanco->executarSql('CREATE TABLE md_gd_lista_recol_procedimento (
+                id_lista_recolhimento ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL,
+                id_procedimento ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL
+            )');
+
+            $this->objMetaBD->adicionarChavePrimaria('md_gd_lista_recol_procedimento', 'pk_md_gd_lista_recol_procedimento', array('id_lista_recolhimento', 'id_procedimento'));
+            $this->objMetaBD->adicionarChaveEstrangeira('md_gd_lista_recol_procedimento_lista_recolhimento', 'md_gd_lista_recol_procedimento', array('id_lista_recolhimento'), 'md_gd_lista_recolhimento', array('id_lista_recolhimento'));
+            $this->objMetaBD->adicionarChaveEstrangeira('md_gd_lista_recol_procedimento_procedimento', 'md_gd_lista_recol_procedimento', array('id_procedimento'), 'procedimento', array('id_procedimento'));
+
+            // Cria a tabela de relacionamento de documentos físicos recolhidos
+            $this->objInfraBanco->executarSql('CREATE TABLE md_gd_documento_fisico_recol (
+                id_documento ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL,
+                id_lista_recolhimento ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL
+            )');
+
+            $this->objMetaBD->adicionarChavePrimaria('md_gd_documento_fisico_recol', 'pk_md_gd_documento_fisico_recol', array('id_documento', 'id_lista_recolhimento'));
+            $this->objMetaBD->adicionarChaveEstrangeira('md_gd_documentos_fisico_recol_documento', 'md_gd_documento_fisico_recol', array('id_documento'), 'documento', array('id_documento'));
+            $this->objMetaBD->adicionarChaveEstrangeira('md_gd_documentos_fisico_recol_lista_recolhimento', 'md_gd_documento_fisico_recol', array('id_lista_recolhimento'), 'md_gd_lista_recolhimento', array('id_lista_recolhimento'));
+
+
             // Cria a tabela que armazena as eliminações
             $this->objInfraBanco->executarSql('CREATE TABLE md_gd_eliminacao (
                 id_eliminacao ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL,
                 id_usuario ' . $this->objMetaBD->tipoNumero() . ' NOT NULL,
-                id_unidade ' . $this->objMetaBD->tipoNumero() . ' NOT NULL,
+                assinante ' . $this->objMetaBD->tipoTextoVariavel(255) . ' NOT NULL,
                 id_lista_eliminacao ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL,
+                id_unidade ' . $this->objMetaBD->tipoNumero() . ' NOT NULL,
+                id_veiculo_publicacao ' . $this->objMetaBD->tipoNumero() . ' NOT NULL,
+                id_secao_imprensa_nacional ' . $this->objMetaBD->tipoNumero() . ' NOT NULL,
+                pagina ' . $this->objMetaBD->tipoNumero() . ' NOT NULL,
+                dth_data_imprensa ' . $this->objMetaBD->tipoDataHora() . ' NOT NULL,
                 dth_eliminacao ' . $this->objMetaBD->tipoDataHora() . ' NOT NULL
             )');
 
@@ -305,6 +322,12 @@ class MdGdAtualizarSeiRN extends InfraRN {
             $this->objMetaBD->adicionarChaveEstrangeira('md_gd_eliminacao_usuario', 'md_gd_eliminacao', array('id_usuario'), 'usuario', array('id_usuario'));
             $this->objMetaBD->adicionarChaveEstrangeira('md_gd_eliminacao_unidade', 'md_gd_eliminacao', array('id_unidade'), 'unidade', array('id_unidade'));
             $this->objMetaBD->adicionarChaveEstrangeira('md_gd_eliminacao_lista_eliminacao', 'md_gd_eliminacao', array('id_lista_eliminacao'), 'md_gd_lista_eliminacao', array('id_lista_eliminacao'));
+            $this->objMetaBD->adicionarChaveEstrangeira('md_gd_eliminacao_veiculo', 'md_gd_eliminacao', array('id_veiculo_publicacao'), 'veiculo_publicacao', array('id_veiculo_publicacao'));
+            $this->objMetaBD->adicionarChaveEstrangeira('md_gd_eliminacao_secao', 'md_gd_eliminacao', array('id_secao_imprensa_nacional'), 'secao_imprensa_nacional', array('id_secao_imprensa_nacional'));
+
+            if (!$this->objInfraSequencia->verificarSequencia('md_gd_eliminacao')) {
+                $this->objInfraSequencia->criarSequencia('md_gd_eliminacao', '1', '1', '9999999999');
+            }
 
             // Cria a tabela que armazena os recolhimentos
             $this->objInfraBanco->executarSql('CREATE TABLE md_gd_recolhimento (
@@ -314,6 +337,10 @@ class MdGdAtualizarSeiRN extends InfraRN {
                 id_lista_recolhimento ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL,
                 dth_recolhimento ' . $this->objMetaBD->tipoDataHora() . ' NOT NULL
             )');
+
+            if (!$this->objInfraSequencia->verificarSequencia('md_gd_recolhimento')) {
+                $this->objInfraSequencia->criarSequencia('md_gd_recolhimento', '1', '1', '9999999999');
+            }
 
             $this->objMetaBD->adicionarChavePrimaria('md_gd_recolhimento', 'pk_md_gd_recolhimento', array('id_recolhimento'));
             $this->objMetaBD->adicionarChaveEstrangeira('md_gd_recolhimento_usuario', 'md_gd_recolhimento', array('id_usuario'), 'usuario', array('id_usuario'));

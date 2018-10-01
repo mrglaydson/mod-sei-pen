@@ -36,8 +36,12 @@ class MdGdListaRecolhimentoDTO extends InfraDTO
         $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_NUM,
             'QtdProcessos',
             'qtd_processos');
-                
-              $this->adicionarAtributo(InfraDTO::$PREFIXO_ARR,'ObjMdGdArquivamentoDTO');
+        
+        $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_STR,
+            'Situacao',
+            'situacao');
+                       
+        $this->adicionarAtributo(InfraDTO::$PREFIXO_ARR,'ObjMdGdArquivamentoDTO');
 
         $this->configurarPK('IdListaRecolhimento', InfraDTO::$TIPO_PK_SEQUENCIAL);
 

@@ -27,39 +27,25 @@ try {
             $arrNumIdsArquivamento = PaginaSEI::getInstance()->getArrStrItensSelecionados();
 
             //Busca os arquivamentos dos processos que serão enviados para a listagem de eliminação
-            $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
-            $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
+            /*   $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
+              $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
 
-            $objMdGdArquivamentoDTO->setNumIdArquivamento($arrNumIdsArquivamento, InfraDTO::$OPER_IN);
-            $objMdGdArquivamentoDTO->retNumIdArquivamento();
-            $objMdGdArquivamentoDTO->retDblIdProcedimento();
-            $objMdGdArquivamentoDTO->retDblIdProtocoloProcedimentoEliminacaoFormatado();
-            $objMdGdArquivamentoDTO->retStrObservacaoEliminacao();
+              $objMdGdArquivamentoDTO->setNumIdArquivamento($arrNumIdsArquivamento, InfraDTO::$OPER_IN);
+              $objMdGdArquivamentoDTO->retNumIdArquivamento();
+              $objMdGdArquivamentoDTO->retDblIdProcedimento();
+              $objMdGdArquivamentoDTO->retDblIdProtocoloProcedimentoEliminacaoFormatado();
+              $objMdGdArquivamentoDTO->retStrObservacaoEliminacao();
 
-            $arrObjMdGdArquivamentoDTO = $objMdGdArquivamentoRN->listar($objMdGdArquivamentoDTO);
+              $arrObjMdGdArquivamentoDTO = $objMdGdArquivamentoRN->listar($objMdGdArquivamentoDTO);
 
-            //Envia os processos para a listagem de eliminação
-            $objMdGdListaEliminacaoDTO = new MdGdListaEliminacaoDTO();
-            $objMdGdListaEliminacaoDTO->setArrObjMdGdArquivamentoDTO($arrObjMdGdArquivamentoDTO);
+              //Envia os processos para a listagem de eliminação
+              $objMdGdListaEliminacaoDTO = new MdGdListaEliminacaoDTO();
+              $objMdGdListaEliminacaoDTO->setArrObjMdGdArquivamentoDTO($arrObjMdGdArquivamentoDTO);
 
-            $objMdGdListaEliminacaoRN = new MdGdListaEliminacaoRN();
-            $objMdGdListaEliminacaoRN->cadastrar($objMdGdListaEliminacaoDTO);
+              $objMdGdListaEliminacaoRN = new MdGdListaEliminacaoRN();
+              $objMdGdListaEliminacaoRN->cadastrar($objMdGdListaEliminacaoDTO);
 
-            header('Location: ' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . $_GET['acao_origem'] . '&acao_origem=' . $_GET['acao']));
-            break;
-
-        case 'gd_prep_list_eliminacao_excluir':
-            SessaoSEI::getInstance()->validarPermissao('gestao_documental_prep_list_eliminacao_excluir');
-            $arrNumIdsArquivamento = PaginaSEI::getInstance()->getArrStrItensSelecionados();
-
-            $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
-            foreach ($arrNumIdsArquivamento as $numIdArquivamento) {
-                $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
-                $objMdGdArquivamentoDTO->setNumIdArquivamento($numIdArquivamento);
-
-                $objMdGdArquivamentoRN->retirarListaArquivamento($objMdGdArquivamentoDTO);
-            }
-
+              header('Location: ' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . $_GET['acao_origem'] . '&acao_origem=' . $_GET['acao'])); */
             break;
 
         default:
@@ -68,24 +54,15 @@ try {
 
     $bolAcaoVisualizar = SessaoSEI::getInstance()->verificarPermissao('gestao_documental_visualizacao_listagem_eliminacao');
     $bolAcaoEliminar = SessaoSEI::getInstance()->verificarPermissao('gestao_documental_eliminacao');
+    $bolAcaoEliminarDocumentoFisico = SessaoSEI::getInstance()->verificarPermissao('gestao_documental_list_elim_documentos_fisicos');
 
     $arrComandos = array();
     $arrComandos[] = '<button type="submit" accesskey="P" id="sbmPesquisar" value="Pesquisar" class="infraButton"><span class="infraTeclaAtalho">P</span>esquisar</button>';
-
-    /* if ($bolAcaoGerar) {
-      $arrComandos[] = '<button type="button" accesskey="P" id="btnGerarListagem" value="Gerar Listagem de Eliminação" onclick="acaoGerarListagemEliminacao();" class="infraButton"><span class="infraTeclaAtalho">G</span>erar Listagem de Eliminação</button>';
-      $strLinkGerar = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_prep_list_eliminacao_gerar&acao_origem=' . $_GET['acao']);
-      }
-
-      if ($bolAcaoExcluir) {
-      $arrComandos[] = '<button type="button" accesskey="E" id="btnExcluir" value="Excluir" onclick="acaoExclusaoMultipla();" class="infraButton"><span class="infraTeclaAtalho">E</span>xcluir</button>';
-      $strLinkExcluir = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_prep_list_eliminacao_excluir&acao_origem=' . $_GET['acao']);
-      } */
-
     $arrComandos[] = '<button type="button" accesskey="I" id="btnImprimir" value="Imprimir" onclick="infraImprimirTabela();" class="infraButton"><span class="infraTeclaAtalho">I</span>mprimir</button>';
 
     $objMdGdListaEliminacaoRN = new MdGdListaEliminacaoRN();
     $objMdGdListaEliminacaoDTO = new MdGdListaEliminacaoDTO();
+    $objMdGdListaEliminacaoDTO->retStrSituacao();
     $objMdGdListaEliminacaoDTO->retStrProtocoloProcedimentoEliminacaoFormatado();
     $objMdGdListaEliminacaoDTO->retTodos();
 
@@ -152,14 +129,18 @@ try {
             $strResultado .= '<td align="center">';
 
             if ($bolAcaoVisualizar) {
-                // gd_visualizacao_listagem_eliminacao
                 $strLinkVisualizar = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_visualizacao_listagem_eliminacao&acao_origem=' . $_GET['acao'] . '&id_listagem_eliminacao=' . $arrObjMdGdListaEliminacaoDTO[$i]->getNumIdListaEliminacao());
                 $strResultado .= '<a href="' . $strLinkVisualizar . '" ><img src="imagens/consultar.gif" title="Visualizar Listagem de Eliminacao" title="Visualizar Listagem de Eliminacao" class="infraImg" /></a>&nbsp;';
             }
 
-            if ($bolAcaoEliminar) {
-                // gd_eliminacao
-                $strResultado .= '<a href="#ID-' . $arrObjMdGdListaEliminacaoDTO[$i]->getNumIdListaEliminacao() . '" onclick="acaoExcluir(\'' . $arrObjMdGdListaEliminacaoDTO[$i]->getNumIdListaEliminacao() . '\',\'' . $arrObjMdGdListaEliminacaoDTO[$i]->getStrNumero() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="imagens/arquivo.png" title="Eliminar Processos" alt="Eliminar Processos" class="infraImg" /></a>&nbsp;';
+            if ($bolAcaoEliminar && $arrObjMdGdListaEliminacaoDTO[$i]->getStrSituacao() == MdGdListaEliminacaoRN::$ST_GERADA) {
+                $strLinkEliminar = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_listagem_eliminacao_eliminar&acao_origem=' . $_GET['acao'] . '&id_listagem_eliminacao=' . $arrObjMdGdListaEliminacaoDTO[$i]->getNumIdListaEliminacao());
+                $strResultado .= '<a href="' .$strLinkEliminar . '" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="imagens/arquivo.png" title="Eliminar Processos" alt="Eliminar Processos" class="infraImg" /></a>&nbsp;';
+            }
+
+            if ($bolAcaoEliminarDocumentoFisico && $arrObjMdGdListaEliminacaoDTO[$i]->getStrSituacao() == MdGdListaEliminacaoRN::$ST_GERADA) {
+                $strLinkEliminacaoDocumentosFisicos = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_eliminacao_documentos_fisicos&id_listagem_eliminacao=' . $arrObjMdGdListaEliminacaoDTO[$i]->getNumIdListaEliminacao() . '&acao_origem=' . $_GET['acao']);
+                $strResultado .= '<a href="' . $strLinkEliminacaoDocumentosFisicos . '" ><img src="imagens/procedimento_desanexado.gif" title="Eliminar Documentos Físicos" title="Eliminar Documentos Físicos" class="infraImg" /></a>&nbsp;';
             }
 
             $strResultado .= '</td></tr>' . "\n";
@@ -207,13 +188,26 @@ PaginaSEI::getInstance()->fecharStyle();
 PaginaSEI::getInstance()->montarJavaScript();
 PaginaSEI::getInstance()->abrirJavaScript();
 ?>
+//<script>
+
+    function inicializar() {
+        infraEfeitoTabelas();
+        document.getElementById('btnFechar').focus();
+    }
 
 
-function inicializar() {
-infraEfeitoTabelas();
-document.getElementById('btnFechar').focus();
-}
+    function acaoGerarEliminarDocumentosFisicos() {
+        if (document.getElementById('hdnInfraItensSelecionados').value == '') {
+            alert('Nenhuma Listagem Selecionada.');
+            return;
+        }
 
+        document.getElementById('hdnIdListagemEliminacao').value = document.getElementById('hdnInfraItensSelecionados').value;
+        document.getElementById('frmPrepararListagemEliminacao').action = '<?= $strLinkEliminacaoDocumentosFisicos ?>';
+        document.getElementById('frmPrepararListagemEliminacao').submit();
+    }
+
+//</script>
 <?
 PaginaSEI::getInstance()->fecharJavaScript();
 PaginaSEI::getInstance()->fecharHead();
@@ -239,8 +233,7 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
     <label id="lblPeriodoEmissaoAte" for="txtPeriodoEmissaoAte" accesskey="" class="infraLabelOpcional">Até</label>
     <input type="text" id="txtPeriodoEmissaoAte" value="<?= $txtPeriodoEmissaoAte ?>" name="txtPeriodoEmissaoAte" class="infraText" value="<?= PaginaSEI::tratarHTML($dtaPeriodoEmissaoAte) ?>" onkeypress="return infraMascaraData(this, event)" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />
     <img id="imgCalPeriodoEmissaoAte" title="Selecionar Data Final" alt="Selecionar Data Final" src="<?= PaginaSEI::getInstance()->getDiretorioImagensGlobal() ?>/calendario.gif" class="infraImg" onclick="infraCalendario('txtPeriodoEmissaoAte', this);" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />    
-
-
+    <input type='hidden' name='hdnIdListagemEliminacao' id='hdnListagensEliminacao' value='' />
 
     <?
     PaginaSEI::getInstance()->fecharAreaDados();
