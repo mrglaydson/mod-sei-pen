@@ -58,8 +58,8 @@ class MdGdArquivamentoRN extends InfraRN {
             }
 
             // Informa a data do arquivamento
-            $dtaDataArquivamentoBr =  date('d/m/Y H:i:s');
-            $dtaDataArquivamentoUs =  date('Y-m-d H:i:s');
+            $dtaDataArquivamentoBr = date('d/m/Y H:i:s');
+            $dtaDataArquivamentoUs = date('Y-m-d H:i:s');
             $objMdGdArquivamentoDTO->setDthDataArquivamento($dtaDataArquivamentoBr);
 
             // Cria o despacho e anexa ao arquivamento
@@ -95,7 +95,7 @@ class MdGdArquivamentoRN extends InfraRN {
                 }
             }
             $dtaGuardaCorrente = date('d/m/Y H:i:s', strtotime("+{$numTempoGuardaCorrente} years", strtotime($dtaDataArquivamentoUs)));
-            $dtaGuardaIntermediaria = date('d/m/Y H:i:s', strtotime("+".($numTempoGuardaCorrente + $numTempoGuardaIntermediaria)." years", strtotime($dtaDataArquivamentoUs)));
+            $dtaGuardaIntermediaria = date('d/m/Y H:i:s', strtotime("+" . ($numTempoGuardaCorrente + $numTempoGuardaIntermediaria) . " years", strtotime($dtaDataArquivamentoUs)));
 
             $objMdGdArquivamentoDTO->setDthDataGuardaCorrente($dtaGuardaCorrente);
             $objMdGdArquivamentoDTO->setDthDataGuardaIntermediaria($dtaGuardaIntermediaria);
@@ -416,6 +416,82 @@ class MdGdArquivamentoRN extends InfraRN {
             }
             $objMdGdArquivamentoDTO->setStrObservacaoEliminacao(null);
             $objMdGdArquivamentoDTO->setStrSituacao(self::$ST_FASE_INTERMEDIARIA);
+            return $this->alterar($objMdGdArquivamentoDTO);
+        } catch (Exception $e) {
+            throw new InfraException('Erro ao contar condicionantes.', $e);
+        }
+    }
+
+    /**
+     * Envia um processo para a preparação de listagem de eliminação
+     * 
+     * @param MdGdArquivamentoDTO $objMdGdArquivamentoDTO
+     * @return null
+     * @throws InfraException
+     */
+    protected function enviarEliminacaoControlado(MdGdArquivamentoDTO $objMdGdArquivamentoDTO) {
+        try {
+
+            // Valida se o id do arquivamento foi informado
+            if (!$objMdGdArquivamentoDTO->isSetNumIdArquivamento()) {
+                throw new InfraException('Informe o número do arquivamento');
+            }
+            
+            $objMdGdArquivamentoDTO->retNumIdArquivamento();
+            $objMdGdArquivamentoDTO->retStrSituacao();
+            $objMdGdArquivamentoDTO->retStrStaDestinacaoFinal();
+            $objMdGdArquivamentoDTO = $this->consultar($objMdGdArquivamentoDTO);
+
+            // Valida se o arquivamento encontra-se na situação permitida para mudança
+            if ($objMdGdArquivamentoDTO->getStrSituacao() != self::$ST_FASE_INTERMEDIARIA) {
+                throw new InfraException('O processo precisa estar em fase intermediária para ser preparado para eliminação');
+            }
+
+            // Valida se a destinação final é de eliminação
+            if ($objMdGdArquivamentoDTO->getStrStaDestinacaoFinal() != self::$DF_ELIMINACAO) {
+                throw new InfraException('A destinação final do processo deve ser de eliminação');
+            }
+
+            $objMdGdArquivamentoDTO->setStrObservacaoEliminacao(null);
+            $objMdGdArquivamentoDTO->setStrSituacao(self::$ST_PREPARACAO_ELIMINACAO);
+            return $this->alterar($objMdGdArquivamentoDTO);
+        } catch (Exception $e) {
+            throw new InfraException('Erro ao contar condicionantes.', $e);
+        }
+    }
+
+    /**
+     * Envia um processo para a preparação de listagem de recolhimento
+     * 
+     * @param MdGdArquivamentoDTO $objMdGdArquivamentoDTO
+     * @return null
+     * @throws InfraException
+     */
+    protected function enviarRecolhimentoControlado(MdGdArquivamentoDTO $objMdGdArquivamentoDTO) {
+        try {
+
+            // Valida se o id do arquivamento foi informado
+            if (!$objMdGdArquivamentoDTO->isSetNumIdArquivamento()) {
+                throw new InfraException('Informe o número do arquivamento');
+            }
+            
+            $objMdGdArquivamentoDTO->retNumIdArquivamento();
+            $objMdGdArquivamentoDTO->retStrSituacao();
+            $objMdGdArquivamentoDTO->retStrStaDestinacaoFinal();
+            $objMdGdArquivamentoDTO = $this->consultar($objMdGdArquivamentoDTO);
+
+            // Valida se o arquivamento encontra-se na situação permitida para mudança
+            if ($objMdGdArquivamentoDTO->getStrSituacao() != self::$ST_FASE_INTERMEDIARIA) {
+                throw new InfraException('O processo precisa estar em fase intermediária para ser preparado para o recolhimeno.');
+            }
+
+            // Valida se a destinação final é de recolhimento
+            if ($objMdGdArquivamentoDTO->getStrStaDestinacaoFinal() != self::$DF_RECOLHIMENTO) {
+                throw new InfraException('A destinação final do processo deve ser de recolhimento');
+            }
+
+            $objMdGdArquivamentoDTO->setStrObservacaoEliminacao(null);
+            $objMdGdArquivamentoDTO->setStrSituacao(self::$ST_PREPARACAO_RECOLHIMENTO);
             return $this->alterar($objMdGdArquivamentoDTO);
         } catch (Exception $e) {
             throw new InfraException('Erro ao contar condicionantes.', $e);

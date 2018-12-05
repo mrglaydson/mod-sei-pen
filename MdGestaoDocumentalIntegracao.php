@@ -70,6 +70,7 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
 
     public function montarBotaoProcesso(ProcedimentoAPI $objProcedimentoAPI) {
         $arrBotoes = array();
+        $flgArquivado = false;
 
         // Valida as permissões dos botões
         $bolAcaoArquivamento = SessaoSEI::getInstance()->verificarPermissao('gestao_documental_arquivar_processo');
@@ -83,8 +84,19 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
         $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
         $flgArquivado = $objMdGdArquivamentoRN->contar($objMdGdArquivamentoDTO);
 
-        //TODO: VALIDAÇÃO PARA EXIBIÇÃO DO BOTÃO DE ARQUIVAMENTO
-        if ($bolAcaoArquivamento && !$flgArquivado) {
+
+        // Verifica se o processo encontra-se aberto em mais de uma unidade
+        $objAtividadeDTO = new AtividadeDTO();
+        $objAtividadeDTO->setDistinct(true);
+        $objAtividadeDTO->setOrdStrSiglaUnidade(InfraDTO::$TIPO_ORDENACAO_ASC);
+        $objAtividadeDTO->setDblIdProtocolo($objProcedimentoAPI->getIdProcedimento());
+        $objAtividadeDTO->setDthConclusao(null);
+        $objAtividadeDTO->retNumIdUnidade();
+
+        $objAtividadeRN = new AtividadeRN();
+        $arrObjAtividadeDTO = $objAtividadeRN->listarRN0036($objAtividadeDTO);
+
+        if ($bolAcaoArquivamento && !$flgArquivado && count($arrObjAtividadeDTO) == 1 && $arrObjAtividadeDTO[0]->getNumIdUnidade() == SessaoSEI::getInstance()->getNumIdUnidadeAtual()) {
             $arrBotoes[] = '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_arquivar_procedimento&acao_origem=arvore_visualizar&acao_retorno=arvore_visualizar&id_procedimento=' . $objProcedimentoAPI->getIdProcedimento() . '&arvore=1') . '" tabindex="" class="botaoSEI"><img class="infraCorBarraSistema" src="modulos/sei-mod-gestao-documental/imagens/arquivamento.gif" alt="Arquivar Processo" title="Concluir e Arquivar Processo" /></a>';
         }
 
@@ -211,6 +223,8 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
                 require_once dirname(__FILE__) . '/gd_preparar_listagem_recolhimento.php';
                 return true;
             case 'gd_avaliacao_processos_listar':
+            case 'gd_procedimento_eliminacao_enviar':
+            case 'gd_procedimento_recolhimento_enviar':
                 require_once dirname(__FILE__) . '/gd_avaliacao_processos_listar.php';
                 return true;
             case 'gd_modelo_documento_alterar':

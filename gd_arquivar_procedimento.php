@@ -54,17 +54,16 @@ try {
 
             if ($_GET['acao_origem'] == 'arvore_visualizar') {
                 $arrProtocolosOrigem = array($_GET['id_procedimento']);
-            } else if ($_GET['acao_origem'] == 'procedimento_controlar') {
-                $arrProtocolosOrigem = array_merge(PaginaSEI::getInstance()->getArrStrItensSelecionados('Gerados'), PaginaSEI::getInstance()->getArrStrItensSelecionados('Recebidos'), PaginaSEI::getInstance()->getArrStrItensSelecionados('Detalhado'));
-            } else if (isset($_POST['hdnIdProtocolos'])) {
-                $arrProtocolosOrigem = explode(',', $_POST['hdnIdProtocolos']);
+            } else if ($_GET['acao_origem'] == 'gd_pendencias_arquivamento') {
+                $arrProtocolosOrigem = PaginaSEI::getInstance()->getArrStrItensSelecionados();
             } else {
                 $arrProtocolosOrigem = array($_GET['id_procedimento']);
             }
 
             if (isset($_POST['sbmSalvar'])) {
                 try {
-
+                    $arrProtocolosOrigem = explode(',', $_POST['hdnIdProtocolos']);
+                    
                     $objAssinaturaDTO = new AssinaturaDTO();
                     $objAssinaturaDTO->setStrStaFormaAutenticacao(AssinaturaRN::$TA_SENHA);
                     $objAssinaturaDTO->setNumIdOrgaoUsuario($_POST['selOrgao']);
@@ -72,8 +71,7 @@ try {
                     $objAssinaturaDTO->setNumIdContextoUsuario(SessaoSEI::getInstance()->getNumIdContextoUsuario());
                     $objAssinaturaDTO->setStrSenhaUsuario($_POST['pwdSenha']);
                     $objAssinaturaDTO->setStrCargoFuncao($_POST['selCargoFuncao']);
-
-
+                    
                     foreach ($arrProtocolosOrigem as $numIdProcedimento) {
                         $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
                         $objMdGdArquivamentoDTO->setDblIdProcedimento($numIdProcedimento);
