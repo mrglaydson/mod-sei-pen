@@ -191,7 +191,7 @@ PaginaSEI::getInstance()->abrirJavaScript();
 
 
         if (document.getElementById('hdnTotalCondicionantes').value > 0) {
-            if (confirm('Esse processo possuí condicional de arquivamento. Deseja prosseguir com o arquivamento?')) {
+            if (confirm('Este processo possui condicionante de arquivamento. Deseja realizar o arquivamento?')) {
                 return true;
             } else {
                 return false;

@@ -27,7 +27,7 @@ try {
     $strDesabilitar = '';
 
     $arrComandos = array();
-
+       
     switch ($_GET['acao']) {
         case 'gd_unidade_arquivamento_cadastrar':
             SessaoSEI::getInstance()->validarPermissao('gestao_documental_unidade_arquivamento_cadastrar');
@@ -121,12 +121,12 @@ try {
     }
 
     // Busca uma lista de unidades
-    $strItensSelUnidadesOrigem = UnidadeINT::montarSelectSiglaDescricao('null', '&nbsp;', $objMdGdUnidadeArquivamentoDTO->getNumIdUnidadeOrigem());
+    $strItensSelUnidadesOrigem = MdGdArquivamentoINT::montarSelectUnidadesArquivamento($objMdGdUnidadeArquivamentoDTO->getNumIdUnidadeOrigem());
     $strItensSelUnidadesDestino = UnidadeINT::montarSelectSiglaDescricao('null', '&nbsp;', $objMdGdUnidadeArquivamentoDTO->getNumIdUnidadeDestino());
 
     //Monta os links de seleção das unidades
-    $strLinkAjaxUnidade = SessaoSEI::getInstance()->assinarLink('controlador_ajax.php?acao_ajax=unidade_auto_completar_todas');
-    $strLinkUnidadeSelecao = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=unidade_selecionar_todas&tipo_selecao=2&id_object=objLupaUnidades');
+    $strLinkAjaxUnidade = SessaoSEI::getInstance()->assinarLink('controlador_ajax.php?acao_ajax=gd_unidade_auto_completar_unidades_arquivamento');
+    $strLinkUnidadeSelecao = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_unidade_arquivamento_selecionar&tipo_selecao=2&id_object=objLupaUnidades');
 } catch (Exception $e) {
     PaginaSEI::getInstance()->processarExcecao($e);
 }
@@ -244,8 +244,7 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
         <input type="text" id="txtUnidadeOrigem" name="txtUnidadeOrigem" class="infraText" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />
         <?= $strLinkUnidadesTramitacao ?>
         <input type="hidden" id="hdnIdUnidadeOrigem" name="hdnIdUnidadeOrigem" class="infraText" value="" />
-        <select id="selUnidadesOrigem" name="selUnidadesOrigem" size="4" multiple="multiple" class="infraSelect" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
-        </select>
+        <select id="selUnidadesOrigem" name="selUnidadesOrigem" size="4" multiple="multiple" class="infraSelect" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>"></select>
         <div id="divOpcoesUnidadesOrigem">
             <img id="imgLupaUnidades" onclick="objLupaUnidades.selecionar(700, 500);" src="/infra_css/imagens/lupa.gif" alt="Selecionar Unidades" title="Selecionar Unidades" class="infraImg" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />
             <br />

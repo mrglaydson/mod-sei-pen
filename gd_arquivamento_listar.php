@@ -14,7 +14,7 @@ try {
 
     SessaoSEI::getInstance()->validarPermissao('gestao_documental_arquivamento_listar');
 
-    PaginaSEI::getInstance()->salvarCamposPost(array('selTipoProcedimento', 'selDestinacaoFinal', 'selCondicionante', 'selFaseGestaoDocumental', 'txtPeriodoDe', 'txtPeriodoA'));
+    PaginaSEI::getInstance()->salvarCamposPost(array('selTipoProcedimento', 'selDestinacaoFinal', 'selCondicionante', 'txtPeriodoDe', 'txtPeriodoA'));
 
     switch ($_GET['acao']) {
 
@@ -55,10 +55,6 @@ try {
         $objMdGdArquivamentoDTO->setStrStaDestinacaoFinal($selDestinacaoFinal);
     }
 
-    $selFaseGestaoDocumental = PaginaSEI::getInstance()->recuperarCampo('selFaseGestaoDocumental');
-    if ($selFaseGestaoDocumental && $selFaseGestaoDocumental !== 'null') {
-        $objMdGdArquivamentoDTO->setStrStaGuarda($selFaseGestaoDocumental);
-    }
 
     $selCondicionante = PaginaSEI::getInstance()->recuperarCampo('selCondicionante');
     if ($selCondicionante && $selCondicionante !== 'null') {
@@ -143,25 +139,23 @@ PaginaSEI::getInstance()->montarTitle(PaginaSEI::getInstance()->getStrNomeSistem
 PaginaSEI::getInstance()->montarStyle();
 PaginaSEI::getInstance()->abrirStyle();
 ?>
-#lblFaseGestaoDocumental {position:absolute;left:0%;top:0%;width:20%;}
-#selFaseGestaoDocumental {position:absolute;left:0%;top:20%;width:20%;}
 
-#lblCondicionante {position:absolute;left:21%;top:0%;width:20%;}
-#selCondicionante {position:absolute;left:21%;top:20%;width:20%;}
+#lblCondicionante {position:absolute;left:0%;top:0%;width:20%;}
+#selCondicionante {position:absolute;left:0%;top:20%;width:20%;}
 
-#lblTiposProcedimento {position:absolute;left:42%;top:0%;width:20%;}
-#selTipoProcedimento {position:absolute;left:42%;top:20%;width:20%;}
+#lblTiposProcedimento {position:absolute;left:21%;top:0%;width:20%;}
+#selTipoProcedimento {position:absolute;left:21%;top:20%;width:20%;}
 
-#lblDestinacaoFinal {position:absolute;left:63%;top:0%;width:20%;}
-#selDestinacaoFinal {position:absolute;left:63%;top:20%;width:20%;}
+#lblDestinacaoFinal {position:absolute;left:42%;top:0%;width:20%;}
+#selDestinacaoFinal {position:absolute;left:42%;top:20%;width:20%;}
 
-#lblPeriodoDe {position:absolute;left:0%;top:55%;width:20%;}
-#txtPeriodoDe {position:absolute;left:0%;top:70%;width:20%;}
-#imgCalPeriodoD {position:absolute;left:21%;top:72%;width:2%;}
+#lblPeriodoDe {position:absolute;left:63%;top:0%;width:10%;}
+#txtPeriodoDe {position:absolute;left:63%;top:20%;width:10%;}
+#imgCalPeriodoD {position:absolute;left:74%;top:20%;width:2%;}
 
-#lblPeriodoA {position:absolute;left:24%;top:55%;width:20%;}
-#txtPeriodoA {position:absolute;left:24%;top:70%;width:20%;}
-#imgCalPeriodoA {position:absolute;left:45%;top:72%;width:2%;}
+#lblPeriodoA {position:absolute;left:77%;top:0%;width:10%;}
+#txtPeriodoA {position:absolute;left:77%;top:20%;width:10%;}
+#imgCalPeriodoA {position:absolute;left:88%;top:20%;width:2%;}
 
 <?
 PaginaSEI::getInstance()->fecharStyle();
@@ -208,16 +202,9 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
           PaginaSEI::getInstance()->abrirAreaDados('9.5em');
           ?>
 
-    <label id="lblFaseGestaoDocumental" for="selFaseGestaoDocumental" accesskey="" class="infraLabelOpcional">Fase da Gestão Documental:</label>
-    <select id="selFaseGestaoDocumental" name="selFaseGestaoDocumental" onchange="this.form.submit();" class="infraSelect" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" >
-        <?= MdGdArquivamentoINT::montarSelectGuardasArquivamento(); ?>
-    </select>
-
     <label id="lblCondicionante" for="selCondicionante" accesskey="" class="infraLabelOpcional">Processos com Condicionantes:</label>
     <select id="selCondicionante" name="selCondicionante" onchange="this.form.submit();" class="infraSelect" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" >
-        <option value=""></option>
-        <option value="S">Com Condicionante</option>
-        <option value="N">Sem Condicionante</option>
+        <?= MdGdArquivamentoINT::montarSelectCondicionantesArquivamento($selCondicionante); ?>
     </select>
 
     <label id="lblTiposProcedimento" for="selTipoProcedimento" accesskey="" class="infraLabelOpcional">Tipo de Processo:</label>
@@ -227,10 +214,10 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
 
     <label id="lblDestinacaoFinal" for="selDestinacaoFinal" accesskey="" class="infraLabelOpcional">Destinação Final:</label>
     <select id="selDestinacaoFinal" name="selDestinacaoFinal" onchange="this.form.submit();" class="infraSelect" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" >
-        <?= MdGdArquivamentoINT::montarSelectDestinacoesFinalArquivamento(); ?>
+        <?= MdGdArquivamentoINT::montarSelectDestinacoesFinalArquivamento($selDestinacaoFinal); ?>
     </select>
 
-    <label id="lblPeriodoDe" for="txtPeriodoDe" accesskey="" class="infraLabelOpcional">Datas Limite de:</label>
+    <label id="lblPeriodoDe" for="txtPeriodoDe" accesskey="" class="infraLabelOpcional">De:</label>
     <input type="text" id="txtPeriodoDe" value="<?= $txtPeriodoDe ?>" name="txtPeriodoDe" class="infraText" value="<?= PaginaSEI::tratarHTML($dtaPeriodoDe) ?>" onkeypress="return infraMascaraData(this, event)" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />
     <img id="imgCalPeriodoD" title="Selecionar Data Inicial" alt="Selecionar Data Inicial" src="<?= PaginaSEI::getInstance()->getDiretorioImagensGlobal() ?>/calendario.gif" class="infraImg" onclick="infraCalendario('txtPeriodoDe', this);" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />    
 

@@ -117,7 +117,49 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
     public function montarBotaoDocumento(ProcedimentoAPI $objProcedimentoAPI, $arrObjDocumentoAPI) {
 
         $arrBotoes = array();
-        return $arrBotoes;
+        $flgArquivado = false;
+
+        // Valida as permissões dos botões
+        $bolAcaoArquivamento = SessaoSEI::getInstance()->verificarPermissao('gestao_documental_arquivar_processo');
+        $bolAcaoDesarquivamento = SessaoSEI::getInstance()->verificarPermissao('gestao_documental_desarquivar_processo');
+
+        // Verifica se o processo se encontra arquivado
+        $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
+        $objMdGdArquivamentoDTO->setDblIdProcedimento($objProcedimentoAPI->getIdProcedimento());
+        $objMdGdArquivamentoDTO->setStrSinAtivo('S');
+
+        $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
+        $flgArquivado = $objMdGdArquivamentoRN->contar($objMdGdArquivamentoDTO);
+
+
+        // Verifica se o processo encontra-se aberto em mais de uma unidade
+        $objAtividadeDTO = new AtividadeDTO();
+        $objAtividadeDTO->setDistinct(true);
+        $objAtividadeDTO->setOrdStrSiglaUnidade(InfraDTO::$TIPO_ORDENACAO_ASC);
+        $objAtividadeDTO->setDblIdProtocolo($objProcedimentoAPI->getIdProcedimento());
+        $objAtividadeDTO->setDthConclusao(null);
+        $objAtividadeDTO->retNumIdUnidade();
+
+        $objAtividadeRN = new AtividadeRN();
+        $arrObjAtividadeDTO = $objAtividadeRN->listarRN0036($objAtividadeDTO);
+
+        if ($bolAcaoArquivamento && !$flgArquivado && count($arrObjAtividadeDTO) == 1 && $arrObjAtividadeDTO[0]->getNumIdUnidade() == SessaoSEI::getInstance()->getNumIdUnidadeAtual()) {
+            $arrBotoes[] = '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_arquivar_procedimento&acao_origem=arvore_visualizar&acao_retorno=arvore_visualizar&id_procedimento=' . $objProcedimentoAPI->getIdProcedimento() . '&arvore=1') . '" tabindex="" class="botaoSEI"><img class="infraCorBarraSistema" src="modulos/sei-mod-gestao-documental/imagens/arquivamento.gif" alt="Arquivar Processo" title="Concluir e Arquivar Processo" /></a>';
+        }
+
+        // TODO: VALIDAÇÃO PARA A EXIBIÇÃO DO BOTÃO DESARQUIVAMENTO
+        if ($bolAcaoDesarquivamento && $flgArquivado) {
+            $arrBotoes[] = '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_desarquivar_procedimento&acao_origem=arvore_visualizar&acao_retorno=arvore_visualizar&id_procedimento=' . $objProcedimentoAPI->getIdProcedimento() . '&arvore=1') . '" tabindex="" class="botaoSEI"><img class="infraCorBarraSistema" src="modulos/sei-mod-gestao-documental/imagens/desarquivamento.gif" alt="Desarquivar Processo" title="Desarquivar Processo" /></a>';
+        }
+
+        if ($arrBotoes) {
+            $arrBotoesDocumento = array();
+            foreach ($arrObjDocumentoAPI as $objDocumentoAPI) {
+                $arrBotoesDocumento[$objDocumentoAPI->getIdDocumento()] = $arrBotoes;
+            }
+        }
+
+        return $arrBotoesDocumento;
     }
 
     public function alterarIconeArvoreDocumento(ProcedimentoAPI $objProcedimentoAPI, $arrObjDocumentoAPI) {
@@ -169,6 +211,9 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
     public function processarControlador($strAcao) {
         // gd_modelos_documento_alterar
         switch ($strAcao) {
+            case 'gd_unidade_arquivamento_selecionar':
+                require_once dirname(__FILE__) . '/gd_unidade_arquivamento_selecao.php';
+                return true;
             case 'gd_arquivamento_listar':
                 require_once dirname(__FILE__) . '/gd_arquivamento_listar.php';
                 return true;
@@ -282,9 +327,9 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
         $xml = null;
 
         switch ($strAcao) {
-            case 'md_abc_auto_completar':
-                $arrObjAssuntoDTO = AssuntoINT::autoCompletarAssuntosRI1223($_POST['palavras_pesquisa']);
-                $xml = InfraAjax::gerarXMLItensArrInfraDTO($arrObjAssuntoDTO, 'IdAssunto', 'CodigoEstruturado');
+            case 'gd_unidade_auto_completar_unidades_arquivamento':
+                $arrObjUnidadeDTO = MdGdArquivamentoINT::montarSelectAjaxUnidadesArquivamento($_POST['palavras_pesquisa']);
+                $xml = InfraAjax::gerarXMLItensArrInfraDTO($arrObjUnidadeDTO, 'IdUnidade', 'Sigla');
                 break;
         }
         return $xml;

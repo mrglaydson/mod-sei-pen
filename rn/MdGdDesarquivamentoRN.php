@@ -72,13 +72,16 @@ class MdGdDesarquivamentoRN extends InfraRN {
             $objDocumentoDTO->setObjProtocoloDTO($objProtocoloDTO);
 
             $objDocumentoDTO = $objDocumentoRN->cadastrarRN0003($objDocumentoDTO);
-
+            
             // Assinatura do despacho de desarquivamento
             $objAssinaturaDTO = $objMdGdDesarquivamentoDTO->getObjAssinaturaDTO();
             $objAssinaturaDTO->setArrObjDocumentoDTO([$objDocumentoDTO]);
 
             $objDocumentoRN = new DocumentoRN();
             $objDocumentoRN->assinar($objAssinaturaDTO);
+            
+            // Bloqueia o conteúdo do documento
+            $objDocumentoRN->bloquearConteudo($objDocumentoDTO);
 
             // Inativa os registros de arquivamento
             $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();

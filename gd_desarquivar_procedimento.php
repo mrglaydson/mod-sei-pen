@@ -171,7 +171,12 @@ PaginaSEI::getInstance()->abrirJavaScript();
             return false;
         }
 
-        return true;
+        if (confirm('Atenção! Caso este processo seja desarquivado retornará para a área de trabalho da unidade e seu prazo de guarda será reiniciado. Tem certeza que deseja continuar?')) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
 // </script>

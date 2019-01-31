@@ -536,7 +536,7 @@ class MdGdArquivamentoRN extends InfraRN {
     public static function obterDestinacoesFinalArquivamento() {
         return [
             self::$DF_ELIMINACAO => 'Eliminação',
-            self::$DF_RECOLHIMENTO => 'Guarda Permanente'
+            self::$DF_RECOLHIMENTO => 'Recolhimento'
         ];
     }
 

@@ -14,7 +14,7 @@ try {
 
     SessaoSEI::getInstance()->validarPermissao('gestao_documental_unidade_arquivamento_listar');
 
-    PaginaSEI::getInstance()->salvarCamposPost(array('selUnidade', 'selTipoProcedimento', 'txtPeriodoDe', 'txtPeriodoA'));
+    PaginaSEI::getInstance()->salvarCamposPost(array('selUnidade', 'selTipoProcedimento', 'selDestinacaoFinal', 'txtPeriodoDe', 'txtPeriodoA'));
 
     switch ($_GET['acao']) {
 
@@ -92,6 +92,11 @@ try {
         $objMdGdArquivamentoDTO->setDthDataArquivamento($txtPeriodoA, InfraDTO::$OPER_MENOR_IGUAL);
     }
 
+    $selDestinacaoFinal = PaginaSEI::getInstance()->recuperarCampo('selDestinacaoFinal');
+    if ($selDestinacaoFinal && $selDestinacaoFinal !== 'null') {
+        $objMdGdArquivamentoDTO->setStrStaDestinacaoFinal($selDestinacaoFinal);
+    }
+    
     $arrComandos[] = '<button type="button" accesskey="I" id="btnImprimir" value="Imprimir" onclick="infraImprimirTabela();" class="infraButton"><span class="infraTeclaAtalho">I</span>mprimir</button>';
 
     PaginaSEI::getInstance()->prepararOrdenacao($objMdGdArquivamentoDTO, 'DataArquivamento', InfraDTO::$TIPO_ORDENACAO_ASC);
@@ -141,7 +146,7 @@ try {
             } else {
                 $strResultado .= '<td>Recolhimento</td>';
             }
-            
+
             if (InfraData::compararDatas($arrObjMdGdArquivamentoDTO[$i]->getDthDataGuardaIntermediaria(), date('d/m/Y H:i:s')) >= 0) {
                 if ($arrObjMdGdArquivamentoDTO[$i]->getStrStaDestinacaoFinal() == MdGdArquivamentoRN::$DF_ELIMINACAO) {
                     $strResultado .= '<td align="center"><a href="#ID-' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '" onclick="acaoEnviarEliminacao(\'' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '\', \'' . $arrObjMdGdArquivamentoDTO[$i]->getStrProtocoloFormatado() . '\');"   tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="modulos/sei-mod-gestao-documental/imagens/transicao.png" title="Enviar para Eliminação" title="Enviar para Eliminação" class="infraImg" /></a></td></tr>';
@@ -253,8 +258,7 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
 
     <label id="lblDestinacaoFinal" for="selDestinacaoFinal" accesskey="" class="infraLabelOpcional">Destinação Final:</label>
     <select id="selDestinacaoFinal" name="selDestinacaoFinal" onchange="this.form.submit();" class="infraSelect" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" >
-        <option>Eliminação</option>
-        <option>Guarda Permanente</option>
+        <?= MdGdArquivamentoINT::montarSelectDestinacoesFinalArquivamento($selDestinacaoFinal); ?>
     </select>
 
     <label id="lblPeriodoDe" for="txtPeriodoDe" accesskey="" class="infraLabelOpcional">Datas Limite de:</label>

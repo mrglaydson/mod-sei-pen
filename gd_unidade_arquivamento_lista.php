@@ -101,8 +101,6 @@ try {
     PaginaSEI::getInstance()->prepararOrdenacao($objMdGdUnidadeArquivamentoDTO, 'SiglaUnidadeOrigem', InfraDTO::$TIPO_ORDENACAO_ASC);
     PaginaSEI::getInstance()->prepararPaginacao($objMdGdUnidadeArquivamentoDTO);
 
-    $arrMdGdUnidadeArquivamentoDTO = $objMdGdUnidadeArquivamentoRN->listar($objMdGdUnidadeArquivamentoDTO);
-
     PaginaSEI::getInstance()->processarPaginacao($objMdGdUnidadeArquivamentoDTO);
     $numRegistros = count($arrMdGdUnidadeArquivamentoDTO);
 
