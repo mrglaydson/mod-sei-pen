@@ -19,7 +19,7 @@ try {
     switch ($_GET['acao']) {
 
         case 'gd_arquivamento_listar':
-            $strTitulo = 'Processos Arquivados';
+            $strTitulo = 'Arquivo da Unidade';
 
             break;
 

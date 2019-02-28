@@ -22,24 +22,33 @@ try {
             $strTitulo = 'Avaliação de Processos';
             break;
 
-        case 'gd_procedimento_eliminacao_enviar':
-            // Cria o objeto do arquivamento
-            $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
-            $objMdGdArquivamentoDTO->setNumIdArquivamento($_POST['hdnInfraItemId']);
+        case 'gd_procedimento_eliminacao_enviar':   
+            $arrStrIds = PaginaSEI::getInstance()->getArrStrItensSelecionados();
+            
+            foreach($arrStrIds as $strId){
+                // Cria o objeto do arquivamento
+                $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
+                $objMdGdArquivamentoDTO->setNumIdArquivamento($strId);
 
-            // Envia o arquivamento para eliminação
-            $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
-            $objMdGdArquivamentoRN->enviarEliminacao($objMdGdArquivamentoDTO);
+                // Envia o arquivamento para eliminação
+                $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
+                $objMdGdArquivamentoRN->enviarEliminacao($objMdGdArquivamentoDTO);
+            }
             break;
 
         case 'gd_procedimento_recolhimento_enviar':
-            // Cria o objeto do arquivamento
-            $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
-            $objMdGdArquivamentoDTO->setNumIdArquivamento($_POST['hdnInfraItemId']);
+            $arrStrIds = PaginaSEI::getInstance()->getArrStrItensSelecionados();
+            
+            foreach($arrStrIds as $strId){
+                // Cria o objeto do arquivamento
+                $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
+                $objMdGdArquivamentoDTO->setNumIdArquivamento($strId);
 
-            // Envia o arquivamento para recolhimento
-            $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
-            $objMdGdArquivamentoRN->enviarRecolhimento($objMdGdArquivamentoDTO);
+                // Envia o arquivamento para recolhimento
+                $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
+                $objMdGdArquivamentoRN->enviarRecolhimento($objMdGdArquivamentoDTO);
+            }
+            
             break;
 
         default:
@@ -95,6 +104,15 @@ try {
     $selDestinacaoFinal = PaginaSEI::getInstance()->recuperarCampo('selDestinacaoFinal');
     if ($selDestinacaoFinal && $selDestinacaoFinal !== 'null') {
         $objMdGdArquivamentoDTO->setStrStaDestinacaoFinal($selDestinacaoFinal);
+
+        if($bolAcaoProcedimentoEliminacaoEnviar && $selDestinacaoFinal == MdGdArquivamentoRN::$DF_ELIMINACAO){
+            $arrComandos[] = '<button type="button" accesskey="E" id="sbmEliminacao" value="Eliminar" class="infraButton" onclick="acaoEnviarEliminacaoMultiplo()"><span class="infraTeclaAtalho">E</span>liminar</button>';
+        }
+
+        if($bolAcaoProcedimentoRecolhimentoEnviar && $selDestinacaoFinal == MdGdArquivamentoRN::$DF_RECOLHIMENTO){
+            $arrComandos[] = '<button type="button" accesskey="R" id="sbmRecolhimento" value="Recolher" class="infraButton"  onclick="acaoEnviarRecolhimentoMultiplo()"><span class="infraTeclaAtalho">R</span>ecolher</button>';
+        }
+
     }
     
     $arrComandos[] = '<button type="button" accesskey="I" id="btnImprimir" value="Imprimir" onclick="infraImprimirTabela();" class="infraButton"><span class="infraTeclaAtalho">I</span>mprimir</button>';
@@ -148,11 +166,14 @@ try {
             }
 
             if (InfraData::compararDatas($arrObjMdGdArquivamentoDTO[$i]->getDthDataGuardaIntermediaria(), date('d/m/Y H:i:s')) >= 0) {
-                if ($arrObjMdGdArquivamentoDTO[$i]->getStrStaDestinacaoFinal() == MdGdArquivamentoRN::$DF_ELIMINACAO) {
+                if ($bolAcaoProcedimentoEliminacaoEnviar && $arrObjMdGdArquivamentoDTO[$i]->getStrStaDestinacaoFinal() == MdGdArquivamentoRN::$DF_ELIMINACAO) {
                     $strResultado .= '<td align="center"><a href="#ID-' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '" onclick="acaoEnviarEliminacao(\'' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '\', \'' . $arrObjMdGdArquivamentoDTO[$i]->getStrProtocoloFormatado() . '\');"   tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="modulos/sei-mod-gestao-documental/imagens/transicao.png" title="Enviar para Eliminação" title="Enviar para Eliminação" class="infraImg" /></a></td></tr>';
-                } else {
+                }
+                
+                if ($bolAcaoProcedimentoRecolhimentoEnviar && $arrObjMdGdArquivamentoDTO[$i]->getStrStaDestinacaoFinal() == MdGdArquivamentoRN::$DF_RECOLHIMENTO){
                     $strResultado .= '<td align="center"><a href="#ID-' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '" onclick="acaoEnviarRecolhimento(\'' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '\', \'' . $arrObjMdGdArquivamentoDTO[$i]->getStrProtocoloFormatado() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="modulos/sei-mod-gestao-documental/imagens/transicao.png" title="Enviar para Recolhimento" title="Enviar para Recolhimento" class="infraImg" /></a></td></tr>';
                 }
+                
             } else {
                 $strResultado .= '<td align="center"></td></tr>' . "\n";
             }
@@ -228,6 +249,28 @@ PaginaSEI::getInstance()->montarJavaScript();
             }
         }
 <? } ?>
+
+<? if ($bolAcaoProcedimentoEliminacaoEnviar) { ?>
+        function acaoEnviarEliminacaoMultiplo() {
+            if (confirm("Confirma o envio dos processos selecionados para eliminação?")) {
+                document.getElementById('hdnInfraItemId').value = '';
+                document.getElementById('frmAvaliacaoProcessoLista').action = '<?= $strLinkProcedimentoEliminacaoEnviar ?>';
+                document.getElementById('frmAvaliacaoProcessoLista').submit();
+            }
+        }
+<? } ?>
+
+<? if ($bolAcaoProcedimentoRecolhimentoEnviar) { ?>
+        function acaoEnviarRecolhimentoMultiplo() {
+            if (confirm("Confirma o envio dos processos selecionados para o recolhimento?")) {
+                document.getElementById('hdnInfraItemId').value = '';
+                document.getElementById('frmAvaliacaoProcessoLista').action = '<?= $strLinkProcedimentoRecolhimentoEnviar ?>';
+                document.getElementById('frmAvaliacaoProcessoLista').submit();
+            }
+        }
+<? } ?>
+
+
 </script>
 <?
 //PaginaSEI::getInstance()->fecharJavaScript();
@@ -261,11 +304,11 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
         <?= MdGdArquivamentoINT::montarSelectDestinacoesFinalArquivamento($selDestinacaoFinal); ?>
     </select>
 
-    <label id="lblPeriodoDe" for="txtPeriodoDe" accesskey="" class="infraLabelOpcional">Datas Limite de:</label>
+    <label id="lblPeriodoDe" for="txtPeriodoDe" accesskey="" class="infraLabelOpcional">De:</label>
     <input type="text" id="txtPeriodoDe" value="<?= $txtPeriodoDe ?>" name="txtPeriodoDe" class="infraText" value="<?= PaginaSEI::tratarHTML($dtaPeriodoDe) ?>" onkeypress="return infraMascaraData(this, event)" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />
     <img id="imgCalPeriodoD" title="Selecionar Data Inicial" alt="Selecionar Data Inicial" src="<?= PaginaSEI::getInstance()->getDiretorioImagensGlobal() ?>/calendario.gif" class="infraImg" onclick="infraCalendario('txtPeriodoDe', this);" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />    
 
-    <label id="lblPeriodoA" for="txtPeriodoA" accesskey="" class="infraLabelOpcional">Até</label>
+    <label id="lblPeriodoA" for="txtPeriodoA" accesskey="" class="infraLabelOpcional">Até:</label>
     <input type="text" id="txtPeriodoA" value="<?= $txtPeriodoA ?>" name="txtPeriodoA" class="infraText" value="<?= PaginaSEI::tratarHTML($dtaPeriodoA) ?>" onkeypress="return infraMascaraData(this, event)" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />
     <img id="imgCalPeriodoA" title="Selecionar Data Final" alt="Selecionar Data Final" src="<?= PaginaSEI::getInstance()->getDiretorioImagensGlobal() ?>/calendario.gif" class="infraImg" onclick="infraCalendario('txtPeriodoA', this);" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />    
 

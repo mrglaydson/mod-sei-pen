@@ -10,19 +10,19 @@ require_once dirname(__FILE__) . '/../../../SEI.php';
 class MdGdArquivamentoINT extends InfraINT {
 
     public static function montarSelectSituacoesArquivamento($strItemSelecionado = '') {
-        return InfraINT::montarSelectArray('', '', $strItemSelecionado, MdGdArquivamentoRN::obterSituacoesArquivamento());
+        return InfraINT::montarSelectArray('null', '&nbsp', $strItemSelecionado, MdGdArquivamentoRN::obterSituacoesArquivamento());
     }
 
     public static function montarSelectGuardasArquivamento($strItemSelecionado = '') {
-        return InfraINT::montarSelectArray('', '', $strItemSelecionado, MdGdArquivamentoRN::obterGuardasArquivamento());
+        return InfraINT::montarSelectArray('null', '&nbsp', $strItemSelecionado, MdGdArquivamentoRN::obterGuardasArquivamento());
     }
 
     public static function montarSelectDestinacoesFinalArquivamento($strItemSelecionado = '') {
-        return InfraINT::montarSelectArray('', '', $strItemSelecionado, MdGdArquivamentoRN::obterDestinacoesFinalArquivamento());
+        return InfraINT::montarSelectArray('null', '&nbsp', $strItemSelecionado, MdGdArquivamentoRN::obterDestinacoesFinalArquivamento());
     }
 
     public static function montarSelectCondicionantesArquivamento($strItemSelecionado = '') {
-        return InfraINT::montarSelectArray('', '', $strItemSelecionado, ['S' => 'Com Condicionante', 'N' => 'Sem Condicionante']);
+        return InfraINT::montarSelectArray('null', '&nbsp', $strItemSelecionado, ['S' => 'Com Condicionante', 'N' => 'Sem Condicionante']);
     }
 
     public static function montarSelectUnidadesArquivamento($numIdUnidadeSelecionada = '') {
@@ -94,5 +94,38 @@ class MdGdArquivamentoINT extends InfraINT {
 
         return $arrObjUnidadeDTO;
     }
+
+    public static function montarSelectsSerieNomeGerados($strPrimeiroItemValor, $strPrimeiroItemDescricao, $strValorItemSelecionado, $numIdGrupoSerie=''){
+        $objSerieDTO = new SerieDTO();
+        $objSerieDTO->retNumIdSerie();
+        $objSerieDTO->retStrNome();
+    
+        if ($numIdGrupoSerie!==''){
+          $objSerieDTO->setNumIdGrupoSerie($numIdGrupoSerie);
+        }
+    
+        if ($strValorItemSelecionado!=null){
+    
+          $objSerieDTO->setBolExclusaoLogica(false);
+          $objSerieDTO->adicionarCriterio(array('SinAtivo','IdSerie'),
+              array(InfraDTO::$OPER_IGUAL,InfraDTO::$OPER_IGUAL),
+              array('S',$strValorItemSelecionado),
+              InfraDTO::$OPER_LOGICO_OR);
+    
+          $objSerieDTO->adicionarCriterio(array('StaAplicabilidade', 'IdSerie'),
+              array(InfraDTO::$OPER_IN, InfraDTO::$OPER_IGUAL),
+              array(array(SerieRN::$TA_INTERNO_EXTERNO, SerieRN::$TA_INTERNO),$strValorItemSelecionado),
+              InfraDTO::$OPER_LOGICO_OR);
+        }else{
+          $objSerieDTO->setStrStaAplicabilidade(array(SerieRN::$TA_INTERNO_EXTERNO, SerieRN::$TA_INTERNO),InfraDTO::$OPER_IN);
+        }
+    
+        $objSerieDTO->setOrdStrNome(InfraDTO::$TIPO_ORDENACAO_ASC);
+    
+        $objSerieRN = new SerieRN();
+        $arrObjSerieDTO = $objSerieRN->listarRN0646($objSerieDTO);
+    
+        return parent::montarSelectArrInfraDTO($strPrimeiroItemValor, $strPrimeiroItemDescricao, $strValorItemSelecionado, $arrObjSerieDTO, 'IdSerie', 'Nome');
+      }
 
 }
