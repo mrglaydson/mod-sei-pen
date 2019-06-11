@@ -18,6 +18,21 @@ class MdGdDesarquivamentoRN extends InfraRN {
             //Valida Permissao
             SessaoSEI::getInstance()->validarAuditarPermissao('gestao_documental_desarquivar_processo', __METHOD__, $objMdGdDesarquivamentoDTO);
 
+            // Inativa os registros de arquivamento
+            $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
+            $objMdGdArquivamentoDTO->setDblIdProcedimento($objMdGdDesarquivamentoDTO->getDblIdProcedimento());
+            $objMdGdArquivamentoDTO->retNumIdArquivamento();
+
+            $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
+            $arrObjMdGdArquivamentoDTO = $objMdGdArquivamentoRN->listar($objMdGdArquivamentoDTO);
+            $numIdArquivamento = null;
+
+            foreach ($arrObjMdGdArquivamentoDTO as $objMdGdArquivamentoDTO) {
+                $objMdGdArquivamentoDTO->setStrSinAtivo('N');
+                $objMdGdArquivamentoRN->alterar($objMdGdArquivamentoDTO);
+                $numIdArquivamento = $objMdGdArquivamentoDTO->getNumIdArquivamento();
+            }
+
             // Reabre o processo
             $objReabrirProcessoDTO = new ReabrirProcessoDTO();
             $objReabrirProcessoDTO->setDblIdProcedimento($objMdGdDesarquivamentoDTO->getDblIdProcedimento());
@@ -83,22 +98,7 @@ class MdGdDesarquivamentoRN extends InfraRN {
             // Bloqueia o conteúdo do documento
             $objDocumentoRN->bloquearConteudo($objDocumentoDTO);
 
-            // Inativa os registros de arquivamento
-            $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
-            $objMdGdArquivamentoDTO->setDblIdProcedimento($objMdGdDesarquivamentoDTO->getDblIdProcedimento());
-            $objMdGdArquivamentoDTO->retNumIdArquivamento();
-
-            $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
-            $arrObjMdGdArquivamentoDTO = $objMdGdArquivamentoRN->listar($objMdGdArquivamentoDTO);
-            $numIdArquivamento = null;
-
-            foreach ($arrObjMdGdArquivamentoDTO as $objMdGdArquivamentoDTO) {
-                $objMdGdArquivamentoDTO->setStrSinAtivo('N');
-                $objMdGdArquivamentoRN->alterar($objMdGdArquivamentoDTO);
-                $numIdArquivamento = $objMdGdArquivamentoDTO->getNumIdArquivamento();
-            }
-
-
+          
             // Cria o registro de desarquivamento
             $objMdGdDesarquivamentoDTO->setDthDataDesarquivamento($dtaDesarquivamento);
             $objMdGdDesarquivamentoDTO->setDblIdDespachoDesarquivamento($objDocumentoDTO->getDblIdDocumento());

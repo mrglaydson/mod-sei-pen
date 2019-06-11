@@ -155,6 +155,20 @@ class MdGdAtualizarSeiRN extends InfraRN {
                 $this->objInfraSequencia->criarSequencia('md_gd_arquivamento', '1', '1', '9999999999');
             }
 
+            // Cria a tabela de anotações das pendências de arquivamento
+            $this->objInfraBanco->executarSql('CREATE TABLE md_gd_anotacao_pendencia (
+                id_anotacao_pendencia ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL,
+                id_procedimento ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL,
+                anotacao ' . $this->objMetaBD->tipoTextoGrande() . '
+            )');
+
+            $this->objMetaBD->adicionarChavePrimaria('md_gd_anotacao_pendencia', 'pk_md_gd_anotacao_pendencia_id_anotacao_pendencia', array('id_anotacao_pendencia'));
+            $this->objMetaBD->adicionarChaveEstrangeira('fk_md_gd_anotacao_pendencia_id_procedimento', 'md_gd_anotacao_pendencia', array('id_procedimento'), 'procedimento', array('id_procedimento'));
+
+            if (!$this->objInfraSequencia->verificarSequencia('md_gd_anotacao_pendencia')) {
+                $this->objInfraSequencia->criarSequencia('md_gd_anotacao_pendencia', '1', '1', '9999999999');
+            }
+
             // Cria a tabela de histórico de situações do arquivamento
             $this->objInfraBanco->executarSql('CREATE TABLE md_gd_historico_arquivamento (
                     id_historico_arquivamento ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL,

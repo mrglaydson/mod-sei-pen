@@ -211,6 +211,9 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
     public function processarControlador($strAcao) {
         // gd_modelos_documento_alterar
         switch ($strAcao) {
+            case 'gd_anotar_pendencia_arquivamento':
+                require_once dirname(__FILE__) . '/gd_anotar_pendencia_arquivamento.php';
+                return true;
             case 'gd_unidade_arquivamento_selecionar':
                 require_once dirname(__FILE__) . '/gd_unidade_arquivamento_selecao.php';
                 return true;
@@ -374,6 +377,24 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
     public function montarMensagemProcesso(ProcedimentoAPI $objProcedimentoAPI) {
         $strMsg = null;
         return $strMsg;
+    }
+
+    public function reabrirProcesso(ProcedimentoAPI $objProcedimentoAPI){
+        
+        $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
+        $objMdGdArquivamentoDTO->setDblIdProcedimento($objProcedimentoAPI->getIdProcedimento());
+        $objMdGdArquivamentoDTO->setStrSinAtivo('S');
+        $objMdGdArquivamentoDTO->retDblIdProcedimento();
+
+        $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
+        
+        if($objMdGdArquivamentoRN->contar($objMdGdArquivamentoDTO) != 0){
+            $objInfraException = new InfraException();
+            $objInfraException->lancarValidacao('O processo não pode ser reaberto pois encontra-se arquivado!');
+            return false;
+        }
+
+        return null;
     }
 
 }
