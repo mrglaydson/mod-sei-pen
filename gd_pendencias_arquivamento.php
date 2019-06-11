@@ -103,7 +103,7 @@ try {
     $selAssunto = PaginaSEI::getInstance()->recuperarCampo('selAssunto');
 
     $strItensSelTipoProcedimento = TipoProcedimentoINT::montarSelectNome('null', 'Todos', $selTipoProcedimento);
-    $strItensSelAssunto = AssuntoINT::montarSelectCodigoEstruturado('null', 'Todos', $selAssunto);
+    $strItensSelAssunto = MdGdArquivamentoINT::montarSelectAssuntos('null', 'Todos', $selAssunto);
 
     if ($arrIdsProcedimento) {
 
@@ -117,6 +117,7 @@ try {
             $objRelProtocoloAssuntoDTO->retDblIdProtocolo();
 
             $arrIdsProcedimento = InfraArray::converterArrInfraDTO($objRelProtoloAssuntoRN->listarRN0188($objRelProtocoloAssuntoDTO),'IdProtocolo');
+            
         }
 
         if($arrIdsProcedimento){
@@ -334,7 +335,7 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
 
     <label id="lblSelAssunto" for="selAssunto" accesskey="" class="infraLabelOpcional">Assunto:</label>
     <select id="selAssunto" name="selAssunto" onchange="this.form.submit();" class="infraSelect" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" >
-        <?= $strItensSelAssunto ?>
+        <?= $strItensSelAssunto; ?>
     </select>
     
     <label id="lblPeriodoDe" for="txtPeriodoDe" accesskey="" class="infraLabelOpcional">Datas Limite de:</label>

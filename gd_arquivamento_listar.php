@@ -14,7 +14,7 @@ try {
 
     SessaoSEI::getInstance()->validarPermissao('gestao_documental_arquivamento_listar');
 
-    PaginaSEI::getInstance()->salvarCamposPost(array('selTipoProcedimento', 'selDestinacaoFinal', 'selCondicionante', 'txtPeriodoDe', 'txtPeriodoA'));
+    PaginaSEI::getInstance()->salvarCamposPost(array('selTipoProcedimento', 'selDestinacaoFinal', 'selCondicionante', 'txtPeriodoDe', 'txtPeriodoA', 'selAssunto'));
 
     switch ($_GET['acao']) {
 
@@ -33,6 +33,7 @@ try {
     $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
     $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
     $objMdGdArquivamentoDTO->setNumIdUnidadeCorrente(SessaoSEI::getInstance()->getNumIdUnidadeAtual());
+    $objMdGdArquivamentoDTO->setStrSinAtivo('S');
     $objMdGdArquivamentoDTO->retNumIdArquivamento();
     $objMdGdArquivamentoDTO->retDthDataArquivamento();
     $objMdGdArquivamentoDTO->retStrProtocoloFormatado();
@@ -72,6 +73,24 @@ try {
     }
 
     $objRelProtoloAssuntoRN = new RelProtocoloAssuntoRN();
+    $selAssunto = PaginaSEI::getInstance()->recuperarCampo('selAssunto');
+
+    // Faz a pesquisa por assunto caso o filtro tenha sido acionado
+    if($selAssunto && $selAssunto !== 'null'){
+        $objRelProtocoloAssuntoDTO = new RelProtocoloAssuntoDTO();
+        $objRelProtocoloAssuntoDTO->setNumIdAssunto($selAssunto);
+        $objRelProtocoloAssuntoDTO->retDblIdProtocolo();
+
+        $arrIdsProcedimento = InfraArray::converterArrInfraDTO($objRelProtoloAssuntoRN->listarRN0188($objRelProtocoloAssuntoDTO),'IdProtocolo');
+
+        if($arrIdsProcedimento){
+            $objMdGdArquivamentoDTO->setDblIdProcedimento($arrIdsProcedimento, InfraDTO::$OPER_IN);
+        }else{
+            $objMdGdArquivamentoDTO->setDblIdProcedimento([0], InfraDTO::$OPER_IN);
+        }
+    }
+
+
 
     $arrComandos[] = '<button type="button" accesskey="I" id="btnImprimir" value="Imprimir" onclick="infraImprimirTabela();" class="infraButton"><span class="infraTeclaAtalho">I</span>mprimir</button>';
 
@@ -151,6 +170,7 @@ try {
     // Busca uma lista de unidades
     $strItensSelUnidade = UnidadeINT::montarSelectSiglaDescricao('null', '&nbsp;', $selUnidade);
     $strItensSelTipoProcedimento = TipoProcedimentoINT::montarSelectNome('null', 'Todos', $selTipoProcedimento);
+    $strItensSelAssunto = MdGdArquivamentoINT::montarSelectAssuntos('null', 'Todos', $selAssunto);
 
     //  $arrComandos[] = '<button type="button" accesskey="F" id="btnFechar" value="Fechar" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . PaginaSEI::getInstance()->getAcaoRetorno() . '&acao_origem=' . $_GET['acao'] . '\'" class="infraButton"><span class="infraTeclaAtalho">F</span>echar</button>';
 } catch (Exception $e) {
@@ -168,6 +188,9 @@ PaginaSEI::getInstance()->abrirStyle();
 
 #lblCondicionante {position:absolute;left:0%;top:0%;width:20%;}
 #selCondicionante {position:absolute;left:0%;top:20%;width:20%;}
+
+#lblSelAssunto {position:absolute;left:0%;top:41%;width:20%;}
+#selAssunto {position:absolute;left:0%;top:57%;width:38%;}
 
 #lblTiposProcedimento {position:absolute;left:21%;top:0%;width:20%;}
 #selTipoProcedimento {position:absolute;left:21%;top:20%;width:20%;}
@@ -236,6 +259,11 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
     <label id="lblTiposProcedimento" for="selTipoProcedimento" accesskey="" class="infraLabelOpcional">Tipo de Processo:</label>
     <select id="selTipoProcedimento" name="selTipoProcedimento" onchange="this.form.submit();" class="infraSelect" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" >
         <?= $strItensSelTipoProcedimento; ?>
+    </select>
+
+    <label id="lblSelAssunto" for="selAssunto" accesskey="" class="infraLabelOpcional">Assunto:</label>
+    <select id="selAssunto" name="selAssunto" onchange="this.form.submit();" class="infraSelect" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" >
+        <?= $strItensSelAssunto; ?>
     </select>
 
     <label id="lblDestinacaoFinal" for="selDestinacaoFinal" accesskey="" class="infraLabelOpcional">Destinação Final:</label>

@@ -14,7 +14,7 @@ try {
 
     SessaoSEI::getInstance()->validarPermissao('gestao_documental_unidade_arquivamento_listar');
 
-    PaginaSEI::getInstance()->salvarCamposPost(array('selUnidade', 'selTipoProcedimento', 'selDestinacaoFinal', 'txtPeriodoDe', 'txtPeriodoA'));
+    PaginaSEI::getInstance()->salvarCamposPost(array('selUnidade', 'selTipoProcedimento', 'selDestinacaoFinal', 'txtPeriodoDe', 'txtPeriodoA', 'selAssunto'));
 
     switch ($_GET['acao']) {
 
@@ -101,6 +101,24 @@ try {
         $objMdGdArquivamentoDTO->setDthDataArquivamento($txtPeriodoA, InfraDTO::$OPER_MENOR_IGUAL);
     }
 
+    // Faz a pesquisa por assunto caso o filtro tenha sido acionado
+    $objRelProtoloAssuntoRN = new RelProtocoloAssuntoRN();
+    $selAssunto = PaginaSEI::getInstance()->recuperarCampo('selAssunto');
+
+    if($selAssunto && $selAssunto !== 'null'){
+        $objRelProtocoloAssuntoDTO = new RelProtocoloAssuntoDTO();
+        $objRelProtocoloAssuntoDTO->setNumIdAssunto($selAssunto);
+        $objRelProtocoloAssuntoDTO->retDblIdProtocolo();
+
+        $arrIdsProcedimento = InfraArray::converterArrInfraDTO($objRelProtoloAssuntoRN->listarRN0188($objRelProtocoloAssuntoDTO),'IdProtocolo');
+        
+        if($arrIdsProcedimento){
+            $objMdGdArquivamentoDTO->setDblIdProcedimento($arrIdsProcedimento, InfraDTO::$OPER_IN);
+        }else{
+            $objMdGdArquivamentoDTO->setDblIdProcedimento([0], InfraDTO::$OPER_IN);
+        }
+    }
+
     $selDestinacaoFinal = PaginaSEI::getInstance()->recuperarCampo('selDestinacaoFinal');
     if ($selDestinacaoFinal && $selDestinacaoFinal !== 'null') {
         $objMdGdArquivamentoDTO->setStrStaDestinacaoFinal($selDestinacaoFinal);
@@ -114,7 +132,7 @@ try {
         }
 
     }
-    
+
     $objRelProtoloAssuntoRN = new RelProtocoloAssuntoRN();
 
     $arrComandos[] = '<button type="button" accesskey="I" id="btnImprimir" value="Imprimir" onclick="infraImprimirTabela();" class="infraButton"><span class="infraTeclaAtalho">I</span>mprimir</button>';
@@ -210,6 +228,7 @@ try {
     // Busca uma lista de unidades
     $strItensSelUnidade = UnidadeINT::montarSelectSiglaDescricao('null', '&nbsp;', $selUnidade);
     $strItensSelTipoProcedimento = TipoProcedimentoINT::montarSelectNome('null', 'Todos', $selTipoProcedimento);
+    $strItensSelAssunto = MdGdArquivamentoINT::montarSelectAssuntos('null', 'Todos', $selAssunto);
 
     //  $arrComandos[] = '<button type="button" accesskey="F" id="btnFechar" value="Fechar" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . PaginaSEI::getInstance()->getAcaoRetorno() . '&acao_origem=' . $_GET['acao'] . '\'" class="infraButton"><span class="infraTeclaAtalho">F</span>echar</button>';
 } catch (Exception $e) {
@@ -243,6 +262,10 @@ PaginaSEI::getInstance()->abrirStyle();
 #lblPeriodoA {position:absolute;left:21%;top:55%;width:20%;}
 #txtPeriodoA {position:absolute;left:21%;top:70%;width:17%;}
 #imgCalPeriodoA {position:absolute;left:39%;top:72%;width:2%;}
+
+#lblSelAssunto {position:absolute;left:42%;top:55%;width:20%;}
+#selAssunto {position:absolute;left:42%;top:70%;width:41%;}
+
 
 <?
 PaginaSEI::getInstance()->fecharStyle();
@@ -337,6 +360,12 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
     <label id="lblPeriodoA" for="txtPeriodoA" accesskey="" class="infraLabelOpcional">Até:</label>
     <input type="text" id="txtPeriodoA" value="<?= $txtPeriodoA ?>" name="txtPeriodoA" class="infraText" value="<?= PaginaSEI::tratarHTML($dtaPeriodoA) ?>" onkeypress="return infraMascaraData(this, event)" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />
     <img id="imgCalPeriodoA" title="Selecionar Data Final" alt="Selecionar Data Final" src="<?= PaginaSEI::getInstance()->getDiretorioImagensGlobal() ?>/calendario.gif" class="infraImg" onclick="infraCalendario('txtPeriodoA', this);" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />    
+
+    <label id="lblSelAssunto" for="selAssunto" accesskey="" class="infraLabelOpcional">Assunto:</label>
+    <select id="selAssunto" name="selAssunto" onchange="this.form.submit();" class="infraSelect" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" >
+        <?= $strItensSelAssunto; ?>
+    </select>
+
 
     <?
     PaginaSEI::getInstance()->fecharAreaDados();

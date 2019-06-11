@@ -128,4 +128,27 @@ class MdGdArquivamentoINT extends InfraINT {
         return parent::montarSelectArrInfraDTO($strPrimeiroItemValor, $strPrimeiroItemDescricao, $strValorItemSelecionado, $arrObjSerieDTO, 'IdSerie', 'Nome');
       }
 
+      public static function montarSelectAssuntos($strPrimeiroItemValor, $strPrimeiroItemDescricao, $strValorItemSelecionado){
+        $objAssuntoDTO = new AssuntoDTO();
+        $objAssuntoDTO->retNumIdAssunto();
+        $objAssuntoDTO->retStrCodigoEstruturado();
+        $objAssuntoDTO->retStrDescricao();
+        $objAssuntoDTO->setOrdStrCodigoEstruturado(InfraDTO::$TIPO_ORDENACAO_ASC);
+        
+        $objAssuntoRN = new AssuntoRN();
+        $arrObjAssuntoDTO = $objAssuntoRN->listarRN0247($objAssuntoDTO);
+        $arrAssuntos = [];
+
+        foreach($arrObjAssuntoDTO as $objAssuntoDTO){
+            $arrAssuntos[$objAssuntoDTO->getNumIdAssunto()] = $objAssuntoDTO->getStrCodigoEstruturado(). " - ".$objAssuntoDTO->getStrDescricao();
+            
+            if(strlen($arrAssuntos[$objAssuntoDTO->getNumIdAssunto()]) > 120){
+                $arrAssuntos[$objAssuntoDTO->getNumIdAssunto()] = substr($arrAssuntos[$objAssuntoDTO->getNumIdAssunto()], 0, 120)."...";
+            }
+        }
+
+        return parent::montarSelectArray($strPrimeiroItemValor, $strPrimeiroItemDescricao, $strValorItemSelecionado, $arrAssuntos);
+      }
+      
+
 }
