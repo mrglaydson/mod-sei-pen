@@ -57,6 +57,29 @@ class MdGdArquivamentoRN extends InfraRN {
                 $objProcedimentoRN->reabrirRN0966($objReabrirProcessoDTO);
             }
 
+            // Realiza o andamento do arquivamento
+            $objAtividadeRN = new AtividadeRN();
+            $objPesquisaPendenciaDTO = new PesquisaPendenciaDTO();
+            $objPesquisaPendenciaDTO->setDblIdProtocolo($objMdGdArquivamentoDTO->getDblIdProcedimento());
+            $objPesquisaPendenciaDTO->setNumIdUsuario(SessaoSEI::getInstance()->getNumIdUsuario());
+            $objPesquisaPendenciaDTO->setNumIdUnidade(SessaoSEI::getInstance()->getNumIdUnidadeAtual());
+            $arrObjProcedimentoDTO = $objAtividadeRN->listarPendenciasRN0754($objPesquisaPendenciaDTO);
+
+            $arrObjAtividadeDTO = array();
+            foreach($arrObjProcedimentoDTO as $objProcedimentoDTO){
+              $arrObjAtividadeDTO = array_merge($arrObjAtividadeDTO,$objProcedimentoDTO->getArrObjAtividadeDTO()); 
+            }
+            
+            $arrStrIdAtividade = implode(',',InfraArray::converterArrInfraDTO($arrObjAtividadeDTO,'IdAtividade'));
+            $arrIdProcedimento = [$objMdGdArquivamentoDTO->getDblIdProcedimento()];
+
+            $objAtualizarAndamentoDTO = new AtualizarAndamentoDTO();
+            $objAtualizarAndamentoDTO->setStrDescricao('Processo arquivado');
+            $objAtualizarAndamentoDTO->setArrObjProtocoloDTO(InfraArray::gerarArrInfraDTO('ProtocoloDTO','IdProtocolo', $arrIdProcedimento));
+            $objAtualizarAndamentoDTO->setArrObjAtividadeDTO(InfraArray::gerarArrInfraDTO('AtividadeDTO','IdAtividade',explode(',',$arrStrIdAtividade)));
+            
+            $objAtividadeRN->atualizarAndamento($objAtualizarAndamentoDTO);
+            
             // Informa a data do arquivamento
             $dtaDataArquivamentoBr = date('d/m/Y H:i:s');
             $dtaDataArquivamentoUs = date('Y-m-d H:i:s');

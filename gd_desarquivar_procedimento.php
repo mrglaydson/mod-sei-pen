@@ -30,7 +30,7 @@ try {
 
     $strParametros = '';
 
-    if (isset($_GET['id_procedimento'])) {
+    if (isset($_GET['id_procedimento']) && !empty($_GET['id_procedimento'])) {
         $strParametros .= "&id_procedimento=" . $_GET['id_procedimento'];
     }
 
@@ -50,8 +50,8 @@ try {
 
             if ($_GET['acao_origem'] == 'arvore_visualizar') {
                 $arrProtocolosOrigem = array($_GET['id_procedimento']);
-            } else if ($_GET['acao_origem'] == 'procedimento_controlar') {
-                $arrProtocolosOrigem = array_merge(PaginaSEI::getInstance()->getArrStrItensSelecionados('Gerados'), PaginaSEI::getInstance()->getArrStrItensSelecionados('Recebidos'), PaginaSEI::getInstance()->getArrStrItensSelecionados('Detalhado'));
+            } else if ($_GET['acao_origem'] == 'gd_arquivamento_listar') {
+                $arrProtocolosOrigem = PaginaSEI::getInstance()->getArrStrItensSelecionados();
             } else if (isset($_POST['hdnIdProtocolos'])) {
                 $arrProtocolosOrigem = explode(',', $_POST['hdnIdProtocolos']);
             }
@@ -76,7 +76,18 @@ try {
                     }
 
                     PaginaSEI::getInstance()->setStrMensagem('Operação realizada com sucesso.');
-                    header('Location: ' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . PaginaSEI::getInstance()->getAcaoRetorno() . '&acao_origem=' . $_GET['acao'] . '&atualizar_arvore=1' . $strParametros));
+                    if(count($arrProtocolosOrigem) == 1){
+                        if(!strpos($strParametros, 'id_procedimento')){
+                            $strParametros .= '&id_procedimento='.$arrProtocolosOrigem[0];
+                            header('Location: ' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=procedimento_trabalhar&acao_origem=' . $_GET['acao'] . '&atualizar_arvore=1' . $strParametros));
+                        }else{
+                            header('Location: ' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao='.PaginaSEI::getInstance()->getAcaoRetorno().'&acao_origem=' . $_GET['acao'] . '&atualizar_arvore=1' . $strParametros));
+                        }
+
+                    }else{
+                        header('Location: ' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_arquivamento_listar&acao_origem=' . $_GET['acao']));
+
+                    }
                     die;
                 } catch (Exception $e) {
                     PaginaSEI::getInstance()->processarExcecao($e);

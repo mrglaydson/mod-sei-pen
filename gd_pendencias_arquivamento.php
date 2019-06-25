@@ -128,6 +128,7 @@ try {
             $objProcedimentoDTO->retStrProtocoloProcedimentoFormatado();
             $objProcedimentoDTO->retStrNomeTipoProcedimento();
             $objProcedimentoDTO->retObjAnotacaoDTO();
+            $objProcedimentoDTO->retStrStaNivelAcessoGlobalProtocolo();
 
             if ($selTipoProcedimento && $selTipoProcedimento !== 'null') {
                 $objProcedimentoDTO->setNumIdTipoProcedimento($selTipoProcedimento);
@@ -206,7 +207,19 @@ try {
 
                     $strResultado .= '<td valign="top">' . PaginaSEI::getInstance()->getTrCheck($i, $arrObjProcedimentoDTO[$i]->getDblIdProcedimento(), $arrObjProcedimentoDTO[$i]->getStrProtocoloProcedimentoFormatado()) . '</td>';
                     $strResultado .= '<td>' . $c . '</td>';
-                    $strResultado .= '<td><a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=procedimento_trabalhar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao'] . '&id_procedimento=' . $arrObjProcedimentoDTO[$i]->getDblIdProcedimento()) . '" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . ' " target="_blank">' . $arrObjProcedimentoDTO[$i]->getStrProtocoloProcedimentoFormatado() . '</a></td>';
+                    $strResultado .= '<td><a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=procedimento_trabalhar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao'] . '&id_procedimento=' . $arrObjProcedimentoDTO[$i]->getDblIdProcedimento()) . '" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . ' " target="_blank">' . $arrObjProcedimentoDTO[$i]->getStrProtocoloProcedimentoFormatado() . '</a>';
+
+                    if($arrObjProcedimentoDTO[$i]->getStrStaNivelAcessoGlobalProtocolo() == ProtocoloRN::$NA_RESTRITO){
+                        $strResultado .= '<img src="imagens/sei_chave_restrito.gif" title="Processo Restrito" title="Processo Restrito" class="infraImg" />';
+                    }
+        
+                    if($arrObjProcedimentoDTO[$i]->getStrStaNivelAcessoGlobalProtocolo() == ProtocoloRN::$NA_SIGILOSO){
+                        $strResultado .= '<img src="imagens/sei_chave_sigiloso.gif" title="Processo Sigiloso" title="Processo Sigiloso" class="infraImg" />';
+                    }
+        
+                   
+                    $strResultado .= '</td>';
+                    
                     $strResultado .= '<td>' . $arrObjAtividadeDTO[$arrObjProcedimentoDTO[$i]->getDblIdProcedimento()]->getDthAbertura() . '</td>';
                     $strResultado .= '<td>' . $arrObjProcedimentoDTO[$i]->getStrNomeTipoProcedimento() . '</td>';
                     $strResultado .= '<td>' . $strAssuntosProcedimento. '</td>';

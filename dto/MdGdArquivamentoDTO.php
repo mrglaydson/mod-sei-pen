@@ -116,6 +116,11 @@ class MdGdArquivamentoDTO extends InfraDTO
                                               'pro.protocolo_formatado',
                                               'protocolo pro');
         
+        $this->adicionarAtributoTabelaRelacionada(InfraDTO::$PREFIXO_STR,
+                                            'StaNivelAcessoGlobal',
+                                            'pro.sta_nivel_acesso_global',
+                                            'protocolo pro');
+
          $this->adicionarAtributoTabelaRelacionada(InfraDTO::$PREFIXO_NUM,
                                               'IdTipoProcedimento',
                                               'p.id_tipo_procedimento',

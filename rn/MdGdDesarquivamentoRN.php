@@ -32,6 +32,7 @@ class MdGdDesarquivamentoRN extends InfraRN {
                 $objMdGdArquivamentoRN->alterar($objMdGdArquivamentoDTO);
                 $numIdArquivamento = $objMdGdArquivamentoDTO->getNumIdArquivamento();
             }
+         
 
             // Reabre o processo
             $objReabrirProcessoDTO = new ReabrirProcessoDTO();
@@ -54,6 +55,30 @@ class MdGdDesarquivamentoRN extends InfraRN {
             if ($objProcedimentoDTO->getStrStaEstadoProtocolo() == ProtocoloRN::$TE_PROCEDIMENTO_BLOQUEADO) {
                 $objProcedimentoRN->desbloquear([$objProcedimentoDTO]);
             }
+
+            // Realiza o andamento do arquivamento
+            $objAtividadeRN = new AtividadeRN();
+            $objPesquisaPendenciaDTO = new PesquisaPendenciaDTO();
+            $objPesquisaPendenciaDTO->setDblIdProtocolo($objMdGdDesarquivamentoDTO->getDblIdProcedimento());
+            $objPesquisaPendenciaDTO->setNumIdUsuario(SessaoSEI::getInstance()->getNumIdUsuario());
+            $objPesquisaPendenciaDTO->setNumIdUnidade(SessaoSEI::getInstance()->getNumIdUnidadeAtual());
+            $arrObjProcedimentoDTO = $objAtividadeRN->listarPendenciasRN0754($objPesquisaPendenciaDTO);
+
+            $arrObjAtividadeDTO = array();
+            foreach($arrObjProcedimentoDTO as $objProcedimentoDTO){
+                $arrObjAtividadeDTO = array_merge($arrObjAtividadeDTO,$objProcedimentoDTO->getArrObjAtividadeDTO()); 
+            }
+            
+            $arrStrIdAtividade = implode(',',InfraArray::converterArrInfraDTO($arrObjAtividadeDTO,'IdAtividade'));
+            $arrIdProcedimento = [$objMdGdDesarquivamentoDTO->getDblIdProcedimento()];
+
+            $objAtualizarAndamentoDTO = new AtualizarAndamentoDTO();
+            $objAtualizarAndamentoDTO->setStrDescricao('Processo desarquivado');
+            $objAtualizarAndamentoDTO->setArrObjProtocoloDTO(InfraArray::gerarArrInfraDTO('ProtocoloDTO','IdProtocolo', $arrIdProcedimento));
+            $objAtualizarAndamentoDTO->setArrObjAtividadeDTO(InfraArray::gerarArrInfraDTO('AtividadeDTO','IdAtividade',explode(',',$arrStrIdAtividade)));
+            
+            $objAtividadeRN->atualizarAndamento($objAtualizarAndamentoDTO);
+            
 
             //Instancia as RN's necessárias
             $objMdGdParametroRN = new MdGdParametroRN();
@@ -106,8 +131,6 @@ class MdGdDesarquivamentoRN extends InfraRN {
 
             $objMdGdDesarquivamentoBD = new MdGdDesarquivamentoBD($this->inicializarObjInfraIBanco());
             $objMdGdDesarquivamentoBD->cadastrar($objMdGdDesarquivamentoDTO);
-
-
 
             return true;
         } catch (Exception $e) {

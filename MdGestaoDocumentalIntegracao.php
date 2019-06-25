@@ -375,7 +375,19 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
     }
 
     public function montarMensagemProcesso(ProcedimentoAPI $objProcedimentoAPI) {
-        $strMsg = null;
+        $strMsg = '';
+
+        $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
+        $objMdGdArquivamentoDTO->setDblIdProcedimento($objProcedimentoAPI->getIdProcedimento());
+        $objMdGdArquivamentoDTO->setStrSinAtivo('S');
+        $objMdGdArquivamentoDTO->retDblIdProcedimento();
+
+        $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
+        
+        if($objMdGdArquivamentoRN->contar($objMdGdArquivamentoDTO) != 0){
+            $strMsg = 'Processo arquivado.';
+        }
+
         return $strMsg;
     }
 

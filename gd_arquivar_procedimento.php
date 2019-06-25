@@ -21,8 +21,6 @@ try {
 
     SessaoSEI::getInstance()->validarLink();
 
-    //PaginaSEI::getInstance()->verificarSelecao('rel_protocolo_protocolo_selecionar');
-
     SessaoSEI::getInstance()->validarPermissao('gestao_documental_arquivar_processo');
 
 
