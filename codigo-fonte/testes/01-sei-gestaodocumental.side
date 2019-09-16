@@ -1,0 +1,1490 @@
+{
+  "id": "faffb495-de05-4239-be21-eca3cdb4f630",
+  "version": "2.0",
+  "name": "Gestao-Documental-SEI",
+  "url": "http://seigd.nuvem.gov.br/sei",
+  "tests": [{
+    "id": "0aef73fd-dc4f-4dfe-8311-8d0dd6e72ddf",
+    "name": "Configuracoes",
+    "commands": [{
+      "id": "119e7e27-ad46-4eac-9076-1003e8a50ff5",
+      "comment": "",
+      "command": "open",
+      "target": "/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e649bb67-2f30-42f3-9b1e-57afc57fa714",
+      "comment": "",
+      "command": "type",
+      "target": "id=txtUsuario",
+      "targets": [
+        ["id=txtUsuario", "id"],
+        ["name=txtUsuario", "name"],
+        ["css=#txtUsuario", "css:finder"],
+        ["xpath=//input[@id='txtUsuario']", "xpath:attributes"],
+        ["xpath=//div[@id='divUsuario']/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "teste"
+    }, {
+      "id": "fefcc4d8-f09e-4825-bed6-ac30cc1ce7c6",
+      "comment": "",
+      "command": "click",
+      "target": "id=pwdSenha",
+      "targets": [
+        ["id=pwdSenha", "id"],
+        ["name=pwdSenha", "name"],
+        ["css=#pwdSenha", "css:finder"],
+        ["xpath=//input[@id='pwdSenha']", "xpath:attributes"],
+        ["xpath=//div[@id='divUsuario']/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "90d4a00f-93fe-498a-bf83-cb55d89bbd7c",
+      "comment": "",
+      "command": "type",
+      "target": "id=pwdSenha",
+      "targets": [
+        ["id=pwdSenha", "id"],
+        ["name=pwdSenha", "name"],
+        ["css=#pwdSenha", "css:finder"],
+        ["xpath=//input[@id='pwdSenha']", "xpath:attributes"],
+        ["xpath=//div[@id='divUsuario']/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "teste"
+    }, {
+      "id": "a7206cdb-afa7-4838-bd7d-6d62363efc36",
+      "comment": "",
+      "command": "click",
+      "target": "id=sbmLogin",
+      "targets": [
+        ["id=sbmLogin", "id"],
+        ["name=sbmLogin", "name"],
+        ["css=#sbmLogin", "css:finder"],
+        ["xpath=//button[@id='sbmLogin']", "xpath:attributes"],
+        ["xpath=//div[@id='divBotoes']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Acessar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d59f0817-5dbc-40ba-a517-a8e254363edb",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//ul[@id='main-menu']/li/a",
+      "targets": [
+        ["linkText=Configurações", "linkText"],
+        ["css=li:nth-child(25) > ul > li:nth-child(1) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Configurações')]", "xpath:link"],
+        ["xpath=//ul[@id='main-menu']/li/ul/li[25]/ul/li/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'controlador.php?acao=gd_parametros_alterar&infra_sistema=100000100&infra_unidade_atual=110000001&infra_hash=92c3f2afddc0b87a665835d6a500908f0eda3de8e332f110ca058f74a31e0630')]", "xpath:href"],
+        ["xpath=//li[25]/ul/li/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Configurações')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "f4062368-7bc1-4db3-af92-1536edbeb7e4",
+      "comment": "",
+      "command": "click",
+      "target": "//*[@id=\"main-menu\"]/li[1]/ul/li[25]/a",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "91dadcc2-6884-408f-8d33-cad2e6e4319f",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Configurações",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e1b65661-e769-43aa-b170-a269e097ae42",
+      "comment": "",
+      "command": "click",
+      "target": "id=selDESPACHO_ARQUIVAMENTO",
+      "targets": [
+        ["id=selDESPACHO_ARQUIVAMENTO", "id"],
+        ["name=selDESPACHO_ARQUIVAMENTO", "name"],
+        ["css=#selDESPACHO_ARQUIVAMENTO", "css:finder"],
+        ["xpath=//select[@id='selDESPACHO_ARQUIVAMENTO']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/select", "xpath:idRelative"],
+        ["xpath=//div[2]/select", "xpath:position"],
+        ["xpath=//select[contains(.,' \n \nAbertura de Procedimento Licitatório\nAcórdão\nAcordo de Cooperação Técnica\nAnálise\nAnálise de Riscos\nAta de Registro de Preços\nAta de Reunião\nAtestado de Capacidade Técnica\nAto\nAviso\nAviso de Audiência Pública\nBoletim de Concessão de Diárias\nCertidão\nContrato\nConvênio\nCota\nDeclaração\nDespacho\nDespacho (AGU)\nDespacho Decisório\nDocumento de Oficialização da Demanda (DOD)\nE-mail\nEdital\nEstudo Técnico Preliminar da Contratação\nExposição de Motivos\nFormulário de Ouvidoria\nIndicação de Integrante Técnico\nInformação\nInstituição da Equipe de Planej. da Contratação\nMemorando\nMemorando-Circular\nMensagem\nMinuta de Acordo de Cooperação Técnica\nMinuta de Ata de Registro de Preços\nMinuta de Contrato\nMinuta de Convênio\nMinuta de Edital\nMinuta de Portaria\nMinuta de Projeto Básico\nMinuta de Resolução\nMinuta de Termo Aditivo\nMinuta de Termo de Rescisão Amigável\nMinuta de Termo de Rescisão Unilateral\nNota\nNota Técnica\nOfício\nOrdem de Serviço ou de Fornecimento de Bens\nParecer\nParecer (AGU)\nPlano de Fiscalização\nPlano de Gerenciamento de Projeto (PGP)\nPlano de Inserção\nPortaria\nPrestação de Contas de Suprimento de Fundos\nProjeto Básico\nProposta de Concessão de Suprimento de Fundos\nReconhecimento e Ratificação de Dispensa\nReconhecimento e Ratificação de Inexigibilidade\nReferendo\nRegistro de Reunião\nRelatório de Concessão de Suprimento de Fundos\nRelatório de Viagem a Serviço\nResolução\nSolicitação de Despesas por Suprimento de Fundos\nSúmula\nTermo Aditivo\nTermo de Abertura de Projeto (TAP)\nTermo de Apostilamento\nTermo de Ciência de Manutenção de Sigilo\nTermo de Comprom. Manutenção de Sigilo em Contrato\nTermo de Encerramento de Contrato\nTermo de Encerramento de Trâmite Físico\nTermo de Recebimento Definitivo\nTermo de Recebimento Provisório\nTermo de Referência\nTermo de Rescisão Amigável\nTermo de Rescisão Unilateral\nVoto')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "0d64f5cb-873c-480e-9ad8-93a74ee334d4",
+      "comment": "",
+      "command": "select",
+      "target": "id=selDESPACHO_ARQUIVAMENTO",
+      "targets": [],
+      "value": "label=Despacho"
+    }, {
+      "id": "3681650d-df7b-4b74-a95f-173e64f6f3b4",
+      "comment": "",
+      "command": "click",
+      "target": "id=selDESPACHO_ARQUIVAMENTO",
+      "targets": [
+        ["id=selDESPACHO_ARQUIVAMENTO", "id"],
+        ["name=selDESPACHO_ARQUIVAMENTO", "name"],
+        ["css=#selDESPACHO_ARQUIVAMENTO", "css:finder"],
+        ["xpath=//select[@id='selDESPACHO_ARQUIVAMENTO']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/select", "xpath:idRelative"],
+        ["xpath=//div[2]/select", "xpath:position"],
+        ["xpath=//select[contains(.,' \n \nAbertura de Procedimento Licitatório\nAcórdão\nAcordo de Cooperação Técnica\nAnálise\nAnálise de Riscos\nAta de Registro de Preços\nAta de Reunião\nAtestado de Capacidade Técnica\nAto\nAviso\nAviso de Audiência Pública\nBoletim de Concessão de Diárias\nCertidão\nContrato\nConvênio\nCota\nDeclaração\nDespacho\nDespacho (AGU)\nDespacho Decisório\nDocumento de Oficialização da Demanda (DOD)\nE-mail\nEdital\nEstudo Técnico Preliminar da Contratação\nExposição de Motivos\nFormulário de Ouvidoria\nIndicação de Integrante Técnico\nInformação\nInstituição da Equipe de Planej. da Contratação\nMemorando\nMemorando-Circular\nMensagem\nMinuta de Acordo de Cooperação Técnica\nMinuta de Ata de Registro de Preços\nMinuta de Contrato\nMinuta de Convênio\nMinuta de Edital\nMinuta de Portaria\nMinuta de Projeto Básico\nMinuta de Resolução\nMinuta de Termo Aditivo\nMinuta de Termo de Rescisão Amigável\nMinuta de Termo de Rescisão Unilateral\nNota\nNota Técnica\nOfício\nOrdem de Serviço ou de Fornecimento de Bens\nParecer\nParecer (AGU)\nPlano de Fiscalização\nPlano de Gerenciamento de Projeto (PGP)\nPlano de Inserção\nPortaria\nPrestação de Contas de Suprimento de Fundos\nProjeto Básico\nProposta de Concessão de Suprimento de Fundos\nReconhecimento e Ratificação de Dispensa\nReconhecimento e Ratificação de Inexigibilidade\nReferendo\nRegistro de Reunião\nRelatório de Concessão de Suprimento de Fundos\nRelatório de Viagem a Serviço\nResolução\nSolicitação de Despesas por Suprimento de Fundos\nSúmula\nTermo Aditivo\nTermo de Abertura de Projeto (TAP)\nTermo de Apostilamento\nTermo de Ciência de Manutenção de Sigilo\nTermo de Comprom. Manutenção de Sigilo em Contrato\nTermo de Encerramento de Contrato\nTermo de Encerramento de Trâmite Físico\nTermo de Recebimento Definitivo\nTermo de Recebimento Provisório\nTermo de Referência\nTermo de Rescisão Amigável\nTermo de Rescisão Unilateral\nVoto')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "4e54460a-2ecb-4bd1-a4a2-dbd1eb07b6ce",
+      "comment": "",
+      "command": "click",
+      "target": "id=selDESPACHO_DESARQUIVAMENTO",
+      "targets": [
+        ["id=selDESPACHO_DESARQUIVAMENTO", "id"],
+        ["name=selDESPACHO_DESARQUIVAMENTO", "name"],
+        ["css=#selDESPACHO_DESARQUIVAMENTO", "css:finder"],
+        ["xpath=//select[@id='selDESPACHO_DESARQUIVAMENTO']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/select[2]", "xpath:idRelative"],
+        ["xpath=//select[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "e720a5c1-9d64-4324-98a9-e4c0129b48ec",
+      "comment": "",
+      "command": "select",
+      "target": "id=selDESPACHO_DESARQUIVAMENTO",
+      "targets": [],
+      "value": "label=Despacho"
+    }, {
+      "id": "bdc09995-b850-422c-bdd9-0aad5e85cb92",
+      "comment": "",
+      "command": "click",
+      "target": "id=selDESPACHO_DESARQUIVAMENTO",
+      "targets": [
+        ["id=selDESPACHO_DESARQUIVAMENTO", "id"],
+        ["name=selDESPACHO_DESARQUIVAMENTO", "name"],
+        ["css=#selDESPACHO_DESARQUIVAMENTO", "css:finder"],
+        ["xpath=//select[@id='selDESPACHO_DESARQUIVAMENTO']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/select[2]", "xpath:idRelative"],
+        ["xpath=//select[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "0f1b4087-b9c4-460c-9796-5f5d8fc7c22b",
+      "comment": "",
+      "command": "click",
+      "target": "id=selTIPO_PROCEDIMENTO_LISTAGEM_ELIMINACAO",
+      "targets": [
+        ["id=selTIPO_PROCEDIMENTO_LISTAGEM_ELIMINACAO", "id"],
+        ["name=selTIPO_PROCEDIMENTO_LISTAGEM_ELIMINACAO", "name"],
+        ["css=#selTIPO_PROCEDIMENTO_LISTAGEM_ELIMINACAO", "css:finder"],
+        ["xpath=//select[@id='selTIPO_PROCEDIMENTO_LISTAGEM_ELIMINACAO']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/select[3]", "xpath:idRelative"],
+        ["xpath=//select[3]", "xpath:position"],
+        ["xpath=//select[contains(.,' \n \nAcesso à Informação: Demanda do e-SIC\nAcompanhamento Legislativo: Câmara dos Deputados\nAcompanhamento Legislativo: Congresso Nacional\nAcompanhamento Legislativo: Estadual/Distrital\nAcompanhamento Legislativo: Municipal\nAcompanhamento Legislativo: Senado Federal\nArrecadação: Cobrança\nArrecadação: Cumprimento de Ação Judicial\nArrecadação: Encaminhamento para Dívida Ativa\nArrecadação: Normatização Interna\nArrecadação: Notificação/Comunicado\nArrecadação: Parcelamento Administrativo\nArrecadação: Receita\nArrecadação: Regularização de Indébitos\nArrecadação: Restituição/Compensação\nArrecadação: Subsidiar Ação Judicial\nComunicação: Evento Institucional Público Externo\nComunicação: Evento Institucional Público Interno\nComunicação: Pedido de Apoio Institucional\nComunicação: Publicidade Institucional\nComunicação: Publicidade Legal\nContabilidade: Análise Contábil\nContabilidade: Conformidade de Gestão\nContabilidade: Contratos e Garantias\nContabilidade: DIRF\nContabilidade: Encerramento do Exercício\nContabilidade: Fechamento Contábil - Estoque\nContabilidade: Fechamento Contábil Patrimonial\nContabilidade: Manuais\nContabilidade: Normatização Interna\nContabilidade: Prestação de Contas\nConvênios/Ajustes: Acompanhamento da Execução\nConvênios/Ajustes: Formalização/Alteração com Repasse\nConvênios/Ajustes: Formalização/Alteração sem Repasse\nCorregedoria: Análise Prescricional de Processo\nCorregedoria: Avaliação para Estabilidade\nCorregedoria: Correição\nCorregedoria: Investigação Preliminar\nCorregedoria: Procedimento Geral\nCorregedoria: Processo Administrativo Disciplinar\nCorregedoria: Sindicância Punitiva\nDemanda Externa: Cidadão (Pessoa Física)\nDemanda Externa: Deputado Estadual/Distrital\nDemanda Externa: Deputado Federal\nDemanda Externa: Judiciário\nDemanda Externa: Ministério Público Estadual\nDemanda Externa: Ministério Público Federal\nDemanda Externa: Orgãos Governamentais Estaduais\nDemanda Externa: Orgãos Governamentais Federais\nDemanda Externa: Orgãos Governamentais Municipais\nDemanda Externa: Outras Entidades Privadas\nDemanda Externa: Outros Orgãos Públicos\nDemanda Externa: Senador\nDemanda Externa: Vereador/Câmara Municipal\nÉtica: Análise de Conflito de Interesse\nÉtica: Processo de Apuração Ética\nFinanças: Execução Financeira\nFinanças: Normatização Interna\nFinanças: Reembolso/Ressarcimento\nGestão da Informação: Arrecadação\nGestão da Informação: Avaliação/Destinação de Documentos\nGestão da Informação: Cadastro de Usuário Externo no SEI\nGestão da Informação: Controle de Malote\nGestão da Informação: Credenciamento de Segurança\nGestão da Informação: Gestão Documental\nGestão da Informação: Normatização Interna\nGestão da Informação: Reconstituição Documental\nGestão da Informação: Rol Anual de Informações Classificadas\nGestão da Informação: Segurança da Informação e Comunicações\nGestão de Contrato: Acompanhamento da Execução\nGestão de Contrato: Acréscimo Contratual\nGestão de Contrato: Alterações Contratuais Conjuntas\nGestão de Contrato: Aplicação de Sanção Contratual\nGestão de Contrato: Consulta à Procuradoria/Conjur\nGestão de Contrato: Execução de Garantia\nGestão de Contrato: Outras Alterações Contratuais não Relacionadas\nGestão de Contrato: Pagamento Direto a Terceiros\nGestão de Contrato: Processo de Pagamento\nGestão de Contrato: Prorrogação Contratual\nGestão de Contrato: Reajuste ou Repactuação Contratual\nGestão de Contrato: Rescisão Contratual\nGestão de Contrato: Revisão Contratual\nGestão de Contrato: Supressão Contratual\nGestão de Processos: Mapeamento e Modelagem\nGestão de Projetos: Planejamento e Execução\nGestão de TI: CITI\nGestão e Controle: Coordenação - Demandas Externas\nGestão e Controle: Coordenação - Demandas Internas\nGestão e Controle: Demandas de Órgãos de Controle\nGestão e Controle: Executar Auditoria Interna\nInfraestrutura: Abastecimento de Água e Esgoto\nInfraestrutura: Apoio de Engenharia Civil\nInfraestrutura: Fornecimento de Energia Elétrica\nLicitação: Adesão a Ata de RP-Não Participante\nLicitação: Adesão a Ata de RP-Participante\nLicitação: Aplicação de Sanção decorrente de Procedimento Licitatório\nLicitação: Concorrência\nLicitação: Concorrência-Registro de Preço\nLicitação: Concurso\nLicitação: Consulta\nLicitação: Convite\nLicitação: Dispensa - Acima de R$ 8 mil\nLicitação: Dispensa - Até R$ 8 mil\nLicitação: Inexigibilidade\nLicitação: Leilão\nLicitação: Plano de Aquisições\nLicitação: Pregão Eletrônico\nLicitação: Pregão Eletrônico-Registro de Preço\nLicitação: Pregão Presencial\nLicitação: Regime Diferenciado de Contratação-RDC\nLicitação: Tomada de Preços\nMaterial: Desfazimento de Material de Consumo\nMaterial: Desfazimento de Material Permanente\nMaterial: Inventário de Material de Consumo\nMaterial: Inventário de Material Permanente\nMaterial: Movimentação de Material de Consumo\nMaterial: Movimentação de Material Permanente\nOrçamento: Acompanhamento de Despesa Mensal\nOrçamento: Contingenciamento\nOrçamento: Créditos Adicionais\nOrçamento: Descentralização de Créditos\nOrçamento: Manuais\nOrçamento: Programação Orçamentária\nOuvidoria: Agradecimento ao Órgão (Ouvidoria)\nOuvidoria: Crítica à atuação do Órgão (Ouvidoria)\nOuvidoria: Denúncia contra a atuação do Órgão (Ouvidoria)\nOuvidoria: Elogio à atuação do Órgão (Ouvidoria)\nOuvidoria: Pedido de Informação (Ouvidoria)\nOuvidoria: Reclamação à atuação do Órgão (Ouvidoria)\nPatrimônio: Cobrança de Acervo Bibliográfico\nPatrimônio: Gestão de Acervo Bibliográfico\nPatrimônio: Gestão de Bens Imóveis\nPessoal: Abono Permanência - Concessão\nPessoal: Abono Permanência - Revisão\nPessoal: Adicional de Férias (1/3 constitucional)\nPessoal: Adicional de Insalubridade\nPessoal: Adicional de Periculosidade\nPessoal: Adicional Noturno\nPessoal: Adicional por Atividade Penosa\nPessoal: Adicional por Serviço Extraordinário\nPessoal: Adicional por Tempo de Serviço\nPessoal: Afastamento para Atividade Desportiva\nPessoal: Afastamento para Curso de Formação\nPessoal: Afastamento para Depor\nPessoal: Afastamento para Exercer Mandato Eletivo\nPessoal: Afastamento para Pós-Graduação\nPessoal: Afastamento para Serviço Eleitoral (TRE)\nPessoal: Afastamento para Servir como Jurado\nPessoal: Afastamento para servir em Organismo Internacional\nPessoal: Ajuda de Custo com Mudança de Domicílio\nPessoal: Aposentadoria - Concessão\nPessoal: Aposentadoria - Contagem Tempo de Serviço\nPessoal: Aposentadoria - Pensão Temporária\nPessoal: Aposentadoria - Pensão Vitalícia\nPessoal: Aposentadoria - Revisão\nPessoal: Apresentação de Certificado de Curso\nPessoal: Assentamento Funcional do Servidor\nPessoal: Ausência em razão de Casamento\nPessoal: Ausência para Alistamento Eleitoral\nPessoal: Ausência para Doação de Sangue\nPessoal: Ausência por Falecimento de Familiar\nPessoal: Auxílio Acidente\nPessoal: Auxílio Alimentação/Refeição\nPessoal: Auxílio Assistência Pré-Escolar/Creche\nPessoal: Auxílio Doença\nPessoal: Auxílio Funeral\nPessoal: Auxílio Moradia\nPessoal: Auxílio Natalidade\nPessoal: Auxílio Reclusão\nPessoal: Auxílio-Transporte\nPessoal: Avaliação de Desempenho Individual\nPessoal: Avaliação de Desempenho Institucional\nPessoal: Avaliação de Estágio Probatório\nPessoal: Averbação de Tempo de Serviço\nPessoal: Bolsa de Estudo de Idioma Estrangeiro\nPessoal: Bolsa de Pós-Graduação\nPessoal: Cadastro de Dependente no Imposto de Renda\nPessoal: Cessão de Servidor para outro Órgão\nPessoal: CIPA\nPessoal: Coleta de Imagem de Assinatura\nPessoal: Concurso Público - Exames Admissionais\nPessoal: Concurso Público - Organização\nPessoal: Concurso Público - Provas e Títulos\nPessoal: Controle de Frequência/Abono de Falta\nPessoal: Controle de Frequência/Cumprir Hora Extra\nPessoal: Controle de Frequência/Folha de Ponto\nPessoal: Curso de Pós-Graduação\nPessoal: Curso no Exterior - com ônus\nPessoal: Curso no Exterior - ônus limitado\nPessoal: Curso no Exterior - sem ônus\nPessoal: Curso Promovido pela própria Instituição\nPessoal: Curso Promovido por outra Instituição\nPessoal: Delegação de Competência\nPessoal: Desconto da Contribuição para o INSS\nPessoal: Desconto de Contribuição Associativa\nPessoal: Desconto de Contribuição Sindical\nPessoal: Desconto de Empréstimo Consignado\nPessoal: Desconto de Pensão Alimentícia\nPessoal: Desconto do IRPF Retido na Fonte\nPessoal: Emissão de Certidões e Declarações\nPessoal: Emissão de Procuração\nPessoal: Encargo Patronal - Contribuição para INSS\nPessoal: Estágio - Dossiê do Estagiário\nPessoal: Estágio - Planejamento/Organização Geral\nPessoal: Estágio de Servidor no Brasil\nPessoal: Estágio de Servidor no Exterior\nPessoal: Exoneração de Cargo Efetivo\nPessoal: Falecimento de Servidor\nPessoal: Férias - Alteração\nPessoal: Férias - Interrupção\nPessoal: Férias - Solicitação\nPessoal: Ficha Financeira\nPessoal: Folha de Pagamento\nPessoal: Gratificação de Desempenho\nPessoal: Gratificação Natalina (Décimo Terceiro)\nPessoal: Gratificação por Encargo - Curso/Concurso\nPessoal: Horário de Expediente - Definição\nPessoal: Horário de Expediente - Escala de Plantão\nPessoal: Horário Especial - Familiar Deficiente\nPessoal: Horário Especial - Instrutor de Curso\nPessoal: Horário Especial - Servidor Deficiente\nPessoal: Horário Especial - Servidor Estudante\nPessoal: Indenização de Transporte (meio próprio)\nPessoal: Licença Adotante\nPessoal: Licença Gestante\nPessoal: Licença para Atividade Política\nPessoal: Licença para Capacitação\nPessoal: Licença para Mandato Classista\nPessoal: Licença para Serviço Militar\nPessoal: Licença para Tratamento da Própria Saúde\nPessoal: Licença para Tratar de Interesses Particulares\nPessoal: Licença Paternidade\nPessoal: Licença por Acidente em Serviço\nPessoal: Licença por Afastamento do Cônjuge\nPessoal: Licença por Doença em Pessoa da Família\nPessoal: Licença por Doença Profissional\nPessoal: Licença Prêmio por Assiduidade\nPessoal: Licenças por Aborto/Natimorto\nPessoal: Movimentação de Servidor\nPessoal: Movimento Reivindicatório\nPessoal: Negociação Sindical e Acordo Coletivo\nPessoal: Nomeação/Exoneração de Cargo Comissionado e Designação/Dispensa de Substituto\nPessoal: Normatização Interna\nPessoal: Ocupação de Imóvel Funcional\nPessoal: Orientações e Diretrizes Gerais\nPessoal: Pagamento de Provento\nPessoal: Pagamento de Remuneração\nPessoal: Penalidade Advertência\nPessoal: Penalidade Cassação de Aposentadoria\nPessoal: Penalidade Demissão de Cargo Efetivo\nPessoal: Penalidade Destituição Cargo em Comissão\nPessoal: Penalidade Disponibilidade\nPessoal: Penalidade Suspensão\nPessoal: Pensão por Morte de Servidor\nPessoal: Planejamento da Força de Trabalho\nPessoal: Plano de Capacitação\nPessoal: Prêmios de Reconhecimento\nPessoal: Prevenção de Acidentes no Trabalho\nPessoal: Progressão e Promoção (Quadro Efetivo)\nPessoal: Progressão e Promoção (Quadro Específico)\nPessoal: Provimento - Nomeação para Cargo Efetivo\nPessoal: Provimento - Nomeação para Cargo em Comissão\nPessoal: Provimento - por Aproveitamento\nPessoal: Provimento - por Readaptação\nPessoal: Provimento - por Recondução\nPessoal: Provimento - por Reintegração\nPessoal: Provimento - por Reversão\nPessoal: Relação com Conselho Profissional\nPessoal: Remoção a Pedido - Concurso Interno\nPessoal: Remoção a Pedido com Mudança de Sede\nPessoal: Remoção a Pedido para Acompanhar Cônjuge\nPessoal: Remoção a Pedido por Motivo de Saúde\nPessoal: Remoção a Pedido sem Mudança de Sede\nPessoal: Remoção de Ofício com Mudança de Sede\nPessoal: Remoção de Ofício sem Mudança de Sede\nPessoal: Requisição de Servidor Externo\nPessoal: Requisição de Servidor Interno\nPessoal: Ressarcimento ao Erário\nPessoal: Restruturação de Cargos e Funções\nPessoal: Retribuição por Cargo em Comissão\nPessoal: Salário-Família\nPessoal: Saúde - Atestado de Comparecimento\nPessoal: Saúde - Auxílio-Saúde GEAP\nPessoal: Saúde - Cadastro de Dependente Estudante no Auxílio-Saúde\nPessoal: Saúde - Exclusão de Auxílio-Saúde\nPessoal: Saúde - Inspeção Periódica\nPessoal: Saúde - Lançamento Mensal do Auxílio-Saúde no SIAPE\nPessoal: Saúde - Pagamento de Auxílio-Saúde\nPessoal: Saúde - Pagamento de Retroativo\nPessoal: Saúde - Plano de Saúde\nPessoal: Saúde - Prontuário Médico\nPessoal: Saúde - Ressarcimento ao Erário\nPessoal: Saúde - Solicitação de Auxílio-Saúde\nPessoal: Saúde e Qualidade de Vida no Trabalho\nPessoal: Subsidiar Ação Judicial\nPessoal: Vacância - Posse em Cargo Inacumulável\nPlanejamento Estratégico: Acompanhamento do Plano Operacional\nPlanejamento Estratégico: Elaboração do Plano Estratégico\nPlanejamento Estratégico: Elaboração do Plano Operacional\nPlanejamento Estratégico: Gestão de Risco\nPlanejamento Estratégico: Gestão do Plano Estratégico\nPlanejamento Estratégico: Inteligência Estratégica\nRelações Internacionais: Composição de Delegação - com ônus\nRelações Internacionais: Composição de Delegação - ônus limitado\nRelações Internacionais: Composição de Delegação - sem ônus\nRelações Internacionais: Cooperação Internacional\nSegurança Institucional: Automação e Controle Predial\nSegurança Institucional: Controle de Acesso/Garagem\nSegurança Institucional: Controle de Acesso/Portaria\nSegurança Institucional: Prevenção contra Incêndio\nSegurança Institucional: Projeto contra Incêndio\nSegurança Institucional: Serviço de Vigilância\nSuprimento de Fundos: Concessão e Prestação de Contas\nSuprimento de Fundos: Solicitação de Despesa\nViagem: Exterior - Prestação de Contas\nViagem: No País - Prestação de Contas\nViagem: Publicação de Boletim')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "e7b70e35-5e44-4eb6-bbbe-c9c5dded1ce6",
+      "comment": "",
+      "command": "select",
+      "target": "id=selTIPO_PROCEDIMENTO_LISTAGEM_ELIMINACAO",
+      "targets": [],
+      "value": "label=Acesso à Informação: Demanda do e-SIC"
+    }, {
+      "id": "8957d613-dd48-435b-8f36-e341e963e88b",
+      "comment": "",
+      "command": "click",
+      "target": "id=selTIPO_PROCEDIMENTO_LISTAGEM_ELIMINACAO",
+      "targets": [
+        ["id=selTIPO_PROCEDIMENTO_LISTAGEM_ELIMINACAO", "id"],
+        ["name=selTIPO_PROCEDIMENTO_LISTAGEM_ELIMINACAO", "name"],
+        ["css=#selTIPO_PROCEDIMENTO_LISTAGEM_ELIMINACAO", "css:finder"],
+        ["xpath=//select[@id='selTIPO_PROCEDIMENTO_LISTAGEM_ELIMINACAO']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/select[3]", "xpath:idRelative"],
+        ["xpath=//select[3]", "xpath:position"],
+        ["xpath=//select[contains(.,' \n \nAcesso à Informação: Demanda do e-SIC\nAcompanhamento Legislativo: Câmara dos Deputados\nAcompanhamento Legislativo: Congresso Nacional\nAcompanhamento Legislativo: Estadual/Distrital\nAcompanhamento Legislativo: Municipal\nAcompanhamento Legislativo: Senado Federal\nArrecadação: Cobrança\nArrecadação: Cumprimento de Ação Judicial\nArrecadação: Encaminhamento para Dívida Ativa\nArrecadação: Normatização Interna\nArrecadação: Notificação/Comunicado\nArrecadação: Parcelamento Administrativo\nArrecadação: Receita\nArrecadação: Regularização de Indébitos\nArrecadação: Restituição/Compensação\nArrecadação: Subsidiar Ação Judicial\nComunicação: Evento Institucional Público Externo\nComunicação: Evento Institucional Público Interno\nComunicação: Pedido de Apoio Institucional\nComunicação: Publicidade Institucional\nComunicação: Publicidade Legal\nContabilidade: Análise Contábil\nContabilidade: Conformidade de Gestão\nContabilidade: Contratos e Garantias\nContabilidade: DIRF\nContabilidade: Encerramento do Exercício\nContabilidade: Fechamento Contábil - Estoque\nContabilidade: Fechamento Contábil Patrimonial\nContabilidade: Manuais\nContabilidade: Normatização Interna\nContabilidade: Prestação de Contas\nConvênios/Ajustes: Acompanhamento da Execução\nConvênios/Ajustes: Formalização/Alteração com Repasse\nConvênios/Ajustes: Formalização/Alteração sem Repasse\nCorregedoria: Análise Prescricional de Processo\nCorregedoria: Avaliação para Estabilidade\nCorregedoria: Correição\nCorregedoria: Investigação Preliminar\nCorregedoria: Procedimento Geral\nCorregedoria: Processo Administrativo Disciplinar\nCorregedoria: Sindicância Punitiva\nDemanda Externa: Cidadão (Pessoa Física)\nDemanda Externa: Deputado Estadual/Distrital\nDemanda Externa: Deputado Federal\nDemanda Externa: Judiciário\nDemanda Externa: Ministério Público Estadual\nDemanda Externa: Ministério Público Federal\nDemanda Externa: Orgãos Governamentais Estaduais\nDemanda Externa: Orgãos Governamentais Federais\nDemanda Externa: Orgãos Governamentais Municipais\nDemanda Externa: Outras Entidades Privadas\nDemanda Externa: Outros Orgãos Públicos\nDemanda Externa: Senador\nDemanda Externa: Vereador/Câmara Municipal\nÉtica: Análise de Conflito de Interesse\nÉtica: Processo de Apuração Ética\nFinanças: Execução Financeira\nFinanças: Normatização Interna\nFinanças: Reembolso/Ressarcimento\nGestão da Informação: Arrecadação\nGestão da Informação: Avaliação/Destinação de Documentos\nGestão da Informação: Cadastro de Usuário Externo no SEI\nGestão da Informação: Controle de Malote\nGestão da Informação: Credenciamento de Segurança\nGestão da Informação: Gestão Documental\nGestão da Informação: Normatização Interna\nGestão da Informação: Reconstituição Documental\nGestão da Informação: Rol Anual de Informações Classificadas\nGestão da Informação: Segurança da Informação e Comunicações\nGestão de Contrato: Acompanhamento da Execução\nGestão de Contrato: Acréscimo Contratual\nGestão de Contrato: Alterações Contratuais Conjuntas\nGestão de Contrato: Aplicação de Sanção Contratual\nGestão de Contrato: Consulta à Procuradoria/Conjur\nGestão de Contrato: Execução de Garantia\nGestão de Contrato: Outras Alterações Contratuais não Relacionadas\nGestão de Contrato: Pagamento Direto a Terceiros\nGestão de Contrato: Processo de Pagamento\nGestão de Contrato: Prorrogação Contratual\nGestão de Contrato: Reajuste ou Repactuação Contratual\nGestão de Contrato: Rescisão Contratual\nGestão de Contrato: Revisão Contratual\nGestão de Contrato: Supressão Contratual\nGestão de Processos: Mapeamento e Modelagem\nGestão de Projetos: Planejamento e Execução\nGestão de TI: CITI\nGestão e Controle: Coordenação - Demandas Externas\nGestão e Controle: Coordenação - Demandas Internas\nGestão e Controle: Demandas de Órgãos de Controle\nGestão e Controle: Executar Auditoria Interna\nInfraestrutura: Abastecimento de Água e Esgoto\nInfraestrutura: Apoio de Engenharia Civil\nInfraestrutura: Fornecimento de Energia Elétrica\nLicitação: Adesão a Ata de RP-Não Participante\nLicitação: Adesão a Ata de RP-Participante\nLicitação: Aplicação de Sanção decorrente de Procedimento Licitatório\nLicitação: Concorrência\nLicitação: Concorrência-Registro de Preço\nLicitação: Concurso\nLicitação: Consulta\nLicitação: Convite\nLicitação: Dispensa - Acima de R$ 8 mil\nLicitação: Dispensa - Até R$ 8 mil\nLicitação: Inexigibilidade\nLicitação: Leilão\nLicitação: Plano de Aquisições\nLicitação: Pregão Eletrônico\nLicitação: Pregão Eletrônico-Registro de Preço\nLicitação: Pregão Presencial\nLicitação: Regime Diferenciado de Contratação-RDC\nLicitação: Tomada de Preços\nMaterial: Desfazimento de Material de Consumo\nMaterial: Desfazimento de Material Permanente\nMaterial: Inventário de Material de Consumo\nMaterial: Inventário de Material Permanente\nMaterial: Movimentação de Material de Consumo\nMaterial: Movimentação de Material Permanente\nOrçamento: Acompanhamento de Despesa Mensal\nOrçamento: Contingenciamento\nOrçamento: Créditos Adicionais\nOrçamento: Descentralização de Créditos\nOrçamento: Manuais\nOrçamento: Programação Orçamentária\nOuvidoria: Agradecimento ao Órgão (Ouvidoria)\nOuvidoria: Crítica à atuação do Órgão (Ouvidoria)\nOuvidoria: Denúncia contra a atuação do Órgão (Ouvidoria)\nOuvidoria: Elogio à atuação do Órgão (Ouvidoria)\nOuvidoria: Pedido de Informação (Ouvidoria)\nOuvidoria: Reclamação à atuação do Órgão (Ouvidoria)\nPatrimônio: Cobrança de Acervo Bibliográfico\nPatrimônio: Gestão de Acervo Bibliográfico\nPatrimônio: Gestão de Bens Imóveis\nPessoal: Abono Permanência - Concessão\nPessoal: Abono Permanência - Revisão\nPessoal: Adicional de Férias (1/3 constitucional)\nPessoal: Adicional de Insalubridade\nPessoal: Adicional de Periculosidade\nPessoal: Adicional Noturno\nPessoal: Adicional por Atividade Penosa\nPessoal: Adicional por Serviço Extraordinário\nPessoal: Adicional por Tempo de Serviço\nPessoal: Afastamento para Atividade Desportiva\nPessoal: Afastamento para Curso de Formação\nPessoal: Afastamento para Depor\nPessoal: Afastamento para Exercer Mandato Eletivo\nPessoal: Afastamento para Pós-Graduação\nPessoal: Afastamento para Serviço Eleitoral (TRE)\nPessoal: Afastamento para Servir como Jurado\nPessoal: Afastamento para servir em Organismo Internacional\nPessoal: Ajuda de Custo com Mudança de Domicílio\nPessoal: Aposentadoria - Concessão\nPessoal: Aposentadoria - Contagem Tempo de Serviço\nPessoal: Aposentadoria - Pensão Temporária\nPessoal: Aposentadoria - Pensão Vitalícia\nPessoal: Aposentadoria - Revisão\nPessoal: Apresentação de Certificado de Curso\nPessoal: Assentamento Funcional do Servidor\nPessoal: Ausência em razão de Casamento\nPessoal: Ausência para Alistamento Eleitoral\nPessoal: Ausência para Doação de Sangue\nPessoal: Ausência por Falecimento de Familiar\nPessoal: Auxílio Acidente\nPessoal: Auxílio Alimentação/Refeição\nPessoal: Auxílio Assistência Pré-Escolar/Creche\nPessoal: Auxílio Doença\nPessoal: Auxílio Funeral\nPessoal: Auxílio Moradia\nPessoal: Auxílio Natalidade\nPessoal: Auxílio Reclusão\nPessoal: Auxílio-Transporte\nPessoal: Avaliação de Desempenho Individual\nPessoal: Avaliação de Desempenho Institucional\nPessoal: Avaliação de Estágio Probatório\nPessoal: Averbação de Tempo de Serviço\nPessoal: Bolsa de Estudo de Idioma Estrangeiro\nPessoal: Bolsa de Pós-Graduação\nPessoal: Cadastro de Dependente no Imposto de Renda\nPessoal: Cessão de Servidor para outro Órgão\nPessoal: CIPA\nPessoal: Coleta de Imagem de Assinatura\nPessoal: Concurso Público - Exames Admissionais\nPessoal: Concurso Público - Organização\nPessoal: Concurso Público - Provas e Títulos\nPessoal: Controle de Frequência/Abono de Falta\nPessoal: Controle de Frequência/Cumprir Hora Extra\nPessoal: Controle de Frequência/Folha de Ponto\nPessoal: Curso de Pós-Graduação\nPessoal: Curso no Exterior - com ônus\nPessoal: Curso no Exterior - ônus limitado\nPessoal: Curso no Exterior - sem ônus\nPessoal: Curso Promovido pela própria Instituição\nPessoal: Curso Promovido por outra Instituição\nPessoal: Delegação de Competência\nPessoal: Desconto da Contribuição para o INSS\nPessoal: Desconto de Contribuição Associativa\nPessoal: Desconto de Contribuição Sindical\nPessoal: Desconto de Empréstimo Consignado\nPessoal: Desconto de Pensão Alimentícia\nPessoal: Desconto do IRPF Retido na Fonte\nPessoal: Emissão de Certidões e Declarações\nPessoal: Emissão de Procuração\nPessoal: Encargo Patronal - Contribuição para INSS\nPessoal: Estágio - Dossiê do Estagiário\nPessoal: Estágio - Planejamento/Organização Geral\nPessoal: Estágio de Servidor no Brasil\nPessoal: Estágio de Servidor no Exterior\nPessoal: Exoneração de Cargo Efetivo\nPessoal: Falecimento de Servidor\nPessoal: Férias - Alteração\nPessoal: Férias - Interrupção\nPessoal: Férias - Solicitação\nPessoal: Ficha Financeira\nPessoal: Folha de Pagamento\nPessoal: Gratificação de Desempenho\nPessoal: Gratificação Natalina (Décimo Terceiro)\nPessoal: Gratificação por Encargo - Curso/Concurso\nPessoal: Horário de Expediente - Definição\nPessoal: Horário de Expediente - Escala de Plantão\nPessoal: Horário Especial - Familiar Deficiente\nPessoal: Horário Especial - Instrutor de Curso\nPessoal: Horário Especial - Servidor Deficiente\nPessoal: Horário Especial - Servidor Estudante\nPessoal: Indenização de Transporte (meio próprio)\nPessoal: Licença Adotante\nPessoal: Licença Gestante\nPessoal: Licença para Atividade Política\nPessoal: Licença para Capacitação\nPessoal: Licença para Mandato Classista\nPessoal: Licença para Serviço Militar\nPessoal: Licença para Tratamento da Própria Saúde\nPessoal: Licença para Tratar de Interesses Particulares\nPessoal: Licença Paternidade\nPessoal: Licença por Acidente em Serviço\nPessoal: Licença por Afastamento do Cônjuge\nPessoal: Licença por Doença em Pessoa da Família\nPessoal: Licença por Doença Profissional\nPessoal: Licença Prêmio por Assiduidade\nPessoal: Licenças por Aborto/Natimorto\nPessoal: Movimentação de Servidor\nPessoal: Movimento Reivindicatório\nPessoal: Negociação Sindical e Acordo Coletivo\nPessoal: Nomeação/Exoneração de Cargo Comissionado e Designação/Dispensa de Substituto\nPessoal: Normatização Interna\nPessoal: Ocupação de Imóvel Funcional\nPessoal: Orientações e Diretrizes Gerais\nPessoal: Pagamento de Provento\nPessoal: Pagamento de Remuneração\nPessoal: Penalidade Advertência\nPessoal: Penalidade Cassação de Aposentadoria\nPessoal: Penalidade Demissão de Cargo Efetivo\nPessoal: Penalidade Destituição Cargo em Comissão\nPessoal: Penalidade Disponibilidade\nPessoal: Penalidade Suspensão\nPessoal: Pensão por Morte de Servidor\nPessoal: Planejamento da Força de Trabalho\nPessoal: Plano de Capacitação\nPessoal: Prêmios de Reconhecimento\nPessoal: Prevenção de Acidentes no Trabalho\nPessoal: Progressão e Promoção (Quadro Efetivo)\nPessoal: Progressão e Promoção (Quadro Específico)\nPessoal: Provimento - Nomeação para Cargo Efetivo\nPessoal: Provimento - Nomeação para Cargo em Comissão\nPessoal: Provimento - por Aproveitamento\nPessoal: Provimento - por Readaptação\nPessoal: Provimento - por Recondução\nPessoal: Provimento - por Reintegração\nPessoal: Provimento - por Reversão\nPessoal: Relação com Conselho Profissional\nPessoal: Remoção a Pedido - Concurso Interno\nPessoal: Remoção a Pedido com Mudança de Sede\nPessoal: Remoção a Pedido para Acompanhar Cônjuge\nPessoal: Remoção a Pedido por Motivo de Saúde\nPessoal: Remoção a Pedido sem Mudança de Sede\nPessoal: Remoção de Ofício com Mudança de Sede\nPessoal: Remoção de Ofício sem Mudança de Sede\nPessoal: Requisição de Servidor Externo\nPessoal: Requisição de Servidor Interno\nPessoal: Ressarcimento ao Erário\nPessoal: Restruturação de Cargos e Funções\nPessoal: Retribuição por Cargo em Comissão\nPessoal: Salário-Família\nPessoal: Saúde - Atestado de Comparecimento\nPessoal: Saúde - Auxílio-Saúde GEAP\nPessoal: Saúde - Cadastro de Dependente Estudante no Auxílio-Saúde\nPessoal: Saúde - Exclusão de Auxílio-Saúde\nPessoal: Saúde - Inspeção Periódica\nPessoal: Saúde - Lançamento Mensal do Auxílio-Saúde no SIAPE\nPessoal: Saúde - Pagamento de Auxílio-Saúde\nPessoal: Saúde - Pagamento de Retroativo\nPessoal: Saúde - Plano de Saúde\nPessoal: Saúde - Prontuário Médico\nPessoal: Saúde - Ressarcimento ao Erário\nPessoal: Saúde - Solicitação de Auxílio-Saúde\nPessoal: Saúde e Qualidade de Vida no Trabalho\nPessoal: Subsidiar Ação Judicial\nPessoal: Vacância - Posse em Cargo Inacumulável\nPlanejamento Estratégico: Acompanhamento do Plano Operacional\nPlanejamento Estratégico: Elaboração do Plano Estratégico\nPlanejamento Estratégico: Elaboração do Plano Operacional\nPlanejamento Estratégico: Gestão de Risco\nPlanejamento Estratégico: Gestão do Plano Estratégico\nPlanejamento Estratégico: Inteligência Estratégica\nRelações Internacionais: Composição de Delegação - com ônus\nRelações Internacionais: Composição de Delegação - ônus limitado\nRelações Internacionais: Composição de Delegação - sem ônus\nRelações Internacionais: Cooperação Internacional\nSegurança Institucional: Automação e Controle Predial\nSegurança Institucional: Controle de Acesso/Garagem\nSegurança Institucional: Controle de Acesso/Portaria\nSegurança Institucional: Prevenção contra Incêndio\nSegurança Institucional: Projeto contra Incêndio\nSegurança Institucional: Serviço de Vigilância\nSuprimento de Fundos: Concessão e Prestação de Contas\nSuprimento de Fundos: Solicitação de Despesa\nViagem: Exterior - Prestação de Contas\nViagem: No País - Prestação de Contas\nViagem: Publicação de Boletim')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "9201af49-0876-45d9-b466-4c2db9e704cd",
+      "comment": "",
+      "command": "click",
+      "target": "id=selTIPO_DOCUMENTO_LISTAGEM_ELIMINACAO",
+      "targets": [
+        ["id=selTIPO_DOCUMENTO_LISTAGEM_ELIMINACAO", "id"],
+        ["name=selTIPO_DOCUMENTO_LISTAGEM_ELIMINACAO", "name"],
+        ["css=#selTIPO_DOCUMENTO_LISTAGEM_ELIMINACAO", "css:finder"],
+        ["xpath=//select[@id='selTIPO_DOCUMENTO_LISTAGEM_ELIMINACAO']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/select[4]", "xpath:idRelative"],
+        ["xpath=//select[4]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "0a15a0a5-eebd-463c-8299-898e136f9ac6",
+      "comment": "",
+      "command": "select",
+      "target": "id=selTIPO_DOCUMENTO_LISTAGEM_ELIMINACAO",
+      "targets": [],
+      "value": "label=Abertura de Procedimento Licitatório"
+    }, {
+      "id": "1b5ef860-4670-4973-9647-02c0e1598a70",
+      "comment": "",
+      "command": "click",
+      "target": "id=selTIPO_DOCUMENTO_LISTAGEM_ELIMINACAO",
+      "targets": [
+        ["id=selTIPO_DOCUMENTO_LISTAGEM_ELIMINACAO", "id"],
+        ["name=selTIPO_DOCUMENTO_LISTAGEM_ELIMINACAO", "name"],
+        ["css=#selTIPO_DOCUMENTO_LISTAGEM_ELIMINACAO", "css:finder"],
+        ["xpath=//select[@id='selTIPO_DOCUMENTO_LISTAGEM_ELIMINACAO']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/select[4]", "xpath:idRelative"],
+        ["xpath=//select[4]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "9e2ca171-6637-4fe6-b8a9-8bf3c9cb80fa",
+      "comment": "",
+      "command": "click",
+      "target": "id=sbmSalvarParametro",
+      "targets": [
+        ["id=sbmSalvarParametro", "id"],
+        ["name=sbmSalvarParametro", "name"],
+        ["css=#sbmSalvarParametro", "css:finder"],
+        ["xpath=//button[@id='sbmSalvarParametro']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraBarraComandosSuperior']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Salvar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "78b78d81-bbf6-4048-8a4f-dce71fc3db8f",
+      "comment": "",
+      "command": "click",
+      "target": "css=#lnkSairSistema > .infraImg",
+      "targets": [
+        ["css=#lnkSairSistema > .infraImg", "css:finder"],
+        ["xpath=//img[@alt='Sair do Sistema']", "xpath:img"],
+        ["xpath=//a[@id='lnkSairSistema']/img", "xpath:idRelative"],
+        ["xpath=//a[5]/img", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "cc72e799-783a-43d3-9bd7-e8ff5280c126",
+      "comment": "",
+      "command": "close",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "679dfa33-fa95-4fb7-bf1c-9b36a7088e0b",
+    "name": "Justificativas",
+    "commands": [{
+      "id": "8ff841b3-5e89-4716-9439-87482e8cf67e",
+      "comment": "",
+      "command": "open",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "79f9abd4-4a05-4d05-b588-a1552111872a",
+      "comment": "",
+      "command": "type",
+      "target": "id=txtUsuario",
+      "targets": [
+        ["id=txtUsuario", "id"],
+        ["name=txtUsuario", "name"],
+        ["css=#txtUsuario", "css:finder"],
+        ["xpath=//input[@id='txtUsuario']", "xpath:attributes"],
+        ["xpath=//div[@id='divUsuario']/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "teste"
+    }, {
+      "id": "318cdef7-2c11-46a8-bd92-ad46a9e581de",
+      "comment": "",
+      "command": "type",
+      "target": "id=pwdSenha",
+      "targets": [
+        ["id=pwdSenha", "id"],
+        ["name=pwdSenha", "name"],
+        ["css=#pwdSenha", "css:finder"],
+        ["xpath=//input[@id='pwdSenha']", "xpath:attributes"],
+        ["xpath=//div[@id='divUsuario']/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "teste"
+    }, {
+      "id": "84ff9955-29a4-4dbf-bdde-08ec0e50637e",
+      "comment": "",
+      "command": "click",
+      "target": "id=sbmLogin",
+      "targets": [
+        ["id=sbmLogin", "id"],
+        ["name=sbmLogin", "name"],
+        ["css=#sbmLogin", "css:finder"],
+        ["xpath=//button[@id='sbmLogin']", "xpath:attributes"],
+        ["xpath=//div[@id='divBotoes']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Acessar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "e204dcae-50f9-4b1d-8917-a7158c8b5e8a",
+      "comment": "",
+      "command": "click",
+      "target": "//*[@id=\"main-menu\"]/li[1]/a",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "65a485d2-ec1b-4c29-9ab4-b2f74ea47066",
+      "comment": "",
+      "command": "click",
+      "target": "//*[@id=\"main-menu\"]/li[1]/ul/li[25]/a",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "33bafa76-325e-46e5-b345-5823810487a6",
+      "comment": "",
+      "command": "click",
+      "target": "//*[@id=\"main-menu\"]/li[1]/ul/li[25]/ul/li[2]/a",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "12e7a3a4-5576-4553-9d82-baf206b65b57",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Listar",
+      "targets": [
+        ["linkText=Listar", "linkText"],
+        ["css=.sm-nowrap > li:nth-child(1) > a", "css:finder"],
+        ["xpath=(//a[contains(text(),'Listar')])[25]", "xpath:link"],
+        ["xpath=//ul[@id='main-menu']/li/ul/li[25]/ul/li[2]/ul/li/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'controlador.php?acao=gd_justificativas_listar&infra_sistema=100000100&infra_unidade_atual=110000001&infra_hash=4c7b2132fa0da858f40cd66d399ff3318885c1fafc1864a1b615e3302618f374')]", "xpath:href"],
+        ["xpath=//li[25]/ul/li[2]/ul/li/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "9e592e2f-f0b7-436e-8feb-f1dc835dcd74",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//*[@id=\"btnNova\"]",
+      "targets": [
+        ["id=btnNova", "id"],
+        ["css=#btnNova", "css:finder"],
+        ["xpath=//button[@id='btnNova']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraBarraComandosSuperior']/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Novo')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "ad87d762-dd88-46e5-8a9a-17b811723e03",
+      "comment": "",
+      "command": "type",
+      "target": "id=txtNome",
+      "targets": [
+        ["id=txtNome", "id"],
+        ["name=txtNome", "name"],
+        ["css=#txtNome", "css:finder"],
+        ["xpath=//input[@id='txtNome']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "Justificativa de Arquivamento 01"
+    }, {
+      "id": "02bb01dd-2926-46a1-8106-545531ea07ed",
+      "comment": "",
+      "command": "click",
+      "target": "id=selTipo",
+      "targets": [
+        ["id=selTipo", "id"],
+        ["name=selTipo", "name"],
+        ["css=#selTipo", "css:finder"],
+        ["xpath=//select[@id='selTipo']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/select", "xpath:idRelative"],
+        ["xpath=//div[2]/select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "76062b61-113b-42dd-b2d8-466a96cf847f",
+      "comment": "",
+      "command": "select",
+      "target": "id=selTipo",
+      "targets": [],
+      "value": "label=Arquivamento"
+    }, {
+      "id": "93d4a1f3-bfca-40ba-a8b0-8176353a6dc7",
+      "comment": "",
+      "command": "click",
+      "target": "id=selTipo",
+      "targets": [
+        ["id=selTipo", "id"],
+        ["name=selTipo", "name"],
+        ["css=#selTipo", "css:finder"],
+        ["xpath=//select[@id='selTipo']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/select", "xpath:idRelative"],
+        ["xpath=//div[2]/select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "82373d4a-4a77-4826-ae80-b8a248c6fc56",
+      "comment": "",
+      "command": "click",
+      "target": "id=txaDescricao",
+      "targets": [
+        ["id=txaDescricao", "id"],
+        ["name=txaDescricao", "name"],
+        ["css=#txaDescricao", "css:finder"],
+        ["xpath=//textarea[@id='txaDescricao']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "4eb068d6-ab63-468b-934d-dad3aeacbcf4",
+      "comment": "",
+      "command": "type",
+      "target": "id=txaDescricao",
+      "targets": [
+        ["id=txaDescricao", "id"],
+        ["name=txaDescricao", "name"],
+        ["css=#txaDescricao", "css:finder"],
+        ["xpath=//textarea[@id='txaDescricao']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": "arq1"
+    }, {
+      "id": "ab3f3129-5c31-41f9-9e5b-8a5a2ac5e59d",
+      "comment": "",
+      "command": "click",
+      "target": "css=.infraButton:nth-child(1) > .infraTeclaAtalho",
+      "targets": [
+        ["css=.infraButton:nth-child(1) > .infraTeclaAtalho", "css:finder"],
+        ["xpath=//div[@id='divInfraBarraComandosSuperior']/button/span", "xpath:idRelative"],
+        ["xpath=//button/span", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "cc5695a2-8c6e-41dd-aeb4-14942fc69a5c",
+      "comment": "",
+      "command": "click",
+      "target": "id=btnNova",
+      "targets": [
+        ["id=btnNova", "id"],
+        ["css=#btnNova", "css:finder"],
+        ["xpath=//button[@id='btnNova']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraBarraComandosSuperior']/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Novo')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "ea13521f-3956-4c19-a8a0-e3363b5232fc",
+      "comment": "",
+      "command": "type",
+      "target": "id=txtNome",
+      "targets": [
+        ["id=txtNome", "id"],
+        ["name=txtNome", "name"],
+        ["css=#txtNome", "css:finder"],
+        ["xpath=//input[@id='txtNome']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "Justificativa de Arquivamento 02"
+    }, {
+      "id": "e47013e2-632a-4ed9-9352-79cf4d86b1ab",
+      "comment": "",
+      "command": "click",
+      "target": "id=selTipo",
+      "targets": [
+        ["id=selTipo", "id"],
+        ["name=selTipo", "name"],
+        ["css=#selTipo", "css:finder"],
+        ["xpath=//select[@id='selTipo']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/select", "xpath:idRelative"],
+        ["xpath=//div[2]/select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "9092520d-e435-4891-bac8-5b9a5305fcc8",
+      "comment": "",
+      "command": "select",
+      "target": "id=selTipo",
+      "targets": [],
+      "value": "label=Arquivamento"
+    }, {
+      "id": "b286d3c8-970a-409d-8ca4-042c1b6292f8",
+      "comment": "",
+      "command": "click",
+      "target": "id=selTipo",
+      "targets": [
+        ["id=selTipo", "id"],
+        ["name=selTipo", "name"],
+        ["css=#selTipo", "css:finder"],
+        ["xpath=//select[@id='selTipo']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/select", "xpath:idRelative"],
+        ["xpath=//div[2]/select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "7e936a03-be13-4d79-b16b-74bbbb6a27ad",
+      "comment": "",
+      "command": "click",
+      "target": "id=txaDescricao",
+      "targets": [
+        ["id=txaDescricao", "id"],
+        ["name=txaDescricao", "name"],
+        ["css=#txaDescricao", "css:finder"],
+        ["xpath=//textarea[@id='txaDescricao']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "bc4be62a-afc8-4130-be43-4529ba1cba86",
+      "comment": "",
+      "command": "type",
+      "target": "id=txaDescricao",
+      "targets": [
+        ["id=txaDescricao", "id"],
+        ["name=txaDescricao", "name"],
+        ["css=#txaDescricao", "css:finder"],
+        ["xpath=//textarea[@id='txaDescricao']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": "arq2"
+    }, {
+      "id": "a54eb86e-e369-42af-ad86-d8a21b328d74",
+      "comment": "",
+      "command": "click",
+      "target": "css=.infraButton:nth-child(1) > .infraTeclaAtalho",
+      "targets": [
+        ["css=.infraButton:nth-child(1) > .infraTeclaAtalho", "css:finder"],
+        ["xpath=//div[@id='divInfraBarraComandosSuperior']/button/span", "xpath:idRelative"],
+        ["xpath=//button/span", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "7d361d0c-e14e-4ca2-b02d-afb2835b02fc",
+      "comment": "",
+      "command": "click",
+      "target": "id=btnNova",
+      "targets": [
+        ["id=btnNova", "id"],
+        ["css=#btnNova", "css:finder"],
+        ["xpath=//button[@id='btnNova']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraBarraComandosSuperior']/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Novo')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d55077e5-3000-48b7-9a20-3c2005993a27",
+      "comment": "",
+      "command": "type",
+      "target": "id=txtNome",
+      "targets": [
+        ["id=txtNome", "id"],
+        ["name=txtNome", "name"],
+        ["css=#txtNome", "css:finder"],
+        ["xpath=//input[@id='txtNome']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "Justificativa de Desarquivamento 01"
+    }, {
+      "id": "a6a3cc9c-c4c6-4083-b691-7a7f0952ed73",
+      "comment": "",
+      "command": "click",
+      "target": "id=selTipo",
+      "targets": [
+        ["id=selTipo", "id"],
+        ["name=selTipo", "name"],
+        ["css=#selTipo", "css:finder"],
+        ["xpath=//select[@id='selTipo']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/select", "xpath:idRelative"],
+        ["xpath=//div[2]/select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "81275a2b-5965-434c-828f-4d111578f361",
+      "comment": "",
+      "command": "select",
+      "target": "id=selTipo",
+      "targets": [],
+      "value": "label=Desarquivamento"
+    }, {
+      "id": "a6e13748-b84c-462d-b0b2-139f4f54265e",
+      "comment": "",
+      "command": "click",
+      "target": "id=selTipo",
+      "targets": [
+        ["id=selTipo", "id"],
+        ["name=selTipo", "name"],
+        ["css=#selTipo", "css:finder"],
+        ["xpath=//select[@id='selTipo']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/select", "xpath:idRelative"],
+        ["xpath=//div[2]/select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "827487b7-69d1-4481-9007-ac2491459c69",
+      "comment": "",
+      "command": "click",
+      "target": "id=txaDescricao",
+      "targets": [
+        ["id=txaDescricao", "id"],
+        ["name=txaDescricao", "name"],
+        ["css=#txaDescricao", "css:finder"],
+        ["xpath=//textarea[@id='txaDescricao']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "91ac55d1-dea6-42e4-b18b-f5f2c3cac229",
+      "comment": "",
+      "command": "type",
+      "target": "id=txaDescricao",
+      "targets": [
+        ["id=txaDescricao", "id"],
+        ["name=txaDescricao", "name"],
+        ["css=#txaDescricao", "css:finder"],
+        ["xpath=//textarea[@id='txaDescricao']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": "desarq 01"
+    }, {
+      "id": "04756b6a-51ae-41f2-9ba8-80758d0eab7c",
+      "comment": "",
+      "command": "click",
+      "target": "name=sbmCadastrarJustificativa",
+      "targets": [
+        ["name=sbmCadastrarJustificativa", "name"],
+        ["css=.infraButton:nth-child(1)", "css:finder"],
+        ["xpath=//button[@name='sbmCadastrarJustificativa']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraBarraComandosSuperior']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Salvar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "84b15832-2b82-4d42-bde6-5d24ff82da99",
+      "comment": "",
+      "command": "click",
+      "target": "css=#btnNova > .infraTeclaAtalho",
+      "targets": [
+        ["css=#btnNova > .infraTeclaAtalho", "css:finder"],
+        ["xpath=//button[@id='btnNova']/span", "xpath:idRelative"],
+        ["xpath=//button[2]/span", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "0e644035-6154-4cbd-a204-fa1535b77737",
+      "comment": "",
+      "command": "type",
+      "target": "id=txtNome",
+      "targets": [
+        ["id=txtNome", "id"],
+        ["name=txtNome", "name"],
+        ["css=#txtNome", "css:finder"],
+        ["xpath=//input[@id='txtNome']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "Justificativa de Desarquivamento 02"
+    }, {
+      "id": "700059c3-d633-44d7-943d-bb5b10a2bfb8",
+      "comment": "",
+      "command": "click",
+      "target": "id=selTipo",
+      "targets": [
+        ["id=selTipo", "id"],
+        ["name=selTipo", "name"],
+        ["css=#selTipo", "css:finder"],
+        ["xpath=//select[@id='selTipo']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/select", "xpath:idRelative"],
+        ["xpath=//div[2]/select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "2d09344a-7e61-455d-827a-99c5992feaa8",
+      "comment": "",
+      "command": "select",
+      "target": "id=selTipo",
+      "targets": [],
+      "value": "label=Desarquivamento"
+    }, {
+      "id": "5b5cf4df-df07-4cbb-a297-832cd1b80b41",
+      "comment": "",
+      "command": "click",
+      "target": "id=selTipo",
+      "targets": [
+        ["id=selTipo", "id"],
+        ["name=selTipo", "name"],
+        ["css=#selTipo", "css:finder"],
+        ["xpath=//select[@id='selTipo']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/select", "xpath:idRelative"],
+        ["xpath=//div[2]/select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "65f8323e-b115-492a-8568-5b631465a22c",
+      "comment": "",
+      "command": "click",
+      "target": "id=txaDescricao",
+      "targets": [
+        ["id=txaDescricao", "id"],
+        ["name=txaDescricao", "name"],
+        ["css=#txaDescricao", "css:finder"],
+        ["xpath=//textarea[@id='txaDescricao']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "090691c1-a04d-41a0-b362-8d5823f86240",
+      "comment": "",
+      "command": "type",
+      "target": "id=txaDescricao",
+      "targets": [
+        ["id=txaDescricao", "id"],
+        ["name=txaDescricao", "name"],
+        ["css=#txaDescricao", "css:finder"],
+        ["xpath=//textarea[@id='txaDescricao']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": "desarq 02"
+    }, {
+      "id": "d7cf89ff-e605-4d6e-9374-a589a8323a97",
+      "comment": "",
+      "command": "click",
+      "target": "css=.infraButton:nth-child(1) > .infraTeclaAtalho",
+      "targets": [
+        ["css=.infraButton:nth-child(1) > .infraTeclaAtalho", "css:finder"],
+        ["xpath=//div[@id='divInfraBarraComandosSuperior']/button/span", "xpath:idRelative"],
+        ["xpath=//button/span", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8611427f-2997-41c4-b0c3-78c03c1c59c0",
+      "comment": "",
+      "command": "click",
+      "target": "id=sbmPesquisar",
+      "targets": [
+        ["id=sbmPesquisar", "id"],
+        ["css=#sbmPesquisar", "css:finder"],
+        ["xpath=//button[@id='sbmPesquisar']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraBarraComandosSuperior']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Pesquisar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "98ac8bda-e992-4618-94de-46299cb1ed5b",
+      "comment": "",
+      "command": "verifyText",
+      "target": "xpath=//td[contains(.,'Justificativa de Arquivamento 01')]",
+      "targets": [
+        ["css=.infraTrSelecionada > td:nth-child(2)", "css:finder"],
+        ["xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[2]/td[2]", "xpath:idRelative"],
+        ["xpath=//tr[2]/td[2]", "xpath:position"],
+        ["xpath=//td[contains(.,'Justificativa de Arquivamento 01')]", "xpath:innerText"]
+      ],
+      "value": "Justificativa de Arquivamento 01"
+    }, {
+      "id": "ac3c0319-5c26-48f6-9839-75fc29a0ff38",
+      "comment": "",
+      "command": "verifyText",
+      "target": "xpath=//td[contains(.,'arq1')]",
+      "targets": [
+        ["css=.infraTrSelecionada > td:nth-child(4)", "css:finder"],
+        ["xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[2]/td[4]", "xpath:idRelative"],
+        ["xpath=//td[4]", "xpath:position"],
+        ["xpath=//td[contains(.,'arq1')]", "xpath:innerText"]
+      ],
+      "value": "arq1"
+    }, {
+      "id": "4cacd86f-1132-439e-b45f-1e12d2d84fc1",
+      "comment": "",
+      "command": "verifyText",
+      "target": "xpath=//td[contains(.,'Justificativa de Arquivamento 02')]",
+      "targets": [
+        ["css=.infraTrSelecionada > td:nth-child(2)", "css:finder"],
+        ["xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[6]/td[2]", "xpath:idRelative"],
+        ["xpath=//tr[6]/td[2]", "xpath:position"],
+        ["xpath=//td[contains(.,'Justificativa de Arquivamento 02')]", "xpath:innerText"]
+      ],
+      "value": "Justificativa de Arquivamento 02"
+    }, {
+      "id": "13e6b5c2-3518-428c-b647-dde701b54981",
+      "comment": "",
+      "command": "verifyText",
+      "target": "xpath=//td[contains(.,'arq2')]",
+      "targets": [
+        ["css=.infraTrSelecionada > td:nth-child(4)", "css:finder"],
+        ["xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[6]/td[4]", "xpath:idRelative"],
+        ["xpath=//tr[6]/td[4]", "xpath:position"],
+        ["xpath=//td[contains(.,'arq2')]", "xpath:innerText"]
+      ],
+      "value": "arq2"
+    }, {
+      "id": "4992e87d-2b06-4ec4-8462-e8e3cccbd615",
+      "comment": "",
+      "command": "verifyText",
+      "target": "xpath=//td[contains(.,'Justificativa de Desarquivamento 01')]",
+      "targets": [
+        ["css=.infraTrSelecionada > td:nth-child(2)", "css:finder"],
+        ["xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[10]/td[2]", "xpath:idRelative"],
+        ["xpath=//tr[10]/td[2]", "xpath:position"],
+        ["xpath=//td[contains(.,'Justificativa de Desarquivamento 01')]", "xpath:innerText"]
+      ],
+      "value": "Justificativa de Desarquivamento 01"
+    }, {
+      "id": "5a3a604b-25e7-4071-87ff-a2625b56939b",
+      "comment": "",
+      "command": "verifyText",
+      "target": "xpath=//td[contains(.,'desarq 02')]",
+      "targets": [
+        ["css=.infraTrSelecionada > td:nth-child(4)", "css:finder"],
+        ["xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[10]/td[4]", "xpath:idRelative"],
+        ["xpath=//tr[10]/td[4]", "xpath:position"],
+        ["xpath=//td[contains(.,'desarq 02')]", "xpath:innerText"]
+      ],
+      "value": "desarq 02"
+    }, {
+      "id": "1a128d5a-121d-4551-830d-5e725c26be84",
+      "comment": "",
+      "command": "click",
+      "target": "css=#lnkSairSistema > .infraImg",
+      "targets": [
+        ["css=#lnkSairSistema > .infraImg", "css:finder"],
+        ["xpath=//img[@alt='Sair do Sistema']", "xpath:img"],
+        ["xpath=//a[@id='lnkSairSistema']/img", "xpath:idRelative"],
+        ["xpath=//a[5]/img", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "3b49163e-a868-4e1a-9f64-891ffbc1eb6a",
+      "comment": "",
+      "command": "close",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "981c26ac-fe85-42ea-977d-9a970ddee613",
+    "name": "UnidadesArquivamento",
+    "commands": [{
+      "id": "753ed4b9-11fa-425b-bfca-eb7a5bd6befb",
+      "comment": "",
+      "command": "open",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e3ff5f5c-a301-4dbf-b454-3fc8172fd8a4",
+      "comment": "",
+      "command": "type",
+      "target": "id=txtUsuario",
+      "targets": [
+        ["id=txtUsuario", "id"],
+        ["name=txtUsuario", "name"],
+        ["css=#txtUsuario", "css:finder"],
+        ["xpath=//input[@id='txtUsuario']", "xpath:attributes"],
+        ["xpath=//div[@id='divUsuario']/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "teste"
+    }, {
+      "id": "10efdda6-7e64-4d85-bbfe-42490aa08354",
+      "comment": "",
+      "command": "type",
+      "target": "id=pwdSenha",
+      "targets": [
+        ["id=pwdSenha", "id"],
+        ["name=pwdSenha", "name"],
+        ["css=#pwdSenha", "css:finder"],
+        ["xpath=//input[@id='pwdSenha']", "xpath:attributes"],
+        ["xpath=//div[@id='divUsuario']/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "teste"
+    }, {
+      "id": "84d08f81-1bec-4d79-806a-44d0b376831e",
+      "comment": "",
+      "command": "click",
+      "target": "id=sbmLogin",
+      "targets": [
+        ["id=sbmLogin", "id"],
+        ["name=sbmLogin", "name"],
+        ["css=#sbmLogin", "css:finder"],
+        ["xpath=//button[@id='sbmLogin']", "xpath:attributes"],
+        ["xpath=//div[@id='divBotoes']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Acessar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "3ba32766-b4f2-40a6-8453-e3bb944b8537",
+      "comment": "",
+      "command": "click",
+      "target": "//*[@id=\"main-menu\"]/li[1]/a",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b8fef614-49e1-4651-bfb3-eed7feb23922",
+      "comment": "",
+      "command": "click",
+      "target": "//*[@id=\"main-menu\"]/li[1]/ul/li[25]/a",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b573c53b-715c-472c-8d2b-1ae342464647",
+      "comment": "",
+      "command": "click",
+      "target": "//*[@id=\"main-menu\"]/li[1]/ul/li[25]/ul/li[3]/a",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d62d9770-a67a-435f-bb44-de7681d4d7ea",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Listar",
+      "targets": [
+        ["linkText=Listar", "linkText"],
+        ["css=.sm-nowrap > li:nth-child(2) > a", "css:finder"],
+        ["xpath=(//a[contains(text(),'Listar')])[26]", "xpath:link"],
+        ["xpath=//ul[@id='main-menu']/li/ul/li[25]/ul/li[3]/ul/li[2]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'controlador.php?acao=gd_unidade_arquivamento_listar&infra_sistema=100000100&infra_unidade_atual=110000001&infra_hash=2047a69ac1ed5da22619754b6f7428462eb205703917e2862bd4c0fa090d0ba4')]", "xpath:href"],
+        ["xpath=//li[25]/ul/li[3]/ul/li[2]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "507e5341-d186-4856-91b1-8b04983068f2",
+      "comment": "",
+      "command": "click",
+      "target": "id=btnNova",
+      "targets": [
+        ["id=btnNova", "id"],
+        ["css=#btnNova", "css:finder"],
+        ["xpath=//button[@id='btnNova']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraBarraComandosSuperior']/button[2]", "xpath:idRelative"],
+        ["xpath=//button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Novo')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "e5520be6-89df-47c4-8c90-cb68b3e92457",
+      "comment": "",
+      "command": "click",
+      "target": "id=selUnidadeDestino",
+      "targets": [
+        ["id=selUnidadeDestino", "id"],
+        ["name=selUnidadeDestino", "name"],
+        ["css=#selUnidadeDestino", "css:finder"],
+        ["xpath=//select[@id='selUnidadeDestino']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/select", "xpath:idRelative"],
+        ["xpath=//div[2]/select", "xpath:position"],
+        ["xpath=//select[contains(.,' \nTESTE - Unidade de Teste 1\nTESTE_1_1 - Unidade de Testes 1.1\nTESTE_1_2 - Unidade de Testes 1.2')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "5e049ad3-6a6d-4659-b002-024bdd046b44",
+      "comment": "",
+      "command": "select",
+      "target": "id=selUnidadeDestino",
+      "targets": [],
+      "value": "label=TESTE_1_2 - Unidade de Testes 1.2"
+    }, {
+      "id": "9c22bc4e-1085-4a84-b279-774e072019bc",
+      "comment": "",
+      "command": "click",
+      "target": "id=txtUnidadeOrigem",
+      "targets": [
+        ["id=txtUnidadeOrigem", "id"],
+        ["name=txtUnidadeOrigem", "name"],
+        ["css=#txtUnidadeOrigem", "css:finder"],
+        ["xpath=//input[@id='txtUnidadeOrigem']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "e4fcdabc-fc3f-418d-b2d6-2d9568e393c6",
+      "comment": "",
+      "command": "type",
+      "target": "id=txtUnidadeOrigem",
+      "targets": [],
+      "value": "Teste"
+    }, {
+      "id": "77cb93d3-6412-42df-a5c2-714512b6f025",
+      "comment": "",
+      "command": "mouseDown",
+      "target": "css=#divInfraAjaxtxtUnidadeOrigem li:nth-child(1) > a",
+      "targets": [
+        ["css=#divInfraAjaxtxtUnidadeOrigem li:nth-child(1) > a", "css:finder"],
+        ["xpath=//div[@id='divInfraAjaxtxtUnidadeOrigem']/ul/li/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '#')])[44]", "xpath:href"],
+        ["xpath=//div[3]/ul/li/a", "xpath:position"],
+        ["xpath=//a[contains(.,'TESTE - Unidade de Teste 1')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "84e6230c-5995-4b7a-ad12-d76e4dc41751",
+      "comment": "",
+      "command": "mouseUp",
+      "target": "css=#selUnidadesOrigem > option",
+      "targets": [
+        ["css=#selUnidadesOrigem > option", "css:finder"],
+        ["xpath=(//option[@value='110000001'])[3]", "xpath:attributes"],
+        ["xpath=//select[@id='selUnidadesOrigem']/option", "xpath:idRelative"],
+        ["xpath=//select[2]/option", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "d0a8425e-08a7-4ea3-9d6e-d26312ded036",
+      "comment": "",
+      "command": "click",
+      "target": "css=body",
+      "targets": [
+        ["css=body", "css:finder"],
+        ["xpath=//body", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "a979c3af-ec86-4fbe-b5e7-39ed0de79a98",
+      "comment": "",
+      "command": "click",
+      "target": "name=sbmCadastrarUnidadeArquivamento",
+      "targets": [
+        ["name=sbmCadastrarUnidadeArquivamento", "name"],
+        ["css=.infraButton:nth-child(1)", "css:finder"],
+        ["xpath=//button[@name='sbmCadastrarUnidadeArquivamento']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraBarraComandosSuperior']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Salvar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "cb2299af-2895-4018-b18f-39f9d5d1c51d",
+      "comment": "",
+      "command": "click",
+      "target": "css=#lnkSairSistema > .infraImg",
+      "targets": [
+        ["css=#lnkSairSistema > .infraImg", "css:finder"],
+        ["xpath=//img[@alt='Sair do Sistema']", "xpath:img"],
+        ["xpath=//a[@id='lnkSairSistema']/img", "xpath:idRelative"],
+        ["xpath=//a[5]/img", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8c11c77b-5dcf-4a40-8ae4-a28e2713bf9f",
+      "comment": "",
+      "command": "close",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "c483162d-6a7e-4b1e-a67a-22addda2d3fb",
+    "name": "Modelos",
+    "commands": [{
+      "id": "3929330d-1b78-44bb-8674-9301efc61261",
+      "comment": "",
+      "command": "open",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2c0ab83d-08c2-4c6d-a505-bbd1586cb5bc",
+      "comment": "",
+      "command": "type",
+      "target": "id=txtUsuario",
+      "targets": [
+        ["id=txtUsuario", "id"],
+        ["name=txtUsuario", "name"],
+        ["css=#txtUsuario", "css:finder"],
+        ["xpath=//input[@id='txtUsuario']", "xpath:attributes"],
+        ["xpath=//div[@id='divUsuario']/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "teste"
+    }, {
+      "id": "7a2a9a8c-eea9-4107-8f38-c06e66a6ad0f",
+      "comment": "",
+      "command": "type",
+      "target": "id=pwdSenha",
+      "targets": [
+        ["id=pwdSenha", "id"],
+        ["name=pwdSenha", "name"],
+        ["css=#pwdSenha", "css:finder"],
+        ["xpath=//input[@id='pwdSenha']", "xpath:attributes"],
+        ["xpath=//div[@id='divUsuario']/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "teste"
+    }, {
+      "id": "293d97ff-009e-4c15-9af3-0bb639b32ee7",
+      "comment": "",
+      "command": "click",
+      "target": "id=sbmLogin",
+      "targets": [
+        ["id=sbmLogin", "id"],
+        ["name=sbmLogin", "name"],
+        ["css=#sbmLogin", "css:finder"],
+        ["xpath=//button[@id='sbmLogin']", "xpath:attributes"],
+        ["xpath=//div[@id='divBotoes']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Acessar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "cac1d93d-d04a-481d-9ce4-9f75a4af36cc",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//*[@id=\"main-menu\"]/li[1]/a",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "bdf86b8e-45a6-49d9-991e-1257f4dd5201",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//*[@id=\"main-menu\"]/li[1]/ul/li[25]/a",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "fb66d6c4-fdb8-426b-98a5-4f2069293d98",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Modelos de Documento",
+      "targets": [
+        ["linkText=Modelos de Documento", "linkText"],
+        ["css=li:nth-child(25) li:nth-child(4) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Modelos de Documento')]", "xpath:link"],
+        ["xpath=//ul[@id='main-menu']/li/ul/li[25]/ul/li[4]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'controlador.php?acao=gd_modelo_documento_alterar&infra_sistema=100000100&infra_unidade_atual=110000001&infra_hash=1c8dd675badb110728f4f08f416155a3c32fd8cf7a4cd01effe1b69c05aa7922')]", "xpath:href"],
+        ["xpath=//li[25]/ul/li[4]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Modelos de Documento')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "7e4501e4-b728-4324-8ef0-ca5acfd0fdab",
+      "comment": "",
+      "command": "click",
+      "target": "id=selModeloDocumento",
+      "targets": [
+        ["id=selModeloDocumento", "id"],
+        ["name=selModeloDocumento", "name"],
+        ["css=#selModeloDocumento", "css:finder"],
+        ["xpath=//select[@id='selModeloDocumento']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/select", "xpath:idRelative"],
+        ["xpath=//div[2]/select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "b4b183af-0615-4a2f-a595-45428c5a54ee",
+      "comment": "",
+      "command": "select",
+      "target": "id=selModeloDocumento",
+      "targets": [],
+      "value": "value=MODELO_DESPACHO_ARQUIVAMENTO"
+    }, {
+      "id": "94e6b1b3-d52a-4db1-aeaa-33d6ea1bc43f",
+      "comment": "",
+      "command": "click",
+      "target": "id=selModeloDocumento",
+      "targets": [
+        ["id=selModeloDocumento", "id"],
+        ["name=selModeloDocumento", "name"],
+        ["css=#selModeloDocumento", "css:finder"],
+        ["xpath=//select[@id='selModeloDocumento']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/select", "xpath:idRelative"],
+        ["xpath=//div[2]/select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "19304f87-a85f-404f-bf6f-cfd3db9572ab",
+      "comment": "",
+      "command": "pause",
+      "target": "5000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e34ea9df-f762-4e36-8ccb-adc5b8c95a8d",
+      "comment": "",
+      "command": "selectFrame",
+      "target": "index=0",
+      "targets": [
+        ["index=0"]
+      ],
+      "value": ""
+    }, {
+      "id": "b8f56867-fa93-45f7-9f76-25d7aa7e2876",
+      "comment": "",
+      "command": "//click",
+      "target": "css=html",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8342ca86-beb5-4064-b473-7f175cabddcd",
+      "comment": "",
+      "command": "//click",
+      "target": "css=html",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3eb65af3-ff4c-4fa2-aac5-aac1329ec8c3",
+      "comment": "",
+      "command": "editContent",
+      "target": "css=.cke_editable",
+      "targets": [
+        ["css=.cke_editable", "css:finder"],
+        ["xpath=//body", "xpath:position"]
+      ],
+      "value": "<p>Motivo: @motivo@&nbsp;</p><p>data: @data_arquivamento@</p><p>responsavel: @responsavel_arquivamento@</p>"
+    }, {
+      "id": "348f82a8-ec39-4e1d-8cec-214d6821170e",
+      "comment": "",
+      "command": "selectFrame",
+      "target": "relative=parent",
+      "targets": [
+        ["relative=parent"]
+      ],
+      "value": ""
+    }, {
+      "id": "3ea916a8-68b4-4493-9c83-15cb0d2a3919",
+      "comment": "",
+      "command": "click",
+      "target": "name=sbmAlterarModeloAlterar",
+      "targets": [
+        ["name=sbmAlterarModeloAlterar", "name"],
+        ["css=.infraButton:nth-child(1)", "css:finder"],
+        ["xpath=//button[@name='sbmAlterarModeloAlterar']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraBarraComandosSuperior']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Salvar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "cc044cb5-7d6d-4a23-a8c2-851466237bcb",
+      "comment": "",
+      "command": "click",
+      "target": "id=selModeloDocumento",
+      "targets": [
+        ["id=selModeloDocumento", "id"],
+        ["name=selModeloDocumento", "name"],
+        ["css=#selModeloDocumento", "css:finder"],
+        ["xpath=//select[@id='selModeloDocumento']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/select", "xpath:idRelative"],
+        ["xpath=//div[2]/select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "57a1fcc1-eea0-42be-beb2-278a8ee914b1",
+      "comment": "",
+      "command": "select",
+      "target": "id=selModeloDocumento",
+      "targets": [],
+      "value": "value=MODELO_DESPACHO_DESARQUIVAMENTO"
+    }, {
+      "id": "599c77a5-5527-4644-941a-8522046c7786",
+      "comment": "",
+      "command": "click",
+      "target": "id=selModeloDocumento",
+      "targets": [
+        ["id=selModeloDocumento", "id"],
+        ["name=selModeloDocumento", "name"],
+        ["css=#selModeloDocumento", "css:finder"],
+        ["xpath=//select[@id='selModeloDocumento']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/select", "xpath:idRelative"],
+        ["xpath=//div[2]/select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "9b1c9609-82be-4036-b929-a1bc5c2dd6af",
+      "comment": "",
+      "command": "pause",
+      "target": "5000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3bc24026-f137-46cd-abd7-d1f1d7d0bf8a",
+      "comment": "",
+      "command": "selectFrame",
+      "target": "index=0",
+      "targets": [
+        ["index=0"]
+      ],
+      "value": ""
+    }, {
+      "id": "69f4d70e-d059-4e78-b172-02d00088fcc1",
+      "comment": "",
+      "command": "//click",
+      "target": "css=html",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "33d25c37-9b8c-4c1f-b235-26f6cdb0523d",
+      "comment": "",
+      "command": "editContent",
+      "target": "css=.cke_editable",
+      "targets": [
+        ["css=.cke_editable", "css:finder"],
+        ["xpath=//body", "xpath:position"]
+      ],
+      "value": "<p>Motivo: @motivo@&nbsp;</p><p>data: @data_desarquivamento@</p><p>responsavel: @responsavel_desarquivamento@</p>"
+    }, {
+      "id": "9f21feb1-b9a9-4c65-a1b3-602f0e0263d2",
+      "comment": "",
+      "command": "selectFrame",
+      "target": "relative=parent",
+      "targets": [
+        ["relative=parent"]
+      ],
+      "value": ""
+    }, {
+      "id": "bb8bf1e7-1af5-4831-95d8-7371144634ca",
+      "comment": "",
+      "command": "click",
+      "target": "name=sbmAlterarModeloAlterar",
+      "targets": [
+        ["name=sbmAlterarModeloAlterar", "name"],
+        ["css=.infraButton:nth-child(1)", "css:finder"],
+        ["xpath=//button[@name='sbmAlterarModeloAlterar']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraBarraComandosSuperior']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Salvar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "18fe907c-c92e-4a6d-aae3-7c8f8008ecd3",
+      "comment": "",
+      "command": "click",
+      "target": "id=selModeloDocumento",
+      "targets": [
+        ["id=selModeloDocumento", "id"],
+        ["name=selModeloDocumento", "name"],
+        ["css=#selModeloDocumento", "css:finder"],
+        ["xpath=//select[@id='selModeloDocumento']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/select", "xpath:idRelative"],
+        ["xpath=//div[2]/select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "bc096aad-43b1-4223-b822-1047d88d9dc1",
+      "comment": "",
+      "command": "select",
+      "target": "id=selModeloDocumento",
+      "targets": [],
+      "value": "value=MODELO_LISTAGEM_ELIMINACAO"
+    }, {
+      "id": "a018d099-2aac-4f4f-865b-237ffd7f827b",
+      "comment": "",
+      "command": "click",
+      "target": "id=selModeloDocumento",
+      "targets": [
+        ["id=selModeloDocumento", "id"],
+        ["name=selModeloDocumento", "name"],
+        ["css=#selModeloDocumento", "css:finder"],
+        ["xpath=//select[@id='selModeloDocumento']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/select", "xpath:idRelative"],
+        ["xpath=//div[2]/select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "fd65d820-b727-46fe-982a-d48a16952d80",
+      "comment": "",
+      "command": "pause",
+      "target": "5000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b4f46d04-aee8-4d01-b9c2-3d0a20c5936c",
+      "comment": "",
+      "command": "selectFrame",
+      "target": "index=0",
+      "targets": [
+        ["index=0"]
+      ],
+      "value": ""
+    }, {
+      "id": "1be350d8-01ab-40ab-8411-207bc47f1dc3",
+      "comment": "",
+      "command": "//click",
+      "target": "css=html",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "bdffc903-f67b-405e-9c03-9a997ab87fe6",
+      "comment": "",
+      "command": "editContent",
+      "target": "css=.cke_editable",
+      "targets": [
+        ["css=.cke_editable", "css:finder"],
+        ["xpath=//body", "xpath:position"]
+      ],
+      "value": "<p>@orgao@ Órgão gerador</p><p>@unidade@   Unidade geradora</p><p>@numero_listagem@   Número da listagem</p><p>@folha@ Número de folhas</p><p>@tabela Tabela de detalhamento da listagem</p><p>@mensuracao_total@  Mensuração total</p><p>@datas_limites_gerais@  Datas limite do arquivamento</p>"
+    }, {
+      "id": "fff41b3d-95ea-4b32-a2c8-801d8743c7f5",
+      "comment": "",
+      "command": "selectFrame",
+      "target": "relative=parent",
+      "targets": [
+        ["relative=parent"]
+      ],
+      "value": ""
+    }, {
+      "id": "8fc35070-cdac-4b9f-9daf-6cd42fea249d",
+      "comment": "",
+      "command": "click",
+      "target": "name=sbmAlterarModeloAlterar",
+      "targets": [
+        ["name=sbmAlterarModeloAlterar", "name"],
+        ["css=.infraButton:nth-child(1)", "css:finder"],
+        ["xpath=//button[@name='sbmAlterarModeloAlterar']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraBarraComandosSuperior']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Salvar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "00b608a0-fb2c-431f-9577-6506daf2d54b",
+      "comment": "",
+      "command": "click",
+      "target": "css=#lnkSairSistema > .infraImg",
+      "targets": [
+        ["css=#lnkSairSistema > .infraImg", "css:finder"],
+        ["xpath=//img[@alt='Sair do Sistema']", "xpath:img"],
+        ["xpath=//a[@id='lnkSairSistema']/img", "xpath:idRelative"],
+        ["xpath=//a[5]/img", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ad794e45-31d3-4ed5-bc5a-3f4d2b765348",
+      "comment": "",
+      "command": "close",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "117bcc92-def1-4ca1-8553-d5f8927e85f9",
+    "name": "Configuracoes",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["0aef73fd-dc4f-4dfe-8311-8d0dd6e72ddf", "679dfa33-fa95-4fb7-bf1c-9b36a7088e0b", "981c26ac-fe85-42ea-977d-9a970ddee613", "c483162d-6a7e-4b1e-a67a-22addda2d3fb"]
+  }],
+  "urls": ["http://seigd.nuvem.gov.br/", "http://seigd.nuvem.gov.br/sei"],
+  "plugins": []
+}
