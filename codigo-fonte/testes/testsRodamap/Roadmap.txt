@@ -1,0 +1,13 @@
+O que precisamos testar
+- Tela de cadastro de justificativas
+    - adicionar justificativas duplicadas
+    - retirar justificativas associadas a processo
+
+- Cadastro de Unidades
+    - tentar retirar unidades com processo associado
+
+- Arquivamento Automático
+    - arquivar sem unidade associada ou justificativa
+
+
+    

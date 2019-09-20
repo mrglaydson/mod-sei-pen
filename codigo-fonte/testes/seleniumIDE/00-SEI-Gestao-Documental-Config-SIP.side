@@ -1,7 +1,7 @@
 {
   "id": "565c3481-f0b6-42f6-a947-d7514d57929f",
   "version": "2.0",
-  "name": "SEI-Gestao-Documental",
+  "name": "SEI-Gestao-Documental-Config-SIP",
   "url": "http://seigd.nuvem.gov.br",
   "tests": [{
     "id": "35f98682-f3ae-496d-8cc0-3168c83c7399",
