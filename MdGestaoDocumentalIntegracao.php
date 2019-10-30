@@ -48,6 +48,7 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
         $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
         $objMdGdArquivamentoDTO->setDblIdProcedimento($dblIdProcedimento);
         $objMdGdArquivamentoDTO->setStrSinAtivo('S');
+        $objMdGdArquivamentoDTO->retStrSituacao();
 
         $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
         $flgArquivado = $objMdGdArquivamentoRN->contar($objMdGdArquivamentoDTO);
@@ -63,6 +64,28 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
             $objArvoreAcaoItemAPI->setHref('javascript:alert(\'Processo Arquivado\');');
             $objArvoreAcaoItemAPI->setSinHabilitado('S');
             $arrObjArvoreAcaoItemAPI[] = $objArvoreAcaoItemAPI;
+
+            // Consulta o arquivamento
+            $objMdGdArquivamentoDTO = $objMdGdArquivamentoRN->consultar($objMdGdArquivamentoDTO);
+
+            // Verifica se o arquivamento está com a situação em edição
+            if($objMdGdArquivamentoDTO->getStrSituacao() == MdGdArquivamentoRN::$ST_FASE_EDICAO){
+                $objArvoreAcaoItemAPI2 = new ArvoreAcaoItemAPI();
+                $objArvoreAcaoItemAPI2->setTipo('MD_GD_PROCESSO');
+                $objArvoreAcaoItemAPI2->setId('MD_GD_PROCESSO_' . $dblIdProcedimento);
+                $objArvoreAcaoItemAPI2->setIdPai($dblIdProcedimento);
+                $objArvoreAcaoItemAPI2->setTitle('Processo em Edição');
+                $objArvoreAcaoItemAPI2->setIcone('modulos/sei-mod-gestao-documental/imagens/processo_editado.gif');
+                $objArvoreAcaoItemAPI2->setTarget(null);
+                $objArvoreAcaoItemAPI2->setHref('javascript:alert(\'Processo em Edição\');');
+                $objArvoreAcaoItemAPI2->setSinHabilitado('S');
+                $arrObjArvoreAcaoItemAPI[] = $objArvoreAcaoItemAPI2;
+        
+
+            }
+
+
+            
         }
 
         return $arrObjArvoreAcaoItemAPI;
@@ -84,6 +107,19 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
         $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
         $flgArquivado = $objMdGdArquivamentoRN->contar($objMdGdArquivamentoDTO);
 
+        if($flgArquivado){
+            $objMdGdArquivamentoDTO->retStrSituacao();
+            $objMdGdArquivamentoDTO = $objMdGdArquivamentoRN->consultar($objMdGdArquivamentoDTO);
+
+            if($objMdGdArquivamentoDTO->getStrSituacao() != MdGdArquivamentoRN::$ST_FASE_CORRENTE &&
+               $objMdGdArquivamentoDTO->getStrSituacao() != MdGdArquivamentoRN::$ST_FASE_INTERMEDIARIA &&
+               $objMdGdArquivamentoDTO->getStrSituacao() != MdGdArquivamentoRN::$ST_PREPARACAO_ELIMINACAO &&
+               $objMdGdArquivamentoDTO->getStrSituacao() != MdGdArquivamentoRN::$ST_PREPARACAO_RECOLHIMENTO
+            ){
+                $bolAcaoDesarquivamento = false;
+            }
+
+        }
 
         // Verifica se o processo encontra-se aberto em mais de uma unidade
         $objAtividadeDTO = new AtividadeDTO();
@@ -224,8 +260,22 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
                 require_once dirname(__FILE__) . '/gd_relatorio.php';
                 return true;
             case 'gd_gestao_listagem_recolhimento':
+            case 'gd_editar_listagem_recolhimento':
+            case 'gd_concluir_edicao_listagem_recol':
             case 'gd_recolhimento':
                 require_once dirname(__FILE__) . '/gd_gestao_listagem_recolhimento.php';
+                return true;
+            case 'gd_adicionar_processo_listagem_elim':
+                require_once dirname(__FILE__) . '/gd_adicionar_processo_listagem_elim.php';
+                return true;
+            case 'gd_adicionar_processo_listagem_recol':
+                require_once dirname(__FILE__) . '/gd_adicionar_processo_listagem_recol.php';
+                return true;
+            case 'gd_remover_processo_listagem_elim':
+                require_once dirname(__FILE__) . '/gd_remover_processo_listagem_elim.php';
+                return true;
+            case 'gd_remover_processo_listagem_recol':
+                require_once dirname(__FILE__) . '/gd_remover_processos_listagem_recol.php';
                 return true;
             case 'gd_visualizacao_listagem_recolhimento':
             case 'gd_geracao_pdf_listagem_recolhimento':
@@ -238,6 +288,8 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
                 require_once dirname(__FILE__) . '/gd_recolher_documento_fisico.php';
                 return true;
             case 'gd_gestao_listagem_eliminacao':
+            case 'gd_editar_listagem_eliminacao':
+            case 'gd_concluir_edicao_listagem_elim':
                 require_once dirname(__FILE__) . '/gd_gestao_listagem_eliminacao.php';
                 return true;
             case 'gd_eliminar_documento_fisico':
@@ -273,6 +325,8 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
             case 'gd_avaliacao_processos_listar':
             case 'gd_procedimento_eliminacao_enviar':
             case 'gd_procedimento_recolhimento_enviar':
+            case 'gd_procedimento_editar_arquivamento':
+            case 'gd_procedimento_concluir_edicao_arquivamento':
                 require_once dirname(__FILE__) . '/gd_avaliacao_processos_listar.php';
                 return true;
             case 'gd_modelo_documento_alterar':
@@ -381,12 +435,18 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
         $objMdGdArquivamentoDTO->setDblIdProcedimento($objProcedimentoAPI->getIdProcedimento());
         $objMdGdArquivamentoDTO->setStrSinAtivo('S');
         $objMdGdArquivamentoDTO->retDblIdProcedimento();
-
+        $objMdGdArquivamentoDTO->retStrSituacao();
         $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
         
         if($objMdGdArquivamentoRN->contar($objMdGdArquivamentoDTO) != 0){
             $strMsg = 'Processo arquivado.';
         }
+
+        $objMdGdArquivamentoDTO = $objMdGdArquivamentoRN->consultar($objMdGdArquivamentoDTO);
+        if($objMdGdArquivamentoDTO && $objMdGdArquivamentoDTO->getStrSituacao() == MdGdArquivamentoRN::$ST_FASE_EDICAO){
+            $strMsg = 'Processo arquivado em edição. Após realizar as edições necessárias sua edição deverá ser concluída na avaliação de processos.';
+        }
+
 
         return $strMsg;
     }
@@ -396,6 +456,7 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
         $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
         $objMdGdArquivamentoDTO->setDblIdProcedimento($objProcedimentoAPI->getIdProcedimento());
         $objMdGdArquivamentoDTO->setStrSinAtivo('S');
+        $objMdGdArquivamentoDTO->setStrSituacao(MdGdArquivamentoRN::$ST_FASE_INTERMEDIARIA, InfraDTO::$OPER_DIFERENTE);
         $objMdGdArquivamentoDTO->retDblIdProcedimento();
 
         $objMdGdArquivamentoRN = new MdGdArquivamentoRN();

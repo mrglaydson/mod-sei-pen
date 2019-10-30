@@ -129,6 +129,7 @@ try {
             $objProcedimentoDTO->retStrNomeTipoProcedimento();
             $objProcedimentoDTO->retObjAnotacaoDTO();
             $objProcedimentoDTO->retStrStaNivelAcessoGlobalProtocolo();
+            $objProcedimentoDTO->retStrDescricaoProtocolo();
 
             if ($selTipoProcedimento && $selTipoProcedimento !== 'null') {
                 $objProcedimentoDTO->setNumIdTipoProcedimento($selTipoProcedimento);
@@ -179,10 +180,11 @@ try {
                 $strResultado .= '<th class="infraTh" width="1%">' . PaginaSEI::getInstance()->getThCheck() . '</th>' . "\n";
                 $strResultado .= '<th class="infraTh" width="1%">Seq.</th>' . "\n";
                 $strResultado .= '<th class="infraTh" width="19%">Processo</th>' . "\n";
+                $strResultado .= '<th class="infraTh" width="10%">Especificação</th>' . "\n";
                 $strResultado .= '<th class="infraTh" width="15%">Data</th>' . "\n";
                 $strResultado .= '<th class="infraTh" width="10%">Tipo</th>' . "\n";
-                $strResultado .= '<th class="infraTh" width="20%">Assunto</th>' . "\n";
-                $strResultado .= '<th class="infraTh" width="20%">Anotações</th>' . "\n";
+                $strResultado .= '<th class="infraTh" width="15%">Assunto</th>' . "\n";
+                $strResultado .= '<th class="infraTh" width="15%">Anotações</th>' . "\n";
                 $strResultado .= '<th class="infraTh" width="15%">Ações</th>' . "\n";
                 $strResultado .= '</tr>' . "\n";
                 $strCssTr = '';
@@ -208,6 +210,7 @@ try {
                     $strResultado .= '<td valign="top">' . PaginaSEI::getInstance()->getTrCheck($i, $arrObjProcedimentoDTO[$i]->getDblIdProcedimento(), $arrObjProcedimentoDTO[$i]->getStrProtocoloProcedimentoFormatado()) . '</td>';
                     $strResultado .= '<td>' . $c . '</td>';
                     $strResultado .= '<td><a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=procedimento_trabalhar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao'] . '&id_procedimento=' . $arrObjProcedimentoDTO[$i]->getDblIdProcedimento()) . '" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . ' " target="_blank">' . $arrObjProcedimentoDTO[$i]->getStrProtocoloProcedimentoFormatado() . '</a>';
+                    $strResultado .= '<td>'. $arrObjProcedimentoDTO[$i]->getStrDescricaoProtocolo().'</td>';
 
                     if($arrObjProcedimentoDTO[$i]->getStrStaNivelAcessoGlobalProtocolo() == ProtocoloRN::$NA_RESTRITO){
                         $strResultado .= '<img src="imagens/sei_chave_restrito.gif" title="Processo Restrito" title="Processo Restrito" class="infraImg" />';

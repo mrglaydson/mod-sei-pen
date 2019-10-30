@@ -5,6 +5,7 @@ require_once dirname(__FILE__) . '/../../../SEI.php';
 class MdGdListaEliminacaoRN extends InfraRN {
 
     public static $ST_GERADA = 'GE';
+    public static $ST_EDICAO = 'ED';
     public static $ST_ELIMINADA = 'EL';
 
     public function __construct() {
@@ -329,6 +330,120 @@ class MdGdListaEliminacaoRN extends InfraRN {
         SeiINT::download(null, $strCaminhoArquivoPdf, 'listagem_recolhiment.pdf', 'attachment', true);
     }
 
+    /**
+     * Altera a situação da listagem de eliminação para em edição
+     *
+     * @param MdGdListaEliminacaoDTO $objMdGdListaEliminacaoDTO
+     * @return void
+     */
+    public function editarListaEliminacaoControlado(MdGdListaEliminacaoDTO $objMdGdListaEliminacaoDTO){
+        try{
+            if(!$objMdGdListaEliminacaoDTO->isSetNumIdListaEliminacao()){
+                throw new InfraException('Informe o id da lista de eliminação para deixar em modo de edição.');
+            }
+
+            $objMdGdListaEliminacaoDTO->retNumIdListaEliminacao();
+            $objMdGdListaEliminacaoDTO->retStrSituacao();
+
+            $objMdGdListaEliminacaoDTO = $this->consultar($objMdGdListaEliminacaoDTO);
+            
+            if($objMdGdListaEliminacaoDTO->getStrSituacao() != self::$ST_GERADA){
+                throw new InfraException('A listagem precisa estar na situação gerada.'); 
+            }
+
+            $objMdGdListaEliminacaoDTO->setStrSituacao(self::$ST_EDICAO);
+            return $this->alterar($objMdGdListaEliminacaoDTO);
+        } catch (Exception $e) {
+            throw new InfraException('Erro ao alterar a listagem de eliminação para o modo de edição.', $e);
+        }
+    }
+
+    /**
+     * Conclui a edição da listagem de eliminação
+     *
+     * @param MdGdListaEliminacaoDTO $objMdGdListaEliminacaoDTO
+     * @return void
+     */
+    public function concluirEdicaoListaEliminacaoControlado(MdGdListaEliminacaoDTO $objMdGdListaEliminacaoDTO){
+        try{
+
+            if(!$objMdGdListaEliminacaoDTO->isSetNumIdListaEliminacao()){
+                throw new InfraException('Informe o id da lista de eliminação para concluir a edição da listagem.');
+            }
+            
+            // Obtem os dados da lista de eliminação
+            $objMdGdListaEliminacaoDTO->retNumIdListaEliminacao();
+            $objMdGdListaEliminacaoDTO->retStrSituacao();
+            $objMdGdListaEliminacaoDTO->retDblIdProcedimentoEliminacao();
+
+            $objMdGdListaEliminacaoDTO = $this->consultar($objMdGdListaEliminacaoDTO);
+
+            if($objMdGdListaEliminacaoDTO->getStrSituacao() != self::$ST_EDICAO){
+                throw new InfraException('A listagem precisa estar em edição para que sua edição seja concluída.');
+            }
+
+            // Obtem os processos da listagem de eliminação
+            $objMdGdListaElimProcedimentoDTO = new MdGdListaElimProcedimentoDTO();
+            $objMdGdListaElimProcedimentoDTO->setNumIdListaEliminacao($objMdGdListaEliminacaoDTO->getNumIdListaEliminacao());
+            $objMdGdListaElimProcedimentoDTO->retDblIdProcedimento();
+
+            $objMdGdListaElimProcedimentoRN = new MdGdListaElimProcedimentoRN();
+            $arrObjMdGdListaElimProcedimentoDTO = $objMdGdListaElimProcedimentoRN->listar($objMdGdListaElimProcedimentoDTO);
+
+            $arrIdsProcedimentos = [];
+
+            foreach($arrObjMdGdListaElimProcedimentoDTO as $objMdGdListaElimProcedimentoDTO){
+                $arrIdsProcedimentos[] = $objMdGdListaElimProcedimentoDTO->getDblIdProcedimento();
+            }
+
+            // Obtem os arquivamentos dos processos
+            $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
+            $objMdGdArquivamentoDTO->setDblIdProcedimento($arrIdsProcedimentos, InfraDTO::$OPER_IN);
+            $objMdGdArquivamentoDTO->setStrSinAtivo('S');
+            $objMdGdArquivamentoDTO->retDblIdProtocoloProcedimento();
+            $objMdGdArquivamentoDTO->retStrObservacaoEliminacao();
+
+            $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
+            $arrObjMdGdArquivamentoDTO = $objMdGdArquivamentoRN->listar($objMdGdArquivamentoDTO);
+            
+            // Gera um novo documento atualizado no processo da listagem de eliminação
+            $objMdGdParametroRN = new MdGdParametroRN();
+            $numIdTipoDocumentoArquivamento = $objMdGdParametroRN->obterParametro(MdGdParametroRN::$PAR_TIPO_DOCUMENTO_LISTAGEM_ELIMINACAO);
+
+            $objDocumentoDTO = new DocumentoDTO();
+            $objDocumentoDTO->setDblIdDocumento(null);
+            $objDocumentoDTO->setDblIdProcedimento($objMdGdListaEliminacaoDTO->getDblIdProcedimentoEliminacao());
+
+            $objProtocoloDTO = new ProtocoloDTO();
+            $objProtocoloDTO->setDblIdProtocolo(null);
+            $objProtocoloDTO->setStrStaProtocolo('G');
+            $objProtocoloDTO->setStrDescricao('');
+
+            $objDocumentoDTO->setNumIdSerie($numIdTipoDocumentoArquivamento);
+            $objDocumentoDTO->setDblIdDocumentoEdoc(null);
+            $objDocumentoDTO->setDblIdDocumentoEdocBase(null);
+            $objDocumentoDTO->setNumIdUnidadeResponsavel(SessaoSEI::getInstance()->getNumIdUnidadeAtual());
+            $objDocumentoDTO->setNumIdTipoConferencia(null);
+            $objDocumentoDTO->setStrNumero('');
+
+            $objProtocoloDTO->setStrStaNivelAcessoLocal(ProtocoloRN::$NA_PUBLICO);
+            $objProtocoloDTO->setArrObjParticipanteDTO(array());
+            $objProtocoloDTO->setArrObjObservacaoDTO(array());
+
+            $objDocumentoDTO->setObjProtocoloDTO($objProtocoloDTO);
+            $objDocumentoDTO->setStrStaDocumento(DocumentoRN::$TD_EDITOR_INTERNO);
+            $objDocumentoDTO->setStrConteudo($this->obterConteudoDocumentoEliminacao($arrObjMdGdArquivamentoDTO));
+
+            $objDocumentoRN = new DocumentoRN();
+            $objDocumentoDTO = $objDocumentoRN->cadastrarRN0003($objDocumentoDTO);
+
+            // Atualiza a situação da listagem de eliminação
+            $objMdGdListaEliminacaoDTO->setStrSituacao(self::$ST_GERADA);
+            return $this->alterar($objMdGdListaEliminacaoDTO);
+        } catch (Exception $e) {
+            throw new InfraException('Erro ao alterar a listagem de eliminação para o modo de edição.', $e);
+        }
+    }
 }
 
 ?>

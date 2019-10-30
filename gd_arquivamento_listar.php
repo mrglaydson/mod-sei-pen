@@ -39,18 +39,21 @@ try {
     $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
     $objMdGdArquivamentoDTO->setNumIdUnidadeCorrente(SessaoSEI::getInstance()->getNumIdUnidadeAtual());
     $objMdGdArquivamentoDTO->setStrSinAtivo('S');
+    $objMdGdArquivamentoDTO->setStrSituacao('CO');
     $objMdGdArquivamentoDTO->retNumIdArquivamento();
     $objMdGdArquivamentoDTO->retDthDataArquivamento();
     $objMdGdArquivamentoDTO->retStrProtocoloFormatado();
     $objMdGdArquivamentoDTO->retStrNomeTipoProcedimento();
     $objMdGdArquivamentoDTO->retStrNomeUsuario();
     $objMdGdArquivamentoDTO->retStrDescricaoUnidadeCorrente();
+    $objMdGdArquivamentoDTO->retStrDescricao();
     $objMdGdArquivamentoDTO->retDblIdProcedimento();
     $objMdGdArquivamentoDTO->retNumGuardaCorrente();
     $objMdGdArquivamentoDTO->retNumGuardaIntermediaria();
     $objMdGdArquivamentoDTO->retStrStaDestinacaoFinal();
     $objMdGdArquivamentoDTO->retStrStaNivelAcessoGlobal();
-
+    $objMdGdArquivamentoDTO->retDthDataGuardaCorrente();
+    $objMdGdArquivamentoDTO->retDthDataGuardaIntermediaria();
 
     $selTipoProcedimento = PaginaSEI::getInstance()->recuperarCampo('selTipoProcedimento');
     if ($selTipoProcedimento && $selTipoProcedimento !== 'null') {
@@ -129,12 +132,11 @@ try {
         $strResultado .= '<caption class="infraCaption">' . PaginaSEI::getInstance()->gerarCaptionTabela($strCaptionTabela, $numRegistros) . '</caption>';
         $strResultado .= '<tr>';
         $strResultado .= '<th class="infraTh" width="1%">' . PaginaSEI::getInstance()->getThCheck() . '</th>' . "\n";
-        $strResultado .= '<th class="infraTh" width="9%">Órgão</th>' . "\n";
-        $strResultado .= '<th class="infraTh" width="10%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdArquivamentoDTO, 'Unidade', 'DescricaoUnidadeCorrente', $arrObjMdGdArquivamentoDTO) . '</th>' . "\n";
-        $strResultado .= '<th class="infraTh" width="10%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdArquivamentoDTO, 'Processo', 'ProtocoloFormatado', $arrObjMdGdArquivamentoDTO) . '</th>' . "\n";
-        $strResultado .= '<th class="infraTh" width="15%">Assunto</th>' . "\n";
-        $strResultado .= '<th class="infraTh" width="10%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdArquivamentoDTO, 'Tipo', 'NomeTipoProcedimento', $arrObjMdGdArquivamentoDTO) . '</th>' . "\n";
-        $strResultado .= '<th class="infraTh" width="10%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdArquivamentoDTO, 'Usuário', 'NomeUsuario', $arrObjMdGdArquivamentoDTO) . '</th>' . "\n";
+        $strResultado .= '<th class="infraTh" width="5%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdArquivamentoDTO, 'Processo', 'ProtocoloFormatado', $arrObjMdGdArquivamentoDTO) . '</th>' . "\n";
+        $strResultado .= '<th class="infraTh" width="10%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdArquivamentoDTO, 'Especificação', 'Descricao', $arrObjMdGdArquivamentoDTO) . '</th>' . "\n";
+        $strResultado .= '<th class="infraTh" width="10%">Assunto</th>' . "\n";
+        $strResultado .= '<th class="infraTh" width="5%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdArquivamentoDTO, 'Tipo', 'NomeTipoProcedimento', $arrObjMdGdArquivamentoDTO) . '</th>' . "\n";
+        $strResultado .= '<th class="infraTh" width="5%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdArquivamentoDTO, 'Usuário', 'NomeUsuario', $arrObjMdGdArquivamentoDTO) . '</th>' . "\n";
         $strResultado .= '<th class="infraTh" width="10%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdArquivamentoDTO, 'Data de arquivamento', 'DataArquivamento', $arrObjMdGdArquivamentoDTO) . '</th>' . "\n";
         $strResultado .= '<th class="infraTh" width="10%">Fase Corrente</th>' . "\n";
         $strResultado .= '<th class="infraTh" width="10%">Fase Intermediária</th>' . "\n";
@@ -144,6 +146,7 @@ try {
         $strCssTr = '';
 
         for ($i = 0; $i < $numRegistros; $i++) {
+
 
             // Isola os assuntos do processo
             $arrObjRelProtocoloAssuntoDTOProcedimento = $arrObjRelProtocoloAssuntoDTO[$arrObjMdGdArquivamentoDTO[$i]->getDblIdProcedimento()];
@@ -160,11 +163,9 @@ try {
             $strResultado .= $strCssTr;
 
             $strResultado .= '<td valign="top">' . PaginaSEI::getInstance()->getTrCheck($i, $arrObjMdGdArquivamentoDTO[$i]->getDblIdProcedimento(), $arrObjMdGdArquivamentoDTO[$i]->getStrProtocoloFormatado()) . '</td>';
-            $strResultado .= '<td>' . PaginaSEI::tratarHTML(SessaoSEI::getInstance()->getStrDescricaoOrgaoSistema()) . '</td>';
-            $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getStrDescricaoUnidadeCorrente()) . '</td>';
-        
             $strResultado .= '<td><a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=procedimento_trabalhar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao'] . '&id_procedimento=' . $arrObjMdGdArquivamentoDTO[$i]->getDblIdProcedimento()) . '" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . ' " target="_blank">' . $arrObjMdGdArquivamentoDTO[$i]->getStrProtocoloFormatado() . '</a>';
-            
+            $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getStrDescricao()) . '</td>';
+
             if($arrObjMdGdArquivamentoDTO[$i]->getStrStaNivelAcessoGlobal() == ProtocoloRN::$NA_RESTRITO){
                 $strResultado .= '<img src="imagens/sei_chave_restrito.gif" title="Processo Restrito" title="Processo Restrito" class="infraImg" />';
             }
@@ -172,16 +173,29 @@ try {
             if($arrObjMdGdArquivamentoDTO[$i]->getStrStaNivelAcessoGlobal() == ProtocoloRN::$NA_SIGILOSO){
                 $strResultado .= '<img src="imagens/sei_chave_sigiloso.gif" title="Processo Sigiloso" title="Processo Sigiloso" class="infraImg" />';
             }
+            
+            // Obtem o tempo formatado de guarda corrente
+            $strDthDataGuardaCorrente = $arrObjMdGdArquivamentoDTO[$i]->getDthDataGuardaCorrente();
+            $strDthDataGuardaCorrente = InfraData::formatarDataBanco(substr($strDthDataGuardaCorrente, 0, 10));
+            $strDthDataGuardaCorrente = substr($strDthDataGuardaCorrente, 0, 10);
 
-           
+            $strTempoGuardaCorrente = MdGdArquivamentoRN::obterTempoArquivamento(date('Y-m-d'), $strDthDataGuardaCorrente);
+
+            // Obtem o tempo formatado de guarda intermediária
+            $strDthDataGuardaIntermediaria = $arrObjMdGdArquivamentoDTO[$i]->getDthDataGuardaIntermediaria();
+            $strDthDataGuardaIntermediaria = InfraData::formatarDataBanco(substr($strDthDataGuardaIntermediaria, 0, 10));
+            $strDthDataGuardaIntermediaria = substr($strDthDataGuardaIntermediaria, 0, 10);
+
+            $strTempoGuardaIntermediaria = MdGdArquivamentoRN::obterTempoArquivamento(date('Y-m-d'), $strDthDataGuardaIntermediaria);
+
             $strResultado .= '</td>';
 
             $strResultado .= '<td>' . PaginaSEI::tratarHTML($strAssuntosProcedimento) . '</td>';
             $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getStrNomeTipoProcedimento()) . '</td>';
             $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getStrNomeUsuario()) . '</td>';
             $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getDthDataArquivamento()) . '</td>';
-            $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getNumGuardaCorrente()) . 'a</td>';
-            $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getNumGuardaCorrente() + $arrObjMdGdArquivamentoDTO[$i]->getNumGuardaIntermediaria()) . 'a</td>';
+            $strResultado .= '<td>' . PaginaSEI::tratarHTML($strTempoGuardaCorrente). '</td>';
+            $strResultado .= '<td>' . PaginaSEI::tratarHTML($strTempoGuardaIntermediaria). '</td>';
             $strResultado .= '<td>' . PaginaSEI::tratarHTML(MdGdArquivamentoRN::obterDestinacoesFinalArquivamento()[$arrObjMdGdArquivamentoDTO[$i]->getStrStaDestinacaoFinal()]) . '</td>';
             
             // Ações

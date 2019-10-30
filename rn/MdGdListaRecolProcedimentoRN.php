@@ -70,6 +70,23 @@ class MdGdListaRecolProcedimentoRN extends InfraRN {
         }
     }
 
+         /**
+     * Método padrão de contagem
+     * 
+     * @param MdGdListaRecolProcedimentoDTO $objMdGdListaRecolProcedimentoDTO
+     * @return integer
+     * @throws InfraException
+     */
+    protected function contarConectado(MdGdListaRecolProcedimentoDTO $objMdGdListaRecolProcedimentoDTO) {
+        try {
+
+            $objMdGdListaRecolProcedimentoBD = new MdGdListaRecolProcedimentoBD($this->inicializarObjInfraIBanco());
+            return $objMdGdListaRecolProcedimentoBD->contar($objMdGdListaRecolProcedimentoDTO);
+        } catch (Exception $e) {
+            throw new InfraException('Erro ao consultar arquivamento.', $e);
+        }
+    }
+
 }
 
 ?>

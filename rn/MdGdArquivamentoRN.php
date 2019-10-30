@@ -7,6 +7,7 @@ class MdGdArquivamentoRN extends InfraRN {
 
     public static $ST_FASE_CORRENTE = 'CO';
     public static $ST_FASE_INTERMEDIARIA = 'IN';
+    public static $ST_FASE_EDICAO = 'ED';
     public static $ST_PREPARACAO_RECOLHIMENTO = 'PR';
     public static $ST_PREPARACAO_ELIMINACAO = 'PE';
     public static $ST_ENVIADO_RECOLHIMENTO = 'ER';
@@ -21,6 +22,8 @@ class MdGdArquivamentoRN extends InfraRN {
     # Destinação Final
     public static $DF_RECOLHIMENTO = 'G';
     public static $DF_ELIMINACAO = 'E';
+    
+
     public $reabrir = false;
 
     public function __construct() {
@@ -118,7 +121,7 @@ class MdGdArquivamentoRN extends InfraRN {
                 }
             }
             $dtaGuardaCorrente = date('d/m/Y H:i:s', strtotime("+{$numTempoGuardaCorrente} years", strtotime($dtaDataArquivamentoUs)));
-            $dtaGuardaIntermediaria = date('d/m/Y H:i:s', strtotime("+" . ($numTempoGuardaCorrente + $numTempoGuardaIntermediaria) . " years", strtotime($dtaDataArquivamentoUs)));
+            $dtaGuardaIntermediaria = date('d/m/Y H:i:s', strtotime("+{" . ($numTempoGuardaCorrente + $numTempoGuardaIntermediaria) . "} years", strtotime($dtaDataArquivamentoUs)));
 
             $objMdGdArquivamentoDTO->setDthDataGuardaCorrente($dtaGuardaCorrente);
             $objMdGdArquivamentoDTO->setDthDataGuardaIntermediaria($dtaGuardaIntermediaria);
@@ -522,6 +525,94 @@ class MdGdArquivamentoRN extends InfraRN {
     }
 
     /**
+     * Altera a situação do arquivamento para em edição
+     *
+     * @param MdGdArquivamentoDTO $objMdGdArquivamentoDTO
+     * @return boolean
+     */
+    protected function editarArquivamentoControlado(MdGdArquivamentoDTO $objMdGdArquivamentoDTO){
+        try {
+
+            // Valida se o id do arquivamento foi informado
+            if (!$objMdGdArquivamentoDTO->isSetNumIdArquivamento()) {
+                throw new InfraException('Informe o número do arquivamento');
+            }
+
+            // Obtem o objeto de arquivamento
+            $objMdGdArquivamentoDTO->retNumIdArquivamento();
+            $objMdGdArquivamentoDTO->retDblIdProcedimento();
+            $objMdGdArquivamentoDTO->retStrSituacao();
+            $objMdGdArquivamentoDTO = $this->consultarConectado($objMdGdArquivamentoDTO);
+
+            // Valida se o arquivamento está em fase intermediária para ser editado
+            if($objMdGdArquivamentoDTO->getStrSituacao() != self::$ST_FASE_INTERMEDIARIA){
+                throw new InfraException('Alteração do processo só pode ser feita quando o arquivamento estiver em fase intermediária e em avaliação.');
+            }
+
+            // Reabre o procedimento
+            $objReabrirProcedimentoDTO = new ReabrirProcessoDTO();
+            $objReabrirProcedimentoDTO->setDblIdProcedimento($objMdGdArquivamentoDTO->getDblIdProcedimento());
+            $objReabrirProcedimentoDTO->setNumIdUnidade(SessaoSEI::getInstance()->getNumIdUnidadeAtual());
+            $objReabrirProcedimentoDTO->setNumIdUsuario(SessaoSEI::getInstance()->getNumIdUsuario());
+
+            $objProcedimentoRN = new ProcedimentoRN();
+            $objProcedimentoRN->reabrirRN0966($objReabrirProcedimentoDTO);
+
+            // Desbloqueia o processo
+            $objProcedimentoDTO = new ProcedimentoDTO();
+            $objProcedimentoDTO->setDblIdProcedimento($objMdGdArquivamentoDTO->getDblIdProcedimento());
+            $objProcedimentoDTO->retStrStaEstadoProtocolo();
+            $objProcedimentoDTO->retDblIdProcedimento();
+
+            $objProcedimentoRN = new ProcedimentoRN();
+            $objProcedimentoDTO = $objProcedimentoRN->consultarRN0201($objProcedimentoDTO);
+            $objProcedimentoRN->desbloquear([$objProcedimentoDTO]);
+            
+
+            // Atualiza a situação do arquivamento
+            $objMdGdArquivamentoDTO->setStrSituacao(self::$ST_FASE_EDICAO);
+            return $this->alterar($objMdGdArquivamentoDTO);
+        } catch (Exception $e) {
+            throw new InfraException('Erro ao editar arquivamento.', $e);
+        }
+    }
+
+    /**
+     * Concluí a edição do arquivamento
+     *
+     * @param MdGdArquivamentoDTO $objMdGdArquivamentoDTO
+     * @return boolean
+     */
+    protected function concluirEdicaoArquivamentoControlado(MdGdArquivamentoDTO $objMdGdArquivamentoDTO){
+        try{
+
+            if (!$objMdGdArquivamentoDTO->isSetNumIdArquivamento()) {
+                throw new InfraException('Informe o número do arquivamento');
+            }
+
+            // Obtem o objeto de arquivamento
+            $objMdGdArquivamentoDTO->retDblIdProcedimento();
+            $objMdGdArquivamentoDTO->retStrSituacao();
+            $objMdGdArquivamentoDTO->retNumIdArquivamento();
+            $objMdGdArquivamentoDTO = $this->consultarConectado($objMdGdArquivamentoDTO);
+
+            // Valida se o arquivamento está em fase intermediária para ser editado
+            if($objMdGdArquivamentoDTO->getStrSituacao() != self::$ST_FASE_EDICAO){
+                throw new InfraException('O arquivamento precisa estar em edição.');
+            }
+
+            // Fecha o procedimento
+            $this->fecharProcedimentoArquivamentoControlado($objMdGdArquivamentoDTO);
+            
+            // Atualiza a situação do arquivamento
+            $objMdGdArquivamentoDTO->setStrSituacao(self::$ST_FASE_INTERMEDIARIA);
+            return $this->alterarConectado($objMdGdArquivamentoDTO);
+        } catch (Exception $e) {
+            throw new InfraException('Erro ao concluir edição do arquivamento.', $e);
+        }
+    }
+
+    /**
      * Obtem as labels de situações de um arquivamento
      * 
      * @return type
@@ -561,6 +652,42 @@ class MdGdArquivamentoRN extends InfraRN {
             self::$DF_ELIMINACAO => 'Eliminação',
             self::$DF_RECOLHIMENTO => 'Recolhimento'
         ];
+    }
+
+    /**
+     * Obtem o tempo de arquivamento restante arredondado em anos e meses
+     *
+     * @param string $dataInicial
+     * @param string $dataFinal
+     * @return string
+     */
+    public static function obterTempoArquivamento($dataInicial, $dataFinal){
+
+        // converte as datas para o formato timestamp
+        $d1 = strtotime($dataInicial); 
+        $d2 = strtotime($dataFinal);
+                
+        // verifica a diferença em segundos entre as duas datas em dias
+        $dias = ($d2 - $d1) / 86400;
+
+        $anos = floor($dias / 365);
+        $meses = floor(($dias - ($anos * 365)) / 30);
+
+        $tempo = '';
+
+        if($anos){
+            $tempo .= $anos.' anos ';
+        }
+
+        if($meses){
+            $tempo .= $meses.' mês';
+        }
+
+        if($tempo == ''){
+            $tempo = 'Menos de um mês';
+        }
+
+        return $tempo;
     }
 
 }

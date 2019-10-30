@@ -19,9 +19,31 @@ try {
         case 'gd_gestao_listagem_eliminacao':
             SessaoSEI::getInstance()->validarPermissao('gestao_documental_gestao_listagem_eliminacao');
             PaginaSEI::getInstance()->salvarCamposPost(array('txtPeriodoEmissaoDe', 'txtPeriodoEmissaoAte', 'txtAnoLimiteDe', 'txtAnoLimiteAte'));
+        
+            break;
+        case 'gd_editar_listagem_eliminacao':
+            PaginaSEI::getInstance()->salvarCamposPost(array('hdnInfraItemId'));
+            $numIdListaEliminacao = PaginaSEI::getInstance()->recuperarCampo('hdnInfraItemId');
+
+            $objMdGdListaEliminacaoDTO = new MdGdListaEliminacaoDTO();
+            $objMdGdListaEliminacaoDTO->setNumIdListaEliminacao($numIdListaEliminacao);
+
+            $objMdGdListaEliminacaoRN = new MdGdListaEliminacaoRN();
+            $objMdGdListaEliminacaoRN->editarListaEliminacao($objMdGdListaEliminacaoDTO);
 
             break;
 
+        case 'gd_concluir_edicao_listagem_elim':
+            PaginaSEI::getInstance()->salvarCamposPost(array('hdnInfraItemId'));
+            $numIdListaEliminacao = PaginaSEI::getInstance()->recuperarCampo('hdnInfraItemId');
+
+            $objMdGdListaEliminacaoDTO = new MdGdListaEliminacaoDTO();
+            $objMdGdListaEliminacaoDTO->setNumIdListaEliminacao($numIdListaEliminacao);
+
+            $objMdGdListaEliminacaoRN = new MdGdListaEliminacaoRN();
+            $objMdGdListaEliminacaoRN->concluirEdicaoListaEliminacao($objMdGdListaEliminacaoDTO);
+
+            break;
         case 'gd_prep_list_eliminacao_gerar':
             SessaoSEI::getInstance()->validarPermissao('gestao_documental_prep_list_eliminacao_gerar');
             $arrNumIdsArquivamento = PaginaSEI::getInstance()->getArrStrItensSelecionados();
@@ -55,6 +77,13 @@ try {
     $bolAcaoVisualizar = SessaoSEI::getInstance()->verificarPermissao('gestao_documental_visualizacao_listagem_eliminacao');
     $bolAcaoEliminar = SessaoSEI::getInstance()->verificarPermissao('gestao_documental_eliminacao');
     $bolAcaoEliminarDocumentoFisico = SessaoSEI::getInstance()->verificarPermissao('gestao_documental_list_elim_documentos_fisicos');
+    $bolAcaoAdicionarProcessosListagem = true;
+    $bolAcaoRemoverProcessosListagem = true;
+    $bolAcaoConcluirEdicaoListagem = true;
+    $bolAcaoEditarListagem = true;
+
+    $strLinkEditarListagem = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_editar_listagem_eliminacao&acao_origem=' . $_GET['acao']);
+    $strLinkConcluirEdicaoListagem = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_concluir_edicao_listagem_elim&acao_origem=' . $_GET['acao']);
 
     $arrComandos = array();
     $arrComandos[] = '<button type="submit" accesskey="P" id="sbmPesquisar" value="Pesquisar" class="infraButton"><span class="infraTeclaAtalho">P</span>esquisar</button>';
@@ -128,6 +157,10 @@ try {
             $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdListaEliminacaoDTO[$i]->getDthEmissaoListagem()) . '</td>';
             $strResultado .= '<td align="center">';
 
+            if ($bolAcaoEditarListagem && $arrObjMdGdListaEliminacaoDTO[$i]->getStrSituacao() == MdGdListaEliminacaoRN::$ST_GERADA) {
+                $strResultado .= '<a href="#ID-' . $arrObjMdGdListaEliminacaoDTO[$i]->getNumIdListaEliminacao() . '" onclick="acaoEditarListagemEliminacao(\'' . $arrObjMdGdListaEliminacaoDTO[$i]->getNumIdListaEliminacao() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="modulos/sei-mod-gestao-documental/imagens/editar_listagem.gif" title="Editar Listagem de Eliminação" title="Editar Listagem de Eliminação" class="infraImg" /></a>';
+            }
+
             if ($bolAcaoVisualizar) {
                 $strLinkVisualizar = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_visualizacao_listagem_eliminacao&acao_origem=' . $_GET['acao'] . '&id_listagem_eliminacao=' . $arrObjMdGdListaEliminacaoDTO[$i]->getNumIdListaEliminacao());
                 $strResultado .= '<a href="' . $strLinkVisualizar . '" ><img src="imagens/consultar.gif" title="Visualizar Listagem de Eliminacao" title="Visualizar Listagem de Eliminacao" class="infraImg" /></a>&nbsp;';
@@ -141,6 +174,20 @@ try {
             if ($bolAcaoEliminarDocumentoFisico && $arrObjMdGdListaEliminacaoDTO[$i]->getStrSituacao() == MdGdListaEliminacaoRN::$ST_GERADA) {
                 $strLinkEliminacaoDocumentosFisicos = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_eliminacao_documentos_fisicos&id_listagem_eliminacao=' . $arrObjMdGdListaEliminacaoDTO[$i]->getNumIdListaEliminacao() . '&acao_origem=' . $_GET['acao']);
                 $strResultado .= '<a href="' . $strLinkEliminacaoDocumentosFisicos . '" ><img src="imagens/procedimento_desanexado.gif" title="Eliminar Documentos Físicos" title="Eliminar Documentos Físicos" class="infraImg" /></a>&nbsp;';
+            }
+
+            if ($bolAcaoAdicionarProcessosListagem && $arrObjMdGdListaEliminacaoDTO[$i]->getStrSituacao() == MdGdListaEliminacaoRN::$ST_EDICAO) {
+                $strLinkAdicionarProcessosListagem = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_adicionar_processo_listagem_elim&id_listagem_eliminacao=' . $arrObjMdGdListaEliminacaoDTO[$i]->getNumIdListaEliminacao() . '&acao_origem=' . $_GET['acao']);
+                $strResultado .= '<a href="' . $strLinkAdicionarProcessosListagem . '" ><img src="modulos/sei-mod-gestao-documental/imagens/adicionar_processo_listagem.gif" title="Adicionar Processos" title="Adicionar Processos" class="infraImg" /></a>&nbsp;';
+            }
+            
+            if ($bolAcaoRemoverProcessosListagem && $arrObjMdGdListaEliminacaoDTO[$i]->getStrSituacao() == MdGdListaEliminacaoRN::$ST_EDICAO) {
+                $strLinkRemoverProcessosListagem = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_remover_processo_listagem_elim&id_listagem_eliminacao=' . $arrObjMdGdListaEliminacaoDTO[$i]->getNumIdListaEliminacao() . '&acao_origem=' . $_GET['acao']);
+                $strResultado .= '<a href="' . $strLinkRemoverProcessosListagem . '" ><img src="modulos/sei-mod-gestao-documental/imagens/remover_processo_listagem.gif" title="Remover Processos" title="Remover Processos" class="infraImg" /></a>&nbsp;';
+            }
+
+            if ($bolAcaoConcluirEdicaoListagem && $arrObjMdGdListaEliminacaoDTO[$i]->getStrSituacao() == MdGdListaEliminacaoRN::$ST_EDICAO) {
+                $strResultado .= '<a href="#ID-' . $arrObjMdGdListaEliminacaoDTO[$i]->getNumIdListaEliminacao() . '" onclick="acaoConcluirEdicaoListagemEliminacao(\'' . $arrObjMdGdListaEliminacaoDTO[$i]->getNumIdListaEliminacao() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="modulos/sei-mod-gestao-documental/imagens/concluir_edicao_listagem.gif" title="Concluir edição da listagem" title="Concluir edição da listagem" class="infraImg" /></a>';
             }
 
             $strResultado .= '</td></tr>' . "\n";
@@ -195,16 +242,21 @@ PaginaSEI::getInstance()->abrirJavaScript();
         document.getElementById('btnFechar').focus();
     }
 
-
-    function acaoGerarEliminarDocumentosFisicos() {
-        if (document.getElementById('hdnInfraItensSelecionados').value == '') {
-            alert('Nenhuma Listagem Selecionada.');
-            return;
+    
+    function acaoEditarListagemEliminacao(id_listagem_eliminacao){
+        if (confirm("Confirma a edição da listagem de eliminação?")) {
+            document.getElementById('hdnInfraItemId').value = id_listagem_eliminacao;
+            document.getElementById('frmAvaliacaoProcessoLista').action = '<?= $strLinkEditarListagem ?>';
+            document.getElementById('frmAvaliacaoProcessoLista').submit();
         }
+    }
 
-        document.getElementById('hdnIdListagemEliminacao').value = document.getElementById('hdnInfraItensSelecionados').value;
-        document.getElementById('frmPrepararListagemEliminacao').action = '<?= $strLinkEliminacaoDocumentosFisicos ?>';
-        document.getElementById('frmPrepararListagemEliminacao').submit();
+    function acaoConcluirEdicaoListagemEliminacao(id_listagem_eliminacao){
+        if (confirm("Confirma a conclusão edição na listagem de eliminação?")) {
+            document.getElementById('hdnInfraItemId').value = id_listagem_eliminacao;
+            document.getElementById('frmAvaliacaoProcessoLista').action = '<?= $strLinkConcluirEdicaoListagem ?>';
+            document.getElementById('frmAvaliacaoProcessoLista').submit();
+        }
     }
 
 //</script>
@@ -213,7 +265,7 @@ PaginaSEI::getInstance()->fecharJavaScript();
 PaginaSEI::getInstance()->fecharHead();
 PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
 ?>
-<form id="frmPrepararListagemEliminacao" method="post"
+<form id="frmAvaliacaoProcessoLista" method="post"
       action="<?= SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . $_GET['acao'] . '&acao_origem=' . $_GET['acao']) ?>">
           <?
           PaginaSEI::getInstance()->montarBarraComandosSuperior($arrComandos);

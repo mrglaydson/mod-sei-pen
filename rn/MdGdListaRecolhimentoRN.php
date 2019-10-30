@@ -5,6 +5,7 @@ require_once dirname(__FILE__) . '/../../../SEI.php';
 class MdGdListaRecolhimentoRN extends InfraRN {
 
     public static $ST_GERADA = 'GE';
+    public static $ST_EDICAO = 'ED';
     public static $ST_RECOLHIDA = 'RE';
 
     public function __construct() {
@@ -24,7 +25,7 @@ class MdGdListaRecolhimentoRN extends InfraRN {
             // Recupera os arquivamentos
             $arrObjMdGdArquivamentoDTO = $objMdGdListaRecolhimento->getArrObjMdGdArquivamentoDTO();
 
-            // Cria a listagem de eliminação
+            // Cria a listagem de recolhimento
             $objMdGdListaRecolhimentoDTO = new MdGdListaRecolhimentoDTO();
             $objMdGdListaRecolhimentoDTO->setStrNumero($this->obterProximaNumeroListagem());
             $objMdGdListaRecolhimentoDTO->setDthEmissaoListagem(date('d/m/Y H:i:s'));
@@ -39,7 +40,7 @@ class MdGdListaRecolhimentoRN extends InfraRN {
             $objMdGdListRecolProcedimentoBD = new MdGdListaRecolProcedimentoBD($this->getObjInfraIBanco());
             $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
 
-            // Cria a relação da listagem de eliminação com os procedimentos
+            // Cria a relação da listagem de recolhimento com os procedimentos
             foreach ($arrObjMdGdArquivamentoDTO as $objMdGdArquivamentoDTO) {
 
                 //Cria o vílculo da lista com o procedimento
@@ -69,7 +70,7 @@ class MdGdListaRecolhimentoRN extends InfraRN {
             $objMdGdListaRecolhimentoBD = new MdGdListaRecolhimentoBD($this->getObjInfraIBanco());
             return $objMdGdListaRecolhimentoBD->alterar($objMdGdListaRecolhimentoDTO);
         } catch (Exception $e) {
-            throw new InfraException('Erro consultando a listagem de eliminação.', $e);
+            throw new InfraException('Erro consultando a listagem de recolhimento.', $e);
         }
     }
     
@@ -199,81 +200,70 @@ class MdGdListaRecolhimentoRN extends InfraRN {
         SeiINT::download(null, $strCaminhoArquivoPdf, 'listagem_recolhiment.pdf', 'attachment', true);
     }
 
-    public function obterConteudoDocumentoEliminacao($arrObjMdGdArquivamentoDTO) {
-        $objSessaoSEI = SessaoSEI::getInstance();
-
-        $arrVariaveisModelo = [
-            '@orgao@' => $objSessaoSEI->getStrDescricaoOrgaoUsuario(),
-            '@unidade@' => $objSessaoSEI->getStrSiglaUnidadeAtual() . ' - ' . $objSessaoSEI->getStrSiglaUnidadeAtual(),
-            '@numero_listagem@' => $this->obterProximaNumeroListagem(),
-            '@folha@' => '1/1', // Verificar depois
-            '@tabela' => '',
-            '@mensuracao_total@' => count($arrObjMdGdArquivamentoDTO) . ' processos',
-            '@datas_limites_gerais@' => '2010-2018'
-        ];
-
-        $strHtmlTabela = '<table border="1" style="width: 1000px;">';
-        $strHtmlTabela .= '<thead><tr>';
-        $strHtmlTabela .= '<th>Código Referente a Classificação</th>';
-        $strHtmlTabela .= '<th>Descritor do código</th>';
-        $strHtmlTabela .= '<th>Datas Limite</th>';
-        $strHtmlTabela .= '<th>Quantificação</th>';
-        $strHtmlTabela .= '<th>Especificação</th>';
-        $strHtmlTabela .= '<th>Observações e/ou justificativas</th>';
-        $strHtmlTabela .= '</thead></tr>';
-
-        $strHtmlTabela .= '<tbody>';
-
-        foreach ($arrObjMdGdArquivamentoDTO as $objMdGdArquivamentoDTO) {
-            // Obtem os dados do assunto
-            $objRelProtocoloAssuntoRN = new RelProtocoloAssuntoRN();
-            $objRelProtocoloAssuntoDTO = new RelProtocoloAssuntoDTO();
-
-            $objRelProtocoloAssuntoDTO->setDblIdProtocolo($objMdGdArquivamentoDTO->getDblIdProtocoloProcedimento());
-            $objRelProtocoloAssuntoDTO->retStrCodigoEstruturadoAssunto();
-            $objRelProtocoloAssuntoDTO->retStrDescricaoAssunto();
-
-            $arrObjRelProtocoloAssuntoDTO = $objRelProtocoloAssuntoRN->listarRN0188($objRelProtocoloAssuntoDTO);
-
-            $strCodigoClassificacao = '';
-            $strDescritorCodigo = '';
-
-            foreach ($arrObjRelProtocoloAssuntoDTO as $key => $objRelProtocoloAssuntoDTO) {
-                if ($key + 1 == count($arrObjRelProtocoloAssuntoDTO)) {
-                    $strCodigoClassificacao .= $objRelProtocoloAssuntoDTO->getStrCodigoEstruturadoAssunto();
-                    $strDescritorCodigo .= $objRelProtocoloAssuntoDTO->getStrDescricaoAssunto();
-                } else {
-                    $strCodigoClassificacao .= $objRelProtocoloAssuntoDTO->getStrCodigoEstruturadoAssunto() . " / ";
-                    $strDescritorCodigo .= $objRelProtocoloAssuntoDTO->getStrDescricaoAssunto() . " / ";
-                }
+     /**
+     * Altera a situação da listagem de recolhimento para em edição
+     *
+     * @param MdGdListaRecolhimentoDTO $objMdGdListaRecolhimentoDTO
+     * @return void
+     */
+    public function editarListaRecolhimentoControlado(MdGdListaRecolhimentoDTO $objMdGdListaRecolhimentoDTO){
+        try{
+            if(!$objMdGdListaRecolhimentoDTO->isSetNumIdListaRecolhimento()){
+                throw new InfraException('Informe o id da lista de recolhimento para deixar em modo de edição.');
             }
 
-            $strHtmlTabela .= '<tr>';
-            $strHtmlTabela .= '<td>' . $strCodigoClassificacao . '</td>';
-            $strHtmlTabela .= '<td>' . $strDescritorCodigo . '</td>';
-            $strHtmlTabela .= '<td>2010-2018</td>';
-            $strHtmlTabela .= '<td>1</td>';
-            $strHtmlTabela .= '<td></td>';
-            $strHtmlTabela .= '<td>' . $objMdGdArquivamentoDTO->getStrObservacaoEliminacao() . '</td>';
-            $strHtmlTabela .= '</tr>';
+            $objMdGdListaRecolhimentoDTO->retNumIdListaRecolhimento();
+            $objMdGdListaRecolhimentoDTO->retStrSituacao();
+
+            $objMdGdListaRecolhimentoDTO = $this->consultar($objMdGdListaRecolhimentoDTO);
+            
+            if($objMdGdListaRecolhimentoDTO->getStrSituacao() != self::$ST_GERADA){
+                throw new InfraException('A listagem precisa estar na situação gerada.'); 
+            }
+
+            $objMdGdListaRecolhimentoDTO->setStrSituacao(self::$ST_EDICAO);
+            return $this->alterar($objMdGdListaRecolhimentoDTO);
+        } catch (Exception $e) {
+            throw new InfraException('Erro ao alterar a listagem de recolhimento para o modo de edição.', $e);
         }
-
-        $strHtmlTabela .= '</tbody>';
-        $strHtmlTabela .= '</table>';
-
-        $arrVariaveisModelo['@tabela@'] = $strHtmlTabela;
-
-        $objMdGdModeloDocumentoDTO = new MdGdModeloDocumentoDTO();
-        $objMdGdModeloDocumentoDTO->setStrNome(MdGdModeloDocumentoRN::MODELO_LISTAGEM_ELIMINACAO);
-        $objMdGdModeloDocumentoDTO->retTodos();
-
-        $objMdGdModeloDocumentoRN = new MdGdModeloDocumentoRN();
-        $objMdGdModeloDocumentoDTO = $objMdGdModeloDocumentoRN->consultar($objMdGdModeloDocumentoDTO);
-
-        $str = $objMdGdModeloDocumentoDTO->getStrValor();
-        $str = strtr($str, $arrVariaveisModelo);
-        return $str;
     }
+
+    /**
+     * Conclui a edição da listagem de recolhimento
+     *
+     * @param MdGdListaRecolhimentoDTO $objMdGdListaRecolhimentoDTO
+     * @return void
+     */
+    public function concluirEdicaoListaRecolhimentoControlado(MdGdListaRecolhimentoDTO $objMdGdListaRecolhimentoDTO){
+        try{
+            if(!$objMdGdListaRecolhimentoDTO->isSetNumIdListaRecolhimento()){
+                throw new InfraException('Informe o id da lista de recolhimento para concluir a edição.');
+            }
+
+            $objMdGdListaRecolhimentoDTO->retNumIdListaRecolhimento();
+            $objMdGdListaRecolhimentoDTO->retStrSituacao();
+
+            $objMdGdListaRecolhimentoDTO = $this->consultar($objMdGdListaRecolhimentoDTO);
+            
+            if($objMdGdListaRecolhimentoDTO->getStrSituacao() != self::$ST_EDICAO){
+                throw new InfraException('A listagem precisa estar na situação gerada.'); 
+            }
+            
+            // Atualiza o total de processos
+            $objMdGdListaRecolProcedimentoDTO = new MdGdListaRecolProcedimentoDTO();
+            $objMdGdListaRecolProcedimentoDTO->setNumIdListaRecolhimento($objMdGdListaRecolhimentoDTO->getNumIdListaRecolhimento());
+
+            $objMdGdListaRecolProcedimentoRN = new MdGdListaRecolProcedimentoRN();
+            $totalProcessos = $objMdGdListaRecolProcedimentoRN->contar($objMdGdListaRecolProcedimentoDTO);
+
+            $objMdGdListaRecolhimentoDTO->setStrSituacao(self::$ST_GERADA);
+            $objMdGdListaRecolhimentoDTO->setNumQtdProcessos($totalProcessos);
+            return $this->alterar($objMdGdListaRecolhimentoDTO);
+        } catch (Exception $e) {
+            throw new InfraException('Erro ao alterar a listagem de recolhimento para o modo de edição.', $e);
+        }
+    }
+
 
 }
 
