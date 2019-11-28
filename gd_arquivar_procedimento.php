@@ -76,6 +76,10 @@ try {
                         $objMdGdArquivamentoDTO->setNumIdJustificativa($_POST['selJustificativa']);
                         $objMdGdArquivamentoDTO->setObjAssinaturaDTO($objAssinaturaDTO);
 
+                        if(isset($_POST['txtDataArquivamento'])){
+                            $objMdGdArquivamentoDTO->setDthDataArquivamento($_POST['txtDataArquivamento']);
+                        }
+                        
                         if ($_POST['hdnOrigem'] == 'gd_pendencias_arquivamento') {
                             $objMdArquivamentoRN->reabrir = true;
                         }
@@ -133,23 +137,29 @@ PaginaSEI::getInstance()->montarStyle();
 PaginaSEI::getInstance()->abrirStyle();
 ?>
 
-#lblProcedimentos {position:absolute;left:1%;top:12%;}
-#selProcedimentos {position:absolute;left:1%;top:24%;width:96%;}
+#lblProcedimentos {position:absolute;left:1%;top:11%;}
+#selProcedimentos {position:absolute;left:1%;top:20%;width:96%;}
 
-#lblJustificativa {position:absolute;left:1%;top:72%;}
-#selJustificativa {position:absolute;left:1%;top:83%;width:96%;}
+#lblJustificativa {position:absolute;left:1%;top:52%;}
+#selJustificativa {position:absolute;left:1%;top:61%;width:96%;}
 
-#fieldsetDadosArquivamento {position: absolute; left: 0%; top: 6%; height: 30%; width: 97%;} 
-#fieldsetDadosAssinatura   {position: absolute; left: 0%; top: 42%; height: 46%; width: 97%;}
+#lblSinLegado { position:absolute;left:1%;top:73%; } 
+#chkSinLegado { position:absolute;left:15.5%;top:72%; }
 
-#lblOrgao {position: absolute; top: 7%; left: 0%;}
-#selOrgao {position: absolute; top: 50%; width: 50%;}
+#lblDataArquivamento { position:absolute;left:1%;top:85%; }
+#txtDataArquivamento { position:absolute;left:16%;top:84%; } 
 
-#lblUsuario {position: absolute; top: 29%;}
-#txtUsuario {position: absolute; left: 8%; top: 29%; width: 41%;}
+#fieldsetDadosArquivamento {position: absolute; left: 0%; top: 12%; height: 41%; width: 97%;} 
+#fieldsetDadosAssinatura   {position: absolute; left: 0%; top: 57%; height: 46%; width: 97%;}
+
+#lblOrgao {position: absolute; top: 13%; left: 0%;}
+#selOrgao {position: absolute; top: 57%; width: 50%;}
+
+#lblUsuario {position: absolute; top: 36%;}
+#txtUsuario {position: absolute; left: 8%; top: 35%; width: 41%;}
 
 #lblCargoFuncao {position: absolute;}
-#selCargoFuncao {position: absolute; top: 46%; width: 50%;}
+#selCargoFuncao {position: absolute; top: 51%; width: 50%;}
 <?
 PaginaSEI::getInstance()->fecharStyle();
 PaginaSEI::getInstance()->montarJavaScript();
@@ -199,6 +209,14 @@ PaginaSEI::getInstance()->abrirJavaScript();
         return true;
     }
 
+    function ativarLegado(){
+        if(document.getElementById('chkSinLegado').checked){
+            document.getElementById('txtDataArquivamento').disabled = false;
+        }else{
+            document.getElementById('txtDataArquivamento').disabled = true;
+        }
+    }
+
 //</script>
 <?
 PaginaSEI::getInstance()->fecharJavaScript();
@@ -224,12 +242,17 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
                     class="infraSelect"
                     tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
                         <?= $strItensSelJustificativas ?>
-
-
             </select>
-            <input type="hidden" id="hdnTotalCondicionantes" name="hdnTotalCondicionantes"
-                   value="<?= $numTotalCondicionantes ?>"/>
+
+            <label id="lblSinLegado" for="chkSinLegado" class="infraLabelCheckbox">Arquivamento legado?</label>
+            <input type="checkbox" id="chkSinLegado" name="chkSinLegado" class="infraCheckbox" tabindex="<?=PaginaSEI::getInstance()->getProxTabDados()?>" onclick="ativarLegado()"/>
+
+            <label id="lblDataArquivamento" for="txtDataArquivamento" accesskey="e">Data do arquivamento:</label>
+            <input type="text" id="txtDataArquivamento" name="txtDataArquivamento" class="infraText" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" onkeypress="return infraMascara(this, event,'##/##/####')" disabled />
+    
+            <input type="hidden" id="hdnTotalCondicionantes" name="hdnTotalCondicionantes" value="<?= $numTotalCondicionantes ?>"/>
         </fieldset>
+
 
         <fieldset class="infraFieldset" id="fieldsetDadosAssinatura">
             <legend class="infraLegend">Dados da Assinatura</legend>
@@ -258,6 +281,8 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
                 <input type="password" id="pwdSenha" name="pwdSenha" autocomplete="off" class="infraText"  value="" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />&nbsp;&nbsp;&nbsp;&nbsp;
             </div>
         </fieldset>
+
+
 
         <input type="hidden" id="hdnOrigem" name="hdnOrigem" value="<?= $_GET['acao_origem']; ?>"/>
         <input type="hidden" id="hdnIdProtocolos" name="hdnIdProtocolos" value='<?= $strIdProtocolos ?>'/>

@@ -101,7 +101,9 @@ class MdGdAtualizarSeiRN extends InfraRN {
             $this->cadastrarParametro('DESPACHO_DESARQUIVAMENTO', '');
             $this->cadastrarParametro('TIPO_PROCEDIMENTO_LISTAGEM_ELIMINACAO', '');
             $this->cadastrarParametro('TIPO_DOCUMENTO_LISTAGEM_ELIMINACAO', '');
-
+            $this->cadastrarParametro('TIPO_DOCUMENTO_ELIMINACAO', '');
+            $this->cadastrarParametro('TIPO_PROCEDIMENTO_ELIMINACAO', '');
+            
             // Criação da tabela de justificativas arquivamento e desarquivamento
             $this->objInfraBanco->executarSql('CREATE TABLE md_gd_justificativa (
                 id_justificativa ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL,
@@ -219,6 +221,7 @@ class MdGdAtualizarSeiRN extends InfraRN {
             $this->cadastrarModeloDocumento('MODELO_DESPACHO_ARQUIVAMENTO', ' ');
             $this->cadastrarModeloDocumento('MODELO_DESPACHO_DESARQUIVAMENTO', ' ');
             $this->cadastrarModeloDocumento('MODELO_LISTAGEM_ELIMINACAO', ' ');
+            $this->cadastrarModeloDocumento('MODELO_DOCUMENTO_ELIMINACAO', ' ');
 
             // Criação da tabela de unidades de arquivamento
             $this->objInfraBanco->executarSql('CREATE TABLE md_gd_unidade_arquivamento (

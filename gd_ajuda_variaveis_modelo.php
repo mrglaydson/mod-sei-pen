@@ -35,8 +35,6 @@ try {
             $arrVariaveis[] = array('@data_desarquivamento@', 'Data do desarquivamento');
             $arrVariaveis[] = array('@responsavel_desarquivamento@', 'Responsável pelo desarquivamento');
             break;
-
-            break;
         case 'gd_ajuda_variaveis_modelo_listagem_eliminacao':
 
             $strTitulo = 'Variáveis Disponíveis no Modelo';
@@ -48,9 +46,16 @@ try {
             $arrVariaveis[] = array('@tabela', 'Tabela de detalhamento da listagem');
             $arrVariaveis[] = array('@mensuracao_total@', 'Mensuração total');
             $arrVariaveis[] = array('@datas_limites_gerais@', 'Datas limite do arquivamento');
-
             break;
+        case 'gd_ajuda_variaveis_modelo_documento_eliminacao':
 
+            $strTitulo = 'Variáveis Disponíveis no Modelo';
+
+            $arrVariaveis[] = array('@orgao@', 'Órgão gerador');
+            $arrVariaveis[] = array('@unidade@', 'Unidade geradora');
+            $arrVariaveis[] = array('@data_eliminacao@', 'Data do arquivamento');
+            $arrVariaveis[] = array('@responsavel_eliminacao@', 'Responsável pelo arquivamento');
+            break;
         default:
             throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
     }

@@ -84,9 +84,18 @@ class MdGdArquivamentoRN extends InfraRN {
             $objAtividadeRN->atualizarAndamento($objAtualizarAndamentoDTO);
             
             // Informa a data do arquivamento
-            $dtaDataArquivamentoBr = date('d/m/Y H:i:s');
-            $dtaDataArquivamentoUs = date('Y-m-d H:i:s');
+            if($objMdGdArquivamentoDTO->isSetDthDataArquivamento()){
+                $dtaDataArquivamentoBr = $objMdGdArquivamentoDTO->getDthDataArquivamento().' H:i:s';
+                $arrDtaDataArquivamento = explode('/', $objMdGdArquivamentoDTO->getDthDataArquivamento());
+                $dtaDataArquivamentoUs = $arrDtaDataArquivamento[2].'-'.$arrDtaDataArquivamento[1].'-'.$arrDtaDataArquivamento[0].' '.date('H:i:s');
+                
+            }else{
+                $dtaDataArquivamentoBr = date('d/m/Y H:i:s');
+                $dtaDataArquivamentoUs = date('Y-m-d H:i:s');   
+            }
+           
             $objMdGdArquivamentoDTO->setDthDataArquivamento($dtaDataArquivamentoBr);
+
 
             // Cria o despacho e anexa ao arquivamento
             $objDocumentoDTO = $this->gerarDespachoArquivamento($objMdGdArquivamentoDTO);
@@ -120,8 +129,11 @@ class MdGdArquivamentoRN extends InfraRN {
                     $numTempoGuardaIntermediaria = $objAssuntoDTO->getNumPrazoIntermediario();
                 }
             }
+
+            $guardaTotal = $numTempoGuardaCorrente + $numTempoGuardaIntermediaria;
+            
             $dtaGuardaCorrente = date('d/m/Y H:i:s', strtotime("+{$numTempoGuardaCorrente} years", strtotime($dtaDataArquivamentoUs)));
-            $dtaGuardaIntermediaria = date('d/m/Y H:i:s', strtotime("+{" . ($numTempoGuardaCorrente + $numTempoGuardaIntermediaria) . "} years", strtotime($dtaDataArquivamentoUs)));
+            $dtaGuardaIntermediaria = date('d/m/Y H:i:s', strtotime("+{$guardaTotal} years", strtotime($dtaDataArquivamentoUs)));
 
             $objMdGdArquivamentoDTO->setDthDataGuardaCorrente($dtaGuardaCorrente);
             $objMdGdArquivamentoDTO->setDthDataGuardaIntermediaria($dtaGuardaIntermediaria);
@@ -132,14 +144,23 @@ class MdGdArquivamentoRN extends InfraRN {
             $objMdGdArquivamentoDTO->setStrSinAtivo('S');
             $objMdGdArquivamentoDTO->setNumIdUnidadeCorrente(SessaoSEI::getInstance()->getNumIdUnidadeAtual());
             $objMdGdArquivamentoDTO->setNumIdUsuario(SessaoSEI::getInstance()->getNumIdUsuario());
-            $objMdGdArquivamentoDTO->setStrSituacao(self::$ST_FASE_CORRENTE);
-            $objMdGdArquivamentoDTO->setStrStaGuarda(self::$GUARDA_CORRENTE);
             $objMdGdArquivamentoDTO->setStrStaDestinacaoFinal($this->obterDestinacaoFinalProtocolo($objMdGdArquivamentoDTO->getDblIdProcedimento()));
 
             if ($this->contarCondicionantes($objMdGdArquivamentoDTO->getDblIdProcedimento())) {
                 $objMdGdArquivamentoDTO->setStrSinCondicionante('S');
             } else {
                 $objMdGdArquivamentoDTO->setStrSinCondicionante('N');
+            }
+
+            $dtaGuardaCorrente = date('YmdHis', strtotime("+{$numTempoGuardaCorrente} years", strtotime($dtaDataArquivamentoUs)));
+            $dtaGuardaIntermediaria = date('YmdHis', strtotime("+{$guardaTotal} years", strtotime($dtaDataArquivamentoUs)));
+
+            if($dtaGuardaCorrente >= date('YmdHis')){
+                $objMdGdArquivamentoDTO->setStrSituacao(self::$ST_FASE_CORRENTE);
+                $objMdGdArquivamentoDTO->setStrStaGuarda(self::$GUARDA_CORRENTE);
+            }else{
+                $objMdGdArquivamentoDTO->setStrSituacao(self::$ST_FASE_INTERMEDIARIA);
+                $objMdGdArquivamentoDTO->setStrStaGuarda(self::$GUARDA_INTERMEDIARIA);
             }
 
             $objMdGdArquivamentoBD = new MdGdArquivamentoBD($this->inicializarObjInfraIBanco());
@@ -255,10 +276,15 @@ class MdGdArquivamentoRN extends InfraRN {
         $objProcedimentoRN = new ProcedimentoRN();
         $objProcedimentoDTO = $objProcedimentoRN->consultarRN0201($objProcedimentoDTO);
 
+        // echo SessaoSEI::getInstance()->getNumIdUnidadeAtual();
+        // die('wfewfewfewfwfee');
+
         // Bloqueia o processo
         if ($objProcedimentoDTO->getStrStaEstadoProtocolo() != ProtocoloRN::$TE_PROCEDIMENTO_BLOQUEADO) {
+            
             $objProcedimentoRN->bloquear([$objProcedimentoDTO]);
         }
+        
 
         // Conclui o processo
         $objProcedimentoRN->concluir([$objProcedimentoDTO]);

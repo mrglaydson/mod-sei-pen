@@ -115,7 +115,8 @@ try {
     $objMdGdArquivamentoDTO->retDblIdProcedimento();
     $objMdGdArquivamentoDTO->retStrStaDestinacaoFinal();
     $objMdGdArquivamentoDTO->setStrSituacao([MdGdArquivamentoRN::$ST_FASE_INTERMEDIARIA, MdGdArquivamentoRN::$ST_FASE_EDICAO], InfraDTO::$OPER_IN);
-
+    $objMdGdArquivamentoDTO->setNumIdUnidadeIntermediaria(SessaoSEI::getInstance()->getNumIdUnidadeAtual());
+    
     $selUnidade = PaginaSEI::getInstance()->recuperarCampo('selUnidade');
     if ($selUnidade && $selUnidade !== 'null') {
         $objMdGdArquivamentoDTO->setNumIdUnidadeCorrente($selUnidade);

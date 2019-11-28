@@ -57,11 +57,17 @@ try {
     $strSelSerieDesarquivamento = MdGdArquivamentoINT::montarSelectsSerieNomeGerados('', '&nbsp;', $arrObjMdGdParametroDTO['DESPACHO_DESARQUIVAMENTO']->getStrValor());
     $strSelTipoProcedimentoListagemEliminacao = TipoProcedimentoINT::montarSelectNome('', '&nbsp;', $arrObjMdGdParametroDTO['TIPO_PROCEDIMENTO_LISTAGEM_ELIMINACAO']->getStrValor());
     $strSelSerieListagemEliminacao = MdGdArquivamentoINT::montarSelectsSerieNomeGerados('', '&nbsp;', $arrObjMdGdParametroDTO['TIPO_DOCUMENTO_LISTAGEM_ELIMINACAO']->getStrValor());
+   
+    $strSelTipoProcedimetoEliminacao =TipoProcedimentoINT::montarSelectNome('', '&nbsp;', $arrObjMdGdParametroDTO['TIPO_PROCEDIMENTO_ELIMINACAO']->getStrValor());  
+    $strSelSerieDocumentoEliminacao = MdGdArquivamentoINT::montarSelectsSerieNomeGerados('', '&nbsp;', $arrObjMdGdParametroDTO['TIPO_DOCUMENTO_ELIMINACAO']->getStrValor());
 
     $strNomeDespachoArquivamento = $arrObjMdGdParametroDTO[MdGdParametroRN::$PAR_DESPACHO_ARQUIVAMENTO]->getStrNome();
     $strNomeDespachoDesarquivamento = $arrObjMdGdParametroDTO[MdGdParametroRN::$PAR_DESPACHO_DESARQUIVAMENTO]->getStrNome();
     $strNomeTipoProcedimentoListagemEliminacao = $arrObjMdGdParametroDTO[MdGdParametroRN::$PAR_TIPO_PROCEDIMENTO_LISTAGEM_ELIMINACAO]->getStrNome();
     $strNomeTipoDocumentoListagemEliminacao = $arrObjMdGdParametroDTO[MdGdParametroRN::$PAR_TIPO_DOCUMENTO_LISTAGEM_ELIMINACAO]->getStrNome();
+    $strNomeTipoProcedimentoEliminacao = $arrObjMdGdParametroDTO[MdGdParametroRN::$PAR_TIPO_PROCEDIMENTO_ELIMINACAO]->getStrNome();
+    $strNomeTipoDocumentoEliminacao = $arrObjMdGdParametroDTO[MdGdParametroRN::$PAR_TIPO_DOCUMENTO_ELIMINACAO]->getStrNome();
+
 } catch (Exception $e) {
     PaginaSEI::getInstance()->processarExcecao($e);
 }
@@ -87,6 +93,11 @@ PaginaSEI::getInstance()->abrirStyle();
 #lbl<?= $strNomeTipoDocumentoListagemEliminacao; ?> {position:absolute;left:0%;top:43%;width:30%;}
 #sel<?= $strNomeTipoDocumentoListagemEliminacao; ?> {position:absolute;left:0%;top:49%;width:40%;}
 
+#lbl<?= $strNomeTipoProcedimentoEliminacao; ?> {position:absolute;left:0%;top:56%;width:30%;}
+#sel<?= $strNomeTipoProcedimentoEliminacao; ?> {position:absolute;left:0%;top:62%;width:40%;}
+
+#lbl<?= $strNomeTipoDocumentoEliminacao; ?> {position:absolute;left:0%;top:69%;width:30%;}
+#sel<?= $strNomeTipoDocumentoEliminacao; ?> {position:absolute;left:0%;top:75%;width:40%;}
 <?
 PaginaSEI::getInstance()->fecharStyle();
 PaginaSEI::getInstance()->montarJavaScript();
@@ -120,6 +131,18 @@ return false;
 if (infraTrim(document.getElementById('sel<?= $strNomeTipoDocumentoListagemEliminacao; ?>').value)=='') {
 alert('Informe o tipo de documento da listagem de eliminação.');
 document.getElementById('sel<?= $strNomeTipoDocumentoListagemEliminacao; ?>').focus();
+return false;
+}
+
+if (infraTrim(document.getElementById('sel<?= $strNomeTipoProcedimentoEliminacao; ?>').value)=='') {
+alert('Informe o tipo de processo da eliminação.');
+document.getElementById('sel<?= $strNomeTipoProcedimentoEliminacao; ?>').focus();
+return false;
+}
+
+if (infraTrim(document.getElementById('sel<?= $strNomeTipoDocumentoEliminacao; ?>').value)=='') {
+alert('Informe o tipo de documento da eliminação.');
+document.getElementById('sel<?= $strNomeTipoDocumentoEliminacao; ?>').focus();
 return false;
 }
 
@@ -176,6 +199,26 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
             class="infraSelect"
             tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
                 <?= $strSelSerieListagemEliminacao; ?>
+    </select>
+
+
+    <label id="lbl<?= $strNomeTipoProcedimentoEliminacao ?>" for="sel<?= $strNomeTipoProcedimentoEliminacao ?>" accesskey="p"
+           class="infraLabelObrigatorio"><span
+            class="infraTeclaAtalho">T</span>ipo de processo da eliminação:</label>
+    <select name="sel<?= $strNomeTipoProcedimentoEliminacao ?>" id="sel<?= $strNomeTipoProcedimentoEliminacao ?>"
+            class="infraSelect"
+            tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
+                <?= $strSelTipoProcedimetoEliminacao; ?>
+    </select>
+
+
+    <label id="lbl<?= $strNomeTipoDocumentoEliminacao ?>" for="sel<?= $strNomeTipoDocumentoEliminacao ?>" accesskey="p"
+           class="infraLabelObrigatorio"><span
+            class="infraTeclaAtalho">T</span>ipo de documento da eliminação:</label>
+    <select name="sel<?= $strNomeTipoDocumentoEliminacao ?>" id="sel<?= $strNomeTipoDocumentoEliminacao ?>"
+            class="infraSelect"
+            tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
+                <?= $strSelSerieDocumentoEliminacao; ?>
     </select>
 
     <?

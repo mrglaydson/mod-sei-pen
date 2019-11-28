@@ -336,6 +336,7 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
             case 'gd_ajuda_variaveis_modelo_arquivamento':
             case 'gd_ajuda_variaveis_modelo_desarquivamento':
             case 'gd_ajuda_variaveis_modelo_listagem_eliminacao':
+            case 'gd_ajuda_variaveis_modelo_documento_eliminacao':
                 require_once dirname(__FILE__) . '/gd_ajuda_variaveis_modelo.php';
                 return true;
             case 'gd_justificativas_listar':
@@ -461,11 +462,11 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
 
         $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
         
-        if($objMdGdArquivamentoRN->contar($objMdGdArquivamentoDTO) != 0){
+        /*if($objMdGdArquivamentoRN->contar($objMdGdArquivamentoDTO) != 0){
             $objInfraException = new InfraException();
             $objInfraException->lancarValidacao('O processo não pode ser reaberto pois encontra-se arquivado!');
             return false;
-        }
+        }*/
 
         return null;
     }
