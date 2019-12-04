@@ -10,4 +10,19 @@ O que precisamos testar
     - arquivar sem unidade associada ou justificativa
 
 
-    
+- criar proc com docs
+- arquivar
+- verificar se criou doc com arquivamento
+
+- desarquivar
+- verificar se criou doc de desarq
+
+- criar arquivista
+- liberar acesso ao modulo
+- criar unidades extra
+	- 1 arquivamento do orgao
+	- 4 unidades comuns
+	
+
+	
+	

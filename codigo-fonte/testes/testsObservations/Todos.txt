@@ -1,0 +1,31 @@
+1. Manunal de Instruções não aparece
+	- Manual técnico de instalação
+	- Manual técnico de configuração
+	- Manual técnico de uso
+
+2. Na listagem config estão aparecendo dois espaços em branco
+
+3. A tela de arquivar está paginando desnecessariamente
+
+4. Pendencias de Arquivamento o icone de data está deformado
+
+5. Está permitindo reabrir processo arquivado
+
+6. Nesse caso acima, ao tentar desarquivar, fala q já está aberto
+
+7. Ao cadastrar justificativas, está permitindo duplicar
+
+8. Na tela de concluir e arquivar:
+    - checkbox de arq legado e data - alinhar
+    - tornar a data um campo dependente do primeiro
+    - data no padrao do sei (icone de data, etc)
+
+9. Pendencias de Arquivamento
+	- chavinha do processo restrito está fora do lugar
+
+9. Arquivo da Unidade
+	- chavinha do processo restrito está fora do lugar
+
+10. Tratar data invalida ao arquivar legado
+
+11. O menu "Pendencias de arquivamento" deve ser "Pendências de Arquivamento" (letra maiúscula)
