@@ -810,7 +810,7 @@
       "id": "c2bdb00c-b12c-4ec1-b347-0fff50edf2b5",
       "comment": "",
       "command": "times",
-      "target": "2",
+      "target": "60",
       "targets": [],
       "value": ""
     }, {

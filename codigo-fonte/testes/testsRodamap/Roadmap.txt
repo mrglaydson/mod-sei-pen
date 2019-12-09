@@ -24,5 +24,19 @@ O que precisamos testar
 	- 4 unidades comuns
 	
 
-	
-	
+- localizador -> cadastrar novo
+- criar proc restrito e publico com docs internos e externos
+- criar docs autenticados
+- o doc autenticado deverá estar arquivado
+
+
+- testar proc aberto em mais de uma unidade(n pode arquivar)
+- assercao no historico sempre q arquivar e desarquivar
+
+- verificar flood de concluidos
+
+tela de Pendencia de Arquivamento
+
+- cria proc, manda para outra unidade aberto em 2
+- ao concluir na segunda, ele n pode aparecer na Pendencia de Arquivamento daquela Unidade
+
