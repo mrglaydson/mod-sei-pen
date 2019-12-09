@@ -10,14 +10,7 @@
       "id": "2da76f13-39e2-4148-8725-7c20fb5a8d85",
       "comment": "",
       "command": "open",
-      "target": "/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SIP&infra_url=L3NpcC8=",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "7e5784d7-e943-4d67-8e72-b4d970eb7bc6",
-      "comment": "",
-      "command": "setWindowSize",
-      "target": "1600x738",
+      "target": "sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SIP",
       "targets": [],
       "value": ""
     }, {
@@ -90,6 +83,20 @@
         ["xpath=//button", "xpath:position"],
         ["xpath=//button[contains(.,'Acessar')]", "xpath:innerText"]
       ],
+      "value": ""
+    }, {
+      "id": "413bbb19-0977-4c70-af7a-ab7684c9c048",
+      "comment": "",
+      "command": "storeText",
+      "target": "xpath=html",
+      "targets": [],
+      "value": "var1"
+    }, {
+      "id": "302f37ce-e766-4271-ac6b-165e291a804f",
+      "comment": "",
+      "command": "echo",
+      "target": "${var1}asdf",
+      "targets": [],
       "value": ""
     }, {
       "id": "58c3bf9a-c0aa-4d33-bff0-9e953b24fa01",
@@ -277,6 +284,6 @@
     "timeout": 300,
     "tests": ["35f98682-f3ae-496d-8cc0-3168c83c7399"]
   }],
-  "urls": ["http://seigd.nuvem.gov.br/"],
+  "urls": ["http://seigd.nuvem.gov.br/", "http://seigd.intra.planejamento/"],
   "plugins": []
 }

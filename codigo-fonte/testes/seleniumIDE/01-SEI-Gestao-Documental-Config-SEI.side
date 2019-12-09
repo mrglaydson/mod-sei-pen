@@ -10,7 +10,14 @@
       "id": "119e7e27-ad46-4eac-9076-1003e8a50ff5",
       "comment": "",
       "command": "open",
-      "target": "/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=",
+      "target": "sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "252830ed-51c9-4470-91d9-06b7844337df",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1600x1200",
       "targets": [],
       "value": ""
     }, {
@@ -100,6 +107,34 @@
       "targets": [],
       "value": ""
     }, {
+      "id": "f7d1d89d-b492-4b7d-a1d8-dff300e6a321",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//select[@id='selDESPACHO_DESARQUIVAMENTO']",
+      "targets": [
+        ["id=selDESPACHO_DESARQUIVAMENTO", "id"],
+        ["name=selDESPACHO_DESARQUIVAMENTO", "name"],
+        ["css=#selDESPACHO_DESARQUIVAMENTO", "css:finder"],
+        ["xpath=//select[@id='selDESPACHO_DESARQUIVAMENTO']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/select[2]", "xpath:idRelative"],
+        ["xpath=//select[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "7f822852-c28e-44ac-8049-8019ee9d8241",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//select[@id='selDESPACHO_DESARQUIVAMENTO']/option[text()='Termo de Desarquivamento']",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3681650d-df7b-4b74-a95f-173e64f6f3b4",
+      "comment": "",
+      "command": "click",
+      "target": "id=selDESPACHO_DESARQUIVAMENTO",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "e1b65661-e769-43aa-b170-a269e097ae42",
       "comment": "",
       "command": "click",
@@ -122,52 +157,31 @@
       "targets": [],
       "value": "label=Termo de Arquivamento"
     }, {
-      "id": "3681650d-df7b-4b74-a95f-173e64f6f3b4",
+      "id": "d5af81ab-df86-452a-b2fa-49f4aa3c8f8e",
       "comment": "",
       "command": "click",
       "target": "id=selDESPACHO_ARQUIVAMENTO",
       "targets": [],
       "value": ""
     }, {
-      "id": "c30106b9-c747-457a-95c3-a451b9c1a4df",
+      "id": "ab288598-a083-4c63-a8c7-f3def11f1002",
       "comment": "",
-      "command": "click",
-      "target": "xpath=//select[@id='selDESPACHO_DESARQUIVAMENTO']",
-      "targets": [
-        ["id=selDESPACHO_DESARQUIVAMENTO", "id"],
-        ["name=selDESPACHO_DESARQUIVAMENTO", "name"],
-        ["css=#selDESPACHO_DESARQUIVAMENTO", "css:finder"],
-        ["xpath=//select[@id='selDESPACHO_DESARQUIVAMENTO']", "xpath:attributes"],
-        ["xpath=//div[@id='divInfraAreaDados']/select[2]", "xpath:idRelative"],
-        ["xpath=//select[2]", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "ae142d9c-6ad4-40f9-9d70-18da92f3e8e3",
-      "comment": "",
-      "command": "select",
-      "target": "xpath=//select[@id='selDESPACHO_DESARQUIVAMENTO']",
+      "command": "pause",
+      "target": "2000",
       "targets": [],
-      "value": "label=Termo de Desarquivamento"
-    }, {
-      "id": "f7d1d89d-b492-4b7d-a1d8-dff300e6a321",
-      "comment": "",
-      "command": "click",
-      "target": "xpath=//select[@id='selDESPACHO_DESARQUIVAMENTO']",
-      "targets": [
-        ["id=selDESPACHO_DESARQUIVAMENTO", "id"],
-        ["name=selDESPACHO_DESARQUIVAMENTO", "name"],
-        ["css=#selDESPACHO_DESARQUIVAMENTO", "css:finder"],
-        ["xpath=//select[@id='selDESPACHO_DESARQUIVAMENTO']", "xpath:attributes"],
-        ["xpath=//div[@id='divInfraAreaDados']/select[2]", "xpath:idRelative"],
-        ["xpath=//select[2]", "xpath:position"]
-      ],
       "value": ""
     }, {
-      "id": "221ac518-cd0f-4777-808d-c11f5e8e2dbe",
+      "id": "4f24d92f-006c-407b-a82d-da449e9e4de0",
       "comment": "",
-      "command": "assertElementPresent",
-      "target": "xpath=//select[@id='selDESPACHO_DESARQUIVAMENTO']",
+      "command": "storeValue",
+      "target": "id=selDESPACHO_DESARQUIVAMENTO",
+      "targets": [],
+      "value": "var1"
+    }, {
+      "id": "460dc18d-c127-4d69-96bc-32e15346d65c",
+      "comment": "",
+      "command": "echo",
+      "target": "asdf ${var1}",
       "targets": [],
       "value": ""
     }, {
@@ -199,9 +213,16 @@
       "targets": [],
       "value": ""
     }, {
+      "id": "6f677618-4341-446c-81e5-155a015fcf05",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//select[@id='selTIPO_DOCUMENTO_LISTAGEM_ELIMINACAO']/option[text()='Listagem de Eliminação']",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "0a15a0a5-eebd-463c-8299-898e136f9ac6",
       "comment": "",
-      "command": "select",
+      "command": "//select",
       "target": "id=selTIPO_DOCUMENTO_LISTAGEM_ELIMINACAO",
       "targets": [],
       "value": "label=Listagem de Eliminação"
@@ -227,9 +248,16 @@
       ],
       "value": ""
     }, {
+      "id": "35124497-30a8-477d-ac0a-7aed0fd7f4b3",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//select[@id='selTIPO_PROCEDIMENTO_ELIMINACAO']/option[text()='Gestão da Informação: Avaliação/Destinação de Documentos']",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "fd731aef-e8f0-474d-8b9f-4abe7b60eaee",
       "comment": "",
-      "command": "select",
+      "command": "//select",
       "target": "id=selTIPO_PROCEDIMENTO_ELIMINACAO",
       "targets": [],
       "value": "label=Gestão da Informação: Avaliação/Destinação de Documentos"
@@ -248,9 +276,16 @@
       ],
       "value": ""
     }, {
+      "id": "728d621e-54a7-4aae-bbfd-5460372358e7",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//select[@id='selTIPO_DOCUMENTO_ELIMINACAO']/option[text()='Termo de Eliminação']",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "eff47b79-6ebb-4055-99f2-cf80b75dd2ea",
       "comment": "",
-      "command": "select",
+      "command": "//select",
       "target": "id=selTIPO_DOCUMENTO_ELIMINACAO",
       "targets": [],
       "value": "label=Termo de Eliminação"
@@ -472,13 +507,6 @@
       ],
       "value": ""
     }, {
-      "id": "018d6db6-7e17-4d8b-a4f6-ca32b0a15aad",
-      "comment": "",
-      "command": "chooseOkOnNextConfirmation",
-      "target": "",
-      "targets": [],
-      "value": ""
-    }, {
       "id": "07a5ded8-6748-47cb-a8b8-0cbde7a63114",
       "comment": "",
       "command": "click",
@@ -493,6 +521,20 @@
       ],
       "value": ""
     }, {
+      "id": "018d6db6-7e17-4d8b-a4f6-ca32b0a15aad",
+      "comment": "",
+      "command": "webdriverChooseOkOnVisibleConfirmation",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "cff12b36-e41c-42f3-9ea8-eb660d7a3c37",
+      "comment": "",
+      "command": "echo",
+      "target": "asdf",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "28751b93-6371-40bc-8005-b97ebecdc72b",
       "comment": "",
       "command": "click",
@@ -505,6 +547,13 @@
         ["xpath=//button[2]", "xpath:position"],
         ["xpath=//button[contains(.,'Novo')]", "xpath:innerText"]
       ],
+      "value": ""
+    }, {
+      "id": "7ab3b8b9-a0c0-4a40-9929-a7882c5fc1e5",
+      "comment": "",
+      "command": "echo",
+      "target": "fffff",
+      "targets": [],
       "value": ""
     }, {
       "id": "b80781ef-f300-4728-bb33-510e35852721",
@@ -672,13 +721,6 @@
       ],
       "value": "arq xx duplicado ${data}-${hora}"
     }, {
-      "id": "84bcfebd-74b2-4efd-9d4d-612169ec6a07",
-      "comment": "",
-      "command": "chooseOkOnNextConfirmation",
-      "target": "",
-      "targets": [],
-      "value": ""
-    }, {
       "id": "73419580-f771-4741-ae34-d6bd2c9092e4",
       "comment": "",
       "command": "click",
@@ -690,9 +732,16 @@
       ],
       "value": ""
     }, {
+      "id": "917c0297-4adc-4e84-a37c-c11f8d7a8deb",
+      "comment": "",
+      "command": "echo",
+      "target": "ponto2",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "df493772-20ee-4be1-8444-ce2e88a8dfa6",
       "comment": "Não pode incluir duplicado",
-      "command": "verifyNotText",
+      "command": "//verifyNotText",
       "target": "xpath=//td[contains(.,'arq xx duplicado ${data}-${hora}')]",
       "targets": [],
       "value": "arq xx duplicado ${data}-${hora}"
@@ -1600,27 +1649,32 @@
       ],
       "value": "<p>Motivo: @motivo@&nbsp;</p><p>data: @data_arquivamento@</p><p>responsavel: @responsavel_arquivamento@</p>"
     }, {
+      "id": "bc3a2a12-1eb8-46da-bdb5-612bba334a19",
+      "comment": "",
+      "command": "echo",
+      "target": "asdf",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "348f82a8-ec39-4e1d-8cec-214d6821170e",
       "comment": "",
       "command": "selectFrame",
       "target": "relative=parent",
-      "targets": [
-        ["relative=parent"]
-      ],
+      "targets": [],
       "value": ""
     }, {
       "id": "3ea916a8-68b4-4493-9c83-15cb0d2a3919",
       "comment": "",
       "command": "click",
-      "target": "name=sbmAlterarModeloAlterar",
-      "targets": [
-        ["name=sbmAlterarModeloAlterar", "name"],
-        ["css=.infraButton:nth-child(1)", "css:finder"],
-        ["xpath=//button[@name='sbmAlterarModeloAlterar']", "xpath:attributes"],
-        ["xpath=//div[@id='divInfraBarraComandosSuperior']/button", "xpath:idRelative"],
-        ["xpath=//button", "xpath:position"],
-        ["xpath=//button[contains(.,'Salvar')]", "xpath:innerText"]
-      ],
+      "target": "xpath=//*[@id=\"divInfraBarraComandosSuperior\"]/button[1]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d2842d62-06af-49f7-98e2-1c186f9a9c53",
+      "comment": "",
+      "command": "echo",
+      "target": "depois",
+      "targets": [],
       "value": ""
     }, {
       "id": "cc044cb5-7d6d-4a23-a8c2-851466237bcb",
@@ -2739,7 +2793,7 @@
     "persistSession": false,
     "parallel": false,
     "timeout": 300,
-    "tests": ["0aef73fd-dc4f-4dfe-8311-8d0dd6e72ddf"]
+    "tests": ["585bb47c-4cfc-4689-8898-35f914c2d4d6", "0aef73fd-dc4f-4dfe-8311-8d0dd6e72ddf", "679dfa33-fa95-4fb7-bf1c-9b36a7088e0b", "c483162d-6a7e-4b1e-a67a-22addda2d3fb", "981c26ac-fe85-42ea-977d-9a970ddee613"]
   }],
   "urls": ["http://seigd.nuvem.gov.br/", "http://seigd.nuvem.gov.br/sei", "http://seigd.intra.planejamento/sei"],
   "plugins": []

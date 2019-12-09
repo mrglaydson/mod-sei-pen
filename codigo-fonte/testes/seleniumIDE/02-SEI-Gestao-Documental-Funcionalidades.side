@@ -16,7 +16,7 @@
     }, {
       "id": "1b913915-6712-4f10-ab75-8b898f76ed5f",
       "comment": "",
-      "command": "setWindowSize",
+      "command": "//setWindowSize",
       "target": "1600x738",
       "targets": [],
       "value": ""
@@ -264,13 +264,6 @@
       ],
       "value": ""
     }, {
-      "id": "755f402a-a417-4b4e-8679-f094a9f6b79e",
-      "comment": "",
-      "command": "//click",
-      "target": "id=span14",
-      "targets": [],
-      "value": ""
-    }, {
       "id": "d75e79fa-5676-4a52-95cc-3344ca6ba4fd",
       "comment": "",
       "command": "selectFrame",
@@ -291,14 +284,9 @@
     }, {
       "id": "fcb2cdda-32f4-4e09-99fc-29746e6e1e35",
       "comment": "",
-      "command": "click",
+      "command": "//click",
       "target": "css=.botaoSEI:nth-child(6) > .infraCorBarraSistema",
-      "targets": [
-        ["css=.botaoSEI:nth-child(6) > .infraCorBarraSistema", "css:finder"],
-        ["xpath=//img[@alt='Assinar Documento']", "xpath:img"],
-        ["xpath=//div[@id='divArvoreAcoes']/a[6]/img", "xpath:idRelative"],
-        ["xpath=//a[6]/img", "xpath:position"]
-      ],
+      "targets": [],
       "value": "",
       "opensWindow": true,
       "windowHandleName": "win5916",
@@ -306,92 +294,56 @@
     }, {
       "id": "7377fa3d-502a-43d0-993a-1aabbc1ce5ed",
       "comment": "",
-      "command": "selectWindow",
+      "command": "//selectWindow",
       "target": "handle=${win5916}",
       "targets": [],
       "value": ""
     }, {
       "id": "622958ba-9e8b-46ed-81a4-273f841254fb",
       "comment": "",
-      "command": "click",
+      "command": "//click",
       "target": "id=selCargoFuncao",
-      "targets": [
-        ["id=selCargoFuncao", "id"],
-        ["name=selCargoFuncao", "name"],
-        ["css=#selCargoFuncao", "css:finder"],
-        ["xpath=//select[@id='selCargoFuncao']", "xpath:attributes"],
-        ["xpath=//div[@id='divCargoFuncao']/select", "xpath:idRelative"],
-        ["xpath=//div[5]/select", "xpath:position"]
-      ],
+      "targets": [],
       "value": ""
     }, {
       "id": "6508b5e7-ad1b-41ad-929c-80e8d8401629",
       "comment": "",
-      "command": "select",
+      "command": "//select",
       "target": "id=selCargoFuncao",
       "targets": [],
       "value": "label=Ouvidor"
     }, {
       "id": "004ac5f7-8474-41c9-ae3d-78dbd20e1ffe",
       "comment": "",
-      "command": "click",
+      "command": "//click",
       "target": "id=selCargoFuncao",
-      "targets": [
-        ["id=selCargoFuncao", "id"],
-        ["name=selCargoFuncao", "name"],
-        ["css=#selCargoFuncao", "css:finder"],
-        ["xpath=//select[@id='selCargoFuncao']", "xpath:attributes"],
-        ["xpath=//div[@id='divCargoFuncao']/select", "xpath:idRelative"],
-        ["xpath=//div[5]/select", "xpath:position"]
-      ],
+      "targets": [],
       "value": ""
     }, {
       "id": "85cfc585-de09-4782-a2fa-0448a3910b3f",
       "comment": "",
-      "command": "click",
+      "command": "//click",
       "target": "id=pwdSenha",
-      "targets": [
-        ["id=pwdSenha", "id"],
-        ["name=pwdSenha", "name"],
-        ["css=#pwdSenha", "css:finder"],
-        ["xpath=//input[@id='pwdSenha']", "xpath:attributes"],
-        ["xpath=//div[@id='divAutenticacao']/input", "xpath:idRelative"],
-        ["xpath=//div[6]/input", "xpath:position"]
-      ],
+      "targets": [],
       "value": ""
     }, {
       "id": "5380abcf-2f02-4f55-bda2-596b6216dc04",
       "comment": "",
-      "command": "type",
+      "command": "//type",
       "target": "id=pwdSenha",
-      "targets": [
-        ["id=pwdSenha", "id"],
-        ["name=pwdSenha", "name"],
-        ["css=#pwdSenha", "css:finder"],
-        ["xpath=//input[@id='pwdSenha']", "xpath:attributes"],
-        ["xpath=//div[@id='divAutenticacao']/input", "xpath:idRelative"],
-        ["xpath=//div[6]/input", "xpath:position"]
-      ],
+      "targets": [],
       "value": "teste"
     }, {
       "id": "26774118-6ffa-4bcc-9e4a-d2f338326356",
       "comment": "",
-      "command": "click",
+      "command": "//click",
       "target": "id=btnAssinar",
-      "targets": [
-        ["id=btnAssinar", "id"],
-        ["name=btnAssinar", "name"],
-        ["css=#btnAssinar", "css:finder"],
-        ["xpath=//button[@id='btnAssinar']", "xpath:attributes"],
-        ["xpath=//div[@id='divInfraBarraComandosSuperior']/button", "xpath:idRelative"],
-        ["xpath=//button", "xpath:position"],
-        ["xpath=//button[contains(.,' Assinar ')]", "xpath:innerText"]
-      ],
+      "targets": [],
       "value": ""
     }, {
       "id": "89beabd2-688c-4e05-962b-ab8113b4f7d6",
       "comment": "",
-      "command": "close",
+      "command": "//close",
       "target": "",
       "targets": [],
       "value": ""
@@ -406,10 +358,31 @@
       "id": "802d077a-09e1-4de2-ab60-4425b0152a90",
       "comment": "",
       "command": "selectFrame",
+      "target": "index=0",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "024a8e9d-89d8-4f70-ae33-64aba5c7c8c1",
+      "comment": "",
+      "command": "selectFrame",
+      "target": "relative=parent",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "32277ecf-236f-4096-952d-3ed703361ba8",
+      "comment": "",
+      "command": "selectFrame",
       "target": "index=1",
       "targets": [
         ["index=1"]
       ],
+      "value": ""
+    }, {
+      "id": "cfcd382b-5abc-45ae-996d-87beb211a08f",
+      "comment": "",
+      "command": "//click",
+      "target": "xpath=//*[@id=\"anchor52\"]",
+      "targets": [],
       "value": ""
     }, {
       "id": "665e9272-48b0-41d5-9afc-6b3c39198b78",
@@ -422,6 +395,64 @@
         ["xpath=//div[@id='divArvoreAcoes']/a[15]/img", "xpath:idRelative"],
         ["xpath=//a[15]/img", "xpath:position"]
       ],
+      "value": ""
+    }, {
+      "id": "0293d15d-1ee1-4c5b-82d9-f1b40731b1cf",
+      "comment": "",
+      "command": "selectWindow",
+      "target": "handle=${root}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "87e67b91-216a-4c99-892a-4d0ceffa9afc",
+      "comment": "",
+      "command": "selectFrame",
+      "target": "index=0",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3668b68c-5121-480d-ad7d-b44504dac4c5",
+      "comment": "",
+      "command": "selectFrame",
+      "target": "relative=parent",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3ad21dd7-ecd6-456e-a917-c0f3d5f607fd",
+      "comment": "",
+      "command": "selectFrame",
+      "target": "index=1",
+      "targets": [
+        ["index=1"]
+      ],
+      "value": ""
+    }, {
+      "id": "0acf7e24-98c1-45a9-9c11-80217eb7cd68",
+      "comment": "",
+      "command": "storeText",
+      "target": "xpath=//html",
+      "targets": [],
+      "value": "var1"
+    }, {
+      "id": "2accaf0d-4021-4b00-a865-8e2ca6d64a05",
+      "comment": "",
+      "command": "echo",
+      "target": "asdf ${var1}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "bf719844-c6fa-4cc9-8753-3216796fb3ae",
+      "comment": "",
+      "command": "//selectFrame",
+      "target": "index=1",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "df731596-6123-4417-829f-5a5d86117a48",
+      "comment": "",
+      "command": "echo",
+      "target": "ponto11",
+      "targets": [],
       "value": ""
     }, {
       "id": "dc18eb80-176a-4118-b691-24ffa5b6df65",
@@ -439,12 +470,26 @@
       ],
       "value": ""
     }, {
+      "id": "21673687-a086-460a-8e22-7c81d2d18b0d",
+      "comment": "",
+      "command": "echo",
+      "target": "Ponto33",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "f81635ea-f22a-4557-8c71-f10425ce30d6",
       "comment": "",
       "command": "select",
       "target": "id=selJustificativa",
       "targets": [],
       "value": "label=Justificativa de Arquivamento 01"
+    }, {
+      "id": "6e98ba75-0f7b-443e-aadb-c9aa766c1dd4",
+      "comment": "",
+      "command": "echo",
+      "target": "Ponto2",
+      "targets": [],
+      "value": ""
     }, {
       "id": "1f03e573-1bea-445e-94f1-d52491b8a165",
       "comment": "",
@@ -656,7 +701,7 @@
     }, {
       "id": "988f26f5-42cc-4b7a-a002-9c47adf19ae1",
       "comment": "",
-      "command": "//webdriverChooseOkOnVisibleConfirmation",
+      "command": "webdriverChooseOkOnVisibleConfirmation",
       "target": "",
       "targets": [],
       "value": ""
@@ -810,7 +855,7 @@
       "id": "c2bdb00c-b12c-4ec1-b347-0fff50edf2b5",
       "comment": "",
       "command": "times",
-      "target": "60",
+      "target": "55",
       "targets": [],
       "value": ""
     }, {
@@ -986,13 +1031,6 @@
       ],
       "value": ""
     }, {
-      "id": "149102c8-e51b-4650-81e7-1f0de1cb43bb",
-      "comment": "",
-      "command": "//click",
-      "target": "id=span14",
-      "targets": [],
-      "value": ""
-    }, {
       "id": "d0842360-e917-4fa9-843d-5e0df92ce76a",
       "comment": "",
       "command": "selectFrame",
@@ -1013,14 +1051,9 @@
     }, {
       "id": "84c20cea-6dbb-426c-a2d9-34ae16b9d600",
       "comment": "",
-      "command": "click",
+      "command": "//click",
       "target": "css=.botaoSEI:nth-child(6) > .infraCorBarraSistema",
-      "targets": [
-        ["css=.botaoSEI:nth-child(6) > .infraCorBarraSistema", "css:finder"],
-        ["xpath=//img[@alt='Assinar Documento']", "xpath:img"],
-        ["xpath=//div[@id='divArvoreAcoes']/a[6]/img", "xpath:idRelative"],
-        ["xpath=//a[6]/img", "xpath:position"]
-      ],
+      "targets": [],
       "value": "",
       "opensWindow": true,
       "windowHandleName": "win5916",
@@ -1028,110 +1061,72 @@
     }, {
       "id": "a99d4d46-1b3f-4fd0-824c-50bfac997570",
       "comment": "",
-      "command": "selectWindow",
+      "command": "//selectWindow",
       "target": "handle=${win5916}",
       "targets": [],
       "value": ""
     }, {
       "id": "41f34c3e-0676-47a2-b5ea-641b52f93957",
       "comment": "",
-      "command": "click",
+      "command": "//click",
       "target": "id=selCargoFuncao",
-      "targets": [
-        ["id=selCargoFuncao", "id"],
-        ["name=selCargoFuncao", "name"],
-        ["css=#selCargoFuncao", "css:finder"],
-        ["xpath=//select[@id='selCargoFuncao']", "xpath:attributes"],
-        ["xpath=//div[@id='divCargoFuncao']/select", "xpath:idRelative"],
-        ["xpath=//div[5]/select", "xpath:position"]
-      ],
+      "targets": [],
       "value": ""
     }, {
       "id": "3763c239-acb8-41af-b0e2-b7a0ef69fe73",
       "comment": "",
-      "command": "select",
+      "command": "//select",
       "target": "id=selCargoFuncao",
       "targets": [],
       "value": "label=Ouvidor"
     }, {
       "id": "c7097443-927d-42b7-85ab-efaa9d922320",
       "comment": "",
-      "command": "click",
+      "command": "//click",
       "target": "id=selCargoFuncao",
-      "targets": [
-        ["id=selCargoFuncao", "id"],
-        ["name=selCargoFuncao", "name"],
-        ["css=#selCargoFuncao", "css:finder"],
-        ["xpath=//select[@id='selCargoFuncao']", "xpath:attributes"],
-        ["xpath=//div[@id='divCargoFuncao']/select", "xpath:idRelative"],
-        ["xpath=//div[5]/select", "xpath:position"]
-      ],
+      "targets": [],
       "value": ""
     }, {
       "id": "fa3f54b2-004b-4d6c-9e9d-68aa61ecfa38",
       "comment": "",
-      "command": "click",
+      "command": "//click",
       "target": "id=pwdSenha",
-      "targets": [
-        ["id=pwdSenha", "id"],
-        ["name=pwdSenha", "name"],
-        ["css=#pwdSenha", "css:finder"],
-        ["xpath=//input[@id='pwdSenha']", "xpath:attributes"],
-        ["xpath=//div[@id='divAutenticacao']/input", "xpath:idRelative"],
-        ["xpath=//div[6]/input", "xpath:position"]
-      ],
+      "targets": [],
       "value": ""
     }, {
       "id": "c5c9e09a-5d60-4d5d-b567-6c0e211e0e69",
       "comment": "",
-      "command": "type",
+      "command": "//type",
       "target": "id=pwdSenha",
-      "targets": [
-        ["id=pwdSenha", "id"],
-        ["name=pwdSenha", "name"],
-        ["css=#pwdSenha", "css:finder"],
-        ["xpath=//input[@id='pwdSenha']", "xpath:attributes"],
-        ["xpath=//div[@id='divAutenticacao']/input", "xpath:idRelative"],
-        ["xpath=//div[6]/input", "xpath:position"]
-      ],
+      "targets": [],
       "value": "teste"
     }, {
       "id": "7fb917cb-c62d-4904-8a83-2d577961eb42",
       "comment": "",
-      "command": "click",
+      "command": "//click",
       "target": "id=btnAssinar",
-      "targets": [
-        ["id=btnAssinar", "id"],
-        ["name=btnAssinar", "name"],
-        ["css=#btnAssinar", "css:finder"],
-        ["xpath=//button[@id='btnAssinar']", "xpath:attributes"],
-        ["xpath=//div[@id='divInfraBarraComandosSuperior']/button", "xpath:idRelative"],
-        ["xpath=//button", "xpath:position"],
-        ["xpath=//button[contains(.,' Assinar ')]", "xpath:innerText"]
-      ],
+      "targets": [],
       "value": ""
     }, {
       "id": "9fa3b8f8-6015-481e-a217-e9919d8457fe",
       "comment": "",
-      "command": "close",
+      "command": "//close",
       "target": "",
       "targets": [],
       "value": ""
     }, {
       "id": "844dd21a-2127-4b5f-8fd2-6f1fe8670f0d",
       "comment": "",
-      "command": "selectWindow",
+      "command": "//selectWindow",
       "target": "handle=${root}",
       "targets": [],
       "value": ""
     }, {
       "id": "ee392bec-d9d2-4ade-8f19-da3b434fa7f2",
       "comment": "",
-      "command": "selectFrame",
+      "command": "//selectFrame",
       "target": "index=1",
-      "targets": [
-        ["index=1"]
-      ],
+      "targets": [],
       "value": ""
     }, {
       "id": "ced236d5-0ce4-4c49-86c6-b52a7370b0da",
@@ -1179,6 +1174,13 @@
       "targets": [],
       "value": ""
     }, {
+      "id": "23a731e7-745c-4af6-b73a-5775dbcf4521",
+      "comment": "",
+      "command": "echo",
+      "target": "fim",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "2ae61c0c-b409-4e89-a2ca-de7b4cc35dcd",
       "comment": "",
       "command": "click",
@@ -1189,6 +1191,13 @@
         ["xpath=//a[@id='lnkSairSistema']/img", "xpath:idRelative"],
         ["xpath=//a[5]/img", "xpath:position"]
       ],
+      "value": ""
+    }, {
+      "id": "cb5274c5-ade8-4858-8b27-54c92b3584a2",
+      "comment": "",
+      "command": "echo",
+      "target": "fim2",
+      "targets": [],
       "value": ""
     }, {
       "id": "37b26295-7b41-4d63-8e58-9fc6a15aa70c",
@@ -1205,7 +1214,7 @@
     "persistSession": false,
     "parallel": false,
     "timeout": 300,
-    "tests": ["694c2bcc-69e7-47f2-8cf6-440a019882e9"]
+    "tests": ["694c2bcc-69e7-47f2-8cf6-440a019882e9", "70a611f4-556f-40e2-b1e2-e521cde1b5cc"]
   }],
   "urls": ["http://seigd.nuvem.gov.br/sei", "http://seigd.intra.planejamento/sei"],
   "plugins": []
