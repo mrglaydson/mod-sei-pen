@@ -2,7 +2,7 @@
   "id": "b617c0e4-d881-4bbb-b4c9-754fd196cbb0",
   "version": "2.0",
   "name": "SEI-Gestao-Documental-Funcionalidades",
-  "url": "http://seigd.intra.planejamento/sei",
+  "url": "http://seigd.intra.planejamento",
   "tests": [{
     "id": "694c2bcc-69e7-47f2-8cf6-440a019882e9",
     "name": "CadastrarProcessos",
@@ -47,7 +47,7 @@
         ["xpath=//div[@id='divUsuario']/input[2]", "xpath:idRelative"],
         ["xpath=//input[2]", "xpath:position"]
       ],
-      "value": "teste"
+      "value": "arquivista01"
     }, {
       "id": "a8529ef3-4da6-46b5-a6ca-c1a6138d8778",
       "comment": "",
@@ -75,7 +75,7 @@
         ["xpath=//div[@id='divUsuario']/input", "xpath:idRelative"],
         ["xpath=//input", "xpath:position"]
       ],
-      "value": "teste"
+      "value": "arquivista01"
     }, {
       "id": "b4006610-9c1d-4fde-8797-fad9541d4757",
       "comment": "",
@@ -567,7 +567,7 @@
         ["xpath=//div[@id='divAutenticacao']/input", "xpath:idRelative"],
         ["xpath=//div[4]/input", "xpath:position"]
       ],
-      "value": "teste"
+      "value": "arquivista01"
     }, {
       "id": "172dc00c-6a91-40ad-a9da-5a673fdd6872",
       "comment": "",
@@ -675,7 +675,7 @@
         ["xpath=//div[@id='divAutenticacao']/input", "xpath:idRelative"],
         ["xpath=//div[4]/input", "xpath:position"]
       ],
-      "value": "teste"
+      "value": "arquivista01"
     }, {
       "id": "c057e8e8-03b8-4fc0-9b72-2f9c3d7c3ff6",
       "comment": "",
@@ -776,7 +776,7 @@
     }, {
       "id": "f11311b7-9157-4d82-aff4-c946d39337a5",
       "comment": "",
-      "command": "setWindowSize",
+      "command": "//setWindowSize",
       "target": "1600x738",
       "targets": [],
       "value": ""
@@ -807,7 +807,7 @@
         ["xpath=//div[@id='divUsuario']/input[2]", "xpath:idRelative"],
         ["xpath=//input[2]", "xpath:position"]
       ],
-      "value": "teste"
+      "value": "arquivista01"
     }, {
       "id": "eb334379-0433-47af-992c-143afbb00a62",
       "comment": "",
@@ -835,7 +835,7 @@
         ["xpath=//div[@id='divUsuario']/input", "xpath:idRelative"],
         ["xpath=//input", "xpath:position"]
       ],
-      "value": "teste"
+      "value": "arquivista01"
     }, {
       "id": "f4e37daa-46a0-4736-8412-ac6a19713278",
       "comment": "",
@@ -1216,6 +1216,6 @@
     "timeout": 300,
     "tests": ["694c2bcc-69e7-47f2-8cf6-440a019882e9", "70a611f4-556f-40e2-b1e2-e521cde1b5cc"]
   }],
-  "urls": ["http://seigd.nuvem.gov.br/sei", "http://seigd.intra.planejamento/sei"],
+  "urls": ["http://seigd.nuvem.gov.br/sei", "http://seigd.intra.planejamento/sei", "http://seigd.intra.planejamento/"],
   "plugins": []
 }
