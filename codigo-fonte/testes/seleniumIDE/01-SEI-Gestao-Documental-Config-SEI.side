@@ -1400,7 +1400,7 @@
       "command": "select",
       "target": "id=selUnidadeDestino",
       "targets": [],
-      "value": "label=TESTE_1_2 - Unidade de Testes 1.2"
+      "value": "label=ArquivoGeral - ArquivoGeral"
     }, {
       "id": "9c22bc4e-1085-4a84-b279-774e072019bc",
       "comment": "",
@@ -1421,7 +1421,7 @@
       "command": "type",
       "target": "id=txtUnidadeOrigem",
       "targets": [],
-      "value": "Teste"
+      "value": "Arquivo01"
     }, {
       "id": "77cb93d3-6412-42df-a5c2-714512b6f025",
       "comment": "",
