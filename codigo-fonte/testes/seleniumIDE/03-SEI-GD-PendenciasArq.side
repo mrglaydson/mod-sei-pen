@@ -1290,6 +1290,955 @@
       "targets": [],
       "value": ""
     }]
+  }, {
+    "id": "99d13639-c668-414b-bedc-07abdb0eaa0f",
+    "name": "060-ArquivoUnidade-DesarquivarMassa",
+    "commands": [{
+      "id": "fa805c39-0ca2-4f68-8b96-ef0ab3552bf7",
+      "comment": "",
+      "command": "open",
+      "target": "/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ea9a0c23-35ac-458d-b030-cd7cf2a8b041",
+      "comment": "",
+      "command": "type",
+      "target": "id=txtUsuario",
+      "targets": [
+        ["id=txtUsuario", "id"],
+        ["name=txtUsuario", "name"],
+        ["css=#txtUsuario", "css:finder"],
+        ["xpath=//input[@id='txtUsuario']", "xpath:attributes"],
+        ["xpath=//div[@id='divUsuario']/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "arquivista01"
+    }, {
+      "id": "5f9eed9b-33f7-4b8c-95c5-9bd7f172c4d4",
+      "comment": "",
+      "command": "type",
+      "target": "id=pwdSenha",
+      "targets": [
+        ["id=pwdSenha", "id"],
+        ["name=pwdSenha", "name"],
+        ["css=#pwdSenha", "css:finder"],
+        ["xpath=//input[@id='pwdSenha']", "xpath:attributes"],
+        ["xpath=//div[@id='divUsuario']/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "arquivista01"
+    }, {
+      "id": "f05f0645-260d-487b-9647-805ff5eaeed3",
+      "comment": "",
+      "command": "click",
+      "target": "id=sbmLogin",
+      "targets": [
+        ["id=sbmLogin", "id"],
+        ["name=sbmLogin", "name"],
+        ["css=#sbmLogin", "css:finder"],
+        ["xpath=//button[@id='sbmLogin']", "xpath:attributes"],
+        ["xpath=//div[@id='divBotoes']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Acessar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "09120fb1-8211-4c70-83f8-19d81ceacf86",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Arquivo da Unidade",
+      "targets": [
+        ["linkText=Pendências de arquivamento", "linkText"],
+        ["css=li:nth-child(20) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Pendências de arquivamento')]", "xpath:link"],
+        ["xpath=//ul[@id='main-menu']/li[20]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'controlador.php?acao=gd_pendencias_arquivamento&infra_sistema=100000100&infra_unidade_atual=110000004&infra_hash=c275a684b594ad1e3d054ea821c1955bfbaa8db71d7746ba97f2ebba8b29c97d')]", "xpath:href"],
+        ["xpath=//li[20]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Pendências de arquivamento')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "3d10b005-871f-4933-835d-4d47c34f8d7f",
+      "comment": "",
+      "command": "click",
+      "target": "id=imgInfraCheck",
+      "targets": [
+        ["id=imgInfraCheck", "id"],
+        ["css=#imgInfraCheck", "css:finder"],
+        ["xpath=//img[@alt='Selecionar Tudo']", "xpath:img"],
+        ["xpath=//img[@id='imgInfraCheck']", "xpath:attributes"],
+        ["xpath=//a[@id='lnkInfraCheck']/img", "xpath:idRelative"],
+        ["xpath=//th/a/img", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "7b5900d5-2052-437c-9f55-eef9e99ac26c",
+      "comment": "",
+      "command": "click",
+      "target": "id=sbmDesarquivar",
+      "targets": [
+        ["id=sbmDesarquivar", "id"],
+        ["css=#divInfraBarraComandosSuperior > #sbmDesarquivar", "css:finder"],
+        ["xpath=//button[@id='sbmDesarquivar']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraBarraComandosSuperior']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Desarquivar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c23c8cf7-676e-4965-b5de-726d3c68437e",
+      "comment": "",
+      "command": "select",
+      "target": "id=selJustificativa",
+      "targets": [],
+      "value": "label=Justificativa de Desarquivamento 02"
+    }, {
+      "id": "7495153e-cd5c-46ea-932a-8280e3d9d65a",
+      "comment": "",
+      "command": "click",
+      "target": "id=selJustificativa",
+      "targets": [
+        ["id=selJustificativa", "id"],
+        ["name=selJustificativa", "name"],
+        ["css=#selJustificativa", "css:finder"],
+        ["xpath=//select[@id='selJustificativa']", "xpath:attributes"],
+        ["xpath=//fieldset[@id='fieldsetDadosArquivamento']/select[2]", "xpath:idRelative"],
+        ["xpath=//select[2]", "xpath:position"],
+        ["xpath=//select[contains(.,'Justificativa de Desarquivamento 01\nJustificativa de Desarquivamento 02')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c7820cb3-a6b2-4094-9028-31bc905d6a4b",
+      "comment": "",
+      "command": "select",
+      "target": "id=selCargoFuncao",
+      "targets": [],
+      "value": "label=Gestor de Contrato"
+    }, {
+      "id": "0b94c32e-bf42-4020-8fba-5188a6a8a576",
+      "comment": "",
+      "command": "click",
+      "target": "id=selCargoFuncao",
+      "targets": [
+        ["id=selCargoFuncao", "id"],
+        ["name=selCargoFuncao", "name"],
+        ["css=#selCargoFuncao", "css:finder"],
+        ["xpath=//select[@id='selCargoFuncao']", "xpath:attributes"],
+        ["xpath=//div[@id='divCargoFuncao']/select", "xpath:idRelative"],
+        ["xpath=//div[3]/select", "xpath:position"],
+        ["xpath=//select[contains(.,' \nAssessor(a)\nGestor de Contrato')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "2c0c9418-e1ed-438f-8a57-e6c1f9e87673",
+      "comment": "",
+      "command": "click",
+      "target": "id=pwdSenha",
+      "targets": [
+        ["id=pwdSenha", "id"],
+        ["name=pwdSenha", "name"],
+        ["css=#pwdSenha", "css:finder"],
+        ["xpath=//input[@id='pwdSenha']", "xpath:attributes"],
+        ["xpath=//div[@id='divAutenticacao']/input", "xpath:idRelative"],
+        ["xpath=//div[4]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ac2a2115-f6ae-4816-9416-a3c6ba481d4e",
+      "comment": "",
+      "command": "type",
+      "target": "id=pwdSenha",
+      "targets": [
+        ["id=pwdSenha", "id"],
+        ["name=pwdSenha", "name"],
+        ["css=#pwdSenha", "css:finder"],
+        ["xpath=//input[@id='pwdSenha']", "xpath:attributes"],
+        ["xpath=//div[@id='divAutenticacao']/input", "xpath:idRelative"],
+        ["xpath=//div[4]/input", "xpath:position"]
+      ],
+      "value": "arquivista01"
+    }, {
+      "id": "4800469e-5eff-4cb9-84cc-1d6ddf9e12dc",
+      "comment": "",
+      "command": "chooseOkOnNextConfirmation",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "513802f0-8ef8-4edf-a01b-5a769475cb91",
+      "comment": "",
+      "command": "click",
+      "target": "id=sbmSalvar",
+      "targets": [
+        ["id=sbmSalvar", "id"],
+        ["name=sbmSalvar", "name"],
+        ["css=#sbmSalvar", "css:finder"],
+        ["xpath=//button[@id='sbmSalvar']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraBarraComandosSuperior']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Salvar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "57d3576c-8faa-4770-b499-a26c51c04d9b",
+      "comment": "",
+      "command": "webdriverChooseOkOnVisibleConfirmation",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "97ee8584-db8b-450d-b88c-65ed175ae4d1",
+      "comment": "",
+      "command": "click",
+      "target": "css=.infraCaption",
+      "targets": [
+        ["css=.infraCaption", "css:finder"],
+        ["xpath=//div[@id='divInfraAreaTabela']/table/caption", "xpath:idRelative"],
+        ["xpath=//caption", "xpath:position"],
+        ["xpath=//caption[contains(.,'Lista de Processos Arquivados (1 registro):')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "1f928cf3-eef8-4f57-831f-bde8280f2e4d",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=.infraCaption",
+      "targets": [
+        ["css=.infraCaption", "css:finder"],
+        ["xpath=//div[@id='divInfraAreaTabela']/table/caption", "xpath:idRelative"],
+        ["xpath=//caption", "xpath:position"],
+        ["xpath=//caption[contains(.,'Lista de Processos Arquivados (1 registro):')]", "xpath:innerText"]
+      ],
+      "value": "Lista de Processos Arquivados (1 registro):"
+    }, {
+      "id": "6dcd3442-3bc4-4c26-9b71-b81b27bb83a3",
+      "comment": "",
+      "command": "click",
+      "target": "id=lnkSairSistema",
+      "targets": [
+        ["id=lnkSairSistema", "id"],
+        ["css=#lnkSairSistema", "css:finder"],
+        ["xpath=//a[@id='lnkSairSistema']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraBarraSistemaD']/div[6]/a[5]", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'controlador.php?acao=sair&infra_sistema=100000100&infra_unidade_atual=110000004&infra_hash=b57d9df2335229af167feaa294d5ef40fc337f0ff31433afc6db5ba182f76ad3')]", "xpath:href"],
+        ["xpath=//a[5]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "fbde9400-ede5-4168-b698-f2b51431f6af",
+      "comment": "",
+      "command": "chooseOkOnNextConfirmation",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "441b165f-3951-4be5-bdec-be75ffd9d10c",
+      "comment": "",
+      "command": "close",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "c2555a08-ce73-4ef2-8c4a-ea1ffd46b2c6",
+    "name": "070-ArquivoUnidade-DesarquivarUnico",
+    "commands": [{
+      "id": "4aee1fa0-62d6-4604-9527-f9ed9e28cdb5",
+      "comment": "",
+      "command": "open",
+      "target": "/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0bc41175-283b-40fc-a967-8e624b091265",
+      "comment": "",
+      "command": "type",
+      "target": "id=txtUsuario",
+      "targets": [
+        ["id=txtUsuario", "id"],
+        ["name=txtUsuario", "name"],
+        ["css=#txtUsuario", "css:finder"],
+        ["xpath=//input[@id='txtUsuario']", "xpath:attributes"],
+        ["xpath=//div[@id='divUsuario']/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "arquivista01"
+    }, {
+      "id": "1b89ac8d-ac8a-477f-9601-21d6e3974f17",
+      "comment": "",
+      "command": "type",
+      "target": "id=pwdSenha",
+      "targets": [
+        ["id=pwdSenha", "id"],
+        ["name=pwdSenha", "name"],
+        ["css=#pwdSenha", "css:finder"],
+        ["xpath=//input[@id='pwdSenha']", "xpath:attributes"],
+        ["xpath=//div[@id='divUsuario']/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "arquivista01"
+    }, {
+      "id": "2208a7eb-a2e6-4bdc-9d70-df17646ee404",
+      "comment": "",
+      "command": "click",
+      "target": "id=sbmLogin",
+      "targets": [
+        ["id=sbmLogin", "id"],
+        ["name=sbmLogin", "name"],
+        ["css=#sbmLogin", "css:finder"],
+        ["xpath=//button[@id='sbmLogin']", "xpath:attributes"],
+        ["xpath=//div[@id='divBotoes']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Acessar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c151379e-9a7b-4635-815f-66c13e7e435f",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Arquivo da Unidade",
+      "targets": [
+        ["linkText=Pendências de arquivamento", "linkText"],
+        ["css=li:nth-child(20) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Pendências de arquivamento')]", "xpath:link"],
+        ["xpath=//ul[@id='main-menu']/li[20]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'controlador.php?acao=gd_pendencias_arquivamento&infra_sistema=100000100&infra_unidade_atual=110000004&infra_hash=c275a684b594ad1e3d054ea821c1955bfbaa8db71d7746ba97f2ebba8b29c97d')]", "xpath:href"],
+        ["xpath=//li[20]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Pendências de arquivamento')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "212b390f-e507-4a69-963c-6e2df038f007",
+      "comment": "",
+      "command": "click",
+      "target": "css=td .infraImg",
+      "targets": [
+        ["css=td .infraImg", "css:finder"],
+        ["xpath=//img[@alt='Desarquivar Processo']", "xpath:img"],
+        ["xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[2]/td[11]/a/img", "xpath:idRelative"],
+        ["xpath=//td[11]/a/img", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "4d62de32-d2d6-4fa6-9ce3-3fef64f348d4",
+      "comment": "",
+      "command": "select",
+      "target": "id=selJustificativa",
+      "targets": [],
+      "value": "label=Justificativa de Desarquivamento 01"
+    }, {
+      "id": "54661cd2-b577-4649-bf42-a8c92800feb4",
+      "comment": "",
+      "command": "click",
+      "target": "id=selJustificativa",
+      "targets": [
+        ["id=selJustificativa", "id"],
+        ["name=selJustificativa", "name"],
+        ["css=#selJustificativa", "css:finder"],
+        ["xpath=//select[@id='selJustificativa']", "xpath:attributes"],
+        ["xpath=//fieldset[@id='fieldsetDadosArquivamento']/select[2]", "xpath:idRelative"],
+        ["xpath=//select[2]", "xpath:position"],
+        ["xpath=//select[contains(.,'Justificativa de Desarquivamento 01\nJustificativa de Desarquivamento 02')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "e5de8cfe-9437-4f95-8879-4064fc5aa055",
+      "comment": "",
+      "command": "select",
+      "target": "id=selCargoFuncao",
+      "targets": [],
+      "value": "label=Gestor de Contrato"
+    }, {
+      "id": "d762579b-c305-4295-b25e-facfd1ec2e93",
+      "comment": "",
+      "command": "click",
+      "target": "id=selCargoFuncao",
+      "targets": [
+        ["id=selCargoFuncao", "id"],
+        ["name=selCargoFuncao", "name"],
+        ["css=#selCargoFuncao", "css:finder"],
+        ["xpath=//select[@id='selCargoFuncao']", "xpath:attributes"],
+        ["xpath=//div[@id='divCargoFuncao']/select", "xpath:idRelative"],
+        ["xpath=//div[3]/select", "xpath:position"],
+        ["xpath=//select[contains(.,' \nAssessor(a)\nGestor de Contrato')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "8067caf3-6622-424c-9e06-3d5e4496c6eb",
+      "comment": "",
+      "command": "click",
+      "target": "id=pwdSenha",
+      "targets": [
+        ["id=pwdSenha", "id"],
+        ["name=pwdSenha", "name"],
+        ["css=#pwdSenha", "css:finder"],
+        ["xpath=//input[@id='pwdSenha']", "xpath:attributes"],
+        ["xpath=//div[@id='divAutenticacao']/input", "xpath:idRelative"],
+        ["xpath=//div[4]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "a9c5cb1e-7bd8-4dad-b00d-c706664704f8",
+      "comment": "",
+      "command": "type",
+      "target": "id=pwdSenha",
+      "targets": [
+        ["id=pwdSenha", "id"],
+        ["name=pwdSenha", "name"],
+        ["css=#pwdSenha", "css:finder"],
+        ["xpath=//input[@id='pwdSenha']", "xpath:attributes"],
+        ["xpath=//div[@id='divAutenticacao']/input", "xpath:idRelative"],
+        ["xpath=//div[4]/input", "xpath:position"]
+      ],
+      "value": "arquivista01"
+    }, {
+      "id": "9eb8f55c-e615-48c4-9f88-99111b423893",
+      "comment": "",
+      "command": "chooseOkOnNextConfirmation",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ea5f5f65-1b5f-4349-8cf4-07779de671e7",
+      "comment": "",
+      "command": "click",
+      "target": "id=sbmSalvar",
+      "targets": [
+        ["id=sbmSalvar", "id"],
+        ["name=sbmSalvar", "name"],
+        ["css=#sbmSalvar", "css:finder"],
+        ["xpath=//button[@id='sbmSalvar']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraBarraComandosSuperior']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Salvar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "cdf07613-2ab5-439a-ac06-c59125377b3a",
+      "comment": "",
+      "command": "webdriverChooseOkOnVisibleConfirmation",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7c4d020e-5edc-4ce6-9c70-2df71aaec58f",
+      "comment": "",
+      "command": "click",
+      "target": "css=#lnkSairSistema > .infraImg",
+      "targets": [
+        ["css=#lnkSairSistema > .infraImg", "css:finder"],
+        ["xpath=//img[@alt='Sair do Sistema']", "xpath:img"],
+        ["xpath=//a[@id='lnkSairSistema']/img", "xpath:idRelative"],
+        ["xpath=//a[5]/img", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "79eb2f11-552a-484c-b740-b0628ef0f9c7",
+      "comment": "",
+      "command": "close",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "90e60442-ddc7-4ae8-a3c1-abe45da5be76",
+    "name": "080-PendenciasArquivamento-ArquivarMassa",
+    "commands": [{
+      "id": "6d8fbe9c-b21c-4fa7-90ed-d7a7237007fc",
+      "comment": "",
+      "command": "open",
+      "target": "/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d8469a06-e0c5-4b86-ba3c-684e627cddd9",
+      "comment": "",
+      "command": "type",
+      "target": "id=txtUsuario",
+      "targets": [
+        ["id=txtUsuario", "id"],
+        ["name=txtUsuario", "name"],
+        ["css=#txtUsuario", "css:finder"],
+        ["xpath=//input[@id='txtUsuario']", "xpath:attributes"],
+        ["xpath=//div[@id='divUsuario']/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "arquivista01"
+    }, {
+      "id": "24ed14e1-51f4-4ee4-8892-59160abeeb35",
+      "comment": "",
+      "command": "type",
+      "target": "id=pwdSenha",
+      "targets": [
+        ["id=pwdSenha", "id"],
+        ["name=pwdSenha", "name"],
+        ["css=#pwdSenha", "css:finder"],
+        ["xpath=//input[@id='pwdSenha']", "xpath:attributes"],
+        ["xpath=//div[@id='divUsuario']/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "arquivista01"
+    }, {
+      "id": "a1799808-3192-418c-8733-4ad2c3233caf",
+      "comment": "",
+      "command": "click",
+      "target": "id=sbmLogin",
+      "targets": [
+        ["id=sbmLogin", "id"],
+        ["name=sbmLogin", "name"],
+        ["css=#sbmLogin", "css:finder"],
+        ["xpath=//button[@id='sbmLogin']", "xpath:attributes"],
+        ["xpath=//div[@id='divBotoes']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Acessar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c0abf5ee-3c13-4dad-ba15-bb483fe7a107",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Controle de Processos",
+      "targets": [
+        ["linkText=Controle de Processos", "linkText"],
+        ["css=#main-menu > li:nth-child(2) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Controle de Processos')]", "xpath:link"],
+        ["xpath=//ul[@id='main-menu']/li[2]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'controlador.php?acao=procedimento_controlar&infra_sistema=100000100&infra_unidade_atual=110000004&infra_hash=b07bd8ab4706a5460e97181ecef6b29be7210cdac8f995e2f68bb09558d1d765')]", "xpath:href"],
+        ["xpath=//div[2]/ul/li[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Controle de Processos')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "00b18bea-08bc-4828-9c1a-7225762bc8f2",
+      "comment": "",
+      "command": "click",
+      "target": "id=imgGeradosCheck",
+      "targets": [
+        ["id=imgGeradosCheck", "id"],
+        ["css=#imgGeradosCheck", "css:finder"],
+        ["xpath=//img[@alt='Selecionar Tudo']", "xpath:img"],
+        ["xpath=//img[@id='imgGeradosCheck']", "xpath:attributes"],
+        ["xpath=//a[@id='lnkInfraCheck']/img", "xpath:idRelative"],
+        ["xpath=//th/a/img", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "b3855e33-0e98-4de1-a30c-a850f0ff4925",
+      "comment": "",
+      "command": "click",
+      "target": "css=.botaoSEI:nth-child(6) > .infraCorBarraSistema",
+      "targets": [
+        ["css=.botaoSEI:nth-child(6) > .infraCorBarraSistema", "css:finder"],
+        ["xpath=//img[@alt='Concluir Processo nesta Unidade']", "xpath:img"],
+        ["xpath=//div[@id='divComandos']/a[6]/img", "xpath:idRelative"],
+        ["xpath=//a[6]/img", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f17757b2-d8d2-4c0b-92a8-cb43a4ca77b2",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Pendências de arquivamento",
+      "targets": [
+        ["linkText=Pendências de arquivamento", "linkText"],
+        ["css=li:nth-child(20) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Pendências de arquivamento')]", "xpath:link"],
+        ["xpath=//ul[@id='main-menu']/li[20]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'controlador.php?acao=gd_pendencias_arquivamento&infra_sistema=100000100&infra_unidade_atual=110000004&infra_hash=c275a684b594ad1e3d054ea821c1955bfbaa8db71d7746ba97f2ebba8b29c97d')]", "xpath:href"],
+        ["xpath=//li[20]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Pendências de arquivamento')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "651b8e6d-f3b1-4256-9b42-1e2f39c5b504",
+      "comment": "",
+      "command": "click",
+      "target": "id=imgInfraCheck",
+      "targets": [
+        ["id=imgInfraCheck", "id"],
+        ["css=#imgInfraCheck", "css:finder"],
+        ["xpath=//img[@alt='Selecionar Tudo']", "xpath:img"],
+        ["xpath=//img[@id='imgInfraCheck']", "xpath:attributes"],
+        ["xpath=//a[@id='lnkInfraCheck']/img", "xpath:idRelative"],
+        ["xpath=//th/a/img", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "108c31a0-4b2a-4620-93f8-2334abc5e10a",
+      "comment": "",
+      "command": "click",
+      "target": "id=sbmArquivar",
+      "targets": [
+        ["id=sbmArquivar", "id"],
+        ["css=#divInfraBarraComandosSuperior > #sbmArquivar", "css:finder"],
+        ["xpath=//button[@id='sbmArquivar']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraBarraComandosSuperior']/button[3]", "xpath:idRelative"],
+        ["xpath=//button[3]", "xpath:position"],
+        ["xpath=//button[contains(.,'Arquivar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "7d27fbf9-0705-4f77-a095-0fb19787b3a4",
+      "comment": "",
+      "command": "select",
+      "target": "id=selJustificativa",
+      "targets": [],
+      "value": "label=Justificativa de Arquivamento 01"
+    }, {
+      "id": "1e681aa8-5fa3-4313-aebe-921fa20a5aac",
+      "comment": "",
+      "command": "click",
+      "target": "id=selJustificativa",
+      "targets": [
+        ["id=selJustificativa", "id"],
+        ["name=selJustificativa", "name"],
+        ["css=#selJustificativa", "css:finder"],
+        ["xpath=//select[@id='selJustificativa']", "xpath:attributes"],
+        ["xpath=//fieldset[@id='fieldsetDadosArquivamento']/select[2]", "xpath:idRelative"],
+        ["xpath=//select[2]", "xpath:position"],
+        ["xpath=//select[contains(.,'Just Dup 2019-12-26-15-55-17\nJust Dup 2019-12-26-15-55-17\nJustificativa de Arquivamento 01\nJustificativa de Arquivamento 02')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "95156df1-d6c0-42ef-ab6b-945dd4e0c2bc",
+      "comment": "",
+      "command": "select",
+      "target": "id=selCargoFuncao",
+      "targets": [],
+      "value": "label=Assessor(a)"
+    }, {
+      "id": "add129b5-de42-47a4-9510-d0c7a63e5b3b",
+      "comment": "",
+      "command": "click",
+      "target": "id=selCargoFuncao",
+      "targets": [
+        ["id=selCargoFuncao", "id"],
+        ["name=selCargoFuncao", "name"],
+        ["css=#selCargoFuncao", "css:finder"],
+        ["xpath=//select[@id='selCargoFuncao']", "xpath:attributes"],
+        ["xpath=//div[@id='divCargoFuncao']/select", "xpath:idRelative"],
+        ["xpath=//div[3]/select", "xpath:position"],
+        ["xpath=//select[contains(.,' \nAssessor(a)\nGestor de Contrato')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "8d689f87-9ee9-4f4f-974e-d5e46a7b6161",
+      "comment": "",
+      "command": "click",
+      "target": "id=pwdSenha",
+      "targets": [
+        ["id=pwdSenha", "id"],
+        ["name=pwdSenha", "name"],
+        ["css=#pwdSenha", "css:finder"],
+        ["xpath=//input[@id='pwdSenha']", "xpath:attributes"],
+        ["xpath=//div[@id='divAutenticacao']/input", "xpath:idRelative"],
+        ["xpath=//div[4]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "7b7d9855-0594-45e3-bdf1-d277fcb28e0d",
+      "comment": "",
+      "command": "type",
+      "target": "id=pwdSenha",
+      "targets": [
+        ["id=pwdSenha", "id"],
+        ["name=pwdSenha", "name"],
+        ["css=#pwdSenha", "css:finder"],
+        ["xpath=//input[@id='pwdSenha']", "xpath:attributes"],
+        ["xpath=//div[@id='divAutenticacao']/input", "xpath:idRelative"],
+        ["xpath=//div[4]/input", "xpath:position"]
+      ],
+      "value": "arquivista01"
+    }, {
+      "id": "7a77c65f-2216-4eae-9d24-a047e18836a6",
+      "comment": "",
+      "command": "click",
+      "target": "id=sbmSalvar",
+      "targets": [
+        ["id=sbmSalvar", "id"],
+        ["name=sbmSalvar", "name"],
+        ["css=#sbmSalvar", "css:finder"],
+        ["xpath=//button[@id='sbmSalvar']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraBarraComandosSuperior']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Salvar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "169f39f5-6bb4-4394-a3ca-259becc828c0",
+      "comment": "",
+      "command": "click",
+      "target": "css=.infraCaption",
+      "targets": [
+        ["css=.infraCaption", "css:finder"],
+        ["xpath=//div[@id='divInfraAreaTabela']/table/caption", "xpath:idRelative"],
+        ["xpath=//caption", "xpath:position"],
+        ["xpath=//caption[contains(.,'Lista de Pendências de Arquivamento (3 registros):')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "bdcd251c-f6c3-4913-9a91-64d587750f07",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=.infraCaption",
+      "targets": [
+        ["css=.infraCaption", "css:finder"],
+        ["xpath=//div[@id='divInfraAreaTabela']/table/caption", "xpath:idRelative"],
+        ["xpath=//caption", "xpath:position"],
+        ["xpath=//caption[contains(.,'Lista de Pendências de Arquivamento (3 registros):')]", "xpath:innerText"]
+      ],
+      "value": "Lista de Pendências de Arquivamento (6 registros):"
+    }, {
+      "id": "3ed045f7-748f-423e-967e-bf80e3d35b39",
+      "comment": "",
+      "command": "",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0c472021-38c5-40bf-a923-4759a54c02e5",
+      "comment": "",
+      "command": "click",
+      "target": "id=lnkSairSistema",
+      "targets": [
+        ["id=lnkSairSistema", "id"],
+        ["css=#lnkSairSistema", "css:finder"],
+        ["xpath=//a[@id='lnkSairSistema']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraBarraSistemaD']/div[6]/a[5]", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'controlador.php?acao=sair&infra_sistema=100000100&infra_unidade_atual=110000004&infra_hash=b57d9df2335229af167feaa294d5ef40fc337f0ff31433afc6db5ba182f76ad3')]", "xpath:href"],
+        ["xpath=//a[5]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "6f049f6c-2261-4326-aa6a-7b3f4170d95d",
+      "comment": "",
+      "command": "close",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "8f087752-49f2-44dd-b8e8-368c067a7435",
+    "name": "090-PendenciasArquivamento-ArquivarUnico",
+    "commands": [{
+      "id": "f79bead6-03d8-4dd6-be8a-c87f15d3d06c",
+      "comment": "",
+      "command": "open",
+      "target": "/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f990ea39-1bbb-4c46-98e9-7febfc803816",
+      "comment": "",
+      "command": "type",
+      "target": "id=txtUsuario",
+      "targets": [
+        ["id=txtUsuario", "id"],
+        ["name=txtUsuario", "name"],
+        ["css=#txtUsuario", "css:finder"],
+        ["xpath=//input[@id='txtUsuario']", "xpath:attributes"],
+        ["xpath=//div[@id='divUsuario']/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "arquivista01"
+    }, {
+      "id": "79a014e3-dd76-49c0-a82c-21a2102b8a0f",
+      "comment": "",
+      "command": "type",
+      "target": "id=pwdSenha",
+      "targets": [
+        ["id=pwdSenha", "id"],
+        ["name=pwdSenha", "name"],
+        ["css=#pwdSenha", "css:finder"],
+        ["xpath=//input[@id='pwdSenha']", "xpath:attributes"],
+        ["xpath=//div[@id='divUsuario']/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "arquivista01"
+    }, {
+      "id": "f693488d-c4aa-4dd8-8830-1056ff6611e5",
+      "comment": "",
+      "command": "click",
+      "target": "id=sbmLogin",
+      "targets": [
+        ["id=sbmLogin", "id"],
+        ["name=sbmLogin", "name"],
+        ["css=#sbmLogin", "css:finder"],
+        ["xpath=//button[@id='sbmLogin']", "xpath:attributes"],
+        ["xpath=//div[@id='divBotoes']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Acessar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c512aec1-bbe1-4027-b0fe-03cfe1e7bc76",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Pendências de arquivamento",
+      "targets": [
+        ["linkText=Pendências de arquivamento", "linkText"],
+        ["css=li:nth-child(20) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Pendências de arquivamento')]", "xpath:link"],
+        ["xpath=//ul[@id='main-menu']/li[20]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'controlador.php?acao=gd_pendencias_arquivamento&infra_sistema=100000100&infra_unidade_atual=110000004&infra_hash=c275a684b594ad1e3d054ea821c1955bfbaa8db71d7746ba97f2ebba8b29c97d')]", "xpath:href"],
+        ["xpath=//li[20]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Pendências de arquivamento')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "a926bf83-f238-4881-8774-0cd5747e3825",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//td[contains(.,'99993.000056/2019-12')]",
+      "targets": [
+        ["css=.infraTrSelecionada > td:nth-child(3)", "css:finder"],
+        ["xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[3]/td[3]", "xpath:idRelative"],
+        ["xpath=//tr[3]/td[3]", "xpath:position"],
+        ["xpath=//td[contains(.,'99993.000002/2019-49')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "175fced5-c99a-4b59-bc27-eea68f8e094b",
+      "comment": "",
+      "command": "click",
+      "target": "id=divInfraAreaPaginacaoSuperior",
+      "targets": [
+        ["id=divInfraAreaPaginacaoSuperior", "id"],
+        ["css=#divInfraAreaPaginacaoSuperior", "css:finder"],
+        ["xpath=//div[@id='divInfraAreaPaginacaoSuperior']", "xpath:attributes"],
+        ["xpath=//form[@id='frmPendenciasArquivamento']/div[3]", "xpath:idRelative"],
+        ["xpath=//form/div[3]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ef758b4b-37e0-42c0-ad24-a78d1200a51c",
+      "comment": "",
+      "command": "click",
+      "target": "css=.infraTrSelecionada a:nth-child(2) > .infraImg",
+      "targets": [
+        ["css=.infraTrSelecionada a:nth-child(1) > .infraImg", "css:finder"],
+        ["xpath=//img[@alt='Reabrir Processo']", "xpath:img"],
+        ["xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[2]/td[9]/a/img", "xpath:idRelative"],
+        ["xpath=//td[9]/a/img", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "c833f14c-3461-4b1c-93b5-663c0f160faa",
+      "comment": "",
+      "command": "select",
+      "target": "id=selJustificativa",
+      "targets": [],
+      "value": "label=Justificativa de Arquivamento 01"
+    }, {
+      "id": "bb7a76c2-96a2-441a-bcff-3d73218af901",
+      "comment": "",
+      "command": "click",
+      "target": "id=selJustificativa",
+      "targets": [
+        ["id=selJustificativa", "id"],
+        ["name=selJustificativa", "name"],
+        ["css=#selJustificativa", "css:finder"],
+        ["xpath=//select[@id='selJustificativa']", "xpath:attributes"],
+        ["xpath=//fieldset[@id='fieldsetDadosArquivamento']/select[2]", "xpath:idRelative"],
+        ["xpath=//select[2]", "xpath:position"],
+        ["xpath=//select[contains(.,'Just Dup 2019-12-26-15-55-17\nJust Dup 2019-12-26-15-55-17\nJustificativa de Arquivamento 01\nJustificativa de Arquivamento 02')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "a81ef3f5-17a7-47d2-ad7d-ead0e022083d",
+      "comment": "",
+      "command": "select",
+      "target": "id=selCargoFuncao",
+      "targets": [],
+      "value": "label=Assessor(a)"
+    }, {
+      "id": "4d6be8ca-545f-4861-8858-7741079d52d8",
+      "comment": "",
+      "command": "click",
+      "target": "id=selCargoFuncao",
+      "targets": [
+        ["id=selCargoFuncao", "id"],
+        ["name=selCargoFuncao", "name"],
+        ["css=#selCargoFuncao", "css:finder"],
+        ["xpath=//select[@id='selCargoFuncao']", "xpath:attributes"],
+        ["xpath=//div[@id='divCargoFuncao']/select", "xpath:idRelative"],
+        ["xpath=//div[3]/select", "xpath:position"],
+        ["xpath=//select[contains(.,' \nAssessor(a)\nGestor de Contrato')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "61f1c310-7f0c-431e-aca4-b17d8844a8c6",
+      "comment": "",
+      "command": "click",
+      "target": "id=pwdSenha",
+      "targets": [
+        ["id=pwdSenha", "id"],
+        ["name=pwdSenha", "name"],
+        ["css=#pwdSenha", "css:finder"],
+        ["xpath=//input[@id='pwdSenha']", "xpath:attributes"],
+        ["xpath=//div[@id='divAutenticacao']/input", "xpath:idRelative"],
+        ["xpath=//div[4]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "b4667452-a889-4394-a1a1-4959fb8b02c0",
+      "comment": "",
+      "command": "type",
+      "target": "id=pwdSenha",
+      "targets": [
+        ["id=pwdSenha", "id"],
+        ["name=pwdSenha", "name"],
+        ["css=#pwdSenha", "css:finder"],
+        ["xpath=//input[@id='pwdSenha']", "xpath:attributes"],
+        ["xpath=//div[@id='divAutenticacao']/input", "xpath:idRelative"],
+        ["xpath=//div[4]/input", "xpath:position"]
+      ],
+      "value": "arquivista01"
+    }, {
+      "id": "fae7891d-9388-4898-86ac-7ab89a59d69d",
+      "comment": "",
+      "command": "click",
+      "target": "id=sbmSalvar",
+      "targets": [
+        ["id=sbmSalvar", "id"],
+        ["name=sbmSalvar", "name"],
+        ["css=#sbmSalvar", "css:finder"],
+        ["xpath=//button[@id='sbmSalvar']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraBarraComandosSuperior']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Salvar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "64cf9d85-aa04-4c28-8fd2-6eee0d829616",
+      "comment": "",
+      "command": "verifyElementNotPresent",
+      "target": "//a[starts-with(.,'99993.000056') and contains(.,'9')]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f9ce591e-4023-4c5d-97d2-72c782d997cb",
+      "comment": "",
+      "command": "click",
+      "target": "id=lnkSairSistema",
+      "targets": [
+        ["id=lnkSairSistema", "id"],
+        ["css=#lnkSairSistema", "css:finder"],
+        ["xpath=//a[@id='lnkSairSistema']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraBarraSistemaD']/div[6]/a[5]", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'controlador.php?acao=sair&infra_sistema=100000100&infra_unidade_atual=110000004&infra_hash=b57d9df2335229af167feaa294d5ef40fc337f0ff31433afc6db5ba182f76ad3')]", "xpath:href"],
+        ["xpath=//a[5]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "3b48e504-b9da-4371-a4e5-b2df3ffe4529",
+      "comment": "",
+      "command": "close",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }]
   }],
   "suites": [{
     "id": "8717c389-47a3-41fe-827e-ab1ddee72d41",
@@ -1297,7 +2246,7 @@
     "persistSession": false,
     "parallel": false,
     "timeout": 300,
-    "tests": ["22745301-e048-45c3-945a-0d3f73a2aeea"]
+    "tests": ["22745301-e048-45c3-945a-0d3f73a2aeea", "bd1703ac-35c6-48e7-8ea2-ed0d694400a4", "d1080f34-1f78-42de-8ec5-6e3554452dab", "51a7b2c4-9360-4c65-a0f4-7080c868229c", "a13507be-556e-4dbc-8995-a328f6266f93"]
   }],
   "urls": ["http://seigd.intra.planejamento/"],
   "plugins": []
