@@ -2197,7 +2197,7 @@
       "command": "select",
       "target": "id=selPerfil",
       "targets": [],
-      "value": "label=PerfilArquivistaBasico"
+      "value": "label=PerfilArquivistaGeral"
     }, {
       "id": "f77b68f1-534d-45d8-be72-4f6aa3e9c4bc",
       "comment": "",
