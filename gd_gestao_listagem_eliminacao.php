@@ -223,11 +223,11 @@ PaginaSEI::getInstance()->abrirStyle();
 
 #lblPeriodoEmissaoDe {position:absolute;left:38%;top:55%;width:20%;}
 #txtPeriodoEmissaoDe {position:absolute;left:38%;top:70%;width:17%;}
-#imgCalPeriodoEmissaoDe {position:absolute;left:56%;top:72%;width:2%;}
+#imgCalPeriodoEmissaoDe {position:absolute;left:56%;top:72%;}
 
 #lblPeriodoEmissaoAte {position:absolute;left:59%;top:55%;width:20%;}
 #txtPeriodoEmissaoAte {position:absolute;left:59%;top:70%;width:17%;}
-#imgCalPeriodoEmissaoAte {position:absolute;left:77%;top:72%;width:2%;}
+#imgCalPeriodoEmissaoAte {position:absolute;left:77%;top:72%;}
 
 
 <?

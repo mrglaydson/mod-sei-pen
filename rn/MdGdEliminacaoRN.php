@@ -146,7 +146,7 @@ class MdGdEliminacaoRN extends InfraRN {
         $objUnidadeDTO->setNumIdUnidade(SessaoSEI::getInstance()->getNumIdUnidadeAtual());
 
         $objUnidadeRN = new UnidadeRN();
-        $objUnidadeDTO = $objUnidadeRN->consultar($objUnidadeDTO);
+        $objUnidadeDTO = $objUnidadeRN->consultarRN0125($objUnidadeDTO);
         
         $arrVariaveisModelo = [
             '@unidade@' => $objUnidadeDTO->getStrSigla()." - ".$objUnidadeDTO->getStrDescricao(),

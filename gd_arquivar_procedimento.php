@@ -138,19 +138,19 @@ PaginaSEI::getInstance()->abrirStyle();
 ?>
 
 #lblProcedimentos {position:absolute;left:1%;top:11%;}
-#selProcedimentos {position:absolute;left:1%;top:20%;width:96%;}
+#selProcedimentos {position:absolute;left:1%;top:30%;width:96%;}
 
-#lblJustificativa {position:absolute;left:1%;top:52%;}
-#selJustificativa {position:absolute;left:1%;top:61%;width:96%;}
+#lblJustificativa {position:absolute;left:1%;top:0%;}
+#selJustificativa {position:absolute;left:1%;top:45%;width:96%;}
 
-#lblSinLegado { position:absolute;left:1%;top:73%; } 
-#chkSinLegado { position:absolute;left:15.5%;top:72%; }
+/*#chkSinLegado { position:absolute;top:10%; }*/
 
-#lblDataArquivamento { position:absolute;left:1%;top:85%; }
-#txtDataArquivamento { position:absolute;left:16%;top:84%; } 
+#lblDataArquivamento { position:absolute;left:1%;top:0%; }
+#txtDataArquivamento { position:absolute;left:1%;top:40%;width: 17%; } 
+#imgCalDataArquivamento { position: absolute; left: 18.5%; top: 42%; }
 
-#fieldsetDadosArquivamento {position: absolute; left: 0%; top: 12%; height: 41%; width: 97%;} 
-#fieldsetDadosAssinatura   {position: absolute; left: 0%; top: 57%; height: 46%; width: 97%;}
+#fieldsetDadosArquivamento {position: absolute; left: 0%; top: 12%; height: 38%; width: 97%;} 
+#fieldsetDadosAssinatura   {position: absolute; left: 0%; top: 57%; height: 37%; width: 97%;}
 
 #lblOrgao {position: absolute; top: 13%; left: 0%;}
 #selOrgao {position: absolute; top: 57%; width: 50%;}
@@ -177,17 +177,28 @@ PaginaSEI::getInstance()->abrirJavaScript();
     }
 
     function validarConcluirArquivar() {
-        if (document.getElementById('selJustificativa').value == 'null') {
-            alert('Informe uma motivo.');
+        if (document.getElementById('selJustificativa').value == 'null' || document.getElementById('selJustificativa').value == '') {
+            alert('Informe um motivo.');
             return false;
         }
 
-        if (document.getElementById('selOrgao').value == 'null') {
+        if(document.getElementById('chkSinLegado').checked){
+            if (document.getElementById('txtDataArquivamento').value == '') {
+                alert('Informe a data do arquivamento.');
+                return false;
+            }
+
+            if (!infraValidarData(document.getElementById('txtDataArquivamento'))) {
+                return false;
+            }
+        }
+
+        if (document.getElementById('selOrgao').value == 'null' || document.getElementById('selOrgao').value == '') {
             alert('Informe o órgão do assinante.');
             return false;
         }
 
-        if (document.getElementById('selCargoFuncao').value == 'null') {
+        if (document.getElementById('selCargoFuncao').value == 'null' || document.getElementById('selCargoFuncao').value == '') {
             alert('Informe o cargo e função.');
             return false;
         }
@@ -196,7 +207,6 @@ PaginaSEI::getInstance()->abrirJavaScript();
             alert('Informe a senha.');
             return false;
         }
-
 
         if (document.getElementById('hdnTotalCondicionantes').value > 0) {
             if (confirm('Este processo possui condicionante de arquivamento. Deseja realizar o arquivamento?')) {
@@ -211,8 +221,10 @@ PaginaSEI::getInstance()->abrirJavaScript();
 
     function ativarLegado(){
         if(document.getElementById('chkSinLegado').checked){
+            document.getElementById('divDataArquivamento').style.display = "block";
             document.getElementById('txtDataArquivamento').disabled = false;
         }else{
+            document.getElementById('divDataArquivamento').style.display = "none";
             document.getElementById('txtDataArquivamento').disabled = true;
         }
     }
@@ -223,7 +235,7 @@ PaginaSEI::getInstance()->fecharJavaScript();
 PaginaSEI::getInstance()->fecharHead();
 PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
 ?>
-<div id="divGeral" class="infraAreaDados" style="height:50em;">
+<div id="divGeral" class="infraAreaDados" style="height:60em;">
 
     <form id="frmConcluirArquivar" method="post" onsubmit="return OnSubmitForm();"
           action="<?= SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . $_GET['acao'] . '&acao_origem=' . $_GET['acao'] . $strParametros) ?>">
@@ -231,25 +243,35 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
 
         <fieldset class="infraFieldset" id="fieldsetDadosArquivamento">
             <legend class="infraLegend">Dados do Arquivamento</legend>
-            <label id="lblProcedimentos" for="selProcedimentos" class="infraLabelObrigatorio">Processos:</label>
-            <select id="selProcedimentos" name="selProcedimentos" size="4" class="infraSelect"
-                    tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
-                        <?= $strItensSelProcedimentos ?>
-            </select>
 
-            <label id="lblJustificativa" for="selJustificativa" class="infraLabelObrigatorio">Motivo:</label>
-            <select id="selJustificativa" name="selJustificativa"
-                    class="infraSelect"
-                    tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
-                        <?= $strItensSelJustificativas ?>
-            </select>
+            <div id="divProcedimentos" class="infraAreaDados" style="height:10em;">
+                <label id="lblProcedimentos" for="selProcedimentos" class="infraLabelObrigatorio">Processos:</label>
+                <select id="selProcedimentos" name="selProcedimentos" size="4" class="infraSelect"
+                        tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
+                            <?= $strItensSelProcedimentos ?>
+                </select>
+            </div>
 
-            <label id="lblSinLegado" for="chkSinLegado" class="infraLabelCheckbox">Arquivamento legado?</label>
-            <input type="checkbox" id="chkSinLegado" name="chkSinLegado" class="infraCheckbox" tabindex="<?=PaginaSEI::getInstance()->getProxTabDados()?>" onclick="ativarLegado()"/>
+            <div id="divJustificativa" class="infraAreaDados" style="height:4.5em;">
+                <label id="lblJustificativa" for="selJustificativa" class="infraLabelObrigatorio">Motivo:</label>
+                <select id="selJustificativa" name="selJustificativa"
+                        class="infraSelect"
+                        tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
+                            <?= $strItensSelJustificativas ?>
+                </select>
+            </div>
 
-            <label id="lblDataArquivamento" for="txtDataArquivamento" accesskey="e">Data do arquivamento:</label>
-            <input type="text" id="txtDataArquivamento" name="txtDataArquivamento" class="infraText" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" onkeypress="return infraMascara(this, event,'##/##/####')" disabled />
-    
+            <div id="divSinLegado" class="infraAreaDados" style="height:2.5em; padding-left: 0.6em">
+                <input type="checkbox" id="chkSinLegado" name="chkSinLegado" class="infraCheckbox" tabindex="<?=PaginaSEI::getInstance()->getProxTabDados()?>" onclick="ativarLegado()"/>
+                <label id="lblSinLegado" for="chkSinLegado" class="infraLabelCheckbox">Arquivamento legado?</label>
+            </div>
+
+            <div id="divDataArquivamento" class="infraAreaDados" style="height:4em; display:none;">
+                <label id="lblDataArquivamento" for="txtDataArquivamento" accesskey="e">Data do arquivamento:</label>
+                <input type="text" id="txtDataArquivamento" name="txtDataArquivamento" class="infraText" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" onkeypress="return infraMascara(this, event,'##/##/####')" disabled />
+                <img id="imgCalDataArquivamento" title="Selecionar Data de Arquivamento" alt="Selecionar Data de Arquivamento" src="<?= PaginaSEI::getInstance()->getDiretorioImagensGlobal() ?>/calendario.gif" class="infraImg" onclick="infraCalendario('txtDataArquivamento', this);" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />    
+            </div>
+
             <input type="hidden" id="hdnTotalCondicionantes" name="hdnTotalCondicionantes" value="<?= $numTotalCondicionantes ?>"/>
         </fieldset>
 

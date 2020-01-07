@@ -312,11 +312,11 @@ PaginaSEI::getInstance()->abrirStyle();
 
 #lblPeriodoDe {position:absolute;left:0%;top:55%;width:20%;}
 #txtPeriodoDe {position:absolute;left:0%;top:70%;width:17%;}
-#imgCalPeriodoD {position:absolute;left:18%;top:72%;width:2%;}
+#imgCalPeriodoD {position:absolute;left:18%;top:72%;}
 
 #lblPeriodoA {position:absolute;left:21%;top:55%;width:20%;}
 #txtPeriodoA {position:absolute;left:21%;top:70%;width:17%;}
-#imgCalPeriodoA {position:absolute;left:39%;top:72%;width:2%;}
+#imgCalPeriodoA {position:absolute;left:39%;top:72%;}
 
 #lblSelAssunto {position:absolute;left:42%;top:55%;width:20%;}
 #selAssunto {position:absolute;left:42%;top:70%;width:41%;}
@@ -429,7 +429,7 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
 
     <label id="lblPeriodoDe" for="txtPeriodoDe" accesskey="" class="infraLabelOpcional">De:</label>
     <input type="text" id="txtPeriodoDe" value="<?= $txtPeriodoDe ?>" name="txtPeriodoDe" class="infraText" value="<?= PaginaSEI::tratarHTML($dtaPeriodoDe) ?>" onkeypress="return infraMascaraData(this, event)" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />
-    <img id="imgCalPeriodoD" title="Selecionar Data Inicial" alt="Selecionar Data Inicial" src="<?= PaginaSEI::getInstance()->getDiretorioImagensGlobal() ?>/calendario.gif" class="infraImg" onclick="infraCalendario('txtPeriodoDe', this);" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />    
+    <img id="imgCalPeriodoD" title="Selecionar Data Inicial" alt="Selecionar Data Inicial" onkeypress="return infraMascaraData(this, event)" src="<?= PaginaSEI::getInstance()->getDiretorioImagensGlobal() ?>/calendario.gif" class="infraImg" onclick="infraCalendario('txtPeriodoDe', this);" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />    
 
     <label id="lblPeriodoA" for="txtPeriodoA" accesskey="" class="infraLabelOpcional">Até:</label>
     <input type="text" id="txtPeriodoA" value="<?= $txtPeriodoA ?>" name="txtPeriodoA" class="infraText" value="<?= PaginaSEI::tratarHTML($dtaPeriodoA) ?>" onkeypress="return infraMascaraData(this, event)" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />

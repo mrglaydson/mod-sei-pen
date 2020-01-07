@@ -462,11 +462,11 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
 
         $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
         
-        /*if($objMdGdArquivamentoRN->contar($objMdGdArquivamentoDTO) != 0){
+        if($objMdGdArquivamentoRN->contar($objMdGdArquivamentoDTO) != 0){
             $objInfraException = new InfraException();
             $objInfraException->lancarValidacao('O processo não pode ser reaberto pois encontra-se arquivado!');
             return false;
-        }*/
+        }
 
         return null;
     }

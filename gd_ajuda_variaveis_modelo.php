@@ -53,8 +53,8 @@ try {
 
             $arrVariaveis[] = array('@orgao@', 'Órgão gerador');
             $arrVariaveis[] = array('@unidade@', 'Unidade geradora');
-            $arrVariaveis[] = array('@data_eliminacao@', 'Data do arquivamento');
-            $arrVariaveis[] = array('@responsavel_eliminacao@', 'Responsável pelo arquivamento');
+            $arrVariaveis[] = array('@data_eliminacao@', 'Data da eliminação');
+            $arrVariaveis[] = array('@responsavel_eliminacao@', 'Responsável pela eliminação');
             break;
         default:
             throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");

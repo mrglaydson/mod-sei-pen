@@ -209,9 +209,9 @@ try {
 
                     $strResultado .= '<td valign="top">' . PaginaSEI::getInstance()->getTrCheck($i, $arrObjProcedimentoDTO[$i]->getDblIdProcedimento(), $arrObjProcedimentoDTO[$i]->getStrProtocoloProcedimentoFormatado()) . '</td>';
                     $strResultado .= '<td>' . $c . '</td>';
-                    $strResultado .= '<td><a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=procedimento_trabalhar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao'] . '&id_procedimento=' . $arrObjProcedimentoDTO[$i]->getDblIdProcedimento()) . '" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . ' " target="_blank">' . $arrObjProcedimentoDTO[$i]->getStrProtocoloProcedimentoFormatado() . '</a>';
-                    $strResultado .= '<td>'. $arrObjProcedimentoDTO[$i]->getStrDescricaoProtocolo().'</td>';
-
+                    
+                    $strResultado .= '<td>';
+                    $strResultado .= '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=procedimento_trabalhar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao'] . '&id_procedimento=' . $arrObjProcedimentoDTO[$i]->getDblIdProcedimento()) . '" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . ' " target="_blank">' . $arrObjProcedimentoDTO[$i]->getStrProtocoloProcedimentoFormatado() . '</a>';
                     if($arrObjProcedimentoDTO[$i]->getStrStaNivelAcessoGlobalProtocolo() == ProtocoloRN::$NA_RESTRITO){
                         $strResultado .= '<img src="imagens/sei_chave_restrito.gif" title="Processo Restrito" title="Processo Restrito" class="infraImg" />';
                     }
@@ -219,10 +219,9 @@ try {
                     if($arrObjProcedimentoDTO[$i]->getStrStaNivelAcessoGlobalProtocolo() == ProtocoloRN::$NA_SIGILOSO){
                         $strResultado .= '<img src="imagens/sei_chave_sigiloso.gif" title="Processo Sigiloso" title="Processo Sigiloso" class="infraImg" />';
                     }
-        
-                   
                     $strResultado .= '</td>';
-                    
+
+                    $strResultado .= '<td>'. $arrObjProcedimentoDTO[$i]->getStrDescricaoProtocolo().'</td>';
                     $strResultado .= '<td>' . $arrObjAtividadeDTO[$arrObjProcedimentoDTO[$i]->getDblIdProcedimento()]->getDthAbertura() . '</td>';
                     $strResultado .= '<td>' . $arrObjProcedimentoDTO[$i]->getStrNomeTipoProcedimento() . '</td>';
                     $strResultado .= '<td>' . $strAssuntosProcedimento. '</td>';
@@ -269,11 +268,11 @@ PaginaSEI::getInstance()->abrirStyle();
 
 #lblPeriodoDe {position:absolute;left:0%;top:0%;width:20%;}
 #txtPeriodoDe {position:absolute;left:0%;top:17%;width:17%;}
-#imgCalPeriodoD {position:absolute;left:18%;top:17%;width:2%;}
+#imgCalPeriodoD {position:absolute;left:18%;top:17%;}
 
 #lblPeriodoA {position:absolute;left:21%;top:0%;width:20%;}
 #txtPeriodoA {position:absolute;left:21%;top:17%;width:17%;}
-#imgCalPeriodoA {position:absolute;left:39%;top:17%;width:2%;}
+#imgCalPeriodoA {position:absolute;left:39%;top:17%;}
 
 <?
 PaginaSEI::getInstance()->fecharStyle();

@@ -79,6 +79,16 @@ class MdGdUnidadeArquivamentoRN extends InfraRN {
         }
     }
 
+    protected function contarConectado(MdGdUnidadeArquivamentoDTO $objMdGdArquivamentoDTO) {
+        try {
+
+            $objMdGdUnidadeArquivamentoBD = new MdGdUnidadeArquivamentoBD($this->inicializarObjInfraIBanco());
+            return $objMdGdUnidadeArquivamentoBD->contar($objMdGdArquivamentoDTO);
+        } catch (Exception $e) {
+            throw new InfraException('Erro ao consultar unidade de arquivamento.', $e);
+        }
+    }
+
 }
 
 ?>

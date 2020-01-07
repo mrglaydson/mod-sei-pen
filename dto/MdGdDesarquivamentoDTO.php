@@ -30,7 +30,7 @@ class MdGdDesarquivamentoDTO extends InfraDTO
 
         $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_NUM,
             'IdJustificativa',
-            'id_justificativa_desarquivamento');
+            'id_justificativa');
 
         $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_DTH,
             'DataDesarquivamento',

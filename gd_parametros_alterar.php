@@ -53,13 +53,13 @@ try {
     }
 
     // Busca os valores dos selects
-    $strSelSerieArquivamento = MdGdArquivamentoINT::montarSelectsSerieNomeGerados('', '&nbsp;', $arrObjMdGdParametroDTO['DESPACHO_ARQUIVAMENTO']->getStrValor());
-    $strSelSerieDesarquivamento = MdGdArquivamentoINT::montarSelectsSerieNomeGerados('', '&nbsp;', $arrObjMdGdParametroDTO['DESPACHO_DESARQUIVAMENTO']->getStrValor());
-    $strSelTipoProcedimentoListagemEliminacao = TipoProcedimentoINT::montarSelectNome('', '&nbsp;', $arrObjMdGdParametroDTO['TIPO_PROCEDIMENTO_LISTAGEM_ELIMINACAO']->getStrValor());
-    $strSelSerieListagemEliminacao = MdGdArquivamentoINT::montarSelectsSerieNomeGerados('', '&nbsp;', $arrObjMdGdParametroDTO['TIPO_DOCUMENTO_LISTAGEM_ELIMINACAO']->getStrValor());
+    $strSelSerieArquivamento = MdGdArquivamentoINT::montarSelectsSerieNomeGerados('null', '&nbsp;', $arrObjMdGdParametroDTO['DESPACHO_ARQUIVAMENTO']->getStrValor());
+    $strSelSerieDesarquivamento = MdGdArquivamentoINT::montarSelectsSerieNomeGerados('null', '&nbsp;', $arrObjMdGdParametroDTO['DESPACHO_DESARQUIVAMENTO']->getStrValor());
+    $strSelTipoProcedimentoListagemEliminacao = TipoProcedimentoINT::montarSelectNome('null', '&nbsp;', $arrObjMdGdParametroDTO['TIPO_PROCEDIMENTO_LISTAGEM_ELIMINACAO']->getStrValor());
+    $strSelSerieListagemEliminacao = MdGdArquivamentoINT::montarSelectsSerieNomeGerados('null', '&nbsp;', $arrObjMdGdParametroDTO['TIPO_DOCUMENTO_LISTAGEM_ELIMINACAO']->getStrValor());
    
-    $strSelTipoProcedimetoEliminacao =TipoProcedimentoINT::montarSelectNome('', '&nbsp;', $arrObjMdGdParametroDTO['TIPO_PROCEDIMENTO_ELIMINACAO']->getStrValor());  
-    $strSelSerieDocumentoEliminacao = MdGdArquivamentoINT::montarSelectsSerieNomeGerados('', '&nbsp;', $arrObjMdGdParametroDTO['TIPO_DOCUMENTO_ELIMINACAO']->getStrValor());
+    $strSelTipoProcedimetoEliminacao =TipoProcedimentoINT::montarSelectNome('null', '&nbsp;', $arrObjMdGdParametroDTO['TIPO_PROCEDIMENTO_ELIMINACAO']->getStrValor());  
+    $strSelSerieDocumentoEliminacao = MdGdArquivamentoINT::montarSelectsSerieNomeGerados('null', '&nbsp;', $arrObjMdGdParametroDTO['TIPO_DOCUMENTO_ELIMINACAO']->getStrValor());
 
     $strNomeDespachoArquivamento = $arrObjMdGdParametroDTO[MdGdParametroRN::$PAR_DESPACHO_ARQUIVAMENTO]->getStrNome();
     $strNomeDespachoDesarquivamento = $arrObjMdGdParametroDTO[MdGdParametroRN::$PAR_DESPACHO_DESARQUIVAMENTO]->getStrNome();

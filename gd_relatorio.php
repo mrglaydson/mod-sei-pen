@@ -86,6 +86,15 @@ try {
 
     $arrObjMdGdArquivamentoDTO = $objMdGdArquivamentoRN->listar($objMdGdArquivamentoDTO);
 
+    // Realiza a contabilização
+    $arrContadores = [];
+    $arrSituacoesArquivamento = MdGdArquivamentoRN::obterSituacoesArquivamento();
+
+    foreach($arrSituacoesArquivamento as $sit => $label){
+        $objMdGdArquivamentoDTO->setStrSituacao($sit);
+        $arrContadores[$sit] = $objMdGdArquivamentoRN->contar($objMdGdArquivamentoDTO);
+    }
+
     PaginaSEI::getInstance()->processarPaginacao($objMdGdArquivamentoDTO);
     $numRegistros = count($arrObjMdGdArquivamentoDTO);
 
@@ -130,6 +139,80 @@ try {
         $strResultado .= '</table>';
     }
 
+    $strResultado .= '<table width="20%" class="infraTable" summary="" style="float: left; margin-top: 10px;">' . "\n";
+    $strResultado .= '<tr>';
+    $strResultado .= '<th class="infraTh" width="100%">'.MdGdArquivamentoRN::obterSituacoesArquivamento()[MdGdArquivamentoRN::$ST_FASE_CORRENTE].'</th>' . "\n";
+    $strResultado .= '</tr>' . "\n";
+    $strResultado .= '<tr class="infraTrClara">';
+    $strResultado .= '<td><center>'.$arrContadores[MdGdArquivamentoRN::$ST_FASE_CORRENTE].'</center></td>' . "\n";
+    $strResultado .= '</tr>' . "\n";
+    $strResultado .= '</table>';
+
+    $strResultado .= '<table width="20%" class="infraTable" summary="" style="float: left; margin-top: 10px; margin-left: 10px">' . "\n";
+    $strResultado .= '<tr>';
+    $strResultado .= '<th class="infraTh" width="100%">'.MdGdArquivamentoRN::obterSituacoesArquivamento()[MdGdArquivamentoRN::$ST_FASE_INTERMEDIARIA].'</th>' . "\n";
+    $strResultado .= '</tr>' . "\n";
+    $strResultado .= '<tr class="infraTrClara">';
+    $strResultado .= '<td><center>'.$arrContadores[MdGdArquivamentoRN::$ST_FASE_INTERMEDIARIA].'</center></td>' . "\n";
+    $strResultado .= '</tr>' . "\n";
+    $strResultado .= '</table>';
+
+    $strResultado .= '<table width="20%" class="infraTable" summary="" style="float: left; margin-top: 10px; margin-left: 10px">' . "\n";
+    $strResultado .= '<tr>';
+    $strResultado .= '<th class="infraTh" width="100%">'.MdGdArquivamentoRN::obterSituacoesArquivamento()[MdGdArquivamentoRN::$ST_PREPARACAO_RECOLHIMENTO].'</th>' . "\n";
+    $strResultado .= '</tr>' . "\n";
+    $strResultado .= '<tr class="infraTrClara">';
+    $strResultado .= '<td><center>'.$arrContadores[MdGdArquivamentoRN::$ST_PREPARACAO_RECOLHIMENTO].'</center></td>' . "\n";
+    $strResultado .= '</tr>' . "\n";
+    $strResultado .= '</table>';
+
+    $strResultado .= '<table width="20%" class="infraTable" summary="" style="float: left; margin-top: 10px; margin-left: 10px">' . "\n";
+    $strResultado .= '<tr>';
+    $strResultado .= '<th class="infraTh" width="100%">'.MdGdArquivamentoRN::obterSituacoesArquivamento()[MdGdArquivamentoRN::$ST_PREPARACAO_ELIMINACAO].'</th>' . "\n";
+    $strResultado .= '</tr>' . "\n";
+    $strResultado .= '<tr class="infraTrClara">';
+    $strResultado .= '<td><center>'.$arrContadores[MdGdArquivamentoRN::$ST_PREPARACAO_ELIMINACAO].'</center></td>' . "\n";
+    $strResultado .= '</tr>' . "\n";
+    $strResultado .= '</table>';
+
+    $strResultado .= '<table width="20%" class="infraTable" summary="" style="float: left; margin-top: 10px;">' . "\n";
+    $strResultado .= '<tr>';
+    $strResultado .= '<th class="infraTh" width="100%">'.MdGdArquivamentoRN::obterSituacoesArquivamento()[MdGdArquivamentoRN::$ST_ENVIADO_RECOLHIMENTO].'</th>' . "\n";
+    $strResultado .= '</tr>' . "\n";
+    $strResultado .= '<tr class="infraTrClara">';
+    $strResultado .= '<td><center>'.$arrContadores[MdGdArquivamentoRN::$ST_ENVIADO_RECOLHIMENTO].'</center></td>' . "\n";
+    $strResultado .= '</tr>' . "\n";
+    $strResultado .= '</table>';
+
+    $strResultado .= '<table width="20%" class="infraTable" summary="" style="float: left; margin-top: 10px; margin-left: 10px">' . "\n";
+    $strResultado .= '<tr>';
+    $strResultado .= '<th class="infraTh" width="100%">'.MdGdArquivamentoRN::obterSituacoesArquivamento()[MdGdArquivamentoRN::$ST_ENVIADO_ELIMINACAO].'</th>' . "\n";
+    $strResultado .= '</tr>' . "\n";
+    $strResultado .= '<tr class="infraTrClara">';
+    $strResultado .= '<td><center>'.$arrContadores[MdGdArquivamentoRN::$ST_ENVIADO_ELIMINACAO].'</center></td>' . "\n";
+    $strResultado .= '</tr>' . "\n";
+    $strResultado .= '</table>';
+
+    $strResultado .= '<table width="20%" class="infraTable" summary="" style="float: left; margin-top: 10px; margin-left: 10px">' . "\n";
+    $strResultado .= '<tr>';
+    $strResultado .= '<th class="infraTh" width="100%">'.MdGdArquivamentoRN::obterSituacoesArquivamento()[MdGdArquivamentoRN::$ST_RECOLHIDO].'</th>' . "\n";
+    $strResultado .= '</tr>' . "\n";
+    $strResultado .= '<tr class="infraTrClara">';
+    $strResultado .= '<td><center>'.$arrContadores[MdGdArquivamentoRN::$ST_RECOLHIDO].'</center></td>' . "\n";
+    $strResultado .= '</tr>' . "\n";
+    $strResultado .= '</table>';
+
+    $strResultado .= '<table width="20%" class="infraTable" summary="" style="float: left; margin-top: 10px; margin-left: 10px">' . "\n";
+    $strResultado .= '<tr>';
+    $strResultado .= '<th class="infraTh" width="100%">'.MdGdArquivamentoRN::obterSituacoesArquivamento()[MdGdArquivamentoRN::$ST_ELIMINADO].'</th>' . "\n";
+    $strResultado .= '</tr>' . "\n";
+    $strResultado .= '<tr class="infraTrClara">';
+    $strResultado .= '<td><center>'.$arrContadores[MdGdArquivamentoRN::$ST_ELIMINADO].'</center></td>' . "\n";
+    $strResultado .= '</tr>' . "\n";
+    $strResultado .= '</table>';
+
+    
+
     // Busca uma lista de unidades
     $strItensSelUnidade = UnidadeINT::montarSelectSiglaDescricao('null', '&nbsp;', $selUnidade);
     $strItensSelTipoProcedimento = TipoProcedimentoINT::montarSelectNome('null', 'Todos', $selTipoProcedimento);
@@ -167,11 +250,11 @@ PaginaSEI::getInstance()->abrirStyle();
 
 #lblPeriodoDe {position:absolute;left:42%;top:55%;width:20%;}
 #txtPeriodoDe {position:absolute;left:42%;top:70%;width:17%;}
-#imgCalPeriodoD {position:absolute;left:60%;top:72%;width:2%;}
+#imgCalPeriodoD {position:absolute;left:60%;top:72%;}
 
 #lblPeriodoA {position:absolute;left:63%;top:55%;width:20%;}
 #txtPeriodoA {position:absolute;left:63%;top:70%;width:17%;}
-#imgCalPeriodoA {position:absolute;left:81%;top:72%;width:2%;}
+#imgCalPeriodoA {position:absolute;left:81%;top:72%;}
 
 <?
 PaginaSEI::getInstance()->fecharStyle();

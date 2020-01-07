@@ -163,9 +163,9 @@ try {
             $strResultado .= $strCssTr;
 
             $strResultado .= '<td valign="top">' . PaginaSEI::getInstance()->getTrCheck($i, $arrObjMdGdArquivamentoDTO[$i]->getDblIdProcedimento(), $arrObjMdGdArquivamentoDTO[$i]->getStrProtocoloFormatado()) . '</td>';
-            $strResultado .= '<td><a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=procedimento_trabalhar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao'] . '&id_procedimento=' . $arrObjMdGdArquivamentoDTO[$i]->getDblIdProcedimento()) . '" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . ' " target="_blank">' . $arrObjMdGdArquivamentoDTO[$i]->getStrProtocoloFormatado() . '</a>';
-            $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getStrDescricao()) . '</td>';
-
+            
+            $strResultado .= '<td>';
+            $strResultado .= '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=procedimento_trabalhar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao'] . '&id_procedimento=' . $arrObjMdGdArquivamentoDTO[$i]->getDblIdProcedimento()) . '" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . ' " target="_blank">' . $arrObjMdGdArquivamentoDTO[$i]->getStrProtocoloFormatado() . '</a>';
             if($arrObjMdGdArquivamentoDTO[$i]->getStrStaNivelAcessoGlobal() == ProtocoloRN::$NA_RESTRITO){
                 $strResultado .= '<img src="imagens/sei_chave_restrito.gif" title="Processo Restrito" title="Processo Restrito" class="infraImg" />';
             }
@@ -173,6 +173,11 @@ try {
             if($arrObjMdGdArquivamentoDTO[$i]->getStrStaNivelAcessoGlobal() == ProtocoloRN::$NA_SIGILOSO){
                 $strResultado .= '<img src="imagens/sei_chave_sigiloso.gif" title="Processo Sigiloso" title="Processo Sigiloso" class="infraImg" />';
             }
+
+            $strResultado .= '</td>';
+
+            $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getStrDescricao()) . '</td>';
+
             
             // Obtem o tempo formatado de guarda corrente
             $strDthDataGuardaCorrente = $arrObjMdGdArquivamentoDTO[$i]->getDthDataGuardaCorrente();
@@ -239,11 +244,11 @@ PaginaSEI::getInstance()->abrirStyle();
 
 #lblPeriodoDe {position:absolute;left:63%;top:0%;width:10%;}
 #txtPeriodoDe {position:absolute;left:63%;top:20%;width:10%;}
-#imgCalPeriodoD {position:absolute;left:74%;top:20%;width:2%;}
+#imgCalPeriodoD {position:absolute;left:74%;top:20%;}
 
 #lblPeriodoA {position:absolute;left:77%;top:0%;width:10%;}
 #txtPeriodoA {position:absolute;left:77%;top:20%;width:10%;}
-#imgCalPeriodoA {position:absolute;left:88%;top:20%;width:2%;}
+#imgCalPeriodoA {position:absolute;left:88%;top:20%;}
 
 <?
 PaginaSEI::getInstance()->fecharStyle();

@@ -161,6 +161,19 @@ class MdGdArquivamentoRN extends InfraRN {
             }else{
                 $objMdGdArquivamentoDTO->setStrSituacao(self::$ST_FASE_INTERMEDIARIA);
                 $objMdGdArquivamentoDTO->setStrStaGuarda(self::$GUARDA_INTERMEDIARIA);
+
+                $objMdGdUnidadeArquivamentoDTO = new MdGdUnidadeArquivamentoDTO();
+                $objMdGdUnidadeArquivamentoDTO->setNumIdUnidadeOrigem(SessaoSEI::getInstance()->getNumIdUnidadeAtual());
+                $objMdGdUnidadeArquivamentoDTO->retNumIdUnidadeDestino();
+
+                $objMdGdUnidadeArquivamentoRN = new MdGdUnidadeArquivamentoRN();
+                
+                if($objMdGdUnidadeArquivamentoRN->contar($objMdGdUnidadeArquivamentoDTO) == 1){
+                    $objMdGdUnidadeArquivamentoDTO = $objMdGdUnidadeArquivamentoRN->consultar($objMdGdUnidadeArquivamentoDTO);
+                    $objMdGdArquivamentoDTO->setNumIdUnidadeIntermediaria($objMdGdUnidadeArquivamentoDTO->getNumIdUnidadeDestino());
+                }
+
+
             }
 
             $objMdGdArquivamentoBD = new MdGdArquivamentoBD($this->inicializarObjInfraIBanco());
