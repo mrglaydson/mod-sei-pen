@@ -1605,6 +1605,13 @@
       ],
       "value": ""
     }, {
+      "id": "90405682-97e1-4f27-b272-c01b36f84630",
+      "comment": "",
+      "command": "pause",
+      "target": "5",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "e34ea9df-f762-4e36-8ccb-adc5b8c95a8d",
       "comment": "",
       "command": "selectFrame",
@@ -1708,6 +1715,13 @@
       ],
       "value": ""
     }, {
+      "id": "12523141-0eb2-4312-8466-afb2836b35f6",
+      "comment": "",
+      "command": "pause",
+      "target": "5",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "3bc24026-f137-46cd-abd7-d1f1d7d0bf8a",
       "comment": "",
       "command": "selectFrame",
@@ -1799,6 +1813,13 @@
       ],
       "value": ""
     }, {
+      "id": "1d4d8107-29c5-4652-9b9b-56688b542382",
+      "comment": "",
+      "command": "pause",
+      "target": "5",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "b4f46d04-aee8-4d01-b9c2-3d0a20c5936c",
       "comment": "",
       "command": "selectFrame",
@@ -1888,6 +1909,13 @@
         ["xpath=//div[@id='divInfraAreaDados']/select", "xpath:idRelative"],
         ["xpath=//div[2]/select", "xpath:position"]
       ],
+      "value": ""
+    }, {
+      "id": "5440384e-5d12-457a-934e-594dce1cc872",
+      "comment": "",
+      "command": "pause",
+      "target": "5",
+      "targets": [],
       "value": ""
     }, {
       "id": "65f6aca2-4b8b-4b3c-b5c8-ed7e4b216b65",
