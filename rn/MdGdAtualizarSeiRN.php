@@ -71,6 +71,7 @@ class MdGdAtualizarSeiRN extends InfraRN {
      */
     protected function atualizarV100Conectado() {
         try {
+
             // Cria o parâmetro no sei com o número da versão
             $this->objInfraParametro->setValor(self::PARAMETRO_VERSAO, self::VERSAO_100);
 
@@ -342,7 +343,16 @@ class MdGdAtualizarSeiRN extends InfraRN {
             $this->objMetaBD->adicionarChaveEstrangeira('md_gd_rec_lista_recolhimento', 'md_gd_recolhimento', array('id_lista_recolhimento'), 'md_gd_lista_recolhimento', array('id_lista_recolhimento'));
      
             // Adiciona o agendamento
-            $this->cadastrarAgendamento();
+            $objInfraAgendamentoDTO = new InfraAgendamentoTarefaDTO();
+            $objInfraAgendamentoDTO->setStrDescricao('Arquivamento em fase intermediária');
+            $objInfraAgendamentoDTO->setStrComando('MdGdAgendamentoRN::verificarTempoGuarda');
+            $objInfraAgendamentoDTO->setStrStaPeriodicidadeExecucao('D');
+            $objInfraAgendamentoDTO->setStrPeriodicidadeComplemento('0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23');
+            $objInfraAgendamentoDTO->setStrSinAtivo('S');
+            $objInfraAgendamentoDTO->setStrSinSucesso('S');
+    
+            $objAtividadeBD = new  AgendamentoBD(BancoSEI::getInstance());
+            $objAtividadeBD->cadastrar($objInfraAgendamentoDTO);
             
         } catch (Exception $ex) {
             throw new InfraException('Erro ao atualizar a versão 1.0.0 do módulo de gestão documetal', $ex);
@@ -581,21 +591,6 @@ class MdGdAtualizarSeiRN extends InfraRN {
         return $objTipoProcedimentoDTO->getNumIdTipoProcedimento();
     }
 
-    protected function cadastrarAgendamento(){
-        $objBanco = BancoSEI::getInstance();
-        $objBanco->abrirConexao();
-
-        $objInfraAgendamentoDTO = new InfraAgendamentoTarefaDTO();
-        $objInfraAgendamentoDTO->setStrDescricao('Arquivamento em fase intermediária');
-        $objInfraAgendamentoDTO->setStrComando('MdGdAgendamentoRN::verificarTempoGuarda');
-        $objInfraAgendamentoDTO->setStrStaPeriodicidadeExecucao('D');
-        $objInfraAgendamentoDTO->setStrPeriodicidadeComplemento('0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23');
-        $objInfraAgendamentoDTO->setStrSinAtivo('S');
-        $objInfraAgendamentoDTO->setStrSinSucesso('S');
-   
-        $objAtividadeBD = new  AgendamentoBD($objBanco);
-        return $objAtividadeBD->cadastrar($objInfraAgendamentoDTO);
-    }
 
 }
 
