@@ -11,35 +11,62 @@ try {
     //////////////////////////////////////////////////////////////////////////////
 
     SessaoSEI::getInstance()->validarLink();
-
     SessaoSEI::getInstance()->validarPermissao('gestao_documental_arquivamento_listar');
-
-    PaginaSEI::getInstance()->salvarCamposPost(array('selTipoProcedimento', 'selDestinacaoFinal', 'selCondicionante', 'txtPeriodoDe', 'txtPeriodoA', 'selAssunto'));
+    PaginaSEI::getInstance()->salvarCamposPost(array('hdnInfraItemId', 'selTipoProcedimento', 'selDestinacaoFinal', 'selCondicionante', 'txtPeriodoDe', 'txtPeriodoA', 'selAssunto'));
 
     switch ($_GET['acao']) {
 
         case 'gd_arquivamento_listar':
             $strTitulo = 'Arquivo da Unidade';
+            break;
+        case 'gd_procedimento_editar_arquivamento':
+            $numIdArquivamento = PaginaSEI::getInstance()->recuperarCampo('hdnInfraItemId');
 
+            $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
+            $objMdGdArquivamentoDTO->setNumIdArquivamento($numIdArquivamento);
+            
+            // Muda a situação do arquivamento para editado
+            $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
+            $objMdGdArquivamentoRN->editarArquivamento($objMdGdArquivamentoDTO);
+            //  header('Location: '.SessaoSEI::getInstance()->assinarLink('controlador.php?acao=procedimento_trabalhar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao'].'&id_procedimento='.$objMdGdArquivamentoDTO->getDblIdProcedimento()));
+            break;
+        case 'gd_procedimento_concluir_edicao_arquivamento':
+            $numIdArquivamento = PaginaSEI::getInstance()->recuperarCampo('hdnInfraItemId');
+
+            // Instancia o arquivamento 
+            $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
+            $objMdGdArquivamentoDTO->setNumIdArquivamento($numIdArquivamento);
+
+            // Muda a situação do arquivamento para conclusão da edição
+            $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
+            $objMdGdArquivamentoRN->concluirEdicaoArquivamento($objMdGdArquivamentoDTO);
             break;
 
         default:
             throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
     }
 
-    // Cria os links
+    // Ação de desarquivar processo
     $bolAcaoDesarquivar = true;
     $strLinkDesarquivar = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_desarquivar_procedimento&acao_origem=' . $_GET['acao']);
     
+    // Ação de devolver arquivamento
+    $bolAcaoEditarArquivamento = true;
+    $strLinkAcaoEditarArquivamento = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_procedimento_editar_arquivamento&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao']);
+    
+    // Ação de conclusão da edição do arquivamento
+    $bolAcaoConcluirEdicaoArquivamento = true;
+    $strLinkAcaoConcluirEdicaoArquivamento = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_procedimento_concluir_edicao_arquivamento&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao']);
+
     $arrComandos = array();
-    $arrComandos[] = '<button type="submit" accesskey="D" id="sbmDesarquivar" value="Desarquivar" class="infraButton" onclick="acaoDesarquivarMultiplo()"><span class="infraTeclaAtalho">D</span>esarquivar</button>';
     $arrComandos[] = '<button type="submit" accesskey="P" id="sbmPesquisar" value="Pesquisar" class="infraButton"><span class="infraTeclaAtalho">P</span>esquisar</button>';
+    $arrComandos[] = '<button type="submit" accesskey="D" id="sbmDesarquivar" value="Desarquivar" class="infraButton" onclick="acaoDesarquivarMultiplo()"><span class="infraTeclaAtalho">D</span>esarquivar</button>';
 
     $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
     $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
     $objMdGdArquivamentoDTO->setNumIdUnidadeCorrente(SessaoSEI::getInstance()->getNumIdUnidadeAtual());
     $objMdGdArquivamentoDTO->setStrSinAtivo('S');
-    $objMdGdArquivamentoDTO->setStrSituacao('CO');
+    $objMdGdArquivamentoDTO->setStrSituacao([MdGdArquivamentoRN::$ST_FASE_CORRENTE, MdGdArquivamentoRN::$ST_DEVOLVIDO, MdGdArquivamentoRN::$ST_FASE_EDICAO], InfraDTO::$OPER_IN);
     $objMdGdArquivamentoDTO->retNumIdArquivamento();
     $objMdGdArquivamentoDTO->retDthDataArquivamento();
     $objMdGdArquivamentoDTO->retStrProtocoloFormatado();
@@ -47,6 +74,7 @@ try {
     $objMdGdArquivamentoDTO->retStrNomeUsuario();
     $objMdGdArquivamentoDTO->retStrDescricaoUnidadeCorrente();
     $objMdGdArquivamentoDTO->retStrDescricao();
+    $objMdGdArquivamentoDTO->retStrSituacao();
     $objMdGdArquivamentoDTO->retDblIdProcedimento();
     $objMdGdArquivamentoDTO->retNumGuardaCorrente();
     $objMdGdArquivamentoDTO->retNumGuardaIntermediaria();
@@ -54,6 +82,7 @@ try {
     $objMdGdArquivamentoDTO->retStrStaNivelAcessoGlobal();
     $objMdGdArquivamentoDTO->retDthDataGuardaCorrente();
     $objMdGdArquivamentoDTO->retDthDataGuardaIntermediaria();
+    $objMdGdArquivamentoDTO->setOrdDthDataGuardaCorrente(InfraDTO::$TIPO_ORDENACAO_ASC);
 
     $selTipoProcedimento = PaginaSEI::getInstance()->recuperarCampo('selTipoProcedimento');
     if ($selTipoProcedimento && $selTipoProcedimento !== 'null') {
@@ -146,8 +175,6 @@ try {
         $strCssTr = '';
 
         for ($i = 0; $i < $numRegistros; $i++) {
-
-
             // Isola os assuntos do processo
             $arrObjRelProtocoloAssuntoDTOProcedimento = $arrObjRelProtocoloAssuntoDTO[$arrObjMdGdArquivamentoDTO[$i]->getDblIdProcedimento()];
             $strAssuntosProcedimento = '';
@@ -187,11 +214,17 @@ try {
             $strTempoGuardaCorrente = MdGdArquivamentoRN::obterTempoArquivamento(date('Y-m-d'), $strDthDataGuardaCorrente);
 
             // Obtem o tempo formatado de guarda intermediária
-            $strDthDataGuardaIntermediaria = $arrObjMdGdArquivamentoDTO[$i]->getDthDataGuardaIntermediaria();
-            $strDthDataGuardaIntermediaria = InfraData::formatarDataBanco(substr($strDthDataGuardaIntermediaria, 0, 10));
-            $strDthDataGuardaIntermediaria = substr($strDthDataGuardaIntermediaria, 0, 10);
+            $strTempoGuardaIntermediaria = '';
+            if($arrObjMdGdArquivamentoDTO[$i]->getStrSituacao() != MdGdArquivamentoRN::$ST_DEVOLVIDO){
+                $strDthDataGuardaIntermediaria = $arrObjMdGdArquivamentoDTO[$i]->getDthDataGuardaIntermediaria();
+                $strDthDataGuardaIntermediaria = InfraData::formatarDataBanco(substr($strDthDataGuardaIntermediaria, 0, 10));
+                $strDthDataGuardaIntermediaria = substr($strDthDataGuardaIntermediaria, 0, 10);
+    
+                $strTempoGuardaIntermediaria = MdGdArquivamentoRN::obterTempoArquivamento(date('Y-m-d'), $strDthDataGuardaIntermediaria);
+            }else{
+                $strTempoGuardaIntermediaria = '<b>Devolvido para correção</b>';
+            }
 
-            $strTempoGuardaIntermediaria = MdGdArquivamentoRN::obterTempoArquivamento(date('Y-m-d'), $strDthDataGuardaIntermediaria);
 
             $strResultado .= '</td>';
 
@@ -200,13 +233,26 @@ try {
             $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getStrNomeUsuario()) . '</td>';
             $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getDthDataArquivamento()) . '</td>';
             $strResultado .= '<td>' . PaginaSEI::tratarHTML($strTempoGuardaCorrente). '</td>';
-            $strResultado .= '<td>' . PaginaSEI::tratarHTML($strTempoGuardaIntermediaria). '</td>';
+            $strResultado .= '<td>' . $strTempoGuardaIntermediaria. '</td>';
             $strResultado .= '<td>' . PaginaSEI::tratarHTML(MdGdArquivamentoRN::obterDestinacoesFinalArquivamento()[$arrObjMdGdArquivamentoDTO[$i]->getStrStaDestinacaoFinal()]) . '</td>';
             
             // Ações
             $strResultado .= '<td align="center">';
-            $strResultado .= '<a href="#" onclick="acaoDesarquivar('.$arrObjMdGdArquivamentoDTO[$i]->getDblIdProcedimento().');"><img src="modulos/sei-mod-gestao-documental/imagens/anotacoes.gif" title="Desarquivar Processo" alt="Desarquivar Processo" class="infraImg" /></a>&nbsp;';
-            $strResultado .= '</td></tr>' . "\n";
+            
+            $strAcoes = '';
+            if($arrObjMdGdArquivamentoDTO[$i]->getStrSituacao() == MdGdArquivamentoRN::$ST_DEVOLVIDO){
+                $strAcoes .= '<a href="#ID-' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '" onclick="acaoEditarArquivamento(\'' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="modulos/sei-mod-gestao-documental/imagens/alterar_metadados.gif" title="Editar Processo" title="Editar Processo" class="infraImg" /></a>';
+            }
+
+            if($arrObjMdGdArquivamentoDTO[$i]->getStrSituacao() == MdGdArquivamentoRN::$ST_FASE_CORRENTE){
+                $strAcoes .= '<a href="#" onclick="acaoDesarquivar('.$arrObjMdGdArquivamentoDTO[$i]->getDblIdProcedimento().');"><img src="modulos/sei-mod-gestao-documental/imagens/anotacoes.gif" title="Desarquivar Processo" alt="Desarquivar Processo" class="infraImg" /></a>&nbsp;';
+            }
+
+            if($arrObjMdGdArquivamentoDTO[$i]->getStrSituacao() == MdGdArquivamentoRN::$ST_FASE_EDICAO){
+                $strAcoes .= '<a href="#ID-' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '" onclick="acaoConcluirEdicaoArquivamento(\'' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="modulos/sei-mod-gestao-documental/imagens/concluir_edicao.gif" title="Concluir Edição" title="Concluir Edição" class="infraImg" /></a>';
+            }
+            
+            $strResultado .= $strAcoes.'</td></tr>' . "\n";
         }
         $strResultado .= '</table>';
     }
@@ -301,6 +347,27 @@ document.getElementById('btnFechar').focus();
             document.getElementById('frmArquivamentoListar').submit();
         }
 <? } ?>
+
+<? if ($bolAcaoEditarArquivamento) { ?>
+    function acaoEditarArquivamento(id_arquivamento){
+        if (confirm("Deseja editar o processo para correção? O processo será reaberto porém seu registro de arquivamento seguirá aberto.")) {
+            document.getElementById('hdnInfraItemId').value = id_arquivamento;
+            document.getElementById('frmArquivamentoListar').action = '<?= $strLinkAcaoEditarArquivamento ?>';
+            document.getElementById('frmArquivamentoListar').submit();
+        }
+    }
+<? } ?>
+
+<? if ($bolAcaoConcluirEdicaoArquivamento) { ?>
+    function acaoConcluirEdicaoArquivamento(id_arquivamento){
+        if (confirm("Confirma a conclusão da edição desse processo?")) {
+            document.getElementById('hdnInfraItemId').value = id_arquivamento;
+            document.getElementById('frmArquivamentoListar').action = '<?= $strLinkAcaoConcluirEdicaoArquivamento ?>';
+            document.getElementById('frmArquivamentoListar').submit();
+        }
+    }
+<? } ?>
+
 <?
 PaginaSEI::getInstance()->fecharJavaScript();
 PaginaSEI::getInstance()->fecharHead();

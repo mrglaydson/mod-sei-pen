@@ -8,6 +8,7 @@ class MdGdArquivamentoRN extends InfraRN {
     public static $ST_FASE_CORRENTE = 'CO';
     public static $ST_FASE_INTERMEDIARIA = 'IN';
     public static $ST_FASE_EDICAO = 'ED';
+    public static $ST_DEVOLVIDO = 'DE';
     public static $ST_PREPARACAO_RECOLHIMENTO = 'PR';
     public static $ST_PREPARACAO_ELIMINACAO = 'PE';
     public static $ST_ENVIADO_RECOLHIMENTO = 'ER';
@@ -564,12 +565,12 @@ class MdGdArquivamentoRN extends InfraRN {
     }
 
     /**
-     * Altera a situação do arquivamento para em edição
+     * Devolve o arquivamento para a unidade corrente para correção
      *
      * @param MdGdArquivamentoDTO $objMdGdArquivamentoDTO
-     * @return boolean
+     * @return void
      */
-    protected function editarArquivamentoControlado(MdGdArquivamentoDTO $objMdGdArquivamentoDTO){
+    protected function devolverArquivamentoControlado(MdGdArquivamentoDTO $objMdGdArquivamentoDTO){
         try {
 
             // Valida se o id do arquivamento foi informado
@@ -585,6 +586,39 @@ class MdGdArquivamentoRN extends InfraRN {
 
             // Valida se o arquivamento está em fase intermediária para ser editado
             if($objMdGdArquivamentoDTO->getStrSituacao() != self::$ST_FASE_INTERMEDIARIA){
+                throw new InfraException('A devolução do processo só pode ser feita quando o arquivamento estiver em fase intermediária e em avaliação.');
+            }
+
+            // Atualiza a situação do arquivamento
+            $objMdGdArquivamentoDTO->setStrSituacao(self::$ST_DEVOLVIDO);
+            return $this->alterar($objMdGdArquivamentoDTO);
+        } catch (Exception $e) {
+            throw new InfraException('Erro ao editar arquivamento.', $e);
+        }
+    }
+    /**
+     * Altera a situação do arquivamento para em edição
+     *
+     * @param MdGdArquivamentoDTO $objMdGdArquivamentoDTO
+     * @return boolean
+     */
+    protected function editarArquivamentoControlado(MdGdArquivamentoDTO $objMdGdArquivamentoDTO){
+        try {
+
+            // Valida se o id do arquivamento foi informado
+            if (!$objMdGdArquivamentoDTO->isSetNumIdArquivamento()) {
+                throw new InfraException('Informe o número do arquivamento');
+            }
+
+            // Obtem o objeto de arquivamento
+            $objMdGdArquivamentoDTO->retDblIdProcedimento();
+            $objMdGdArquivamentoDTO->retNumIdArquivamento();
+            $objMdGdArquivamentoDTO->retDblIdProcedimento();
+            $objMdGdArquivamentoDTO->retStrSituacao();
+            $objMdGdArquivamentoDTO = $this->consultarConectado($objMdGdArquivamentoDTO);
+            
+            // Valida se o arquivamento está em fase intermediária para ser editado
+            if($objMdGdArquivamentoDTO->getStrSituacao() != self::$ST_DEVOLVIDO){
                 throw new InfraException('Alteração do processo só pode ser feita quando o arquivamento estiver em fase intermediária e em avaliação.');
             }
 
@@ -693,40 +727,47 @@ class MdGdArquivamentoRN extends InfraRN {
         ];
     }
 
-    /**
-     * Obtem o tempo de arquivamento restante arredondado em anos e meses
-     *
-     * @param string $dataInicial
-     * @param string $dataFinal
-     * @return string
-     */
-    public static function obterTempoArquivamento($dataInicial, $dataFinal){
 
-        // converte as datas para o formato timestamp
-        $d1 = strtotime($dataInicial); 
-        $d2 = strtotime($dataFinal);
-                
-        // verifica a diferença em segundos entre as duas datas em dias
-        $dias = ($d2 - $d1) / 86400;
-
-        $anos = floor($dias / 365);
-        $meses = floor(($dias - ($anos * 365)) / 30);
-
-        $tempo = '';
-
-        if($anos){
-            $tempo .= $anos.' anos ';
+    public static function obterTempoArquivamento($strDataInicial, $strDataFinal)
+    {
+        $date1 = strtotime($strDataInicial);  
+        $date2 = strtotime($strDataFinal);  
+        
+        if($date1 >= $date2){
+            return 'Prazo de guarda encerrado';   
         }
 
-        if($meses){
-            $tempo .= $meses.' mês';
+        $diff = abs($date2 - $date1);  
+
+        $years = floor($diff / (365*60*60*24));  
+        $months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));  
+        $days = floor(($diff - $years * 365*60*60*24 -  $months*30*60*60*24)/ (60*60*24)); 
+        
+        $strTemporalidade = '';
+
+        if($years == 1){
+            $strTemporalidade .= $years." ano, ";
+        }else{
+            $strTemporalidade .= $years." anos, ";
         }
 
-        if($tempo == ''){
-            $tempo = 'Menos de um mês';
+
+        if($months == 1){
+            $strTemporalidade .= $months." mês e";
+        }else{
+            $strTemporalidade .= $months." meses e ";
         }
 
-        return $tempo;
+
+        if($days == 1){
+            $strTemporalidade .= $days." dia.";
+        }else{
+            $strTemporalidade .= $days." dias.";
+        }
+
+        return $strTemporalidade;
+
+
     }
 
 }

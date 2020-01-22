@@ -17,9 +17,6 @@ class MdGdAgendamentoRN extends InfraRN
 
     public function verificarTempoGuarda()
     {
-    
-        $objSeiRN = new SeiRN();
-
         // Obtem as unidades de destino
         $objMdGdUnidadeArquivamentoDTO = new MdGdUnidadeArquivamentoDTO();
         $objMdGdUnidadeArquivamentoDTO->retNumIdUnidadeOrigem();
@@ -50,43 +47,12 @@ class MdGdAgendamentoRN extends InfraRN
                 continue;
             }
 
-            // Reabre o processo na unidade corrente
-           /* $objEntradaReabrirProcessoAPI = new EntradaReabrirProcessoAPI();
-            $objEntradaReabrirProcessoAPI->setIdProcedimento($objMdGdArquivamentoDTO->getDblIdProcedimento());
-            $objEntradaReabrirProcessoAPI->setProtocoloProcedimento($objMdGdArquivamentoDTO->getDblIdProcedimento());
-            $objSeiRN->reabrirProcesso($objEntradaReabrirProcessoAPI);
-
-            // Desbloqueia o processo
-            $objProcedimentoDTO = new ProcedimentoDTO();
-            $objProcedimentoDTO->setDblIdProcedimento($objMdGdArquivamentoDTO->getDblIdProcedimento());
-            $objProcedimentoDTO->retStrStaEstadoProtocolo();
-            $objProcedimentoDTO->retDblIdProcedimento();
-
-            $objProcedimentoRN = new ProcedimentoRN();
-            $objProcedimentoDTO = $objProcedimentoRN->consultarRN0201($objProcedimentoDTO);
-            $objProcedimentoRN->desbloquear([$objProcedimentoDTO]);
-
-            // Envia o processo para a unidade destino
-            $objEntradaEnviarProcessoAPI = new EntradaEnviarProcessoAPI();
-            $objEntradaEnviarProcessoAPI->setIdProcedimento($objMdGdArquivamentoDTO->getDblIdProcedimento());
-            $objEntradaEnviarProcessoAPI->setProtocoloProcedimento($objMdGdArquivamentoDTO->getDblIdProcedimento());
-            $objEntradaEnviarProcessoAPI->setUnidadesDestino([$arrObjMdGdUnidadeArquivamentoDTO[$objMdGdArquivamentoDTO->getNumIdUnidadeCorrente()]]);
-            $objSeiRN->enviarProcesso($objEntradaEnviarProcessoAPI);
-*/
             // Atualiza a situação e a guarda do arquivamento
             $objMdGdArquivamentoDTO->setStrSituacao(MdGdArquivamentoRN::$ST_FASE_INTERMEDIARIA);
             $objMdGdArquivamentoDTO->setStrStaGuarda(MdGdArquivamentoRN::$ST_FASE_INTERMEDIARIA);
             $objMdGdArquivamentoDTO->setNumIdUnidadeIntermediaria($arrObjMdGdUnidadeArquivamentoDTO[$objMdGdArquivamentoDTO->getNumIdUnidadeCorrente()]);
             
             $objMdGdArquivamentoRN->alterar($objMdGdArquivamentoDTO);
-
-           /* // Faz o login na unidade intermediária
-            SessaoSEI::getInstance(false)->simularLogin(SessaoSEI::$USUARIO_SEI, null, null, 110000002);
-             echo SessaoSEI::getInstance()->getNumIdUnidadeAtual();
-            die('praxedes');*/
-
-            // Encerra o processo na unidade intermediaria
-            // $objMdGdArquivamentoRN->fecharProcedimentoArquivamento($objMdGdArquivamentoDTO);
 
         }
 

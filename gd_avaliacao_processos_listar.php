@@ -50,7 +50,7 @@ try {
             }
             
             break;
-        case 'gd_procedimento_editar_arquivamento':
+        case 'gd_procedimento_devolver_arquivamento':
             $numIdArquivamento = PaginaSEI::getInstance()->recuperarCampo('hdnInfraItemId');
 
             // Instancia o arquivamento 
@@ -60,21 +60,8 @@ try {
             
             // Muda a situação do arquivamento para editado
             $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
-            $objMdGdArquivamentoRN->editarArquivamento($objMdGdArquivamentoDTO);
-            $objMdGdArquivamentoDTO = $objMdGdArquivamentoRN->consultar($objMdGdArquivamentoDTO);
-
-            header('Location: '.SessaoSEI::getInstance()->assinarLink('controlador.php?acao=procedimento_trabalhar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao'].'&id_procedimento='.$objMdGdArquivamentoDTO->getDblIdProcedimento()));
-            break;
-        case 'gd_procedimento_concluir_edicao_arquivamento':
-            $numIdArquivamento = PaginaSEI::getInstance()->recuperarCampo('hdnInfraItemId');
-
-            // Instancia o arquivamento 
-            $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
-            $objMdGdArquivamentoDTO->setNumIdArquivamento($numIdArquivamento);
-
-            // Muda a situação do arquivamento para conclusão da edição
-            $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
-            $objMdGdArquivamentoRN->concluirEdicaoArquivamento($objMdGdArquivamentoDTO);
+            $objMdGdArquivamentoRN->devolverArquivamento($objMdGdArquivamentoDTO);
+          //  header('Location: '.SessaoSEI::getInstance()->assinarLink('controlador.php?acao=procedimento_trabalhar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao'].'&id_procedimento='.$objMdGdArquivamentoDTO->getDblIdProcedimento()));
             break;
         default:
             throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
@@ -91,13 +78,9 @@ try {
     $bolAcaoProcedimentoRecolhimentoEnviar = true;
     $strLinkProcedimentoRecolhimentoEnviar = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_procedimento_recolhimento_enviar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao']);
 
-    // Ação de edição do arquivamento
-    $bolAcaoEditarArquivamento = true;
-    $strLinkAcaoEditarArquivamento = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_procedimento_editar_arquivamento&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao']);
-
-    // Ação de conclusão da edição do arquivamento
-    $bolAcaoConcluirEdicaoArquivamento = true;
-    $strLinkAcaoConcluirEdicaoArquivamento = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_procedimento_concluir_edicao_arquivamento&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao']);
+    // Ação de devolver arquivamento
+    $bolAcaoDevolverArquivamento = true;
+    $strLinkAcaoDevolverArquivamento = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_procedimento_devolver_arquivamento&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao']);
 
     // Busca os arquivamentos em fase intermediária para listagem
     $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
@@ -114,7 +97,8 @@ try {
     $objMdGdArquivamentoDTO->retStrDescricaoUnidadeCorrente();
     $objMdGdArquivamentoDTO->retDblIdProcedimento();
     $objMdGdArquivamentoDTO->retStrStaDestinacaoFinal();
-    $objMdGdArquivamentoDTO->setStrSituacao([MdGdArquivamentoRN::$ST_FASE_INTERMEDIARIA, MdGdArquivamentoRN::$ST_FASE_EDICAO], InfraDTO::$OPER_IN);
+    $objMdGdArquivamentoDTO->setStrSinAtivo('S');
+    $objMdGdArquivamentoDTO->setStrSituacao([MdGdArquivamentoRN::$ST_FASE_INTERMEDIARIA], InfraDTO::$OPER_IN);
     $objMdGdArquivamentoDTO->setNumIdUnidadeIntermediaria(SessaoSEI::getInstance()->getNumIdUnidadeAtual());
     
     $selUnidade = PaginaSEI::getInstance()->recuperarCampo('selUnidade');
@@ -264,13 +248,13 @@ try {
                 } 
 
                 // Ação de edição de metadados
-                $strAcoes .= '<a href="#ID-' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '" onclick="acaoEdicaoArquivamento(\'' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '\', \'' . $arrObjMdGdArquivamentoDTO[$i]->getStrProtocoloFormatado() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="modulos/sei-mod-gestao-documental/imagens/alterar_metadados.gif" title="Alterar Processo" title="Alterar Processo" class="infraImg" /></a>';
+                $strAcoes .= '<a href="#ID-' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '" onclick="acaoDevolver(\'' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '\', \'' . $arrObjMdGdArquivamentoDTO[$i]->getStrProtocoloFormatado() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="modulos/sei-mod-gestao-documental/imagens/devolver.gif" title="Enviar para Correção" title="Enviar para Correção" class="infraImg" /></a>';
             }
             
             // Ações para fase em edição
-            if($arrObjMdGdArquivamentoDTO[$i]->getStrSituacao() == MdGdArquivamentoRN::$ST_FASE_EDICAO){
+         /*   if($arrObjMdGdArquivamentoDTO[$i]->getStrSituacao() == MdGdArquivamentoRN::$ST_DEVOLVIDO){
                 $strAcoes .= '<a href="#ID-' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '" onclick="acaoConcluirEdicaoArquivamento(\'' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '\', \'' . $arrObjMdGdArquivamentoDTO[$i]->getStrProtocoloFormatado() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="modulos/sei-mod-gestao-documental/imagens/alterar_metadados.gif" title="Concluir Alteração" title="Concluir Alteração" class="infraImg" /></a>';
-            }
+            }*/
             
             $strAcoes .= '</td></tr>';
 
@@ -374,11 +358,11 @@ PaginaSEI::getInstance()->montarJavaScript();
         }
 <? } ?>
 
-<? if ($bolAcaoEditarArquivamento) { ?>
-    function acaoEdicaoArquivamento(id_arquivamento){
-        if (confirm("Para alteração do processo, será necessário reabri-lo nessa unidade. Após alterar, será necessário concluir o processo de edição nessa mesma listagem.")) {
+<? if ($bolAcaoDevolverArquivamento) { ?>
+    function acaoDevolver(id_arquivamento){
+        if (confirm("Deseja devolver o processo para correção na unidade corrente?")) {
             document.getElementById('hdnInfraItemId').value = id_arquivamento;
-            document.getElementById('frmAvaliacaoProcessoLista').action = '<?= $strLinkAcaoEditarArquivamento ?>';
+            document.getElementById('frmAvaliacaoProcessoLista').action = '<?= $strLinkAcaoDevolverArquivamento ?>';
             document.getElementById('frmAvaliacaoProcessoLista').submit();
         }
     }

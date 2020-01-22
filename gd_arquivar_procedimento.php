@@ -23,7 +23,6 @@ try {
 
     SessaoSEI::getInstance()->validarPermissao('gestao_documental_arquivar_processo');
 
-
     $arrComandos = array();
 
     $strParametros = '';

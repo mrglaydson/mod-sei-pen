@@ -247,6 +247,14 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
     public function processarControlador($strAcao) {
         // gd_modelos_documento_alterar
         switch ($strAcao) {
+            case 'gd_arquivar_procedimento':
+                require_once dirname(__FILE__) . '/gd_arquivar_procedimento.php';
+                return true;
+
+            case 'gd_desarquivar_procedimento':
+                require_once dirname(__FILE__) . '/gd_desarquivar_procedimento.php';
+                return true;
+                
             case 'gd_anotar_pendencia_arquivamento':
                 require_once dirname(__FILE__) . '/gd_anotar_pendencia_arquivamento.php';
                 return true;
@@ -254,6 +262,8 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
                 require_once dirname(__FILE__) . '/gd_unidade_arquivamento_selecao.php';
                 return true;
             case 'gd_arquivamento_listar':
+            case 'gd_procedimento_editar_arquivamento':
+            case 'gd_procedimento_concluir_edicao_arquivamento':
                 require_once dirname(__FILE__) . '/gd_arquivamento_listar.php';
                 return true;
             case 'gd_relatorio':
@@ -325,8 +335,7 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
             case 'gd_avaliacao_processos_listar':
             case 'gd_procedimento_eliminacao_enviar':
             case 'gd_procedimento_recolhimento_enviar':
-            case 'gd_procedimento_editar_arquivamento':
-            case 'gd_procedimento_concluir_edicao_arquivamento':
+            case 'gd_procedimento_devolver_arquivamento':
                 require_once dirname(__FILE__) . '/gd_avaliacao_processos_listar.php';
                 return true;
             case 'gd_modelo_documento_alterar':
@@ -362,13 +371,7 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
                 require_once dirname(__FILE__) . '/gd_parametros_alterar.php';
                 return true;
 
-            case 'gd_arquivar_procedimento':
-                require_once dirname(__FILE__) . '/gd_arquivar_procedimento.php';
-                return true;
 
-            case 'gd_desarquivar_procedimento':
-                require_once dirname(__FILE__) . '/gd_desarquivar_procedimento.php';
-                return true;
 
             case 'gd_pendencias_arquivamento':
             case 'gd_procedimento_reabrir':
@@ -457,7 +460,7 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
         $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
         $objMdGdArquivamentoDTO->setDblIdProcedimento($objProcedimentoAPI->getIdProcedimento());
         $objMdGdArquivamentoDTO->setStrSinAtivo('S');
-        $objMdGdArquivamentoDTO->setStrSituacao(MdGdArquivamentoRN::$ST_FASE_INTERMEDIARIA, InfraDTO::$OPER_DIFERENTE);
+        $objMdGdArquivamentoDTO->setStrSituacao(MdGdArquivamentoRN::$ST_DEVOLVIDO, InfraDTO::$OPER_DIFERENTE);
         $objMdGdArquivamentoDTO->retDblIdProcedimento();
 
         $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
