@@ -3142,10 +3142,24 @@
       ],
       "value": ""
     }, {
+      "id": "0173ea4a-7173-4181-a060-32e345096392",
+      "comment": "",
+      "command": "pause",
+      "target": "2",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "230a7819-45cd-4b93-bf9d-706c1e23d9f6",
       "comment": "",
       "command": "selectWindow",
       "target": "handle=${root}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "65bd8132-90ca-4390-b001-437521ea4fcd",
+      "comment": "",
+      "command": "pause",
+      "target": "2",
       "targets": [],
       "value": ""
     }, {
