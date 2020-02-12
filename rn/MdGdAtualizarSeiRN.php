@@ -58,24 +58,24 @@ class MdGdAtualizarSeiRN extends InfraRN {
 
         switch ($strVersao) {
             case self::VERSAO_100:
-                echo "A versão mais atual do módulo está instalada";
+                echo "A verso mais atual do mdulo est instalada";
                 break;
             default:
-                echo "Versão não encontrada!";
+                echo "Verso no encontrada!";
                 break;
         }
     }
 
     /**
-     * Atualiza para a primeira versão do módulo
+     * Atualiza para a primeira verso do mdulo
      */
     protected function atualizarV100Conectado() {
         try {
 
-            // Cria o parâmetro no sei com o número da versão
+            // Cria o parmetro no sei com o nmero da verso
             $this->objInfraParametro->setValor(self::PARAMETRO_VERSAO, self::VERSAO_100);
 
-            // Criação da tabela de parâmetros
+            // Criao da tabela de parmetros
             $this->objInfraBanco->executarSql('CREATE TABLE md_gd_parametro (
                 nome  ' . $this->objMetaBD->tipoTextoVariavel(100) . '  NOT NULL ,
                 valor ' . $this->objMetaBD->tipoTextoVariavel(50) . ' 
@@ -83,10 +83,10 @@ class MdGdAtualizarSeiRN extends InfraRN {
 
             $this->objMetaBD->adicionarChavePrimaria('md_gd_parametro', 'pk_md_gd_parametro_nome', array('nome'));
             
-            // Cadastra os parâmetros
+            // Cadastra os parmetros
             $this->cadastrarParametros();
             
-            // Criação da tabela de justificativas arquivamento e desarquivamento
+            // Criao da tabela de justificativas arquivamento e desarquivamento
             $this->objInfraBanco->executarSql('CREATE TABLE md_gd_justificativa (
                 id_justificativa ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL,
                 sta_tipo ' . $this->objMetaBD->tipoTextoFixo(1) . ' NOT NULL,
@@ -100,7 +100,7 @@ class MdGdAtualizarSeiRN extends InfraRN {
                 $this->objInfraSequencia->criarSequencia('md_gd_justificativa', '1', '1', '9999999999');
             }
 
-            // Criação da tabela de arquivamentos
+            // Criao da tabela de arquivamentos
             $this->objInfraBanco->executarSql('CREATE TABLE md_gd_arquivamento (
                 id_arquivamento ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL,
                 id_procedimento ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL,
@@ -116,7 +116,7 @@ class MdGdAtualizarSeiRN extends InfraRN {
                 dta_guarda_intermediaria ' . $this->objMetaBD->tipoDataHora() . ' NOT NULL,
                 guarda_corrente ' . $this->objMetaBD->tipoNumero() . ' NOT NULL,
                 guarda_intermediaria ' . $this->objMetaBD->tipoNumero() . ' NOT NULL,
-                sta_guarda ' . $this->objMetaBD->tipoTextoFixo(1) . ' NOT NULL,
+                sta_guarda ' . $this->objMetaBD->tipoTextoFixo(2) . ' NOT NULL,
                 sta_situacao ' . $this->objMetaBD->tipoTextoFixo(2) . ' NOT NULL,
                 sta_destinacao_final ' .$this->objMetaBD->tipoTextoFixo(1). ' NOT NULL,
                 sin_condicionante ' .$this->objMetaBD->tipoTextoFixo(1). ' NOT NULL,
@@ -138,7 +138,7 @@ class MdGdAtualizarSeiRN extends InfraRN {
                 $this->objInfraSequencia->criarSequencia('md_gd_arquivamento', '1', '1', '9999999999');
             }
 
-            // Cria a tabela de anotações das pendências de arquivamento
+            // Cria a tabela de anotaes das pendncias de arquivamento
             $this->objInfraBanco->executarSql('CREATE TABLE md_gd_anotacao_pendencia (
                 id_anotacao_pendencia ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL,
                 id_procedimento ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL,
@@ -152,7 +152,7 @@ class MdGdAtualizarSeiRN extends InfraRN {
                 $this->objInfraSequencia->criarSequencia('md_gd_anotacao_pendencia', '1', '1', '9999999999');
             }
 
-            // Cria a tabela de histórico de situações do arquivamento
+            // Cria a tabela de histrico de situaes do arquivamento
             $this->objInfraBanco->executarSql('CREATE TABLE md_gd_historico_arquivamento (
                     id_historico_arquivamento ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL,
                     id_arquivamento ' . $this->objMetaBD->tipoNumeroGrande() . '  NOT NULL,
@@ -170,7 +170,7 @@ class MdGdAtualizarSeiRN extends InfraRN {
                 $this->objInfraSequencia->criarSequencia('md_gd_historico_arquivamento', '1', '1', '9999999999');
             }
 
-            // Criação da tabela de desarquivamento
+            // Criao da tabela de desarquivamento
             $this->objInfraBanco->executarSql(' CREATE TABLE md_gd_desarquivamento (
                 id_desarquivamento ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL,
                 id_arquivamento ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL,
@@ -191,7 +191,7 @@ class MdGdAtualizarSeiRN extends InfraRN {
                 $this->objInfraSequencia->criarSequencia('md_gd_desarquivamento', '1', '1', '9999999999');
             }
 
-            // Criação da tabela de modelos de documento
+            // Criao da tabela de modelos de documento
             $this->objInfraBanco->executarSql('CREATE TABLE md_gd_modelo_documento (
                 nome  ' . $this->objMetaBD->tipoTextoVariavel(100) . '  NOT NULL ,
                 valor ' . $this->objMetaBD->tipoTextoGrande() . ' NOT NULL 
@@ -199,10 +199,10 @@ class MdGdAtualizarSeiRN extends InfraRN {
 
             $this->objMetaBD->adicionarChavePrimaria('md_gd_modelo_documento', 'pk_md_gd_modelo_documento_nome', array('nome'));
             
-            // Cadastra os modelos padrões
+            // Cadastra os modelos padres
             $this->cadastrarModelos();
 
-            // Criação da tabela de unidades de arquivamento
+            // Criao da tabela de unidades de arquivamento
             $this->objInfraBanco->executarSql('CREATE TABLE md_gd_unidade_arquivamento (
                     id_unidade_arquivamento ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL,
                     id_unidade_origem ' . $this->objMetaBD->tipoNumero() . ' NOT NULL,
@@ -218,7 +218,7 @@ class MdGdAtualizarSeiRN extends InfraRN {
                 $this->objInfraSequencia->criarSequencia('md_gd_unidade_arquivamento', '1', '1', '9999999999');
             }
 
-            // Criação da tabela da listagem de eliminação
+            // Criao da tabela da listagem de eliminao
             $this->objInfraBanco->executarSql('CREATE TABLE md_gd_lista_eliminacao (
                 id_lista_eliminacao ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL,
                 id_procedimento_eliminacao ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL,
@@ -239,7 +239,7 @@ class MdGdAtualizarSeiRN extends InfraRN {
                 $this->objInfraSequencia->criarSequencia('md_gd_lista_eliminacao', '1', '1', '9999999999');
             }
 
-            // Cria a tabela ternária entre a listagem de eliminação e os procedimentos
+            // Cria a tabela ternria entre a listagem de eliminao e os procedimentos
             $this->objInfraBanco->executarSql('CREATE TABLE md_gd_lista_elim_procedimento (
                 id_lista_eliminacao ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL,
                 id_procedimento ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL
@@ -249,7 +249,7 @@ class MdGdAtualizarSeiRN extends InfraRN {
             $this->objMetaBD->adicionarChaveEstrangeira('md_gd_list_eli_proc_lista_elim', 'md_gd_lista_elim_procedimento', array('id_lista_eliminacao'), 'md_gd_lista_eliminacao', array('id_lista_eliminacao'));
             $this->objMetaBD->adicionarChaveEstrangeira('md_gd_list_eli_proc_proc', 'md_gd_lista_elim_procedimento', array('id_procedimento'), 'procedimento', array('id_procedimento'));
 
-            // Cria a tabela que relaciona os documentos físicos eliminados
+            // Cria a tabela que relaciona os documentos fsicos eliminados
             $this->objInfraBanco->executarSql('CREATE TABLE md_gd_documento_fisico_elim (
                 id_documento ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL,
                 id_lista_eliminacao ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL
@@ -260,7 +260,7 @@ class MdGdAtualizarSeiRN extends InfraRN {
             $this->objMetaBD->adicionarChaveEstrangeira('md_gd_doc_fisico_elim_list_eli', 'md_gd_documento_fisico_elim', array('id_lista_eliminacao'), 'md_gd_lista_eliminacao', array('id_lista_eliminacao'));
 
 
-            // Criação da tabela da listagem de recolhimento
+            // Criao da tabela da listagem de recolhimento
             $this->objInfraBanco->executarSql('CREATE TABLE md_gd_lista_recolhimento (
                 id_lista_recolhimento ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL,
                 numero ' . $this->objMetaBD->tipoTextoVariavel(50) . ' NOT NULL,
@@ -279,7 +279,7 @@ class MdGdAtualizarSeiRN extends InfraRN {
                 $this->objInfraSequencia->criarSequencia('md_gd_lista_recolhimento', '1', '1', '9999999999');
             }
 
-            // Cria a tabela ternária entre a listagem de recolhimento e procedimento
+            // Cria a tabela ternria entre a listagem de recolhimento e procedimento
             $this->objInfraBanco->executarSql('CREATE TABLE md_gd_lista_recol_procedimento (
                 id_lista_recolhimento ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL,
                 id_procedimento ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL
@@ -289,7 +289,7 @@ class MdGdAtualizarSeiRN extends InfraRN {
             $this->objMetaBD->adicionarChaveEstrangeira('md_gd_list_rec_proc_list_rec', 'md_gd_lista_recol_procedimento', array('id_lista_recolhimento'), 'md_gd_lista_recolhimento', array('id_lista_recolhimento'));
             $this->objMetaBD->adicionarChaveEstrangeira('md_gd_list_rec_proc_proc', 'md_gd_lista_recol_procedimento', array('id_procedimento'), 'procedimento', array('id_procedimento'));
 
-            // Cria a tabela de relacionamento de documentos físicos recolhidos
+            // Cria a tabela de relacionamento de documentos fsicos recolhidos
             $this->objInfraBanco->executarSql('CREATE TABLE md_gd_documento_fisico_recol (
                 id_documento ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL,
                 id_lista_recolhimento ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL
@@ -299,7 +299,7 @@ class MdGdAtualizarSeiRN extends InfraRN {
             $this->objMetaBD->adicionarChaveEstrangeira('md_gd_doc_fisico_rec_documento', 'md_gd_documento_fisico_recol', array('id_documento'), 'documento', array('id_documento'));
             $this->objMetaBD->adicionarChaveEstrangeira('md_gd_doc_fisico_rec_list_rec', 'md_gd_documento_fisico_recol', array('id_lista_recolhimento'), 'md_gd_lista_recolhimento', array('id_lista_recolhimento'));
 
-            // Cria a tabela que armazena as eliminações
+            // Cria a tabela que armazena as eliminaes
             $this->objInfraBanco->executarSql('CREATE TABLE md_gd_eliminacao (
                 id_eliminacao ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL,
                 id_usuario ' . $this->objMetaBD->tipoNumero() . ' NOT NULL,
@@ -344,7 +344,7 @@ class MdGdAtualizarSeiRN extends InfraRN {
      
             // Adiciona o agendamento
             $objInfraAgendamentoDTO = new InfraAgendamentoTarefaDTO();
-            $objInfraAgendamentoDTO->setStrDescricao('Arquivamento em fase intermediária');
+            $objInfraAgendamentoDTO->setStrDescricao('Arquivamento em fase intermediria');
             $objInfraAgendamentoDTO->setStrComando('MdGdAgendamentoRN::verificarTempoGuarda');
             $objInfraAgendamentoDTO->setStrStaPeriodicidadeExecucao('D');
             $objInfraAgendamentoDTO->setStrPeriodicidadeComplemento('0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23');
@@ -355,27 +355,27 @@ class MdGdAtualizarSeiRN extends InfraRN {
             $objAtividadeBD->cadastrar($objInfraAgendamentoDTO);
             
         } catch (Exception $ex) {
-            throw new InfraException('Erro ao atualizar a versão 1.0.0 do módulo de gestão documetal', $ex);
+            throw new InfraException('Erro ao atualizar a verso 1.0.0 do mdulo de gesto documetal', $ex);
         }
     }
 
 
     /**
-     * MÉTODOS AUXILIARES DA INSTALAÇÃO
+     * MTODOS AUXILIARES DA INSTALAO
      */
 
      /**
-      * Cadastra os parâmetros de configuração padrões do módulo
+      * Cadastra os parmetros de configurao padres do mdulo
       *
       * @return void
       */
     protected function cadastrarParametros(){
-        $despachoArquivamento = $this->cadastrarTipoDocumento(1, 'Termo de Arquivamento', 'Termo automático para arquivamento de processos no sistema', SerieRN::$TA_INTERNO, 34, SerieRN::$TN_SEQUENCIAL_UNIDADE);
-        $despachoDesarquivamento = $this->cadastrarTipoDocumento(1, 'Termo de Desarquivamento', 'Termo automático para desarquivamento de processos no sistema', SerieRN::$TA_INTERNO, 34, SerieRN::$TN_SEQUENCIAL_UNIDADE);
-        $tipoProcedimentoListagemEliminacao = $this->cadastrarTipoProcedimento('Processo de listagem de eliminação', 'Processo de listagem de eliminação');
-        $tipoDocumentoListagemEliminacao = $this->cadastrarTipoDocumento(1, 'Termo de Listagem de Eliminação', 'Termo automático para listagem de eliminação de processos no sistema', SerieRN::$TA_INTERNO, 34, SerieRN::$TN_SEQUENCIAL_UNIDADE);
-        $tipoDocumentoEliminacao = $this->cadastrarTipoDocumento(1, 'Termo de Eliminação', 'Termo automático para eliminação de processos no sistema', SerieRN::$TA_INTERNO, 34, SerieRN::$TN_SEQUENCIAL_UNIDADE);;
-        $tipoProcedimentoEliminacao = $this->cadastrarTipoProcedimento('Processo de eliminação', 'Processo de eliminação');
+        $despachoArquivamento = $this->cadastrarTipoDocumento(1, 'Termo de Arquivamento', 'Termo automtico para arquivamento de processos no sistema', SerieRN::$TA_INTERNO, 34, SerieRN::$TN_SEQUENCIAL_UNIDADE);
+        $despachoDesarquivamento = $this->cadastrarTipoDocumento(1, 'Termo de Desarquivamento', 'Termo automtico para desarquivamento de processos no sistema', SerieRN::$TA_INTERNO, 34, SerieRN::$TN_SEQUENCIAL_UNIDADE);
+        $tipoProcedimentoListagemEliminacao = $this->cadastrarTipoProcedimento('Processo de listagem de eliminao', 'Processo de listagem de eliminao');
+        $tipoDocumentoListagemEliminacao = $this->cadastrarTipoDocumento(1, 'Termo de Listagem de Eliminao', 'Termo automtico para listagem de eliminao de processos no sistema', SerieRN::$TA_INTERNO, 34, SerieRN::$TN_SEQUENCIAL_UNIDADE);
+        $tipoDocumentoEliminacao = $this->cadastrarTipoDocumento(1, 'Termo de Eliminao', 'Termo automtico para eliminao de processos no sistema', SerieRN::$TA_INTERNO, 34, SerieRN::$TN_SEQUENCIAL_UNIDADE);;
+        $tipoProcedimentoEliminacao = $this->cadastrarTipoProcedimento('Processo de eliminao', 'Processo de eliminao');
 
         $this->cadastrarParametro('DESPACHO_ARQUIVAMENTO', $despachoArquivamento);
         $this->cadastrarParametro('DESPACHO_DESARQUIVAMENTO', $despachoDesarquivamento);
@@ -387,7 +387,7 @@ class MdGdAtualizarSeiRN extends InfraRN {
     }
 
     /**
-     * Cadastra um parâmetro no módulo
+     * Cadastra um parmetro no mdulo
      *
      * @param string $strNome
      * @param string $strValor
@@ -403,12 +403,12 @@ class MdGdAtualizarSeiRN extends InfraRN {
     }
 
     /**
-     * Cadastra os modelos de documento padrões do módulo
+     * Cadastra os modelos de documento padres do mdulo
      *
      * @return void
      */
     public function cadastrarModelos(){
-        $strModeloDespachoArquivamento = '<table summary="Tabela de Variáveis Disponíveis" width="99%">
+        $strModeloDespachoArquivamento = '<table summary="Tabela de Variveis Disponveis" width="99%">
                 <tbody>
                     <tr>
                         <td>@motivo@</td>
@@ -426,7 +426,7 @@ class MdGdAtualizarSeiRN extends InfraRN {
             </table>
         ';
 
-        $strModeloDespachoDesarquivamento = '<table summary="Tabela de Variáveis Disponíveis" width="99%">
+        $strModeloDespachoDesarquivamento = '<table summary="Tabela de Variveis Disponveis" width="99%">
                 <tbody>
                     <tr>
                         <td>@motivo@</td>
@@ -444,7 +444,7 @@ class MdGdAtualizarSeiRN extends InfraRN {
             </table>
         ';
 
-        $strModeloListagemEliminacao = '<table summary="Tabela de Variáveis Disponíveis" width="99%">
+        $strModeloListagemEliminacao = '<table summary="Tabela de Variveis Disponveis" width="99%">
                 <tbody>
                     <tr>
                         <td>@unidade@</td>
@@ -474,7 +474,7 @@ class MdGdAtualizarSeiRN extends InfraRN {
             </table>
             ';
 
-        $strModeloDocumentoEliminacao = '<table summary="Tabela de Variáveis Disponíveis" width="99%">
+        $strModeloDocumentoEliminacao = '<table summary="Tabela de Variveis Disponveis" width="99%">
                     <tbody>
                         <tr>
                             <td>@unidade@</td>
@@ -515,7 +515,7 @@ class MdGdAtualizarSeiRN extends InfraRN {
     }
     
     /**
-     * Método simplificado para cadastro de um tipo de documento
+     * Mtodo simplificado para cadastro de um tipo de documento
      *
      * @param integer $numIdGrupoSerie
      * @param string $strNome
@@ -551,7 +551,7 @@ class MdGdAtualizarSeiRN extends InfraRN {
     }
 
     /**
-     * Método simplificado para cadastro de um tipo de procedimento
+     * Mtodo simplificado para cadastro de um tipo de procedimento
      *
      * @param string $strNome
      * @param string $strDescricao
@@ -570,7 +570,7 @@ class MdGdAtualizarSeiRN extends InfraRN {
         $objTipoProcedimentoDTO->setStrSinOuvidoria('N');
         $objTipoProcedimentoDTO->setStrSinIndividual('N');
 
-        // Níveis de acesso permitidos
+        // Nveis de acesso permitidos
         $arrObjNivelAcessoPermitidoDTO = array();
         
         $objNivelAcessoPermitidoDTO = new NivelAcessoPermitidoDTO();
