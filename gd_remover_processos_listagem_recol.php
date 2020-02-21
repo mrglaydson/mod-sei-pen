@@ -55,6 +55,13 @@ try {
                     $objMdGdListaRecolProcedimentoRN->excluir([$objMdGdListaRecolProcedimentoDTO]);
                 }
 
+                // Atualiza o total de processos da listagem
+                $objMdGdListaRecolhimentoDTO = new MdGdListaRecolhimentoDTO();
+                $objMdGdListaRecolhimentoDTO->setNumIdListaRecolhimento($numIdListaRecolhimento);
+
+                $objMdGdListaRecolhimentoRN = new MdGdListaRecolhimentoRN();
+                $objMdGdListaRecolhimentoRN->atualizarNumeroProcessos($objMdGdListaRecolhimentoDTO);
+
             }
 
             break;
@@ -66,7 +73,7 @@ try {
     $arrComandos = [];
     $arrComandos[] = '<button type="button" accesskey="P" id="btnExcluirListagem" value="Excluir da Listagem" onclick="acaoExcluirListagemRecolhimento('.$_GET['id_listagem_recolhimento'].');" class="infraButton"><span class="infraTeclaAtalho">E</span>xcluir da Listagem de Recolhimento</button>';
     $arrComandos[] = '<button type="button" accesskey="I" id="btnImprimir" value="Imprimir" onclick="infraImprimirTabela();" class="infraButton"><span class="infraTeclaAtalho">I</span>mprimir</button>';
-    $arrComandos[] = '<button type="button" accesskey="C" name="btnCancelar" id="btnCancelar" value="Cancelar" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_gestao_listagem_recolhimento&acao_origem=' . $_GET['acao']) . '\';" class="infraButton"><span class="infraTeclaAtalho">C</span>ancelar</button>';
+    $arrComandos[] = '<button type="button" accesskey="F" name="btnFechar" id="btnFechar" value="Fechar" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_gestao_listagem_recolhimento&acao_origem=' . $_GET['acao']) . '\';" class="infraButton"><span class="infraTeclaAtalho">F</span>echar</button>';
 
     $strLinkExcluirListagem = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_remover_processo_listagem_recol&acao_origem=' . $_GET['acao'].'&id_listagem_recolhimento='.$_GET['id_listagem_recolhimento']);
 

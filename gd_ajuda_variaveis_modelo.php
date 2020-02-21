@@ -43,7 +43,7 @@ try {
             $arrVariaveis[] = array('@unidade@', 'Unidade geradora');
             $arrVariaveis[] = array('@numero_listagem@', 'Número da listagem');
             $arrVariaveis[] = array('@folha@', 'Número de folhas');
-            $arrVariaveis[] = array('@tabela', 'Tabela de detalhamento da listagem');
+            $arrVariaveis[] = array('@tabela@', 'Tabela de detalhamento da listagem');
             $arrVariaveis[] = array('@mensuracao_total@', 'Mensuração total');
             $arrVariaveis[] = array('@datas_limites_gerais@', 'Datas limite do arquivamento');
             break;

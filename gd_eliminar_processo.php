@@ -39,6 +39,7 @@ try {
                 $objMdGdEliminacaoDTO->setNumIdUnidade(SessaoSEI::getInstance()->getNumIdUnidadeAtual());
                 $objMdGdEliminacaoDTO->setNumIdSecaoImprensaNacional($_POST['selSecaoImprensaNacional']);
                 $objMdGdEliminacaoDTO->setNumIdVeiculoPublicacao($_POST['selVeiculoPublicacao']);
+                $objMdGdEliminacaoDTO->setNumPagina($_POST['txtPagina']);
                 $objMdGdEliminacaoDTO->setDthDataImprensa($_POST['txtData']);
                 $objMdGdEliminacaoDTO->setDthDataEliminacao(date('d/m/Y'));
 

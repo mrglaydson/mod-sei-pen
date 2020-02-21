@@ -94,6 +94,16 @@ class MdGdListaRecolhimentoRN extends InfraRN {
         }
     }
 
+    protected function contarConectado(MdGdListaRecolhimentoDTO $objMdGdListaRecolhimento) {
+        try {
+
+            $objMdGdListaRecolhimentoBD = new MdGdListaRecolhimentoBD($this->inicializarObjInfraIBanco());
+            return $objMdGdListaRecolhimentoBD->contar($objMdGdListaRecolhimento);
+        } catch (Exception $e) {
+            throw new InfraException('Erro ao contar lista de recolhimentos.', $e);
+        }
+    }
+
     public function obterProximaNumeroListagem() {
         $objMdGdListaRecolhimentoDTO = new MdGdListaRecolhimentoDTO();
         $objMdGdListaRecolhimentoDTO->setStrNumero('%' . date('Y'), InfraDTO::$OPER_LIKE);
@@ -261,6 +271,34 @@ class MdGdListaRecolhimentoRN extends InfraRN {
             return $this->alterar($objMdGdListaRecolhimentoDTO);
         } catch (Exception $e) {
             throw new InfraException('Erro ao alterar a listagem de recolhimento para o modo de edição.', $e);
+        }
+    }
+
+    /**
+     * Atualiza o número de processos de uma listagem de recolhimento
+     *
+     * @param MdGdListaRecolhimentoDTO $objMdGdListaRecolhimentoDTO
+     * @return boolean
+     */
+    public function atualizarNumeroProcessosControlado(MdGdListaRecolhimentoDTO $objMdGdListaRecolhimentoDTO){
+        try{
+            if(!$objMdGdListaRecolhimentoDTO->isSetNumIdListaRecolhimento()){
+                throw new InfraException('Informe o id da lista de recolhimento atualizar o número de processos.');
+            }
+
+            // Obtem o quantidade de processos
+            $objMdGdListaRecolProcedimentoDTO = new MdGdListaRecolProcedimentoDTO();
+            $objMdGdListaRecolProcedimentoDTO->setNumIdListaRecolhimento($objMdGdListaRecolhimentoDTO->getNumIdListaRecolhimento());
+
+            $objMdGdListaRecolProcedimentoRN = new MdGdListaRecolProcedimentoRN();
+            $numQuantidadeProcessos = $objMdGdListaRecolProcedimentoRN->contar($objMdGdListaRecolProcedimentoDTO);
+
+            // Atualiza a quantidade de processos
+            $objMdGdListaRecolhimentoDTO->setNumQtdProcessos($numQuantidadeProcessos);
+            return $this->alterar($objMdGdListaRecolhimentoDTO);
+        }catch(Exception $e){
+            throw new InfraException('Erro ao altualizar o número de processos.', $e);
+
         }
     }
 

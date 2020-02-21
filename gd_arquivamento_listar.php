@@ -207,20 +207,15 @@ try {
 
             
             // Obtem o tempo formatado de guarda corrente
-            $strDthDataGuardaCorrente = $arrObjMdGdArquivamentoDTO[$i]->getDthDataGuardaCorrente();
-            $strDthDataGuardaCorrente = InfraData::formatarDataBanco(substr($strDthDataGuardaCorrente, 0, 10));
-            $strDthDataGuardaCorrente = substr($strDthDataGuardaCorrente, 0, 10);
-
-            $strTempoGuardaCorrente = MdGdArquivamentoRN::obterTempoArquivamento(date('Y-m-d'), $strDthDataGuardaCorrente);
+            $strDthDataArquivamento = $arrObjMdGdArquivamentoDTO[$i]->getDthDataArquivamento();
+            $strDthDataArquivamento = InfraData::formatarDataBanco(substr($strDthDataArquivamento, 0, 10));
+            $strDthDataArquivamento = substr($strDthDataArquivamento, 0, 10);
+            $strTempoGuardaCorrente = MdGdArquivamentoRN::descreverTempoArquivamentoCorrente($strDthDataArquivamento, $arrObjMdGdArquivamentoDTO[$i]->getNumGuardaCorrente());
 
             // Obtem o tempo formatado de guarda intermediária
             $strTempoGuardaIntermediaria = '';
             if($arrObjMdGdArquivamentoDTO[$i]->getStrSituacao() != MdGdArquivamentoRN::$ST_DEVOLVIDO){
-                $strDthDataGuardaIntermediaria = $arrObjMdGdArquivamentoDTO[$i]->getDthDataGuardaIntermediaria();
-                $strDthDataGuardaIntermediaria = InfraData::formatarDataBanco(substr($strDthDataGuardaIntermediaria, 0, 10));
-                $strDthDataGuardaIntermediaria = substr($strDthDataGuardaIntermediaria, 0, 10);
-    
-                $strTempoGuardaIntermediaria = MdGdArquivamentoRN::obterTempoArquivamento(date('Y-m-d'), $strDthDataGuardaIntermediaria);
+                $strTempoGuardaIntermediaria = MdGdArquivamentoRN::descreverTempoArquivamentoIntermediario($strDthDataArquivamento, $arrObjMdGdArquivamentoDTO[$i]->getNumGuardaCorrente(), $arrObjMdGdArquivamentoDTO[$i]->getNumGuardaIntermediaria());
             }else{
                 $strTempoGuardaIntermediaria = '<b>Devolvido para correção</b>';
             }
@@ -232,7 +227,7 @@ try {
             $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getStrNomeTipoProcedimento()) . '</td>';
             $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getStrNomeUsuario()) . '</td>';
             $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getDthDataArquivamento()) . '</td>';
-            $strResultado .= '<td>' . PaginaSEI::tratarHTML($strTempoGuardaCorrente). '</td>';
+            $strResultado .= '<td>' . $strTempoGuardaCorrente. '</td>';
             $strResultado .= '<td>' . $strTempoGuardaIntermediaria. '</td>';
             $strResultado .= '<td>' . PaginaSEI::tratarHTML(MdGdArquivamentoRN::obterDestinacoesFinalArquivamento()[$arrObjMdGdArquivamentoDTO[$i]->getStrStaDestinacaoFinal()]) . '</td>';
             

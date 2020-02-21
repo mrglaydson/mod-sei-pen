@@ -727,22 +727,29 @@ class MdGdArquivamentoRN extends InfraRN {
         ];
     }
 
+    
+    public static function descreverTempoArquivamentoCorrente($strDataArquivamento, $numAnosGuardaCorrente){
+        return self::descreverTempoArquivamento($strDataArquivamento, $numAnosGuardaCorrente);
+    }
 
-    public static function obterTempoArquivamento($strDataInicial, $strDataFinal)
-    {
-        $date1 = strtotime($strDataInicial);  
-        $date2 = strtotime($strDataFinal);  
-        
-        if($date1 >= $date2){
-            return 'Prazo de guarda encerrado';   
+    public static function descreverTempoArquivamentoIntermediario($strDataArquivamento, $numAnosGuardaCorrente, $numAnosGuardaIntermediaria){     
+        list($years, $months, $days) = self::obterTempoArquivamento($strDataArquivamento, $numAnosGuardaCorrente);
+
+        if($years == 0 && $months == 0 && $days == 0){
+            return self::descreverTempoArquivamento($strDataArquivamento, $numAnosGuardaIntermediaria);
+        }else{
+            return $numAnosGuardaIntermediaria == 1 ? $numAnosGuardaIntermediaria." ano" : $numAnosGuardaIntermediaria." anos" ;
+        }
+    }
+
+    public static function descreverTempoArquivamento($strDataArquivamento, $numAnosGuarda){
+        list($years, $months, $days) = self::obterTempoArquivamento($strDataArquivamento, $numAnosGuarda);
+
+
+        if($years == 0 && $months == 0 && $days == 0){
+            return 'Prazo expirado!';
         }
 
-        $diff = abs($date2 - $date1);  
-
-        $years = floor($diff / (365*60*60*24));  
-        $months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));  
-        $days = floor(($diff - $years * 365*60*60*24 -  $months*30*60*60*24)/ (60*60*24)); 
-        
         $strTemporalidade = '';
 
         if($years == 1){
@@ -751,13 +758,11 @@ class MdGdArquivamentoRN extends InfraRN {
             $strTemporalidade .= $years." anos, ";
         }
 
-
         if($months == 1){
             $strTemporalidade .= $months." mês e";
         }else{
             $strTemporalidade .= $months." meses e ";
         }
-
 
         if($days == 1){
             $strTemporalidade .= $days." dia.";
@@ -766,8 +771,27 @@ class MdGdArquivamentoRN extends InfraRN {
         }
 
         return $strTemporalidade;
+    }
 
+    public static function obterTempoArquivamento($strDataArquivamento, $numAnosGuarda)
+    {
+        $strDataInicial = date('Y-m-d');
+        $strDataFinal = date('Y-m-d', strtotime("+{$numAnosGuarda} years", strtotime($strDataArquivamento)));
 
+        $date1 = strtotime($strDataInicial);  
+        $date2 = strtotime($strDataFinal);  
+        
+        if($date1 >= $date2){
+            return array(0, 0, 0);   
+        }
+
+        $diff = abs($date2 - $date1);  
+
+        $years = floor($diff / (365*60*60*24));  
+        $months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));  
+        $days = floor(($diff - $years * 365*60*60*24 -  $months*30*60*60*24)/ (60*60*24)); 
+        
+        return array($years, $months, $days);
     }
 
 }

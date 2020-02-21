@@ -34,6 +34,10 @@ class MdGdEliminacaoDTO extends InfraDTO
         $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_NUM,
             'IdVeiculoPublicacao',
             'id_veiculo_publicacao');
+
+        $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_NUM,
+            'Pagina',
+            'pagina');
           
         $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_NUM,
             'IdSecaoImprensaNacional',

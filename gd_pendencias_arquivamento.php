@@ -64,17 +64,28 @@ try {
     $objAtividadeDTO->setOrdDthAbertura(InfraDTO::$TIPO_ORDENACAO_ASC);
 
     $txtPeriodoDe = PaginaSEI::getInstance()->recuperarCampo('txtPeriodoDe');
-    if ($txtPeriodoDe) {
+    $txtPeriodoA = PaginaSEI::getInstance()->recuperarCampo('txtPeriodoA');
+
+    if ($txtPeriodoDe && $txtPeriodoA) {
+        $objAtividadeDTO->adicionarCriterio(array('Abertura', 'Abertura'), 
+        array(InfraDTO::$OPER_MAIOR_IGUAL, InfraDTO::$OPER_MENOR_IGUAL),
+        array($txtPeriodoDe, $txtPeriodoA), 
+        array(InfraDTO::$OPER_LOGICO_AND));
+    }
+
+    if($txtPeriodoDe){
         $objAtividadeDTO->setDthAbertura($txtPeriodoDe, InfraDTO::$OPER_MAIOR_IGUAL);
     }
 
-    $txtPeriodoA = PaginaSEI::getInstance()->recuperarCampo('txtPeriodoA');
-    if ($txtPeriodoA) {
+    if($txtPeriodoA){
         $objAtividadeDTO->setDthAbertura($txtPeriodoA, InfraDTO::$OPER_MENOR_IGUAL);
     }
 
     $objAtividadeRN = new AtividadeRN();
     $arrObjAtividadeDTO = InfraArray::indexarArrInfraDTO($objAtividadeRN->listarRN0036($objAtividadeDTO), 'IdProtocolo');
+
+    /*var_dump($arrObjAtividadeDTO);
+    die();*/
 
     foreach ($arrObjAtividadeDTO as $atividade) {
         if ($atividade->getNumIdTarefa() == TarefaRN::$TI_CONCLUSAO_PROCESSO_UNIDADE) {

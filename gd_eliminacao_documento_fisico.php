@@ -220,7 +220,12 @@ document.getElementById('btnFechar').focus();
 
 <? if ($bolAcaoEliminarDocumentoFisico) { ?>
     function acaoConfirmarEliminacao(link) {
-    infraAbrirJanela(link, 'janelaObservarPreparacaoListagemEliminacao', 720, 300, 'location=0,status=1,resizable=1,scrollbars=1', false);
+        if (document.getElementById('hdnInfraItensSelecionados').value == '') {
+            alert('Nenhum Documento Selecionado.');
+            return;
+        }
+
+        infraAbrirJanela(link, 'janelaObservarPreparacaoListagemEliminacao', 720, 300, 'location=0,status=1,resizable=1,scrollbars=1', false);
     }
 <? } ?>
 

@@ -70,6 +70,16 @@ class MdGdListaElimProcedimentoRN extends InfraRN {
         }
     }
 
+    protected function contarConectado(MdGdListaElimProcedimentoDTO $objMdGdListaElimProcedimentoDTO) {
+        try {
+
+            $objMdGdListaElimProcedimentoBD = new MdGdListaEliminacaoBD($this->inicializarObjInfraIBanco());
+            return $objMdGdListaElimProcedimentoBD->contar($objMdGdListaElimProcedimentoDTO);
+        } catch (Exception $e) {
+            throw new InfraException('Erro ao contar lista de recolhimentos.', $e);
+        }
+    }
+
 }
 
 ?>

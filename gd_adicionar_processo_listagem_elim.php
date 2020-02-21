@@ -24,6 +24,7 @@ try {
                 $numIdListaEliminacao  = (int) PaginaSEI::getInstance()->recuperarCampo('hdnInfraItemId');
                 $arrNumIdsArquivamento = explode(',', PaginaSEI::getInstance()->recuperarCampo('hdnInfraItensSelecionados'));
 
+
                 // Obtem os processos do arquivamento
                 $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
                 $objMdGdArquivamentoDTO->setNumIdArquivamento($arrNumIdsArquivamento, InfraDTO::$OPER_IN);
@@ -48,6 +49,14 @@ try {
 
                     $objMdGdListaElimProcedimentoRN->cadastrar($objMdGdListaElimProcedimentoDTO);
                 }
+
+                // Atualiza o total de processos da listagem
+                $objMdGdListaEliminacaoDTO = new MdGdListaEliminacaoDTO();
+                $objMdGdListaEliminacaoDTO->setNumIdListaEliminacao($numIdListaEliminacao);
+
+                $objMdGdListaEliminacaoRN = new MdGdListaEliminacaoRN();
+                $objMdGdListaEliminacaoRN->atualizarNumeroProcessos($objMdGdListaEliminacaoDTO);
+            
             }
 
             break;     
@@ -63,7 +72,7 @@ try {
     $arrComandos[] = '<button type="button" accesskey="I" id="btnImprimir" value="Imprimir" onclick="infraImprimirTabela();" class="infraButton"><span class="infraTeclaAtalho">I</span>mprimir</button>';
     $arrComandos[] = '<button type="button" accesskey="F" id="btnFechar" value="Fechar" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_gestao_listagem_eliminacao&acao_origem=' . $_GET['acao']).'\'" class="infraButton"><span class="infraTeclaAtalho">F</span>echar</button>';
 
-    $strLinkAdicionarListagem = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_adicionar_processo_listagem_elim&acao_origem=' . $_GET['acao']);
+    $strLinkAdicionarListagem = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_adicionar_processo_listagem_elim&acao_origem=' . $_GET['acao'].'&id_listagem_eliminacao=' . $_GET['id_listagem_eliminacao']);
 
     $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
     $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();

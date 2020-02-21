@@ -54,6 +54,13 @@ try {
                     $objMdGdListaElimProcedimentoRN->excluir([$objMdGdListaElimProcedimentoDTO]);
                 }
 
+                // Atualiza o total de processos da listagem
+                $objMdGdListaEliminacaoDTO = new MdGdListaEliminacaoDTO();
+                $objMdGdListaEliminacaoDTO->setNumIdListaEliminacao($numIdListaEliminacao);
+
+                $objMdGdListaEliminacaoRN = new MdGdListaEliminacaoRN();
+                $objMdGdListaEliminacaoRN->atualizarNumeroProcessos($objMdGdListaEliminacaoDTO);
+
             }
 
             break;
@@ -64,7 +71,7 @@ try {
     $arrComandos = array();
     $arrComandos[] = '<button type="button" accesskey="P" id="btnExcluirListagem" value="Excluir da Listagem" onclick="acaoExcluirListagemEliminacao('.$_GET['id_listagem_eliminacao'].');" class="infraButton"><span class="infraTeclaAtalho">E</span>xcluir da Listagem de Eliminação</button>';
     $arrComandos[] = '<button type="button" accesskey="I" id="btnImprimir" value="Imprimir" onclick="infraImprimirTabela();" class="infraButton"><span class="infraTeclaAtalho">I</span>mprimir</button>';
-    $arrComandos[] = '<button type="button" accesskey="C" name="btnCancelar" id="btnCancelar" value="Cancelar" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_gestao_listagem_eliminacao&acao_origem=' . $_GET['acao']) . '\';" class="infraButton"><span class="infraTeclaAtalho">C</span>ancelar</button>';
+    $arrComandos[] = '<button type="button" accesskey="F" name="btnFechar" id="btnFechar" value="Fechar" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_gestao_listagem_eliminacao&acao_origem=' . $_GET['acao']) . '\';" class="infraButton"><span class="infraTeclaAtalho">F</span>echar</button>';
 
     $strLinkExcluirListagem = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_remover_processo_listagem_elim&acao_origem=' . $_GET['acao'].'&id_listagem_eliminacao='.$_GET['id_listagem_eliminacao']);
     

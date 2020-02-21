@@ -44,6 +44,10 @@ class MdGdListaEliminacaoDTO extends InfraDTO
         $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_STR,
             'Situacao',
             'situacao');
+
+        $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_NUM,
+            'QtdProcessos',
+            'qtd_processos');
                 
         $this->adicionarAtributoTabelaRelacionada(InfraDTO::$PREFIXO_DBL,
                                               'IdProtocoloProcedimentoEliminacao',

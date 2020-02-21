@@ -92,6 +92,7 @@ class MdGdListaEliminacaoRN extends InfraRN {
             $objMdGdListaEliminacaoDTO->setDthEmissaoListagem(date('d/m/Y H:i:s'));
             $objMdGdListaEliminacaoDTO->setNumAnoLimiteInicio(2004); // TODO NOW
             $objMdGdListaEliminacaoDTO->setNumAnoLimiteFim(2018); // TODO NOW
+            $objMdGdListaEliminacaoDTO->setNumQtdProcessos(count($arrObjMdGdArquivamentoDTO));
             $objMdGdListaEliminacaoDTO->setStrSituacao(self::$ST_GERADA);
             $objMdGdListaEliminacaoBD = new MdGdListaEliminacaoBD($this->getObjInfraIBanco());
             $objMdGdListaEliminacaoDTO = $objMdGdListaEliminacaoBD->cadastrar($objMdGdListaEliminacaoDTO);
@@ -148,6 +149,16 @@ class MdGdListaEliminacaoRN extends InfraRN {
         }
     }
 
+    protected function contarConectado(MdGdListaEliminacaoDTO $objMdGdListaEliminacao) {
+        try {
+
+            $objMdGdListaEliminacaoBD = new MdGdListaEliminacaoBD($this->inicializarObjInfraIBanco());
+            return $objMdGdListaEliminacaoBD->contar($objMdGdListaEliminacao);
+        } catch (Exception $e) {
+            throw new InfraException('Erro ao contar lista de recolhimentos.', $e);
+        }
+    }
+
     public function obterProximaNumeroListagem() {
         $objMdGdListaEliminacaoDTO = new MdGdListaEliminacaoDTO();
         $objMdGdListaEliminacaoDTO->setStrNumero('%' . date('Y'), InfraDTO::$OPER_LIKE);
@@ -168,7 +179,7 @@ class MdGdListaEliminacaoRN extends InfraRN {
             '@unidade@' => $objSessaoSEI->getStrSiglaUnidadeAtual() . ' - ' . $objSessaoSEI->getStrSiglaUnidadeAtual(),
             '@numero_listagem@' => $this->obterProximaNumeroListagem(),
             '@folha@' => '1/1', // Verificar depois
-            '@tabela' => '',
+            '@tabela@' => '',
             '@mensuracao_total@' => count($arrObjMdGdArquivamentoDTO) . ' processos',
             '@datas_limites_gerais@' => '2010-2018'
         ];
@@ -391,21 +402,24 @@ class MdGdListaEliminacaoRN extends InfraRN {
             $arrObjMdGdListaElimProcedimentoDTO = $objMdGdListaElimProcedimentoRN->listar($objMdGdListaElimProcedimentoDTO);
 
             $arrIdsProcedimentos = [];
+            $arrObjMdGdArquivamentoDTO = [];
 
             foreach($arrObjMdGdListaElimProcedimentoDTO as $objMdGdListaElimProcedimentoDTO){
                 $arrIdsProcedimentos[] = $objMdGdListaElimProcedimentoDTO->getDblIdProcedimento();
             }
 
-            // Obtem os arquivamentos dos processos
-            $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
-            $objMdGdArquivamentoDTO->setDblIdProcedimento($arrIdsProcedimentos, InfraDTO::$OPER_IN);
-            $objMdGdArquivamentoDTO->setStrSinAtivo('S');
-            $objMdGdArquivamentoDTO->retDblIdProtocoloProcedimento();
-            $objMdGdArquivamentoDTO->retStrObservacaoEliminacao();
+            if($arrIdsProcedimentos){
+                // Obtem os arquivamentos dos processos
+                $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
+                $objMdGdArquivamentoDTO->setDblIdProcedimento($arrIdsProcedimentos, InfraDTO::$OPER_IN);
+                $objMdGdArquivamentoDTO->setStrSinAtivo('S');
+                $objMdGdArquivamentoDTO->retDblIdProtocoloProcedimento();
+                $objMdGdArquivamentoDTO->retStrObservacaoEliminacao();
 
-            $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
-            $arrObjMdGdArquivamentoDTO = $objMdGdArquivamentoRN->listar($objMdGdArquivamentoDTO);
-            
+                $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
+                $arrObjMdGdArquivamentoDTO = $objMdGdArquivamentoRN->listar($objMdGdArquivamentoDTO);
+            }
+
             // Gera um novo documento atualizado no processo da listagem de eliminação
             $objMdGdParametroRN = new MdGdParametroRN();
             $numIdTipoDocumentoArquivamento = $objMdGdParametroRN->obterParametro(MdGdParametroRN::$PAR_TIPO_DOCUMENTO_LISTAGEM_ELIMINACAO);
@@ -432,7 +446,12 @@ class MdGdListaEliminacaoRN extends InfraRN {
 
             $objDocumentoDTO->setObjProtocoloDTO($objProtocoloDTO);
             $objDocumentoDTO->setStrStaDocumento(DocumentoRN::$TD_EDITOR_INTERNO);
-            $objDocumentoDTO->setStrConteudo($this->obterConteudoDocumentoEliminacao($arrObjMdGdArquivamentoDTO));
+
+            if($arrObjMdGdArquivamentoDTO){
+                $objDocumentoDTO->setStrConteudo($this->obterConteudoDocumentoEliminacao($arrObjMdGdArquivamentoDTO));
+            }else{
+                $objDocumentoDTO->setStrConteudo('');
+            }
 
             $objDocumentoRN = new DocumentoRN();
             $objDocumentoDTO = $objDocumentoRN->cadastrarRN0003($objDocumentoDTO);
@@ -442,6 +461,33 @@ class MdGdListaEliminacaoRN extends InfraRN {
             return $this->alterar($objMdGdListaEliminacaoDTO);
         } catch (Exception $e) {
             throw new InfraException('Erro ao alterar a listagem de eliminação para o modo de edição.', $e);
+        }
+    }
+
+     /**
+     * Atualiza o número de processos de uma listagem de eliminação
+     *
+     * @param MdGdListaEliminacaoDTO $objMdGdListaEliminacaoDTO
+     * @return boolean
+     */
+    public function atualizarNumeroProcessosControlado(MdGdListaEliminacaoDTO $objMdGdListaEliminacaoDTO){
+        try{
+            if(!$objMdGdListaEliminacaoDTO->isSetNumIdListaEliminacao()){
+                throw new InfraException('Informe o id da lista de eliminação atualizar o número de processos.');
+            }
+
+            // Obtem o quantidade de processos
+            $objMdGdListaElimProcedimentoDTO = new MdGdListaElimProcedimentoDTO();
+            $objMdGdListaElimProcedimentoDTO->setNumIdListaEliminacao($objMdGdListaEliminacaoDTO->getNumIdListaEliminacao());
+
+            $objMdGdListaElimProcedimentoRN = new MdGdListaElimProcedimentoRN();
+            $numQuantidadeProcessos = $objMdGdListaElimProcedimentoRN->contar($objMdGdListaElimProcedimentoDTO);
+
+            // Atualiza a quantidade de processos
+            $objMdGdListaEliminacaoDTO->setNumQtdProcessos($numQuantidadeProcessos);
+            return $this->alterar($objMdGdListaEliminacaoDTO);
+        }catch(Exception $e){
+            throw new InfraException('Erro ao altualizar o número de processos.', $e);
         }
     }
 }
