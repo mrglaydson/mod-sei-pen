@@ -186,6 +186,13 @@
       ],
       "value": ""
     }, {
+      "id": "9f235725-5576-4852-8c28-b3990adfd87c",
+      "comment": "",
+      "command": "waitForElementEditable",
+      "target": "id=txtDescricao",
+      "targets": [],
+      "value": "30000"
+    }, {
       "id": "6425687e-768d-4ba2-ae1f-442176a4b181",
       "comment": "",
       "command": "waitForElementEditable",

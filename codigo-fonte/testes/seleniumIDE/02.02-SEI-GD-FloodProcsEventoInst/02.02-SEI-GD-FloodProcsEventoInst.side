@@ -157,6 +157,13 @@
       ],
       "value": ""
     }, {
+      "id": "84b1beee-8bea-4701-90fd-5235aef20190",
+      "comment": "",
+      "command": "waitForElementEditable",
+      "target": "id=txtDescricao",
+      "targets": [],
+      "value": "30000"
+    }, {
       "id": "87745963-9d79-4c9f-836d-dea2c1049975",
       "comment": "",
       "command": "type",
@@ -193,6 +200,13 @@
         ["xpath=(//button[@id='btnSalvar']/span)[2]", "xpath:idRelative"],
         ["xpath=//div[2]/button/span", "xpath:position"]
       ],
+      "value": ""
+    }, {
+      "id": "16420d23-2dcd-4120-b6ef-326c54d9f2b4",
+      "comment": "",
+      "command": "pause",
+      "target": "1",
+      "targets": [],
       "value": ""
     }, {
       "id": "faf164fd-54ee-4be5-b58d-bbaabcfc5f88",
