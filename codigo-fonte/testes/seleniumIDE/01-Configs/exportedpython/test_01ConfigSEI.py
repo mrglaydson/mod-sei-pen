@@ -384,6 +384,24 @@ class Test01ConfigSEI():
     self.driver.switch_to.window(self.vars["root"])
     self.driver.close()
   
+  def test_unidadesTesteProtocolo(self):
+    self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.find_element(By.ID, "txtUsuario").send_keys("teste")
+    self.driver.find_element(By.ID, "pwdSenha").click()
+    self.driver.find_element(By.ID, "pwdSenha").send_keys("teste")
+    self.driver.find_element(By.ID, "sbmLogin").click()
+    dropdown = self.driver.find_element(By.ID, "selInfraUnidades")
+    dropdown.find_element(By.XPATH, "//option[. = 'TESTE']").click()
+    self.driver.find_element(By.ID, "selInfraUnidades").click()
+    self.driver.find_element(By.XPATH, "//ul[@id=\'main-menu\']/li/a").click()
+    self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[1]/ul/li[21]/a").click()
+    self.driver.find_element(By.LINK_TEXT, "Listar").click()
+    self.driver.find_element(By.XPATH, "(//img[@alt=\'Alterar Unidade\'])[3]").click()
+    self.driver.find_element(By.ID, "chkSinProtocolo").click()
+    self.driver.find_element(By.ID, "chkSinArquivamento").click()
+    self.driver.find_element(By.NAME, "sbmAlterarUnidade").click()
+    self.driver.close()
+  
   def test_assinaturas(self):
     self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
     self.driver.find_element(By.ID, "txtUsuario").send_keys("teste")

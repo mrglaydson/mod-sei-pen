@@ -180,7 +180,7 @@
   }],
   "suites": [{
     "id": "a6936c4e-871c-42fa-9c4c-e2efd3bd3848",
-    "name": "00-RunAgendamento",
+    "name": "04-SEI-GD-RunAgendamento",
     "persistSession": false,
     "parallel": false,
     "timeout": 300,
