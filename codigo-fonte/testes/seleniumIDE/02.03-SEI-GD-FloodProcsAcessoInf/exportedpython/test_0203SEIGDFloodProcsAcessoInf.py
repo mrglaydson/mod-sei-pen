@@ -42,7 +42,7 @@ class Test0203SEIGDFloodProcsAcessoInf():
       self.driver.find_element(By.ID, "txtDescricao").send_keys("teste arquivo")
       self.driver.find_element(By.ID, "optPublico").click()
       self.driver.find_element(By.CSS_SELECTOR, "#divInfraBarraComandosInferior > #btnSalvar > .infraTeclaAtalho").click()
-      time.sleep(1)
+      time.sleep(2)
       self.driver.switch_to.frame(1)
       WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".botaoSEI:nth-child(1) > .infraCorBarraSistema")))
       self.driver.find_element(By.CSS_SELECTOR, ".botaoSEI:nth-child(1) > .infraCorBarraSistema").click()
