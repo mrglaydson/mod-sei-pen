@@ -42,6 +42,9 @@ class Test0205SEIGDFloodProcsEventoInstAut():
     for i in range(0, 5):
       WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.LINK_TEXT, "Iniciar Processo")))
       self.driver.find_element(By.LINK_TEXT, "Iniciar Processo").click()
+      self.vars["error"] = len(self.driver.find_elements(By.XPATH, "//a[contains(text(),\'Comunicação: Evento Institucional Público Externo\')]"))
+      if self.driver.execute_script("return (arguments[0]==0)", self.vars["error"]):
+        self.driver.find_element(By.ID, "imgExibirTiposProcedimento").click()
       self.driver.find_element(By.LINK_TEXT, "Comunicação: Evento Institucional Público Externo").click()
       WebDriverWait(self.driver, 30000).until(expected_conditions.element_to_be_clickable((By.ID, "txtDescricao")))
       WebDriverWait(self.driver, 30000).until(expected_conditions.element_to_be_clickable((By.ID, "txtDescricao")))
@@ -68,7 +71,7 @@ class Test0205SEIGDFloodProcsEventoInstAut():
       dropdown.find_element(By.XPATH, "//option[. = 'Cópia Autenticada Administrativamente']").click()
       self.driver.find_element(By.ID, "selTipoConferencia").click()
       self.driver.find_element(By.ID, "optPublico").click()
-      self.driver.find_element(By.ID, "filArquivo").send_keys("/home/marcelo/projetos/git/planejamento/sei-mod-gestao-documental/codigo-fonte/testes/seleniumIDE/02.04-SEI-GD-FloodProcsAcessoInf-Aut/teste.pdf")
+      self.driver.find_element(By.ID, "filArquivo").send_keys("teste.pdf")
       WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".infraTd:nth-child(2)")))
       self.driver.find_element(By.CSS_SELECTOR, ".infraTd:nth-child(2)").click()
       assert self.driver.find_element(By.CSS_SELECTOR, ".infraTd:nth-child(2) > div").text == "teste.pdf"

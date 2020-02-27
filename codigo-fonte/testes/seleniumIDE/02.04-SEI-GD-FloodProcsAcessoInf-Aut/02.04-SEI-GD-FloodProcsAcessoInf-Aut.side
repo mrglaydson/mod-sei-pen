@@ -171,6 +171,41 @@
       ],
       "value": ""
     }, {
+      "id": "5e83befa-1443-4f79-862e-d0d089b98bb8",
+      "comment": "",
+      "command": "storeXpathCount",
+      "target": "xpath=//a[contains(text(),'Acesso à Informação: Demanda do e-SIC')]",
+      "targets": [],
+      "value": "error"
+    }, {
+      "id": "f8dc7030-fc0e-42cd-956d-b11934d09a4e",
+      "comment": "",
+      "command": "if",
+      "target": "${error}==0",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "439e21d2-8f1d-4bc0-af21-2fdd7daa4d68",
+      "comment": "",
+      "command": "click",
+      "target": "id=imgExibirTiposProcedimento",
+      "targets": [
+        ["id=imgExibirTiposProcedimento", "id"],
+        ["css=#imgExibirTiposProcedimento", "css:finder"],
+        ["xpath=//img[@alt='Exibir todos os tipos']", "xpath:img"],
+        ["xpath=//img[@id='imgExibirTiposProcedimento']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDadosDinamica']/img", "xpath:idRelative"],
+        ["xpath=//form/div/img", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "1f6a8609-cebc-4eea-a8f0-b2cb0bf006f9",
+      "comment": "",
+      "command": "end",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "9b168fbd-c5c4-468a-8571-cf07ceaf6369",
       "comment": "",
       "command": "click",

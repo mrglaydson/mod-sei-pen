@@ -171,6 +171,34 @@
       ],
       "value": ""
     }, {
+      "id": "e18fdef2-3290-442e-8db7-d01edbf22655",
+      "comment": "",
+      "command": "storeXpathCount",
+      "target": "xpath=//a[contains(text(),'Comunicação: Evento Institucional Público Externo')]",
+      "targets": [],
+      "value": "error"
+    }, {
+      "id": "3f8c86e5-9716-4f68-8153-b6d034fc33b6",
+      "comment": "",
+      "command": "if",
+      "target": "${error}==0",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2bde2e5e-0310-40b1-a6d8-80cd679c8b43",
+      "comment": "",
+      "command": "click",
+      "target": "id=imgExibirTiposProcedimento",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b4fd585c-fe1d-476a-b1fd-ca4d481678af",
+      "comment": "",
+      "command": "end",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "9b168fbd-c5c4-468a-8571-cf07ceaf6369",
       "comment": "",
       "command": "click",

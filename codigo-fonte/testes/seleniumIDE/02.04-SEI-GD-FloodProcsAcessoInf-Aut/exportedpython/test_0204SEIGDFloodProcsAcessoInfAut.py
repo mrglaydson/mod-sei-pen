@@ -42,6 +42,9 @@ class Test0204SEIGDFloodProcsAcessoInfAut():
     for i in range(0, 5):
       WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.LINK_TEXT, "Iniciar Processo")))
       self.driver.find_element(By.LINK_TEXT, "Iniciar Processo").click()
+      self.vars["error"] = len(self.driver.find_elements(By.XPATH, "//a[contains(text(),\'Acesso à Informação: Demanda do e-SIC\')]"))
+      if self.driver.execute_script("return (arguments[0]==0)", self.vars["error"]):
+        self.driver.find_element(By.ID, "imgExibirTiposProcedimento").click()
       self.driver.find_element(By.LINK_TEXT, "Acesso à Informação: Demanda do e-SIC").click()
       WebDriverWait(self.driver, 30000).until(expected_conditions.element_to_be_clickable((By.ID, "txtDescricao")))
       self.driver.find_element(By.ID, "txtDescricao").send_keys("teste arquivo")
