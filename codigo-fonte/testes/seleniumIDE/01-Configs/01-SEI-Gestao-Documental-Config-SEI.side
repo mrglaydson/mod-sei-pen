@@ -4258,6 +4258,13 @@
       "targets": [],
       "value": "TESTE - Unidade de Teste 1"
     }, {
+      "id": "873c3531-83e7-4fb4-a7eb-6e3ae097ec73",
+      "comment": "",
+      "command": "pause",
+      "target": "2",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "091be585-628a-44cf-9f26-33ecfde489ef",
       "comment": "",
       "command": "waitForElementVisible",

@@ -418,6 +418,7 @@ class Test01ConfigSEI():
     dropdown.find_element(By.XPATH, "//option[. = 'ArquivoGeral - ArquivoGeral']").click()
     self.driver.find_element(By.ID, "txtUnidadeOrigem").click()
     self.driver.find_element(By.ID, "txtUnidadeOrigem").send_keys("TESTE - Unidade de Teste 1")
+    time.sleep(2)
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, "#divInfraAjaxtxtUnidadeOrigem li:nth-child(1) > a")))
     element = self.driver.find_element(By.CSS_SELECTOR, "#divInfraAjaxtxtUnidadeOrigem li:nth-child(1) > a")
     actions = ActionChains(self.driver)
