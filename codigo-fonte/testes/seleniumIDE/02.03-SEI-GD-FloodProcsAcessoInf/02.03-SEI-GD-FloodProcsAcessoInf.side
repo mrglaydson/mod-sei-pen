@@ -188,6 +188,13 @@
       ],
       "value": ""
     }, {
+      "id": "8bffc85f-e919-4a25-9c7b-bbb2bb779610",
+      "comment": "",
+      "command": "selectFrame",
+      "target": "index=0",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "b3c4d1bf-9e4a-46eb-8ab2-738d6d21bc03",
       "comment": "",
       "command": "waitForElementVisible",
@@ -199,6 +206,13 @@
       "comment": "",
       "command": "click",
       "target": "xpath=//span[contains(.,'9999')]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f0ac1000-86ca-4cdf-90bd-59a74c777c30",
+      "comment": "",
+      "command": "pause",
+      "target": "2",
       "targets": [],
       "value": ""
     }, {

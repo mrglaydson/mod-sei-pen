@@ -202,17 +202,33 @@
       ],
       "value": ""
     }, {
+      "id": "8a06f76c-707e-4387-993c-2c19d18fdfad",
+      "comment": "",
+      "command": "selectFrame",
+      "target": "index=0",
+      "targets": [
+        ["index=0"]
+      ],
+      "value": ""
+    }, {
       "id": "7f486c3b-8955-48fe-8a4b-7337ea2165e0",
       "comment": "",
       "command": "waitForElementVisible",
-      "target": "xpath=//span[contains(.,'9999')]",
+      "target": "xpath=//a[contains(., \"9999\")]",
       "targets": [],
       "value": "30000"
     }, {
       "id": "acfbc201-ad3e-4833-a4d3-a5e6771f56da",
       "comment": "",
       "command": "click",
-      "target": "xpath=//span[contains(.,'9999')]",
+      "target": "xpath=//a[contains(., \"9999\")]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f00f7c25-cbcb-4083-801e-a02ae118eefb",
+      "comment": "",
+      "command": "pause",
+      "target": "2",
       "targets": [],
       "value": ""
     }, {
