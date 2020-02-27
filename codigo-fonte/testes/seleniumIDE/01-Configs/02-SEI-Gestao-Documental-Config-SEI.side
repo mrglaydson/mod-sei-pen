@@ -17,7 +17,7 @@
       "id": "f5220af7-13bf-47b8-91de-74eefde85e75",
       "comment": "",
       "command": "waitForElementEditable",
-      "target": "id=txtusuario",
+      "target": "id=txtUsuario",
       "targets": [],
       "value": "30000"
     }, {
