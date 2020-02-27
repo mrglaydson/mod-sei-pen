@@ -188,15 +188,6 @@
       ],
       "value": ""
     }, {
-      "id": "c41c9d60-ca75-43a1-b1c2-2a000dd6aac9",
-      "comment": "",
-      "command": "selectFrame",
-      "target": "index=0",
-      "targets": [
-        ["index=1"]
-      ],
-      "value": ""
-    }, {
       "id": "b3c4d1bf-9e4a-46eb-8ab2-738d6d21bc03",
       "comment": "",
       "command": "waitForElementVisible",

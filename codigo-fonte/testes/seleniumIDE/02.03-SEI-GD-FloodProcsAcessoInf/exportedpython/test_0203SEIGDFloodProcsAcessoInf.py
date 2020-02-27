@@ -42,7 +42,6 @@ class Test0203SEIGDFloodProcsAcessoInf():
       self.driver.find_element(By.ID, "txtDescricao").send_keys("teste arquivo")
       self.driver.find_element(By.ID, "optPublico").click()
       self.driver.find_element(By.CSS_SELECTOR, "#divInfraBarraComandosInferior > #btnSalvar > .infraTeclaAtalho").click()
-      self.driver.switch_to.frame(0)
       WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.XPATH, "//span[contains(.,\'9999\')]")))
       self.driver.find_element(By.XPATH, "//span[contains(.,\'9999\')]").click()
       self.driver.switch_to.default_content()
