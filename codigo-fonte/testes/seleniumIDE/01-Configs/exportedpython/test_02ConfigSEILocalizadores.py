@@ -20,12 +20,12 @@ class Test02ConfigSEILocalizadores():
   
   def test_0101LocalizadoresLugares(self):
     self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
-    WebDriverWait(self.driver, 30000).until(expected_conditions.element_to_be_clickable((By.ID, "txtusuario")))
+    WebDriverWait(self.driver, 30).until(expected_conditions.element_to_be_clickable((By.ID, "txtusuario")))
     self.driver.find_element(By.ID, "txtUsuario").send_keys("teste")
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("teste")
     self.driver.find_element(By.ID, "sbmLogin").click()
-    WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.XPATH, "//*[@id=\"main-menu\"]/li[21]/a")))
+    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//*[@id=\"main-menu\"]/li[21]/a")))
     self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[21]/a").click()
     self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[21]/ul/li[4]/a").click()
     self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[21]/ul/li[4]/ul/li[2]/a").click()
