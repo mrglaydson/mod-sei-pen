@@ -576,6 +576,13 @@
       ],
       "value": ""
     }, {
+      "id": "309ab981-3f3e-47fb-9158-849201f68ace",
+      "comment": "",
+      "command": "pause",
+      "target": "2",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "1cb166c8-997c-4bf2-a86b-4982d0c4419e",
       "comment": "",
       "command": "click",

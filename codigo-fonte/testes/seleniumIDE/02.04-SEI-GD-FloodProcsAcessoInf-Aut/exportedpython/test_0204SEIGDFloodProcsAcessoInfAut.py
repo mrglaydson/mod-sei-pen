@@ -70,7 +70,7 @@ class Test0204SEIGDFloodProcsAcessoInfAut():
       dropdown.find_element(By.XPATH, "//option[. = 'Cópia Autenticada Administrativamente']").click()
       self.driver.find_element(By.ID, "selTipoConferencia").click()
       self.driver.find_element(By.ID, "optPublico").click()
-      self.driver.find_element(By.ID, "filArquivo").send_keys("teste.pdf")
+      self.driver.find_element(By.ID, "filArquivo").send_keys("/home/marcelo/projetos/git/planejamento/sei-mod-gestao-documental/codigo-fonte/testes/seleniumIDE/02.04-SEI-GD-FloodProcsAcessoInf-Aut/teste.pdf")
       WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".infraTd:nth-child(2)")))
       self.driver.find_element(By.CSS_SELECTOR, ".infraTd:nth-child(2)").click()
       assert self.driver.find_element(By.CSS_SELECTOR, ".infraTd:nth-child(2) > div").text == "teste.pdf"
@@ -85,6 +85,7 @@ class Test0204SEIGDFloodProcsAcessoInfAut():
       dropdown = self.driver.find_element(By.ID, "selCargoFuncao")
       dropdown.find_element(By.XPATH, "//option[. = 'Gestor de Contrato']").click()
       self.driver.find_element(By.ID, "selCargoFuncao").click()
+      time.sleep(2)
       WebDriverWait(self.driver, 30000).until(expected_conditions.element_to_be_clickable((By.ID, "pwdSenha")))
       self.driver.find_element(By.ID, "pwdSenha").click()
       self.driver.find_element(By.ID, "pwdSenha").send_keys("teste")
