@@ -4049,6 +4049,13 @@
       ],
       "value": ""
     }, {
+      "id": "7738b38f-b500-4eeb-9387-295d95dce287",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "id=chkSinProtocolo",
+      "targets": [],
+      "value": "30000"
+    }, {
       "id": "a177b6b2-b319-4c12-bf0c-01a42ca908a4",
       "comment": "",
       "command": "click",

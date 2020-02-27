@@ -397,6 +397,7 @@ class Test01ConfigSEI():
     self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[1]/ul/li[21]/a").click()
     self.driver.find_element(By.LINK_TEXT, "Listar").click()
     self.driver.find_element(By.XPATH, "(//img[@alt=\'Alterar Unidade\'])[3]").click()
+    WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "chkSinProtocolo")))
     self.driver.find_element(By.ID, "chkSinProtocolo").click()
     self.driver.find_element(By.ID, "chkSinArquivamento").click()
     self.driver.find_element(By.NAME, "sbmAlterarUnidade").click()
