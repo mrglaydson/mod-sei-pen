@@ -14,6 +14,13 @@
       "targets": [],
       "value": ""
     }, {
+      "id": "f5220af7-13bf-47b8-91de-74eefde85e75",
+      "comment": "",
+      "command": "waitForElementEditable",
+      "target": "id=txtusuario",
+      "targets": [],
+      "value": "30000"
+    }, {
       "id": "44c99b31-161b-41d3-bf25-0b8d992b06a3",
       "comment": "",
       "command": "type",
@@ -70,6 +77,13 @@
         ["xpath=//button[contains(.,'Acessar')]", "xpath:innerText"]
       ],
       "value": ""
+    }, {
+      "id": "ea7074d4-a586-469e-a45f-a1034e930b7f",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "xpath=//*[@id=\"main-menu\"]/li[21]/a",
+      "targets": [],
+      "value": "30000"
     }, {
       "id": "65d129b5-5300-4140-bb2b-962ffd60efeb",
       "comment": "",
