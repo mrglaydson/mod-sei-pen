@@ -1900,7 +1900,7 @@
         ["css=.cke_editable", "css:finder"],
         ["xpath=//body", "xpath:position"]
       ],
-      "value": "<p>@orgao@ Órgão gerador</p><p>@unidade@   Unidade geradora</p><p>@numero_listagem@   Número da listagem</p><p>@folha@ Número de folhas</p><p>@tabela Tabela de detalhamento da listagem</p><p>@mensuracao_total@  Mensuração total</p><p>@datas_limites_gerais@  Datas limite do arquivamento</p>"
+      "value": "<p>@orgao@ Órgão gerador</p><p>@unidade@   Unidade geradora</p><p>@numero_listagem@   Número da listagem</p><p>@folha@ Número de folhas</p><p>@tabela@ Tabela de detalhamento da listagem</p><p>@mensuracao_total@  Mensuração total</p><p>@datas_limites_gerais@  Datas limite do arquivamento</p>"
     }, {
       "id": "fff41b3d-95ea-4b32-a2c8-801d8743c7f5",
       "comment": "",

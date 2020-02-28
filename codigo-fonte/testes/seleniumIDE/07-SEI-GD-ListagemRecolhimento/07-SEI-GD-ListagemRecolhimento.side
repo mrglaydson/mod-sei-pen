@@ -1,11 +1,11 @@
 {
   "id": "565c3481-f0b6-42f6-a947-d7514d57929f",
   "version": "2.0",
-  "name": "06-SEI-GD-ListasEliminacao",
+  "name": "07-SEI-GD-ListagemRecolhimento",
   "url": "http://seigd.intra.planejamento/",
   "tests": [{
     "id": "8e9baf2a-bdda-4d40-ab63-15741729ea68",
-    "name": "06.10-GerarListagem",
+    "name": "07.10-GerarListagem",
     "commands": [{
       "id": "278b88a4-e671-40cd-98f6-f22f009d3f0c",
       "comment": "",
@@ -113,7 +113,7 @@
       "id": "e0737bfe-9db1-4040-a80d-30728b12f158",
       "comment": "",
       "command": "click",
-      "target": "xpath=//*[@id=\"main-menu\"]/li[10]/ul/li[2]/a",
+      "target": "xpath=//*[@id=\"main-menu\"]/li[10]/ul/li[3]/a",
       "targets": [
         ["linkText=Avaliação de Processos", "linkText"],
         ["css=.sm-nowrap > li:nth-child(1) > a", "css:finder"],
@@ -211,7 +211,7 @@
       "id": "bc192e8e-3bbf-4ddb-a662-b032b97d3561",
       "comment": "",
       "command": "click",
-      "target": "xpath=//*[@id=\"main-menu\"]/li[10]/ul/li[2]/a",
+      "target": "xpath=//*[@id=\"main-menu\"]/li[10]/ul/li[3]/a",
       "targets": [
         ["linkText=Avaliação de Processos", "linkText"],
         ["css=.sm-nowrap > li:nth-child(1) > a", "css:finder"],
@@ -433,7 +433,7 @@
     }]
   }, {
     "id": "8735f913-e2e6-4e31-9112-fd124e504dbb",
-    "name": "06.20-Alterar Listagem",
+    "name": "07.20-Alterar Listagem",
     "commands": [{
       "id": "4dc0d4b8-dfd3-464b-b056-a6a14bf06888",
       "comment": "",
@@ -964,7 +964,7 @@
   }],
   "suites": [{
     "id": "a6936c4e-871c-42fa-9c4c-e2efd3bd3848",
-    "name": "05-SEI-GD-Avaliacao",
+    "name": "07-SEI-GD-ListagemRecolhimento",
     "persistSession": false,
     "parallel": false,
     "timeout": 300,

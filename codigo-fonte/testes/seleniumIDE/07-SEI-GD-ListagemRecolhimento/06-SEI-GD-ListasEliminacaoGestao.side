@@ -1,7 +1,7 @@
 {
   "id": "565c3481-f0b6-42f6-a947-d7514d57929f",
   "version": "2.0",
-  "name": "06-SEI-GD-ListasEliminacao",
+  "name": "06-SEI-GD-ListasEliminacaoGestao",
   "url": "http://seigd.intra.planejamento/",
   "tests": [{
     "id": "8e9baf2a-bdda-4d40-ab63-15741729ea68",
@@ -964,7 +964,7 @@
   }],
   "suites": [{
     "id": "a6936c4e-871c-42fa-9c4c-e2efd3bd3848",
-    "name": "05-SEI-GD-Avaliacao",
+    "name": "06-SEI-GD-ListasEliminacaoGestao",
     "persistSession": false,
     "parallel": false,
     "timeout": 300,

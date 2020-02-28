@@ -277,7 +277,7 @@ class Test01ConfigSEI():
     self.driver.switch_to.frame(0)
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".cke_editable")))
     element = self.driver.find_element(By.CSS_SELECTOR, ".cke_editable")
-    self.driver.execute_script("if(arguments[0].contentEditable === 'true') {arguments[0].innerText = '<p>@orgao@ Órgão gerador</p><p>@unidade@   Unidade geradora</p><p>@numero_listagem@   Número da listagem</p><p>@folha@ Número de folhas</p><p>@tabela Tabela de detalhamento da listagem</p><p>@mensuracao_total@  Mensuração total</p><p>@datas_limites_gerais@  Datas limite do arquivamento</p>'}", element)
+    self.driver.execute_script("if(arguments[0].contentEditable === 'true') {arguments[0].innerText = '<p>@orgao@ Órgão gerador</p><p>@unidade@   Unidade geradora</p><p>@numero_listagem@   Número da listagem</p><p>@folha@ Número de folhas</p><p>@tabela@ Tabela de detalhamento da listagem</p><p>@mensuracao_total@  Mensuração total</p><p>@datas_limites_gerais@  Datas limite do arquivamento</p>'}", element)
     self.driver.switch_to.default_content()
     self.driver.find_element(By.NAME, "sbmAlterarModeloAlterar").click()
     self.driver.find_element(By.ID, "selModeloDocumento").click()
