@@ -332,17 +332,9 @@
     }, {
       "id": "85e0510b-2eca-438a-a102-e63a8fed4372",
       "comment": "",
-      "command": "click",
+      "command": "//click",
       "target": "id=selSerie",
-      "targets": [
-        ["id=selSerie", "id"],
-        ["name=selSerie", "name"],
-        ["css=#selSerie", "css:finder"],
-        ["xpath=//select[@id='selSerie']", "xpath:attributes"],
-        ["xpath=//div[@id='divSerieDataElaboracao']/select", "xpath:idRelative"],
-        ["xpath=//div[4]/select", "xpath:position"],
-        ["xpath=//select[contains(.,' \nAbaixo-Assinado\nAcórdão\nAcordo\nAgenda\nAlegações\nAlvará\nAnais\nAnálise\nAnexo\nAnotação\nAnteprojeto\nApartado\nApólice\nApostila\nApresentação\nAta\nAtestado\nAto\nÁudio\nAuto\nAutorização\nAviso\nBalancete\nBalanço\nBilhete\nBoletim\nBoleto\nCalendário\nCanhoto\nCarta\nCartão\nCartaz\nCarteira\nCédula\nCertidão\nCertificado\nCheque\nCNH\nCNPJ\nComprovante\nComunicado\nConfirmação\nConsulta\nConta\nConteúdo de Mídia\nContracheque\nContrarrazões\nContrato\nConvenção\nConvênio\nConvite\nCorrespondência\nCota\nCotação\nCPF\nCrachá\nCredencial\nCronograma\nCroqui\nCurrículo\nDacon\nDebênture\nDecisão\nDeclaração\nDecreto\nDefesa\nDegravacão\nDeliberação\nDemonstração\nDemonstrativo\nDenúncia\nDepoimento\nDespacho\nDespacho (AGU)\nDiagnóstico\nDiário\nDiploma\nDiretriz\nDissertação\nDocumento\nDossiê\nE-mail\nEdital\nEmbargos\nEmenda\nEscala\nEsclarecimento\nEscritura\nEscrituração\nEstatuto\nEstratégia\nEstudo\nExame\nExposição\nExposição de Motivos\nExtrato\nFatura\nFicha\nFluxograma\nFolder\nFolha\nFolheto\nFormulário\nGrade Curricular\nGuia\nHistórico\nImpugnação\nIndicação\nInformação\nInforme\nInscrição\nInstrução\nIntenção\nInventário\nLaudo\nLei\nLicença\nLista\nListagem\nLivro\nMandado\nManifesto\nManual\nMapa\nMatéria\nMaterial\nMedida Provisória\nMemorando\nMemorando-Circular\nMemória\nMemorial\nMensagem\nMinuta\nMoção\nMovimentação\nNorma\nNota\nNotificação\nOfício\nOfício-Circular\nOrçamento\nOrdem\nOrganograma\nOrientação\nPágina\nPanfleto\nParecer\nPassaporte\nPauta\nPedido\nPetição\nPlanilha\nPlano\nPlanta\nPortaria\nPrecatório\nProcesso\nProcuração\nPrograma\nProjeto\nProntuário\nPronunciamento\nProposta\nProspecto\nProtocolo\nProva\nPublicação\nQuestionário\nReceita\nRecibo\nReclamação\nRecurso\nReferendo\nRegimento\nRegistro\nRegulamento\nRelação\nRelatório\nRelease\nRepresentação\nRequerimento\nRequisição\nResolução\nResultado\nResumo\nRG\nRoteiro\nSentença\nSinopse\nSolicitação\nSumário\nSúmula\nTabela\nTelegrama\nTermo\nTese\nTestamento\nTítulo\nVídeo\nVolume\nVoto\nVoucher')]", "xpath:innerText"]
-      ],
+      "targets": [],
       "value": ""
     }, {
       "id": "a83bf99e-bbe9-45f7-80df-13749792c566",
