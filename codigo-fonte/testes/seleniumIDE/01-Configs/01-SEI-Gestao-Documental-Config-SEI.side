@@ -3091,6 +3091,13 @@
       "targets": [],
       "value": ""
     }, {
+      "id": "3a54d647-12f9-44fc-9c15-8fc09e4a1376",
+      "comment": "",
+      "command": "waitForElementEditable",
+      "target": "id=txtEndereco",
+      "targets": [],
+      "value": "30000"
+    }, {
       "id": "37f0e6a6-dc48-4a29-b9ef-10997ada3fdf",
       "comment": "",
       "command": "click",
@@ -3369,6 +3376,13 @@
       "target": "handle=${win4521}",
       "targets": [],
       "value": ""
+    }, {
+      "id": "1e3853a9-e348-481c-bd3f-5818af73812b",
+      "comment": "",
+      "command": "waitForElementEditable",
+      "target": "id=txtEndereco",
+      "targets": [],
+      "value": "30000"
     }, {
       "id": "7399fbb6-4da8-49d9-af16-206177972618",
       "comment": "",

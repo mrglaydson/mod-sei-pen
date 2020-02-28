@@ -2611,7 +2611,7 @@
     "persistSession": false,
     "parallel": false,
     "timeout": 300,
-    "tests": ["8e9baf2a-bdda-4d40-ab63-15741729ea68"]
+    "tests": ["8e9baf2a-bdda-4d40-ab63-15741729ea68", "7660dbd5-1e76-4d21-9222-82dff29528c5", "c656f89f-7b2e-4d20-bd77-e0de5e91dcd9", "0f9c9d08-13bf-4acf-a650-30c235d7b4c2", "433269c4-3040-4783-925e-5134cc51d991", "1e316c6c-1e0a-4660-89c1-cafeeecdae31", "f0545037-cc42-4435-9ce8-f4ad3f567c44", "2ac20674-847e-4212-acb6-2ff90db3544d", "39daefef-eff8-4467-a9dd-9003aaec5371"]
   }],
   "urls": ["http://seigd.nuvem.gov.br/", "http://seigd.intra.planejamento/"],
   "plugins": []
