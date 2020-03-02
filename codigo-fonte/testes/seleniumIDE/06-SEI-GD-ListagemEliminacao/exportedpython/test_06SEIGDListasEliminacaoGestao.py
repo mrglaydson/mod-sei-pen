@@ -33,6 +33,7 @@ class Test06SEIGDListasEliminacaoGestao():
     self.driver.find_element(By.ID, "btnGerarListagem").click()
     self.driver.find_element(By.ID, "imgInfraCheck").click()
     self.driver.find_element(By.ID, "btnGerarListagem").click()
+    time.sleep(2)
     self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[10]/a").click()
     self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[10]/ul/li[2]/a").click()
     self.driver.find_element(By.LINK_TEXT, "Gestão das Listagens").click()

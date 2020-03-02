@@ -33,6 +33,7 @@ class Test08SEIGDListasRecolhimentoGestao():
     self.driver.find_element(By.ID, "btnGerarListagem").click()
     self.driver.find_element(By.ID, "imgInfraCheck").click()
     self.driver.find_element(By.ID, "btnGerarListagem").click()
+    time.sleep(2)
     self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[10]/a").click()
     self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[10]/ul/li[3]/a").click()
     self.driver.find_element(By.LINK_TEXT, "Gestão das Listagens").click()
@@ -91,7 +92,7 @@ class Test08SEIGDListasRecolhimentoGestao():
     self.driver.switch_to.alert.accept()
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".infraCaption")))
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Listagens de Eliminacao (2 registros):"
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Listagens de Recolhimento (2 registros):"
     self.driver.find_element(By.CSS_SELECTOR, "#lnkSairSistema > .infraImg").click()
     self.driver.close()
   

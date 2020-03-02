@@ -196,6 +196,13 @@
       ],
       "value": ""
     }, {
+      "id": "bc67d2c2-0a46-4fec-b14b-641381fff54d",
+      "comment": "",
+      "command": "pause",
+      "target": "2",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "ebda4d21-38aa-42ef-b7a1-f7626d3a5c56",
       "comment": "",
       "command": "click",
@@ -958,7 +965,7 @@
         ["xpath=//caption", "xpath:position"],
         ["xpath=//caption[contains(.,'Lista de Listagens de Eliminacao (18 registros):')]", "xpath:innerText"]
       ],
-      "value": "Lista de Listagens de Eliminacao (2 registros):"
+      "value": "Lista de Listagens de Recolhimento (2 registros):"
     }, {
       "id": "5a8f4d23-b920-4a6f-aee7-46b58c8cbd4f",
       "comment": "",
