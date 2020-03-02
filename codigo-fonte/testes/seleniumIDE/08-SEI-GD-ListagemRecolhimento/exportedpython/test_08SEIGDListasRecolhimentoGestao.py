@@ -39,14 +39,13 @@ class Test08SEIGDListasRecolhimentoGestao():
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Listagens de Recolhimento (2 registros):"
     self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[3]/td[3]").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraTrSelecionada > td:nth-child(2)").text == "1/"
     self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[2]/td[3]").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraTrSelecionada > td:nth-child(2)").text == "2/"
     self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[6]/a[2]").click()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Lista de Processos (4 registros):"
     self.driver.find_element(By.ID, "btnCancelar").click()
     self.driver.find_element(By.XPATH, "(//img[@title=\'Visualizar Listagem de Recolhimento\'])[2]").click()
+    WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".infraCaption")))
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Lista de Processos (1 registro):"
     self.driver.find_element(By.ID, "btnCancelar").click()
@@ -90,6 +89,7 @@ class Test08SEIGDListasRecolhimentoGestao():
     self.driver.find_element(By.ID, "btnFechar").click()
     self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[6]/a[4]").click()
     self.driver.switch_to.alert.accept()
+    WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".infraCaption")))
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Listagens de Eliminacao (2 registros):"
     self.driver.find_element(By.CSS_SELECTOR, "#lnkSairSistema > .infraImg").click()

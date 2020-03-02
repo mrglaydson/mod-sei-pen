@@ -102,10 +102,10 @@ class Test07SEIGDAvaliacaoRecolhimento():
     self.vars["win644"] = self.wait_for_window(2000)
     self.vars["root"] = self.driver.current_window_handle
     self.driver.switch_to.window(self.vars["win644"])
+    WebDriverWait(self.driver, 30000).until(expected_conditions.element_to_be_clickable((By.ID, "txaObservacao")))
     self.driver.find_element(By.ID, "txaObservacao").click()
     self.driver.find_element(By.ID, "txaObservacao").send_keys("observacao1")
     self.driver.find_element(By.NAME, "sbmObservar").click()
-    self.driver.close()
   
   def test_0765AlteraObservacao2(self):
     self.driver.get("http://seigd.intra.planejamento//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
@@ -122,10 +122,10 @@ class Test07SEIGDAvaliacaoRecolhimento():
     self.driver.find_element(By.XPATH, "(//img[@title=\'Adicionar Observação e/ou Justificativa\'])[2]").click()
     self.vars["win3874"] = self.wait_for_window(2000)
     self.driver.switch_to.window(self.vars["win3874"])
+    WebDriverWait(self.driver, 30000).until(expected_conditions.element_to_be_clickable((By.ID, "txaObservacao")))
     self.driver.find_element(By.ID, "txaObservacao").click()
     self.driver.find_element(By.ID, "txaObservacao").send_keys("observacao 2")
     self.driver.find_element(By.NAME, "sbmObservar").click()
-    self.driver.close()
   
   def test_0770AlteraObservacao3(self):
     self.driver.get("http://seigd.intra.planejamento//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
@@ -142,10 +142,10 @@ class Test07SEIGDAvaliacaoRecolhimento():
     self.driver.find_element(By.XPATH, "(//img[@title=\'Adicionar Observação e/ou Justificativa\'])[3]").click()
     self.vars["win3874"] = self.wait_for_window(2000)
     self.driver.switch_to.window(self.vars["win3874"])
+    WebDriverWait(self.driver, 30000).until(expected_conditions.element_to_be_clickable((By.ID, "txaObservacao")))
     self.driver.find_element(By.ID, "txaObservacao").click()
     self.driver.find_element(By.ID, "txaObservacao").send_keys("observacao 4")
     self.driver.find_element(By.NAME, "sbmObservar").click()
-    self.driver.close()
   
   def test_0775AlteraObservacao3Conserta(self):
     self.driver.get("http://seigd.intra.planejamento//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
@@ -163,8 +163,8 @@ class Test07SEIGDAvaliacaoRecolhimento():
     self.driver.find_element(By.XPATH, "(//img[@title=\'Adicionar Observação e/ou Justificativa\'])[3]").click()
     self.vars["win3874"] = self.wait_for_window(2000)
     self.driver.switch_to.window(self.vars["win3874"])
+    WebDriverWait(self.driver, 30000).until(expected_conditions.element_to_be_clickable((By.ID, "txaObservacao")))
     self.driver.find_element(By.ID, "txaObservacao").click()
     self.driver.find_element(By.ID, "txaObservacao").send_keys("observacao 3")
     self.driver.find_element(By.NAME, "sbmObservar").click()
-    self.driver.close()
   

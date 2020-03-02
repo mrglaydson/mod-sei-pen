@@ -496,40 +496,54 @@
       ],
       "value": ""
     }, {
-      "id": "8ae102d9-a6a3-4255-99f1-691db2275bde",
-      "comment": "",
-      "command": "waitForElementEditable",
-      "target": "id=txtDescricao",
-      "targets": [],
-      "value": "30000"
-    }, {
       "id": "d7ad8ddb-f3e8-4a8a-85a7-0dd6e7aa6b76",
       "comment": "",
-      "command": "click",
+      "command": "//click",
       "target": "id=txtDescricao",
-      "targets": [
-        ["id=txtDescricao", "id"],
-        ["name=txtDescricao", "name"],
-        ["css=#txtDescricao", "css:finder"],
-        ["xpath=//input[@id='txtDescricao']", "xpath:attributes"],
-        ["xpath=//div[@id='divDescricao']/input", "xpath:idRelative"],
-        ["xpath=//div[6]/input", "xpath:position"]
-      ],
+      "targets": [],
       "value": ""
     }, {
       "id": "194bda99-bcbb-4c96-89ac-b6e2f14957f3",
       "comment": "",
-      "command": "type",
+      "command": "//type",
       "target": "id=txtDescricao",
-      "targets": [
-        ["id=txtDescricao", "id"],
-        ["name=txtDescricao", "name"],
-        ["css=#txtDescricao", "css:finder"],
-        ["xpath=//input[@id='txtDescricao']", "xpath:attributes"],
-        ["xpath=//div[@id='divDescricao']/input", "xpath:idRelative"],
-        ["xpath=//div[6]/input", "xpath:position"]
-      ],
+      "targets": [],
       "value": "teste arquivo (alterado)"
+    }, {
+      "id": "8ae102d9-a6a3-4255-99f1-691db2275bde",
+      "comment": "",
+      "command": "waitForElementEditable",
+      "target": "id=txaObservacoes",
+      "targets": [],
+      "value": "30000"
+    }, {
+      "id": "b16b8c0f-ed69-4169-b943-959f4893d866",
+      "comment": "",
+      "command": "click",
+      "target": "id=txaObservacoes",
+      "targets": [
+        ["id=txaObservacoes", "id"],
+        ["name=txaObservacoes", "name"],
+        ["css=#txaObservacoes", "css:finder"],
+        ["xpath=//textarea[@id='txaObservacoes']", "xpath:attributes"],
+        ["xpath=//div[@id='divObservacoes']/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ebfda991-a0e0-4e07-90e4-113265910ec6",
+      "comment": "",
+      "command": "type",
+      "target": "id=txaObservacoes",
+      "targets": [
+        ["id=txaObservacoes", "id"],
+        ["name=txaObservacoes", "name"],
+        ["css=#txaObservacoes", "css:finder"],
+        ["xpath=//textarea[@id='txaObservacoes']", "xpath:attributes"],
+        ["xpath=//div[@id='divObservacoes']/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": "obs alterado"
     }, {
       "id": "8bc540ee-46ba-4341-a67c-0c9bbe84b90d",
       "comment": "",
@@ -763,7 +777,7 @@
         ["xpath=//td[3]", "xpath:position"],
         ["xpath=//td[contains(.,'teste arquivo (alterado)')]", "xpath:innerText"]
       ],
-      "value": "teste arquivo (alterado)"
+      "value": "teste arquivo"
     }, {
       "id": "fb70c6fc-c2e1-4d05-afc6-1b34e895ef92",
       "comment": "",
@@ -1413,6 +1427,13 @@
       "targets": [],
       "value": ""
     }, {
+      "id": "4b079314-85b2-47cf-b585-d4aa19a6e6cd",
+      "comment": "",
+      "command": "waitForElementEditable",
+      "target": "id=txaObservacao",
+      "targets": [],
+      "value": "30000"
+    }, {
       "id": "2bf7f0d5-55f4-4be9-adef-26cbad9baef6",
       "comment": "",
       "command": "click",
@@ -1453,13 +1474,6 @@
         ["xpath=//button", "xpath:position"],
         ["xpath=//button[contains(.,'Salvar')]", "xpath:innerText"]
       ],
-      "value": ""
-    }, {
-      "id": "6dd68331-3c31-44bf-aebc-90b4f70343b8",
-      "comment": "",
-      "command": "close",
-      "target": "",
-      "targets": [],
       "value": ""
     }]
   }, {
@@ -1621,6 +1635,13 @@
       "targets": [],
       "value": ""
     }, {
+      "id": "35007bd4-4b65-4138-b67c-e56f2944ef10",
+      "comment": "",
+      "command": "waitForElementEditable",
+      "target": "id=txaObservacao",
+      "targets": [],
+      "value": "30000"
+    }, {
       "id": "5f11a7ce-6010-4fae-92ba-2b7d564ff0d6",
       "comment": "",
       "command": "click",
@@ -1661,13 +1682,6 @@
         ["xpath=//button", "xpath:position"],
         ["xpath=//button[contains(.,'Salvar')]", "xpath:innerText"]
       ],
-      "value": ""
-    }, {
-      "id": "4b2657a6-0991-4c3b-a0dc-ea8cfc2ca3ae",
-      "comment": "",
-      "command": "close",
-      "target": "",
-      "targets": [],
       "value": ""
     }]
   }, {
@@ -1829,6 +1843,13 @@
       "targets": [],
       "value": ""
     }, {
+      "id": "b8c83408-f0c2-4282-baa1-4e22cc178011",
+      "comment": "",
+      "command": "waitForElementEditable",
+      "target": "id=txaObservacao",
+      "targets": [],
+      "value": "30000"
+    }, {
       "id": "67a45478-420d-42ca-801f-417026963c4f",
       "comment": "",
       "command": "click",
@@ -1869,13 +1890,6 @@
         ["xpath=//button", "xpath:position"],
         ["xpath=//button[contains(.,'Salvar')]", "xpath:innerText"]
       ],
-      "value": ""
-    }, {
-      "id": "ec9e34f6-ce05-4c09-b7b7-f0176a3e5440",
-      "comment": "",
-      "command": "close",
-      "target": "",
-      "targets": [],
       "value": ""
     }]
   }, {
@@ -2044,6 +2058,13 @@
       "targets": [],
       "value": ""
     }, {
+      "id": "90985356-bff3-45e1-97fd-64381567862b",
+      "comment": "",
+      "command": "waitForElementEditable",
+      "target": "id=txaObservacao",
+      "targets": [],
+      "value": "30000"
+    }, {
       "id": "1cd09745-7eb8-47ec-9e0b-75d28735347d",
       "comment": "",
       "command": "click",
@@ -2084,13 +2105,6 @@
         ["xpath=//button", "xpath:position"],
         ["xpath=//button[contains(.,'Salvar')]", "xpath:innerText"]
       ],
-      "value": ""
-    }, {
-      "id": "2acc2b87-0de3-45e9-bfee-2de97f938630",
-      "comment": "",
-      "command": "close",
-      "target": "",
-      "targets": [],
       "value": ""
     }]
   }, {

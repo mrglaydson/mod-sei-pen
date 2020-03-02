@@ -409,6 +409,13 @@
       "targets": [],
       "value": ""
     }, {
+      "id": "68a5af38-7d71-4226-9302-9cbf68ecefc7",
+      "comment": "",
+      "command": "waitForElementEditable",
+      "target": "id=txaObservacao",
+      "targets": [],
+      "value": "30000"
+    }, {
       "id": "2bf7f0d5-55f4-4be9-adef-26cbad9baef6",
       "comment": "",
       "command": "click",
@@ -449,13 +456,6 @@
         ["xpath=//button", "xpath:position"],
         ["xpath=//button[contains(.,'Salvar')]", "xpath:innerText"]
       ],
-      "value": ""
-    }, {
-      "id": "6dd68331-3c31-44bf-aebc-90b4f70343b8",
-      "comment": "",
-      "command": "close",
-      "target": "",
-      "targets": [],
       "value": ""
     }]
   }, {
@@ -617,6 +617,13 @@
       "targets": [],
       "value": ""
     }, {
+      "id": "e5ab0f98-95e6-4af5-8ac4-5d3fbb3d18bc",
+      "comment": "",
+      "command": "waitForElementEditable",
+      "target": "id=txaObservacao",
+      "targets": [],
+      "value": "30000"
+    }, {
       "id": "5f11a7ce-6010-4fae-92ba-2b7d564ff0d6",
       "comment": "",
       "command": "click",
@@ -657,13 +664,6 @@
         ["xpath=//button", "xpath:position"],
         ["xpath=//button[contains(.,'Salvar')]", "xpath:innerText"]
       ],
-      "value": ""
-    }, {
-      "id": "4b2657a6-0991-4c3b-a0dc-ea8cfc2ca3ae",
-      "comment": "",
-      "command": "close",
-      "target": "",
-      "targets": [],
       "value": ""
     }]
   }, {
@@ -825,6 +825,13 @@
       "targets": [],
       "value": ""
     }, {
+      "id": "6629faa6-1778-42fd-9853-124c55ab03c7",
+      "comment": "",
+      "command": "waitForElementEditable",
+      "target": "id=txaObservacao",
+      "targets": [],
+      "value": "30000"
+    }, {
       "id": "67a45478-420d-42ca-801f-417026963c4f",
       "comment": "",
       "command": "click",
@@ -865,13 +872,6 @@
         ["xpath=//button", "xpath:position"],
         ["xpath=//button[contains(.,'Salvar')]", "xpath:innerText"]
       ],
-      "value": ""
-    }, {
-      "id": "ec9e34f6-ce05-4c09-b7b7-f0176a3e5440",
-      "comment": "",
-      "command": "close",
-      "target": "",
-      "targets": [],
       "value": ""
     }]
   }, {
@@ -1040,6 +1040,13 @@
       "targets": [],
       "value": ""
     }, {
+      "id": "13c73099-0982-4a5b-8c63-59d89ac9ba8b",
+      "comment": "",
+      "command": "waitForElementEditable",
+      "target": "id=txaObservacao",
+      "targets": [],
+      "value": "30000"
+    }, {
       "id": "1cd09745-7eb8-47ec-9e0b-75d28735347d",
       "comment": "",
       "command": "click",
@@ -1080,13 +1087,6 @@
         ["xpath=//button", "xpath:position"],
         ["xpath=//button[contains(.,'Salvar')]", "xpath:innerText"]
       ],
-      "value": ""
-    }, {
-      "id": "2acc2b87-0de3-45e9-bfee-2de97f938630",
-      "comment": "",
-      "command": "close",
-      "target": "",
-      "targets": [],
       "value": ""
     }]
   }, {
