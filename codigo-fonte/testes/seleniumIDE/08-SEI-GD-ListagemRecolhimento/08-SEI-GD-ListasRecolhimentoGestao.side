@@ -1,11 +1,11 @@
 {
   "id": "565c3481-f0b6-42f6-a947-d7514d57929f",
   "version": "2.0",
-  "name": "07-SEI-GD-ListagemRecolhimento",
+  "name": "08-SEI-GD-ListasRecolhimentoGestao",
   "url": "http://seigd.intra.planejamento/",
   "tests": [{
     "id": "8e9baf2a-bdda-4d40-ab63-15741729ea68",
-    "name": "07.10-GerarListagem",
+    "name": "08.10-GerarListagem",
     "commands": [{
       "id": "278b88a4-e671-40cd-98f6-f22f009d3f0c",
       "comment": "",
@@ -260,7 +260,7 @@
         ["xpath=//caption", "xpath:position"],
         ["xpath=//caption[contains(.,'Lista de Listagens de Eliminacao (2 registros):')]", "xpath:innerText"]
       ],
-      "value": "Lista de Listagens de Eliminacao (2 registros):"
+      "value": "Lista de Listagens de Recolhimento (2 registros):"
     }, {
       "id": "4964847c-33fc-4988-87a1-46a39cccd710",
       "comment": "",
@@ -274,17 +274,19 @@
       ],
       "value": ""
     }, {
-      "id": "3955ac95-0e28-4193-b4c5-5b377fd2ea73",
+      "id": "95fd7608-6853-4a8b-ab4e-174556bc6037",
       "comment": "",
       "command": "verifyText",
+      "target": "css=.infraTrSelecionada > td:nth-child(2)",
+      "targets": [],
+      "value": "1/"
+    }, {
+      "id": "3955ac95-0e28-4193-b4c5-5b377fd2ea73",
+      "comment": "",
+      "command": "//verifyText",
       "target": "css=.infraTrSelecionada > td:nth-child(3)",
-      "targets": [
-        ["css=.infraTrSelecionada > td:nth-child(3)", "css:finder"],
-        ["xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[3]/td[3]", "xpath:idRelative"],
-        ["xpath=//tr[3]/td[3]", "xpath:position"],
-        ["xpath=//td[contains(.,'99994.000001/2022-90')]", "xpath:innerText"]
-      ],
-      "value": "99994.000001/2022-90"
+      "targets": [],
+      "value": "99993.000003/2020-27"
     }, {
       "id": "3fce3590-f239-48b0-8796-3833c4be8f59",
       "comment": "",
@@ -298,22 +300,24 @@
       ],
       "value": ""
     }, {
-      "id": "a8534541-18ea-4918-a1f9-7397491b73da",
+      "id": "39e234a3-a8ad-4c4f-ab42-78d1fe6ff85a",
       "comment": "",
       "command": "verifyText",
+      "target": "css=.infraTrSelecionada > td:nth-child(2)",
+      "targets": [],
+      "value": "2/"
+    }, {
+      "id": "a8534541-18ea-4918-a1f9-7397491b73da",
+      "comment": "",
+      "command": "//verifyText",
       "target": "css=.infraTrSelecionada > td:nth-child(3)",
-      "targets": [
-        ["css=.infraTrSelecionada > td:nth-child(3)", "css:finder"],
-        ["xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[2]/td[3]", "xpath:idRelative"],
-        ["xpath=//td[3]", "xpath:position"],
-        ["xpath=//td[contains(.,'99994.000002/2022-34')]", "xpath:innerText"]
-      ],
-      "value": "99994.000002/2022-34"
+      "targets": [],
+      "value": "99993.000002/2020-82"
     }, {
       "id": "26411453-63c1-4149-baa8-1c6ec2ee61c0",
       "comment": "",
       "command": "click",
-      "target": "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[7]/a[2]",
+      "target": "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[6]/a[2]",
       "targets": [
         ["css=.infraTrSelecionada a:nth-child(2) > .infraImg", "css:finder"],
         ["xpath=//img[@title='Visualizar Listagem de Eliminacao']", "xpath:img"],
@@ -364,7 +368,7 @@
       "id": "161f33b9-7fe7-4715-b17e-5845f8600008",
       "comment": "",
       "command": "click",
-      "target": "xpath=(//img[@title='Visualizar Listagem de Eliminacao'])[2]",
+      "target": "xpath=(//img[@title='Visualizar Listagem de Recolhimento'])[2]",
       "targets": [
         ["css=.infraTrSelecionada a:nth-child(2) > .infraImg", "css:finder"],
         ["xpath=(//img[@title='Visualizar Listagem de Eliminacao'])[2]", "xpath:img"],
@@ -433,7 +437,7 @@
     }]
   }, {
     "id": "8735f913-e2e6-4e31-9112-fd124e504dbb",
-    "name": "07.20-Alterar Listagem",
+    "name": "08.20-Alterar Listagem",
     "commands": [{
       "id": "4dc0d4b8-dfd3-464b-b056-a6a14bf06888",
       "comment": "",
@@ -541,7 +545,7 @@
       "id": "cfe03248-3384-405f-ac49-0723dbcfa60d",
       "comment": "",
       "command": "click",
-      "target": "xpath=//*[@id=\"main-menu\"]/li[10]/ul/li[2]/a",
+      "target": "xpath=//*[@id=\"main-menu\"]/li[10]/ul/li[3]/a",
       "targets": [
         ["linkText=Avaliação de Processos", "linkText"],
         ["css=.sm-nowrap > li:nth-child(1) > a", "css:finder"],
@@ -578,7 +582,7 @@
       "id": "e94f71ef-7b02-4eda-8de9-1e62a6056906",
       "comment": "",
       "command": "click",
-      "target": "xpath=//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[7]/a[1]",
+      "target": "xpath=//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[6]/a[1]",
       "targets": [
         ["css=.infraTrSelecionada a:nth-child(1) > .infraImg", "css:finder"],
         ["xpath=//img[@title='Editar Listagem de Eliminação']", "xpath:img"],
@@ -604,7 +608,7 @@
       "id": "4c563814-1c0a-4bc5-9686-13aaa930c703",
       "comment": "",
       "command": "click",
-      "target": "xpath=//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[7]/a[3]",
+      "target": "xpath=//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[6]/a[3]",
       "targets": [
         ["css=.infraTrSelecionada a:nth-child(3) > .infraImg", "css:finder"],
         ["xpath=//img[@title='Remover Processos']", "xpath:img"],
@@ -737,7 +741,7 @@
       "id": "f56236ff-9583-415b-9603-053d45e6861a",
       "comment": "",
       "command": "click",
-      "target": "id=frmPrepararListagemEliminacao",
+      "target": "id=frmPrepararListagemRecolhimento",
       "targets": [
         ["id=frmPrepararListagemEliminacao", "id"],
         ["css=#frmPrepararListagemEliminacao", "css:finder"],
@@ -789,7 +793,7 @@
       "id": "6beac986-1d9b-4923-9f3a-0c00ffc5ace7",
       "comment": "",
       "command": "click",
-      "target": "xpath=//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[7]/a[2]",
+      "target": "xpath=//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[6]/a[2]",
       "targets": [
         ["css=.infraTrSelecionada a:nth-child(2) > .infraImg", "css:finder"],
         ["xpath=//img[@title='Adicionar Processos']", "xpath:img"],
@@ -902,7 +906,7 @@
       "id": "db7d8cd8-1d09-4aa7-954d-949bfb343019",
       "comment": "",
       "command": "click",
-      "target": "xpath=//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[7]/a[4]",
+      "target": "xpath=//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[6]/a[4]",
       "targets": [
         ["css=.infraTrSelecionada a:nth-child(4) > .infraImg", "css:finder"],
         ["xpath=//img[@title='Concluir edição da listagem']", "xpath:img"],
@@ -964,7 +968,7 @@
   }],
   "suites": [{
     "id": "a6936c4e-871c-42fa-9c4c-e2efd3bd3848",
-    "name": "07-SEI-GD-ListagemRecolhimento",
+    "name": "08-SEI-GD-ListasRecolhimentoGestao",
     "persistSession": false,
     "parallel": false,
     "timeout": 300,
