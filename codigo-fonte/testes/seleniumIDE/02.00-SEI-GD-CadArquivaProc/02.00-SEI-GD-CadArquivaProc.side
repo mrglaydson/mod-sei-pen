@@ -188,7 +188,7 @@
       "command": "waitForElementVisible",
       "target": "css=.botaoSEI:nth-child(1) > .infraCorBarraSistema",
       "targets": [],
-      "value": "15000"
+      "value": "30000"
     }, {
       "id": "63a79caa-e6c3-4cba-9575-e746bcee9318",
       "comment": "",
@@ -419,6 +419,13 @@
       "target": "xpath=//*[@id=\"anchor52\"]",
       "targets": [],
       "value": ""
+    }, {
+      "id": "4178d480-ba8e-4206-9ab2-3c392ae2cf09",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "css=.botaoSEI:nth-child(15) > .infraCorBarraSistema",
+      "targets": [],
+      "value": "30000"
     }, {
       "id": "665e9272-48b0-41d5-9afc-6b3c39198b78",
       "comment": "",

@@ -63,6 +63,7 @@ class Test05SEIGDAvaliacao():
     actions.move_to_element(element).perform()
     self.driver.find_element(By.LINK_TEXT, "99993.000001/2020-38").click()
     self.driver.switch_to.frame(1)
+    WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".botaoSEI:nth-child(3) > .infraCorBarraSistema")))
     self.driver.find_element(By.CSS_SELECTOR, ".botaoSEI:nth-child(3) > .infraCorBarraSistema").click()
     self.driver.find_element(By.ID, "txtDescricao").click()
     self.driver.find_element(By.ID, "txtDescricao").send_keys("teste arquivo (alterado)")

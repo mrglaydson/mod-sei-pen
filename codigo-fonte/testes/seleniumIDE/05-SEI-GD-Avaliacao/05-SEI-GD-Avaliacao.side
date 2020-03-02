@@ -477,6 +477,13 @@
       ],
       "value": ""
     }, {
+      "id": "cb2d1276-cdc6-40a5-a0bf-2dee427b4918",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "css=.botaoSEI:nth-child(3) > .infraCorBarraSistema",
+      "targets": [],
+      "value": "30000"
+    }, {
       "id": "8df8eb9b-8ada-4954-ac8f-652812c406ac",
       "comment": "",
       "command": "click",
