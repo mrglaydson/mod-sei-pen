@@ -674,13 +674,6 @@
       "target": "fim2",
       "targets": [],
       "value": ""
-    }, {
-      "id": "37b26295-7b41-4d63-8e58-9fc6a15aa70c",
-      "comment": "",
-      "command": "close",
-      "target": "",
-      "targets": [],
-      "value": ""
     }]
   }],
   "suites": [{

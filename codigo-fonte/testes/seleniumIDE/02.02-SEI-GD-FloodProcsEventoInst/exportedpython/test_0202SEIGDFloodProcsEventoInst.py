@@ -73,5 +73,4 @@ class Test0202SEIGDFloodProcsEventoInst():
     print(str("fim"))
     self.driver.find_element(By.CSS_SELECTOR, "#lnkSairSistema > .infraImg").click()
     print(str("fim2"))
-    self.driver.close()
   
