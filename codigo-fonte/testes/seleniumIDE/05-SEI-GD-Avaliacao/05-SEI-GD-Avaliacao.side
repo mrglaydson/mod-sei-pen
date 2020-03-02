@@ -496,6 +496,13 @@
       ],
       "value": ""
     }, {
+      "id": "8ae102d9-a6a3-4255-99f1-691db2275bde",
+      "comment": "",
+      "command": "waitForElementEditable",
+      "target": "id=txtDescricao",
+      "targets": [],
+      "value": "30000"
+    }, {
       "id": "d7ad8ddb-f3e8-4a8a-85a7-0dd6e7aa6b76",
       "comment": "",
       "command": "click",
@@ -524,6 +531,13 @@
       ],
       "value": "teste arquivo (alterado)"
     }, {
+      "id": "8bc540ee-46ba-4341-a67c-0c9bbe84b90d",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "css=#divInfraBarraComandosSuperior .infraTeclaAtalho",
+      "targets": [],
+      "value": "30000"
+    }, {
       "id": "b30c6e91-9296-4099-a389-83d10a16230c",
       "comment": "",
       "command": "click",
@@ -536,6 +550,13 @@
       ],
       "value": ""
     }, {
+      "id": "b4651098-b492-4aee-8cb9-4d2f897dc41f",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "css=.botaoSEI:nth-child(1) > .infraCorBarraSistema",
+      "targets": [],
+      "value": "30000"
+    }, {
       "id": "c6fd51df-5333-4726-8234-08149bb61a18",
       "comment": "",
       "command": "click",
@@ -547,6 +568,13 @@
         ["xpath=//img", "xpath:position"]
       ],
       "value": ""
+    }, {
+      "id": "6a46765d-b078-4aca-acca-92c75f124e73",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "linkText=Despacho",
+      "targets": [],
+      "value": "30000"
     }, {
       "id": "1371af61-c911-4adf-b501-b5f890056888",
       "comment": "",
@@ -562,6 +590,13 @@
         ["xpath=//a[contains(.,'Despacho')]", "xpath:innerText"]
       ],
       "value": ""
+    }, {
+      "id": "3365ab6b-b7e9-41f2-87dd-15b4ccb89113",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "id=optPublico",
+      "targets": [],
+      "value": "30000"
     }, {
       "id": "0a984f09-5e47-4126-9818-f70854bb18d0",
       "comment": "",
