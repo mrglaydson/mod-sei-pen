@@ -168,6 +168,13 @@
       ],
       "value": ""
     }, {
+      "id": "42060311-aa5f-4425-a02a-4a20dab216b2",
+      "comment": "",
+      "command": "pause",
+      "target": "2",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "80a83b05-01cd-4230-9e75-ee27a9bdbbeb",
       "comment": "",
       "command": "click",
@@ -194,13 +201,6 @@
         ["xpath=//button[2]", "xpath:position"],
         ["xpath=//button[contains(.,'Gerar Listagem de Eliminação')]", "xpath:innerText"]
       ],
-      "value": ""
-    }, {
-      "id": "42060311-aa5f-4425-a02a-4a20dab216b2",
-      "comment": "",
-      "command": "pause",
-      "target": "2",
-      "targets": [],
       "value": ""
     }, {
       "id": "ebda4d21-38aa-42ef-b7a1-f7626d3a5c56",
