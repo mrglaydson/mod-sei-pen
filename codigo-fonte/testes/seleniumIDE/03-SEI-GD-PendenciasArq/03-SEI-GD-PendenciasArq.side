@@ -72,6 +72,13 @@
       ],
       "value": ""
     }, {
+      "id": "0582c851-8867-43a6-9586-2f51f24cd9e9",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "//td[contains(.,'000002')]/../td[9]/a[3]",
+      "targets": [],
+      "value": "30000"
+    }, {
       "id": "d5ecf028-3d25-40f8-af7c-c25083c2f801",
       "comment": "",
       "command": "click",
@@ -1220,6 +1227,13 @@
         ["xpath=//a[contains(.,'Pendências de arquivamento')]", "xpath:innerText"]
       ],
       "value": ""
+    }, {
+      "id": "3276f01f-c1c7-473a-b50d-9369bd43eea6",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "css=td .infraImg",
+      "targets": [],
+      "value": "30000"
     }, {
       "id": "212b390f-e507-4a69-963c-6e2df038f007",
       "comment": "",

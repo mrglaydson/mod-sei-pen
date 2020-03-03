@@ -31,6 +31,7 @@ class Test03GDPendenciasArquivamento():
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
     self.driver.find_element(By.ID, "sbmLogin").click()
     self.driver.find_element(By.LINK_TEXT, "Pendências de Arquivamento").click()
+    WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.XPATH, "//td[contains(.,\'000002\')]/../td[9]/a[3]")))
     self.vars["window_handles"] = self.driver.window_handles
     self.driver.find_element(By.XPATH, "//td[contains(.,\'000002\')]/../td[9]/a[3]").click()
     self.vars["win9237"] = self.wait_for_window(2000)
@@ -178,6 +179,7 @@ class Test03GDPendenciasArquivamento():
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
     self.driver.find_element(By.ID, "sbmLogin").click()
     self.driver.find_element(By.LINK_TEXT, "Arquivo da Unidade").click()
+    WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, "td .infraImg")))
     self.driver.find_element(By.CSS_SELECTOR, "td .infraImg").click()
     dropdown = self.driver.find_element(By.ID, "selJustificativa")
     dropdown.find_element(By.XPATH, "//option[. = 'Justificativa de Desarquivamento 01']").click()
