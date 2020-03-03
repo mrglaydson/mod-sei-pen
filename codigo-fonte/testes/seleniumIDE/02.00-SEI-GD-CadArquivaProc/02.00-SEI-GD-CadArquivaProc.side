@@ -1,7 +1,7 @@
 {
   "id": "b617c0e4-d881-4bbb-b4c9-754fd196cbb0",
   "version": "2.0",
-  "name": "02-SEI-Gestao-Documental-Funcionalidades",
+  "name": "02.00-SEI-GD-CadArquivaProc",
   "url": "http://seigd.intra.planejamento",
   "tests": [{
     "id": "694c2bcc-69e7-47f2-8cf6-440a019882e9",
@@ -317,72 +317,6 @@
       ],
       "value": ""
     }, {
-      "id": "fcb2cdda-32f4-4e09-99fc-29746e6e1e35",
-      "comment": "",
-      "command": "//click",
-      "target": "css=.botaoSEI:nth-child(6) > .infraCorBarraSistema",
-      "targets": [],
-      "value": "",
-      "opensWindow": true,
-      "windowHandleName": "win5916",
-      "windowTimeout": 2000
-    }, {
-      "id": "7377fa3d-502a-43d0-993a-1aabbc1ce5ed",
-      "comment": "",
-      "command": "//selectWindow",
-      "target": "handle=${win5916}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "622958ba-9e8b-46ed-81a4-273f841254fb",
-      "comment": "",
-      "command": "//click",
-      "target": "id=selCargoFuncao",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "6508b5e7-ad1b-41ad-929c-80e8d8401629",
-      "comment": "",
-      "command": "//select",
-      "target": "id=selCargoFuncao",
-      "targets": [],
-      "value": "label=Ouvidor"
-    }, {
-      "id": "004ac5f7-8474-41c9-ae3d-78dbd20e1ffe",
-      "comment": "",
-      "command": "//click",
-      "target": "id=selCargoFuncao",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "85cfc585-de09-4782-a2fa-0448a3910b3f",
-      "comment": "",
-      "command": "//click",
-      "target": "id=pwdSenha",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "5380abcf-2f02-4f55-bda2-596b6216dc04",
-      "comment": "",
-      "command": "//type",
-      "target": "id=pwdSenha",
-      "targets": [],
-      "value": "teste"
-    }, {
-      "id": "26774118-6ffa-4bcc-9e4a-d2f338326356",
-      "comment": "",
-      "command": "//click",
-      "target": "id=btnAssinar",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "89beabd2-688c-4e05-962b-ab8113b4f7d6",
-      "comment": "",
-      "command": "//close",
-      "target": "",
-      "targets": [],
-      "value": ""
-    }, {
       "id": "71e60b9f-b686-4458-bfcb-9c136e5ad64a",
       "comment": "",
       "command": "selectWindow",
@@ -411,13 +345,6 @@
       "targets": [
         ["index=1"]
       ],
-      "value": ""
-    }, {
-      "id": "cfcd382b-5abc-45ae-996d-87beb211a08f",
-      "comment": "",
-      "command": "//click",
-      "target": "xpath=//*[@id=\"anchor52\"]",
-      "targets": [],
       "value": ""
     }, {
       "id": "4178d480-ba8e-4206-9ab2-3c392ae2cf09",
@@ -612,6 +539,13 @@
       ],
       "value": ""
     }, {
+      "id": "a9b87f2e-cbe4-4e3c-8505-290848ffb8d7",
+      "comment": "",
+      "command": "pause",
+      "target": "5",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "04deb8ff-ad46-430e-afaa-65aebf51e720",
       "comment": "",
       "command": "waitForElementVisible",
@@ -741,37 +675,9 @@
       ],
       "value": ""
     }, {
-      "id": "988f26f5-42cc-4b7a-a002-9c47adf19ae1",
+      "id": "e44e6504-a171-4197-9e25-7237fd62de78",
       "comment": "",
       "command": "webdriverChooseOkOnVisibleConfirmation",
-      "target": "",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "ddd52c8f-c013-4888-b265-1188822dd5bb",
-      "comment": "",
-      "command": "selectFrame",
-      "target": "relative=parent",
-      "targets": [
-        ["relative=parent"]
-      ],
-      "value": ""
-    }, {
-      "id": "ebd87d1c-7d98-42d3-81a8-22f002939b73",
-      "comment": "",
-      "command": "click",
-      "target": "css=#lnkSairSistema > .infraImg",
-      "targets": [
-        ["css=#lnkSairSistema > .infraImg", "css:finder"],
-        ["xpath=//img[@alt='Sair do Sistema']", "xpath:img"],
-        ["xpath=//a[@id='lnkSairSistema']/img", "xpath:idRelative"],
-        ["xpath=//a[5]/img", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "d9eaebf6-e6ef-4fac-846e-6450a9b70fb4",
-      "comment": "",
-      "command": "close",
       "target": "",
       "targets": [],
       "value": ""
@@ -779,7 +685,7 @@
   }],
   "suites": [{
     "id": "61368320-64d2-495a-b1ee-0a78235cb322",
-    "name": "02.00-ProcCad",
+    "name": "02.00-SEI-GD-CadArquivaProc",
     "persistSession": false,
     "parallel": false,
     "timeout": 300,
