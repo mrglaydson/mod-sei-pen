@@ -40,6 +40,7 @@ class Test07SEIGDAvaliacaoRecolhimento():
     self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[2]/td[11]/a/img").click()
     self.driver.switch_to.alert.accept()
     self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[2]/td[11]/a/img").click()
+    self.driver.switch_to.alert.accept()
   
   def test_0750MandaListagemRecolhimento(self):
     self.driver.get("http://seigd.intra.planejamento//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")

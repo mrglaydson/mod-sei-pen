@@ -1170,6 +1170,13 @@
         ["xpath=//td[11]/a/img", "xpath:position"]
       ],
       "value": ""
+    }, {
+      "id": "7c46c5ec-ee4e-4e05-ba68-75b94c5d472c",
+      "comment": "",
+      "command": "webdriverChooseOkOnVisibleConfirmation",
+      "target": "",
+      "targets": [],
+      "value": ""
     }]
   }, {
     "id": "1e316c6c-1e0a-4660-89c1-cafeeecdae31",
