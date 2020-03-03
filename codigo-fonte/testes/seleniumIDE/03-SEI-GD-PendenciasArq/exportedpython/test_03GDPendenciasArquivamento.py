@@ -171,6 +171,7 @@ class Test03GDPendenciasArquivamento():
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
     self.driver.find_element(By.ID, "sbmSalvar").click()
+    self.driver.switch_to.alert.accept()
   
   def test_080PendenciasArquivamentoArquivarMassa(self):
     self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")

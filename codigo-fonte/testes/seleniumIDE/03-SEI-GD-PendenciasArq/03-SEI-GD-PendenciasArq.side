@@ -1204,6 +1204,13 @@
         ["xpath=//button[contains(.,'Salvar')]", "xpath:innerText"]
       ],
       "value": ""
+    }, {
+      "id": "e9f3299f-db65-4299-a29f-f7d882c81e69",
+      "comment": "",
+      "command": "webdriverChooseOkOnVisibleConfirmation",
+      "target": "",
+      "targets": [],
+      "value": ""
     }]
   }, {
     "id": "90e60442-ddc7-4ae8-a3c1-abe45da5be76",
