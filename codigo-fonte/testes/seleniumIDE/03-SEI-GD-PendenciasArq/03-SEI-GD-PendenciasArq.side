@@ -1211,6 +1211,34 @@
       "target": "",
       "targets": [],
       "value": ""
+    }, {
+      "id": "01f79cb9-5c9e-4ded-8922-74fd1325394f",
+      "comment": "",
+      "command": "selectFrame",
+      "target": "index=0",
+      "targets": [
+        ["index=0"]
+      ],
+      "value": ""
+    }, {
+      "id": "2f6314cb-8618-4eae-9ca0-c95532ef0e7c",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "css=span:nth-child(2)",
+      "targets": [],
+      "value": "30000"
+    }, {
+      "id": "2533c33b-8442-4e59-8b5c-160913145fee",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=span:nth-child(2)",
+      "targets": [
+        ["css=span:nth-child(2)", "css:finder"],
+        ["xpath=//div[@id='divConsultarAndamento']/a/span", "xpath:idRelative"],
+        ["xpath=//div[2]/a/span", "xpath:position"],
+        ["xpath=//span[contains(.,' Consultar Andamento')]", "xpath:innerText"]
+      ],
+      "value": "Consultar Andamento"
     }]
   }, {
     "id": "90e60442-ddc7-4ae8-a3c1-abe45da5be76",
