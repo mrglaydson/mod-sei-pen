@@ -29,4 +29,6 @@ class Test04SEIGDRunAgendamento():
     self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[27]/a").click()
     self.driver.find_element(By.LINK_TEXT, "Agendamentos").click()
     self.driver.find_element(By.XPATH, "(//img[@alt=\'Executar Agendamento\'])[8]").click()
+    self.driver.switch_to.alert.accept()
+    WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[9]/td[6]")))
   

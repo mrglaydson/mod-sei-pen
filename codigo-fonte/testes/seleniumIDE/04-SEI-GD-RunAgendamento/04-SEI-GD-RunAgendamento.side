@@ -143,6 +143,20 @@
         ["xpath=//tr[9]/td[7]/a/img", "xpath:position"]
       ],
       "value": ""
+    }, {
+      "id": "49ca045d-9c67-4955-b6f8-08418306f128",
+      "comment": "",
+      "command": "webdriverChooseOkOnVisibleConfirmation",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "82a9f710-f363-4a18-992d-180572c38bfd",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[9]/td[6]",
+      "targets": [],
+      "value": "30000"
     }]
   }],
   "suites": [{
