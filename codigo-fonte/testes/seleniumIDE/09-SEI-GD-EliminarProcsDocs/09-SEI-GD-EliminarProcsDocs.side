@@ -1,11 +1,11 @@
 {
   "id": "565c3481-f0b6-42f6-a947-d7514d57929f",
   "version": "2.0",
-  "name": "06-SEI-GD-ListasEliminacaoGestao",
+  "name": "09-SEI-GD-EliminarProcsDocs",
   "url": "http://seigd.intra.planejamento/",
   "tests": [{
     "id": "8e9baf2a-bdda-4d40-ab63-15741729ea68",
-    "name": "06.10-GerarListagem",
+    "name": "09.10-EliminarProc",
     "commands": [{
       "id": "278b88a4-e671-40cd-98f6-f22f009d3f0c",
       "comment": "",
@@ -440,7 +440,7 @@
     }]
   }, {
     "id": "8735f913-e2e6-4e31-9112-fd124e504dbb",
-    "name": "06.20-Alterar Listagem",
+    "name": "09.20-EliminarDocsFisicos",
     "commands": [{
       "id": "4dc0d4b8-dfd3-464b-b056-a6a14bf06888",
       "comment": "",
@@ -971,7 +971,7 @@
   }],
   "suites": [{
     "id": "a6936c4e-871c-42fa-9c4c-e2efd3bd3848",
-    "name": "06-SEI-GD-ListasEliminacaoGestao",
+    "name": "09-SEI-GD-EliminarProcsDocs",
     "persistSession": false,
     "parallel": false,
     "timeout": 300,
