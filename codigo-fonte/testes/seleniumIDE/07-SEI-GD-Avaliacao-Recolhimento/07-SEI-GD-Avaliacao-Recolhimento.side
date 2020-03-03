@@ -209,39 +209,6 @@
         ["xpath=//td[11]/a/img", "xpath:position"]
       ],
       "value": ""
-    }, {
-      "id": "05ffacb3-1c61-4985-bf64-9024b6a6a6b8",
-      "comment": "",
-      "command": "//assertConfirmation",
-      "target": "Confirma o envio do processo  \"99993.000033/2020-33\" para a eliminação?",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "cd44c945-00cf-40e6-a711-c8034831962a",
-      "comment": "",
-      "command": "webdriverChooseOkOnVisibleConfirmation",
-      "target": "",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "581a11dd-bcad-4b96-98a7-b87ecae4786a",
-      "comment": "",
-      "command": "click",
-      "target": "css=#lnkSairSistema > .infraImg",
-      "targets": [
-        ["css=#lnkSairSistema > .infraImg", "css:finder"],
-        ["xpath=//img[@alt='Sair do Sistema']", "xpath:img"],
-        ["xpath=//a[@id='lnkSairSistema']/img", "xpath:idRelative"],
-        ["xpath=//a[5]/img", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "490c11cf-5a8a-41ea-bb4a-2ecfabe358f5",
-      "comment": "",
-      "command": "close",
-      "target": "",
-      "targets": [],
-      "value": ""
     }]
   }, {
     "id": "1e316c6c-1e0a-4660-89c1-cafeeecdae31",
@@ -1638,25 +1605,6 @@
         ["xpath=//caption[contains(.,'Lista de Processos Arquivados (21 registros):')]", "xpath:innerText"]
       ],
       "value": "Lista de Processos Arquivados (41 registros):"
-    }, {
-      "id": "a62c6ea6-4bf5-4c8f-afc0-bf9897db2d9a",
-      "comment": "",
-      "command": "click",
-      "target": "css=#lnkSairSistema > .infraImg",
-      "targets": [
-        ["css=#lnkSairSistema > .infraImg", "css:finder"],
-        ["xpath=//img[@alt='Sair do Sistema']", "xpath:img"],
-        ["xpath=//a[@id='lnkSairSistema']/img", "xpath:idRelative"],
-        ["xpath=//a[5]/img", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "7b97dc80-f9c5-47bd-b217-dfa306b6c517",
-      "comment": "",
-      "command": "close",
-      "target": "",
-      "targets": [],
-      "value": ""
     }]
   }],
   "suites": [{

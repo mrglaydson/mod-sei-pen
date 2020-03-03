@@ -69,6 +69,4 @@ class Test02ConfigSEILocalizadores():
     dropdown.find_element(By.XPATH, "//option[. = 'Aberto']").click()
     self.driver.find_element(By.ID, "selStaEstado").click()
     self.driver.find_element(By.NAME, "sbmCadastrarLocalizador").click()
-    self.driver.find_element(By.CSS_SELECTOR, "#lnkSairSistema > .infraImg").click()
-    self.driver.close()
   

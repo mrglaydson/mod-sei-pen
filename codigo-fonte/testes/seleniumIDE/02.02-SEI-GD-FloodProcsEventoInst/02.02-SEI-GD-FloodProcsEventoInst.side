@@ -448,18 +448,6 @@
       "targets": [],
       "value": ""
     }, {
-      "id": "cc21e26d-9365-4071-a343-89c974902df4",
-      "comment": "",
-      "command": "click",
-      "target": "css=#lnkSairSistema > .infraImg",
-      "targets": [
-        ["css=#lnkSairSistema > .infraImg", "css:finder"],
-        ["xpath=//img[@alt='Sair do Sistema']", "xpath:img"],
-        ["xpath=//a[@id='lnkSairSistema']/img", "xpath:idRelative"],
-        ["xpath=//a[5]/img", "xpath:position"]
-      ],
-      "value": ""
-    }, {
       "id": "583b4fda-c821-45aa-aad7-4b0e02dc752f",
       "comment": "",
       "command": "echo",

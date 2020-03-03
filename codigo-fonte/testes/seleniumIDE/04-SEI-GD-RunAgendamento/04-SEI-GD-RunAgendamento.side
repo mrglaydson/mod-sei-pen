@@ -143,39 +143,6 @@
         ["xpath=//tr[9]/td[7]/a/img", "xpath:position"]
       ],
       "value": ""
-    }, {
-      "id": "0981f9f1-0c14-40b0-b94a-24910d4f66e8",
-      "comment": "",
-      "command": "chooseOkOnNextConfirmation",
-      "target": "",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "8150f00b-064f-4922-a090-955e27cd9959",
-      "comment": "",
-      "command": "webdriverChooseOkOnVisibleConfirmation",
-      "target": "",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "11abc41f-c4d5-4115-b569-6cd87947b864",
-      "comment": "",
-      "command": "click",
-      "target": "css=#lnkSairSistema > .infraImg",
-      "targets": [
-        ["css=#lnkSairSistema > .infraImg", "css:finder"],
-        ["xpath=//img[@alt='Sair do Sistema']", "xpath:img"],
-        ["xpath=//a[@id='lnkSairSistema']/img", "xpath:idRelative"],
-        ["xpath=//a[5]/img", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "6a00c38e-4aa9-453a-9952-e54365b21a90",
-      "comment": "",
-      "command": "close",
-      "target": "",
-      "targets": [],
-      "value": ""
     }]
   }],
   "suites": [{

@@ -572,25 +572,6 @@
         ["xpath=//button[contains(.,'Salvar')]", "xpath:innerText"]
       ],
       "value": ""
-    }, {
-      "id": "c75cfa4a-b52c-4c2c-9e0b-345856dc30e6",
-      "comment": "",
-      "command": "click",
-      "target": "css=#lnkSairSistema > .infraImg",
-      "targets": [
-        ["css=#lnkSairSistema > .infraImg", "css:finder"],
-        ["xpath=//img[@alt='Sair do Sistema']", "xpath:img"],
-        ["xpath=//a[@id='lnkSairSistema']/img", "xpath:idRelative"],
-        ["xpath=//a[5]/img", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "b6760949-bfd4-410f-96d9-a4cca2f71f06",
-      "comment": "",
-      "command": "close",
-      "target": "",
-      "targets": [],
-      "value": ""
     }]
   }],
   "suites": [{

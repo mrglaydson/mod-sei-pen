@@ -149,32 +149,6 @@
         ["xpath=//button[contains(.,'Salvar')]", "xpath:innerText"]
       ],
       "value": ""
-    }, {
-      "id": "e8655c3d-4832-484f-ade5-cf4017014412",
-      "comment": "",
-      "command": "selectWindow",
-      "target": "handle=${root}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "be1787ee-17a6-44f1-8f90-a85013aaf7cd",
-      "comment": "",
-      "command": "click",
-      "target": "css=#lnkSairSistema > .infraImg",
-      "targets": [
-        ["css=#lnkSairSistema > .infraImg", "css:finder"],
-        ["xpath=//img[@alt='Sair do Sistema']", "xpath:img"],
-        ["xpath=//a[@id='lnkSairSistema']/img", "xpath:idRelative"],
-        ["xpath=//a[5]/img", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "ea00c620-a1ec-4e15-9b29-9b835b3411a7",
-      "comment": "",
-      "command": "close",
-      "target": "",
-      "targets": [],
-      "value": ""
     }]
   }, {
     "id": "bd1703ac-35c6-48e7-8ea2-ed0d694400a4",
@@ -346,25 +320,6 @@
         ["xpath=//a[6]/img", "xpath:position"]
       ],
       "value": ""
-    }, {
-      "id": "b9b7cbae-4de4-4e14-bddb-06edbaf2ca81",
-      "comment": "",
-      "command": "click",
-      "target": "css=#lnkSairSistema > .infraImg",
-      "targets": [
-        ["css=#lnkSairSistema > .infraImg", "css:finder"],
-        ["xpath=//img[@alt='Sair do Sistema']", "xpath:img"],
-        ["xpath=//a[@id='lnkSairSistema']/img", "xpath:idRelative"],
-        ["xpath=//a[5]/img", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "5d67c1ad-87b3-4dfd-b003-f4d3182d1d19",
-      "comment": "",
-      "command": "close",
-      "target": "",
-      "targets": [],
-      "value": ""
     }]
   }, {
     "id": "d1080f34-1f78-42de-8ec5-6e3554452dab",
@@ -472,27 +427,6 @@
       "comment": "",
       "command": "assertElementNotPresent",
       "target": "//a[starts-with(.,'99993.000001') and contains(.,'9')]",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "b7e50338-19e5-424c-9d39-2c0aea5c1c7e",
-      "comment": "",
-      "command": "click",
-      "target": "id=lnkSairSistema",
-      "targets": [
-        ["id=lnkSairSistema", "id"],
-        ["css=#lnkSairSistema", "css:finder"],
-        ["xpath=//a[@id='lnkSairSistema']", "xpath:attributes"],
-        ["xpath=//div[@id='divInfraBarraSistemaD']/div[6]/a[5]", "xpath:idRelative"],
-        ["xpath=//a[contains(@href, 'controlador.php?acao=sair&infra_sistema=100000100&infra_unidade_atual=110000004&infra_hash=b57d9df2335229af167feaa294d5ef40fc337f0ff31433afc6db5ba182f76ad3')]", "xpath:href"],
-        ["xpath=//a[5]", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "5b6a3e3e-50ef-467a-9bf8-880e1ab42f2d",
-      "comment": "",
-      "command": "close",
-      "target": "",
       "targets": [],
       "value": ""
     }]
@@ -668,27 +602,6 @@
       "comment": "",
       "command": "verifyElementNotPresent",
       "target": "//a[starts-with(.,'99993.000056') and contains(.,'9')]",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "866af769-ab70-4b88-8324-c82052481879",
-      "comment": "",
-      "command": "click",
-      "target": "id=lnkSairSistema",
-      "targets": [
-        ["id=lnkSairSistema", "id"],
-        ["css=#lnkSairSistema", "css:finder"],
-        ["xpath=//a[@id='lnkSairSistema']", "xpath:attributes"],
-        ["xpath=//div[@id='divInfraBarraSistemaD']/div[6]/a[5]", "xpath:idRelative"],
-        ["xpath=//a[contains(@href, 'controlador.php?acao=sair&infra_sistema=100000100&infra_unidade_atual=110000004&infra_hash=b57d9df2335229af167feaa294d5ef40fc337f0ff31433afc6db5ba182f76ad3')]", "xpath:href"],
-        ["xpath=//a[5]", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "17f4b02a-e671-4b4a-8cda-a541c962c5d7",
-      "comment": "",
-      "command": "close",
-      "target": "",
       "targets": [],
       "value": ""
     }]
@@ -887,27 +800,6 @@
         ["xpath=//caption[contains(.,'Lista de Pendências de Arquivamento (6 registros):')]", "xpath:innerText"]
       ],
       "value": "Lista de Pendências de Arquivamento (5 registros):"
-    }, {
-      "id": "495d4254-d86b-46a0-b097-1cc4af9a642a",
-      "comment": "",
-      "command": "click",
-      "target": "id=lnkSairSistema",
-      "targets": [
-        ["id=lnkSairSistema", "id"],
-        ["css=#lnkSairSistema", "css:finder"],
-        ["xpath=//a[@id='lnkSairSistema']", "xpath:attributes"],
-        ["xpath=//div[@id='divInfraBarraSistemaD']/div[6]/a[5]", "xpath:idRelative"],
-        ["xpath=//a[contains(@href, 'controlador.php?acao=sair&infra_sistema=100000100&infra_unidade_atual=110000004&infra_hash=b57d9df2335229af167feaa294d5ef40fc337f0ff31433afc6db5ba182f76ad3')]", "xpath:href"],
-        ["xpath=//a[5]", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "07c8d40b-db03-4062-9476-3b2dd637e919",
-      "comment": "",
-      "command": "close",
-      "target": "",
-      "targets": [],
-      "value": ""
     }]
   }, {
     "id": "99d13639-c668-414b-bedc-07abdb0eaa0f",
@@ -1130,34 +1022,6 @@
         ["xpath=//caption[contains(.,'Lista de Processos Arquivados (1 registro):')]", "xpath:innerText"]
       ],
       "value": "Lista de Processos Arquivados (1 registro):"
-    }, {
-      "id": "6dcd3442-3bc4-4c26-9b71-b81b27bb83a3",
-      "comment": "",
-      "command": "click",
-      "target": "id=lnkSairSistema",
-      "targets": [
-        ["id=lnkSairSistema", "id"],
-        ["css=#lnkSairSistema", "css:finder"],
-        ["xpath=//a[@id='lnkSairSistema']", "xpath:attributes"],
-        ["xpath=//div[@id='divInfraBarraSistemaD']/div[6]/a[5]", "xpath:idRelative"],
-        ["xpath=//a[contains(@href, 'controlador.php?acao=sair&infra_sistema=100000100&infra_unidade_atual=110000004&infra_hash=b57d9df2335229af167feaa294d5ef40fc337f0ff31433afc6db5ba182f76ad3')]", "xpath:href"],
-        ["xpath=//a[5]", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "fbde9400-ede5-4168-b698-f2b51431f6af",
-      "comment": "",
-      "command": "chooseOkOnNextConfirmation",
-      "target": "",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "441b165f-3951-4be5-bdec-be75ffd9d10c",
-      "comment": "",
-      "command": "close",
-      "target": "",
-      "targets": [],
-      "value": ""
     }]
   }, {
     "id": "c2555a08-ce73-4ef2-8c4a-ea1ffd46b2c6",
@@ -1339,32 +1203,6 @@
         ["xpath=//button", "xpath:position"],
         ["xpath=//button[contains(.,'Salvar')]", "xpath:innerText"]
       ],
-      "value": ""
-    }, {
-      "id": "cdf07613-2ab5-439a-ac06-c59125377b3a",
-      "comment": "",
-      "command": "webdriverChooseOkOnVisibleConfirmation",
-      "target": "",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "7c4d020e-5edc-4ce6-9c70-2df71aaec58f",
-      "comment": "",
-      "command": "click",
-      "target": "css=#lnkSairSistema > .infraImg",
-      "targets": [
-        ["css=#lnkSairSistema > .infraImg", "css:finder"],
-        ["xpath=//img[@alt='Sair do Sistema']", "xpath:img"],
-        ["xpath=//a[@id='lnkSairSistema']/img", "xpath:idRelative"],
-        ["xpath=//a[5]/img", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "79eb2f11-552a-484c-b740-b0628ef0f9c7",
-      "comment": "",
-      "command": "close",
-      "target": "",
-      "targets": [],
       "value": ""
     }]
   }, {
@@ -1615,27 +1453,6 @@
         ["xpath=//caption[contains(.,'Lista de Pendências de Arquivamento (3 registros):')]", "xpath:innerText"]
       ],
       "value": "Lista de Pendências de Arquivamento (6 registros):"
-    }, {
-      "id": "0c472021-38c5-40bf-a923-4759a54c02e5",
-      "comment": "",
-      "command": "click",
-      "target": "id=lnkSairSistema",
-      "targets": [
-        ["id=lnkSairSistema", "id"],
-        ["css=#lnkSairSistema", "css:finder"],
-        ["xpath=//a[@id='lnkSairSistema']", "xpath:attributes"],
-        ["xpath=//div[@id='divInfraBarraSistemaD']/div[6]/a[5]", "xpath:idRelative"],
-        ["xpath=//a[contains(@href, 'controlador.php?acao=sair&infra_sistema=100000100&infra_unidade_atual=110000004&infra_hash=b57d9df2335229af167feaa294d5ef40fc337f0ff31433afc6db5ba182f76ad3')]", "xpath:href"],
-        ["xpath=//a[5]", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "6f049f6c-2261-4326-aa6a-7b3f4170d95d",
-      "comment": "",
-      "command": "close",
-      "target": "",
-      "targets": [],
-      "value": ""
     }]
   }, {
     "id": "8f087752-49f2-44dd-b8e8-368c067a7435",
@@ -1811,27 +1628,6 @@
       "target": "//a[starts-with(.,'99993.000056') and contains(.,'9')]",
       "targets": [],
       "value": ""
-    }, {
-      "id": "f9ce591e-4023-4c5d-97d2-72c782d997cb",
-      "comment": "",
-      "command": "click",
-      "target": "id=lnkSairSistema",
-      "targets": [
-        ["id=lnkSairSistema", "id"],
-        ["css=#lnkSairSistema", "css:finder"],
-        ["xpath=//a[@id='lnkSairSistema']", "xpath:attributes"],
-        ["xpath=//div[@id='divInfraBarraSistemaD']/div[6]/a[5]", "xpath:idRelative"],
-        ["xpath=//a[contains(@href, 'controlador.php?acao=sair&infra_sistema=100000100&infra_unidade_atual=110000004&infra_hash=b57d9df2335229af167feaa294d5ef40fc337f0ff31433afc6db5ba182f76ad3')]", "xpath:href"],
-        ["xpath=//a[5]", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "3b48e504-b9da-4371-a4e5-b2df3ffe4529",
-      "comment": "",
-      "command": "close",
-      "target": "",
-      "targets": [],
-      "value": ""
     }]
   }, {
     "id": "fa52ed39-7fb0-43c3-84da-94a65a05618e",
@@ -1957,32 +1753,6 @@
         ["xpath=//button", "xpath:position"],
         ["xpath=//button[contains(.,'Salvar')]", "xpath:innerText"]
       ],
-      "value": ""
-    }, {
-      "id": "56d658d1-a4b2-4170-99f5-23c09b748c32",
-      "comment": "",
-      "command": "selectWindow",
-      "target": "handle=${root}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "75ed2895-1ac4-467d-b1c1-57f52b511688",
-      "comment": "",
-      "command": "click",
-      "target": "css=#lnkSairSistema > .infraImg",
-      "targets": [
-        ["css=#lnkSairSistema > .infraImg", "css:finder"],
-        ["xpath=//img[@alt='Sair do Sistema']", "xpath:img"],
-        ["xpath=//a[@id='lnkSairSistema']/img", "xpath:idRelative"],
-        ["xpath=//a[5]/img", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "110abfca-d08f-44a2-ae69-492336fcaebe",
-      "comment": "",
-      "command": "close",
-      "target": "",
-      "targets": [],
       "value": ""
     }]
   }, {
@@ -2371,39 +2141,6 @@
         ["xpath=//button[contains(.,'Salvar')]", "xpath:innerText"]
       ],
       "value": ""
-    }, {
-      "id": "ca4db80f-29d5-46f9-9935-33e448a04db3",
-      "comment": "",
-      "command": "selectWindow",
-      "target": "handle=${root}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "4d1f1bdf-5624-4dca-91c7-40627ffd3bb9",
-      "comment": "",
-      "command": "//assertElementNotPresent",
-      "target": "//td[starts-with(.,'Anot') and contains(.,'04')]",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "eaed610d-0d88-4f04-bf41-ce480e4c5b39",
-      "comment": "",
-      "command": "click",
-      "target": "css=#lnkSairSistema > .infraImg",
-      "targets": [
-        ["css=#lnkSairSistema > .infraImg", "css:finder"],
-        ["xpath=//img[@alt='Sair do Sistema']", "xpath:img"],
-        ["xpath=//a[@id='lnkSairSistema']/img", "xpath:idRelative"],
-        ["xpath=//a[5]/img", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "cc925369-37eb-42ca-887c-e00dcb27dcb8",
-      "comment": "",
-      "command": "close",
-      "target": "",
-      "targets": [],
-      "value": ""
     }]
   }, {
     "id": "8a357c49-9ea9-4fb8-8659-e9f7804848c7",
@@ -2543,39 +2280,6 @@
         ["xpath=//button", "xpath:position"],
         ["xpath=//button[contains(.,'Salvar')]", "xpath:innerText"]
       ],
-      "value": ""
-    }, {
-      "id": "89fb8f77-d4ad-48b2-b97e-8eb3039a74a7",
-      "comment": "",
-      "command": "selectWindow",
-      "target": "handle=${root}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "e3f76e11-c196-4e84-9f11-af47096998b5",
-      "comment": "",
-      "command": "//assertElementNotPresent",
-      "target": "//td[starts-with(.,'Anot') and contains(.,'04')]",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "8afa5527-36cf-4bb9-a5dc-746f24d2450e",
-      "comment": "",
-      "command": "click",
-      "target": "css=#lnkSairSistema > .infraImg",
-      "targets": [
-        ["css=#lnkSairSistema > .infraImg", "css:finder"],
-        ["xpath=//img[@alt='Sair do Sistema']", "xpath:img"],
-        ["xpath=//a[@id='lnkSairSistema']/img", "xpath:idRelative"],
-        ["xpath=//a[5]/img", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "95566837-ccc8-4ad0-b48e-d96cddde99c6",
-      "comment": "",
-      "command": "close",
-      "target": "",
-      "targets": [],
       "value": ""
     }]
   }],

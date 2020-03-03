@@ -113,8 +113,6 @@ class Test01ConfigSEI():
     dropdown.find_element(By.XPATH, "//option[. = 'Sequencial Anual no Órgão']").click()
     self.driver.find_element(By.ID, "selStaNumeracao").click()
     self.driver.find_element(By.CSS_SELECTOR, ".infraButton:nth-child(1) > .infraTeclaAtalho").click()
-    self.driver.find_element(By.CSS_SELECTOR, "#lnkSairSistema > .infraImg").click()
-    self.driver.close()
   
   def test_configuracoes(self):
     self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
@@ -149,8 +147,6 @@ class Test01ConfigSEI():
     self.driver.find_element(By.XPATH, "//select[@id=\'selTIPO_DOCUMENTO_ELIMINACAO\']/option[text()=\'Termo de Eliminação\']").click()
     self.driver.find_element(By.ID, "selTIPO_DOCUMENTO_ELIMINACAO").click()
     self.driver.find_element(By.ID, "sbmSalvarParametro").click()
-    self.driver.find_element(By.CSS_SELECTOR, "#lnkSairSistema > .infraImg").click()
-    self.driver.close()
   
   def test_justificativas(self):
     self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
@@ -232,8 +228,6 @@ class Test01ConfigSEI():
     assert self.driver.find_element(By.XPATH, "//td[contains(.,\'arq2\')]").text == "arq2"
     assert self.driver.find_element(By.XPATH, "//td[contains(.,\'Justificativa de Desarquivamento 01\')]").text == "Justificativa de Desarquivamento 01"
     assert self.driver.find_element(By.XPATH, "//td[contains(.,\'desarq 02\')]").text == "desarq 02"
-    self.driver.find_element(By.CSS_SELECTOR, "#lnkSairSistema > .infraImg").click()
-    self.driver.close()
   
   def test_modelos(self):
     self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
@@ -291,8 +285,6 @@ class Test01ConfigSEI():
     self.driver.execute_script("if(arguments[0].contentEditable === 'true') {arguments[0].innerText = '<p>@orgao@ Órgão gerador</p><p>@unidade@   Unidade</p><p>@data_eliminacao@   data arq</p><p>@responsavel_eliminacao@ Responsavel arq</p>'}", element)
     self.driver.switch_to.default_content()
     self.driver.find_element(By.NAME, "sbmAlterarModeloAlterar").click()
-    self.driver.find_element(By.CSS_SELECTOR, "#lnkSairSistema > .infraImg").click()
-    self.driver.close()
   
   def test_unidadesArquivamento(self):
     self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
@@ -320,8 +312,6 @@ class Test01ConfigSEI():
     actions.move_to_element(element).release().perform()
     self.driver.find_element(By.CSS_SELECTOR, "body").click()
     self.driver.find_element(By.NAME, "sbmCadastrarUnidadeArquivamento").click()
-    self.driver.find_element(By.CSS_SELECTOR, "#lnkSairSistema > .infraImg").click()
-    self.driver.close()
   
   def test_enderecoUnidades(self):
     self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
@@ -397,7 +387,6 @@ class Test01ConfigSEI():
     self.driver.find_element(By.ID, "txtCep").send_keys("00000-000")
     self.driver.find_element(By.NAME, "sbmAlterarContato").click()
     self.driver.switch_to.window(self.vars["root"])
-    self.driver.close()
   
   def test_unidadesTesteProtocolo(self):
     self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
@@ -418,7 +407,6 @@ class Test01ConfigSEI():
     self.driver.find_element(By.ID, "chkSinProtocolo").click()
     self.driver.find_element(By.ID, "chkSinArquivamento").click()
     self.driver.find_element(By.NAME, "sbmAlterarUnidade").click()
-    self.driver.close()
   
   def test_assinaturas(self):
     self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
@@ -478,8 +466,6 @@ class Test01ConfigSEI():
     actions.move_to_element(element).release().perform()
     self.driver.find_element(By.CSS_SELECTOR, "body").click()
     self.driver.find_element(By.NAME, "sbmAlterarAssinante").click()
-    self.driver.find_element(By.CSS_SELECTOR, "#lnkSairSistema > .infraImg").click()
-    self.driver.close()
   
   def test_unidadesArquivamentoTeste(self):
     self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
@@ -502,6 +488,4 @@ class Test01ConfigSEI():
     self.driver.find_element(By.ID, "txtUnidadeOrigem").send_keys(Keys.ENTER)
     self.driver.find_element(By.CSS_SELECTOR, "body").click()
     self.driver.find_element(By.NAME, "sbmCadastrarUnidadeArquivamento").click()
-    self.driver.find_element(By.CSS_SELECTOR, "#lnkSairSistema > .infraImg").click()
-    self.driver.close()
   

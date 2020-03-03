@@ -41,8 +41,6 @@ class Test05SEIGDAvaliacao():
     self.driver.switch_to.alert.accept()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (20 registros):"
-    self.driver.find_element(By.CSS_SELECTOR, "#lnkSairSistema > .infraImg").click()
-    self.driver.close()
   
   def test_0520VerificaVolta(self):
     self.driver.get("http://seigd.intra.planejamento//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
@@ -97,8 +95,6 @@ class Test05SEIGDAvaliacao():
     self.driver.switch_to.alert.accept()
     self.driver.find_element(By.ID, "divInfraAreaTelaD").click()
     assert self.driver.find_element(By.CSS_SELECTOR, "#divInfraAreaTabela > label").text == "Nenhum registro encontrado."
-    self.driver.find_element(By.CSS_SELECTOR, "#lnkSairSistema > .infraImg").click()
-    self.driver.close()
   
   def test_0530VerificarRetorno(self):
     self.driver.get("http://seigd.intra.planejamento//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
@@ -112,8 +108,6 @@ class Test05SEIGDAvaliacao():
     self.driver.find_element(By.LINK_TEXT, "Avaliação de Processos").click()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (21 registros):"
-    self.driver.find_element(By.CSS_SELECTOR, "#lnkSairSistema > .infraImg").click()
-    self.driver.close()
   
   def test_0540MandaListagemEliminacao(self):
     self.driver.get("http://seigd.intra.planejamento//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
@@ -130,9 +124,6 @@ class Test05SEIGDAvaliacao():
     self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[2]/td[11]/a/img").click()
     self.driver.switch_to.alert.accept()
     self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[2]/td[11]/a/img").click()
-    self.driver.switch_to.alert.accept()
-    self.driver.find_element(By.CSS_SELECTOR, "#lnkSairSistema > .infraImg").click()
-    self.driver.close()
   
   def test_0550MandaListagemEliminacao(self):
     self.driver.get("http://seigd.intra.planejamento//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
@@ -172,8 +163,6 @@ class Test05SEIGDAvaliacao():
     self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[10]/a").click()
     self.driver.find_element(By.LINK_TEXT, "Avaliação de Processos").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (16 registros):"
-    self.driver.find_element(By.CSS_SELECTOR, "#lnkSairSistema > .infraImg").click()
-    self.driver.close()
   
   def test_0560AlteraObservacao1(self):
     self.driver.get("http://seigd.intra.planejamento//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")

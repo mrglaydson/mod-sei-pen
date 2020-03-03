@@ -29,7 +29,4 @@ class Test04SEIGDRunAgendamento():
     self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[27]/a").click()
     self.driver.find_element(By.LINK_TEXT, "Agendamentos").click()
     self.driver.find_element(By.XPATH, "(//img[@alt=\'Executar Agendamento\'])[8]").click()
-    self.driver.switch_to.alert.accept()
-    self.driver.find_element(By.CSS_SELECTOR, "#lnkSairSistema > .infraImg").click()
-    self.driver.close()
   

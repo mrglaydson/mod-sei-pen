@@ -418,6 +418,25 @@
         ["xpath=//button[contains(.,'Cancelar')]", "xpath:innerText"]
       ],
       "value": ""
+    }, {
+      "id": "5b04891b-9c55-43ea-8f66-e9804b880b57",
+      "comment": "",
+      "command": "click",
+      "target": "css=#lnkSairSistema > .infraImg",
+      "targets": [
+        ["css=#lnkSairSistema > .infraImg", "css:finder"],
+        ["xpath=//img[@alt='Sair do Sistema']", "xpath:img"],
+        ["xpath=//a[@id='lnkSairSistema']/img", "xpath:idRelative"],
+        ["xpath=//a[5]/img", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "12361358-a942-4225-a025-3aeedac25872",
+      "comment": "",
+      "command": "close",
+      "target": "",
+      "targets": [],
+      "value": ""
     }]
   }, {
     "id": "8735f913-e2e6-4e31-9112-fd124e504dbb",
@@ -929,6 +948,25 @@
         ["xpath=//caption[contains(.,'Lista de Listagens de Eliminacao (18 registros):')]", "xpath:innerText"]
       ],
       "value": "Lista de Listagens de Eliminacao (2 registros):"
+    }, {
+      "id": "5a8f4d23-b920-4a6f-aee7-46b58c8cbd4f",
+      "comment": "",
+      "command": "click",
+      "target": "css=#lnkSairSistema > .infraImg",
+      "targets": [
+        ["css=#lnkSairSistema > .infraImg", "css:finder"],
+        ["xpath=//img[@alt='Sair do Sistema']", "xpath:img"],
+        ["xpath=//a[@id='lnkSairSistema']/img", "xpath:idRelative"],
+        ["xpath=//a[5]/img", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f2aa92a8-facc-4cec-a645-dc7e2614885a",
+      "comment": "",
+      "command": "close",
+      "target": "",
+      "targets": [],
+      "value": ""
     }]
   }],
   "suites": [{

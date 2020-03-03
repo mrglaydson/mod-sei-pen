@@ -70,6 +70,5 @@ class Test0203SEIGDFloodProcsAcessoInf():
       WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "lnkInfraMenuSistema")))
       self.driver.find_element(By.ID, "lnkInfraMenuSistema").click()
     print(str("fim"))
-    self.driver.find_element(By.CSS_SELECTOR, "#lnkSairSistema > .infraImg").click()
     print(str("fim2"))
   

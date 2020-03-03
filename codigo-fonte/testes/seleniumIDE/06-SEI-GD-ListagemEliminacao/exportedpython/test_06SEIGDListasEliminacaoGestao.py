@@ -51,8 +51,6 @@ class Test06SEIGDListasEliminacaoGestao():
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Lista de Processos (1 registro):"
     self.driver.find_element(By.ID, "btnCancelar").click()
-    self.driver.find_element(By.CSS_SELECTOR, "#lnkSairSistema > .infraImg").click()
-    self.driver.close()
   
   def test_0620AlterarListagem(self):
     self.driver.get("http://seigd.intra.planejamento//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
@@ -93,6 +91,4 @@ class Test06SEIGDListasEliminacaoGestao():
     self.driver.switch_to.alert.accept()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Listagens de Eliminacao (2 registros):"
-    self.driver.find_element(By.CSS_SELECTOR, "#lnkSairSistema > .infraImg").click()
-    self.driver.close()
   

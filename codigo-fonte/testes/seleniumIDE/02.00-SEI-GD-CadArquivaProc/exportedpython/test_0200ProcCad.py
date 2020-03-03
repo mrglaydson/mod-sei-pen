@@ -34,7 +34,7 @@ class Test0200ProcCad():
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
     self.driver.find_element(By.ID, "sbmLogin").click()
-    WebDriverWait(self.driver, 15000).until(expected_conditions.visibility_of_element_located((By.LINK_TEXT, "Iniciar Processo")))
+    WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.LINK_TEXT, "Iniciar Processo")))
     self.driver.find_element(By.LINK_TEXT, "Iniciar Processo").click()
     self.driver.find_element(By.LINK_TEXT, "Acesso à Informação: Demanda do e-SIC").click()
     self.driver.find_element(By.ID, "txtDescricao").send_keys("teste arquivo")
@@ -95,8 +95,4 @@ class Test0200ProcCad():
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
     self.driver.find_element(By.ID, "sbmSalvar").click()
-    self.driver.switch_to.alert.accept()
-    self.driver.switch_to.default_content()
-    self.driver.find_element(By.CSS_SELECTOR, "#lnkSairSistema > .infraImg").click()
-    self.driver.close()
   

@@ -212,25 +212,6 @@
         ["xpath=//caption[contains(.,'Lista de Processos Arquivados (20 registros):')]", "xpath:innerText"]
       ],
       "value": "Lista de Processos Arquivados (20 registros):"
-    }, {
-      "id": "b122164f-38ea-44e7-b3b6-976cd50bb617",
-      "comment": "",
-      "command": "click",
-      "target": "css=#lnkSairSistema > .infraImg",
-      "targets": [
-        ["css=#lnkSairSistema > .infraImg", "css:finder"],
-        ["xpath=//img[@alt='Sair do Sistema']", "xpath:img"],
-        ["xpath=//a[@id='lnkSairSistema']/img", "xpath:idRelative"],
-        ["xpath=//a[5]/img", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "2dbb18a5-134d-4f84-a275-1216e9a145c3",
-      "comment": "",
-      "command": "close",
-      "target": "",
-      "targets": [],
-      "value": ""
     }]
   }, {
     "id": "7660dbd5-1e76-4d21-9222-82dff29528c5",
@@ -836,25 +817,6 @@
         ["xpath=//label[contains(.,'Nenhum registro encontrado.')]", "xpath:innerText"]
       ],
       "value": "Nenhum registro encontrado."
-    }, {
-      "id": "0b85a70a-3f8b-416b-8864-b136ea4b4423",
-      "comment": "",
-      "command": "click",
-      "target": "css=#lnkSairSistema > .infraImg",
-      "targets": [
-        ["css=#lnkSairSistema > .infraImg", "css:finder"],
-        ["xpath=//img[@alt='Sair do Sistema']", "xpath:img"],
-        ["xpath=//a[@id='lnkSairSistema']/img", "xpath:idRelative"],
-        ["xpath=//a[5]/img", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "77f1a80d-ed9d-4fe1-ae15-955881af4d40",
-      "comment": "",
-      "command": "close",
-      "target": "",
-      "targets": [],
-      "value": ""
     }]
   }, {
     "id": "c656f89f-7b2e-4d20-bd77-e0de5e91dcd9",
@@ -1001,25 +963,6 @@
         ["xpath=//caption[contains(.,'Lista de Processos Arquivados (21 registros):')]", "xpath:innerText"]
       ],
       "value": "Lista de Processos Arquivados (21 registros):"
-    }, {
-      "id": "6f709c60-59a5-4a70-8bd1-091cef19a1d5",
-      "comment": "",
-      "command": "click",
-      "target": "css=#lnkSairSistema > .infraImg",
-      "targets": [
-        ["css=#lnkSairSistema > .infraImg", "css:finder"],
-        ["xpath=//img[@alt='Sair do Sistema']", "xpath:img"],
-        ["xpath=//a[@id='lnkSairSistema']/img", "xpath:idRelative"],
-        ["xpath=//a[5]/img", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "fa957179-99fe-477b-98a7-45df3e4c6068",
-      "comment": "",
-      "command": "close",
-      "target": "",
-      "targets": [],
-      "value": ""
     }]
   }, {
     "id": "0f9c9d08-13bf-4acf-a650-30c235d7b4c2",
@@ -1226,39 +1169,6 @@
         ["xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[2]/td[11]/a/img", "xpath:idRelative"],
         ["xpath=//td[11]/a/img", "xpath:position"]
       ],
-      "value": ""
-    }, {
-      "id": "05ffacb3-1c61-4985-bf64-9024b6a6a6b8",
-      "comment": "",
-      "command": "//assertConfirmation",
-      "target": "Confirma o envio do processo  \"99993.000033/2020-33\" para a eliminação?",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "cd44c945-00cf-40e6-a711-c8034831962a",
-      "comment": "",
-      "command": "webdriverChooseOkOnVisibleConfirmation",
-      "target": "",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "581a11dd-bcad-4b96-98a7-b87ecae4786a",
-      "comment": "",
-      "command": "click",
-      "target": "css=#lnkSairSistema > .infraImg",
-      "targets": [
-        ["css=#lnkSairSistema > .infraImg", "css:finder"],
-        ["xpath=//img[@alt='Sair do Sistema']", "xpath:img"],
-        ["xpath=//a[@id='lnkSairSistema']/img", "xpath:idRelative"],
-        ["xpath=//a[5]/img", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "490c11cf-5a8a-41ea-bb4a-2ecfabe358f5",
-      "comment": "",
-      "command": "close",
-      "target": "",
-      "targets": [],
       "value": ""
     }]
   }, {
@@ -2647,25 +2557,6 @@
         ["xpath=//caption[contains(.,'Lista de Processos Arquivados (21 registros):')]", "xpath:innerText"]
       ],
       "value": "Lista de Processos Arquivados (16 registros):"
-    }, {
-      "id": "a62c6ea6-4bf5-4c8f-afc0-bf9897db2d9a",
-      "comment": "",
-      "command": "click",
-      "target": "css=#lnkSairSistema > .infraImg",
-      "targets": [
-        ["css=#lnkSairSistema > .infraImg", "css:finder"],
-        ["xpath=//img[@alt='Sair do Sistema']", "xpath:img"],
-        ["xpath=//a[@id='lnkSairSistema']/img", "xpath:idRelative"],
-        ["xpath=//a[5]/img", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "7b97dc80-f9c5-47bd-b217-dfa306b6c517",
-      "comment": "",
-      "command": "close",
-      "target": "",
-      "targets": [],
-      "value": ""
     }]
   }],
   "suites": [{

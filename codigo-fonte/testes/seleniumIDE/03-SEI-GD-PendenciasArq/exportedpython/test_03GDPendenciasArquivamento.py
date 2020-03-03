@@ -40,9 +40,6 @@ class Test03GDPendenciasArquivamento():
     self.driver.find_element(By.ID, "txaAnotacao").click()
     self.driver.find_element(By.ID, "txaAnotacao").send_keys("Anotacao01")
     self.driver.find_element(By.NAME, "sbmAnotar").click()
-    self.driver.switch_to.window(self.vars["root"])
-    self.driver.find_element(By.CSS_SELECTOR, "#lnkSairSistema > .infraImg").click()
-    self.driver.close()
   
   def test_011PendenciasArquivamentoAnotacao(self):
     self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
@@ -57,9 +54,6 @@ class Test03GDPendenciasArquivamento():
     self.driver.switch_to.window(self.vars["win9237"])
     self.driver.find_element(By.ID, "txaAnotacao").send_keys("Anotacao02")
     self.driver.find_element(By.NAME, "sbmAnotar").click()
-    self.driver.switch_to.window(self.vars["root"])
-    self.driver.find_element(By.CSS_SELECTOR, "#lnkSairSistema > .infraImg").click()
-    self.driver.close()
   
   def test_012PendenciasArquivamentoAnotacao(self):
     self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
@@ -75,9 +69,6 @@ class Test03GDPendenciasArquivamento():
     self.driver.find_element(By.ID, "txaAnotacao").click()
     self.driver.find_element(By.ID, "txaAnotacao").send_keys("alt")
     self.driver.find_element(By.NAME, "sbmAnotar").click()
-    self.driver.switch_to.window(self.vars["root"])
-    self.driver.find_element(By.CSS_SELECTOR, "#lnkSairSistema > .infraImg").click()
-    self.driver.close()
   
   def test_020PendenciasArquivamentoReabrirMassa(self):
     self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
@@ -92,8 +83,6 @@ class Test03GDPendenciasArquivamento():
     self.driver.find_element(By.LINK_TEXT, "Controle de Processos").click()
     self.driver.find_element(By.ID, "imgGeradosCheck").click()
     self.driver.find_element(By.CSS_SELECTOR, ".botaoSEI:nth-child(6) > .infraCorBarraSistema").click()
-    self.driver.find_element(By.CSS_SELECTOR, "#lnkSairSistema > .infraImg").click()
-    self.driver.close()
   
   def test_030PendenciasArquivamentoReabrirUnico(self):
     self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
@@ -105,8 +94,6 @@ class Test03GDPendenciasArquivamento():
     self.driver.switch_to.alert.accept()
     elements = self.driver.find_elements(By.XPATH, "//a[starts-with(.,\'99993.000001\') and contains(.,\'9\')]")
     assert len(elements) == 0
-    self.driver.find_element(By.ID, "lnkSairSistema").click()
-    self.driver.close()
   
   def test_040PendenciasArquivamentoArquivarMassa(self):
     self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
@@ -126,8 +113,6 @@ class Test03GDPendenciasArquivamento():
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
     self.driver.find_element(By.ID, "sbmSalvar").click()
     assert self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/caption").text == "Lista de Pendências de Arquivamento (5 registros):"
-    self.driver.find_element(By.ID, "lnkSairSistema").click()
-    self.driver.close()
   
   def test_050PendenciasArquivamentoArquivarUnico(self):
     self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
@@ -147,8 +132,6 @@ class Test03GDPendenciasArquivamento():
     self.driver.find_element(By.ID, "sbmSalvar").click()
     elements = self.driver.find_elements(By.XPATH, "//a[starts-with(.,\'99993.000056\') and contains(.,\'9\')]")
     assert len(elements) == 0
-    self.driver.find_element(By.ID, "lnkSairSistema").click()
-    self.driver.close()
   
   def test_060ArquivoUnidadeDesarquivarMassa(self):
     self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
@@ -170,8 +153,6 @@ class Test03GDPendenciasArquivamento():
     self.driver.switch_to.alert.accept()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (1 registro):"
-    self.driver.find_element(By.ID, "lnkSairSistema").click()
-    self.driver.close()
   
   def test_070ArquivoUnidadeDesarquivarUnico(self):
     self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
@@ -190,9 +171,6 @@ class Test03GDPendenciasArquivamento():
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
     self.driver.find_element(By.ID, "sbmSalvar").click()
-    self.driver.switch_to.alert.accept()
-    self.driver.find_element(By.CSS_SELECTOR, "#lnkSairSistema > .infraImg").click()
-    self.driver.close()
   
   def test_080PendenciasArquivamentoArquivarMassa(self):
     self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
@@ -216,8 +194,6 @@ class Test03GDPendenciasArquivamento():
     self.driver.find_element(By.ID, "sbmSalvar").click()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Pendências de Arquivamento (6 registros):"
-    self.driver.find_element(By.ID, "lnkSairSistema").click()
-    self.driver.close()
   
   def test_090PendenciasArquivamentoArquivarUnico(self):
     self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
@@ -237,6 +213,4 @@ class Test03GDPendenciasArquivamento():
     self.driver.find_element(By.ID, "sbmSalvar").click()
     elements = self.driver.find_elements(By.XPATH, "//a[starts-with(.,\'99993.000056\') and contains(.,\'9\')]")
     assert len(elements) == 0
-    self.driver.find_element(By.ID, "lnkSairSistema").click()
-    self.driver.close()
   
