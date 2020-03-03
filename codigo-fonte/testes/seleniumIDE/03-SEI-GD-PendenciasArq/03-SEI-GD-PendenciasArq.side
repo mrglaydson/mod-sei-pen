@@ -1239,6 +1239,13 @@
         ["xpath=//span[contains(.,' Consultar Andamento')]", "xpath:innerText"]
       ],
       "value": "Consultar Andamento"
+    }, {
+      "id": "bf3cb92a-8732-42a3-ab93-4bc9918f3d09",
+      "comment": "",
+      "command": "pause",
+      "target": "1",
+      "targets": [],
+      "value": ""
     }]
   }, {
     "id": "90e60442-ddc7-4ae8-a3c1-abe45da5be76",

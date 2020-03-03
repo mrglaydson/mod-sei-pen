@@ -175,6 +175,7 @@ class Test03GDPendenciasArquivamento():
     self.driver.switch_to.frame(0)
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, "span:nth-child(2)")))
     assert self.driver.find_element(By.CSS_SELECTOR, "span:nth-child(2)").text == "Consultar Andamento"
+    time.sleep(1)
   
   def test_080PendenciasArquivamentoArquivarMassa(self):
     self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
