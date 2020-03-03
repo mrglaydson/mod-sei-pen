@@ -216,6 +216,13 @@
       "target": "",
       "targets": [],
       "value": ""
+    }, {
+      "id": "5e4ce368-7df5-42c6-9f7f-93be03b32843",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "//*[@id=\"divInfraBarraLocalizacao\"]",
+      "targets": [],
+      "value": "30000"
     }]
   }, {
     "id": "1e316c6c-1e0a-4660-89c1-cafeeecdae31",
