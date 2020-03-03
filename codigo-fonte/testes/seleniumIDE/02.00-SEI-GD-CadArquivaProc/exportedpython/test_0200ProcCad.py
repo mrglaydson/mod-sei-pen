@@ -82,6 +82,7 @@ class Test0200ProcCad():
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
     self.driver.find_element(By.ID, "sbmSalvar").click()
+    time.sleep(5)
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".botaoSEI:nth-child(10) > .infraCorBarraSistema")))
     self.driver.find_element(By.CSS_SELECTOR, ".botaoSEI:nth-child(10) > .infraCorBarraSistema").click()
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "selJustificativa")))
@@ -95,4 +96,5 @@ class Test0200ProcCad():
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
     self.driver.find_element(By.ID, "sbmSalvar").click()
+    self.driver.switch_to.alert.accept()
   
