@@ -50,6 +50,7 @@ class Test03GDPendenciasArquivamento():
     self.vars["window_handles"] = self.driver.window_handles
     self.driver.find_element(By.XPATH, "//td[contains(.,\'000003\')]/../td[9]/a[3]").click()
     self.vars["win9237"] = self.wait_for_window(2000)
+    time.sleep(2)
     self.vars["root"] = self.driver.current_window_handle
     self.driver.switch_to.window(self.vars["win9237"])
     self.driver.find_element(By.ID, "txaAnotacao").send_keys("Anotacao02")
@@ -64,6 +65,7 @@ class Test03GDPendenciasArquivamento():
     self.vars["window_handles"] = self.driver.window_handles
     self.driver.find_element(By.XPATH, "//td[contains(.,\'000004\')]/../td[9]/a[3]").click()
     self.vars["win9237"] = self.wait_for_window(2000)
+    time.sleep(2)
     self.vars["root"] = self.driver.current_window_handle
     self.driver.switch_to.window(self.vars["win9237"])
     self.driver.find_element(By.ID, "txaAnotacao").click()

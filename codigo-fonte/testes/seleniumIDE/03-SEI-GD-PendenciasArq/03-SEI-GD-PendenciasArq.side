@@ -1755,6 +1755,13 @@
       "windowHandleName": "win9237",
       "windowTimeout": 2000
     }, {
+      "id": "c392405e-5a85-4fb2-87dd-5968a10dd409",
+      "comment": "",
+      "command": "pause",
+      "target": "2",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "47bd65e4-797e-43fa-b154-7c51803af727",
       "comment": "",
       "command": "storeWindowHandle",
@@ -2267,6 +2274,13 @@
       "opensWindow": true,
       "windowHandleName": "win9237",
       "windowTimeout": 2000
+    }, {
+      "id": "784e9b81-ee92-419a-9ef6-75a0041e4fa4",
+      "comment": "",
+      "command": "pause",
+      "target": "2",
+      "targets": [],
+      "value": ""
     }, {
       "id": "b04aabe2-2d78-4d76-adcd-62dbdfe078c1",
       "comment": "",
