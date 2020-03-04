@@ -625,6 +625,13 @@
       "targets": [],
       "value": ""
     }, {
+      "id": "818192af-9a80-45ad-9cd1-c5f00c37a892",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "id=lnkInfraMenuSistema",
+      "targets": [],
+      "value": "30000"
+    }, {
       "id": "69fde8a1-d770-465b-b286-bef54a8118e2",
       "comment": "",
       "command": "click",

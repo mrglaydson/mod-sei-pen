@@ -90,6 +90,7 @@ class Test0205SEIGDFloodProcsEventoInstAut():
       self.driver.find_element(By.ID, "pwdSenha").send_keys("teste")
       self.driver.find_element(By.ID, "btnAssinar").click()
       self.driver.switch_to.window(self.vars["root"])
+      WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "lnkInfraMenuSistema")))
       self.driver.find_element(By.ID, "lnkInfraMenuSistema").click()
     print(str("fim"))
     print(str("fim2"))
