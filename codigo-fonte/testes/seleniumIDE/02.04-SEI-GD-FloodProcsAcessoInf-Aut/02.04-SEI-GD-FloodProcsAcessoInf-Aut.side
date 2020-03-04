@@ -266,6 +266,13 @@
       ],
       "value": ""
     }, {
+      "id": "7ce1b429-1eb6-46c7-9549-f9d1ceb94382",
+      "comment": "",
+      "command": "pause",
+      "target": "3",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "c41c9d60-ca75-43a1-b1c2-2a000dd6aac9",
       "comment": "",
       "command": "selectFrame",
