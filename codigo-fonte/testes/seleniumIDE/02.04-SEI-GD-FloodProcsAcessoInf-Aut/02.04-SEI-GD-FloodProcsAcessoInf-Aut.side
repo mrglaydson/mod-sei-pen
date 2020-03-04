@@ -632,6 +632,13 @@
       ],
       "value": ""
     }, {
+      "id": "0cea8fe4-334f-4f9e-8389-524d3cecf75b",
+      "comment": "",
+      "command": "pause",
+      "target": "3",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "05792070-e323-4b5e-a659-8441a0ecbf26",
       "comment": "",
       "command": "selectWindow",

@@ -393,42 +393,22 @@
       "id": "c1443c6a-6be4-4481-81b7-406e5ed4b72b",
       "comment": "",
       "command": "pause",
-      "target": "5",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "eafa6946-7a81-4b93-91fa-e64690e4c81a",
-      "comment": "",
-      "command": "//close",
-      "target": "",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "7d760f51-f3c3-44f1-a305-fbb6716dff35",
-      "comment": "",
-      "command": "selectWindow",
-      "target": "handle=${root}",
+      "target": "5000",
       "targets": [],
       "value": ""
     }, {
       "id": "7141bdd5-9131-49b7-9752-94c2218c7506",
       "comment": "",
-      "command": "waitForElementVisible",
+      "command": "//waitForElementVisible",
       "target": "id=divInfraBarraLocalizacao",
       "targets": [],
       "value": "30000"
     }, {
       "id": "4e5f8d80-edbf-47b5-a0d0-4ecf5f40a372",
       "comment": "",
-      "command": "verifyText",
+      "command": "//verifyText",
       "target": "id=divInfraBarraLocalizacao",
-      "targets": [
-        ["id=divInfraBarraLocalizacao", "id"],
-        ["css=#divInfraBarraLocalizacao", "css:finder"],
-        ["xpath=//div[@id='divInfraBarraLocalizacao']", "xpath:attributes"],
-        ["xpath=//div[@id='divInfraAreaTelaD']/div", "xpath:idRelative"],
-        ["xpath=//div[4]/div/div", "xpath:position"]
-      ],
+      "targets": [],
       "value": "Gestão da Listagem de Eliminação"
     }]
   }],

@@ -618,6 +618,13 @@
       ],
       "value": ""
     }, {
+      "id": "ae5c1dce-a9fb-4865-a17b-725db2ddb436",
+      "comment": "",
+      "command": "pause",
+      "target": "3",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "05792070-e323-4b5e-a659-8441a0ecbf26",
       "comment": "",
       "command": "selectWindow",

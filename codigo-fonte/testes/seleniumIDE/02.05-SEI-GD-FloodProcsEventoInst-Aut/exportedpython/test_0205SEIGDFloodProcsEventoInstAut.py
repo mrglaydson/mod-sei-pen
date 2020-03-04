@@ -71,7 +71,7 @@ class Test0205SEIGDFloodProcsEventoInstAut():
       dropdown.find_element(By.XPATH, "//option[. = 'Cópia Autenticada Administrativamente']").click()
       self.driver.find_element(By.ID, "selTipoConferencia").click()
       self.driver.find_element(By.ID, "optPublico").click()
-      self.driver.find_element(By.ID, "filArquivo").send_keys("teste.pdf")
+      self.driver.find_element(By.ID, "filArquivo").send_keys("/home/marcelo/projetos/git/planejamento/sei-mod-gestao-documental/codigo-fonte/testes/seleniumIDE/02.04-SEI-GD-FloodProcsAcessoInf-Aut/teste.pdf")
       WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".infraTd:nth-child(2)")))
       self.driver.find_element(By.CSS_SELECTOR, ".infraTd:nth-child(2)").click()
       assert self.driver.find_element(By.CSS_SELECTOR, ".infraTd:nth-child(2) > div").text == "teste.pdf"
@@ -90,6 +90,7 @@ class Test0205SEIGDFloodProcsEventoInstAut():
       self.driver.find_element(By.ID, "pwdSenha").click()
       self.driver.find_element(By.ID, "pwdSenha").send_keys("teste")
       self.driver.find_element(By.ID, "btnAssinar").click()
+      time.sleep(3)
       self.driver.switch_to.window(self.vars["root"])
       WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "lnkInfraMenuSistema")))
       self.driver.find_element(By.ID, "lnkInfraMenuSistema").click()
