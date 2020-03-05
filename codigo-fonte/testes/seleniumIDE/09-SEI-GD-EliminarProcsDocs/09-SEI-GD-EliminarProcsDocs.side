@@ -375,7 +375,7 @@
       ],
       "value": "arquivista02"
     }, {
-      "id": "604d233a-aca5-40b7-a89e-c925fbd1ff76",
+      "id": "fb8aafb8-a2e1-4708-9d06-d35235f72e10",
       "comment": "",
       "command": "click",
       "target": "id=sbmEliminar",
@@ -390,25 +390,44 @@
       ],
       "value": ""
     }, {
-      "id": "c1443c6a-6be4-4481-81b7-406e5ed4b72b",
+      "id": "e847b931-a8f1-43f5-ba51-2e2773ba9ad0",
       "comment": "",
-      "command": "pause",
-      "target": "5000",
+      "command": "//close",
+      "target": "",
       "targets": [],
       "value": ""
     }, {
-      "id": "7141bdd5-9131-49b7-9752-94c2218c7506",
+      "id": "6f77b4a2-1ac3-497b-ae5f-c75072069313",
       "comment": "",
-      "command": "//waitForElementVisible",
-      "target": "id=divInfraBarraLocalizacao",
+      "command": "selectWindow",
+      "target": "handle=${root}",
       "targets": [],
-      "value": "30000"
+      "value": ""
     }, {
-      "id": "4e5f8d80-edbf-47b5-a0d0-4ecf5f40a372",
+      "id": "dcf6ac61-1a2d-4472-b981-2bedfc313635",
       "comment": "",
-      "command": "//verifyText",
+      "command": "click",
       "target": "id=divInfraBarraLocalizacao",
-      "targets": [],
+      "targets": [
+        ["id=divInfraBarraLocalizacao", "id"],
+        ["css=#divInfraBarraLocalizacao", "css:finder"],
+        ["xpath=//div[@id='divInfraBarraLocalizacao']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaTelaD']/div", "xpath:idRelative"],
+        ["xpath=//div[4]/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ef1a08dd-b666-4c77-a864-a3542e2398e0",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=divInfraBarraLocalizacao",
+      "targets": [
+        ["id=divInfraBarraLocalizacao", "id"],
+        ["css=#divInfraBarraLocalizacao", "css:finder"],
+        ["xpath=//div[@id='divInfraBarraLocalizacao']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaTelaD']/div", "xpath:idRelative"],
+        ["xpath=//div[4]/div/div", "xpath:position"]
+      ],
       "value": "Gestão da Listagem de Eliminação"
     }]
   }],

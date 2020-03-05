@@ -63,5 +63,7 @@ class Test09SEIGDEliminarProcsDocs():
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista02")
     self.driver.find_element(By.ID, "sbmEliminar").click()
-    time.sleep(5000)
+    self.driver.switch_to.window(self.vars["root"])
+    self.driver.find_element(By.ID, "divInfraBarraLocalizacao").click()
+    assert self.driver.find_element(By.ID, "divInfraBarraLocalizacao").text == "Gestão da Listagem de Eliminação"
   
