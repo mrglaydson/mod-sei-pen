@@ -18,13 +18,6 @@ class Test0205SEIGDFloodProcsEventoInstAut():
   def teardown_method(self, method):
     self.driver.quit()
   
-  def wait_for_window(self, timeout = 2):
-    time.sleep(round(timeout / 1000))
-    wh_now = self.driver.window_handles
-    wh_then = self.vars["window_handles"]
-    if len(wh_now) > len(wh_then):
-      return set(wh_now).difference(set(wh_then)).pop()
-  
   def test_cadastrarProcessosFlood(self):
     self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "txtUsuario")))
@@ -71,27 +64,13 @@ class Test0205SEIGDFloodProcsEventoInstAut():
       dropdown.find_element(By.XPATH, "//option[. = 'Cópia Autenticada Administrativamente']").click()
       self.driver.find_element(By.ID, "selTipoConferencia").click()
       self.driver.find_element(By.ID, "optPublico").click()
-      self.driver.find_element(By.ID, "filArquivo").send_keys("/home/marcelo/projetos/git/planejamento/sei-mod-gestao-documental/codigo-fonte/testes/seleniumIDE/02.04-SEI-GD-FloodProcsAcessoInf-Aut/teste.pdf")
+      self.driver.find_element(By.ID, "filArquivo").send_keys("teste.pdf")
       WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".infraTd:nth-child(2)")))
       self.driver.find_element(By.CSS_SELECTOR, ".infraTd:nth-child(2)").click()
       assert self.driver.find_element(By.CSS_SELECTOR, ".infraTd:nth-child(2) > div").text == "teste.pdf"
       self.driver.find_element(By.CSS_SELECTOR, "#divInfraBarraComandosInferior > #btnSalvar").click()
       WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.XPATH, "//img[@alt=\'Autenticar Documento\']")))
-      self.vars["window_handles"] = self.driver.window_handles
-      self.driver.find_element(By.XPATH, "//img[@alt=\'Autenticar Documento\']").click()
-      self.vars["win9226"] = self.wait_for_window(2000)
-      self.vars["root"] = self.driver.current_window_handle
-      self.driver.switch_to.window(self.vars["win9226"])
-      WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "selCargoFuncao")))
-      dropdown = self.driver.find_element(By.ID, "selCargoFuncao")
-      dropdown.find_element(By.XPATH, "//option[. = 'Gestor de Contrato']").click()
-      self.driver.find_element(By.ID, "selCargoFuncao").click()
-      time.sleep(2)
-      self.driver.find_element(By.ID, "pwdSenha").click()
-      self.driver.find_element(By.ID, "pwdSenha").send_keys("teste")
-      self.driver.find_element(By.ID, "btnAssinar").click()
-      time.sleep(3)
-      self.driver.switch_to.window(self.vars["root"])
+      self.driver.switch_to.default_content()
       WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "lnkInfraMenuSistema")))
       self.driver.find_element(By.ID, "lnkInfraMenuSistema").click()
     print(str("fim"))
