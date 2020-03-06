@@ -385,28 +385,6 @@
       ],
       "value": ""
     }, {
-      "id": "2ddc5464-e517-42ba-a573-92d6b7ddff38",
-      "comment": "",
-      "command": "select",
-      "target": "id=selDestinacaoFinal",
-      "targets": [],
-      "value": "label=Eliminação"
-    }, {
-      "id": "cbba5172-7d5a-4e46-af6b-33f8f1c332e5",
-      "comment": "",
-      "command": "click",
-      "target": "id=selDestinacaoFinal",
-      "targets": [
-        ["id=selDestinacaoFinal", "id"],
-        ["name=selDestinacaoFinal", "name"],
-        ["css=#selDestinacaoFinal", "css:finder"],
-        ["xpath=//select[@id='selDestinacaoFinal']", "xpath:attributes"],
-        ["xpath=//div[@id='divInfraAreaDados']/select[4]", "xpath:idRelative"],
-        ["xpath=//select[4]", "xpath:position"],
-        ["xpath=//select[contains(.,' \nEliminação\nRecolhimento')]", "xpath:innerText"]
-      ],
-      "value": ""
-    }, {
       "id": "d53522c3-953f-47ce-bb68-6d357ef4f0dc",
       "comment": "",
       "command": "select",
@@ -617,6 +595,50 @@
         ["xpath=//input[2]", "xpath:position"]
       ],
       "value": "30/05/2100"
+    }, {
+      "id": "45637cc6-57eb-4237-b4b5-31fec18094cb",
+      "comment": "",
+      "command": "select",
+      "target": "id=selDestinacaoFinal",
+      "targets": [],
+      "value": "index=0"
+    }, {
+      "id": "ac65f3de-132f-44a6-870e-01a6ba97a631",
+      "comment": "",
+      "command": "click",
+      "target": "id=selDestinacaoFinal",
+      "targets": [
+        ["id=selDestinacaoFinal", "id"],
+        ["name=selDestinacaoFinal", "name"],
+        ["css=#selDestinacaoFinal", "css:finder"],
+        ["xpath=//select[@id='selDestinacaoFinal']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/select[4]", "xpath:idRelative"],
+        ["xpath=//select[4]", "xpath:position"],
+        ["xpath=//select[contains(.,' \nEliminação\nRecolhimento')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "6b2c5bb5-cdbf-499a-bdb0-4597527159bf",
+      "comment": "",
+      "command": "select",
+      "target": "id=selUnidade",
+      "targets": [],
+      "value": "index=0"
+    }, {
+      "id": "7d379fef-0cbf-470a-a011-e18c821ba89c",
+      "comment": "",
+      "command": "click",
+      "target": "id=selUnidade",
+      "targets": [
+        ["id=selUnidade", "id"],
+        ["name=selUnidade", "name"],
+        ["css=#selUnidade", "css:finder"],
+        ["xpath=//select[@id='selUnidade']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/select[2]", "xpath:idRelative"],
+        ["xpath=//select[2]", "xpath:position"],
+        ["xpath=//select[contains(.,' \nArquivo01 - Arquivo01\nArquivoGeral - ArquivoGeral\nTESTE - Unidade de Teste 1\nTESTE_1_1 - Unidade de Testes 1.1\nTESTE_1_2 - Unidade de Testes 1.2')]", "xpath:innerText"]
+      ],
+      "value": ""
     }, {
       "id": "ad4866a0-9889-4be8-8a4b-226b83374b10",
       "comment": "",

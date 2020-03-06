@@ -56,9 +56,6 @@ class Test1100SEIGDAvaliacaoMassa():
     dropdown.find_element(By.XPATH, "//option[. = 'Arquivo01 - Arquivo01']").click()
     self.driver.find_element(By.ID, "selUnidade").click()
     dropdown = self.driver.find_element(By.ID, "selDestinacaoFinal")
-    dropdown.find_element(By.XPATH, "//option[. = 'Eliminação']").click()
-    self.driver.find_element(By.ID, "selDestinacaoFinal").click()
-    dropdown = self.driver.find_element(By.ID, "selDestinacaoFinal")
     dropdown.find_element(By.XPATH, "//option[. = 'Recolhimento']").click()
     self.driver.find_element(By.ID, "selDestinacaoFinal").click()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
@@ -78,6 +75,12 @@ class Test1100SEIGDAvaliacaoMassa():
     assert self.driver.find_element(By.CSS_SELECTOR, "#divInfraAreaTabela > label").text == "Nenhum registro encontrado."
     self.driver.find_element(By.ID, "txtPeriodoA").click()
     self.driver.find_element(By.ID, "txtPeriodoA").send_keys("30/05/2100")
+    dropdown = self.driver.find_element(By.ID, "selDestinacaoFinal")
+    dropdown.find_element(By.CSS_SELECTOR, "*:nth-child(0)").click()
+    self.driver.find_element(By.ID, "selDestinacaoFinal").click()
+    dropdown = self.driver.find_element(By.ID, "selUnidade")
+    dropdown.find_element(By.CSS_SELECTOR, "*:nth-child(0)").click()
+    self.driver.find_element(By.ID, "selUnidade").click()
     self.driver.find_element(By.ID, "sbmPesquisar").click()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (71 registros - 1 a 50):"
