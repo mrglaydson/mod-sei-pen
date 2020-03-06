@@ -139,3 +139,18 @@ proc Corregedoria: Correicao, está aparecendo 100 anos, qd deveria ser 95
 06/12/2019 15:27:37\n9 /opt/sei/web/modulos/sei-mod-gestao-documental/rn/MdGdAtualizarSeiRN.php(54): MdGdAtualizarSeiRN->atualizarV100Conectado()
 06/12/2019 15:27:37\n10 /opt/sei/scripts/sei-gestao-documental-atualizar.php(13): MdGdAtualizarSeiRN->atualizar()
 06/12/2019 15:27:37\n11 {main}
+
+
+
+- Cadastro de Unidades
+    - tentar retirar unidades com processo associado
+
+- Arquivamento Automático
+    - arquivar sem unidade associada ou justificativa
+
+- testar proc aberto em mais de uma unidade(n pode arquivar)
+- assercao no historico sempre q arquivar e desarquivar
+
+- cria proc, manda para outra unidade aberto em 2
+- ao concluir na segunda, ele n pode aparecer na Pendencia de Arquivamento daquela Unidade
+

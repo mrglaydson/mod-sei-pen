@@ -1,42 +1,35 @@
-O que precisamos testar
-- Tela de cadastro de justificativas
-    - adicionar justificativas duplicadas
-    - retirar justificativas associadas a processo
+- Cria novo Ambiente
 
-- Cadastro de Unidades
-    - tentar retirar unidades com processo associado
+01-Configs
+	- Permissao para o usuario administrador no modulo
+	- Cria perfil arquivista 
+	- Cria unidades de Arquivo
+	- Cria usuarios arquivistas
 
-- Arquivamento Automático
-    - arquivar sem unidade associada ou justificativa
+	- Cria tipos de docs
+	- Configura Módulo
+	- Configura Unidades
+	- Configura Assinaturas
+	- Cria Localizadores
 
+02 - Procs
 
-- criar proc com docs
-- arquivar
-- verificar se criou doc com arquivamento
+	- Arquiva e desarquiva processo unico
 
-- desarquivar
-- verificar se criou doc de desarq
+	- Cria Flood com 2 tipos de assunto
+	- Cria Flood com docs físicos arquivados
 
-- criar arquivista
-- liberar acesso ao modulo
-- criar unidades extra
-	- 1 arquivamento do orgao
-	- 4 unidades comuns
-	
+03 - Pendencias de Arquivamento
+	- Anotacao
+	- Reabrir único
+	- Reabrir Massa
+	- Arquivar único
+	- Arquivar Massa
+	- Desarquivar Massa
+	- Desarquivar Unico
+	- Arquivo da Unidade - Arquivar único
+	- Arquivo da Unidade - Arquivar Massa
 
-- localizador -> cadastrar novo
-- criar proc restrito e publico com docs internos e externos
-- criar docs autenticados
-- o doc autenticado deverá estar arquivado
+	- Concluir 
 
-
-- testar proc aberto em mais de uma unidade(n pode arquivar)
-- assercao no historico sempre q arquivar e desarquivar
-
-- verificar flood de concluidos
-
-tela de Pendencia de Arquivamento
-
-- cria proc, manda para outra unidade aberto em 2
-- ao concluir na segunda, ele n pode aparecer na Pendencia de Arquivamento daquela Unidade
 

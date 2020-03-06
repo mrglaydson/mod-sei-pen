@@ -969,6 +969,13 @@
       "target": "",
       "targets": [],
       "value": ""
+    }, {
+      "id": "e7a316df-9eb9-4e11-9035-8a8c89eb973f",
+      "comment": "",
+      "command": "",
+      "target": "",
+      "targets": [],
+      "value": ""
     }]
   }, {
     "id": "950b7119-8930-443a-8422-837768d83826",
@@ -1224,6 +1231,13 @@
       "target": "",
       "targets": [],
       "value": ""
+    }, {
+      "id": "83e52329-3350-4fbd-9e86-0846bfd57f1d",
+      "comment": "",
+      "command": "",
+      "target": "",
+      "targets": [],
+      "value": ""
     }]
   }, {
     "id": "18d9b962-f394-48f7-bcb7-c60f1616b10c",
@@ -1420,7 +1434,7 @@
     "persistSession": false,
     "parallel": false,
     "timeout": 300,
-    "tests": ["a5229c24-f4a9-4fd4-8017-d0dd165e9ec6", "18d9b962-f394-48f7-bcb7-c60f1616b10c", "9309baec-6141-44dc-be00-166779f25e5d", "950b7119-8930-443a-8422-837768d83826"]
+    "tests": []
   }],
   "urls": ["http://seigd.nuvem.gov.br/", "http://seigd.intra.planejamento/"],
   "plugins": []
