@@ -10,7 +10,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
-class Test07SEIGDAvaliacaoRecolhimento():
+class Test05SEIGDAvaliacao():
   def setup_method(self, method):
     self.driver = webdriver.Remote(command_executor='http://seleniumhub:4444/wd/hub', desired_capabilities=DesiredCapabilities.CHROME)
     self.vars = {}
@@ -25,7 +25,91 @@ class Test07SEIGDAvaliacaoRecolhimento():
     if len(wh_now) > len(wh_then):
       return set(wh_now).difference(set(wh_then)).pop()
   
-  def test_0740MandaListagemRecolhimento(self):
+  def test_0510Avaliacao(self):
+    self.driver.get("http://seigd.intra.planejamento//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.find_element(By.ID, "divUsuario").click()
+    self.driver.find_element(By.ID, "txtUsuario").click()
+    self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivista02")
+    self.driver.find_element(By.ID, "pwdSenha").click()
+    self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista02")
+    self.driver.find_element(By.ID, "sbmLogin").click()
+    self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[10]/a").click()
+    self.driver.find_element(By.LINK_TEXT, "Avaliação de Processos").click()
+    self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (21 registros):"
+    self.driver.find_element(By.XPATH, "//img[@title=\'Enviar para Correção\']").click()
+    self.driver.switch_to.alert.accept()
+    self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (20 registros):"
+  
+  def test_0520VerificaVolta(self):
+    self.driver.get("http://seigd.intra.planejamento//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.find_element(By.ID, "divUsuario").click()
+    self.driver.find_element(By.ID, "txtUsuario").click()
+    self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivista01")
+    self.driver.find_element(By.ID, "pwdSenha").click()
+    self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
+    self.driver.find_element(By.ID, "sbmLogin").click()
+    self.driver.find_element(By.LINK_TEXT, "Arquivo da Unidade").click()
+    assert self.driver.find_element(By.CSS_SELECTOR, "b").text == "Devolvido para correção"
+    assert self.driver.find_element(By.LINK_TEXT, "99993.000001/2020-38").text == "99993.000001/2020-38"
+    self.driver.find_element(By.XPATH, "//img[@title=\'Editar Processo\']").click()
+    self.driver.switch_to.alert.accept()
+    self.driver.find_element(By.LINK_TEXT, "Controle de Processos").click()
+    element = self.driver.find_element(By.LINK_TEXT, "99993.000001/2020-38")
+    actions = ActionChains(self.driver)
+    actions.move_to_element(element).perform()
+    self.driver.find_element(By.LINK_TEXT, "99993.000001/2020-38").click()
+    self.driver.switch_to.frame(1)
+    WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".botaoSEI:nth-child(3) > .infraCorBarraSistema")))
+    self.driver.find_element(By.CSS_SELECTOR, ".botaoSEI:nth-child(3) > .infraCorBarraSistema").click()
+    WebDriverWait(self.driver, 30000).until(expected_conditions.element_to_be_clickable((By.ID, "txaObservacoes")))
+    self.driver.find_element(By.ID, "txaObservacoes").click()
+    self.driver.find_element(By.ID, "txaObservacoes").send_keys("obs alterado")
+    WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, "#divInfraBarraComandosSuperior .infraTeclaAtalho")))
+    self.driver.find_element(By.CSS_SELECTOR, "#divInfraBarraComandosSuperior .infraTeclaAtalho").click()
+    WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".botaoSEI:nth-child(1) > .infraCorBarraSistema")))
+    self.driver.find_element(By.CSS_SELECTOR, ".botaoSEI:nth-child(1) > .infraCorBarraSistema").click()
+    WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.LINK_TEXT, "Despacho")))
+    self.driver.find_element(By.LINK_TEXT, "Despacho").click()
+    WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "optPublico")))
+    self.driver.find_element(By.ID, "optPublico").click()
+    self.vars["window_handles"] = self.driver.window_handles
+    self.driver.find_element(By.ID, "btnSalvar").click()
+    self.vars["win2086"] = self.wait_for_window(2000)
+    self.vars["root"] = self.driver.current_window_handle
+    self.driver.switch_to.window(self.vars["win2086"])
+    self.driver.close()
+    self.driver.switch_to.window(self.vars["root"])
+    self.driver.switch_to.frame(0)
+    self.driver.switch_to.default_content()
+    self.driver.switch_to.frame(1)
+    self.driver.switch_to.window(self.vars["root"])
+    self.driver.switch_to.frame(0)
+    self.driver.switch_to.default_content()
+    self.driver.find_element(By.ID, "lnkInfraMenuSistema").click()
+    self.driver.find_element(By.LINK_TEXT, "Arquivo da Unidade").click()
+    self.driver.find_element(By.CSS_SELECTOR, "td:nth-child(3)").click()
+    assert self.driver.find_element(By.CSS_SELECTOR, "td:nth-child(3)").text == "teste arquivo"
+    self.driver.find_element(By.CSS_SELECTOR, "td .infraImg").click()
+    self.driver.switch_to.alert.accept()
+    self.driver.find_element(By.ID, "divInfraAreaTelaD").click()
+    assert self.driver.find_element(By.CSS_SELECTOR, "#divInfraAreaTabela > label").text == "Nenhum registro encontrado."
+  
+  def test_0530VerificarRetorno(self):
+    self.driver.get("http://seigd.intra.planejamento//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.find_element(By.ID, "divUsuario").click()
+    self.driver.find_element(By.ID, "txtUsuario").click()
+    self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivista02")
+    self.driver.find_element(By.ID, "pwdSenha").click()
+    self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista02")
+    self.driver.find_element(By.ID, "sbmLogin").click()
+    self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[10]/a").click()
+    self.driver.find_element(By.LINK_TEXT, "Avaliação de Processos").click()
+    self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (21 registros):"
+  
+  def test_0540MandaListagemEliminacao(self):
     self.driver.get("http://seigd.intra.planejamento//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
     self.driver.find_element(By.ID, "divUsuario").click()
     self.driver.find_element(By.ID, "txtUsuario").click()
@@ -43,7 +127,7 @@ class Test07SEIGDAvaliacaoRecolhimento():
     self.driver.switch_to.alert.accept()
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.XPATH, "//*[@id=\"divInfraBarraLocalizacao\"]")))
   
-  def test_0750MandaListagemRecolhimento(self):
+  def test_0550MandaListagemEliminacao(self):
     self.driver.get("http://seigd.intra.planejamento//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
     self.driver.find_element(By.ID, "divUsuario").click()
     self.driver.find_element(By.ID, "txtUsuario").click()
@@ -52,14 +136,13 @@ class Test07SEIGDAvaliacaoRecolhimento():
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista02")
     self.driver.find_element(By.ID, "sbmLogin").click()
     self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[10]/a").click()
-    self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[10]/ul/li[3]/a").click()
+    self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[10]/ul/li[2]/a").click()
     self.driver.find_element(By.LINK_TEXT, "Preparação da Listagem").click()
     self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[2]/td[9]/a[2]/img").click()
     self.driver.switch_to.alert.accept()
     self.driver.find_element(By.ID, "imgInfraCheck").click()
     self.driver.find_element(By.ID, "btnExcluir").click()
     self.driver.switch_to.alert.accept()
-    self.driver.find_element(By.ID, "sbmPesquisar").click()
     self.driver.find_element(By.ID, "divInfraAreaTabela").click()
     assert self.driver.find_element(By.CSS_SELECTOR, "#divInfraAreaTabela > label").text == "Nenhum registro encontrado."
     self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[10]/a").click()
@@ -75,15 +158,15 @@ class Test07SEIGDAvaliacaoRecolhimento():
     self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[2]/td[11]/a/img").click()
     self.driver.switch_to.alert.accept()
     self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[10]/a").click()
-    self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[10]/ul/li[3]/a").click()
+    self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[10]/ul/li[2]/a").click()
     self.driver.find_element(By.LINK_TEXT, "Preparação da Listagem").click()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Lista de Processos (5 registros):"
     self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[10]/a").click()
     self.driver.find_element(By.LINK_TEXT, "Avaliação de Processos").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (71 registros - 1 a 50):"
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (16 registros):"
   
-  def test_0760AlteraObservacao1(self):
+  def test_0560AlteraObservacao1(self):
     self.driver.get("http://seigd.intra.planejamento//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
     self.driver.find_element(By.ID, "divUsuario").click()
     self.driver.find_element(By.ID, "txtUsuario").click()
@@ -92,7 +175,7 @@ class Test07SEIGDAvaliacaoRecolhimento():
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista02")
     self.driver.find_element(By.ID, "sbmLogin").click()
     self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[10]/a").click()
-    self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[10]/ul/li[3]/a").click()
+    self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[10]/ul/li[2]/a").click()
     self.driver.find_element(By.LINK_TEXT, "Preparação da Listagem").click()
     self.vars["window_handles"] = self.driver.window_handles
     self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[2]/td[9]/a/img").click()
@@ -104,7 +187,7 @@ class Test07SEIGDAvaliacaoRecolhimento():
     self.driver.find_element(By.ID, "txaObservacao").send_keys("observacao1")
     self.driver.find_element(By.NAME, "sbmObservar").click()
   
-  def test_0765AlteraObservacao2(self):
+  def test_0565AlteraObservacao2(self):
     self.driver.get("http://seigd.intra.planejamento//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
     self.driver.find_element(By.ID, "divUsuario").click()
     self.driver.find_element(By.ID, "txtUsuario").click()
@@ -113,7 +196,7 @@ class Test07SEIGDAvaliacaoRecolhimento():
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista02")
     self.driver.find_element(By.ID, "sbmLogin").click()
     self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[10]/a").click()
-    self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[10]/ul/li[3]/a").click()
+    self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[10]/ul/li[2]/a").click()
     self.driver.find_element(By.LINK_TEXT, "Preparação da Listagem").click()
     self.vars["window_handles"] = self.driver.window_handles
     self.driver.find_element(By.XPATH, "(//img[@title=\'Adicionar Observação e/ou Justificativa\'])[2]").click()
@@ -124,7 +207,7 @@ class Test07SEIGDAvaliacaoRecolhimento():
     self.driver.find_element(By.ID, "txaObservacao").send_keys("observacao 2")
     self.driver.find_element(By.NAME, "sbmObservar").click()
   
-  def test_0770AlteraObservacao3(self):
+  def test_0570AlteraObservacao3(self):
     self.driver.get("http://seigd.intra.planejamento//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
     self.driver.find_element(By.ID, "divUsuario").click()
     self.driver.find_element(By.ID, "txtUsuario").click()
@@ -133,7 +216,7 @@ class Test07SEIGDAvaliacaoRecolhimento():
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista02")
     self.driver.find_element(By.ID, "sbmLogin").click()
     self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[10]/a").click()
-    self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[10]/ul/li[3]/a").click()
+    self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[10]/ul/li[2]/a").click()
     self.driver.find_element(By.LINK_TEXT, "Preparação da Listagem").click()
     self.vars["window_handles"] = self.driver.window_handles
     self.driver.find_element(By.XPATH, "(//img[@title=\'Adicionar Observação e/ou Justificativa\'])[3]").click()
@@ -144,7 +227,7 @@ class Test07SEIGDAvaliacaoRecolhimento():
     self.driver.find_element(By.ID, "txaObservacao").send_keys("observacao 4")
     self.driver.find_element(By.NAME, "sbmObservar").click()
   
-  def test_0775AlteraObservacao3Conserta(self):
+  def test_0575AlteraObservacao3Conserta(self):
     self.driver.get("http://seigd.intra.planejamento//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
     self.driver.find_element(By.ID, "divUsuario").click()
     self.driver.find_element(By.ID, "txtUsuario").click()
@@ -153,7 +236,7 @@ class Test07SEIGDAvaliacaoRecolhimento():
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista02")
     self.driver.find_element(By.ID, "sbmLogin").click()
     self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[10]/a").click()
-    self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[10]/ul/li[3]/a").click()
+    self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[10]/ul/li[2]/a").click()
     self.driver.find_element(By.LINK_TEXT, "Preparação da Listagem").click()
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.XPATH, "(//img[@title=\'Adicionar Observação e/ou Justificativa\'])[3]")))
     self.vars["window_handles"] = self.driver.window_handles

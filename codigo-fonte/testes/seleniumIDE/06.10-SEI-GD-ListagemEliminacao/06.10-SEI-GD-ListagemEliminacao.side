@@ -206,7 +206,7 @@
     "persistSession": false,
     "parallel": false,
     "timeout": 300,
-    "tests": []
+    "tests": ["f0b7a7eb-fdeb-478a-a006-f59c0ea14530", "ac925c14-6d8d-4bce-9b52-6b5c76d49685"]
   }],
   "urls": ["http://seigd.intra.planejamento/"],
   "plugins": []
