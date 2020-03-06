@@ -596,6 +596,13 @@
       ],
       "value": "30/05/2100"
     }, {
+      "id": "4ba0f5ff-5473-4f49-acf7-091cb4f0e9c1",
+      "comment": "",
+      "command": "pause",
+      "target": "3",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "45637cc6-57eb-4237-b4b5-31fec18094cb",
       "comment": "",
       "command": "select",
@@ -616,6 +623,13 @@
         ["xpath=//select[4]", "xpath:position"],
         ["xpath=//select[contains(.,' \nEliminação\nRecolhimento')]", "xpath:innerText"]
       ],
+      "value": ""
+    }, {
+      "id": "01f1c0de-bb77-4504-a8aa-9ada0a4adbb5",
+      "comment": "",
+      "command": "pause",
+      "target": "3",
+      "targets": [],
       "value": ""
     }, {
       "id": "6b2c5bb5-cdbf-499a-bdb0-4597527159bf",

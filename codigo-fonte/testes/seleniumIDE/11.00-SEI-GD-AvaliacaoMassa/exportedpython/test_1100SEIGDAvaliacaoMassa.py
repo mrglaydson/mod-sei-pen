@@ -75,9 +75,11 @@ class Test1100SEIGDAvaliacaoMassa():
     assert self.driver.find_element(By.CSS_SELECTOR, "#divInfraAreaTabela > label").text == "Nenhum registro encontrado."
     self.driver.find_element(By.ID, "txtPeriodoA").click()
     self.driver.find_element(By.ID, "txtPeriodoA").send_keys("30/05/2100")
+    time.sleep(3)
     dropdown = self.driver.find_element(By.ID, "selDestinacaoFinal")
     dropdown.find_element(By.CSS_SELECTOR, "*:nth-child(0)").click()
     self.driver.find_element(By.ID, "selDestinacaoFinal").click()
+    time.sleep(3)
     dropdown = self.driver.find_element(By.ID, "selUnidade")
     dropdown.find_element(By.CSS_SELECTOR, "*:nth-child(0)").click()
     self.driver.find_element(By.ID, "selUnidade").click()
