@@ -458,7 +458,7 @@
       "command": "select",
       "target": "id=selUnidade",
       "targets": [],
-      "value": "label=regexp:\\s"
+      "value": "label=TESTE - Unidade de Teste 1"
     }, {
       "id": "3bb2df90-f1bd-402b-a2f6-700a3aa3da11",
       "comment": "",
@@ -480,7 +480,7 @@
       "command": "select",
       "target": "id=selDestinacaoFinal",
       "targets": [],
-      "value": "label=regexp:\\s"
+      "value": "label=Eliminação"
     }, {
       "id": "ba7de38f-d51f-4988-a082-2232b37a7e66",
       "comment": "",

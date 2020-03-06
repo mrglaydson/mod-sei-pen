@@ -64,10 +64,10 @@ class Test1100SEIGDAvaliacaoMassa():
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (25 registros):"
     dropdown = self.driver.find_element(By.ID, "selUnidade")
-    dropdown.find_element(By.XPATH, "//option[. = 'regexp:\\s']").click()
+    dropdown.find_element(By.XPATH, "//option[. = 'TESTE - Unidade de Teste 1']").click()
     self.driver.find_element(By.ID, "selUnidade").click()
     dropdown = self.driver.find_element(By.ID, "selDestinacaoFinal")
-    dropdown.find_element(By.XPATH, "//option[. = 'regexp:\\s']").click()
+    dropdown.find_element(By.XPATH, "//option[. = 'Eliminação']").click()
     self.driver.find_element(By.ID, "selDestinacaoFinal").click()
     self.driver.find_element(By.ID, "txtPeriodoDe").click()
     self.driver.find_element(By.ID, "txtPeriodoDe").send_keys("05/05/2000")
