@@ -47,7 +47,7 @@
         ["xpath=//div[@id='divUsuario']/input", "xpath:idRelative"],
         ["xpath=//input", "xpath:position"]
       ],
-      "value": "arquivista01"
+      "value": "teste"
     }, {
       "id": "20a3bdac-fa39-4b08-a780-dd930b3eff17",
       "comment": "",
@@ -96,7 +96,7 @@
         ["xpath=//div[@id='divUsuario']/input[2]", "xpath:idRelative"],
         ["xpath=//input[2]", "xpath:position"]
       ],
-      "value": "arquivista01"
+      "value": "teste"
     }, {
       "id": "f4e37daa-46a0-4736-8412-ac6a19713278",
       "comment": "",
