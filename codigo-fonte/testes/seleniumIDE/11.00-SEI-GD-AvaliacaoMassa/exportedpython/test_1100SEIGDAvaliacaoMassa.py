@@ -73,23 +73,33 @@ class Test1100SEIGDAvaliacaoMassa():
     self.driver.find_element(By.CSS_SELECTOR, "#divInfraBarraComandosSuperior > #sbmPesquisar > .infraTeclaAtalho").click()
     self.driver.find_element(By.ID, "divInfraAreaTabela").click()
     assert self.driver.find_element(By.CSS_SELECTOR, "#divInfraAreaTabela > label").text == "Nenhum registro encontrado."
+  
+  def test_1110Verificafiltroscont(self):
+    self.driver.get("http://seigd.intra.planejamento//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.find_element(By.ID, "divUsuario").click()
+    self.driver.find_element(By.ID, "txtUsuario").click()
+    self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivista02")
+    self.driver.find_element(By.ID, "pwdSenha").click()
+    self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista02")
+    self.driver.find_element(By.ID, "sbmLogin").click()
+    self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[10]/a").click()
+    self.driver.find_element(By.LINK_TEXT, "Avaliação de Processos").click()
+    self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
+    self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (71 registros - 1 a 50):"
+    self.driver.find_element(By.ID, "txtPeriodoDe").click()
+    self.driver.find_element(By.ID, "txtPeriodoDe").send_keys("05/05/2000")
     self.driver.find_element(By.ID, "txtPeriodoA").click()
     self.driver.find_element(By.ID, "txtPeriodoA").send_keys("30/05/2100")
-    time.sleep(3)
-    dropdown = self.driver.find_element(By.ID, "selDestinacaoFinal")
-    dropdown.find_element(By.CSS_SELECTOR, "*:nth-child(0)").click()
-    self.driver.find_element(By.ID, "selDestinacaoFinal").click()
-    time.sleep(3)
-    dropdown = self.driver.find_element(By.ID, "selUnidade")
-    dropdown.find_element(By.CSS_SELECTOR, "*:nth-child(0)").click()
-    self.driver.find_element(By.ID, "selUnidade").click()
     self.driver.find_element(By.ID, "sbmPesquisar").click()
+    WebDriverWait(self.driver, 30000).until(expected_conditions.presence_of_element_located((By.CSS_SELECTOR, ".infraCaption")))
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (71 registros - 1 a 50):"
     dropdown = self.driver.find_element(By.ID, "selAssunto")
     dropdown.find_element(By.XPATH, "//option[. = '012.3 - CAMPANHAS INSTITUCIONAIS. PUBLICIDADE (inclusive Cartazes, Folhetos, Anúncios, Folders e outros documentos de ca...']").click()
     self.driver.find_element(By.ID, "selAssunto").click()
     self.driver.find_element(By.ID, "sbmPesquisar").click()
+    WebDriverWait(self.driver, 30000).until(expected_conditions.presence_of_element_located((By.CSS_SELECTOR, ".infraCaption")))
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (40 registros):"
   
