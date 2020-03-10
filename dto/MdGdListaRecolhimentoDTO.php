@@ -38,6 +38,10 @@ class MdGdListaRecolhimentoDTO extends InfraDTO
             'qtd_processos');
         
         $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_STR,
+            'SinDocumentosFisicos',
+            'sin_documentos_fisicos');
+
+        $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_STR,
             'Situacao',
             'situacao');
                        

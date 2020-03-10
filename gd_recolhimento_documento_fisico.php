@@ -219,7 +219,12 @@ document.getElementById('btnFechar').focus();
 
 <? if ($bolAcaoRecolherDocumentoFisico) { ?>
     function acaoConfirmarRecolhimento(link) {
-    infraAbrirJanela(link, 'janelaObservarPreparacaoListagemRecolhimento', 720, 300, 'location=0,status=1,resizable=1,scrollbars=1', false);
+        if (document.getElementById('hdnInfraItensSelecionados').value == '') {
+            alert('Nenhum Documento Selecionado.');
+            return;
+        }
+
+        infraAbrirJanela(link, 'janelaObservarPreparacaoListagemRecolhimento', 720, 300, 'location=0,status=1,resizable=1,scrollbars=1', false);
     }
 <? } ?>
 

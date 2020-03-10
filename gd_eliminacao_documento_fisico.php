@@ -59,9 +59,6 @@ try {
                     $arrIdDocumento = explode(',', InfraArray::implodeArrInfraDTO($arrObjRelProtocoloProtocoloDTO, 'IdProtocolo2'));
                 }
             }
-
-
-
             break;
 
         default:
@@ -71,7 +68,6 @@ try {
     $bolAcaoEliminarDocumentoFisico = SessaoSEI::getInstance()->verificarPermissao('gestao_documental_eliminacao_documentos_fisicos');
 
     $arrComandos = array();
-    $arrComandos[] = '<button type="submit" accesskey="P" id="sbmPesquisar" value="Pesquisar" class="infraButton"><span class="infraTeclaAtalho">P</span>esquisar</button>';
 
     if ($bolAcaoEliminarDocumentoFisico) {
         $strLinkConfirmarEliminacao = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_eliminar_documento_fisico&id_listagem_eliminacao=' . $_GET['id_listagem_eliminacao'] . '&acao_origem=' . $_GET['acao']);
@@ -85,18 +81,13 @@ try {
     $objArquivamentoRN = new ArquivamentoRN();
     $objArquivamentoDTO = new ArquivamentoDTO();
     $objArquivamentoDTO->retDblIdProtocoloDocumento();
-    $objArquivamentoDTO->retStrSiglaUnidadeArquivamento();
+    $objArquivamentoDTO->retDblIdProcedimentoDocumento();
     $objArquivamentoDTO->retStrProtocoloFormatadoProcedimento();
     $objArquivamentoDTO->retStrNomeTipoProcedimento();
     $objArquivamentoDTO->retStrProtocoloFormatadoDocumento();
     $objArquivamentoDTO->retStrNomeTipoLocalizador();
     $objArquivamentoDTO->retNumIdLocalizador();
     $objArquivamentoDTO->setDblIdProtocoloDocumento($arrIdDocumento, InfraDTO::$OPER_IN);
-
-    $selUnidade = PaginaSEI::getInstance()->recuperarCampo('selUnidade');
-    if ($selUnidade) {
-        $objArquivamentoDTO->setNumIdUnidadeArquivamento($selUnidade);
-    }
 
     PaginaSEI::getInstance()->prepararPaginacao($objArquivamentoDTO);
 
@@ -115,7 +106,6 @@ try {
         $strResultado .= '<caption class="infraCaption">' . PaginaSEI::getInstance()->gerarCaptionTabela($strCaptionTabela, $numRegistros) . '</caption>';
         $strResultado .= '<tr>';
         $strResultado .= '<th class="infraTh" width="1%">' . PaginaSEI::getInstance()->getThCheck() . '</th>' . "\n";
-        $strResultado .= '<th class="infraTh" width="10%">' . PaginaSEI::getInstance()->getThOrdenacao($objArquivamentoDTO, 'Unidade', 'SiglaUnidadeArquivamento', $arrObjArquivamentoDTO) . '</th>' . "\n";
         $strResultado .= '<th class="infraTh" width="10%">' . PaginaSEI::getInstance()->getThOrdenacao($objArquivamentoDTO, 'Processo', 'ProtocoloFormatadoProcedimento', $arrObjArquivamentoDTO) . '</th>' . "\n";
         $strResultado .= '<th class="infraTh" width="19%">' . PaginaSEI::getInstance()->getThOrdenacao($objArquivamentoDTO, 'Tipo de Processo', 'NomeTipoProcedimento', $arrObjArquivamentoDTO) . '</th>' . "\n";
         $strResultado .= '<th class="infraTh" width="10%">' . PaginaSEI::getInstance()->getThOrdenacao($objArquivamentoDTO, 'Unidade', 'ProtocoloFormatadoDocumento', $arrObjArquivamentoDTO) . '</th>' . "\n";
@@ -123,7 +113,7 @@ try {
         $strResultado .= '<th class="infraTh" width="10%">Tipo de Localizador</th>' . "\n";
         $strResultado .= '<th class="infraTh" width="10%">Localizador</th>' . "\n";
         $strResultado .= '<th class="infraTh" width="10%">Tipo de Suporte</th>' . "\n";
-        $strResultado .= '<th class="infraTh" width="10%">Ações</th>' . "\n";
+        $strResultado .= '<th class="infraTh" width="10%">Status</th>' . "\n";
         $strResultado .= '</tr>' . "\n";
         $strCssTr = '';
 
@@ -135,9 +125,16 @@ try {
             // Busca os dados do localizador do arquivamento
             $objLocalizadorDTO = new LocalizadorDTO();
             $objLocalizadorDTO->setNumIdLocalizador($arrObjArquivamentoDTO[$i]->getNumIdLocalizador());
+            $objLocalizadorDTO->retNumIdLocalizador();
             $objLocalizadorDTO->retStrNomeLugarLocalizador();
             $objLocalizadorDTO->retStrNomeTipoSuporte();
             $objLocalizadorDTO->retStrIdentificacao();
+            $objLocalizadorDTO->retStrStaEstado();
+            $objLocalizadorDTO->retStrNomeTipoLocalizador();
+            $objLocalizadorDTO->retStrSiglaTipoLocalizador();
+            $objLocalizadorDTO->retNumSeqLocalizador();
+            $objLocalizadorDTO->retNumIdUnidade();
+            $objLocalizadorDTO->retStrSiglaUnidadeLocalizador();
 
             $objLocalizadorDTO = $objLocalizadorRN->consultarRN0619($objLocalizadorDTO);
 
@@ -155,16 +152,31 @@ try {
                 $strResultado .= '<td valign="top"></td>';
             }
 
-            $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjArquivamentoDTO[$i]->getStrSiglaUnidadeArquivamento()) . '</td>';
-            $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjArquivamentoDTO[$i]->getStrProtocoloFormatadoProcedimento()) . '</td>';
+            $strResultado .= '<td>';
+            $strResultado .= '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=procedimento_trabalhar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao'] . '&id_procedimento=' . $arrObjArquivamentoDTO[$i]->getDblIdProcedimentoDocumento()) . '" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . ' " target="_blank">' . $arrObjArquivamentoDTO[$i]->getStrProtocoloFormatadoProcedimento() . '</a>';
+            $strResultado .= '</td>';
             $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjArquivamentoDTO[$i]->getStrNomeTipoProcedimento()) . '</td>';
             $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjArquivamentoDTO[$i]->getStrProtocoloFormatadoDocumento()) . '</td>';
-            $strResultado .= '<td>' . PaginaSEI::tratarHTML($objLocalizadorDTO->getStrNomeLugarLocalizador()) . '</td>';
-            $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjArquivamentoDTO[$i]->getStrNomeTipoLocalizador()) . '</td>';
+            $strResultado .= '<td>' . PaginaSEI::tratarHTML($objLocalizadorDTO->getStrNomeLugarLocalizador()) . '</td>';     
             $strResultado .= '<td>' . PaginaSEI::tratarHTML($objLocalizadorDTO->getStrIdentificacao()) . '</td>';
+
+            //$strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjArquivamentoDTO[$i]->getStrNomeTipoLocalizador()) . '</td>';
+            $strClassLocalizador = '';
+            if ($objLocalizadorDTO->getStrStaEstado() == LocalizadorRN::$EA_ABERTO) {
+                $strClassLocalizador = ' localizadorAberto';
+            } else {
+                $strClassLocalizador = ' localizadorFechado';
+            }
+
+            if ($objLocalizadorDTO->getNumIdUnidade()==SessaoSEI::getInstance()->getNumIdUnidadeAtual()) {
+                $strResultado .= '<td><a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=localizador_protocolos_listar&acao_origem=' . $_GET['acao'] . '&id_localizador=' . $objLocalizadorDTO->getNumIdLocalizador()) . '" target="_blank" class="linkFuncionalidade' . $strClassLocalizador . '" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '" title="' . PaginaSEI::tratarHTML($objLocalizadorDTO->getStrNomeTipoLocalizador() . ' / ' . $objLocalizadorDTO->getStrNomeLugarLocalizador() . $strTitleLocalizador) . '">'  . LocalizadorINT::montarIdentificacaoRI1132($objLocalizadorDTO->getStrSiglaTipoLocalizador(), $objLocalizadorDTO->getNumSeqLocalizador()) . '</a></td>';
+            }else{
+                $strResultado .= '<td><a href="javascript:void(0);" onclick="alert(\'Localizador pertence a unidade '.$objLocalizadorDTO->getStrSiglaUnidadeLocalizador().'.\');" class="ancoraSigla" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '" title="' . PaginaSEI::tratarHTML('Localizador pertence a unidade '.$objLocalizadorDTO->getStrSiglaUnidadeLocalizador()) .'">' . LocalizadorINT::montarIdentificacaoRI1132($objLocalizadorDTO->getStrSiglaTipoLocalizador(), $objLocalizadorDTO->getNumSeqLocalizador()) . '</a></td>';
+            }
+               
             $strResultado .= '<td>' . PaginaSEI::tratarHTML($objLocalizadorDTO->getStrNomeTipoSuporte()) . '</td>';
             $strResultado .= '<td align="center">';
-
+          
             if ($countDocumentoFisicoEliminado) {
                 $strResultado .= '<img src="imagens/circulo_verde.png" title="Eliminado" title="Eliminado" class="infraImg" />';
             } else {
@@ -177,9 +189,6 @@ try {
         }
         $strResultado .= '</table>';
     }
-
-    // Busca uma lista de unidades
-    $strItensSelUnidade = UnidadeINT::montarSelectSiglaDescricao('null', '&nbsp;', $selUnidade);
 
     //  $arrComandos[] = '<button type="button" accesskey="F" id="btnFechar" value="Fechar" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . PaginaSEI::getInstance()->getAcaoRetorno() . '&acao_origem=' . $_GET['acao'] . '\'" class="infraButton"><span class="infraTeclaAtalho">F</span>echar</button>';
 } catch (Exception $e) {
@@ -196,15 +205,9 @@ PaginaSEI::getInstance()->abrirStyle();
 ?>
 
 
-#lblOrgao {position:absolute;left:0%;top:0%;width:20%;}
-#selOrgao {position:absolute;left:0%;top:20%;width:20%;}
-
-#lblUnidade {position:absolute;left:21%;top:0%;width:20%;}
-#selUnidade {position:absolute;left:21%;top:20%;width:20%;}
-
-#lblListagemEliminacao { position: absolute; top: 45px; left: 0px; }
-#lblDatasLimite { position: absolute; top: 45px; left: 191px; }
-#lblProcessoSei { position: absolute; top: 45px; left: 329px; }
+#lblListagemEliminacao { position: absolute; top: 0px; left: 0px; }
+#lblDatasLimite { position: absolute; top: 0px; left: 191px; }
+#lblProcessoSei { position: absolute; top: 0px; left: 329px; }
 
 <?
 PaginaSEI::getInstance()->fecharStyle();
@@ -238,18 +241,8 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
       action="<?= SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . $_GET['acao'] . '&acao_origem=' . $_GET['acao']) ?>">
           <?
           PaginaSEI::getInstance()->montarBarraComandosSuperior($arrComandos);
-          PaginaSEI::getInstance()->abrirAreaDados('9.5em');
+          PaginaSEI::getInstance()->abrirAreaDados('3.5em');
           ?>
-
-    <label id="lblOrgao" for="selOrgao" accesskey="" class="infraLabelOpcional">Órgão:</label>
-    <select id="selOrgao" name="selOrgao" onchange="this.form.submit();" class="infraSelect" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" >
-        <option><?= SessaoSEI::getInstance()->getStrDescricaoOrgaoSistema() ?></option>
-    </select>
-
-    <label id="lblUnidade" for="selUnidade" accesskey="" class="infraLabelOpcional">Unidade:</label>
-    <select id="selUnidade" name="selUnidade" onchange="this.form.submit();" class="infraSelect" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" >
-        <?= $strItensSelUnidade ?>
-    </select>
 
     <p id="lblListagemEliminacao">
         <label class="infraLabelObrigatorio">Listagem de Eliminação: </label><?= $objMdGdListaEliminacaoDTO->getStrNumero(); ?>

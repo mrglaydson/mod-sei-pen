@@ -162,7 +162,7 @@ try {
                 $strResultado .= '<a href="#ID-' . $arrObjMdGdListaRecolhimentoDTO[$i]->getNumIdListaRecolhimento() . '" onclick="acaoRecolher(\'' . $arrObjMdGdListaRecolhimentoDTO[$i]->getNumIdListaRecolhimento() . '\',\'' . $arrObjMdGdListaRecolhimentoDTO[$i]->getStrNumero() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="imagens/arquivo.png" title="Recolher Processos" alt="Recolher Processos" class="infraImg" /></a>&nbsp;';
             }
 
-            if ($bolAcaoRecolherDocumentoFisico && $arrObjMdGdListaRecolhimentoDTO[$i]->getStrSituacao() == MdGdListaRecolhimentoRN::$ST_GERADA) {
+            if ($bolAcaoRecolherDocumentoFisico && $arrObjMdGdListaRecolhimentoDTO[$i]->getStrSituacao() == MdGdListaRecolhimentoRN::$ST_GERADA && $arrObjMdGdListaRecolhimentoDTO[$i]->getStrSinDocumentosFisicos() == 'S') {
                 $strLinkRecolherDocumentosFisicos = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_recolhimento_documentos_fisicos&id_listagem_recolhimento=' . $arrObjMdGdListaRecolhimentoDTO[$i]->getNumIdListaRecolhimento() . '&acao_origem=' . $_GET['acao']);
                 $strResultado .= '<a href="' . $strLinkRecolherDocumentosFisicos . '" ><img src="imagens/procedimento_desanexado.gif" title="Recolher Documentos Físicos" title="Recolher Documentos Físicos" class="infraImg" /></a>&nbsp;';
             }

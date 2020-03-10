@@ -84,6 +84,36 @@ class MdGdListaEliminacaoRN extends InfraRN {
             $objDocumentoRN = new DocumentoRN();
             $objDocumentoDTO = $objDocumentoRN->cadastrarRN0003($objDocumentoDTO);
 
+            // CONSULTA PARA VERIFICAÇÃO DA EXISTÊNCIA DE DOCUMENTOS FÍSICOS ARQUIVADOS
+            $strSinDocumentosFisicos = 'N';
+            
+            // Obtem os ids dos procedimentos vinculdados
+            $arrIdsProcedimentos = array();
+            foreach ($arrObjMdGdArquivamentoDTO as $objMdGdArquivamentoDTO) {
+                $arrIdsProcedimentos[] = $objMdGdArquivamentoDTO->getDblIdProcedimento();
+            }
+
+            // Obtem os documentos vinculados aos processos da listagem
+            $objRelProtocoloProtocoloDTO = new RelProtocoloProtocoloDTO();
+            $objRelProtocoloProtocoloDTO->setDblIdProtocolo1($arrIdsProcedimentos, InfraDTO::$OPER_IN);
+            $objRelProtocoloProtocoloDTO->retDblIdProtocolo2();
+
+            $objRelProtocoloProtocoloRN = new RelProtocoloProtocoloRN();
+            $arrObjRelProtocoloProtocoloDTO = $objRelProtocoloProtocoloRN->listarRN0187($objRelProtocoloProtocoloDTO);
+            
+            $arrIdsDocumentos = array();
+            if ($arrObjRelProtocoloProtocoloDTO) {
+                $arrIdsDocumentos = explode(',', InfraArray::implodeArrInfraDTO($arrObjRelProtocoloProtocoloDTO, 'IdProtocolo2'));
+            }
+
+            // Obtem todos os arquivamentos fisicos registrados para os documentos do processo
+            $objArquivamentoDTO = new ArquivamentoDTO();
+            $objArquivamentoDTO->retDblIdProtocoloDocumento();
+            $objArquivamentoDTO->setDblIdProtocoloDocumento($arrIdsDocumentos, InfraDTO::$OPER_IN);
+
+            $objArquivamentoRN = new ArquivamentoRN();
+            $strSinDocumentosFisicos = $objArquivamentoRN->contar($objArquivamentoDTO) == 0 ? 'N' : 'S';
+
             // Cria a listagem de eliminação
             $objMdGdListaEliminacaoDTO = new MdGdListaEliminacaoDTO();
             $objMdGdListaEliminacaoDTO->setDblIdProcedimentoEliminacao($objProcedimentoDTO->getDblIdProcedimento());
@@ -94,6 +124,8 @@ class MdGdListaEliminacaoRN extends InfraRN {
             $objMdGdListaEliminacaoDTO->setNumAnoLimiteFim(2018); // TODO NOW
             $objMdGdListaEliminacaoDTO->setNumQtdProcessos(count($arrObjMdGdArquivamentoDTO));
             $objMdGdListaEliminacaoDTO->setStrSituacao(self::$ST_GERADA);
+            $objMdGdListaEliminacaoDTO->setStrSinDocumentosFisicos($strSinDocumentosFisicos);
+
             $objMdGdListaEliminacaoBD = new MdGdListaEliminacaoBD($this->getObjInfraIBanco());
             $objMdGdListaEliminacaoDTO = $objMdGdListaEliminacaoBD->cadastrar($objMdGdListaEliminacaoDTO);
 
@@ -114,6 +146,8 @@ class MdGdListaEliminacaoRN extends InfraRN {
                 $objMdGdArquivamentoDTO->setStrSituacao(MdGdArquivamentoRN::$ST_ENVIADO_ELIMINACAO);
                 $objMdGdArquivamentoRN->alterar($objMdGdArquivamentoDTO);
             }
+
+            //  
         } catch (Exception $e) {
             throw new InfraException('Erro ao cadastrar a listagem de eliminação.', $e);
         }
@@ -408,6 +442,30 @@ class MdGdListaEliminacaoRN extends InfraRN {
                 $arrIdsProcedimentos[] = $objMdGdListaElimProcedimentoDTO->getDblIdProcedimento();
             }
 
+            // CONSULTA PARA VERIFICAÇÃO DA EXISTÊNCIA DE DOCUMENTOS FÍSICOS ARQUIVADOS
+            $strSinDocumentosFisicos = 'N';
+        
+            // Obtem os documentos vinculados aos processos da listagem
+            $objRelProtocoloProtocoloDTO = new RelProtocoloProtocoloDTO();
+            $objRelProtocoloProtocoloDTO->setDblIdProtocolo1($arrIdsProcedimentos, InfraDTO::$OPER_IN);
+            $objRelProtocoloProtocoloDTO->retDblIdProtocolo2();
+
+            $objRelProtocoloProtocoloRN = new RelProtocoloProtocoloRN();
+            $arrObjRelProtocoloProtocoloDTO = $objRelProtocoloProtocoloRN->listarRN0187($objRelProtocoloProtocoloDTO);
+            
+            $arrIdsDocumentos = array();
+            if ($arrObjRelProtocoloProtocoloDTO) {
+                $arrIdsDocumentos = explode(',', InfraArray::implodeArrInfraDTO($arrObjRelProtocoloProtocoloDTO, 'IdProtocolo2'));
+            }
+
+            // Obtem todos os arquivamentos fisicos registrados para os documentos do processo
+            $objArquivamentoDTO = new ArquivamentoDTO();
+            $objArquivamentoDTO->retDblIdProtocoloDocumento();
+            $objArquivamentoDTO->setDblIdProtocoloDocumento($arrIdsDocumentos, InfraDTO::$OPER_IN);
+
+            $objArquivamentoRN = new ArquivamentoRN();
+            $strSinDocumentosFisicos = $objArquivamentoRN->contar($objArquivamentoDTO) == 0 ? 'N' : 'S';
+
             if($arrIdsProcedimentos){
                 // Obtem os arquivamentos dos processos
                 $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
@@ -458,6 +516,7 @@ class MdGdListaEliminacaoRN extends InfraRN {
 
             // Atualiza a situação da listagem de eliminação
             $objMdGdListaEliminacaoDTO->setStrSituacao(self::$ST_GERADA);
+            $objMdGdListaEliminacaoDTO->setStrSinDocumentosFisicos($strSinDocumentosFisicos);
             return $this->alterar($objMdGdListaEliminacaoDTO);
         } catch (Exception $e) {
             throw new InfraException('Erro ao alterar a listagem de eliminação para o modo de edição.', $e);
@@ -490,6 +549,8 @@ class MdGdListaEliminacaoRN extends InfraRN {
             throw new InfraException('Erro ao altualizar o número de processos.', $e);
         }
     }
+
+
 }
 
 ?>

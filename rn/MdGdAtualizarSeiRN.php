@@ -225,6 +225,7 @@ class MdGdAtualizarSeiRN extends InfraRN {
                 id_documento_eliminacao ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL,
                 numero ' . $this->objMetaBD->tipoTextoVariavel(50) . ' NOT NULL,
                 qtd_processos ' . $this->objMetaBD->tipoNumero() . ' NOT NULL,
+                sin_documentos_fisicos ' . $this->objMetaBD->tipoTextoFixo(1) . ' NOT NULL,
                 dth_emissao_listagem ' . $this->objMetaBD->tipoDataHora() . ' NOT NULL,
                 ano_limite_inicio ' . $this->objMetaBD->tipoNumero() . ' NOT NULL,
                 ano_limite_fim ' . $this->objMetaBD->tipoNumero() . ' NOT NULL,
@@ -269,6 +270,7 @@ class MdGdAtualizarSeiRN extends InfraRN {
                 ano_limite_inicio ' . $this->objMetaBD->tipoNumero() . ' NOT NULL,
                 ano_limite_fim ' . $this->objMetaBD->tipoNumero() . ' NOT NULL,
                 qtd_processos ' . $this->objMetaBD->tipoNumero() . ' NOT NULL,
+                sin_documentos_fisicos ' . $this->objMetaBD->tipoTextoFixo(1) . ' NOT NULL,
                 situacao ' . $this->objMetaBD->tipoTextoFixo(2) . ' NOT NULL
 
             )');

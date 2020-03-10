@@ -440,15 +440,26 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
         $objMdGdArquivamentoDTO->setStrSinAtivo('S');
         $objMdGdArquivamentoDTO->retDblIdProcedimento();
         $objMdGdArquivamentoDTO->retStrSituacao();
-        $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
         
-        if($objMdGdArquivamentoRN->contar($objMdGdArquivamentoDTO) != 0){
-            $strMsg = 'Processo arquivado.';
-        }
+        $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
 
-        $objMdGdArquivamentoDTO = $objMdGdArquivamentoRN->consultar($objMdGdArquivamentoDTO);
-        if($objMdGdArquivamentoDTO && $objMdGdArquivamentoDTO->getStrSituacao() == MdGdArquivamentoRN::$ST_FASE_EDICAO){
-            $strMsg = 'Processo arquivado em edição. Após realizar as edições necessárias sua edição deverá ser concluída na avaliação de processos.';
+        if($objMdGdArquivamentoRN->contar($objMdGdArquivamentoDTO) == 1){
+            $objMdGdArquivamentoDTO = $objMdGdArquivamentoRN->consultar($objMdGdArquivamentoDTO);
+            
+            $strMsg = '';
+            if($objMdGdArquivamentoDTO->getStrSituacao() == MdGdArquivamentoRN::$ST_ENVIADO_RECOLHIMENTO){
+                $strMsg .= 'Processo recolhido.';
+            }else if($objMdGdArquivamentoDTO->getStrSituacao() == MdGdArquivamentoRN::$ST_ENVIADO_ELIMINACAO){
+                $strMsg .= 'Processo eliminado.';
+            }
+            else{
+                $strMsg .= 'Processo arquivado.';
+            }
+            
+            if($objMdGdArquivamentoDTO && $objMdGdArquivamentoDTO->getStrSituacao() == MdGdArquivamentoRN::$ST_FASE_EDICAO){
+                $strMsg .= 'Processo arquivado em edição. Após realizar as edições necessárias sua edição deverá ser concluída na avaliação de processos.';
+            }
+
         }
 
 

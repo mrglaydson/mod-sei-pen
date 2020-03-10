@@ -25,6 +25,36 @@ class MdGdListaRecolhimentoRN extends InfraRN {
             // Recupera os arquivamentos
             $arrObjMdGdArquivamentoDTO = $objMdGdListaRecolhimento->getArrObjMdGdArquivamentoDTO();
 
+            // CONSULTA PARA VERIFICAÇÃO DA EXISTÊNCIA DE DOCUMENTOS FÍSICOS ARQUIVADOS
+            $strSinDocumentosFisicos = 'N';
+            
+            // Obtem os ids dos procedimentos vinculdados
+            $arrIdsProcedimentos = array();
+            foreach ($arrObjMdGdArquivamentoDTO as $objMdGdArquivamentoDTO) {
+                $arrIdsProcedimentos[] = $objMdGdArquivamentoDTO->getDblIdProcedimento();
+            }
+
+            // Obtem os documentos vinculados aos processos da listagem
+            $objRelProtocoloProtocoloDTO = new RelProtocoloProtocoloDTO();
+            $objRelProtocoloProtocoloDTO->setDblIdProtocolo1($arrIdsProcedimentos, InfraDTO::$OPER_IN);
+            $objRelProtocoloProtocoloDTO->retDblIdProtocolo2();
+
+            $objRelProtocoloProtocoloRN = new RelProtocoloProtocoloRN();
+            $arrObjRelProtocoloProtocoloDTO = $objRelProtocoloProtocoloRN->listarRN0187($objRelProtocoloProtocoloDTO);
+            
+            $arrIdsDocumentos = array();
+            if ($arrObjRelProtocoloProtocoloDTO) {
+                $arrIdsDocumentos = explode(',', InfraArray::implodeArrInfraDTO($arrObjRelProtocoloProtocoloDTO, 'IdProtocolo2'));
+            }
+
+            // Obtem todos os arquivamentos fisicos registrados para os documentos do processo
+            $objArquivamentoDTO = new ArquivamentoDTO();
+            $objArquivamentoDTO->retDblIdProtocoloDocumento();
+            $objArquivamentoDTO->setDblIdProtocoloDocumento($arrIdsDocumentos, InfraDTO::$OPER_IN);
+
+            $objArquivamentoRN = new ArquivamentoRN();
+            $strSinDocumentosFisicos = $objArquivamentoRN->contar($objArquivamentoDTO) == 0 ? 'N' : 'S';
+
             // Cria a listagem de recolhimento
             $objMdGdListaRecolhimentoDTO = new MdGdListaRecolhimentoDTO();
             $objMdGdListaRecolhimentoDTO->setStrNumero($this->obterProximaNumeroListagem());
@@ -33,6 +63,7 @@ class MdGdListaRecolhimentoRN extends InfraRN {
             $objMdGdListaRecolhimentoDTO->setNumAnoLimiteFim(2018); // TODO NOW
             $objMdGdListaRecolhimentoDTO->setNumQtdProcessos(count($arrObjMdGdArquivamentoDTO));
             $objMdGdListaRecolhimentoDTO->setStrSituacao(self::$ST_GERADA);
+            $objMdGdListaRecolhimentoDTO->setStrSinDocumentosFisicos($strSinDocumentosFisicos);
 
             $objMdGdListaRecolhimentoBD = new MdGdListaRecolhimentoBD($this->getObjInfraIBanco());
             $objMdGdListaRecolhimentoDTO = $objMdGdListaRecolhimentoBD->cadastrar($objMdGdListaRecolhimentoDTO);
@@ -258,16 +289,46 @@ class MdGdListaRecolhimentoRN extends InfraRN {
             if($objMdGdListaRecolhimentoDTO->getStrSituacao() != self::$ST_EDICAO){
                 throw new InfraException('A listagem precisa estar na situação gerada.'); 
             }
-            
-            // Atualiza o total de processos
+
+            // Obtem os processos da listagem de recolhimento
             $objMdGdListaRecolProcedimentoDTO = new MdGdListaRecolProcedimentoDTO();
-            $objMdGdListaRecolProcedimentoDTO->setNumIdListaRecolhimento($objMdGdListaRecolhimentoDTO->getNumIdListaRecolhimento());
+            $objMdGdListaRecolProcedimentoDTO->setNumIdListaEliminacao($objMdGdListaRecolhimentoDTO->getNumIdListaRecolhimento());
+            $objMdGdListaRecolProcedimentoDTO->retDblIdProcedimento();
 
             $objMdGdListaRecolProcedimentoRN = new MdGdListaRecolProcedimentoRN();
-            $totalProcessos = $objMdGdListaRecolProcedimentoRN->contar($objMdGdListaRecolProcedimentoDTO);
+            $arrObjMdGdListaRecolProcedimentoDTO = $objMdGdListaRecolProcedimentoRN->listar($objMdGdListaRecolProcedimentoDTO);
+            $totalProcessos = count($arrObjMdGdListaRecolProcedimentoDTO);
+
+            $arrIdsProcedimentos = [];
+
+            foreach($arrObjMdGdListaRecolProcedimentoDTO as $objMdGdListaRecolProcedimentoDTO){
+                $arrIdsProcedimentos[] = $objMdGdListaRecolProcedimentoDTO->getDblIdProcedimento();
+            }
+
+            // Obtem os documentos vinculados aos processos da listagem
+            $objRelProtocoloProtocoloDTO = new RelProtocoloProtocoloDTO();
+            $objRelProtocoloProtocoloDTO->setDblIdProtocolo1($arrIdsProcedimentos, InfraDTO::$OPER_IN);
+            $objRelProtocoloProtocoloDTO->retDblIdProtocolo2();
+
+            $objRelProtocoloProtocoloRN = new RelProtocoloProtocoloRN();
+            $arrObjRelProtocoloProtocoloDTO = $objRelProtocoloProtocoloRN->listarRN0187($objRelProtocoloProtocoloDTO);
+            
+            $arrIdsDocumentos = array();
+            if ($arrObjRelProtocoloProtocoloDTO) {
+                $arrIdsDocumentos = explode(',', InfraArray::implodeArrInfraDTO($arrObjRelProtocoloProtocoloDTO, 'IdProtocolo2'));
+            }
+
+            // Obtem todos os arquivamentos fisicos registrados para os documentos do processo
+            $objArquivamentoDTO = new ArquivamentoDTO();
+            $objArquivamentoDTO->retDblIdProtocoloDocumento();
+            $objArquivamentoDTO->setDblIdProtocoloDocumento($arrIdsDocumentos, InfraDTO::$OPER_IN);
+
+            $objArquivamentoRN = new ArquivamentoRN();
+            $strSinDocumentosFisicos = $objArquivamentoRN->contar($objArquivamentoDTO) == 0 ? 'N' : 'S';
 
             $objMdGdListaRecolhimentoDTO->setStrSituacao(self::$ST_GERADA);
             $objMdGdListaRecolhimentoDTO->setNumQtdProcessos($totalProcessos);
+            $objMdGdListaRecolhimentoDTO->setStrSinDocumentosFisicos($strSinDocumentosFisicos);
             return $this->alterar($objMdGdListaRecolhimentoDTO);
         } catch (Exception $e) {
             throw new InfraException('Erro ao alterar a listagem de recolhimento para o modo de edição.', $e);

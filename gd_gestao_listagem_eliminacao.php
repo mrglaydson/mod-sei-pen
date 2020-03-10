@@ -174,7 +174,7 @@ try {
                 $strResultado .= '<a href="' .$strLinkEliminar . '" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="imagens/arquivo.png" title="Eliminar Processos" alt="Eliminar Processos" class="infraImg" /></a>&nbsp;';
             }
 
-            if ($bolAcaoEliminarDocumentoFisico && $arrObjMdGdListaEliminacaoDTO[$i]->getStrSituacao() == MdGdListaEliminacaoRN::$ST_GERADA) {
+            if ($bolAcaoEliminarDocumentoFisico && $arrObjMdGdListaEliminacaoDTO[$i]->getStrSituacao() == MdGdListaEliminacaoRN::$ST_GERADA && $arrObjMdGdListaEliminacaoDTO[$i]->getStrSinDocumentosFisicos() == 'S') {
                 $strLinkEliminacaoDocumentosFisicos = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_eliminacao_documentos_fisicos&id_listagem_eliminacao=' . $arrObjMdGdListaEliminacaoDTO[$i]->getNumIdListaEliminacao() . '&acao_origem=' . $_GET['acao']);
                 $strResultado .= '<a href="' . $strLinkEliminacaoDocumentosFisicos . '" ><img src="imagens/procedimento_desanexado.gif" title="Eliminar Documentos Físicos" title="Eliminar Documentos Físicos" class="infraImg" /></a>&nbsp;';
             }
