@@ -81,7 +81,7 @@ class Test03GDPendenciasArquivamento():
     self.driver.find_element(By.ID, "imgInfraCheck").click()
     self.driver.find_element(By.ID, "sbmReabrir").click()
     self.driver.switch_to.alert.accept()
-    assert self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/caption").text == "Lista de Pendências de Arquivamento (5 registros):"
+    assert self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/caption").text == "Lista de Pendências de Arquivamento (13 registros):"
     self.driver.find_element(By.LINK_TEXT, "Controle de Processos").click()
     self.driver.find_element(By.ID, "imgGeradosCheck").click()
     self.driver.find_element(By.CSS_SELECTOR, ".botaoSEI:nth-child(6) > .infraCorBarraSistema").click()
@@ -92,7 +92,7 @@ class Test03GDPendenciasArquivamento():
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
     self.driver.find_element(By.ID, "sbmLogin").click()
     self.driver.find_element(By.LINK_TEXT, "Pendências de Arquivamento").click()
-    self.driver.find_element(By.XPATH, "//td[contains(.,\'99993.000001/2020\')]/../td[9]/a[1]").click()
+    self.driver.find_element(By.XPATH, "//td[contains(.,\'99993.000001\')]/../td[9]/a[1]").click()
     self.driver.switch_to.alert.accept()
     elements = self.driver.find_elements(By.XPATH, "//a[starts-with(.,\'99993.000001\') and contains(.,\'9\')]")
     assert len(elements) == 0
@@ -114,7 +114,7 @@ class Test03GDPendenciasArquivamento():
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
     self.driver.find_element(By.ID, "sbmSalvar").click()
-    assert self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/caption").text == "Lista de Pendências de Arquivamento (5 registros):"
+    assert self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/caption").text == "Lista de Pendências de Arquivamento (12 registros):"
   
   def test_050PendenciasArquivamentoArquivarUnico(self):
     self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
@@ -200,7 +200,7 @@ class Test03GDPendenciasArquivamento():
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
     self.driver.find_element(By.ID, "sbmSalvar").click()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Pendências de Arquivamento (6 registros):"
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Pendências de Arquivamento (13 registros):"
   
   def test_090PendenciasArquivamentoArquivarUnico(self):
     self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
