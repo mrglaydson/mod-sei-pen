@@ -23,6 +23,10 @@ class Test0620SEIGDVerificarPrazos():
     self.driver.find_element(By.ID, "txtUsuario").send_keys("teste")
     self.driver.find_element(By.ID, "pwdSenha").send_keys("teste")
     self.driver.find_element(By.ID, "sbmLogin").click()
+    WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "selInfraUnidades")))
+    dropdown = self.driver.find_element(By.ID, "selInfraUnidades")
+    dropdown.find_element(By.XPATH, "//option[. = 'TESTE']").click()
+    self.driver.find_element(By.ID, "selInfraUnidades").click()
     self.driver.find_element(By.LINK_TEXT, "Arquivo da Unidade").click()
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.XPATH, "//td[contains(.,\'Prazo expirado!\')]")))
     assert self.driver.find_element(By.XPATH, "//td[contains(.,\'Prazo expirado!\')]").text == "Prazo expirado!"

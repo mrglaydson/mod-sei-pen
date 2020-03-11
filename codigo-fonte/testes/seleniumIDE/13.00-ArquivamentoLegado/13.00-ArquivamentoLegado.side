@@ -1378,7 +1378,7 @@
     "persistSession": false,
     "parallel": false,
     "timeout": 300,
-    "tests": ["8e9baf2a-bdda-4d40-ab63-15741729ea68"]
+    "tests": ["8e9baf2a-bdda-4d40-ab63-15741729ea68", "1a256609-574c-4c6d-abcf-f16af3937a12"]
   }],
   "urls": ["http://seigd.nuvem.gov.br/", "http://seigd.intra.planejamento/"],
   "plugins": []

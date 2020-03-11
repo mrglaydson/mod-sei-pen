@@ -57,6 +57,35 @@
       ],
       "value": ""
     }, {
+      "id": "45025bdd-bbc9-4fe1-bf47-74c7deffbb04",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "id=selInfraUnidades",
+      "targets": [],
+      "value": "30000"
+    }, {
+      "id": "c5f8415e-b6ef-47b1-96a3-4a6e2bd213e9",
+      "comment": "",
+      "command": "select",
+      "target": "id=selInfraUnidades",
+      "targets": [],
+      "value": "label=TESTE"
+    }, {
+      "id": "a8727fd8-589b-48c7-9c29-c14b7a953f7e",
+      "comment": "",
+      "command": "click",
+      "target": "id=selInfraUnidades",
+      "targets": [
+        ["id=selInfraUnidades", "id"],
+        ["name=selInfraUnidades", "name"],
+        ["css=#selInfraUnidades", "css:finder"],
+        ["xpath=//select[@id='selInfraUnidades']", "xpath:attributes"],
+        ["xpath=//form[@id='frmInfraSelecionarUnidade']/select", "xpath:idRelative"],
+        ["xpath=//select", "xpath:position"],
+        ["xpath=//select[contains(.,'Arquivo01\nArquivoGeral\nArquivoGeral02\nTESTE\nTESTE_1_1\nTESTE_1_2')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
       "id": "cae79739-6cbe-4018-83be-3bd5ffab81e4",
       "comment": "",
       "command": "click",
