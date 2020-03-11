@@ -81,7 +81,7 @@ class Test07SEIGDAvaliacaoRecolhimento():
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Lista de Processos (5 registros):"
     self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[10]/a").click()
     self.driver.find_element(By.LINK_TEXT, "Avaliação de Processos").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (71 registros - 1 a 50):"
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (60 registros - 1 a 50):"
   
   def test_0760AlteraObservacao1(self):
     self.driver.get("http://seigd.intra.planejamento//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")

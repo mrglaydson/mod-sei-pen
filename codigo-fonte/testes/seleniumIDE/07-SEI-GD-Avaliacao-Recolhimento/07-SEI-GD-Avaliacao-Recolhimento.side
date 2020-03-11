@@ -1618,7 +1618,7 @@
         ["xpath=//caption", "xpath:position"],
         ["xpath=//caption[contains(.,'Lista de Processos Arquivados (21 registros):')]", "xpath:innerText"]
       ],
-      "value": "Lista de Processos Arquivados (71 registros - 1 a 50):"
+      "value": "Lista de Processos Arquivados (60 registros - 1 a 50):"
     }]
   }],
   "suites": [{

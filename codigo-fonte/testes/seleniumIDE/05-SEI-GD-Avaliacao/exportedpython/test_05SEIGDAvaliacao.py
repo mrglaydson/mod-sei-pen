@@ -36,11 +36,11 @@ class Test05SEIGDAvaliacao():
     self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[10]/a").click()
     self.driver.find_element(By.LINK_TEXT, "Avaliação de Processos").click()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (21 registros):"
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (20 registros):"
     self.driver.find_element(By.XPATH, "//img[@title=\'Enviar para Correção\']").click()
     self.driver.switch_to.alert.accept()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (20 registros):"
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (19 registros):"
   
   def test_0520VerificaVolta(self):
     self.driver.get("http://seigd.intra.planejamento//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
@@ -107,7 +107,7 @@ class Test05SEIGDAvaliacao():
     self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[10]/a").click()
     self.driver.find_element(By.LINK_TEXT, "Avaliação de Processos").click()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (21 registros):"
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (20 registros):"
   
   def test_0540MandaListagemEliminacao(self):
     self.driver.get("http://seigd.intra.planejamento//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
@@ -164,7 +164,7 @@ class Test05SEIGDAvaliacao():
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Lista de Processos (5 registros):"
     self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[10]/a").click()
     self.driver.find_element(By.LINK_TEXT, "Avaliação de Processos").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (16 registros):"
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (15 registros):"
   
   def test_0560AlteraObservacao1(self):
     self.driver.get("http://seigd.intra.planejamento//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")

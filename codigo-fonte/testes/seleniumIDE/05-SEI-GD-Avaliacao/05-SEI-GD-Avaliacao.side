@@ -147,7 +147,7 @@
         ["xpath=//caption", "xpath:position"],
         ["xpath=//caption[contains(.,'Lista de Processos Arquivados (21 registros):')]", "xpath:innerText"]
       ],
-      "value": "Lista de Processos Arquivados (21 registros):"
+      "value": "Lista de Processos Arquivados (20 registros):"
     }, {
       "id": "a88184bc-40ac-4394-aeda-0e5a72afcc87",
       "comment": "",
@@ -211,7 +211,7 @@
         ["xpath=//caption", "xpath:position"],
         ["xpath=//caption[contains(.,'Lista de Processos Arquivados (20 registros):')]", "xpath:innerText"]
       ],
-      "value": "Lista de Processos Arquivados (20 registros):"
+      "value": "Lista de Processos Arquivados (19 registros):"
     }]
   }, {
     "id": "7660dbd5-1e76-4d21-9222-82dff29528c5",
@@ -962,7 +962,7 @@
         ["xpath=//caption", "xpath:position"],
         ["xpath=//caption[contains(.,'Lista de Processos Arquivados (21 registros):')]", "xpath:innerText"]
       ],
-      "value": "Lista de Processos Arquivados (21 registros):"
+      "value": "Lista de Processos Arquivados (20 registros):"
     }]
   }, {
     "id": "0f9c9d08-13bf-4acf-a650-30c235d7b4c2",
@@ -2556,7 +2556,7 @@
         ["xpath=//caption", "xpath:position"],
         ["xpath=//caption[contains(.,'Lista de Processos Arquivados (21 registros):')]", "xpath:innerText"]
       ],
-      "value": "Lista de Processos Arquivados (16 registros):"
+      "value": "Lista de Processos Arquivados (15 registros):"
     }]
   }],
   "suites": [{

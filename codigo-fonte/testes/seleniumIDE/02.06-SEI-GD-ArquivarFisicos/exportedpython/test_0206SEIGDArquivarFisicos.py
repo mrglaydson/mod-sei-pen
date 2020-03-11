@@ -70,7 +70,7 @@ class Test0206SEIGDArquivarFisicos():
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "sbmAtualizar")))
     self.driver.find_element(By.ID, "sbmAtualizar").click()
   
-  def test_arquivar16a30(self):
+  def test_arquivar32a62(self):
     self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "txtUsuario")))
     self.driver.find_element(By.ID, "txtUsuario").click()
@@ -97,7 +97,7 @@ class Test0206SEIGDArquivarFisicos():
     self.vars["root"] = self.driver.current_window_handle
     self.driver.switch_to.window(self.vars["win6058"])
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "txtProtocolo")))
-    self.driver.find_element(By.ID, "txtProtocolo").send_keys("99990.000030/2020-20,99990.000029/2020-03,99990.000028/2020-51,99990.000027/2020-14,99990.000026/2020-61,99990.000025/2020-17,99990.000024/2020-72,99990.000023/2020-28,99990.000022/2020-83,99990.000021/2020-39,99990.000020/2020-94,99990.000019/2020-60,99990.000018/2020-15,99990.000017/2020-71,99990.000016/2020-26")
+    self.driver.find_element(By.ID, "txtProtocolo").send_keys("99990.000062/2020-25,99990.000061/2020-81,99990.000060/2020-36,99990.000059/2020-10,99990.000058/2020-67,99990.000057/2020-12,99990.000056/2020-78,99990.000055/2020-23,99990.000054/2020-89,99990.000053/2020-34,99990.000052/2020-90,99990.000051/2020-45,99990.000050/2020-09,99990.000049/2020-76,99990.000048/2020-21,99990.000047/2020-87,99990.000046/2020-32,99990.000045/2020-98,99990.000044/2020-43,99990.000043/2020-07,99990.000042/2020-54,99990.000041/2020-18,99990.000040/2020-65,99990.000039/2020-31,99990.000038/2020-96,99990.000037/2020-41,99990.000036/2020-05,99990.000035/2020-52,99990.000034/2020-16,99990.000033/2020-63,99990.000032/2020-19")
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "selTipoLocalizador")))
     dropdown = self.driver.find_element(By.ID, "selTipoLocalizador")
     dropdown.find_element(By.XPATH, "//option[. = 'Tipo de Localizador 02']").click()
