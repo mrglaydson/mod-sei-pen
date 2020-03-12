@@ -305,6 +305,13 @@
       ],
       "value": ""
     }, {
+      "id": "dd83c5b0-7a27-459d-9b3b-dfcd7de91435",
+      "comment": "",
+      "command": "executeScript",
+      "target": "var d= new Date(); var m=((d.getMonth()+1)<10)?'0'+(d.getMonth()+1):(d.getMonth()+1); return d.getDate()+\"/\"+m+\"/\"+(d.getFullYear());",
+      "targets": [],
+      "value": "data"
+    }, {
       "id": "dc4db774-7311-498b-a470-07613579e057",
       "comment": "",
       "command": "click",
@@ -331,7 +338,7 @@
         ["xpath=//div[@id='divDataArquivamento']/input", "xpath:idRelative"],
         ["xpath=//div[4]/input", "xpath:position"]
       ],
-      "value": "10/03/2020"
+      "value": "${data}"
     }, {
       "id": "642d6fb0-5019-4bdf-983a-e201675c48d5",
       "comment": "",
@@ -556,7 +563,7 @@
         ["xpath=//div[@id='divDataArquivamento']/input", "xpath:idRelative"],
         ["xpath=//div[4]/input", "xpath:position"]
       ],
-      "value": "10/03/2020"
+      "value": "${data}"
     }, {
       "id": "46421ca0-d50d-4e47-b039-889cb6bc3433",
       "comment": "",
@@ -744,6 +751,13 @@
         ["xpath=//select[2]", "xpath:position"],
         ["xpath=//select[contains(.,'Todos\nAcesso à Informação: Demanda do e-SIC\nAcompanhamento Legislativo: Câmara dos Deputados\nAcompanhamento Legislativo: Congresso Nacional\nAcompanhamento Legislativo: Estadual/Distrital\nAcompanhamento Legislativo: Municipal\nAcompanhamento Legislativo: Senado Federal\nArrecadação: Cobrança\nArrecadação: Cumprimento de Ação Judicial\nArrecadação: Encaminhamento para Dívida Ativa\nArrecadação: Normatização Interna\nArrecadação: Notificação/Comunicado\nArrecadação: Parcelamento Administrativo\nArrecadação: Receita\nArrecadação: Regularização de Indébitos\nArrecadação: Restituição/Compensação\nArrecadação: Subsidiar Ação Judicial\nComunicação: Evento Institucional Público Externo\nComunicação: Evento Institucional Público Interno\nComunicação: Pedido de Apoio Institucional\nComunicação: Publicidade Institucional\nComunicação: Publicidade Legal\nContabilidade: Análise Contábil\nContabilidade: Conformidade de Gestão\nContabilidade: Contratos e Garantias\nContabilidade: DIRF\nContabilidade: Encerramento do Exercício\nContabilidade: Fechamento Contábil - Estoque\nContabilidade: Fechamento Contábil Patrimonial\nContabilidade: Manuais\nContabilidade: Normatização Interna\nContabilidade: Prestação de Contas\nConvênios/Ajustes: Acompanhamento da Execução\nConvênios/Ajustes: Formalização/Alteração com Repasse\nConvênios/Ajustes: Formalização/Alteração sem Repasse\nCorregedoria: Análise Prescricional de Processo\nCorregedoria: Avaliação para Estabilidade\nCorregedoria: Correição\nCorregedoria: Investigação Preliminar\nCorregedoria: Procedimento Geral\nCorregedoria: Processo Administrativo Disciplinar\nCorregedoria: Sindicância Punitiva\nDemanda Externa: Cidadão (Pessoa Física)\nDemanda Externa: Deputado Estadual/Distrital\nDemanda Externa: Deputado Federal\nDemanda Externa: Judiciário\nDemanda Externa: Ministério Público Estadual\nDemanda Externa: Ministério Público Federal\nDemanda Externa: Orgãos Governamentais Estaduais\nDemanda Externa: Orgãos Governamentais Federais\nDemanda Externa: Orgãos Governamentais Municipais\nDemanda Externa: Outras Entidades Privadas\nDemanda Externa: Outros Orgãos Públicos\nDemanda Externa: Senador\nDemanda Externa: Vereador/Câmara Municipal\nÉtica: Análise de Conflito de Interesse\nÉtica: Processo de Apuração Ética\nFinanças: Execução Financeira\nFinanças: Normatização Interna\nFinanças: Reembolso/Ressarcimento\nGestão da Informação: Arrecadação\nGestão da Informação: Avaliação/Destinação de Documentos\nGestão da Informação: Cadastro de Usuário Externo no SEI\nGestão da Informação: Controle de Malote\nGestão da Informação: Credenciamento de Segurança\nGestão da Informação: Gestão Documental\nGestão da Informação: Normatização Interna\nGestão da Informação: Reconstituição Documental\nGestão da Informação: Rol Anual de Informações Classificadas\nGestão da Informação: Segurança da Informação e Comunicações\nGestão de Contrato: Acompanhamento da Execução\nGestão de Contrato: Acréscimo Contratual\nGestão de Contrato: Alterações Contratuais Conjuntas\nGestão de Contrato: Aplicação de Sanção Contratual\nGestão de Contrato: Consulta à Procuradoria/Conjur\nGestão de Contrato: Execução de Garantia\nGestão de Contrato: Outras Alterações Contratuais não Relacionadas\nGestão de Contrato: Pagamento Direto a Terceiros\nGestão de Contrato: Processo de Pagamento\nGestão de Contrato: Prorrogação Contratual\nGestão de Contrato: Reajuste ou Repactuação Contratual\nGestão de Contrato: Rescisão Contratual\nGestão de Contrato: Revisão Contratual\nGestão de Contrato: Supressão Contratual\nGestão de Processos: Mapeamento e Modelagem\nGestão de Projetos: Planejamento e Execução\nGestão de TI: CITI\nGestão e Controle: Coordenação - Demandas Externas\nGestão e Controle: Coordenação - Demandas Internas\nGestão e Controle: Demandas de Órgãos de Controle\nGestão e Controle: Executar Auditoria Interna\nInfraestrutura: Abastecimento de Água e Esgoto\nInfraestrutura: Apoio de Engenharia Civil\nInfraestrutura: Fornecimento de Energia Elétrica\nLicitação: Adesão a Ata de RP-Não Participante\nLicitação: Adesão a Ata de RP-Participante\nLicitação: Aplicação de Sanção decorrente de Procedimento Licitatório\nLicitação: Concorrência\nLicitação: Concorrência-Registro de Preço\nLicitação: Concurso\nLicitação: Consulta\nLicitação: Convite\nLicitação: Dispensa - Acima de R$ 8 mil\nLicitação: Dispensa - Até R$ 8 mil\nLicitação: Inexigibilidade\nLicitação: Leilão\nLicitação: Plano de Aquisições\nLicitação: Pregão Eletrônico\nLicitação: Pregão Eletrônico-Registro de Preço\nLicitação: Pregão Presencial\nLicitação: Regime Diferenciado de Contratação-RDC\nLicitação: Tomada de Preços\nMaterial: Desfazimento de Material de Consumo\nMaterial: Desfazimento de Material Permanente\nMaterial: Inventário de Material de Consumo\nMaterial: Inventário de Material Permanente\nMaterial: Movimentação de Material de Consumo\nMaterial: Movimentação de Material Permanente\nOrçamento: Acompanhamento de Despesa Mensal\nOrçamento: Contingenciamento\nOrçamento: Créditos Adicionais\nOrçamento: Descentralização de Créditos\nOrçamento: Manuais\nOrçamento: Programação Orçamentária\nOuvidoria: Agradecimento ao Órgão (Ouvidoria)\nOuvidoria: Crítica à atuação do Órgão (Ouvidoria)\nOuvidoria: Denúncia contra a atuação do Órgão (Ouvidoria)\nOuvidoria: Elogio à atuação do Órgão (Ouvidoria)\nOuvidoria: Pedido de Informação (Ouvidoria)\nOuvidoria: Reclamação à atuação do Órgão (Ouvidoria)\nPatrimônio: Cobrança de Acervo Bibliográfico\nPatrimônio: Gestão de Acervo Bibliográfico\nPatrimônio: Gestão de Bens Imóveis\nPessoal: Abono Permanência - Concessão\nPessoal: Abono Permanência - Revisão\nPessoal: Adicional de Férias (1/3 constitucional)\nPessoal: Adicional de Insalubridade\nPessoal: Adicional de Periculosidade\nPessoal: Adicional Noturno\nPessoal: Adicional por Atividade Penosa\nPessoal: Adicional por Serviço Extraordinário\nPessoal: Adicional por Tempo de Serviço\nPessoal: Afastamento para Atividade Desportiva\nPessoal: Afastamento para Curso de Formação\nPessoal: Afastamento para Depor\nPessoal: Afastamento para Exercer Mandato Eletivo\nPessoal: Afastamento para Pós-Graduação\nPessoal: Afastamento para Serviço Eleitoral (TRE)\nPessoal: Afastamento para Servir como Jurado\nPessoal: Afastamento para servir em Organismo Internacional\nPessoal: Ajuda de Custo com Mudança de Domicílio\nPessoal: Aposentadoria - Concessão\nPessoal: Aposentadoria - Contagem Tempo de Serviço\nPessoal: Aposentadoria - Pensão Temporária\nPessoal: Aposentadoria - Pensão Vitalícia\nPessoal: Aposentadoria - Revisão\nPessoal: Apresentação de Certificado de Curso\nPessoal: Assentamento Funcional do Servidor\nPessoal: Ausência em razão de Casamento\nPessoal: Ausência para Alistamento Eleitoral\nPessoal: Ausência para Doação de Sangue\nPessoal: Ausência por Falecimento de Familiar\nPessoal: Auxílio Acidente\nPessoal: Auxílio Alimentação/Refeição\nPessoal: Auxílio Assistência Pré-Escolar/Creche\nPessoal: Auxílio Doença\nPessoal: Auxílio Funeral\nPessoal: Auxílio Moradia\nPessoal: Auxílio Natalidade\nPessoal: Auxílio Reclusão\nPessoal: Auxílio-Transporte\nPessoal: Avaliação de Desempenho Individual\nPessoal: Avaliação de Desempenho Institucional\nPessoal: Avaliação de Estágio Probatório\nPessoal: Averbação de Tempo de Serviço\nPessoal: Bolsa de Estudo de Idioma Estrangeiro\nPessoal: Bolsa de Pós-Graduação\nPessoal: Cadastro de Dependente no Imposto de Renda\nPessoal: Cessão de Servidor para outro Órgão\nPessoal: CIPA\nPessoal: Coleta de Imagem de Assinatura\nPessoal: Concurso Público - Exames Admissionais\nPessoal: Concurso Público - Organização\nPessoal: Concurso Público - Provas e Títulos\nPessoal: Controle de Frequência/Abono de Falta\nPessoal: Controle de Frequência/Cumprir Hora Extra\nPessoal: Controle de Frequência/Folha de Ponto\nPessoal: Curso de Pós-Graduação\nPessoal: Curso no Exterior - com ônus\nPessoal: Curso no Exterior - ônus limitado\nPessoal: Curso no Exterior - sem ônus\nPessoal: Curso Promovido pela própria Instituição\nPessoal: Curso Promovido por outra Instituição\nPessoal: Delegação de Competência\nPessoal: Desconto da Contribuição para o INSS\nPessoal: Desconto de Contribuição Associativa\nPessoal: Desconto de Contribuição Sindical\nPessoal: Desconto de Empréstimo Consignado\nPessoal: Desconto de Pensão Alimentícia\nPessoal: Desconto do IRPF Retido na Fonte\nPessoal: Emissão de Certidões e Declarações\nPessoal: Emissão de Procuração\nPessoal: Encargo Patronal - Contribuição para INSS\nPessoal: Estágio - Dossiê do Estagiário\nPessoal: Estágio - Planejamento/Organização Geral\nPessoal: Estágio de Servidor no Brasil\nPessoal: Estágio de Servidor no Exterior\nPessoal: Exoneração de Cargo Efetivo\nPessoal: Falecimento de Servidor\nPessoal: Férias - Alteração\nPessoal: Férias - Interrupção\nPessoal: Férias - Solicitação\nPessoal: Ficha Financeira\nPessoal: Folha de Pagamento\nPessoal: Gratificação de Desempenho\nPessoal: Gratificação Natalina (Décimo Terceiro)\nPessoal: Gratificação por Encargo - Curso/Concurso\nPessoal: Horário de Expediente - Definição\nPessoal: Horário de Expediente - Escala de Plantão\nPessoal: Horário Especial - Familiar Deficiente\nPessoal: Horário Especial - Instrutor de Curso\nPessoal: Horário Especial - Servidor Deficiente\nPessoal: Horário Especial - Servidor Estudante\nPessoal: Indenização de Transporte (meio próprio)\nPessoal: Licença Adotante\nPessoal: Licença Gestante\nPessoal: Licença para Atividade Política\nPessoal: Licença para Capacitação\nPessoal: Licença para Mandato Classista\nPessoal: Licença para Serviço Militar\nPessoal: Licença para Tratamento da Própria Saúde\nPessoal: Licença para Tratar de Interesses Particulares\nPessoal: Licença Paternidade\nPessoal: Licença por Acidente em Serviço\nPessoal: Licença por Afastamento do Cônjuge\nPessoal: Licença por Doença em Pessoa da Família\nPessoal: Licença por Doença Profissional\nPessoal: Licença Prêmio por Assiduidade\nPessoal: Licenças por Aborto/Natimorto\nPessoal: Movimentação de Servidor\nPessoal: Movimento Reivindicatório\nPessoal: Negociação Sindical e Acordo Coletivo\nPessoal: Nomeação/Exoneração de Cargo Comissionado e Designação/Dispensa de Substituto\nPessoal: Normatização Interna\nPessoal: Ocupação de Imóvel Funcional\nPessoal: Orientações e Diretrizes Gerais\nPessoal: Pagamento de Provento\nPessoal: Pagamento de Remuneração\nPessoal: Penalidade Advertência\nPessoal: Penalidade Cassação de Aposentadoria\nPessoal: Penalidade Demissão de Cargo Efetivo\nPessoal: Penalidade Destituição Cargo em Comissão\nPessoal: Penalidade Disponibilidade\nPessoal: Penalidade Suspensão\nPessoal: Pensão por Morte de Servidor\nPessoal: Planejamento da Força de Trabalho\nPessoal: Plano de Capacitação\nPessoal: Prêmios de Reconhecimento\nPessoal: Prevenção de Acidentes no Trabalho\nPessoal: Progressão e Promoção (Quadro Efetivo)\nPessoal: Progressão e Promoção (Quadro Específico)\nPessoal: Provimento - Nomeação para Cargo Efetivo\nPessoal: Provimento - Nomeação para Cargo em Comissão\nPessoal: Provimento - por Aproveitamento\nPessoal: Provimento - por Readaptação\nPessoal: Provimento - por Recondução\nPessoal: Provimento - por Reintegração\nPessoal: Provimento - por Reversão\nPessoal: Relação com Conselho Profissional\nPessoal: Remoção a Pedido - Concurso Interno\nPessoal: Remoção a Pedido com Mudança de Sede\nPessoal: Remoção a Pedido para Acompanhar Cônjuge\nPessoal: Remoção a Pedido por Motivo de Saúde\nPessoal: Remoção a Pedido sem Mudança de Sede\nPessoal: Remoção de Ofício com Mudança de Sede\nPessoal: Remoção de Ofício sem Mudança de Sede\nPessoal: Requisição de Servidor Externo\nPessoal: Requisição de Servidor Interno\nPessoal: Ressarcimento ao Erário\nPessoal: Restruturação de Cargos e Funções\nPessoal: Retribuição por Cargo em Comissão\nPessoal: Salário-Família\nPessoal: Saúde - Atestado de Comparecimento\nPessoal: Saúde - Auxílio-Saúde GEAP\nPessoal: Saúde - Cadastro de Dependente Estudante no Auxílio-Saúde\nPessoal: Saúde - Exclusão de Auxílio-Saúde\nPessoal: Saúde - Inspeção Periódica\nPessoal: Saúde - Lançamento Mensal do Auxílio-Saúde no SIAPE\nPessoal: Saúde - Pagamento de Auxílio-Saúde\nPessoal: Saúde - Pagamento de Retroativo\nPessoal: Saúde - Plano de Saúde\nPessoal: Saúde - Prontuário Médico\nPessoal: Saúde - Ressarcimento ao Erário\nPessoal: Saúde - Solicitação de Auxílio-Saúde\nPessoal: Saúde e Qualidade de Vida no Trabalho\nPessoal: Subsidiar Ação Judicial\nPessoal: Vacância - Posse em Cargo Inacumulável\nPlanejamento Estratégico: Acompanhamento do Plano Operacional\nPlanejamento Estratégico: Elaboração do Plano Estratégico\nPlanejamento Estratégico: Elaboração do Plano Operacional\nPlanejamento Estratégico: Gestão de Risco\nPlanejamento Estratégico: Gestão do Plano Estratégico\nPlanejamento Estratégico: Inteligência Estratégica\nProcesso de Eliminação\nProcesso de listagem de eliminação\nRelações Internacionais: Composição de Delegação - com ônus\nRelações Internacionais: Composição de Delegação - ônus limitado\nRelações Internacionais: Composição de Delegação - sem ônus\nRelações Internacionais: Cooperação Internacional\nSegurança Institucional: Automação e Controle Predial\nSegurança Institucional: Controle de Acesso/Garagem\nSegurança Institucional: Controle de Acesso/Portaria\nSegurança Institucional: Prevenção contra Incêndio\nSegurança Institucional: Projeto contra Incêndio\nSegurança Institucional: Serviço de Vigilância\nSuprimento de Fundos: Concessão e Prestação de Contas\nSuprimento de Fundos: Solicitação de Despesa\nViagem: Exterior - Prestação de Contas\nViagem: No País - Prestação de Contas\nViagem: Publicação de Boletim')]", "xpath:innerText"]
       ],
+      "value": ""
+    }, {
+      "id": "35bc8dfa-cd4c-494c-91a3-4ebd259a6bee",
+      "comment": "",
+      "command": "pause",
+      "target": "2",
+      "targets": [],
       "value": ""
     }, {
       "id": "bd7b1a75-7c28-4d3a-86f8-7b70a569f458",
@@ -1072,7 +1086,7 @@
         ["xpath=//td[8]", "xpath:position"],
         ["xpath=//td[contains(.,'1 ano, 9 meses e 25 dias.')]", "xpath:innerText"]
       ],
-      "value": "1 ano, 9 meses e 25 dias."
+      "value": "1 ano, 9 meses e 26 dias."
     }, {
       "id": "367fd4b8-1591-4edc-8ac6-8df640c7690f",
       "comment": "",
@@ -1370,6 +1384,38 @@
         ["xpath=//label[contains(.,'Nenhum registro encontrado.')]", "xpath:innerText"]
       ],
       "value": "Nenhum registro encontrado."
+    }]
+  }, {
+    "id": "95738015-4ee7-4588-a8e6-94d25eea9a93",
+    "name": "tmp",
+    "commands": [{
+      "id": "36a36f1e-f76c-4c5e-a868-d7ce54ba58d7",
+      "comment": "",
+      "command": "executeScript",
+      "target": "var d= new Date(); var m=((d.getMonth()+1)<10)?'0'+(d.getMonth()+1):(d.getMonth()+1); return d.getDate()+\"/\"+m+\"/\"+(d.getFullYear()-2);",
+      "targets": [],
+      "value": "v"
+    }, {
+      "id": "2fa498ff-298e-4cb8-af82-06c5c3f5ae4f",
+      "comment": "",
+      "command": "echo",
+      "target": "${v}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "57d43269-cde9-4ade-8766-2bd100f36c50",
+      "comment": "",
+      "command": "executeScript",
+      "target": "var d= new Date(); var m=((d.getMonth()+1)<10)?'0'+(d.getMonth()+1):(d.getMonth()+1); return d.getDate()+\"/\"+m+\"/\"+d.getFullYear()-2;",
+      "targets": [],
+      "value": "v"
+    }, {
+      "id": "87b0da5e-de22-402a-8e55-f4a657a09bef",
+      "comment": "",
+      "command": "echo",
+      "target": "${v}",
+      "targets": [],
+      "value": ""
     }]
   }],
   "suites": [{

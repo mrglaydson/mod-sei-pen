@@ -47,8 +47,9 @@ class Test1300ArquivamentoLegado():
     dropdown.find_element(By.XPATH, "//option[. = 'Justificativa de Arquivamento 01']").click()
     self.driver.find_element(By.ID, "selJustificativa").click()
     self.driver.find_element(By.ID, "chkSinLegado").click()
+    self.vars["data"] = self.driver.execute_script("var d= new Date(); var m=((d.getMonth()+1)<10)?\'0\'+(d.getMonth()+1):(d.getMonth()+1); return d.getDate()+\'/\'+m+\'/\'+(d.getFullYear());")
     self.driver.find_element(By.ID, "txtDataArquivamento").click()
-    self.driver.find_element(By.ID, "txtDataArquivamento").send_keys("10/03/2020")
+    self.driver.find_element(By.ID, "txtDataArquivamento").send_keys(self.vars["data"])
     dropdown = self.driver.find_element(By.ID, "selCargoFuncao")
     dropdown.find_element(By.XPATH, "//option[. = 'Agente Fiscalizador de Contrato']").click()
     self.driver.find_element(By.ID, "selCargoFuncao").click()
@@ -70,7 +71,7 @@ class Test1300ArquivamentoLegado():
     self.driver.find_element(By.ID, "selJustificativa").click()
     self.driver.find_element(By.ID, "chkSinLegado").click()
     self.driver.find_element(By.ID, "txtDataArquivamento").click()
-    self.driver.find_element(By.ID, "txtDataArquivamento").send_keys("10/03/2020")
+    self.driver.find_element(By.ID, "txtDataArquivamento").send_keys(self.vars["data"])
     dropdown = self.driver.find_element(By.ID, "selCargoFuncao")
     dropdown.find_element(By.XPATH, "//option[. = 'Ordenador de Despesa, Substituto(a)']").click()
     self.driver.find_element(By.ID, "selCargoFuncao").click()
@@ -90,6 +91,7 @@ class Test1300ArquivamentoLegado():
     dropdown = self.driver.find_element(By.ID, "selTipoProcedimento")
     dropdown.find_element(By.XPATH, "//option[. = 'Todos']").click()
     self.driver.find_element(By.ID, "selTipoProcedimento").click()
+    time.sleep(2)
     self.driver.find_element(By.ID, "sbmPesquisar").click()
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".infraCaption")))
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
@@ -121,7 +123,7 @@ class Test1300ArquivamentoLegado():
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (48 registros):"
     self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[2]/td[8]").click()
-    assert self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[2]/td[8]").text == "1 ano, 9 meses e 25 dias."
+    assert self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[2]/td[8]").text == "1 ano, 9 meses e 26 dias."
     dropdown = self.driver.find_element(By.ID, "selTipoProcedimento")
     dropdown.find_element(By.XPATH, "//option[. = 'Acesso à Informação: Demanda do e-SIC']").click()
     self.driver.find_element(By.ID, "selTipoProcedimento").click()
