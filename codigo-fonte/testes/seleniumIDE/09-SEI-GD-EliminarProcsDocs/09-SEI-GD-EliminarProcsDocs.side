@@ -390,34 +390,14 @@
       ],
       "value": ""
     }, {
-      "id": "e847b931-a8f1-43f5-ba51-2e2773ba9ad0",
+      "id": "413d6c1a-67c6-4f7c-a854-8b4df0409f86",
       "comment": "",
-      "command": "//close",
+      "command": "waitForElementVisible",
       "target": "",
       "targets": [],
-      "value": ""
+      "value": "30000"
     }, {
-      "id": "6f77b4a2-1ac3-497b-ae5f-c75072069313",
-      "comment": "",
-      "command": "selectWindow",
-      "target": "handle=${root}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "dcf6ac61-1a2d-4472-b981-2bedfc313635",
-      "comment": "",
-      "command": "click",
-      "target": "id=divInfraBarraLocalizacao",
-      "targets": [
-        ["id=divInfraBarraLocalizacao", "id"],
-        ["css=#divInfraBarraLocalizacao", "css:finder"],
-        ["xpath=//div[@id='divInfraBarraLocalizacao']", "xpath:attributes"],
-        ["xpath=//div[@id='divInfraAreaTelaD']/div", "xpath:idRelative"],
-        ["xpath=//div[4]/div/div", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "ef1a08dd-b666-4c77-a864-a3542e2398e0",
+      "id": "08700ff8-33d3-4886-88cd-0076482018ca",
       "comment": "",
       "command": "verifyText",
       "target": "id=divInfraBarraLocalizacao",
@@ -429,6 +409,90 @@
         ["xpath=//div[4]/div/div", "xpath:position"]
       ],
       "value": "Gestão da Listagem de Eliminação"
+    }, {
+      "id": "01bc4c89-5875-4b1b-8821-bda73f84b343",
+      "comment": "",
+      "command": "click",
+      "target": "id=txtPesquisaRapida",
+      "targets": [
+        ["id=txtPesquisaRapida", "id"],
+        ["name=txtPesquisaRapida", "name"],
+        ["css=#txtPesquisaRapida", "css:finder"],
+        ["xpath=//input[@id='txtPesquisaRapida']", "xpath:attributes"],
+        ["xpath=//form[@id='frmProtocoloPesquisaRapida']/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "c23774ec-9e5a-4438-88a5-8f5ac743b212",
+      "comment": "",
+      "command": "type",
+      "target": "id=txtPesquisaRapida",
+      "targets": [
+        ["id=txtPesquisaRapida", "id"],
+        ["name=txtPesquisaRapida", "name"],
+        ["css=#txtPesquisaRapida", "css:finder"],
+        ["xpath=//input[@id='txtPesquisaRapida']", "xpath:attributes"],
+        ["xpath=//form[@id='frmProtocoloPesquisaRapida']/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "99993.000033/2020-33"
+    }, {
+      "id": "32b5616e-6413-4f1a-876e-44dfb720aaea",
+      "comment": "",
+      "command": "sendKeys",
+      "target": "id=txtPesquisaRapida",
+      "targets": [
+        ["id=txtPesquisaRapida", "id"],
+        ["name=txtPesquisaRapida", "name"],
+        ["css=#txtPesquisaRapida", "css:finder"],
+        ["xpath=//input[@id='txtPesquisaRapida']", "xpath:attributes"],
+        ["xpath=//form[@id='frmProtocoloPesquisaRapida']/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "${KEY_ENTER}"
+    }, {
+      "id": "f393c1f0-9878-4d6b-b7da-fbf6ddf30978",
+      "comment": "",
+      "command": "pause",
+      "target": "3",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4c4d2522-1a00-4378-a278-ee1329a4ea00",
+      "comment": "",
+      "command": "selectFrame",
+      "target": "index=1",
+      "targets": [
+        ["index=1"]
+      ],
+      "value": ""
+    }, {
+      "id": "d567a4a5-5269-4197-9651-d2f517e4a557",
+      "comment": "",
+      "command": "click",
+      "target": "id=divInformacao",
+      "targets": [
+        ["id=divInformacao", "id"],
+        ["css=#divInformacao", "css:finder"],
+        ["xpath=//div[@id='divInformacao']", "xpath:attributes"],
+        ["xpath=//div[@id='divArvoreHtml']/div", "xpath:idRelative"],
+        ["xpath=//div[4]/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "53c08363-4bc2-4195-8039-e21bb86d2a5f",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=divInformacao",
+      "targets": [
+        ["id=divInformacao", "id"],
+        ["css=#divInformacao", "css:finder"],
+        ["xpath=//div[@id='divInformacao']", "xpath:attributes"],
+        ["xpath=//div[@id='divArvoreHtml']/div", "xpath:idRelative"],
+        ["xpath=//div[4]/div", "xpath:position"]
+      ],
+      "value": "Processo não possui andamentos abertos.\\n\\nProcesso eliminado."
     }]
   }],
   "suites": [{
