@@ -393,7 +393,7 @@
       "id": "413d6c1a-67c6-4f7c-a854-8b4df0409f86",
       "comment": "",
       "command": "waitForElementVisible",
-      "target": "",
+      "target": "id=divInfraBarraLocalizacao",
       "targets": [],
       "value": "30000"
     }, {

@@ -63,7 +63,13 @@ class Test09SEIGDEliminarProcsDocs():
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista02")
     self.driver.find_element(By.ID, "sbmEliminar").click()
-    self.driver.switch_to.window(self.vars["root"])
-    self.driver.find_element(By.ID, "divInfraBarraLocalizacao").click()
+    WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "divInfraBarraLocalizacao")))
     assert self.driver.find_element(By.ID, "divInfraBarraLocalizacao").text == "Gestão da Listagem de Eliminação"
+    self.driver.find_element(By.ID, "txtPesquisaRapida").click()
+    self.driver.find_element(By.ID, "txtPesquisaRapida").send_keys("99993.000033/2020-33")
+    self.driver.find_element(By.ID, "txtPesquisaRapida").send_keys(Keys.ENTER)
+    time.sleep(3)
+    self.driver.switch_to.frame(1)
+    self.driver.find_element(By.ID, "divInformacao").click()
+    assert self.driver.find_element(By.ID, "divInformacao").text == "Processo não possui andamentos abertos.\\\\n\\\\nProcesso eliminado."
   
