@@ -338,7 +338,7 @@
         ["xpath=//div[@id='divDataArquivamento']/input", "xpath:idRelative"],
         ["xpath=//div[4]/input", "xpath:position"]
       ],
-      "value": "23/03/2020"
+      "value": "24/03/2020"
     }, {
       "id": "642d6fb0-5019-4bdf-983a-e201675c48d5",
       "comment": "",
@@ -563,7 +563,7 @@
         ["xpath=//div[@id='divDataArquivamento']/input", "xpath:idRelative"],
         ["xpath=//div[4]/input", "xpath:position"]
       ],
-      "value": "23/03/2020"
+      "value": "24/03/2020"
     }, {
       "id": "46421ca0-d50d-4e47-b039-889cb6bc3433",
       "comment": "",
