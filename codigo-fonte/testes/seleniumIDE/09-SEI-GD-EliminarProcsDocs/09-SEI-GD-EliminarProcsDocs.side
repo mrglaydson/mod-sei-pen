@@ -390,7 +390,28 @@
       ],
       "value": ""
     }, {
-      "id": "413d6c1a-67c6-4f7c-a854-8b4df0409f86",
+      "id": "ab1b5c05-7c86-47f3-8fc0-ab377279e0ce",
+      "comment": "",
+      "command": "pause",
+      "target": "5",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0b87c3ca-0bb5-42bd-99e8-78f850b72a39",
+      "comment": "",
+      "command": "selectWindow",
+      "target": "handle=${root}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2c4084b8-4725-46b7-8dbb-9ebb600c0621",
+      "comment": "",
+      "command": "pause",
+      "target": "5",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a08ff55f-a9a8-41c7-88a1-d0536d1213c1",
       "comment": "",
       "command": "waitForElementVisible",
       "target": "id=divInfraBarraLocalizacao",
@@ -468,31 +489,26 @@
       ],
       "value": ""
     }, {
-      "id": "d567a4a5-5269-4197-9651-d2f517e4a557",
+      "id": "02cdb0ac-39a2-45ce-88d9-118fb4d794c7",
       "comment": "",
-      "command": "click",
+      "command": "waitForElementVisible",
       "target": "id=divInformacao",
-      "targets": [
-        ["id=divInformacao", "id"],
-        ["css=#divInformacao", "css:finder"],
-        ["xpath=//div[@id='divInformacao']", "xpath:attributes"],
-        ["xpath=//div[@id='divArvoreHtml']/div", "xpath:idRelative"],
-        ["xpath=//div[4]/div", "xpath:position"]
-      ],
+      "targets": [],
+      "value": "30000"
+    }, {
+      "id": "4c50fd1b-74f9-4463-aee3-2ce9c3fe33a6",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "//div[contains(.,'andamentos abertos')]",
+      "targets": [],
       "value": ""
     }, {
-      "id": "53c08363-4bc2-4195-8039-e21bb86d2a5f",
+      "id": "983bb59f-cb08-4240-bdb0-5bd95ca648eb",
       "comment": "",
-      "command": "verifyText",
-      "target": "id=divInformacao",
-      "targets": [
-        ["id=divInformacao", "id"],
-        ["css=#divInformacao", "css:finder"],
-        ["xpath=//div[@id='divInformacao']", "xpath:attributes"],
-        ["xpath=//div[@id='divArvoreHtml']/div", "xpath:idRelative"],
-        ["xpath=//div[4]/div", "xpath:position"]
-      ],
-      "value": "Processo não possui andamentos abertos.\\n\\nProcesso eliminado."
+      "command": "verifyElementPresent",
+      "target": "//div[contains(.,'Processo eliminado')]",
+      "targets": [],
+      "value": ""
     }]
   }],
   "suites": [{
