@@ -14,7 +14,7 @@ class MdGdListaElimProcedimentoRN extends InfraRN {
 
     protected function cadastrarControlado(MdGdListaElimProcedimentoDTO $objMdGdListaElimProcedimentoDTO) {
         try {
-
+            // #REVISAR } Adicionar verificação de permissão OU para criação de listagem de eliminação OU para adição de processos em uma listagem já existente
             $objMdGdListaElimProcedimentoBD = new MdGdListaElimProcedimentoBD($this->inicializarObjInfraIBanco());
             $objMdGdListaElimProcedimentoDTO = $objMdGdListaElimProcedimentoBD->cadastrar($objMdGdListaElimProcedimentoDTO);
             return $objMdGdListaElimProcedimentoDTO;

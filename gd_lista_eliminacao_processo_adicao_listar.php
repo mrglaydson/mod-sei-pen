@@ -12,68 +12,80 @@ try {
 
     SessaoSEI::getInstance()->validarLink();
 
-    $strTitulo = 'Adicionar Processo na Listagem de Eliminação';
+    //SessaoSEI::getInstance()->validarPermissao($_GET['acao']); // #REVISAR
     
+    PaginaSEI::getInstance()->salvarCamposPost(array('selOrgao', 'selUnidade', 'hdnInfraItensSelecionados', 'hdnInfraItemId'));
+
     switch ($_GET['acao']) {
 
-        case 'gd_adicionar_processo_listagem_elim':
-            // SessaoSEI::getInstance()->validarPermissao('gestao_documental_prep_list_eliminacao_listar');
-            PaginaSEI::getInstance()->salvarCamposPost(array('selOrgao', 'selUnidade', 'hdnInfraItensSelecionados', 'hdnInfraItemId'));
+        case 'gd_lista_eliminacao_processo_adicao_listar':
+            $strTitulo = 'Adicionar Processo na Listagem de Eliminação';
+            break;     
 
-            if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        case 'gd_lista_eliminacao_processo_adicao_adicionar':
+            try{
                 $numIdListaEliminacao  = (int) PaginaSEI::getInstance()->recuperarCampo('hdnInfraItemId');
                 $arrNumIdsArquivamento = explode(',', PaginaSEI::getInstance()->recuperarCampo('hdnInfraItensSelecionados'));
-
-
+    
                 // Obtem os processos do arquivamento
                 $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
                 $objMdGdArquivamentoDTO->setNumIdArquivamento($arrNumIdsArquivamento, InfraDTO::$OPER_IN);
                 $objMdGdArquivamentoDTO->retDblIdProcedimento();
                 $objMdGdArquivamentoDTO->retNumIdArquivamento();
-
+    
                 $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
                 $arrObjMdGdArquivamentoDTO = $objMdGdArquivamentoRN->listar($objMdGdArquivamentoDTO);
-
+    
                 // Adiciona os processos a listagem de eliminação
                 $objMdGdListaElimProcedimentoRN = new MdGdListaElimProcedimentoRN();
-
+    
                 foreach($arrObjMdGdArquivamentoDTO as $objMdGdArquivamentoDTO){
                     // Atualiza a situação do arquivamento
                     $objMdGdArquivamentoDTO->setStrSituacao(MdGdArquivamentoRN::$ST_ENVIADO_ELIMINACAO);
                     $objMdGdArquivamentoRN->alterar($objMdGdArquivamentoDTO);
-
+    
                     // Insere na listagem
                     $objMdGdListaElimProcedimentoDTO = new MdGdListaElimProcedimentoDTO();
                     $objMdGdListaElimProcedimentoDTO->setDblIdProcedimento($objMdGdArquivamentoDTO->getDblIdProcedimento());
                     $objMdGdListaElimProcedimentoDTO->setNumIdListaEliminacao($numIdListaEliminacao);
-
+    
                     $objMdGdListaElimProcedimentoRN->cadastrar($objMdGdListaElimProcedimentoDTO);
                 }
-
+    
                 // Atualiza o total de processos da listagem
                 $objMdGdListaEliminacaoDTO = new MdGdListaEliminacaoDTO();
                 $objMdGdListaEliminacaoDTO->setNumIdListaEliminacao($numIdListaEliminacao);
-
+    
                 $objMdGdListaEliminacaoRN = new MdGdListaEliminacaoRN();
                 $objMdGdListaEliminacaoRN->atualizarNumeroProcessos($objMdGdListaEliminacaoDTO);
-            
-            }
 
-            break;     
+                PaginaSEI::getInstance()->setStrMensagem('Operação realizada com sucesso.');
+            }catch(Exception $e){
+              PaginaSEI::getInstance()->processarExcecao($e);
+            } 
+            header('Location: '.SessaoSEI::getInstance()->assinarLink('controlador.php?acao='.$_GET['acao_origem'].'&acao_origem='.$_GET['acao']));
+            die;
         default:
             throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
     }
 
-    $bolAcaoObservar = SessaoSEI::getInstance()->verificarPermissao('gestao_documental_prep_list_eliminacao_observar');
 
+    // Permissões
+    $bolAcaoObservar = SessaoSEI::getInstance()->verificarPermissao('gestao_documental_prep_list_eliminacao_observar'); // #REVISAR
+    $bolAcaoAdicionar = true; // #REVISAR
+
+    // Comandos e ações
     $arrComandos = array();
     $arrComandos[] = '<button type="submit" accesskey="P" id="sbmPesquisar" value="Pesquisar" class="infraButton"><span class="infraTeclaAtalho">P</span>esquisar</button>';
-    $arrComandos[] = '<button type="button" accesskey="P" id="btnAdicionarListagem" value="Adicionar na Listagem" onclick="acaoAdicionarListagemEliminacao('.$_GET['id_listagem_eliminacao'].');" class="infraButton"><span class="infraTeclaAtalho">A</span>dicionar na Listagem de Eliminação</button>';
+   
+    if($bolAcaoAdicionar){
+        $arrComandos[] = '<button type="button" accesskey="A" id="btnAdicionarListagem" value="Adicionar na Listagem" onclick="acaoAdicionarListagemEliminacao('.$_GET['id_listagem_eliminacao'].');" class="infraButton"><span class="infraTeclaAtalho">A</span>dicionar na Listagem de Eliminação</button>';
+        $strLinkAdicionar = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_lista_eliminacao_processo_adicao_adicionar&acao_origem=' . $_GET['acao'].'&id_listagem_eliminacao=' . $_GET['id_listagem_eliminacao']);    
+    } 
+   
     $arrComandos[] = '<button type="button" accesskey="I" id="btnImprimir" value="Imprimir" onclick="infraImprimirTabela();" class="infraButton"><span class="infraTeclaAtalho">I</span>mprimir</button>';
     $arrComandos[] = '<button type="button" accesskey="F" id="btnFechar" value="Fechar" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_gestao_listagem_eliminacao&acao_origem=' . $_GET['acao']).'\'" class="infraButton"><span class="infraTeclaAtalho">F</span>echar</button>';
-
-    $strLinkAdicionarListagem = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_adicionar_processo_listagem_elim&acao_origem=' . $_GET['acao'].'&id_listagem_eliminacao=' . $_GET['id_listagem_eliminacao']);
-
+    
     $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
     $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
 
@@ -164,10 +176,6 @@ try {
                 $strResultado .= '<a href="#" onclick="exibirJanelaObservacao(\'' . $strLinkObservar . '\');"><img src="imagens/alterar.gif" title="Adicionar Observação e/ou Justificativa" title="Adicionar Observação e/ou Justificativa" class="infraImg" /></a>&nbsp;';
             }
 
-            if ($bolAcaoExcluir) {
-                $strResultado .= '<a href="#ID-' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '" onclick="acaoExcluir(\'' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '\',\'' . $arrObjMdGdArquivamentoDTO[$i]->getStrProtocoloFormatado() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="imagens/excluir.gif" title="Excluir da Preparação para Eliminação" alt="Excluir da Preparação para Eliminação" class="infraImg" /></a>&nbsp;';
-            }
-
             $strResultado .= '</td></tr>' . "\n";
             $strResultado .= '</tr>' . "\n";
         }
@@ -205,37 +213,17 @@ PaginaSEI::getInstance()->abrirJavaScript();
 
     
 function inicializar() {
-infraEfeitoTabelas();
-document.getElementById('btnFechar').focus();
+    infraEfeitoTabelas();
+    document.getElementById('btnFechar').focus();
 }
-<? if ($bolAcaoExcluir) { ?>
-    function acaoExcluir(id, protocolo_formatado) {
-    if (confirm("Confirma a retirada do processo \"" + protocolo_formatado + "\" da preparação de listagem de eliminação  ?")) {
-    document.getElementById('hdnInfraItemId').value = id;
-    document.getElementById('frmPrepararListagemEliminacao').action = '<?= $strLinkExcluir ?>';
-    document.getElementById('frmPrepararListagemEliminacao').submit();
-    }
-    }
-
-    function acaoExclusaoMultipla() {
-    if (document.getElementById('hdnInfraItensSelecionados').value == '') {
-    alert('Nenhum Processo Selecionado.');
-    return;
-    }
-    if (confirm("Confirma a retirada dos processo selecionados da preparação de listagem de eliminação?")) {
-    document.getElementById('hdnInfraItemId').value = '';
-    document.getElementById('frmPrepararListagemEliminacao').action = '<?= $strLinkExcluir ?>';
-    document.getElementById('frmPrepararListagemEliminacao').submit();
-    }
-    }
-<? } ?>
 
 <? if ($bolAcaoObservar) { ?>
     function exibirJanelaObservacao(link) {
-    infraAbrirJanela(link, 'janelaObservarPreparacaoListagemEliminacao', 720, 300, 'location=0,status=1,resizable=1,scrollbars=1', false);
+        infraAbrirJanela(link, 'janelaObservarPreparacaoListagemEliminacao', 720, 300, 'location=0,status=1,resizable=1,scrollbars=1', false);
     }
 <? } ?>
 
+<? if ($bolAcaoAdicionar) { ?>
     function acaoAdicionarListagemEliminacao(id_listagem_eliminacao){
         if (document.getElementById('hdnInfraItensSelecionados').value == '') {
             alert('Nenhum Processo Selecionado.');
@@ -243,10 +231,10 @@ document.getElementById('btnFechar').focus();
         }
 
         document.getElementById('hdnInfraItemId').value = id_listagem_eliminacao;
-        document.getElementById('frmPrepararListagemEliminacao').action = '<?= $strLinkAdicionarListagem ?>';
+        document.getElementById('frmPrepararListagemEliminacao').action = '<?= $strLinkAdicionar ?>';
         document.getElementById('frmPrepararListagemEliminacao').submit();
     }
-
+<? } ?>
 <?
 PaginaSEI::getInstance()->fecharJavaScript();
 PaginaSEI::getInstance()->fecharHead();

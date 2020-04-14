@@ -4,6 +4,8 @@ require_once dirname(__FILE__) . '/../../../SEI.php';
 
 class MdGdArquivamentoDTO extends InfraDTO
 {
+    public $reabrirProcedimentoGeracao = false;
+
     public function getStrNomeTabela()
     {
         return 'md_gd_arquivamento';

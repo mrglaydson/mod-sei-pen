@@ -31,7 +31,7 @@ class MdGdAgendamentoRN extends InfraRN
         $objMdGdArquivamentoDTO->retDblIdProcedimento();
         $objMdGdArquivamentoDTO->retNumIdUnidadeCorrente();
         $objMdGdArquivamentoDTO->retNumIdUnidadeIntermediaria();
-        $objMdGdArquivamentoDTO->setDthDataGuardaIntermediaria(date('d/m/Y H:i:s'), InfraDTO::$OPER_MENOR);
+        $objMdGdArquivamentoDTO->setDthDataGuardaCorrente(date('d/m/Y H:i:s'), InfraDTO::$OPER_MENOR);
         $objMdGdArquivamentoDTO->setStrSituacao(MdGdArquivamentoRN::$ST_FASE_CORRENTE);
         
         $objMdGdArquivamentoRN = new MdGdArquivamentoRN();

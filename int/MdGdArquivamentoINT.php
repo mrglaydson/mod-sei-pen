@@ -9,6 +9,14 @@ require_once dirname(__FILE__) . '/../../../SEI.php';
  */
 class MdGdArquivamentoINT extends InfraINT {
 
+    public static function montarSelectJustificativasArquivamento(){
+
+    }
+
+    public static function montarSelectJustificativasDesarquivamento(){
+        
+    }
+
     public static function montarSelectSituacoesArquivamento($strItemSelecionado = '') {
         return InfraINT::montarSelectArray('null', '&nbsp', $strItemSelecionado, MdGdArquivamentoRN::obterSituacoesArquivamento());
     }

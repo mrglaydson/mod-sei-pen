@@ -30,7 +30,7 @@ try {
        
     switch ($_GET['acao']) {
         case 'gd_unidade_arquivamento_cadastrar':
-            SessaoSEI::getInstance()->validarPermissao('gestao_documental_unidade_arquivamento_cadastrar');
+            SessaoSEI::getInstance()->validarPermissao('gd_unidade_arquivamento_cadastrar');
 
             $objMdGdUnidadeArquivamentoDTO->setNumIdUnidadeOrigem(null);
             $objMdGdUnidadeArquivamentoDTO->setNumIdUnidadeDestino(null);
@@ -65,7 +65,7 @@ try {
             break;
 
         case 'gd_unidade_arquivamento_alterar':
-            SessaoSEI::getInstance()->validarPermissao('gestao_documental_unidade_arquivamento_alterar');
+            SessaoSEI::getInstance()->validarPermissao('gd_unidade_arquivamento_alterar');
 
             $strTitulo = 'Alterar Unidade de Arquivo';
             $arrComandos[] = '<button type="submit" accesskey="S" name="sbmAlterarJustificativa" value="Salvar" class="infraButton"><span class="infraTeclaAtalho">S</span>alvar</button>';
@@ -102,7 +102,7 @@ try {
             break;
 
         case 'gd_unidade_arquivamento_visualizar':
-            SessaoSEI::getInstance()->validarPermissao('gestao_documental_unidade_arquivamento_visualizar');
+            SessaoSEI::getInstance()->validarPermissao('gd_unidade_arquivamento_visualizar');
 
             $strTitulo = 'Consultar Unidade de Arquivo';
             $arrComandos[] = '<button type="button" accesskey="F" name="btnFechar" value="Fechar" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . PaginaSEI::getInstance()->getAcaoRetorno() . '&acao_origem=' . $_GET['acao'] . PaginaSEI::getInstance()->montarAncora($_GET['id_justificativa'])) . '\';" class="infraButton"><span class="infraTeclaAtalho">F</span>echar</button>';

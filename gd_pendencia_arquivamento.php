@@ -11,12 +11,12 @@ try {
     //////////////////////////////////////////////////////////////////////////////
 
     SessaoSEI::getInstance()->validarLink();
-    SessaoSEI::getInstance()->validarPermissao('gestao_documental_pendencias_arquivamento');
+   // SessaoSEI::getInstance()->validarPermissao($_GET['acao']);
     PaginaSEI::getInstance()->salvarCamposPost(array('selTipoProcedimento', 'txtPeriodoDe', 'txtPeriodoA', 'selAssunto'));
 
 
     switch ($_GET['acao']) {
-        case 'gd_pendencias_arquivamento':
+        case 'gd_pendencia_arquivamento':
             $strTitulo = 'Pendências de Arquivamento';
             break;
 
@@ -34,27 +34,27 @@ try {
                     $objProcedimentoRN->reabrirRN0966($objReabrirProcedimentoDTO);
                 }
 
-                PaginaSEI::getInstance()->setStrMensagem('Operação realizada com sucesso.');
+                PaginaSEI::getInstance()->setStrMensagem('Operaï¿½ï¿½o realizada com sucesso.');
             } catch (Exception $e) {
                 PaginaSEI::getInstance()->processarExcecao($e);
             }
             header('Location: ' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . $_GET['acao_origem'] . '&acao_origem=' . $_GET['acao']));
             die;
         case 'gd_procedimento_arquivar':
-            header('Location: ' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_arquivar_procedimento&acao_origem=' . $_GET['acao'] . '&id_procedimento=' . $_GET['id_procedimento']));
+            header('Location: ' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_procedimento_arquivar&acao_origem=' . $_GET['acao'] . '&id_procedimento=' . $_GET['id_procedimento']));
             die;
         default:
             break;
     }
 
-    //Ações de reabrir e arquivar
+    //Aï¿½ï¿½es de reabrir e arquivar
     $bolAcaoArquivar = true;
-    $strLinkArquivar = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_arquivar_procedimento&acao_origem=' . $_GET['acao']);
+    $strLinkArquivar = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_procedimento_arquivar&acao_origem=' . $_GET['acao']);
 
     $bolAcaoReabrir = true;
     $strLinkReabrir = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_procedimento_reabrir&acao_origem=' . $_GET['acao']);
 
-    // Busca os ids de todos os processo concluídos na unidade
+    // Busca os ids de todos os processo concluï¿½dos na unidade
     $objAtividadeDTO = new AtividadeDTO();
     $objAtividadeDTO->setNumIdUnidadeOrigem(SessaoSEI::getInstance()->getNumIdUnidadeAtual());
     $objAtividadeDTO->setNumIdTarefa(array(TarefaRN::$TI_CONCLUSAO_PROCESSO_UNIDADE, TarefaRN::$TI_REABERTURA_PROCESSO_UNIDADE), InfraDTO::$OPER_IN);
@@ -69,16 +69,16 @@ try {
     if ($txtPeriodoDe && $txtPeriodoA) {
         $objAtividadeDTO->adicionarCriterio(array('Abertura', 'Abertura'), 
         array(InfraDTO::$OPER_MAIOR_IGUAL, InfraDTO::$OPER_MENOR_IGUAL),
-        array($txtPeriodoDe, $txtPeriodoA), 
+        array($txtPeriodoDe." 00:00:00", $txtPeriodoA." 23:59:59"), 
         array(InfraDTO::$OPER_LOGICO_AND));
     }
 
     if($txtPeriodoDe){
-        $objAtividadeDTO->setDthAbertura($txtPeriodoDe, InfraDTO::$OPER_MAIOR_IGUAL);
+        $objAtividadeDTO->setDthAbertura($txtPeriodoDe." 00:00:00", InfraDTO::$OPER_MAIOR_IGUAL);
     }
 
     if($txtPeriodoA){
-        $objAtividadeDTO->setDthAbertura($txtPeriodoA, InfraDTO::$OPER_MENOR_IGUAL);
+        $objAtividadeDTO->setDthAbertura($txtPeriodoA." 23:59:59", InfraDTO::$OPER_MENOR_IGUAL);
     }
 
     $objAtividadeRN = new AtividadeRN();
@@ -132,7 +132,7 @@ try {
         }
 
         if($arrIdsProcedimento){
-            // Busca os processos concluídos
+            // Busca os processos concluï¿½dos
             $objProcedimentoDTO = new ProcedimentoDTO();
             $objProcedimentoDTO->setDblIdProcedimento($arrIdsProcedimento, InfraDTO::$OPER_IN);
             $objProcedimentoDTO->retDblIdProcedimento();
@@ -212,7 +212,7 @@ try {
                         }
                     }
 
-                    // Isola a anotação
+                    // Isola a anotaï¿½ï¿½o
                     $strAnotacao = isset($arrObjMdGdAnotacaoPendenciaDTO[$arrObjProcedimentoDTO[$i]->getDblIdProcedimento()]) ? $arrObjMdGdAnotacaoPendenciaDTO[$arrObjProcedimentoDTO[$i]->getDblIdProcedimento()]->getStrAnotacao() : '';
 
                     $strCssTr = ($strCssTr == '<tr class="infraTrClara">') ? '<tr class="infraTrEscura">' : '<tr class="infraTrClara">';
@@ -246,7 +246,7 @@ try {
                     $strResultado .= '<a href="' . PaginaSEI::getInstance()->montarAncora($strId) . '" onclick="acaoArquivar(\'' . $strId . '\',\'' . $strProtocoloProcedimentoFormatado . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="modulos/sei-mod-gestao-documental/imagens/arquivar.gif" title="Arquivar Processo" alt="Arquivar Processo" class="infraImg" /></a>&nbsp;';
                     
                     $strLinkAnotar = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_anotar_pendencia_arquivamento&acao_origem=' . $_GET['acao'] . '&id_procedimento=' . $arrObjProcedimentoDTO[$i]->getDblIdProcedimento());
-                    $strResultado .= '<a href="#" onclick="exibirJanelaAnotacao(\'' . $strLinkAnotar . '\');"><img src="modulos/sei-mod-gestao-documental/imagens/anotacoes.gif" title="Realizar Anotação" alt="Realizar Anotação" class="infraImg" /></a>&nbsp;';
+                    $strResultado .= '<a href="#" onclick="exibirJanelaAnotacao(\'' . $strLinkAnotar . '\');"><img src="modulos/sei-mod-gestao-documental/imagens/anotacoes.gif" title="Realizar Anotaï¿½ï¿½o" alt="Realizar Anotaï¿½ï¿½o" class="infraImg" /></a>&nbsp;';
 
 
                     $strResultado .= '</td></tr>' . "\n";

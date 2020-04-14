@@ -375,6 +375,7 @@ class MdGdListaEliminacaoRN extends InfraRN {
         SeiINT::download(null, $strCaminhoArquivoPdf, 'listagem_recolhiment.pdf', 'attachment', true);
     }
 
+    
     /**
      * Altera a situação da listagem de eliminação para em edição
      *

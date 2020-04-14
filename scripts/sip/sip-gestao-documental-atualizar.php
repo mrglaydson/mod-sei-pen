@@ -109,30 +109,39 @@ try {
     };
 
 
+    # CONFIGURAÇÕES DO MÓDULO: PARÂMETROS
+    
+    $id_recurso_parametro_alterar = $fnCadastrarRecurso($id_sistema, 'gd_parametro_alterar', 'Alteração dos parâmetros do módulo de gestão documental', 'controlador.php?acao=gd_parametro_alterar', 'S');
+
+    # CONFIGURAÇÕES DO MÓDULO: JUSTIFICATIVAS DE ARQUIVAMENTO
+
+    // Gerenciamento das justificativas de arquivamento
+    $id_recurso_justificativa_listar = $fnCadastrarRecurso($id_sistema, 'gd_justificativa_listar', 'Listagem das justificativas de arquivamento e desarquivamento de processos', 'controlador.php?acao=gd_justificativa_listar', 'S');
+    $id_recurso_justificativa_cadastrar = $fnCadastrarRecurso($id_sistema, 'gd_justificativa_cadastrar', 'Inclusão das justificativas de arquivamento e desarquivamento de processos', 'controlador.php?acao=gd_justificativa_cadastrar', 'S');
+    $id_recurso_justificativa_alterar = $fnCadastrarRecurso($id_sistema, 'gd_justificativa_alterar', 'Alteração das justificativas de arquivamento e desarquivamento de processos', 'controlador.php?acao=gd_justificativa_alterar', 'S');
+    $id_recurso_justificativa_excluir = $fnCadastrarRecurso($id_sistema, 'gd_justificativa_excluir', 'Exclusão das justificativas de arquivamento e desarquivamento de processos', 'controlador.php?acao=gd_justificativa_excluir', 'S');
+    $id_recurso_justificativa_visualizar = $fnCadastrarRecurso($id_sistema, 'gd_justificativa_visualizar', 'Visualização das justificativas de arquivamento e desarquivamento de processos', 'controlador.php?acao=gd_justificativa_visualizar', 'S');
+
+    # CONFIGURAÇÕES DO MÓDULO: UNIDADES DE ARQUIVAMENTO
+
+    // Gerenciamento das unidades de arquivamento
+    $id_recurso_unidade_arquivamento_cadastrar = $fnCadastrarRecurso($id_sistema, 'gd_unidade_arquivamento_cadastrar', 'Cadastro das unidades de arquivamento do módulo de gestão documental', 'controlador.php?acao=gd_unidade_arquivamento_cadastrar', 'S');
+    $id_recurso_unidade_arquivamento_alterar = $fnCadastrarRecurso($id_sistema, 'gd_unidade_arquivamento_alterar', 'Alteração das unidades de arquivamento do módulo de gestão documental', 'controlador.php?acao=gd_unidade_arquivamento_alterar', 'S');
+    $id_recurso_unidade_arquivamento_listar = $fnCadastrarRecurso($id_sistema, 'gd_unidade_arquivamento_listar', 'Listagem das unidades de arquivamento do módulo de gestão documental', 'controlador.php?acao=gd_unidade_arquivamento_listar', 'S');
+    $id_recurso_unidade_arquivamento_excluir = $fnCadastrarRecurso($id_sistema, 'gd_unidade_arquivamento_excluir', 'Exclusão das unidades de arquivamento do módulo de gestão documental', 'controlador.php?acao=gd_unidade_arquivamento_excluir', 'S');
+    $id_recurso_unidade_arquivamento_visualizar = $fnCadastrarRecurso($id_sistema, 'gd_unidade_arquivamento_visualizar', 'Exclusão das unidades de arquivamento do módulo de gestão documental', 'controlador.php?acao=gd_unidade_arquivamento_visualizar', 'S');
+
+    # RECURSOS DE ARQUIVAMENTO 
+
+    $id_recurso_procedimento_arquivar = $fnCadastrarRecurso($id_sistema, 'gd_procedimento_arquivar', 'Arquivamento de processos', 'controlador.php?acao=gd_procedimento_arquivar', 'S');
+    
+    # RECURSOS DE DESARQUIVAMENTO
+
+    $id_recurso_desarquivar_processo = $fnCadastrarRecurso($id_sistema, 'gd_procedimento_desarquivar', 'Desarquivamento de processos', 'controlador.php?acao=gd_procedimento_desarquivar', 'S');
+
     ###########################################################RECURSOS#############################################################################################
-    //Cadastra o recurso de edição de parâmetros do módulo
-    $id_recurso_alterar_parametros = $fnCadastrarRecurso($id_sistema, 'gestao_documental_parametros_alterar', 'Alteração dos parâmetros do módulo de gestão documental', 'controlador.php?acao=gd_parametros_alterar', 'S');
+ 
 
-    // Cadastra o recurso de listagem de justificativas
-    $id_recurso_listar_justificativas = $fnCadastrarRecurso($id_sistema, 'gestao_documental_justificativas_listar', 'Listagem das justificativas de arquivamento e desarquivamento', 'controlador.php?acao=gd_justificativas_listar', 'S');
-
-    // Cadastra o recurso de inclusão de justificativas
-    $id_recurso_incluir_justificativas = $fnCadastrarRecurso($id_sistema, 'gestao_documental_justificativas_incluir', 'Inclusão das justificativas de arquivamento e desarquivamento', 'controlador.php?acao=gd_justificativas_cadastrar', 'S');
-
-    // Cadastra o recurso de alteração de justificativa
-    $id_recurso_alterar_justificativas = $fnCadastrarRecurso($id_sistema, 'gestao_documental_justificativas_alterar', 'Alteração das justificativas de arquivamento e desarquivamento', 'controlador.php?acao=gd_justificativas_alterar', 'S');
-
-    // Cadastra o recurso de exclusão de justificativa
-    $id_recurso_excluir_justificativas = $fnCadastrarRecurso($id_sistema, 'gestao_documental_justificativas_excluir', 'Exclusão das justificativas de arquivamento e desarquivamento', 'controlador.php?acao=gd_justificativas_excluir', 'S');
-
-    // Cadastra o recurso de visualização de justificativa
-    $id_recurso_visualizar_justificativas = $fnCadastrarRecurso($id_sistema, 'gestao_documental_justificativas_visualizar', 'Visualização das justificativas de arquivamento e desarquivamento', 'controlador.php?acao=gd_justificativas_visualizar', 'S');
-
-    // Cadastra o recurso de arquivamento de processo
-    $id_recurso_arquivar_processo = $fnCadastrarRecurso($id_sistema, 'gestao_documental_arquivar_processo', 'Arquivamento de processos', 'controlador.php?acao=gd_arquivar_procedimento', 'S');
-
-    // Cadastra o recurso de desarquivamento de processo
-    $id_recurso_desarquivar_processo = $fnCadastrarRecurso($id_sistema, 'gestao_documental_desarquivar_processo', 'Desarquivamento de processos', 'controlador.php?acao=gd_desarquivar_procedimento', 'S');
 
     // Cadastra o recurso de pendências de arquivamento
     $id_recurso_pendencias_arquivamento = $fnCadastrarRecurso($id_sistema, 'gestao_documental_pendencias_arquivamento', 'Pendências de Arquivamento', 'controlador.php?acao=gd_pendencias_arquivamento', 'S');
@@ -140,21 +149,7 @@ try {
     //Cadastra o recurso de edição dos modelos de documento
     $id_recurso_modelos_documento_alterar = $fnCadastrarRecurso($id_sistema, 'gestao_documental_modelo_documento_alterar', 'Alteração dos modelos de documento do módulo de gestão documental', 'controlador.php?acao=gd_modelo_documento_alterar', 'S');
 
-    //Cadastra o recurso de cadastro de unidades de arquivamento
-    $id_recurso_unidades_arquivamento_cadastrar = $fnCadastrarRecurso($id_sistema, 'gestao_documental_unidade_arquivamento_cadastrar', 'Cadastro das unidades de arquivamento do módulo de gestão documental', 'controlador.php?acao=gd_unidade_arquivamento_cadastrar', 'S');
-
-    //Cadastra o recurso de alteração de unidades de arquivamento
-    $id_recurso_unidades_arquivamento_alterar = $fnCadastrarRecurso($id_sistema, 'gestao_documental_unidade_arquivamento_alterar', 'Alteração das unidades de arquivamento do módulo de gestão documental', 'controlador.php?acao=gd_unidade_arquivamento_alterar', 'S');
-
-    //Cadastra o recurso de listagem de unidades de arquivamento
-    $id_recurso_unidades_arquivamento_listar = $fnCadastrarRecurso($id_sistema, 'gestao_documental_unidade_arquivamento_listar', 'Listagem das unidades de arquivamento do módulo de gestão documental', 'controlador.php?acao=gd_unidade_arquivamento_listar', 'S');
-
-    //Cadastra o recurso de exclusão de unidades de arquivamento
-    $id_recurso_unidades_arquivamento_excluir = $fnCadastrarRecurso($id_sistema, 'gestao_documental_unidade_arquivamento_excluir', 'Exclusão das unidades de arquivamento do módulo de gestão documental', 'controlador.php?acao=gd_unidade_arquivamento_excluir', 'S');
-
-    //Cadastra o recurso de visualização de unidades de arquivamento
-    $id_recurso_unidades_arquivamento_visualizar = $fnCadastrarRecurso($id_sistema, 'gestao_documental_unidade_arquivamento_visualizar', 'Exclusão das unidades de arquivamento do módulo de gestão documental', 'controlador.php?acao=gd_unidade_arquivamento_visualizar', 'S');
-
+    
     //Cadasta o recurso da listagem de avaliação de processos
     $id_recurso_avaliacao_processos_listar = $fnCadastrarRecurso($id_sistema, 'gestao_documental_avaliacao_processos_listar', 'Listagem das avaliações de processo', 'controlador.php?acao=gd_avaliacao_processos_listar', 'S');
 
@@ -235,12 +230,12 @@ try {
     $id_menu_gestao_documental = $fnItemMenu($id_menu, $id_item_menu_pai, $id_sistema, null, 'Gestão Documental', 'N', 'S', 10);
 
     //Cria o item de menu de edição de parâmetros
-    $id_menu_parametros = $fnItemMenu($id_menu, $id_menu_gestao_documental, $id_sistema, $id_recurso_alterar_parametros, 'Configurações', 'N', 'S', 1);
+    $id_menu_parametros = $fnItemMenu($id_menu, $id_menu_gestao_documental, $id_sistema, $id_recurso_parametro_alterar, 'Configurações', 'N', 'S', 1);
 
     //Cria os itens de menu de justificativas
     $id_menu_justificativas = $fnItemMenu($id_menu, $id_menu_gestao_documental, $id_sistema, null, 'Justificativas de Arquivamento e Desarquivamento', 'N', 'S', 1);
-    $id_menu_listar_justificativas = $fnItemMenu($id_menu, $id_menu_justificativas, $id_sistema, $id_recurso_listar_justificativas, 'Listar', 'N', 'S', 1);
-    $id_menu_incluir_justificativas = $fnItemMenu($id_menu, $id_menu_justificativas, $id_sistema, $id_recurso_incluir_justificativas, 'Novo', 'N', 'S', 2);
+    $id_menu_listar_justificativas = $fnItemMenu($id_menu, $id_menu_justificativas, $id_sistema, $id_recurso_justificativa_listar, 'Listar', 'N', 'S', 1);
+    $id_menu_incluir_justificativas = $fnItemMenu($id_menu, $id_menu_justificativas, $id_sistema, $id_recurso_justificativa_cadastrar, 'Novo', 'N', 'S', 2);
 
     //Cria os itens de menu pendências de arquivamento e processos arquivados
     $id_menu_pendencias_arquivamento = $fnItemMenu($id_menu, null, $id_sistema, $id_recurso_pendencias_arquivamento, 'Pendências de Arquivamento', 'N', 'S', 131);
@@ -251,8 +246,8 @@ try {
 
     //Cria os itens os itens de menu de unidades de arquivamento
     $id_menu_unidades_arquivamento = $fnItemMenu($id_menu, $id_menu_gestao_documental, $id_sistema, null, 'Unidades de Arquivamento', 'N', 'S', 2);
-    $id_menu_unidades_arquivamento_novo = $fnItemMenu($id_menu, $id_menu_unidades_arquivamento, $id_sistema, $id_recurso_unidades_arquivamento_cadastrar, 'Novo', 'N', 'S', 1);
-    $id_menu_unidades_arquivamento_listar = $fnItemMenu($id_menu, $id_menu_unidades_arquivamento, $id_sistema, $id_recurso_unidades_arquivamento_listar, 'Listar', 'N', 'S', 2);
+    $id_menu_unidades_arquivamento_novo = $fnItemMenu($id_menu, $id_menu_unidades_arquivamento, $id_sistema, $id_recurso_unidade_arquivamento_cadastrar, 'Novo', 'N', 'S', 1);
+    $id_menu_unidades_arquivamento_listar = $fnItemMenu($id_menu, $id_menu_unidades_arquivamento, $id_sistema, $id_recurso_unidade_arquivamento_listar, 'Listar', 'N', 'S', 2);
 
     // Cria o item de menu principal gestão documental
     $id_menu_gestao_documental = $fnItemMenu($id_menu, null, $id_sistema, null, 'Gestão Documental', 'N', 'S', 50);

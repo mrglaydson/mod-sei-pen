@@ -51,9 +51,9 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
         $objMdGdArquivamentoDTO->retStrSituacao();
 
         $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
-        $flgArquivado = $objMdGdArquivamentoRN->contar($objMdGdArquivamentoDTO);
+        $bolArquivado = $objMdGdArquivamentoRN->contar($objMdGdArquivamentoDTO);
 
-        if ($flgArquivado) {
+        if ($bolArquivado) {
             $objArvoreAcaoItemAPI = new ArvoreAcaoItemAPI();
             $objArvoreAcaoItemAPI->setTipo('MD_GD_PROCESSO');
             $objArvoreAcaoItemAPI->setId('MD_GD_PROCESSO_' . $dblIdProcedimento);
@@ -80,12 +80,7 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
                 $objArvoreAcaoItemAPI2->setHref('javascript:alert(\'Processo em Edição\');');
                 $objArvoreAcaoItemAPI2->setSinHabilitado('S');
                 $arrObjArvoreAcaoItemAPI[] = $objArvoreAcaoItemAPI2;
-        
-
-            }
-
-
-            
+            }            
         }
 
         return $arrObjArvoreAcaoItemAPI;
@@ -93,11 +88,11 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
 
     public function montarBotaoProcesso(ProcedimentoAPI $objProcedimentoAPI) {
         $arrBotoes = array();
-        $flgArquivado = false;
+        $bolArquivado = false;
 
         // Valida as permissões dos botões
-        $bolAcaoArquivamento = SessaoSEI::getInstance()->verificarPermissao('gestao_documental_arquivar_processo');
-        $bolAcaoDesarquivamento = SessaoSEI::getInstance()->verificarPermissao('gestao_documental_desarquivar_processo');
+        $bolAcaoArquivamento = SessaoSEI::getInstance()->verificarPermissao('gd_procedimento_arquivar');
+        $bolAcaoDesarquivamento = SessaoSEI::getInstance()->verificarPermissao('gd_procedimento_desarquivar');
 
         // Verifica se o processo se encontra arquivado
         $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
@@ -105,9 +100,9 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
         $objMdGdArquivamentoDTO->setStrSinAtivo('S');
 
         $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
-        $flgArquivado = $objMdGdArquivamentoRN->contar($objMdGdArquivamentoDTO);
+        $bolArquivado = $objMdGdArquivamentoRN->contar($objMdGdArquivamentoDTO);
 
-        if($flgArquivado){
+        if($bolArquivado){
             $objMdGdArquivamentoDTO->retStrSituacao();
             $objMdGdArquivamentoDTO = $objMdGdArquivamentoRN->consultar($objMdGdArquivamentoDTO);
 
@@ -132,13 +127,18 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
         $objAtividadeRN = new AtividadeRN();
         $arrObjAtividadeDTO = $objAtividadeRN->listarRN0036($objAtividadeDTO);
 
-        if ($bolAcaoArquivamento && !$flgArquivado && count($arrObjAtividadeDTO) == 1 && $arrObjAtividadeDTO[0]->getNumIdUnidade() == SessaoSEI::getInstance()->getNumIdUnidadeAtual()) {
-            $arrBotoes[] = '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_arquivar_procedimento&acao_origem=arvore_visualizar&acao_retorno=arvore_visualizar&id_procedimento=' . $objProcedimentoAPI->getIdProcedimento() . '&arvore=1') . '" tabindex="" class="botaoSEI"><img class="infraCorBarraSistema" src="modulos/sei-mod-gestao-documental/imagens/arquivamento.gif" alt="Arquivar Processo" title="Concluir e Arquivar Processo" /></a>';
+        // Verifica a existência de uma unidade de arquivamento
+        $objMdGdUnidadeArquivamentoRN = new MdGdUnidadeArquivamentoRN();
+        $bolUnidadeArquivamento = $objMdGdUnidadeArquivamentoRN->getNumIdUnidadeArquivamentoAtual() ? true : false;
+
+        // Botão de arquivamento
+        if ($bolAcaoArquivamento && !$bolArquivado && count($arrObjAtividadeDTO) == 1 && $arrObjAtividadeDTO[0]->getNumIdUnidade() == SessaoSEI::getInstance()->getNumIdUnidadeAtual()  && $bolUnidadeArquivamento) {
+            $arrBotoes[] = '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_procedimento_arquivar&acao_origem=arvore_visualizar&acao_retorno=arvore_visualizar&id_procedimento=' . $objProcedimentoAPI->getIdProcedimento() . '&arvore=1') . '" tabindex="" class="botaoSEI"><img class="infraCorBarraSistema" src="modulos/sei-mod-gestao-documental/imagens/arquivamento.gif" alt="Arquivar Processo" title="Concluir e Arquivar Processo" /></a>';
         }
 
-        // TODO: VALIDAÇÃO PARA A EXIBIÇÃO DO BOTÃO DESARQUIVAMENTO
-        if ($bolAcaoDesarquivamento && $flgArquivado) {
-            $arrBotoes[] = '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_desarquivar_procedimento&acao_origem=arvore_visualizar&acao_retorno=arvore_visualizar&id_procedimento=' . $objProcedimentoAPI->getIdProcedimento() . '&arvore=1') . '" tabindex="" class="botaoSEI"><img class="infraCorBarraSistema" src="modulos/sei-mod-gestao-documental/imagens/desarquivamento.gif" alt="Desarquivar Processo" title="Desarquivar Processo" /></a>';
+        // Botão de desarquivamento
+        if ($bolAcaoDesarquivamento && $bolArquivado) {
+            $arrBotoes[] = '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_procedimento_desarquivar&acao_origem=arvore_visualizar&acao_retorno=arvore_visualizar&id_procedimento=' . $objProcedimentoAPI->getIdProcedimento() . '&arvore=1') . '" tabindex="" class="botaoSEI"><img class="infraCorBarraSistema" src="modulos/sei-mod-gestao-documental/imagens/desarquivamento.gif" alt="Desarquivar Processo" title="Desarquivar Processo" /></a>';
         }
 
         return $arrBotoes;
@@ -153,11 +153,11 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
     public function montarBotaoDocumento(ProcedimentoAPI $objProcedimentoAPI, $arrObjDocumentoAPI) {
 
         $arrBotoes = array();
-        $flgArquivado = false;
+        $bolArquivado = false;
 
         // Valida as permissões dos botões
-        $bolAcaoArquivamento = SessaoSEI::getInstance()->verificarPermissao('gestao_documental_arquivar_processo');
-        $bolAcaoDesarquivamento = SessaoSEI::getInstance()->verificarPermissao('gestao_documental_desarquivar_processo');
+        $bolAcaoArquivamento = SessaoSEI::getInstance()->verificarPermissao('gd_arquivar_processo');
+        $bolAcaoDesarquivamento = SessaoSEI::getInstance()->verificarPermissao('gd_desarquivar_processo');
 
         // Verifica se o processo se encontra arquivado
         $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
@@ -165,7 +165,7 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
         $objMdGdArquivamentoDTO->setStrSinAtivo('S');
 
         $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
-        $flgArquivado = $objMdGdArquivamentoRN->contar($objMdGdArquivamentoDTO);
+        $bolArquivado = $objMdGdArquivamentoRN->contar($objMdGdArquivamentoDTO);
 
 
         // Verifica se o processo encontra-se aberto em mais de uma unidade
@@ -179,13 +179,13 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
         $objAtividadeRN = new AtividadeRN();
         $arrObjAtividadeDTO = $objAtividadeRN->listarRN0036($objAtividadeDTO);
 
-        if ($bolAcaoArquivamento && !$flgArquivado && count($arrObjAtividadeDTO) == 1 && $arrObjAtividadeDTO[0]->getNumIdUnidade() == SessaoSEI::getInstance()->getNumIdUnidadeAtual()) {
-            $arrBotoes[] = '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_arquivar_procedimento&acao_origem=arvore_visualizar&acao_retorno=arvore_visualizar&id_procedimento=' . $objProcedimentoAPI->getIdProcedimento() . '&arvore=1') . '" tabindex="" class="botaoSEI"><img class="infraCorBarraSistema" src="modulos/sei-mod-gestao-documental/imagens/arquivamento.gif" alt="Arquivar Processo" title="Concluir e Arquivar Processo" /></a>';
+        if ($bolAcaoArquivamento && !$bolArquivado && count($arrObjAtividadeDTO) == 1 && $arrObjAtividadeDTO[0]->getNumIdUnidade() == SessaoSEI::getInstance()->getNumIdUnidadeAtual() ) {
+            $arrBotoes[] = '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_procedimento_arquivar&acao_origem=arvore_visualizar&acao_retorno=arvore_visualizar&id_procedimento=' . $objProcedimentoAPI->getIdProcedimento() . '&arvore=1') . '" tabindex="" class="botaoSEI"><img class="infraCorBarraSistema" src="modulos/sei-mod-gestao-documental/imagens/arquivamento.gif" alt="Arquivar Processo" title="Concluir e Arquivar Processo" /></a>';
         }
 
         // TODO: VALIDAÇÃO PARA A EXIBIÇÃO DO BOTÃO DESARQUIVAMENTO
-        if ($bolAcaoDesarquivamento && $flgArquivado) {
-            $arrBotoes[] = '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_desarquivar_procedimento&acao_origem=arvore_visualizar&acao_retorno=arvore_visualizar&id_procedimento=' . $objProcedimentoAPI->getIdProcedimento() . '&arvore=1') . '" tabindex="" class="botaoSEI"><img class="infraCorBarraSistema" src="modulos/sei-mod-gestao-documental/imagens/desarquivamento.gif" alt="Desarquivar Processo" title="Desarquivar Processo" /></a>';
+        if ($bolAcaoDesarquivamento && $bolArquivado) {
+            $arrBotoes[] = '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_procedimento_desarquivar&acao_origem=arvore_visualizar&acao_retorno=arvore_visualizar&id_procedimento=' . $objProcedimentoAPI->getIdProcedimento() . '&arvore=1') . '" tabindex="" class="botaoSEI"><img class="infraCorBarraSistema" src="modulos/sei-mod-gestao-documental/imagens/desarquivamento.gif" alt="Desarquivar Processo" title="Desarquivar Processo" /></a>';
         }
 
         if ($arrBotoes) {
@@ -245,21 +245,51 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
     }
 
     public function processarControlador($strAcao) {
-        // gd_modelos_documento_alterar
         switch ($strAcao) {
-            case 'gd_arquivar_procedimento':
-                require_once dirname(__FILE__) . '/gd_arquivar_procedimento.php';
+
+            // Justificativas de arquivamento
+            case 'gd_justificativa_listar':
+            case 'gd_justificativa_excluir':
+                require_once dirname(__FILE__) . '/gd_justificativa_listar.php';
                 return true;
 
-            case 'gd_desarquivar_procedimento':
-                require_once dirname(__FILE__) . '/gd_desarquivar_procedimento.php';
+            case 'gd_justificativa_cadastrar':
+            case 'gd_justificativa_alterar':
+            case 'gd_justificativa_consultar':
+                require_once dirname(__FILE__) . '/gd_justificativa_cadastrar.php';
+                return true;
+            case 'gd_unidade_arquivamento_selecionar':
+                    require_once dirname(__FILE__) . '/gd_unidade_arquivamento_selecionar.php';
+                    return true;
+
+            // Unidades de arquivamento
+            case 'gd_unidade_arquivamento_listar':
+            case 'gd_unidade_arquivamento_excluir':
+                require_once dirname(__FILE__) . '/gd_unidade_arquivamento_listar.php';
+                return true;
+            case 'gd_unidade_arquivamento_cadastrar':
+            case 'gd_unidade_arquivamento_alterar':
+            case 'gd_unidade_arquivamento_visualizar':
+                require_once dirname(__FILE__) . '/gd_unidade_arquivamento_cadastrar.php';
+                return true;
+
+            // Parâmetros de arquivamento
+            case 'gd_parametro_alterar':
+                require_once dirname(__FILE__) . '/gd_parametro_alterar.php';
+                return true;
+
+            // Arquivar procedimento    
+            case 'gd_procedimento_arquivar':
+                require_once dirname(__FILE__) . '/gd_procedimento_arquivar.php';
+                return true;
+            
+            // Desarquivar procedimento
+            case 'gd_procedimento_desarquivar':
+                require_once dirname(__FILE__) . '/gd_procedimento_desarquivar.php';
                 return true;
                 
             case 'gd_anotar_pendencia_arquivamento':
                 require_once dirname(__FILE__) . '/gd_anotar_pendencia_arquivamento.php';
-                return true;
-            case 'gd_unidade_arquivamento_selecionar':
-                require_once dirname(__FILE__) . '/gd_unidade_arquivamento_selecao.php';
                 return true;
             case 'gd_arquivamento_listar':
             case 'gd_procedimento_editar_arquivamento':
@@ -275,8 +305,9 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
             case 'gd_recolhimento':
                 require_once dirname(__FILE__) . '/gd_gestao_listagem_recolhimento.php';
                 return true;
-            case 'gd_adicionar_processo_listagem_elim':
-                require_once dirname(__FILE__) . '/gd_adicionar_processo_listagem_elim.php';
+            case 'gd_lista_eliminacao_processo_adicao_listar':
+            case 'gd_lista_eliminacao_processo_adicao_adicionar':
+                require_once dirname(__FILE__) . '/gd_lista_eliminacao_processo_adicao_listar.php';
                 return true;
             case 'gd_adicionar_processo_listagem_recol':
                 require_once dirname(__FILE__) . '/gd_adicionar_processo_listagem_recol.php';
@@ -348,31 +379,6 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
             case 'gd_ajuda_variaveis_modelo_documento_eliminacao':
                 require_once dirname(__FILE__) . '/gd_ajuda_variaveis_modelo.php';
                 return true;
-            case 'gd_justificativas_listar':
-            case 'gd_justificativas_excluir':
-                require_once dirname(__FILE__) . '/gd_justificativa_lista.php';
-                return true;
-
-            case 'gd_justificativas_cadastrar':
-            case 'gd_justificativas_alterar':
-            case 'gd_justificativas_consultar':
-                require_once dirname(__FILE__) . '/gd_justificativa_cadastro.php';
-                return true;
-            case 'gd_unidade_arquivamento_listar':
-            case 'gd_unidade_arquivamento_excluir':
-                require_once dirname(__FILE__) . '/gd_unidade_arquivamento_lista.php';
-                return true;
-            case 'gd_unidade_arquivamento_cadastrar':
-            case 'gd_unidade_arquivamento_alterar':
-            case 'gd_unidade_arquivamento_visualizar':
-                require_once dirname(__FILE__) . '/gd_unidade_arquivamento_cadastro.php';
-                return true;
-            case 'gd_parametros_alterar':
-                require_once dirname(__FILE__) . '/gd_parametros_alterar.php';
-                return true;
-
-
-
             case 'gd_pendencias_arquivamento':
             case 'gd_procedimento_reabrir':
             case 'gd_procedimento_arquivar':

@@ -21,6 +21,7 @@ try {
     //////////////////////////////////////////////////////////////////////////////
 
     SessaoSEI::getInstance()->validarLink();
+    SessaoSEI::getInstance()->validarPermissao($_GET['acao']);
 
     $objMdGdJustificativaDTO = new MdGdJustificativaDTO();
 
@@ -29,9 +30,7 @@ try {
     $arrComandos = array();
 
     switch($_GET['acao']){
-        case 'gd_justificativas_cadastrar':
-            SessaoSEI::getInstance()->validarPermissao('gestao_documental_justificativas_incluir');
-
+        case 'gd_justificativa_cadastrar':
             $strTitulo = 'Nova Justificativa de Arquivamento e Desarquivamento';
             $arrComandos[] = '<button type="submit" accesskey="S" name="sbmCadastrarJustificativa" value="Salvar" class="infraButton"><span class="infraTeclaAtalho">S</span>alvar</button>';
             $arrComandos[] = '<button type="button" accesskey="C" name="btnCancelar" id="btnCancelar" value="Cancelar" onclick="location.href=\''.SessaoSEI::getInstance()->assinarLink('controlador.php?acao='.PaginaSEI::getInstance()->getAcaoRetorno().'&acao_origem='.$_GET['acao']).'\';" class="infraButton"><span class="infraTeclaAtalho">C</span>ancelar</button>';
@@ -54,9 +53,7 @@ try {
             }
             break;
 
-        case 'gd_justificativas_alterar':
-            SessaoSEI::getInstance()->validarPermissao('gestao_documental_justificativas_alterar');
-
+        case 'gd_justificativa_alterar':
             $strTitulo = 'Alterar Justificativa de Arquivamento e Desarquivamento';
             $arrComandos[] = '<button type="submit" accesskey="S" name="sbmAlterarJustificativa" value="Salvar" class="infraButton"><span class="infraTeclaAtalho">S</span>alvar</button>';
             $strDesabilitar = 'disabled="disabled"';
@@ -92,9 +89,7 @@ try {
             }
             break;
 
-        case 'gd_justificativas_consultar':
-            SessaoSEI::getInstance()->validarPermissao('gestao_documental_justificativas_excluir');
-
+        case 'gd_justificativa_consultar':
             $strTitulo = 'Consultar Justificativa de Arquivamento e Desarquivamento';
             $arrComandos[] = '<button type="button" accesskey="F" name="btnFechar" value="Fechar" onclick="location.href=\''.SessaoSEI::getInstance()->assinarLink('controlador.php?acao='.PaginaSEI::getInstance()->getAcaoRetorno().'&acao_origem='.$_GET['acao'].PaginaSEI::getInstance()->montarAncora($_GET['id_justificativa'])).'\';" class="infraButton"><span class="infraTeclaAtalho">F</span>echar</button>';
             $objMdGdJustificativaDTO->setNumIdJustificativa($_GET['id_justificativa']);
@@ -140,10 +135,10 @@ PaginaSEI::getInstance()->montarJavaScript();
 PaginaSEI::getInstance()->abrirJavaScript();
 ?>
     function inicializar(){
-        if ('<?=$_GET['acao']?>'=='gd_justificativas_cadastrar'){
+        if ('<?=$_GET['acao']?>'=='gd_justificativa_cadastrar'){
             document.getElementById('txtNome').focus();
 
-        } else if ('<?=$_GET['acao']?>'=='gd_justificativas_consultar'){
+        } else if ('<?=$_GET['acao']?>'=='gd_justificativa_consultar'){
             infraDesabilitarCamposAreaDados();
 
         }else{

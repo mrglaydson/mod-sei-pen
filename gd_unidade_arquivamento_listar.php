@@ -12,7 +12,7 @@ try {
 
     SessaoSEI::getInstance()->validarLink();
 
-    SessaoSEI::getInstance()->validarPermissao('gestao_documental_unidade_arquivamento_listar');
+    SessaoSEI::getInstance()->validarPermissao($_GET['acao']);
 
     PaginaSEI::getInstance()->salvarCamposPost(array('selUnidadeOrigem', 'selUnidadeDestino'));
 
@@ -53,7 +53,7 @@ try {
     $arrComandos[] = '<button type="submit" accesskey="P" id="sbmPesquisar" value="Pesquisar" class="infraButton"><span class="infraTeclaAtalho">P</span>esquisar</button>';
 
     // Ação de cadastro
-    $bolAcaoCadastrar = SessaoSEI::getInstance()->verificarPermissao('gestao_documental_unidade_arquivamento_cadastrar');
+    $bolAcaoCadastrar = SessaoSEI::getInstance()->verificarPermissao('gd_unidade_arquivamento_cadastrar');
 
     if ($bolAcaoCadastrar) {
         $arrComandos[] = '<button type="button" accesskey="N" id="btnNova" value="Nova" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_unidade_arquivamento_cadastrar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao']) . '\'" class="infraButton"><span class="infraTeclaAtalho">N</span>ovo</button>';
@@ -80,9 +80,9 @@ try {
     }
 
     // Valida as permissões das ações
-    $bolAcaoAlterar = SessaoSEI::getInstance()->verificarPermissao('gestao_documental_unidade_arquivamento_alterar');
-    $bolAcaoExcluir = SessaoSEI::getInstance()->verificarPermissao('gestao_documental_unidade_arquivamento_excluir');
-    $bolAcaoConsultar = SessaoSEI::getInstance()->verificarPermissao('gestao_documental_unidade_arquivamento_visualizar');
+    $bolAcaoAlterar = SessaoSEI::getInstance()->verificarPermissao('gd_unidade_arquivamento_alterar');
+    $bolAcaoExcluir = SessaoSEI::getInstance()->verificarPermissao('gd_unidade_arquivamento_excluir');
+    $bolAcaoConsultar = SessaoSEI::getInstance()->verificarPermissao('gd_unidade_arquivamento_visualizar');
     $bolAcaoImprimir = true;
 
     // Ação de exclusão

@@ -12,7 +12,7 @@ try {
 
     SessaoSEI::getInstance()->validarLink();
 
-    SessaoSEI::getInstance()->validarPermissao('gestao_documental_unidade_arquivamento_listar');
+  //  SessaoSEI::getInstance()->validarPermissao('gestao_documental_unidade_arquivamento_listar');
 
     PaginaSEI::getInstance()->salvarCamposPost(array('hdnInfraItemId', 'selUnidade', 'selTipoProcedimento', 'selDestinacaoFinal', 'txtPeriodoDe', 'txtPeriodoA', 'selAssunto'));
 

@@ -16,7 +16,7 @@ class MdGdUnidadeArquivamentoRN extends InfraRN {
         try {
 
             //Valida Permissao
-            SessaoSEI::getInstance()->validarAuditarPermissao('gestao_documental_unidade_arquivamento_cadastrar', __METHOD__, $objMdGdUnidadeArquivamentoDTO);
+            SessaoSEI::getInstance()->validarAuditarPermissao('gd_unidade_arquivamento_cadastrar', __METHOD__, $objMdGdUnidadeArquivamentoDTO);
 
             $objMdGdUnidadeArquivamentoBD = new MdGdUnidadeArquivamentoBD($this->inicializarObjInfraIBanco());
             $objMdGdUnidadeArquivamentoDTO = $objMdGdUnidadeArquivamentoBD->cadastrar($objMdGdUnidadeArquivamentoDTO);
@@ -30,7 +30,7 @@ class MdGdUnidadeArquivamentoRN extends InfraRN {
         try {
 
             //Valida Permissao
-            SessaoSEI::getInstance()->validarAuditarPermissao('gestao_documental_unidade_arquivamento_alterar', __METHOD__, $objMdGdUnidadeArquivamentoDTO);
+            SessaoSEI::getInstance()->validarAuditarPermissao('gd_unidade_arquivamento_alterar', __METHOD__, $objMdGdUnidadeArquivamentoDTO);
 
             $objMdGdUnidadeArquivamentoBD = new MdGdUnidadeArquivamentoBD($this->inicializarObjInfraIBanco());
             $objMdGdUnidadeArquivamentoDTO = $objMdGdUnidadeArquivamentoBD->alterar($objMdGdUnidadeArquivamentoDTO);
@@ -44,7 +44,7 @@ class MdGdUnidadeArquivamentoRN extends InfraRN {
         try {
 
             //Valida Permissao
-            SessaoSEI::getInstance()->validarAuditarPermissao('gestao_documental_unidade_arquivamento_excluir', __METHOD__, $arrObjMdGdUnidadeArquivamentoDTO);
+            SessaoSEI::getInstance()->validarAuditarPermissao('gd_unidade_arquivamento_excluir', __METHOD__, $arrObjMdGdUnidadeArquivamentoDTO);
 
             $objMdGdUnidadeArquivamentoBD = new MdGdUnidadeArquivamentoBD($this->inicializarObjInfraIBanco());
 
@@ -84,6 +84,31 @@ class MdGdUnidadeArquivamentoRN extends InfraRN {
 
             $objMdGdUnidadeArquivamentoBD = new MdGdUnidadeArquivamentoBD($this->inicializarObjInfraIBanco());
             return $objMdGdUnidadeArquivamentoBD->contar($objMdGdArquivamentoDTO);
+        } catch (Exception $e) {
+            throw new InfraException('Erro ao consultar unidade de arquivamento.', $e);
+        }
+    }
+
+    /**
+     * Obtem a unidade de arquivamento 
+     *
+     * @param MdGdUnidadeArquivamentoDTO $objMdGdUnidadeArquivamentoDTO
+     * @return integer|boolean|InfraException
+     */
+    protected function getNumIdUnidadeArquivamentoAtualConectado(){
+        try {
+     
+            $objMdGdUnidadeArquivamentoDTO = new MdGdUnidadeArquivamentoDTO();
+            $objMdGdUnidadeArquivamentoDTO->setNumIdUnidadeOrigem(SessaoSEI::getInstance()->getNumIdUnidadeAtual());
+            $objMdGdUnidadeArquivamentoDTO->retNumIdUnidadeArquivamento();
+            
+            $objMdGdUnidadeArquivamentoBD = new MdGdUnidadeArquivamentoBD($this->inicializarObjInfraIBanco());
+            if($objMdGdUnidadeArquivamentoBD->contar($objMdGdUnidadeArquivamentoDTO) == 1){
+                $objMdGdUnidadeArquivamentoDTO = $objMdGdUnidadeArquivamentoBD->consultar($objMdGdUnidadeArquivamentoDTO);
+                return $objMdGdUnidadeArquivamentoDTO->getNumIdUnidadeArquivamento();
+            }else{
+                return false;
+            }
         } catch (Exception $e) {
             throw new InfraException('Erro ao consultar unidade de arquivamento.', $e);
         }

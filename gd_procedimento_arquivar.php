@@ -21,7 +21,7 @@ try {
 
     SessaoSEI::getInstance()->validarLink();
 
-    SessaoSEI::getInstance()->validarPermissao('gestao_documental_arquivar_processo');
+    SessaoSEI::getInstance()->validarPermissao($_GET['acao']);
 
     $arrComandos = array();
 
@@ -36,31 +36,44 @@ try {
         $strParametros .= '&arvore=' . $_GET['arvore'];
     }
 
-    $objMdArquivamentoRN = new MdGdArquivamentoRN();
+    if(isset($_GET['redirect']) && $_GET['redirect']){
+        header('Location: ' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao='.PaginaSEI::getInstance()->getAcaoRetorno().'&acao_origem=' . $_GET['acao'].$strParametros.'&atualizar_arvore=1'));
+        die();
+    }
+
     $strTitulo = 'Concluir e Arquivar Processo';
+    $objMdArquivamentoRN = new MdGdArquivamentoRN();
 
     switch ($_GET['acao']) {
-        case 'gd_arquivar_procedimento':
+        case 'gd_procedimento_arquivar':
 
-            $arrComandos[] = '<button type="submit" accesskey="S" name="sbmSalvar" id="sbmSalvar" value="Salvar" class="infraButton"><span class="infraTeclaAtalho">S</span>alvar</button>';
+            $arrComandos[] = '<button type="button" accesskey="S" name="sbmSalvar" id="sbmSalvar" value="Salvar" class="infraButton"  onclick="infraAbrirBarraProgresso(this.form,\''.SessaoSEI::getInstance()->assinarLink('controlador.php?acao='.$_GET['acao'].'&acao_origem='.$_GET['acao']).'\', 600, 250);" ><span class="infraTeclaAtalho">S</span>alvar</button>';
+
             if ($_GET['acao_origem'] == 'gd_pendencias_arquivamento') {
                 $arrComandos[] = '<button type="button" accesskey="C" id="btnCancelar" name="btnCancelar" value="Cancelar" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_pendencias_arquivamento&acao_origem=' . $_GET['acao'] . $strParametros) . '\';" class="infraButton"><span class="infraTeclaAtalho">C</span>ancelar</button>';
             } else {
                 $arrComandos[] = '<button type="button" accesskey="C" id="btnCancelar" name="btnCancelar" value="Cancelar" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . PaginaSEI::getInstance()->getAcaoRetorno() . '&acao_origem=' . $_GET['acao'] . $strParametros) . '\';" class="infraButton"><span class="infraTeclaAtalho">C</span>ancelar</button>';
             }
 
-            if ($_GET['acao_origem'] == 'arvore_visualizar') {
-                $arrProtocolosOrigem = array($_GET['id_procedimento']);
-            } else if ($_GET['acao_origem'] == 'gd_pendencias_arquivamento') {
+            if ($_GET['acao_origem'] == 'gd_pendencias_arquivamento') {
                 $arrProtocolosOrigem = PaginaSEI::getInstance()->getArrStrItensSelecionados();
             } else {
                 $arrProtocolosOrigem = array($_GET['id_procedimento']);
             }
-
-            if (isset($_POST['sbmSalvar'])) {
+      
+            if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_GET['acao_origem'] == 'gd_procedimento_arquivar') {
                 try {
                     $arrProtocolosOrigem = explode(',', $_POST['hdnIdProtocolos']);
+
+                    ini_set('max_execution_time','0');
+                    ini_set('memory_limit','2048M');
                     
+                    PaginaSEI::getInstance()->prepararBarraProgresso2($strTitulo);
+                    $prb = InfraBarraProgresso2::newInstance('ArquivarProcessos', array('cor_fundo'=>'#5c9ccc','cor_borda'=>'#4297d7'));
+                    $prb->setStrRotulo('Arquivar Processos');
+                    $prb->setNumMin(0);
+                    $prb->setNumMax(count($arrProtocolosOrigem));
+
                     $objAssinaturaDTO = new AssinaturaDTO();
                     $objAssinaturaDTO->setStrStaFormaAutenticacao(AssinaturaRN::$TA_SENHA);
                     $objAssinaturaDTO->setNumIdOrgaoUsuario($_POST['selOrgao']);
@@ -69,7 +82,8 @@ try {
                     $objAssinaturaDTO->setStrSenhaUsuario($_POST['pwdSenha']);
                     $objAssinaturaDTO->setStrCargoFuncao($_POST['selCargoFuncao']);
                     
-                    foreach ($arrProtocolosOrigem as $numIdProcedimento) {
+
+                    foreach ($arrProtocolosOrigem as $key => $numIdProcedimento) {
                         $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
                         $objMdGdArquivamentoDTO->setDblIdProcedimento($numIdProcedimento);
                         $objMdGdArquivamentoDTO->setNumIdJustificativa($_POST['selJustificativa']);
@@ -80,17 +94,20 @@ try {
                         }
                         
                         if ($_POST['hdnOrigem'] == 'gd_pendencias_arquivamento') {
-                            $objMdArquivamentoRN->reabrir = true;
+                            $objMdGdArquivamentoDTO->reabrirProcedimentoGeracao = true;
                         }
-
                         $objMdArquivamentoRN->arquivar($objMdGdArquivamentoDTO);
+                        
+                        $prb->setStrRotulo('Arquivando '.($key + 1) .' de '.count($arrProtocolosOrigem));
+                        $prb->moverProximo();
                     }
 
-                    PaginaSEI::getInstance()->setStrMensagem('Operação realizada com sucesso.');
+                    PaginaSEI::getInstance()->setStrMensagem('Arquivamento realizado com sucesso!');
+
                     if ($_POST['hdnOrigem'] == 'gd_pendencias_arquivamento') {
-                        header('Location: ' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_pendencias_arquivamento&acao_origem=' . $_GET['acao']));
+                       PaginaSEI::getInstance()->finalizarBarraProgresso2(SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_pendencias_arquivamento&acao_origem=' . $_GET['acao']), true);
                     } else {
-                        header('Location: ' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . PaginaSEI::getInstance()->getAcaoRetorno() . '&acao_origem=' . $_GET['acao'] . '&atualizar_arvore=1' . $strParametros));
+                      PaginaSEI::getInstance()->finalizarBarraProgresso2(SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_procedimento_arquivar&acao_origem=' . $_GET['acao'] . '&id_procedimento='.$arrProtocolosOrigem[0].'&arvore=1&redirect=true'), true);
                     }
                     die;
                 } catch (Exception $e) {
@@ -237,7 +254,7 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
 <div id="divGeral" class="infraAreaDados" style="height:60em;">
 
     <form id="frmConcluirArquivar" method="post" onsubmit="return OnSubmitForm();"
-          action="<?= SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . $_GET['acao'] . '&acao_origem=' . $_GET['acao'] . $strParametros) ?>">
+          action="<?= SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . $_GET['acao'] . '&acao_origem=' . $_GET['acao'].$strParametros) ?>">
               <? PaginaSEI::getInstance()->montarBarraComandosSuperior($arrComandos); ?>
 
         <fieldset class="infraFieldset" id="fieldsetDadosArquivamento">

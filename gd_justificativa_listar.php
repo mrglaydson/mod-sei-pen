@@ -12,12 +12,12 @@ try {
 
     SessaoSEI::getInstance()->validarLink();
 
-    SessaoSEI::getInstance()->validarPermissao('gestao_documental_justificativas_listar');
+    SessaoSEI::getInstance()->validarPermissao($_GET['acao']);
 
     PaginaSEI::getInstance()->salvarCamposPost(array('txtNomeJustificativaPesquisa', 'txtDescricaoJustificativaPesquisa', 'selTipoJustificativaPesquisa'));
 
     switch ($_GET['acao']) {
-        case 'gd_justificativas_excluir':
+        case 'gd_justificativa_excluir':
             try {
                 $arrStrIds = PaginaSEI::getInstance()->getArrStrItensSelecionados();
 
@@ -40,9 +40,9 @@ try {
             die;
 
 
-        case 'gd_justificativas_listar':
+        case 'gd_justificativa_listar':
             $strTitulo = 'Justificativas de Arquivamento e Desarquivamento';
-            if ($_GET['acao_origem'] == 'gd_justificativas_cadastrar') {
+            if ($_GET['acao_origem'] == 'gd_justificativa_cadastrar') {
                 if (isset($_GET['id_justificativa'])) {
                     PaginaSEI::getInstance()->adicionarSelecionado($_GET['id_justificativa']);
                 }
@@ -57,10 +57,10 @@ try {
     $arrComandos[] = '<button type="submit" accesskey="P" id="sbmPesquisar" value="Pesquisar" class="infraButton"><span class="infraTeclaAtalho">P</span>esquisar</button>';
 
     // Ação de cadastro
-    $bolAcaoCadastrar = SessaoSEI::getInstance()->verificarPermissao('gestao_documental_justificativas_incluir');
+    $bolAcaoCadastrar = SessaoSEI::getInstance()->verificarPermissao('gd_justificativa_cadastrar');
 
     if ($bolAcaoCadastrar) {
-        $arrComandos[] = '<button type="button" accesskey="N" id="btnNova" value="Nova" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_justificativas_cadastrar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao']) . '\'" class="infraButton"><span class="infraTeclaAtalho">N</span>ovo</button>';
+        $arrComandos[] = '<button type="button" accesskey="N" id="btnNova" value="Nova" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_justificativa_cadastrar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao']) . '\'" class="infraButton"><span class="infraTeclaAtalho">N</span>ovo</button>';
     }
 
     $objMdGdJustificativaRN = new MdGdJustificativaRN();
@@ -93,15 +93,15 @@ try {
     }
 
     // Valida as permissões das ações
-    $bolAcaoAlterar = SessaoSEI::getInstance()->verificarPermissao('gestao_documental_justificativas_alterar');
-    $bolAcaoExcluir = SessaoSEI::getInstance()->verificarPermissao('gestao_documental_justificativas_excluir');
-    $bolAcaoConsultar = SessaoSEI::getInstance()->verificarPermissao('gestao_documental_justificativas_visualizar');
+    $bolAcaoAlterar = SessaoSEI::getInstance()->verificarPermissao('gd_justificativa_alterar');
+    $bolAcaoExcluir = SessaoSEI::getInstance()->verificarPermissao('gd_justificativa_excluir');
+    $bolAcaoConsultar = SessaoSEI::getInstance()->verificarPermissao('gd_justificativa_visualizar');
     $bolAcaoImprimir = true;
 
     // Ação de exclusão
     if ($bolAcaoExcluir) {
         $arrComandos[] = '<button type="button" accesskey="E" id="btnExcluir" value="Excluir" onclick="acaoExclusaoMultipla();" class="infraButton"><span class="infraTeclaAtalho">E</span>xcluir</button>';
-        $strLinkExcluir = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_justificativas_excluir&acao_origem=' . $_GET['acao']);
+        $strLinkExcluir = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_justificativa_excluir&acao_origem=' . $_GET['acao']);
     }
 
     // Ação de impressão
@@ -148,11 +148,11 @@ try {
             $strResultado .= '<td align="center">';
 
             if ($bolAcaoConsultar) {
-                $strResultado .= '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_justificativas_consultar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao'] . '&id_justificativa=' . $arrMdGdJustificativaDTO[$i]->getNumIdJustificativa()) . '" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="imagens/consultar.gif" title="Consultar Justificativa" alt="Consultar Justificativa" class="infraImg" /></a>&nbsp;';
+                $strResultado .= '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_justificativa_consultar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao'] . '&id_justificativa=' . $arrMdGdJustificativaDTO[$i]->getNumIdJustificativa()) . '" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="imagens/consultar.gif" title="Consultar Justificativa" alt="Consultar Justificativa" class="infraImg" /></a>&nbsp;';
             }
 
             if ($bolAcaoAlterar) {
-                $strResultado .= '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_justificativas_alterar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao'] . '&id_justificativa=' . $arrMdGdJustificativaDTO[$i]->getNumIdJustificativa()) . '" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="imagens/alterar.gif" title="Alterar Justificativa" alt="Alterar Justificativa" class="infraImg" /></a>&nbsp;';
+                $strResultado .= '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_justificativa_alterar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao'] . '&id_justificativa=' . $arrMdGdJustificativaDTO[$i]->getNumIdJustificativa()) . '" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="imagens/alterar.gif" title="Alterar Justificativa" alt="Alterar Justificativa" class="infraImg" /></a>&nbsp;';
             }
 
             if ($bolAcaoExcluir) {

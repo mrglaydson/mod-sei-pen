@@ -23,7 +23,7 @@ class MdGdJustificativaRN extends InfraRN
         try {
 
             //Valida Permissao
-            SessaoSEI::getInstance()->validarAuditarPermissao('gestao_documental_justificativas_incluir', __METHOD__, $objMdGdJustificativaDTO);
+            SessaoSEI::getInstance()->validarAuditarPermissao('gd_justificativa_cadastrar', __METHOD__, $objMdGdJustificativaDTO);
 
             //Regras de Negocio
             $objInfraException = new InfraException();
@@ -49,7 +49,7 @@ class MdGdJustificativaRN extends InfraRN
         try {
 
             //Valida Permissao
-            SessaoSEI::getInstance()->validarAuditarPermissao('gestao_documental_justificativas_alterar', __METHOD__, $objMdGdJustificativaDTO);
+            SessaoSEI::getInstance()->validarAuditarPermissao('gd_justificativa_alterar', __METHOD__, $objMdGdJustificativaDTO);
 
             //Regras de Negocio
             $objInfraException = new InfraException();
@@ -77,7 +77,7 @@ class MdGdJustificativaRN extends InfraRN
         try {
 
             //Valida Permissao
-            SessaoSEI::getInstance()->validarAuditarPermissao('gestao_documental_justificativas_excluir', __METHOD__, $arrObjMdGdJustificativaDTO);
+            SessaoSEI::getInstance()->validarAuditarPermissao('gd_justificativa_excluir', __METHOD__, $arrObjMdGdJustificativaDTO);
 
             $objMdGdJustificativaBD = new MdGdJustificativaBD($this->inicializarObjInfraIBanco());
 

@@ -138,7 +138,28 @@ class MdGdAtualizarSeiRN extends InfraRN {
                 $this->objInfraSequencia->criarSequencia('md_gd_arquivamento', '1', '1', '9999999999');
             }
 
-            // Cria a tabela de anotaes das pendncias de arquivamento
+            // Cria a tabela de histórico do arquivamento
+            $this->objInfraBanco->executarSql('CREATE TABLE md_gd_arquivamento_historico (
+                id_arquivamento_historico ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL,
+                id_arquivamento ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL,
+                id_usuario ' . $this->objMetaBD->tipoNumero() . ' NOT NULL,
+                id_unidade ' . $this->objMetaBD->tipoNumero() . ' NOT NULL,
+                sta_situacao_antiga ' . $this->objMetaBD->tipoTextoFixo(2) . ' ,
+                sta_situacao_atual ' . $this->objMetaBD->tipoTextoFixo(2) . ' NOT NULL,
+                descricao ' . $this->objMetaBD->tipoTextoVariavel(255) . ' NOT NULL,
+                dth_historico ' . $this->objMetaBD->tipoDataHora() . ' NOT NULL
+            )');
+
+            $this->objMetaBD->adicionarChavePrimaria('md_gd_arquivamento_historico', 'pk_md_gd_id_arq_historico', array('id_arquivamento_historico'));
+            $this->objMetaBD->adicionarChaveEstrangeira('fk_md_gd_hist_arquivamento', 'md_gd_arquivamento_historico', array('id_arquivamento'), 'md_gd_arquivamento', array('id_arquivamento'));
+            $this->objMetaBD->adicionarChaveEstrangeira('fk_md_gd_hist_usuario', 'md_gd_arquivamento_historico', array('id_usuario'), 'usuario', array('id_usuario'));
+            $this->objMetaBD->adicionarChaveEstrangeira('fk_md_gd_hist_unidade', 'md_gd_arquivamento_historico', array('id_unidade'), 'unidade', array('id_unidade'));
+
+            if (!$this->objInfraSequencia->verificarSequencia('md_gd_arquivamento_historico')) {
+                $this->objInfraSequencia->criarSequencia('md_gd_arquivamento_historico', '1', '1', '9999999999');
+            }
+
+            // Cria a tabela de anotaes das pendências de arquivamento
             $this->objInfraBanco->executarSql('CREATE TABLE md_gd_anotacao_pendencia (
                 id_anotacao_pendencia ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL,
                 id_procedimento ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL,

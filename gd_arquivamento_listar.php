@@ -48,7 +48,7 @@ try {
 
     // Ação de desarquivar processo
     $bolAcaoDesarquivar = true;
-    $strLinkDesarquivar = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_desarquivar_procedimento&acao_origem=' . $_GET['acao']);
+    $strLinkDesarquivar = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_procedimento_desarquivar&acao_origem=' . $_GET['acao']);
     
     // Ação de devolver arquivamento
     $bolAcaoEditarArquivamento = true;
