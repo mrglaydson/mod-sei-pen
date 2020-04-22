@@ -173,24 +173,6 @@ class MdGdAtualizarSeiRN extends InfraRN {
                 $this->objInfraSequencia->criarSequencia('md_gd_anotacao_pendencia', '1', '1', '9999999999');
             }
 
-            // Cria a tabela de histrico de situaes do arquivamento
-            $this->objInfraBanco->executarSql('CREATE TABLE md_gd_historico_arquivamento (
-                    id_historico_arquivamento ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL,
-                    id_arquivamento ' . $this->objMetaBD->tipoNumeroGrande() . '  NOT NULL,
-                    id_usuario ' . $this->objMetaBD->tipoNumero() . '  NOT NULL,
-                    situacao ' . $this->objMetaBD->tipoTextoFixo(2) . '  NOT NULL,
-                    dta_atualizacao ' . $this->objMetaBD->tipoDataHora() . '  NOT NULL
-            )');
-
-            $this->objMetaBD->adicionarChavePrimaria('md_gd_historico_arquivamento', 'pk_md_gd_id_hist_arquivamento', array('id_historico_arquivamento'));
-            $this->objMetaBD->adicionarChaveEstrangeira('fk_md_gd_hist_arq_usuario', 'md_gd_historico_arquivamento', array('id_usuario'), 'usuario', array('id_usuario'));
-            $this->objMetaBD->adicionarChaveEstrangeira('fk_md_gd_hist_arq_arquivamento', 'md_gd_historico_arquivamento', array('id_arquivamento'), 'md_gd_arquivamento', array('id_arquivamento'));
-
-
-            if (!$this->objInfraSequencia->verificarSequencia('md_gd_historico_arquivamento')) {
-                $this->objInfraSequencia->criarSequencia('md_gd_historico_arquivamento', '1', '1', '9999999999');
-            }
-
             // Criação da tabela de desarquivamento
             $this->objInfraBanco->executarSql(' CREATE TABLE md_gd_desarquivamento (
                 id_desarquivamento ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL,

@@ -2,21 +2,39 @@
 
 require_once dirname(__FILE__) . '/../../../SEI.php';
 
+
+/**
+ * Regras de negócio das anotações das pendências de arquivamento
+ */
 class MdGdAnotacaoPendenciaRN extends InfraRN {
 
+    /**
+     * Construtor
+     */
     public function __construct() {
         parent::__construct();
     }
 
+    /**
+     * Inicializa instância com banco de dados
+     *
+     * @return BancoSEI
+     */
     protected function inicializarObjInfraIBanco() {
         return BancoSEI::getInstance();
     }
 
+    /**
+     * Cadastro de anotações das pendências de arquivamento
+     *
+     * @param MdGdAnotacaoPendenciaDTO $objMdGdAnotacaoPendenciaDTO
+     * @return boolean|InfraException
+     */
     protected function cadastrarControlado(MdGdAnotacaoPendenciaDTO $objMdGdAnotacaoPendenciaDTO) {
         try {
 
             //Valida Permissao
-            // SessaoSEI::getInstance()->validarAuditarPermissao('gestao_documental_unidade_arquivamento_cadastrar', __METHOD__, $objMdGdAnotacaoPendenciaDTO);
+            SessaoSEI::getInstance()->validarAuditarPermissao('gd_pendencia_arquivamento_anotar', __METHOD__, $objMdGdAnotacaoPendenciaDTO);
 
             $objMdGdAnotacaoPendenciaBD = new MdGdAnotacaoPendenciaBD($this->inicializarObjInfraIBanco());
             $objMdGdUnidadeArquivamentoDTO = $objMdGdAnotacaoPendenciaBD->cadastrar($objMdGdAnotacaoPendenciaDTO);
@@ -26,11 +44,17 @@ class MdGdAnotacaoPendenciaRN extends InfraRN {
         }
     }
 
+    /**
+     * Alterações de anotações das pendências de arquivamento
+     *
+     * @param MdGdAnotacaoPendenciaDTO $objMdGdAnotacaoPendenciaDTO
+     * @return boolean|InfraException
+     */
     protected function alterarControlado(MdGdAnotacaoPendenciaDTO $objMdGdAnotacaoPendenciaDTO) {
         try {
 
             //Valida Permissao
-        //    SessaoSEI::getInstance()->validarAuditarPermissao('gestao_documental_unidade_arquivamento_alterar', __METHOD__, $objMdGdUnidadeArquivamentoDTO);
+            SessaoSEI::getInstance()->validarAuditarPermissao('gd_pendencia_arquivamento_anotar', __METHOD__, $objMdGdAnotacaoPendenciaDTO);
 
             $objMdGdAnotacaoPendenciaBD = new MdGdAnotacaoPendenciaBD($this->inicializarObjInfraIBanco());
             $objMdGdAnotacaoPendenciaDTO = $objMdGdAnotacaoPendenciaBD->alterar($objMdGdAnotacaoPendenciaDTO);
@@ -40,22 +64,12 @@ class MdGdAnotacaoPendenciaRN extends InfraRN {
         }
     }
 
-    protected function excluirControlado($arrObjMdGdAnotacaoPendenciaDTO) {
-        try {
-
-            //Valida Permissao
-            // SessaoSEI::getInstance()->validarAuditarPermissao('gestao_documental_unidade_arquivamento_excluir', __METHOD__, $arrObjMdGdUnidadeArquivamentoDTO);
-
-            $objMdGdAnotacaoPendenciaBD = new MdGdAnotacaoPendenciaBD($this->inicializarObjInfraIBanco());
-
-            foreach ($arrObjMdGdAnotacaoPendenciaDTO as $objMdGdAnotacaoPendenciaDTO) {
-                $objMdGdAnotacaoPendenciaBD->excluir($objMdGdAnotacaoPendenciaDTO);
-            }
-        } catch (Exception $e) {
-            throw new InfraException('Erro excluindo a anotação da pendência de arquivamento.', $e);
-        }
-    }
-
+    /**
+     * Consulta de anotações das pendências de arquivamento
+     *
+     * @param MdGdAnotacaoPendenciaDTO $objMdGdAnotacaoPendenciaDTO
+     * @return boolean|InfraException
+     */
     protected function consultarConectado(MdGdAnotacaoPendenciaDTO $objMdGdAnotacaoPendenciaDTO) {
         try {
             $objMdGdAnotacaoPendenciaBD = new MdGdAnotacaoPendenciaBD($this->inicializarObjInfraIBanco());
@@ -67,6 +81,12 @@ class MdGdAnotacaoPendenciaRN extends InfraRN {
         }
     }
 
+    /**
+     * Listagem de anotações das pendências de arquivamento
+     *
+     * @param MdGdAnotacaoPendenciaDTO $objMdGdAnotacaoPendenciaDTO
+     * @return boolean|InfraException
+     */
     protected function listarConectado(MdGdAnotacaoPendenciaDTO $objMdGdAnotacaoPendenciaDTO) {
         try {
 

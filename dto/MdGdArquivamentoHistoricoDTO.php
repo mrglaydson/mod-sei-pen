@@ -54,16 +54,16 @@ class MdGdArquivamentoHistoricoDTO extends InfraDTO
                                               'unidade un');    
 
         $this->adicionarAtributoTabelaRelacionada(InfraDTO::$PREFIXO_STR,
-                                            'NomeUnidade',
-                                            'un.nome',
+                                            'DescricaoUnidade',
+                                            'un.descricao',
                                             'unidade un');
       
-         # Assinatura do despacho de arquivamento
-        $this->adicionarAtributo(InfraDTO::$PREFIXO_OBJ,'AssinaturaDTO');
 
         $this->configurarPK('IdArquivamentoHistorico', InfraDTO::$TIPO_PK_SEQUENCIAL);
+        $this->configurarFK('IdArquivamento', 'md_gd_arquivamento a', 'a.id_arquivamento');
         $this->configurarFK('IdUsuario', 'usuario u', 'u.id_usuario');
         $this->configurarFK('IdUnidade', 'unidade un', 'un.id_unidade');
+
 
     }
    

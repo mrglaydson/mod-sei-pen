@@ -2,6 +2,9 @@
 
 require_once dirname(__FILE__) . '/../../../SEI.php';
 
+/**
+ * Classe de regras de negócio dos parâmetros de arquivamento
+ */
 class MdGdParametroRN extends InfraRN {
 
     public static $PAR_UNIDADE_ARQUIVAMENTO = 'UNIDADE_ARQUIVAMENTO';
@@ -12,30 +15,50 @@ class MdGdParametroRN extends InfraRN {
     public static $PAR_TIPO_DOCUMENTO_ELIMINACAO = 'TIPO_DOCUMENTO_ELIMINACAO';
     public static $PAR_TIPO_PROCEDIMENTO_ELIMINACAO = 'TIPO_PROCEDIMENTO_ELIMINACAO';
     
+    /**
+     * Construtor
+     */
     public function __construct() {
         parent::__construct();
     }
 
+    /**
+     * Inicialização da conexão com o banco de dados
+     *
+     * @return BancoSEI
+     */
     protected function inicializarObjInfraIBanco() {
         return BancoSEI::getInstance();
     }
 
+    /**
+     * Cadastro de um parâmetro
+     *
+     * @param MdGdParametroDTO $objMdGdParametroDTO
+     * @return boolean|InfraException
+     */
     protected function cadastrarControlado(MdGdParametroDTO $objMdGdParametroDTO) {
         try {
+
             $objMdGdParametroBD = new MdGdParametroBD($this->inicializarObjInfraIBanco());
             $objMdGdParametroDTO = $objMdGdParametroBD->cadastrar($objMdGdParametroDTO);
-
             return $objMdGdParametroDTO;
-        } catch (Exception $ex) {
-            throw new InfraException('Erro ao inserir parâmetro', $ex);
+        } catch (Exception $e) {
+            throw new InfraException('Erro alterando o parâmetro.', $e);
         }
     }
 
+    /**
+     * Alteração de um parâmetro
+     *
+     * @param MdGdParametroDTO $objMdGdParametroDTO
+     * @return boolean|InfraException
+     */
     protected function alterarControlado(MdGdParametroDTO $objMdGdParametroDTO) {
         try {
 
             //Valida Permissao
-            SessaoSEI::getInstance()->validarAuditarPermissao('gestao_documental_parametros_alterar', __METHOD__, $objMdGdParametroDTO);
+            SessaoSEI::getInstance()->validarAuditarPermissao('gd_parametro_alterar', __METHOD__, $objMdGdParametroDTO);
 
             $objMdGdParametroBD = new MdGdParametroBD($this->inicializarObjInfraIBanco());
             $objMdGdParametroDTO = $objMdGdParametroBD->alterar($objMdGdParametroDTO);
@@ -45,6 +68,12 @@ class MdGdParametroRN extends InfraRN {
         }
     }
 
+    /**
+     * Consulta de de um parâmetro
+     *
+     * @param MdGdParametroDTO $objMdGdParametroDTO
+     * @return boolean|InfraException
+     */
     protected function consultarConectado(MdGdParametroDTO $objMdGdParametroDTO) {
         try {
 
@@ -57,6 +86,12 @@ class MdGdParametroRN extends InfraRN {
         }
     }
 
+    /**
+     * Listagem de parâmetros
+     *
+     * @param MdGdParametroDTO $objMdGdParametroDTO
+     * @return boolean|InfraException
+     */
     protected function listarConectado(MdGdParametroDTO $objMdGdParametroDTO) {
         try {
 
@@ -69,6 +104,12 @@ class MdGdParametroRN extends InfraRN {
         }
     }
 
+    /**
+     * Obtenção de valores de parâmetros
+     *
+     * @param string $strParametro
+     * @return string
+     */
     public function obterParametro($strParametro) {
         try {
             $objMdGdParametroDTO = new MdGdParametroDTO();

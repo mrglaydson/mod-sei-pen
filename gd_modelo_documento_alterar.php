@@ -8,8 +8,8 @@ try {
     $objPagina = PaginaSEI::getInstance();
 
     $objSessao->validarLink();
-
     $objSessao->validarPermissao('gestao_documental_modelo_documento_alterar');
+    
     if (isset($_POST['selModeloDocumento']) && !empty($_POST['selModeloDocumento'])) {
         $arrComandos[] = '<button type="submit" accesskey="S" name="sbmAlterarModeloAlterar" value="Salvar" class="infraButton"><span class="infraTeclaAtalho">S</span>alvar</button>';
     }

@@ -15,9 +15,9 @@ try {
     session_start();
 
     //////////////////////////////////////////////////////////////////////////////
-    //InfraDebug::getInstance()->setBolLigado(false);
-    //InfraDebug::getInstance()->setBolDebugInfra(true);
-    //InfraDebug::getInstance()->limpar();
+    InfraDebug::getInstance()->setBolLigado(false);
+    InfraDebug::getInstance()->setBolDebugInfra(false);
+    InfraDebug::getInstance()->limpar();
     //////////////////////////////////////////////////////////////////////////////
 
     SessaoSEI::getInstance()->validarLink();

@@ -11,18 +11,17 @@ try {
     //////////////////////////////////////////////////////////////////////////////
 
     SessaoSEI::getInstance()->validarLink();
-
-  //  SessaoSEI::getInstance()->validarPermissao('gestao_documental_unidade_arquivamento_listar');
-
+    SessaoSEI::getInstance()->validarPermissao($_GET['acao']);
     PaginaSEI::getInstance()->salvarCamposPost(array('hdnInfraItemId', 'selUnidade', 'selTipoProcedimento', 'selDestinacaoFinal', 'txtPeriodoDe', 'txtPeriodoA', 'selAssunto'));
 
     $strTitulo = 'Avaliação de Processos';
 
     switch ($_GET['acao']) {
 
-        case 'gd_avaliacao_processos_listar':
+        case 'gd_arquivamento_avaliar':
             break;
-        case 'gd_procedimento_eliminacao_enviar':   
+            
+        case 'gd_arquivamento_eliminacao_enviar':   
             $arrStrIds = PaginaSEI::getInstance()->getArrStrItensSelecionados();
             
             foreach($arrStrIds as $strId){
@@ -36,7 +35,7 @@ try {
             }
             break;
 
-        case 'gd_procedimento_recolhimento_enviar':
+        case 'gd_arquivamento_recolhimento_enviar':
             $arrStrIds = PaginaSEI::getInstance()->getArrStrItensSelecionados();
             
             foreach($arrStrIds as $strId){
@@ -50,7 +49,7 @@ try {
             }
             
             break;
-        case 'gd_procedimento_devolver_arquivamento':
+        case 'gd_arquivamento_devolver':
             $numIdArquivamento = PaginaSEI::getInstance()->recuperarCampo('hdnInfraItemId');
 
             // Instancia o arquivamento 
@@ -71,16 +70,16 @@ try {
     $arrComandos[] = '<button type="submit" accesskey="P" id="sbmPesquisar" value="Pesquisar" class="infraButton"><span class="infraTeclaAtalho">P</span>esquisar</button>';
 
     // Ação de envio para eliminação
-    $bolAcaoProcedimentoEliminacaoEnviar = true;
-    $strLinkProcedimentoEliminacaoEnviar = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_procedimento_eliminacao_enviar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao']);
+    $bolAcaoProcedimentoEliminacaoEnviar = SessaoSEI::getInstance()->verificarPermissao('gd_arquivamento_eliminacao_enviar');
+    $strLinkProcedimentoEliminacaoEnviar = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_arquivamento_eliminacao_enviar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao']);
 
     // Ação de envio para recolhimento
-    $bolAcaoProcedimentoRecolhimentoEnviar = true;
-    $strLinkProcedimentoRecolhimentoEnviar = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_procedimento_recolhimento_enviar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao']);
+    $bolAcaoProcedimentoRecolhimentoEnviar = SessaoSEI::getInstance()->verificarPermissao('gd_arquivamento_recolhimento_enviar');
+    $strLinkProcedimentoRecolhimentoEnviar = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_arquivamento_recolhimento_enviar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao']);
 
     // Ação de devolver arquivamento
-    $bolAcaoDevolverArquivamento = true;
-    $strLinkAcaoDevolverArquivamento = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_procedimento_devolver_arquivamento&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao']);
+    $bolAcaoDevolverArquivamento = SessaoSEI::getInstance()->verificarPermissao('gd_arquivamento_devolver');
+    $strLinkAcaoDevolverArquivamento = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_arquivamento_devolver&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao']);
 
     // Busca os arquivamentos em fase intermediária para listagem
     $objMdGdArquivamentoRN = new MdGdArquivamentoRN();

@@ -11,9 +11,7 @@ try {
     //////////////////////////////////////////////////////////////////////////////
 
     SessaoSEI::getInstance()->validarLink();
-
     SessaoSEI::getInstance()->validarPermissao($_GET['acao']);
-
     PaginaSEI::getInstance()->salvarCamposPost(array('txtNomeJustificativaPesquisa', 'txtDescricaoJustificativaPesquisa', 'selTipoJustificativaPesquisa'));
 
     switch ($_GET['acao']) {
@@ -96,7 +94,6 @@ try {
     $bolAcaoAlterar = SessaoSEI::getInstance()->verificarPermissao('gd_justificativa_alterar');
     $bolAcaoExcluir = SessaoSEI::getInstance()->verificarPermissao('gd_justificativa_excluir');
     $bolAcaoConsultar = SessaoSEI::getInstance()->verificarPermissao('gd_justificativa_visualizar');
-    $bolAcaoImprimir = true;
 
     // Ação de exclusão
     if ($bolAcaoExcluir) {
@@ -105,10 +102,8 @@ try {
     }
 
     // Ação de impressão
-    if ($bolAcaoImprimir) {
-        $arrComandos[] = '<button type="button" accesskey="I" id="btnImprimir" value="Imprimir" onclick="infraImprimirTabela();" class="infraButton"><span class="infraTeclaAtalho">I</span>mprimir</button>';
-
-    }
+    $arrComandos[] = '<button type="button" accesskey="I" id="btnImprimir" value="Imprimir" onclick="infraImprimirTabela();" class="infraButton"><span class="infraTeclaAtalho">I</span>mprimir</button>';
+    
 
     PaginaSEI::getInstance()->prepararOrdenacao($objMdGdJustificativaDTO, 'Nome', InfraDTO::$TIPO_ORDENACAO_ASC);
     PaginaSEI::getInstance()->prepararPaginacao($objMdGdJustificativaDTO);
@@ -119,8 +114,6 @@ try {
     $numRegistros = count($arrMdGdJustificativaDTO);
 
     if ($numRegistros > 0) {
-
-
         $strResultado = '';
 
         $strSumarioTabela = 'Tabela de Justificativas.';

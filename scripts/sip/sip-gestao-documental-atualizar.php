@@ -131,6 +131,12 @@ try {
     $id_recurso_unidade_arquivamento_excluir = $fnCadastrarRecurso($id_sistema, 'gd_unidade_arquivamento_excluir', 'Exclusão das unidades de arquivamento do módulo de gestão documental', 'controlador.php?acao=gd_unidade_arquivamento_excluir', 'S');
     $id_recurso_unidade_arquivamento_visualizar = $fnCadastrarRecurso($id_sistema, 'gd_unidade_arquivamento_visualizar', 'Exclusão das unidades de arquivamento do módulo de gestão documental', 'controlador.php?acao=gd_unidade_arquivamento_visualizar', 'S');
 
+    # CONFIGURAÇÕES DO MÓDULO: MODELOS DE DOCUMENTO
+    
+    //Cadastra o recurso de edição dos modelos de documento
+    $id_recurso_modelos_documento_alterar = $fnCadastrarRecurso($id_sistema, 'gd_modelo_documento_alterar', 'Alteração dos modelos de documento do módulo de gestão documental', 'controlador.php?acao=gd_modelo_documento_alterar', 'S');
+
+
     # RECURSOS DE ARQUIVAMENTO 
 
     $id_recurso_procedimento_arquivar = $fnCadastrarRecurso($id_sistema, 'gd_procedimento_arquivar', 'Arquivamento de processos', 'controlador.php?acao=gd_procedimento_arquivar', 'S');
@@ -139,19 +145,30 @@ try {
 
     $id_recurso_desarquivar_processo = $fnCadastrarRecurso($id_sistema, 'gd_procedimento_desarquivar', 'Desarquivamento de processos', 'controlador.php?acao=gd_procedimento_desarquivar', 'S');
 
-    ###########################################################RECURSOS#############################################################################################
- 
 
+    # RECURSOS DA PENDÊNCIA DE ARQUIVAMENTO
 
-    // Cadastra o recurso de pendências de arquivamento
-    $id_recurso_pendencias_arquivamento = $fnCadastrarRecurso($id_sistema, 'gestao_documental_pendencias_arquivamento', 'Pendências de Arquivamento', 'controlador.php?acao=gd_pendencias_arquivamento', 'S');
+    $id_recurso_pendencias_arquivamento = $fnCadastrarRecurso($id_sistema, 'gd_pendencia_arquivamento_listar', 'Pendências de Arquivamento', 'controlador.php?acao=gd_pendencia_arquivamento_listar', 'S');
+    $id_recurso_pendencias_arquivamento_anotacao = $fnCadastrarRecurso($id_sistema, 'gd_pendencia_arquivamento_anotar', 'Anotações das pendências de arquivamento', 'controlador.php?acao=gd_pendencia_arquivamento_anotar', 'S');
 
-    //Cadastra o recurso de edição dos modelos de documento
-    $id_recurso_modelos_documento_alterar = $fnCadastrarRecurso($id_sistema, 'gestao_documental_modelo_documento_alterar', 'Alteração dos modelos de documento do módulo de gestão documental', 'controlador.php?acao=gd_modelo_documento_alterar', 'S');
+    # RECURSOS DA LISTAGEM DE ARQUIVAMENTOS 
 
+    $id_recurso_arquivamento_listar = $fnCadastrarRecurso($id_sistema, 'gd_arquivamento_listar', 'Listar arquivo da unidade.', 'controlador.php?acao=gd_arquivamento_listar', 'S');
+    $id_recurso_arquivamento_editar = $fnCadastrarRecurso($id_sistema, 'gd_arquivamento_editar', 'Editar processo arquivado.', 'controlador.php?acao=gd_arquivamento_editar', 'S');
+    $id_recurso_arquivamento_edicao_concluir = $fnCadastrarRecurso($id_sistema, 'gd_arquivamento_edicao_concluir', 'Concluir edição de processo arquivado.', 'controlador.php?acao=gd_arquivamento_edicao_concluir', 'S');
     
-    //Cadasta o recurso da listagem de avaliação de processos
-    $id_recurso_avaliacao_processos_listar = $fnCadastrarRecurso($id_sistema, 'gestao_documental_avaliacao_processos_listar', 'Listagem das avaliações de processo', 'controlador.php?acao=gd_avaliacao_processos_listar', 'S');
+    # RECUROS DE CONSULTA AO HISTÓRICO DE ARQUIVAMENTO
+    $id_recurso_arquivamento_historico_listar = $fnCadastrarRecurso($id_sistema, 'gd_arquivamento_historico_listar', 'Listar o histórico de arquivamento.', 'controlador.php?acao=gd_arquivamento_historico_listar', 'S');
+
+    # RECURSOS DA AVALIAÇÃO DE PROCESSOS
+   
+    $id_recurso_avaliacao_processos_listar = $fnCadastrarRecurso($id_sistema, 'gd_arquivamento_avaliar', 'Listagem de processos arquivados para avaliação da unidade de arquivo.', 'controlador.php?acao=gd_arquivamento_avaliar', 'S');
+    $id_recurso_arquivamento_recolhimento_enviar = $fnCadastrarRecurso($id_sistema, 'gd_arquivamento_recolhimento_enviar', 'Enviar processo arquivado para recolhimento.', 'controlador.php?acao=gd_arquivamento_recolhimento_enviar', 'S');
+    $id_recurso_arquivamento_eliminacao_enviar = $fnCadastrarRecurso($id_sistema, 'gd_arquivamento_eliminacao_enviar', 'Enviar processo arquivado para eliminação.', 'controlador.php?acao=gd_arquivamento_eliminacao_enviar', 'S');
+    $id_recurso_arquivamento_devolver = $fnCadastrarRecurso($id_sistema, 'gd_arquivamento_devolver', 'Devolver processos arquivado para unidade que o arquivou.', 'controlador.php?acao=gd_arquivamento_devolver', 'S');
+
+
+    ###########################################################RECURSOS#############################################################################################
 
     //Cadasta o recurso de listagem da preparação de listagem de eliminação
     $id_recurso_prep_list_eliminacao_listar = $fnCadastrarRecurso($id_sistema, 'gestao_documental_prep_list_eliminacao_listar', 'Lista de preparação para a listagem de eliminação', 'controlador.php?acao=gd_prep_list_eliminacao_listar', 'S');
@@ -221,9 +238,6 @@ try {
 
     // gestao_documental_recolhimento_listar
     $id_recurso_recolhimento_listar = $fnCadastrarRecurso($id_sistema, 'gestao_documental_recolhimento_listar', 'Listar recolhimentos', 'controlador.php?acao=gd_recolhimento_listar', 'S');
-
-    // gestao_documental_processos_arquivados
-    $id_recurso_arquivamento_listar = $fnCadastrarRecurso($id_sistema, 'gestao_documental_arquivamento_listar', 'Listar arquivamento', 'controlador.php?acao=gd_arquivamento_listar', 'S');
 
     ###########################################################ITENS DE MENU#############################################################################################
     // Cria o item de menu gestão documental

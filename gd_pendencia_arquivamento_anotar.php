@@ -12,11 +12,11 @@ try {
 
     SessaoSEI::getInstance()->validarLink();
     PaginaSEI::getInstance()->setTipoPagina(InfraPagina::$TIPO_PAGINA_SIMPLES);
-    // SessaoSEI::getInstance()->validarPermissao('gestao_documental_prep_list_eliminacao_observar');
+    SessaoSEI::getInstance()->validarPermissao($_GET['acao']);
 
     switch ($_GET['acao']) {
 
-        case 'gd_anotar_pendencia_arquivamento':
+        case 'gd_pendencia_arquivamento_anotar':
             $strTitulo = 'Realizar Anotação';
             $objMdGdAnotacaoPendenciaDTO = new MdGdAnotacaoPendenciaDTO();
             $objMdGdAnotacaoPendenciaDTO->setDblIdProcedimento($_GET['id_procedimento']);

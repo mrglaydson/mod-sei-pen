@@ -2,16 +2,33 @@
 
 require_once dirname(__FILE__) . '/../../../SEI.php';
 
+/**
+ * Classe de regras de negócio das unidades de arquivamento
+ */
 class MdGdUnidadeArquivamentoRN extends InfraRN {
 
+    /**
+     * Construtor
+     */
     public function __construct() {
         parent::__construct();
     }
 
+    /**
+     * Inicialização da instância com o banco de dados do SEI
+     *
+     * @return BancoSEI
+     */
     protected function inicializarObjInfraIBanco() {
         return BancoSEI::getInstance();
     }
 
+    /**
+     * Cadastro de unidades de arquivamento
+     *
+     * @param MdGdUnidadeArquivamentoDTO $objMdGdUnidadeArquivamentoDTO
+     * @return boolean|InfraException
+     */
     protected function cadastrarControlado(MdGdUnidadeArquivamentoDTO $objMdGdUnidadeArquivamentoDTO) {
         try {
 
@@ -26,6 +43,12 @@ class MdGdUnidadeArquivamentoRN extends InfraRN {
         }
     }
 
+    /**
+     * Alteração de unidades de arquivamento
+     *
+     * @param MdGdUnidadeArquivamentoDTO $objMdGdUnidadeArquivamentoDTO
+     * @return boolean|InfraException
+     */
     protected function alterarControlado(MdGdUnidadeArquivamentoDTO $objMdGdUnidadeArquivamentoDTO) {
         try {
 
@@ -40,6 +63,12 @@ class MdGdUnidadeArquivamentoRN extends InfraRN {
         }
     }
 
+    /**
+     * Exclusão de unidades de arquivamento
+     *
+     * @param MdGdUnidadeArquivamentoDTO $objMdGdUnidadeArquivamentoDTO
+     * @return boolean|InfraException
+     */
     protected function excluirControlado($arrObjMdGdUnidadeArquivamentoDTO) {
         try {
 
@@ -56,6 +85,12 @@ class MdGdUnidadeArquivamentoRN extends InfraRN {
         }
     }
 
+    /**
+     * Consulta de unidades de arquivamento
+     *
+     * @param MdGdUnidadeArquivamentoDTO $objMdGdUnidadeArquivamentoDTO
+     * @return boolean|InfraException
+     */
     protected function consultarConectado(MdGdUnidadeArquivamentoDTO $objMdGdUnidadeArquivamentoDTO) {
         try {
             $objMdGdUnidadeArquivamentoBD = new MdGdUnidadeArquivamentoBD($this->inicializarObjInfraIBanco());
@@ -67,6 +102,12 @@ class MdGdUnidadeArquivamentoRN extends InfraRN {
         }
     }
 
+    /**
+     * Listagem de unidades de arquivamento
+     *
+     * @param MdGdUnidadeArquivamentoDTO $objMdGdUnidadeArquivamentoDTO
+     * @return boolean|InfraException
+     */
     protected function listarConectado(MdGdUnidadeArquivamentoDTO $objMdGdUnidadeArquivamentoDTO) {
         try {
 
@@ -78,7 +119,13 @@ class MdGdUnidadeArquivamentoRN extends InfraRN {
             throw new InfraException('Erro listando a unidade de arquivamento.', $e);
         }
     }
-
+    
+    /**
+     * Contagem de unidades de arquivamento
+     *
+     * @param MdGdUnidadeArquivamentoDTO $objMdGdUnidadeArquivamentoDTO
+     * @return boolean|InfraException
+     */
     protected function contarConectado(MdGdUnidadeArquivamentoDTO $objMdGdArquivamentoDTO) {
         try {
 
@@ -90,7 +137,7 @@ class MdGdUnidadeArquivamentoRN extends InfraRN {
     }
 
     /**
-     * Obtem a unidade de arquivamento 
+     * Obtenção a unidade de arquivamento 
      *
      * @param MdGdUnidadeArquivamentoDTO $objMdGdUnidadeArquivamentoDTO
      * @return integer|boolean|InfraException

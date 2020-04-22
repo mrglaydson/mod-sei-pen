@@ -15,6 +15,7 @@ class MdGdArquivamentoRN extends InfraRN {
     public static $ST_ENVIADO_ELIMINACAO = 'EE';
     public static $ST_RECOLHIDO = 'RE';
     public static $ST_ELIMINADO = 'EL';
+    public static $ST_DESARQUIVADO = 'DE';
 
     # Guarda
     public static $GUARDA_CORRENTE = 'C';
@@ -43,12 +44,14 @@ class MdGdArquivamentoRN extends InfraRN {
      * @throws InfraException
      */
     protected function arquivarControlado(MdGdArquivamentoDTO $objMdGdArquivamentoDTO) {
-        try {
 
-            //Valida Permissao
-            SessaoSEI::getInstance()->validarAuditarPermissao('gd_procedimento_arquivar', __METHOD__, $objMdGdArquivamentoDTO);
-            //TODO: Validar as configurações do módulo
-            //TODO: Validação dos parametros obrigatórios do DTO
+        //Valida Permissao
+        SessaoSEI::getInstance()->validarAuditarPermissao('gd_procedimento_arquivar', __METHOD__, $objMdGdArquivamentoDTO);
+
+        // Validações para arquivamento
+        $this->validarArquivamento($objMdGdArquivamentoDTO);
+
+        try {
             // Reabre o processo caso esteja fechado TODO: REVER ESSA IMPLEMENTAÇÃO
             if ($objMdGdArquivamentoDTO->reabrirProcedimentoGeracao) {
                 $objReabrirProcessoDTO = new ReabrirProcessoDTO();
@@ -171,8 +174,6 @@ class MdGdArquivamentoRN extends InfraRN {
                     $objMdGdUnidadeArquivamentoDTO = $objMdGdUnidadeArquivamentoRN->consultar($objMdGdUnidadeArquivamentoDTO);
                     $objMdGdArquivamentoDTO->setNumIdUnidadeIntermediaria($objMdGdUnidadeArquivamentoDTO->getNumIdUnidadeDestino());
                 }
-
-
             }
 
             $objMdGdArquivamentoBD = new MdGdArquivamentoBD($this->inicializarObjInfraIBanco());
@@ -181,14 +182,11 @@ class MdGdArquivamentoRN extends InfraRN {
             // Concluí e bloqueia o processo
             $this->fecharProcedimentoArquivamento($objMdGdArquivamentoDTO);
 
-     
-
-            // Registra um histórico do processo
-            if($objMdGdArquivamentoDTO->getStrSituacao() == self::$ST_FASE_CORRENTE){
-                $this->registrarHistoricoArquivamento($objMdGdArquivamentoDTO->getNumIdArquivamento(), null, self::$ST_FASE_CORRENTE);
-            }else if($objMdGdArquivamentoDTO->getStrStaSituacao() == self::$ST_FASE_INTERMEDIARIA){
-                $this->registrarHistoricoArquivamento($objMdGdArquivamentoDTO->getNumIdArquivamento(), null, self::$ST_FASE_CORRENTE);
-                $this->registrarHistoricoArquivamento($objMdGdArquivamentoDTO->getNumIdArquivamento(), self::$ST_FASE_CORRENTE, self::$ST_FASE_INTERMEDIARIA);
+            // Registra um histórico do arquivamento
+            $this->registrarHistoricoArquivamento($objMdGdArquivamentoDTO->getNumIdArquivamento(), null, self::$ST_FASE_CORRENTE);
+            if($objMdGdArquivamentoDTO->getStrSituacao() == self::$ST_FASE_INTERMEDIARIA){
+                $strDataHistorico = date("d/m/Y H:i:s", (strtotime(date('Y-m-d H:i:s')) + 1));
+                $this->registrarHistoricoArquivamento($objMdGdArquivamentoDTO->getNumIdArquivamento(), self::$ST_FASE_CORRENTE, self::$ST_FASE_INTERMEDIARIA, $strDataHistorico);
             }
             return true;
         } catch (Exception $e) {
@@ -196,13 +194,40 @@ class MdGdArquivamentoRN extends InfraRN {
         }
     }
 
-    // CODE
+    /**
+     * Valida o arquivamento
+     *
+     * @param MdGdArquivamentoDTO $objMdGdArquivamentoDTO
+     * @throws InfraException
+     * @return void
+     */
     protected function validarArquivamento(MdGdArquivamentoDTO $objMdGdArquivamentoDTO){
         // Validar parâmetros do dto
+        if(!$objMdGdArquivamentoDTO->isSetDblIdProcedimento()){
+            throw new InfraException('Processo não informado para arquivamento.');
+        }
+
+        // Valida a existência de um arquivamento ativo
+        $objMdGdArquivamentoDTO2 = new MdGdArquivamentoDTO();
+        $objMdGdArquivamentoDTO2->setDblIdProcedimento($objMdGdArquivamentoDTO->getDblIdProcedimento());
+        $objMdGdArquivamentoDTO2->setStrSinAtivo('S');
+
+        $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
+        if($objMdGdArquivamentoRN->contar($objMdGdArquivamentoDTO2) != 0){
+            throw new InfraException('Existe um arquivamento ativo para esse processo.');
+        }
 
         // Validar configuração do módulo
+        $objMdGdParametroRN = new MdGdParametroRN();
+        if(!$objMdGdParametroRN->obterParametro(MdGdParametroRN::$PAR_DESPACHO_ARQUIVAMENTO)){
+            throw new InfraException('Não foi configurado o tipo de documento para arquivamento!');
+        }
 
         // Validar unidade de arquivamento
+        $objMdGdUnidadeArquivamentoRN = new MdGdUnidadeArquivamentoRN();
+        if(!$objMdGdUnidadeArquivamentoRN->getNumIdUnidadeArquivamentoAtual()){
+            throw new InfraException('A unidade atual não possuí unidade de arquivamento configurada');
+        }
     }
     
     /**
@@ -257,10 +282,10 @@ class MdGdArquivamentoRN extends InfraRN {
     /**
      * Obtem o conteúdo do despacho de arquivamento
      * 
-     * @param type $numIdJustificativa
-     * @param type $dthArquivamento
-     * @param type $strResponsavelArquivamento
-     * @return type
+     * @param integer $numIdJustificativa
+     * @param string $dthArquivamento
+     * @param string $strResponsavelArquivamento
+     * @return string
      */
     protected function obterConteudoDespachoArquivamento($numIdJustificativa, $dthArquivamento, $strResponsavelArquivamento) {
         //TODO: Validação dos parametros obrigatórios do DTO
@@ -299,25 +324,31 @@ class MdGdArquivamentoRN extends InfraRN {
      */
     protected function desarquivarControlado(MdGdDesarquivamentoDTO $objMdGdDesarquivamentoDTO) {
         try {
-
             //Valida Permissao
             SessaoSEI::getInstance()->validarAuditarPermissao('gd_procedimento_desarquivar', __METHOD__, $objMdGdDesarquivamentoDTO);
 
+            // Valida desarquivamento
+            $this->validarDesarquivamento($objMdGdDesarquivamentoDTO);
+            
             // Inativa os registros de arquivamento
             $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
             $objMdGdArquivamentoDTO->setDblIdProcedimento($objMdGdDesarquivamentoDTO->getDblIdProcedimento());
+            $objMdGdArquivamentoDTO->setStrSinAtivo('S');
             $objMdGdArquivamentoDTO->retNumIdArquivamento();
+            $objMdGdArquivamentoDTO->retStrSituacao();
 
             $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
             $arrObjMdGdArquivamentoDTO = $objMdGdArquivamentoRN->listar($objMdGdArquivamentoDTO);
             $numIdArquivamento = null;
 
             foreach ($arrObjMdGdArquivamentoDTO as $objMdGdArquivamentoDTO) {
+                $this->registrarHistoricoArquivamento($objMdGdArquivamentoDTO->getNumIdArquivamento(), $objMdGdArquivamentoDTO->getStrSituacao(), self::$ST_DESARQUIVADO);
+
                 $objMdGdArquivamentoDTO->setStrSinAtivo('N');
+                $objMdGdArquivamentoDTO->setStrSituacao(self::$ST_DESARQUIVADO);
                 $objMdGdArquivamentoRN->alterar($objMdGdArquivamentoDTO);
                 $numIdArquivamento = $objMdGdArquivamentoDTO->getNumIdArquivamento();
             }
-         
 
             // Reabre o processo
             $objReabrirProcessoDTO = new ReabrirProcessoDTO();
@@ -341,7 +372,7 @@ class MdGdArquivamentoRN extends InfraRN {
                 $objProcedimentoRN->desbloquear([$objProcedimentoDTO]);
             }
 
-            // Realiza o andamento do arquivamento
+            // Realiza o andamento do processo
             $objAtividadeRN = new AtividadeRN();
             $objPesquisaPendenciaDTO = new PesquisaPendenciaDTO();
             $objPesquisaPendenciaDTO->setDblIdProtocolo($objMdGdDesarquivamentoDTO->getDblIdProcedimento());
@@ -364,53 +395,11 @@ class MdGdArquivamentoRN extends InfraRN {
             
             $objAtividadeRN->atualizarAndamento($objAtualizarAndamentoDTO);
             
-
-            //Instancia as RN's necessárias
-            $objMdGdParametroRN = new MdGdParametroRN();
-            $objDocumentoRN = new DocumentoRN();
-
-            // Cria os valores padrões para o arquivamento
-            $dtaDesarquivamento = date('d/m/Y H:i:s');
-            $numIdSerie = $objMdGdParametroRN->obterParametro(MdGdParametroRN::$PAR_DESPACHO_DESARQUIVAMENTO);
-            $strConteudo = $this->obterConteudoDespachoDesarquivamento($objMdGdDesarquivamentoDTO->getNumIdJustificativa(), $dtaDesarquivamento, SessaoSEI::getInstance()->getStrNomeUsuario());
-
-            // Cria o despacho de arquivamento
-            $objProtocoloDTO = new ProtocoloDTO();
-            $objProtocoloDTO->setDblIdProtocolo(null);
-            $objProtocoloDTO->setStrStaProtocolo('G');
-            $objProtocoloDTO->setStrStaNivelAcessoLocal(ProtocoloRN::$NA_PUBLICO);
-            $objProtocoloDTO->setStrDescricao('Despacho de Desarquivamento');
-            $objProtocoloDTO->setArrObjParticipanteDTO(array());
-            $objProtocoloDTO->setArrObjObservacaoDTO(array());
-
-            $objDocumentoDTO = new DocumentoDTO();
-            $objDocumentoDTO->setDblIdDocumento(null);
-            $objDocumentoDTO->setDblIdProcedimento($objMdGdDesarquivamentoDTO->getDblIdProcedimento());
-            $objDocumentoDTO->setNumIdSerie($numIdSerie);
-            $objDocumentoDTO->setStrStaDocumento(DocumentoRN::$TD_EDITOR_INTERNO);
-            $objDocumentoDTO->setDblIdDocumentoEdoc(null);
-            $objDocumentoDTO->setDblIdDocumentoEdocBase(null);
-            $objDocumentoDTO->setNumIdUnidadeResponsavel(SessaoSEI::getInstance()->getNumIdUnidadeAtual());
-            $objDocumentoDTO->setNumIdTipoConferencia(null);
-            $objDocumentoDTO->setStrNumero('');
-            $objDocumentoDTO->setStrConteudo($strConteudo);
-            $objDocumentoDTO->setObjProtocoloDTO($objProtocoloDTO);
-
-            $objDocumentoDTO = $objDocumentoRN->cadastrarRN0003($objDocumentoDTO);
-            
-            // Assinatura do despacho de desarquivamento
-            $objAssinaturaDTO = $objMdGdDesarquivamentoDTO->getObjAssinaturaDTO();
-            $objAssinaturaDTO->setArrObjDocumentoDTO([$objDocumentoDTO]);
-
-            $objDocumentoRN = new DocumentoRN();
-            $objDocumentoRN->assinar($objAssinaturaDTO);
-            
-            // Bloqueia o conteúdo do documento
-            $objDocumentoRN->bloquearConteudo($objDocumentoDTO);
-
+            // Gera o despacho de arquivamento        
+            $objDocumentoDTO = $this->gerarDesapchoDesarquivamento($objMdGdDesarquivamentoDTO);
           
             // Cria o registro de desarquivamento
-            $objMdGdDesarquivamentoDTO->setDthDataDesarquivamento($dtaDesarquivamento);
+            $objMdGdDesarquivamentoDTO->setDthDataDesarquivamento(date('d/m/Y H:i:s'));
             $objMdGdDesarquivamentoDTO->setDblIdDespachoDesarquivamento($objDocumentoDTO->getDblIdDocumento());
             $objMdGdDesarquivamentoDTO->setNumIdArquivamento($numIdArquivamento);
 
@@ -423,18 +412,85 @@ class MdGdArquivamentoRN extends InfraRN {
         }
     }
 
-    // CODE
+    /**
+     * Validar desarquivamento
+     *
+     * @param MdGdDesarquivamentoDTO $objMdGdDesarquivamentoDTO
+     * @throws InfraException
+     * @return void
+     */
     protected function validarDesarquivamento(MdGdDesarquivamentoDTO $objMdGdDesarquivamentoDTO){
         // Validar parâmetros do dto
+        if(!$objMdGdDesarquivamentoDTO->isSetDblIdProcedimento()){
+            throw new InfraException('Processo não informado para desarquivamento.');
+        }
+
+        // Valida a existência de um arquivamento ativo
+        $objMdGdArquivamentoDTO2 = new MdGdArquivamentoDTO();
+        $objMdGdArquivamentoDTO2->setDblIdProcedimento($objMdGdDesarquivamentoDTO->getDblIdProcedimento());
+        $objMdGdArquivamentoDTO2->setStrSinAtivo('S');
+
+        $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
+        if($objMdGdArquivamentoRN->contar($objMdGdArquivamentoDTO2) == 0){
+            throw new InfraException('Não existe um arquivamento ativo para esse processo.');
+        }
 
         // Validar configuração do módulo
-
-        // Validar unidade de arquivamento
+        $objMdGdParametroRN = new MdGdParametroRN();
+        if(!$objMdGdParametroRN->obterParametro(MdGdParametroRN::$PAR_DESPACHO_DESARQUIVAMENTO)){
+            throw new InfraException('Não foi configurado o tipo de documento para desarquivamento!');
+        }
     }
 
-    // CODE
+    /**
+     * Gera um despacho de arquivamento
+     *
+     * @param MdGdDesarquivamentoDTO $objMdGdDesarquivamentoDTO
+     * @throws InfraException
+     * @return void
+     */
     public function gerarDesapchoDesarquivamento(MdGdDesarquivamentoDTO $objMdGdDesarquivamentoDTO){
+        //Instancia as RN's necessárias
+        $objMdGdParametroRN = new MdGdParametroRN();
+        $objDocumentoRN = new DocumentoRN();
 
+        // Cria os valores padrões para o arquivamento
+        $dtaDesarquivamento = date('d/m/Y H:i:s');
+        $numIdSerie = $objMdGdParametroRN->obterParametro(MdGdParametroRN::$PAR_DESPACHO_DESARQUIVAMENTO);
+        $strConteudo = $this->obterConteudoDespachoDesarquivamento($objMdGdDesarquivamentoDTO->getNumIdJustificativa(), $dtaDesarquivamento, SessaoSEI::getInstance()->getStrNomeUsuario());
+
+        // Cria o despacho de arquivamento
+        $objProtocoloDTO = new ProtocoloDTO();
+        $objProtocoloDTO->setDblIdProtocolo(null);
+        $objProtocoloDTO->setStrStaProtocolo('G');
+        $objProtocoloDTO->setStrStaNivelAcessoLocal(ProtocoloRN::$NA_PUBLICO);
+        $objProtocoloDTO->setStrDescricao('Despacho de Desarquivamento');
+        $objProtocoloDTO->setArrObjParticipanteDTO(array());
+        $objProtocoloDTO->setArrObjObservacaoDTO(array());
+
+        $objDocumentoDTO = new DocumentoDTO();
+        $objDocumentoDTO->setDblIdDocumento(null);
+        $objDocumentoDTO->setDblIdProcedimento($objMdGdDesarquivamentoDTO->getDblIdProcedimento());
+        $objDocumentoDTO->setNumIdSerie($numIdSerie);
+        $objDocumentoDTO->setStrStaDocumento(DocumentoRN::$TD_EDITOR_INTERNO);
+        $objDocumentoDTO->setDblIdDocumentoEdoc(null);
+        $objDocumentoDTO->setDblIdDocumentoEdocBase(null);
+        $objDocumentoDTO->setNumIdUnidadeResponsavel(SessaoSEI::getInstance()->getNumIdUnidadeAtual());
+        $objDocumentoDTO->setNumIdTipoConferencia(null);
+        $objDocumentoDTO->setStrNumero('');
+        $objDocumentoDTO->setStrConteudo($strConteudo);
+        $objDocumentoDTO->setObjProtocoloDTO($objProtocoloDTO);
+
+        $objDocumentoDTO = $objDocumentoRN->cadastrarRN0003($objDocumentoDTO);
+
+        // Assinatura do despacho de desarquivamento
+        $objAssinaturaDTO = $objMdGdDesarquivamentoDTO->getObjAssinaturaDTO();
+        $objAssinaturaDTO->setArrObjDocumentoDTO([$objDocumentoDTO]);
+
+        $objDocumentoRN = new DocumentoRN();
+        $objDocumentoRN->assinar($objAssinaturaDTO);
+
+        return $objDocumentoDTO;
     }
     
     /**
@@ -568,6 +624,7 @@ class MdGdArquivamentoRN extends InfraRN {
 
     /**
      * Interface para chamada do método de contagem de condicionantes de um processo
+     * 
      * @param integer $numIdProtocolo
      * @return integer
      */
@@ -662,8 +719,139 @@ class MdGdArquivamentoRN extends InfraRN {
         }
     }
 
+    /**
+     * Obtem os procedimentos pendentes de arquivamento na unidade atual
+     *
+     * @return array
+     */
+    protected function obterProcedimentosPendentesConectado(MdGdPesquisarPendenciasArquivamentoDTO $objMdGdPesquisarPendenciasArquivamentoDTO){
 
+        // Varável que receberá o dto hidratado
+        $objProcedimentoDTO = null;
+
+        // Obtem os processos em que o último andamento tenha sido de conclusão na unidade 
+        $arrTarefas = [
+            TarefaRN::$TI_CONCLUSAO_PROCESSO_UNIDADE
+        ];
+
+        $condicao = '';
+
+        // Aplicação dos filtros de período
+        if($objMdGdPesquisarPendenciasArquivamentoDTO->isSetDthPeriodoInicial()){ 
+            $strDthPeriodoInicial = InfraData::formatarDataBanco($objMdGdPesquisarPendenciasArquivamentoDTO->getDthPeriodoInicial());
+            $condicao .= " AND atv.dth_abertura >= '".$strDthPeriodoInicial." 00:00:00' ";     
+        }
+
+        if($objMdGdPesquisarPendenciasArquivamentoDTO->isSetDthPeriodoFinal()){
+            $strDthPeriodoFinal = InfraData::formatarDataBanco($objMdGdPesquisarPendenciasArquivamentoDTO->getDthPeriodoInicial());
+            $condicao .= " AND atv.dth_abertura <= '".$strDthPeriodoFinal." 23:59:59' ";     
+        }
+
+        $sql = '
+            SELECT  
+                atv.id_protocolo, atv.dth_abertura 
+            FROM 
+                atividade as atv 
+            WHERE 
+                atv.id_atividade IN (
+                SELECT 
+                    max(atv.id_atividade) as id_atividade 
+                FROM
+                    atividade atv
+                INNER JOIN 
+                    procedimento pr
+                    ON pr.id_procedimento  = atv.id_protocolo 
+                WHERE
+                     1 = 1 
+                     '.$condicao.'
+                GROUP BY 
+                    atv.id_protocolo)
+            AND 
+                atv.id_tarefa IN ('.implode(',', $arrTarefas).')
+            AND 
+                atv.id_unidade = '.SessaoSEI::getInstance()->getNumIdUnidadeAtual().' ';
+                    
+        $arrProcedimentos = $this->getObjInfraIBanco()->consultarSql($sql);
+        $arrIdProcedimentos = [];
+        $arrIdProcedimentoDth = [];
+
+        foreach($arrProcedimentos as $idProcedimento){
+            $arrIdProcedimentos[] = $idProcedimento['id_protocolo'];
+            $idProcedimento['dth_abertura'] = explode(' ', $idProcedimento['dth_abertura']);
+            $idProcedimento['dth_abertura'] = explode('-', $idProcedimento['dth_abertura'][0]);
+            $arrIdProcedimentoDth[$idProcedimento['id_protocolo']] = $idProcedimento['dth_abertura'][2].'/'.$idProcedimento['dth_abertura'][1].'/'.$idProcedimento['dth_abertura'][0];
+        }
+        
+        
+        if($arrIdProcedimentos){  
+   
+            // Retira os procedimentos fechados  
+            $objAtividadeDTO = new AtividadeDTO();
+            $objAtividadeDTO->setDistinct(true);
+            $objAtividadeDTO->retDblIdProtocolo();
+            $objAtividadeDTO->setDthConclusao(null);
+            $objAtividadeDTO->setDblIdProtocolo($arrIdProcedimentos,InfraDTO::$OPER_IN);
+
+            $objAtividadeRN = new AtividadeRN();
+            $arrProcedimentoAbertos = InfraArray::converterArrInfraDTO($objAtividadeRN->listarRN0036($objAtividadeDTO), 'IdProtocolo');
+        
+
+            $arrProcedimentoAbertos = array_keys($arrProcedimentoAbertos);
+            $arrIdProcedimentos = array_diff($arrIdProcedimentos, $arrProcedimentoAbertos);
+
+            if($arrIdProcedimentos){
+                // Retira os procedimentos arquivados
+                $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
+                $objMdGdArquivamentoDTO->setDblIdProcedimento($arrIdProcedimentos, InfraDTO::$OPER_IN);
+                $objMdGdArquivamentoDTO->setStrSinAtivo('S');
+                $objMdGdArquivamentoDTO->retDblIdProcedimento();
+                
+                $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
+                $arrProcedimentoArquivados = InfraArray::converterArrInfraDTO($objMdGdArquivamentoRN->listar($objMdGdArquivamentoDTO), 'IdProcedimento');            
+                $arrIdProcedimentos = array_diff($arrIdProcedimentos, $arrProcedimentoArquivados);
+                
+                if($arrIdProcedimentos){
+                    
+                    // Faz o filtro por assunto
+                    if($objMdGdPesquisarPendenciasArquivamentoDTO->isSetNumIdProtocoloAssunto()){
+                        $objRelProtocoloAssuntoDTO = new RelProtocoloAssuntoDTO();
+                        $objRelProtocoloAssuntoDTO->setDblIdProtocolo($arrIdProcedimentos, InfraDTO::$OPER_IN);
+                        $objRelProtocoloAssuntoDTO->setNumIdAssunto($objMdGdPesquisarPendenciasArquivamentoDTO->getNumIdProtocoloAssunto());
+                        $objRelProtocoloAssuntoDTO->retDblIdProtocolo();
+                        
+                        $objRelProtocoloAssuntoRN = new RelProtocoloAssuntoRN();
+                        $arrIdProcedimentos = InfraArray::converterArrInfraDTO($objRelProtocoloAssuntoRN->listarRN0188($objRelProtocoloAssuntoDTO),'IdProtocolo');
+                    }
+
+                    // Instância o dto de pesquisa
+                    if($arrIdProcedimentos){
+                        $objProcedimentoDTO = new ProcedimentoDTO();
+                        $objProcedimentoDTO->setDblIdProcedimento($arrIdProcedimentos, InfraDTO::$OPER_IN);
+                        $objProcedimentoDTO->retDblIdProcedimento();
+                        $objProcedimentoDTO->retStrProtocoloProcedimentoFormatado();
+                        $objProcedimentoDTO->retStrNomeTipoProcedimento();
+                        $objProcedimentoDTO->retObjAnotacaoDTO();
+                        $objProcedimentoDTO->retStrStaNivelAcessoGlobalProtocolo();
+                        $objProcedimentoDTO->retStrDescricaoProtocolo();
+            
+                        if ($objMdGdPesquisarPendenciasArquivamentoDTO->isSetNumIdTipoProcedimento()) {
+                            $objProcedimentoDTO->setNumIdTipoProcedimento($objMdGdPesquisarPendenciasArquivamentoDTO->getNumIdTipoProcedimento());
+                        }
+                    }
+                }
+            }
+        }
+
+        return [$objProcedimentoDTO, $arrIdProcedimentoDth];
+
+    }
     #############MÉTODOS DE TRAMITAÇÃO DO ARQUIVAMENTO DO PROCESSO################
+
+    // CODE
+    public function envairFaseIntermediariaControlado(){
+        
+    }
+
     /**
      * Retira um processo arquivado de uma listagem de eliminação
      * 
@@ -689,11 +877,14 @@ class MdGdArquivamentoRN extends InfraRN {
      * Envia um processo para a preparação de listagem de eliminação
      * 
      * @param MdGdArquivamentoDTO $objMdGdArquivamentoDTO
-     * @return null
+     * @return boolean
      * @throws InfraException
      */
     protected function enviarEliminacaoControlado(MdGdArquivamentoDTO $objMdGdArquivamentoDTO) {
         try {
+
+            // Valida a permissão
+            SessaoSEI::getInstance()->validarAuditarPermissao('gd_arquivamento_eliminacao_enviar', __METHOD__, $objMdGdArquivamentoDTO);
 
             // Valida se o id do arquivamento foi informado
             if (!$objMdGdArquivamentoDTO->isSetNumIdArquivamento()) {
@@ -727,12 +918,15 @@ class MdGdArquivamentoRN extends InfraRN {
      * Envia um processo para a preparação de listagem de recolhimento
      * 
      * @param MdGdArquivamentoDTO $objMdGdArquivamentoDTO
-     * @return null
+     * @return boolean
      * @throws InfraException
      */
     protected function enviarRecolhimentoControlado(MdGdArquivamentoDTO $objMdGdArquivamentoDTO) {
         try {
 
+            // Valida a permissão
+            SessaoSEI::getInstance()->validarAuditarPermissao('gd_arquivamento_recolhimento_enviar', __METHOD__, $objMdGdArquivamentoDTO);
+            
             // Valida se o id do arquivamento foi informado
             if (!$objMdGdArquivamentoDTO->isSetNumIdArquivamento()) {
                 throw new InfraException('Informe o número do arquivamento');
@@ -765,10 +959,14 @@ class MdGdArquivamentoRN extends InfraRN {
      * Devolve o arquivamento para a unidade corrente para correção
      *
      * @param MdGdArquivamentoDTO $objMdGdArquivamentoDTO
-     * @return void
+     * @return boolean
+     * @throws InfraException
      */
     protected function devolverArquivamentoControlado(MdGdArquivamentoDTO $objMdGdArquivamentoDTO){
         try {
+
+            // Valida a permissão
+            SessaoSEI::getInstance()->validarAuditarPermissao('gd_arquivamento_devolver', __METHOD__, $objMdGdArquivamentoDTO);
 
             // Valida se o id do arquivamento foi informado
             if (!$objMdGdArquivamentoDTO->isSetNumIdArquivamento()) {
@@ -793,14 +991,19 @@ class MdGdArquivamentoRN extends InfraRN {
             throw new InfraException('Erro ao editar arquivamento.', $e);
         }
     }
+
     /**
      * Altera a situação do arquivamento para em edição
      *
      * @param MdGdArquivamentoDTO $objMdGdArquivamentoDTO
      * @return boolean
+     * @throws InfraException
      */
     protected function editarArquivamentoControlado(MdGdArquivamentoDTO $objMdGdArquivamentoDTO){
         try {
+
+            // Valida a permissão
+            SessaoSEI::getInstance()->validarAuditarPermissao('gd_arquivamento_editar', __METHOD__, $objMdGdArquivamentoDTO);
 
             // Valida se o id do arquivamento foi informado
             if (!$objMdGdArquivamentoDTO->isSetNumIdArquivamento()) {
@@ -838,7 +1041,6 @@ class MdGdArquivamentoRN extends InfraRN {
             $objProcedimentoDTO = $objProcedimentoRN->consultarRN0201($objProcedimentoDTO);
             $objProcedimentoRN->desbloquear([$objProcedimentoDTO]);
             
-
             // Atualiza a situação do arquivamento
             $objMdGdArquivamentoDTO->setStrSituacao(self::$ST_FASE_EDICAO);
             return $this->alterar($objMdGdArquivamentoDTO);
@@ -855,6 +1057,9 @@ class MdGdArquivamentoRN extends InfraRN {
      */
     protected function concluirEdicaoArquivamentoControlado(MdGdArquivamentoDTO $objMdGdArquivamentoDTO){
         try{
+
+            // Valida a permissão
+            SessaoSEI::getInstance()->validarAuditarPermissao('gd_arquivamento_edicao_concluir', __METHOD__, $objMdGdArquivamentoDTO);
 
             if (!$objMdGdArquivamentoDTO->isSetNumIdArquivamento()) {
                 throw new InfraException('Informe o número do arquivamento');
@@ -890,15 +1095,19 @@ class MdGdArquivamentoRN extends InfraRN {
      * @param string $strSituacaoAtual
      * @return boolean
      */
-    protected function registrarHistoricoArquivamento($numIdArquivamento, $strSituacaoAntiga, $strSituacaoAtual){
-        
+    protected function registrarHistoricoArquivamento($numIdArquivamento, $strSituacaoAntiga, $strSituacaoAtual, $strDataHistorico = null){
         $objMdGdArquivamentoHistoricoDTO = new MdGdArquivamentoHistoricoDTO();
         $objMdGdArquivamentoHistoricoDTO->setNumIdArquivamento($numIdArquivamento);
         $objMdGdArquivamentoHistoricoDTO->setStrSituacaoAntiga($strSituacaoAntiga);
         $objMdGdArquivamentoHistoricoDTO->setStrSituacaoAtual($strSituacaoAtual);
         $objMdGdArquivamentoHistoricoDTO->setNumIdUsuario(SessaoSEI::getInstance()->getNumIdUsuario());
         $objMdGdArquivamentoHistoricoDTO->setNumIdUnidade(SessaoSEI::getInstance()->getNumIdUnidadeAtual());
-        $objMdGdArquivamentoHistoricoDTO->setDthHistorico(date('Y-m-d H:i:s'));
+        
+        if($strDataHistorico){
+            $objMdGdArquivamentoHistoricoDTO->setDthHistorico($strDataHistorico);
+        }else{
+            $objMdGdArquivamentoHistoricoDTO->setDthHistorico(date('d/m/Y H:i:s'));
+        }
         
         $arrDescricoesHistorico = MdGdArquivamentoHistoricoRN::descricoesHistorico();
         $objMdGdArquivamentoHistoricoDTO->setStrDescricao($arrDescricoesHistorico[$strSituacaoAtual]);
@@ -908,6 +1117,7 @@ class MdGdArquivamentoRN extends InfraRN {
     }
 
     ######################HELPERS DE ARQUIVAMENTO##############################
+    
     
 
     /**
@@ -924,7 +1134,8 @@ class MdGdArquivamentoRN extends InfraRN {
             self::$ST_ENVIADO_RECOLHIMENTO => 'Enviado para Recolhimento',
             self::$ST_ENVIADO_ELIMINACAO => 'Enviado para Eliminação',
             self::$ST_RECOLHIDO => 'Recolhido',
-            self::$ST_ELIMINADO => 'Eliminado'
+            self::$ST_ELIMINADO => 'Eliminado',
+            self::$ST_DESARQUIVADO => 'Desarquivado'
         ];
     }
 
@@ -1018,6 +1229,8 @@ class MdGdArquivamentoRN extends InfraRN {
         
         return array($years, $months, $days);
     }
+
+    
 
 }
 

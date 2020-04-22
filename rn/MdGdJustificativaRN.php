@@ -2,22 +2,39 @@
 
 require_once dirname(__FILE__) . '/../../../SEI.php';
 
+/**
+ * Classe de regras de negócio das justificativas de arquivamento
+ */
 class MdGdJustificativaRN extends InfraRN
 {
 
     public static $STA_TIPO_ARQUIVAMENTO = 'A';
     public static $STA_TIPO_DESARQUIVAMENTO = 'D';
 
+    /**
+     * Construtor
+     */
     public function __construct()
     {
         parent::__construct();
     }
 
+    /**
+     * Inicialização da instância com o banco de dados do SEI
+     *
+     * @return BancoSEI
+     */
     protected function inicializarObjInfraIBanco()
     {
         return BancoSEI::getInstance();
     }
 
+    /**
+     * Cadastro de justificativa de arquivamento
+     *
+     * @param MdGdJustificativaDTO $objMdGdJustificativaDTO
+     * @return boolean|InfraException
+     */
     protected function cadastrarControlado(MdGdJustificativaDTO $objMdGdJustificativaDTO)
     {
         try {
@@ -44,6 +61,12 @@ class MdGdJustificativaRN extends InfraRN
         }
     }
 
+    /**
+     * Alteração de justificativa de arquivamento
+     *
+     * @param MdGdJustificativaDTO $objMdGdJustificativaDTO
+     * @return boolean|InfraException
+     */
     protected function alterarControlado(MdGdJustificativaDTO $objMdGdJustificativaDTO)
     {
         try {
@@ -72,6 +95,13 @@ class MdGdJustificativaRN extends InfraRN
         }
     }
 
+
+    /**
+     * Exclusão de justificativa de arquivamento
+     *
+     * @param MdGdJustificativaDTO $objMdGdJustificativaDTO
+     * @return boolean|InfraException
+     */
     protected function excluirControlado($arrObjMdGdJustificativaDTO)
     {
         try {
@@ -90,6 +120,13 @@ class MdGdJustificativaRN extends InfraRN
         }
     }
 
+
+    /**
+     * Consulta de justificativa de arquivamento
+     *
+     * @param MdGdJustificativaDTO $objMdGdJustificativaDTO
+     * @return boolean|InfraException
+     */
     protected function consultarConectado(MdGdJustificativaDTO $objMdGdJustificativaDTO)
     {
         try {
@@ -103,6 +140,13 @@ class MdGdJustificativaRN extends InfraRN
         }
     }
 
+
+    /**
+     * Lista de justificativa de arquivamento
+     *
+     * @param MdGdJustificativaDTO $objMdGdJustificativaDTO
+     * @return boolean|InfraException
+     */
     protected function listarConectado(MdGdJustificativaDTO $objMdGdJustificativaDTO)
     {
         try {
@@ -116,18 +160,29 @@ class MdGdJustificativaRN extends InfraRN
         }
     }
 
-    
-  protected function contarConectado(MdGdJustificativaDTO $objMdGdJustificativaDTO){
-    try {
-      $objMdGdJustificativaBD = new MdGdJustificativaBD($this->getObjInfraIBanco());
-      $ret = $objMdGdJustificativaBD->contar($objMdGdJustificativaDTO);
+    /**
+     * Constagem de justificativas de arquivamento
+     *
+     * @param MdGdJustificativaDTO $objMdGdJustificativaDTO
+     * @return boolean|InfraException
+     */
+    protected function contarConectado(MdGdJustificativaDTO $objMdGdJustificativaDTO){
+        try {
+        $objMdGdJustificativaBD = new MdGdJustificativaBD($this->getObjInfraIBanco());
+        $ret = $objMdGdJustificativaBD->contar($objMdGdJustificativaDTO);
 
-      return $ret;
-    }catch(Exception $e){
-      throw new InfraException('Erro contando as justificativas.',$e);
+        return $ret;
+        }catch(Exception $e){
+        throw new InfraException('Erro contando as justificativas.',$e);
+        }
     }
-  }
 
+    /**
+     * Método helper de obtenção do tipo de justificativa
+     *
+     * @param string $justificativa
+     * @return string
+     */
     public static function obterTituloJustificativa($justificativa)
     {
         if ($justificativa == self::$STA_TIPO_ARQUIVAMENTO) {

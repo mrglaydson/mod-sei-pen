@@ -11,12 +11,14 @@ try {
     //////////////////////////////////////////////////////////////////////////////
 
     SessaoSEI::getInstance()->validarLink();
-
     SessaoSEI::getInstance()->validarPermissao($_GET['acao']);
-
     PaginaSEI::getInstance()->salvarCamposPost(array('selUnidadeOrigem', 'selUnidadeDestino'));
 
     switch ($_GET['acao']) {
+        case 'gd_unidade_arquivamento_listar':
+            $strTitulo = 'Unidades de Arquivamento';
+            break;
+
         case 'gd_unidade_arquivamento_excluir':
             try {
                 $arrStrIds = PaginaSEI::getInstance()->getArrStrItensSelecionados();
@@ -38,13 +40,6 @@ try {
             }
             header('Location: ' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . $_GET['acao_origem'] . '&acao_origem=' . $_GET['acao']));
             die;
-
-
-        case 'gd_unidade_arquivamento_listar':
-            $strTitulo = 'Unidades de Arquivamento';
-            
-            break;
-
         default:
             throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
     }
@@ -69,13 +64,12 @@ try {
     $objMdGdUnidadeArquivamentoDTO->retStrDescricaoUnidadeDestino();
     
     $selUnidadeOrigem = PaginaSEI::getInstance()->recuperarCampo('selUnidadeOrigem');
-    
-    if ($selUnidadeOrigem !== 'null') {
+    if ($selUnidadeOrigem && $selUnidadeOrigem !== 'null') {
         $objMdGdUnidadeArquivamentoDTO->setNumIdUnidadeOrigem($selUnidadeOrigem);
     }
 
     $selUnidadeDestino = PaginaSEI::getInstance()->recuperarCampo('selUnidadeDestino');
-    if ($selUnidadeDestino !== 'null') {
+    if ($selUnidadeDestino && $selUnidadeDestino !== 'null') {
         $objMdGdUnidadeArquivamentoDTO->setNumIdUnidadeDestino($selUnidadeDestino);
     }
 
@@ -83,7 +77,6 @@ try {
     $bolAcaoAlterar = SessaoSEI::getInstance()->verificarPermissao('gd_unidade_arquivamento_alterar');
     $bolAcaoExcluir = SessaoSEI::getInstance()->verificarPermissao('gd_unidade_arquivamento_excluir');
     $bolAcaoConsultar = SessaoSEI::getInstance()->verificarPermissao('gd_unidade_arquivamento_visualizar');
-    $bolAcaoImprimir = true;
 
     // Ação de exclusão
     if ($bolAcaoExcluir) {
@@ -92,15 +85,13 @@ try {
     }
 
     // Ação de impressão
-    if ($bolAcaoImprimir) {
-        $arrComandos[] = '<button type="button" accesskey="I" id="btnImprimir" value="Imprimir" onclick="infraImprimirTabela();" class="infraButton"><span class="infraTeclaAtalho">I</span>mprimir</button>';
-    }
-    $arrMdGdUnidadeArquivamentoDTO = $objMdGdUnidadeArquivamentoRN->listar($objMdGdUnidadeArquivamentoDTO);
-
-
+    $arrComandos[] = '<button type="button" accesskey="I" id="btnImprimir" value="Imprimir" onclick="infraImprimirTabela();" class="infraButton"><span class="infraTeclaAtalho">I</span>mprimir</button>';
+    
     PaginaSEI::getInstance()->prepararOrdenacao($objMdGdUnidadeArquivamentoDTO, 'SiglaUnidadeOrigem', InfraDTO::$TIPO_ORDENACAO_ASC);
     PaginaSEI::getInstance()->prepararPaginacao($objMdGdUnidadeArquivamentoDTO);
 
+    $arrMdGdUnidadeArquivamentoDTO = $objMdGdUnidadeArquivamentoRN->listar($objMdGdUnidadeArquivamentoDTO);
+    
     PaginaSEI::getInstance()->processarPaginacao($objMdGdUnidadeArquivamentoDTO);
     $numRegistros = count($arrMdGdUnidadeArquivamentoDTO);
 

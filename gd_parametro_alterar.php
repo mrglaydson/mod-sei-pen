@@ -5,12 +5,13 @@ try {
     session_start();
 
     //////////////////////////////////////////////////////////////////////////////
-    //InfraDebug::getInstance()->setBolLigado(false);
-    //InfraDebug::getInstance()->setBolDebugInfra(true);
-    //InfraDebug::getInstance()->limpar();
+    InfraDebug::getInstance()->setBolLigado(false);
+    InfraDebug::getInstance()->setBolDebugInfra(false);
+    InfraDebug::getInstance()->limpar();
     //////////////////////////////////////////////////////////////////////////////
 
     SessaoSEI::getInstance()->validarLink();
+    SessaoSEI::getInstance()->validarPermissao($_GET['acao']);
 
     $objMdGdParametroDTO = new MdGdParametroDTO();
     $objMdGdParametroDTO->retTodos();
@@ -22,17 +23,9 @@ try {
     switch ($_GET['acao']) {
 
         // Ação de alteração
-        case 'gd_parametros_alterar':
-
-            // Valida a permissão da ação de alteração
-            SessaoSEI::getInstance()->validarPermissao('gestao_documental_justificativas_alterar');
-
-            // Cria os botões de salvar e cancelar
-            $arrComandos[] = '<button type="submit" accesskey="S" id="sbmSalvarParametro" name="sbmSalvarParametro" value="Salvar" class="infraButton"><span class="infraTeclaAtalho">S</span>alvar</button>';
-            $arrComandos[] = '<button type="button" accesskey="F" id="btnFechar" name="btnFechar" value="Fechar" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . PaginaSEI::getInstance()->getAcaoRetorno() . '&acao_origem=' . $_GET['acao']) . '\';" class="infraButton"><span class="infraTeclaAtalho">F</span>echar</button>';
-
+        case 'gd_parametro_alterar':
+            
             $strTitulo = 'Configurações da Gestão Documental';
-
 
             if (isset($_POST['sbmSalvarParametro'])) {
                 try {
@@ -51,6 +44,10 @@ try {
         default:
             throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
     }
+    
+    // Cria os botões de salvar e cancelar
+    $arrComandos[] = '<button type="submit" accesskey="S" id="sbmSalvarParametro" name="sbmSalvarParametro" value="Salvar" class="infraButton"><span class="infraTeclaAtalho">S</span>alvar</button>';
+    $arrComandos[] = '<button type="button" accesskey="F" id="btnFechar" name="btnFechar" value="Fechar" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . PaginaSEI::getInstance()->getAcaoRetorno() . '&acao_origem=' . $_GET['acao']) . '\';" class="infraButton"><span class="infraTeclaAtalho">F</span>echar</button>';
 
     // Busca os valores dos selects
     $strSelSerieArquivamento = MdGdArquivamentoINT::montarSelectsSerieNomeGerados('null', '&nbsp;', $arrObjMdGdParametroDTO['DESPACHO_ARQUIVAMENTO']->getStrValor());
@@ -109,38 +106,37 @@ infraEfeitoTabelas();
 }
 
 function validarCadastro() {
-
-if (infraTrim(document.getElementById('sel<?= $strNomeDespachoArquivamento; ?>').value)=='') {
+if (infraTrim(document.getElementById('sel<?= $strNomeDespachoArquivamento; ?>').value)=='null') {
 alert('Informe o Despacho de Arquivamento.');
 document.getElementById('sel<?= $strNomeDespachoArquivamento; ?>').focus();
 return false;
 }
 
-if (infraTrim(document.getElementById('sel<?= $strNomeDespachoDesarquivamento; ?>').value)=='') {
+if (infraTrim(document.getElementById('sel<?= $strNomeDespachoDesarquivamento; ?>').value)=='null') {
 alert('Informe o Despacho de Desarquivamento.');
 document.getElementById('sel<?= $strNomeDespachoDesarquivamento; ?>').focus();
 return false;
 }
 
-if (infraTrim(document.getElementById('sel<?= $strNomeTipoProcedimentoListagemEliminacao; ?>').value)=='') {
+if (infraTrim(document.getElementById('sel<?= $strNomeTipoProcedimentoListagemEliminacao; ?>').value)=='null') {
 alert('Informe o tipo de processo da listagem de eliminação.');
 document.getElementById('sel<?= $strNomeTipoProcedimentoListagemEliminacao; ?>').focus();
 return false;
 }
 
-if (infraTrim(document.getElementById('sel<?= $strNomeTipoDocumentoListagemEliminacao; ?>').value)=='') {
+if (infraTrim(document.getElementById('sel<?= $strNomeTipoDocumentoListagemEliminacao; ?>').value)=='null') {
 alert('Informe o tipo de documento da listagem de eliminação.');
 document.getElementById('sel<?= $strNomeTipoDocumentoListagemEliminacao; ?>').focus();
 return false;
 }
 
-if (infraTrim(document.getElementById('sel<?= $strNomeTipoProcedimentoEliminacao; ?>').value)=='') {
+if (infraTrim(document.getElementById('sel<?= $strNomeTipoProcedimentoEliminacao; ?>').value)=='null') {
 alert('Informe o tipo de processo da eliminação.');
 document.getElementById('sel<?= $strNomeTipoProcedimentoEliminacao; ?>').focus();
 return false;
 }
 
-if (infraTrim(document.getElementById('sel<?= $strNomeTipoDocumentoEliminacao; ?>').value)=='') {
+if (infraTrim(document.getElementById('sel<?= $strNomeTipoDocumentoEliminacao; ?>').value)=='null') {
 alert('Informe o tipo de documento da eliminação.');
 document.getElementById('sel<?= $strNomeTipoDocumentoEliminacao; ?>').focus();
 return false;
@@ -167,7 +163,7 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
           ?>
 
     <label id="lbl<?= $strNomeDespachoArquivamento ?>" for="sel<?= $strNomeDespachoArquivamento ?>" accesskey="p"
-           class="infraLabelObrigatorio"><span class="infraTeclaAtalho">D</span>espacho de Arquivamento:</label>
+           class="infraLabelObrigatorio"><span class="infraTeclaAtalho">D</span>ocumento de Arquivamento:</label>
     <select name="sel<?= $strNomeDespachoArquivamento ?>" id="sel<?= $strNomeDespachoArquivamento ?>"
             class="infraSelect"
             tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
@@ -176,7 +172,7 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
 
     <label id="lbl<?= $strNomeDespachoDesarquivamento ?>" for="sel<?= $strNomeDespachoDesarquivamento ?>"
            accesskey="p"
-           class="infraLabelObrigatorio"><span class="infraTeclaAtalho">D</span>espacho de Desarquivamento:</label>
+           class="infraLabelObrigatorio"><span class="infraTeclaAtalho">D</span>ocumento de Desarquivamento:</label>
     <select name="sel<?= $strNomeDespachoDesarquivamento ?>" id="sel<?= $strNomeDespachoDesarquivamento ?>"
             class="infraSelect"
             tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">

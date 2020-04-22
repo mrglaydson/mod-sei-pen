@@ -12,7 +12,7 @@ class MdGdArquivamentoHistoricoRN extends InfraRN {
         return BancoSEI::getInstance();
     }
 
-    public function cadastrarControlado(MdGdArquivamentoHistoricoDTO $objMdGdArquivamentoHistoricoDTO){
+    public function cadastrarConectado(MdGdArquivamentoHistoricoDTO $objMdGdArquivamentoHistoricoDTO){
         try{    
             
             $objMdGdArquivamentoHistoricoBD = new MdGdArquivamentoHistoricoBD($this->inicializarObjInfraIBanco());
@@ -43,7 +43,8 @@ class MdGdArquivamentoHistoricoRN extends InfraRN {
             MdGdArquivamentoRN::$ST_ENVIADO_RECOLHIMENTO => 'O processo arquivado foi preparado para recolhimento.',
             MdGdArquivamentoRN::$ST_ENVIADO_ELIMINACAO => 'O processo arquivado foi enviado para eliminação.',
             MdGdArquivamentoRN::$ST_RECOLHIDO => 'O processo arquivado foi recolhido.',
-            MdGdArquivamentoRN::$ST_ELIMINADO => 'O processo arquivado foi eliminado.'
+            MdGdArquivamentoRN::$ST_ELIMINADO => 'O processo arquivado foi eliminado.',
+            MdGdArquivamentoRN::$ST_DESARQUIVADO => 'O processo foi desarquivado.'
         );
     }
 
