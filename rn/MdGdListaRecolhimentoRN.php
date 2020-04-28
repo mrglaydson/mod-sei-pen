@@ -20,7 +20,7 @@ class MdGdListaRecolhimentoRN extends InfraRN {
         try {
 
             //Valida Permissao
-            SessaoSEI::getInstance()->validarAuditarPermissao('gestao_documental_prep_list_recolhimento_gerar', __METHOD__, $objMdGdListaRecolhimento);
+            SessaoSEI::getInstance()->validarAuditarPermissao('gd_lista_recolhimento_preparacao_gerar', __METHOD__, $objMdGdListaRecolhimento);
 
             // Recupera os arquivamentos
             $arrObjMdGdArquivamentoDTO = $objMdGdListaRecolhimento->getArrObjMdGdArquivamentoDTO();
@@ -150,6 +150,12 @@ class MdGdListaRecolhimentoRN extends InfraRN {
     public function gerarPdfConectado($numIdListagem) {
         $objMdGdListaRecolProcedimentoDTO = new MdGdListaRecolProcedimentoDTO();
         $objMdGdListaRecolProcedimentoDTO->setNumIdListaRecolhimento($_GET['id_listagem_recolhimento']);
+
+        if($_POST['hdnInfraItensSelecionados']){
+            $arrIdsProcedimentos = explode(',', $_POST['hdnInfraItensSelecionados']);
+            $objMdGdListaRecolProcedimentoDTO->setDblIdProcedimento($arrIdsProcedimentos, InfraDTO::$OPER_IN);
+        }
+        
         $objMdGdListaRecolProcedimentoDTO->retDblIdProcedimento();
 
         $objMdGdListaRecolProcedimentoRN = new MdGdListaRecolProcedimentoRN();
@@ -176,9 +182,6 @@ class MdGdListaRecolhimentoRN extends InfraRN {
 
         if ($numRegistros > 0) {
             $strResultado = '';
-
-            $strSumarioTabela = 'Lista de Processos';
-            $strCaptionTabela = 'Lista de Processos';
 
             $strResultado .= '<table width="99%" class="infraTable" border="1">';
             $strResultado .= '<tr>';
@@ -292,7 +295,7 @@ class MdGdListaRecolhimentoRN extends InfraRN {
 
             // Obtem os processos da listagem de recolhimento
             $objMdGdListaRecolProcedimentoDTO = new MdGdListaRecolProcedimentoDTO();
-            $objMdGdListaRecolProcedimentoDTO->setNumIdListaEliminacao($objMdGdListaRecolhimentoDTO->getNumIdListaRecolhimento());
+            $objMdGdListaRecolProcedimentoDTO->setNumIdListaRecolhimento($objMdGdListaRecolhimentoDTO->getNumIdListaRecolhimento());
             $objMdGdListaRecolProcedimentoDTO->retDblIdProcedimento();
 
             $objMdGdListaRecolProcedimentoRN = new MdGdListaRecolProcedimentoRN();

@@ -170,74 +170,112 @@ try {
 
     ###########################################################RECURSOS#############################################################################################
 
+    # PREPARAÇÃO DA LISTA DE ELIMINAÇÃO
+
     //Cadasta o recurso de listagem da preparação de listagem de eliminação
-    $id_recurso_prep_list_eliminacao_listar = $fnCadastrarRecurso($id_sistema, 'gestao_documental_prep_list_eliminacao_listar', 'Lista de preparação para a listagem de eliminação', 'controlador.php?acao=gd_prep_list_eliminacao_listar', 'S');
-
-    // Cadastra o recurso da exclusão de praparação para a listagem de eliminação
-    $id_recurso_prep_list_eliminacao_excluir = $fnCadastrarRecurso($id_sistema, 'gestao_documental_prep_list_eliminacao_excluir', 'Exclusão da preparação para a listagem de eliminação', 'controlador.php?acao=gd_prep_list_eliminacao_excluir', 'S');
-
-    // Cadastra o recurso da observação de preparação para a listagem de eliminação
-    $id_recurso_prep_list_eliminacao_observar = $fnCadastrarRecurso($id_sistema, 'gestao_documental_prep_list_eliminacao_observar', 'Observação/Justificativa da preparação para a listagem de eliminação', 'controlador.php?acao=gd_prep_list_eliminacao_observar', 'S');
+    $id_recurso_lista_eliminacao_preparacao_listar = $fnCadastrarRecurso($id_sistema, 'gd_lista_eliminacao_preparacao_listar', 'Lista de preparação para a listagem de eliminação', 'controlador.php?acao=gd_lista_eliminacao_preparacao_listar', 'S');
 
     // Cadastra o recurso de geração da listagem de eliminação
-    $id_recurso_prep_list_eliminacao_gerar = $fnCadastrarRecurso($id_sistema, 'gestao_documental_prep_list_eliminacao_gerar', 'Geração da listagem de eliminação', 'controlador.php?acao=gd_prep_list_eliminacao_gerar', 'S');
+    $id_recurso_lista_eliminacao_preparacao_gerar = $fnCadastrarRecurso($id_sistema, 'gd_lista_eliminacao_preparacao_gerar', 'Geração da listagem de eliminação', 'controlador.php?acao=gd_lista_eliminacao_preparacao_gerar', 'S');
+
+    // Cadastra o recurso da exclusão de praparação para a listagem de eliminação
+    $id_recurso_lista_eliminacao_preparacao_excluir = $fnCadastrarRecurso($id_sistema, 'gd_lista_eliminacao_preparacao_excluir', 'Exclusão da preparação para a listagem de eliminação', 'controlador.php?acao=gd_lista_eliminacao_preparacao_excluir', 'S');
+
+    // Cadastra o recurso da observação de preparação para a listagem de eliminação
+    $id_recurso_lista_eliminacao_preparacao_observar = $fnCadastrarRecurso($id_sistema, 'gd_lista_eliminacao_preparacao_observar', 'Observação/Justificativa da preparação para a listagem de eliminação', 'controlador.php?acao=gd_lista_eliminacao_preparacao_observar', 'S');
+
+    
+    # PREPARAÇÃO DA LISTA DE RECOLHIMENTO
 
     //Cadasta o recurso da preparação de listagem de recolhimento
-    $id_recurso_prep_list_recolhimento_listar = $fnCadastrarRecurso($id_sistema, 'gestao_documental_prep_list_recolhimento_listar', 'Lista de preparação para a listagem de recolhimento', 'controlador.php?acao=gd_prep_list_recolhimento_listar', 'S');
+    $id_recurso_lista_recolhimento_preparacao_listar = $fnCadastrarRecurso($id_sistema, 'gd_lista_recolhimento_preparacao_listar', 'Lista de preparação para a listagem de recolhimento', 'controlador.php?acao=gd_lista_recolhimento_preparacao_listar', 'S');
 
     // Cadastra o recurso da exclusão de preparação para a listagem de recolhimento
-    $id_recurso_prep_list_recolhimento_excluir = $fnCadastrarRecurso($id_sistema, 'gestao_documental_prep_list_recolhimento_excluir', 'Exclusão da preparação para a listagem de recolhimento', 'controlador.php?acao=gd_prep_list_recolhimento_excluir', 'S');
+    $id_recurso_lista_recolhimento_preparacao_excluir = $fnCadastrarRecurso($id_sistema, 'gd_lista_recolhimento_preparacao_excluir', 'Exclusão da preparação para a listagem de recolhimento', 'controlador.php?acao=gd_lista_recolhimento_preparacao_excluir', 'S');
 
     // Cadastra o recurso da observação de preparação para a listagem de recolhimento
-    $id_recurso_prep_list_recolhimento_observar = $fnCadastrarRecurso($id_sistema, 'gestao_documental_prep_list_recolhimento_observar', 'Observação/Justificativa da preparação para a listagem de recolhimento', 'controlador.php?acao=gd_prep_list_recolhimento_observar', 'S');
+    $id_recurso_lista_recolhimento_preparacao_observar = $fnCadastrarRecurso($id_sistema, 'gd_lista_recolhimento_preparacao_observar', 'Observação/Justificativa da preparação para a listagem de recolhimento', 'controlador.php?acao=gd_lista_recolhimento_preparacao_observar', 'S');
 
     // Cadastra o recurso de geração da listagem de recolhimento
-    $id_recurso_prep_list_recolhimento_gerar = $fnCadastrarRecurso($id_sistema, 'gestao_documental_prep_list_recolhimento_gerar', 'Geração da listagem de recolhimento', 'controlador.php?acao=gd_prep_list_recolhimento_gerar', 'S');
+    $id_recurso_lista_recolhimento_preparacao_gerar = $fnCadastrarRecurso($id_sistema, 'gd_lista_recolhimento_preparacao_gerar', 'Geração da listagem de recolhimento', 'controlador.php?acao=gd_lista_recolhimento_preparacao_gerar', 'S');
 
-    //Cadasta o recurso de gestão da listagem de eliminação
-    $id_recurso_gestao_listagem_eliminacao = $fnCadastrarRecurso($id_sistema, 'gestao_documental_gestao_listagem_eliminacao', 'Gestão da listagem de eliminação', 'controlador.php?acao=gd_gestao_listagem_eliminacao', 'S');
-
-    // Cadastra o recurso de geração do pdf da listagem de eliminação
-    $id_recurso_geracao_pdf_listagem_eliminacao = $fnCadastrarRecurso($id_sistema, 'gestao_documental_geracao_pdf_listagem_eliminacao', 'Geração de pdf da listagem de eliminação', 'controlador.php?acao=gd_geracao_pdf_listagem_eliminacao', 'S');
-
-    // Cadastra o recurso de visualização da listagem de eliminação
-    $id_recurso_visualizacao_listagem_eliminacao = $fnCadastrarRecurso($id_sistema, 'gestao_documental_visualizacao_listagem_eliminacao', 'Visualização da listagem de eliminação', 'controlador.php?acao=gd_visualizacao_listagem_eliminacao', 'S');
-
-    // Cadastra o recurso de listagem documentos fisicos para eliminação
-    $id_recurso_listagem_eliminacao_documentos_fisicos = $fnCadastrarRecurso($id_sistema, 'gestao_documental_list_elim_documentos_fisicos', 'Listagem dos documentos físicos para eliminação', 'controlador.php?acao=gd_listagem_eliminacao_documentos_fisicos', 'S');
-
-    // Cadastra o recurso de registro da eliminação de documentos fisicos
-    $id_recurso_eliminacao_documentos_fisicos = $fnCadastrarRecurso($id_sistema, 'gestao_documental_eliminacao_documentos_fisicos', 'Eliminação dos documentos físicos', 'controlador.php?acao=gd_eliminacao_documentos_fisicos', 'S');
-
-    // Cadastra o recurso de eliminação
-    $id_recurso_eliminacao = $fnCadastrarRecurso($id_sistema, 'gestao_documental_eliminacao', 'Eliminação de processos', 'controlador.php?acao=gd_eliminacao', 'S');
+    # GESTÃO DA LISTAGEM DE RECOLHIMENTO
 
     //Cadasta o recurso da gestão de listagem de recolhimento
-    $id_recurso_gestao_listagem_recolhimento = $fnCadastrarRecurso($id_sistema, 'gestao_documental_gestao_list_recolhimento', 'Gestão da listagem de recolhimento', 'controlador.php?acao=gd_gestao_listagem_recolhimento', 'S');
+    $id_recurso_gestao_listagem_recolhimento = $fnCadastrarRecurso($id_sistema, 'gd_lista_recolhimento_listar', 'Gestão da listagem de recolhimento', 'controlador.php?acao=gd_lista_recolhimento_listar', 'S');
+
+    // Cadastra o recurso de visualizar listagem de recolhimento
+    $id_recurso_lista_recolhimento_visualizar = $fnCadastrarRecurso($id_sistema, 'gd_lista_recolhimento_visualizar', 'Visualizar listagem de recolhimento', 'controlador.php?acao=gd_lista_recolhimento_visualizar', 'S');
+
+    // Cadastra o recurso de edição do recolhimento
+    $id_recurso_lista_recolhimento_editar = $fnCadastrarRecurso($id_sistema, 'gd_lista_recolhimento_editar', 'Editar listagem de recolhimento', 'controlador.php?acao=gd_lista_recolhimento_editar', 'S');
 
     // Cadastra o recurso de geração do pdf da listagem de recolhimento
-    $id_recurso_geracao_pdf_listagem_recolhimento = $fnCadastrarRecurso($id_sistema, 'gestao_documental_geracao_pdf_list_recolhimento', 'Geração de pdf da listagem de recolhimento', 'controlador.php?acao=gd_geracao_pdf_listagem_recolhimento', 'S');
+    $id_recurso_lista_recolhimento_pdf_gerar = $fnCadastrarRecurso($id_sistema, 'gd_lista_recolhimento_pdf_gerar', 'Geração de pdf da listagem de recolhimento', 'controlador.php?acao=gd_lista_recolhimento_pdf_gerar', 'S');
 
-    // Cadastra o recurso de visualização da listagem de recolhimento
-    $id_recurso_visualizacao_listagem_recolhimento = $fnCadastrarRecurso($id_sistema, 'gestao_documental_visualizacao_list_recolhimento', 'Visualização da listagem de recolhimento', 'controlador.php?acao=gd_visualizacao_listagem_recolhimento', 'S');
-
-    // Cadastra o recurso de listagem documentos fisicos para recolhimento
-    $id_recurso_listagem_recolhimento_documentos_fisicos = $fnCadastrarRecurso($id_sistema, 'gestao_documental_list_recol_documentos_fisicos', 'Listagem dos documentos físicos para recolhimento', 'controlador.php?acao=gd_listagem_recolhimento_documentos_fisicos', 'S');
-
-    // Cadastra o recurso de registro da eliminação de documentos fisicos
-    $id_recurso_recolhimento_documentos_fisicos = $fnCadastrarRecurso($id_sistema, 'gestao_documental_recolhimento_documentos_fisicos', 'Recolhimento dos documentos físicos', 'controlador.php?acao=gd_recolhimento_documentos_fisicos', 'S');
+    // Cadastra o reurso de conclusão da edição do recolhimento
+    $id_recurso_lista_recolhimento_edicao_concluir = $fnCadastrarRecurso($id_sistema, 'gd_lista_recolhimento_edicao_concluir', 'Concluir edição da listagem de recolhimento', 'controlador.php?acao=gd_lista_recolhimento_edicao_concluir', 'S');
 
     // Cadastra o recurso de recolhimento
-    $id_recurso_recolhimento = $fnCadastrarRecurso($id_sistema, 'gestao_documental_recolhimento', 'Recolhimento de processos', 'controlador.php?acao=gd_recolhimento', 'S');
+    $id_recurso_recolhimento = $fnCadastrarRecurso($id_sistema, 'gd_lista_recolhimento_recolher', 'Recolhimento de processos', 'controlador.php?acao=gd_lista_recolhimento_recolher', 'S');
 
+    // Cadastra o recurso de adição da lista de recolhimento
+    $id_recurso_lista_recolhimento_procedimento_adicionar = $fnCadastrarRecurso($id_sistema, 'gd_lista_recolhimento_procedimento_adicionar', 'Adicionar processo na listagem de eliminação', 'controlador.php?acao=gd_lista_recolhimento_procedimento_adicionar', 'S');
+
+    // Cadastra o recurso de remoção da lista de recolhimento
+    $id_recurso_lista_recolhimento_procedimento_remover = $fnCadastrarRecurso($id_sistema, 'gd_lista_recolhimento_procedimento_remover', 'Remover processo da listagem de eliminação', 'controlador.php?acao=gd_lista_recolhimento_procedimento_remover', 'S');
+
+
+
+    # GESTÃO DA LISTAGEM DE ELIMINAÇÃO
+
+    //Cadasta o recurso de gestão da listagem de eliminação
+    $id_recurso_gestao_listagem_eliminacao = $fnCadastrarRecurso($id_sistema, 'gd_lista_eliminacao_listar', 'Gestão da listagem de eliminação', 'controlador.php?acao=gd_lista_eliminacao_listar', 'S');
+
+    // Cadastra o recurso de visualização da listagem de eliminação
+    $id_recurso_visualizacao_listagem_eliminacao = $fnCadastrarRecurso($id_sistema, 'gd_lista_eliminacao_visualizar', 'Visualização da listagem de eliminação', 'controlador.php?acao=gd_lista_eliminacao_visualizar', 'S');
+
+    // Cadastra o recurso de geração do pdf da listagem de eliminação
+    $id_recurso_geracao_pdf_listagem_eliminacao = $fnCadastrarRecurso($id_sistema, 'gd_lista_eliminacao_pdf_gerar', 'Geração de pdf da listagem de eliminação', 'controlador.php?acao=gd_lista_eliminacao_pdf_gerar', 'S');
+
+    // Cadastra o recurso de edição do eliminação
+    $id_recurso_lista_eliminacao_editar = $fnCadastrarRecurso($id_sistema, 'gd_lista_eliminacao_editar', 'Editar listagem de eliminação', 'controlador.php?acao=gd_lista_eliminacao_editar', 'S');
+
+    // Cadastra o recurso de geração do pdf da listagem de eliminação
+    $id_recurso_lista_eliminacao_edicao_concluir = $fnCadastrarRecurso($id_sistema, 'gd_lista_eliminacao_edicao_concluir', 'Concluir edição da lista de eliminação', 'controlador.php?acao=gd_lista_eliminacao_edicao_concluir', 'S');
+
+    // Cadastra o recurso de eliminação
+    $id_recurso_eliminacao = $fnCadastrarRecurso($id_sistema, 'gd_lista_eliminacao_eliminar', 'Eliminação de processos', 'controlador.php?acao=gd_lista_eliminacao_eliminar', 'S');
+
+    // Cadastra o recurso de adição da lista de eliminação
+    $id_recurso_lista_eliminacao_procedimento_adicionar = $fnCadastrarRecurso($id_sistema, 'gd_lista_eliminacao_procedimento_adicionar', 'Adicionar processo na listagem de eliminação', 'controlador.php?acao=gd_lista_eliminacao_procedimento_adicionar', 'S');
+
+    // Cadastra o recurso de remoção da lista de eliminação
+    $id_recurso_lista_eliminacao_procedimento_remover = $fnCadastrarRecurso($id_sistema, 'gd_lista_eliminacao_procedimento_remover', 'Remover processo da listagem de eliminação', 'controlador.php?acao=gd_lista_eliminacao_procedimento_remover', 'S');
+
+    
+    // Cadastra o recurso de listagem documentos fisicos para eliminação
+    $id_recurso_listagem_eliminacao_documentos_fisicos = $fnCadastrarRecurso($id_sistema, 'gd_lista_eliminacao_documentos_fisicos_listar', 'Listagem dos documentos físicos para eliminação', 'controlador.php?acao=gd_lista_eliminacao_documentos_fisicos_listar', 'S');
+
+    // Cadastra o recurso de registro da eliminação de documentos fisicos
+    $id_recurso_eliminacao_documentos_fisicos = $fnCadastrarRecurso($id_sistema, 'gd_lista_eliminacao_documentos_fisicos_eliminar', 'Eliminação dos documentos físicos', 'controlador.php?acao=gd_lista_eliminacao_documentos_fisicos_eliminar', 'S');
+
+  
+    // Cadastra o recurso de listagem documentos fisicos para recolhimento
+    $id_recurso_listagem_recolhimento_documentos_fisicos = $fnCadastrarRecurso($id_sistema, 'gd_lista_recolhimento_documentos_fisicos_listar', 'Listagem dos documentos físicos para recolhimento', 'controlador.php?acao=gd_lista_recolhimento_documentos_fisicos_listar', 'S');
+
+    // Cadastra o recurso de registro da eliminação de documentos fisicos
+    $id_recurso_recolhimento_documentos_fisicos = $fnCadastrarRecurso($id_sistema, 'gd_lista_recolhimento_documentos_fisicos_recolher', 'Recolhimento dos documentos físicos', 'controlador.php?acao=gd_lista_recolhimento_documentos_fisicos_recolher', 'S');
+
+    
     // Cadastra o recurso de relatórios
-    $id_recurso_relatorio = $fnCadastrarRecurso($id_sistema, 'gestao_documental_relatorio', 'Relatório da gestão documental', 'controlador.php?acao=gd_relatorio', 'S');
+    $id_recurso_relatorio = $fnCadastrarRecurso($id_sistema, 'gd_relatorio', 'Relatório da gestão documental', 'controlador.php?acao=gd_relatorio', 'S');
 
     // Cadastro o recurso de listagem de eliminações
-    $id_recurso_eliminacao_listar = $fnCadastrarRecurso($id_sistema, 'gestao_documental_eliminacao_listar', 'Listagem de eliminações', 'controlador.php?acao=gd_eliminacao_listar', 'S');
+   // $id_recurso_eliminacao_listar = $fnCadastrarRecurso($id_sistema, 'gestao_documental_eliminacao_listar', 'Listagem de eliminações', 'controlador.php?acao=gd_eliminacao_listar', 'S');
 
     // gestao_documental_recolhimento_listar
-    $id_recurso_recolhimento_listar = $fnCadastrarRecurso($id_sistema, 'gestao_documental_recolhimento_listar', 'Listar recolhimentos', 'controlador.php?acao=gd_recolhimento_listar', 'S');
+    // $id_recurso_recolhimento_listar = $fnCadastrarRecurso($id_sistema, 'gestao_documental_recolhimento_listar', 'Listar recolhimentos', 'controlador.php?acao=gd_recolhimento_listar', 'S');
 
     ###########################################################ITENS DE MENU#############################################################################################
     // Cria o item de menu gestão documental
@@ -269,13 +307,13 @@ try {
 
     // Cria os itens de menu gestao documental -> listagem eliminação
     $id_menu_listagem_eliminacao = $fnItemMenu($id_menu, $id_menu_gestao_documental, $id_sistema, null, 'Listagens de Eliminação', 'N', 'S', 2);
-    $id_menu_prep_list_eliminacao = $fnItemMenu($id_menu, $id_menu_listagem_eliminacao, $id_sistema, $id_recurso_prep_list_eliminacao_listar, 'Preparação da Listagem', 'N', 'S', 1);
+    $id_menu_prep_list_eliminacao = $fnItemMenu($id_menu, $id_menu_listagem_eliminacao, $id_sistema, $id_recurso_lista_eliminacao_preparacao_listar, 'Preparação da Listagem', 'N', 'S', 1);
     $id_menu_gestao_listagem_eliminacao = $fnItemMenu($id_menu, $id_menu_listagem_eliminacao, $id_sistema, $id_recurso_gestao_listagem_eliminacao, 'Gestão das Listagens', 'N', 'S', 2);
 //    $id_menu_eliminacao_listar = $fnItemMenu($id_menu, $id_menu_gestao_documental, $id_sistema, $id_recurso_eliminacao_listar, 'Eliminações', 'N', 'S', 3);
 
     // Cria os itens de menu gestao documental -> listagem recolhimento
     $id_menu_listagem_recolhimento = $fnItemMenu($id_menu, $id_menu_gestao_documental, $id_sistema, null, 'Listagens de Recolhimento', 'N', 'S', 3);
-    $id_menu_prep_list_recolhimento = $fnItemMenu($id_menu, $id_menu_listagem_recolhimento, $id_sistema, $id_recurso_prep_list_recolhimento_listar, 'Preparação da Listagem', 'N', 'S', 1);
+    $id_menu_prep_list_recolhimento = $fnItemMenu($id_menu, $id_menu_listagem_recolhimento, $id_sistema, $id_recurso_lista_recolhimento_preparacao_listar, 'Preparação da Listagem', 'N', 'S', 1);
     $id_menu_gestao_listagem_recolhimento = $fnItemMenu($id_menu, $id_menu_listagem_recolhimento, $id_sistema, $id_recurso_gestao_listagem_recolhimento, 'Gestão das Listagens', 'N', 'S', 2);
 //    $id_menu_recolhimentos_listar = $fnItemMenu($id_menu, $id_menu_gestao_documental, $id_sistema, $id_recurso_recolhimento_listar, 'Recolhimentos', 'N', 'S', 3);
 

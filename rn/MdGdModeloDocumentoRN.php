@@ -32,8 +32,6 @@ class MdGdModeloDocumentoRN extends InfraRN {
         try {
 
             //Valida Permissao
-            SessaoSEI::getInstance()->validarAuditarPermissao('gestao_documental_modelo_documento_alterar', __METHOD__, $objMdGdModeloDocumentoDTO);
-
             $objMdGdModeloDocumentoBD = new MdGdModeloDocumentoBD($this->inicializarObjInfraIBanco());
             $objMdGdModeloDocumentoDTO = $objMdGdModeloDocumentoBD->alterar($objMdGdModeloDocumentoDTO);
             return $objMdGdModeloDocumentoDTO;

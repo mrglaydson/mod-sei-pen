@@ -12,7 +12,7 @@ try {
 
     SessaoSEI::getInstance()->validarLink();
 
-    SessaoSEI::getInstance()->validarPermissao('gestao_documental_relatorio');
+    SessaoSEI::getInstance()->validarPermissao($_GET['acao']);
 
     PaginaSEI::getInstance()->salvarCamposPost(array('selUnidade', 'selTipoProcedimento', 'selDestinacaoFinal', 'selCondicionante', 'selFaseGestaoDocumental', 'txtPeriodoDe', 'txtPeriodoA'));
 

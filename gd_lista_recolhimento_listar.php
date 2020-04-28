@@ -11,19 +11,18 @@ try {
     //////////////////////////////////////////////////////////////////////////////
 
     SessaoSEI::getInstance()->validarLink();
+    SessaoSEI::getInstance()->validarPermissao($_GET['acao']);
 
     $strTitulo = 'Gestão da Listagem de Recolhimento';
 
     switch ($_GET['acao']) {
 
-        case 'gd_gestao_listagem_recolhimento':
-            SessaoSEI::getInstance()->validarPermissao('gestao_documental_gestao_list_recolhimento');
+        case 'gd_lista_recolhimento_listar':
             PaginaSEI::getInstance()->salvarCamposPost(array('txtPeriodoEmissaoDe', 'txtPeriodoEmissaoAte', 'txtAnoLimiteDe', 'txtAnoLimiteAte'));
 
             break;
 
-        case 'gd_recolhimento':
-            SessaoSEI::getInstance()->validarPermissao('gestao_documental_recolhimento');
+        case 'gd_lista_recolhimento_recolher':
             // Registra a Recolhimento
             $objMdGdRecolhimentoDTO = new MdGdRecolhimentoDTO();
             $objMdGdRecolhimentoDTO->setNumIdListaRecolhimento($_POST['hdnIdListaRecolhimento']);
@@ -35,7 +34,7 @@ try {
             $objMdGdRecolhimentoRN->cadastrar($objMdGdRecolhimentoDTO);
 
             break;
-        case 'gd_editar_listagem_recolhimento':
+        case 'gd_lista_recolhimento_editar':
             PaginaSEI::getInstance()->salvarCamposPost(array('hdnInfraItemId'));
             $numIdListaRecolhimento = PaginaSEI::getInstance()->recuperarCampo('hdnInfraItemId');
 
@@ -47,7 +46,7 @@ try {
 
             break;
 
-        case 'gd_concluir_edicao_listagem_recol':
+        case 'gd_lista_recolhimento_edicao_concluir':
             PaginaSEI::getInstance()->salvarCamposPost(array('hdnInfraItemId'));
             $numIdListaRecolhimento = PaginaSEI::getInstance()->recuperarCampo('hdnInfraItemId');
 
@@ -62,16 +61,16 @@ try {
             throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
     }
 
-    $bolAcaoVisualizar = SessaoSEI::getInstance()->verificarPermissao('gestao_documental_visualizacao_list_recolhimento');
-    $bolAcaoRecolher = SessaoSEI::getInstance()->verificarPermissao('gestao_documental_recolhimento');
-    $bolAcaoRecolherDocumentoFisico = SessaoSEI::getInstance()->verificarPermissao('gestao_documental_list_recol_documentos_fisicos');
-    $bolAcaoAdicionarProcessosListagem = true;
-    $bolAcaoRemoverProcessosListagem = true;
-    $bolAcaoConcluirEdicaoListagem = true;
-    $bolAcaoEditarListagem = true;
-
-    $strLinkEditarListagem = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_editar_listagem_recolhimento&acao_origem=' . $_GET['acao']);
-    $strLinkConcluirEdicaoListagem = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_concluir_edicao_listagem_recol&acao_origem=' . $_GET['acao']);
+    $bolAcaoVisualizar = SessaoSEI::getInstance()->verificarPermissao('gd_lista_recolhimento_listar');
+    $bolAcaoRecolher = SessaoSEI::getInstance()->verificarPermissao('gd_lista_recolhimento_recolher');
+    $bolAcaoRecolherDocumentoFisico = SessaoSEI::getInstance()->verificarPermissao('gd_lista_recolhimento_documentos_fisicos_listar');
+    $bolAcaoAdicionarProcessosListagem = SessaoSEI::getInstance()->verificarPermissao('gd_lista_recolhimento_procedimento_adicionar');
+    $bolAcaoRemoverProcessosListagem = SessaoSEI::getInstance()->verificarPermissao('gd_lista_recolhimento_procedimento_remover');
+    $bolAcaoConcluirEdicaoListagem = SessaoSEI::getInstance()->verificarPermissao('gd_lista_recolhimento_edicao_concluir'); 
+    $bolAcaoEditarListagem = SessaoSEI::getInstance()->verificarPermissao('gd_lista_recolhimento_editar'); 
+    
+    $strLinkEditarListagem = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_lista_recolhimento_editar&acao_origem=' . $_GET['acao']);
+    $strLinkConcluirEdicaoListagem = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_lista_recolhimento_edicao_concluir&acao_origem=' . $_GET['acao']);
 
 
     $arrComandos = array();
@@ -147,33 +146,34 @@ try {
             $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdListaRecolhimentoDTO[$i]->getNumQtdProcessos()) . '</td>';
             $strResultado .= '<td align="center">';
 
+
+            if ($bolAcaoVisualizar) {
+                // gd_lista_eliminacao_visualizar
+                $strLinkVisualizar = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_lista_recolhimento_visualizar&acao_origem=' . $_GET['acao'] . '&id_listagem_recolhimento=' . $arrObjMdGdListaRecolhimentoDTO[$i]->getNumIdListaRecolhimento());
+                $strResultado .= '<a href="' . $strLinkVisualizar . '" ><img src="imagens/consultar.gif" title="Visualizar Listagem de Recolhimento" title="Visualizar Listagem de Recolhimento" class="infraImg" /></a>&nbsp;';
+            }
+            
             if ($bolAcaoEditarListagem && $arrObjMdGdListaRecolhimentoDTO[$i]->getStrSituacao() == MdGdListaRecolhimentoRN::$ST_GERADA) {
                 $strResultado .= '<a href="#ID-' . $arrObjMdGdListaRecolhimentoDTO[$i]->getNumIdListaRecolhimento() . '" onclick="acaoEditarListagemRecolhimento(\'' . $arrObjMdGdListaRecolhimentoDTO[$i]->getNumIdListaRecolhimento() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="modulos/sei-mod-gestao-documental/imagens/editar_listagem.gif" title="Editar Listagem de Recolhimento" title="Editar Listagem de Recolhimento" class="infraImg" /></a>';
             }
 
-            if ($bolAcaoVisualizar) {
-                // gd_visualizacao_listagem_recolhimento
-                $strLinkVisualizar = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_visualizacao_listagem_recolhimento&acao_origem=' . $_GET['acao'] . '&id_listagem_recolhimento=' . $arrObjMdGdListaRecolhimentoDTO[$i]->getNumIdListaRecolhimento());
-                $strResultado .= '<a href="' . $strLinkVisualizar . '" ><img src="imagens/consultar.gif" title="Visualizar Listagem de Recolhimento" title="Visualizar Listagem de Recolhimento" class="infraImg" /></a>&nbsp;';
-            }
-            
             if ($bolAcaoRecolher && $arrObjMdGdListaRecolhimentoDTO[$i]->getStrSituacao() == MdGdListaRecolhimentoRN::$ST_GERADA) {
                 // gd_recolhimento
                 $strResultado .= '<a href="#ID-' . $arrObjMdGdListaRecolhimentoDTO[$i]->getNumIdListaRecolhimento() . '" onclick="acaoRecolher(\'' . $arrObjMdGdListaRecolhimentoDTO[$i]->getNumIdListaRecolhimento() . '\',\'' . $arrObjMdGdListaRecolhimentoDTO[$i]->getStrNumero() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="imagens/arquivo.png" title="Recolher Processos" alt="Recolher Processos" class="infraImg" /></a>&nbsp;';
             }
 
             if ($bolAcaoRecolherDocumentoFisico && $arrObjMdGdListaRecolhimentoDTO[$i]->getStrSituacao() == MdGdListaRecolhimentoRN::$ST_GERADA && $arrObjMdGdListaRecolhimentoDTO[$i]->getStrSinDocumentosFisicos() == 'S') {
-                $strLinkRecolherDocumentosFisicos = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_recolhimento_documentos_fisicos&id_listagem_recolhimento=' . $arrObjMdGdListaRecolhimentoDTO[$i]->getNumIdListaRecolhimento() . '&acao_origem=' . $_GET['acao']);
+                $strLinkRecolherDocumentosFisicos = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_lista_recolhimento_documentos_fisicos_listar&id_listagem_recolhimento=' . $arrObjMdGdListaRecolhimentoDTO[$i]->getNumIdListaRecolhimento() . '&acao_origem=' . $_GET['acao']);
                 $strResultado .= '<a href="' . $strLinkRecolherDocumentosFisicos . '" ><img src="imagens/procedimento_desanexado.gif" title="Recolher Documentos Físicos" title="Recolher Documentos Físicos" class="infraImg" /></a>&nbsp;';
             }
 
             if ($bolAcaoAdicionarProcessosListagem && $arrObjMdGdListaRecolhimentoDTO[$i]->getStrSituacao() == MdGdListaRecolhimentoRN::$ST_EDICAO) {
-                $strLinkAdicionarProcessosListagem = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_adicionar_processo_listagem_recol&id_listagem_recolhimento=' . $arrObjMdGdListaRecolhimentoDTO[$i]->getNumIdListaRecolhimento() . '&acao_origem=' . $_GET['acao']);
+                $strLinkAdicionarProcessosListagem = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_lista_recolhimento_procedimento_adicionar&id_listagem_recolhimento=' . $arrObjMdGdListaRecolhimentoDTO[$i]->getNumIdListaRecolhimento() . '&acao_origem=' . $_GET['acao']);
                 $strResultado .= '<a href="' . $strLinkAdicionarProcessosListagem . '" ><img src="modulos/sei-mod-gestao-documental/imagens/adicionar_processo_listagem.gif" title="Adicionar Processos" title="Adicionar Processos" class="infraImg" /></a>&nbsp;';
             }
             
             if ($bolAcaoRemoverProcessosListagem && $arrObjMdGdListaRecolhimentoDTO[$i]->getStrSituacao() == MdGdListaRecolhimentoRN::$ST_EDICAO) {
-                $strLinkRemoverProcessosListagem = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_remover_processo_listagem_recol&id_listagem_recolhimento=' . $arrObjMdGdListaRecolhimentoDTO[$i]->getNumIdListaRecolhimento() . '&acao_origem=' . $_GET['acao']);
+                $strLinkRemoverProcessosListagem = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_lista_recolhimento_procedimento_remover&id_listagem_recolhimento=' . $arrObjMdGdListaRecolhimentoDTO[$i]->getNumIdListaRecolhimento() . '&acao_origem=' . $_GET['acao']);
                 $strResultado .= '<a href="' . $strLinkRemoverProcessosListagem . '" ><img src="modulos/sei-mod-gestao-documental/imagens/remover_processo_listagem.gif" title="Remover Processos" title="Remover Processos" class="infraImg" /></a>&nbsp;';
             }
 
@@ -236,7 +236,7 @@ PaginaSEI::getInstance()->abrirJavaScript();
     function acaoRecolher(id) {
         if (confirm('Deseja mesmo enviar para recolhimento a lista selecionada?')) {
             document.getElementById('hdnIdListaRecolhimento').value = id;
-            document.getElementById('frmGestaoListagemRecolhimento').action = '<?= SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_recolhimento&acao_origem=' . $_GET['acao']) ?>';
+            document.getElementById('frmGestaoListagemRecolhimento').action = '<?= SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_lista_recolhimento_recolher&acao_origem=' . $_GET['acao']) ?>';
             document.getElementById('frmGestaoListagemRecolhimento').submit();
         }
     }

@@ -12,22 +12,22 @@ try {
 
     SessaoSEI::getInstance()->validarLink();
     PaginaSEI::getInstance()->setTipoPagina(InfraPagina::$TIPO_PAGINA_SIMPLES);
-    SessaoSEI::getInstance()->validarPermissao('gestao_documental_prep_list_eliminacao_observar');
+    SessaoSEI::getInstance()->validarPermissao($_GET['acao']);
 
     switch ($_GET['acao']) {
 
-        case 'gd_prep_list_eliminacao_observar':
+        case 'gd_lista_recolhimento_preparacao_observar':
             $strTitulo = 'Observações e/ou Justificativas';
             $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
             $objMdGdArquivamentoDTO->setNumIdArquivamento($_GET['id_arquivamento']);
-            $objMdGdArquivamentoDTO->retStrObservacaoEliminacao();
+            $objMdGdArquivamentoDTO->retStrObservacaoRecolhimento();
             
             $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
             $objMdGdArquivamentoDTO = $objMdGdArquivamentoRN->consultar($objMdGdArquivamentoDTO);
             
             if ($_POST['sbmObservar']) {
                 $objMdGdArquivamentoDTO->setNumIdArquivamento($_GET['id_arquivamento']);
-                $objMdGdArquivamentoDTO->setStrObservacaoEliminacao($_POST['txaObservacao']);
+                $objMdGdArquivamentoDTO->setStrObservacaoRecolhimento($_POST['txaObservacao']);
                 $objMdGdArquivamentoRN->alterar($objMdGdArquivamentoDTO);
             }
             break;
@@ -67,7 +67,7 @@ PaginaSEI::getInstance()->abrirBody($strTitulo);
     PaginaSEI::getInstance()->montarBarraComandosSuperior($arrComandos);
     PaginaSEI::getInstance()->abrirAreaDados('20em');
     ?>
-    <textarea id="txaObservacao" style="width: 657px;" rows="10" name="txaObservacao" rows="<?= PaginaSEI::getInstance()->isBolNavegadorFirefox() ? '2' : '3' ?>" class="infraTextArea" onkeypress="return infraLimitarTexto(this, event, 500);" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>"><?= PaginaSEI::tratarHTML($objMdGdArquivamentoDTO->getStrObservacaoEliminacao()) ?></textarea>
+    <textarea id="txaObservacao" style="width: 657px;" rows="10" name="txaObservacao" rows="<?= PaginaSEI::getInstance()->isBolNavegadorFirefox() ? '2' : '3' ?>" class="infraTextArea" onkeypress="return infraLimitarTexto(this, event, 500);" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>"><?= PaginaSEI::tratarHTML($objMdGdArquivamentoDTO->getStrObservacaoRecolhimento()) ?></textarea>
     <?
     PaginaSEI::getInstance()->fecharAreaDados();
     ?>

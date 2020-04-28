@@ -11,17 +11,16 @@ try {
     //////////////////////////////////////////////////////////////////////////////
 
     SessaoSEI::getInstance()->validarLink();
+    SessaoSEI::getInstance()->validarPermissao($_GET['acao']);
 
     $strTitulo = 'Preparação da Listagem de Recolhimento';
     switch ($_GET['acao']) {
 
-        case 'gd_prep_list_recolhimento_listar':
-            SessaoSEI::getInstance()->validarPermissao('gestao_documental_prep_list_recolhimento_listar');
+        case 'gd_lista_recolhimento_preparacao_listar':
             PaginaSEI::getInstance()->salvarCamposPost(array('selOrgao', 'selUnidade'));
             break;
 
-        case 'gd_prep_list_recolhimento_gerar':
-            SessaoSEI::getInstance()->validarPermissao('gestao_documental_prep_list_recolhimento_gerar');
+        case 'gd_lista_recolhimento_preparacao_gerar':
             $arrNumIdsArquivamento = PaginaSEI::getInstance()->getArrStrItensSelecionados();
             
             //Busca os arquivamentos dos processos que serão enviados para a listagem de Recolhimento
@@ -45,8 +44,7 @@ try {
             header('Location: ' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . $_GET['acao_origem'] . '&acao_origem=' . $_GET['acao']));
             break;
 
-        case 'gd_prep_list_recolhimento_excluir':
-            SessaoSEI::getInstance()->validarPermissao('gestao_documental_prep_list_recolhimento_excluir');
+        case 'gd_lista_recolhimento_preparacao_excluir':
             $arrNumIdsArquivamento = PaginaSEI::getInstance()->getArrStrItensSelecionados();
 
             $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
@@ -63,21 +61,21 @@ try {
             throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
     }
 
-    $bolAcaoGerar = SessaoSEI::getInstance()->verificarPermissao('gestao_documental_prep_list_recolhimento_gerar');
-    $bolAcaoExcluir = SessaoSEI::getInstance()->verificarPermissao('gestao_documental_prep_list_recolhimento_excluir');
-    $bolAcaoObservar = SessaoSEI::getInstance()->verificarPermissao('gestao_documental_prep_list_recolhimento_observar');
+    $bolAcaoGerar = SessaoSEI::getInstance()->verificarPermissao('gd_lista_recolhimento_preparacao_gerar');
+    $bolAcaoExcluir = SessaoSEI::getInstance()->verificarPermissao('gd_lista_recolhimento_preparacao_excluir');
+    $bolAcaoObservar = SessaoSEI::getInstance()->verificarPermissao('gd_lista_recolhimento_preparacao_observar');
 
     $arrComandos = array();
     $arrComandos[] = '<button type="submit" accesskey="P" id="sbmPesquisar" value="Pesquisar" class="infraButton"><span class="infraTeclaAtalho">P</span>esquisar</button>';
 
     if ($bolAcaoGerar) {
         $arrComandos[] = '<button type="button" accesskey="P" id="btnGerarListagem" value="Gerar SIP" onclick="acaoGerarListagemRecolhimento();" class="infraButton"><span class="infraTeclaAtalho">G</span>erar SIP</button>';
-        $strLinkGerar = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_prep_list_recolhimento_gerar&acao_origem=' . $_GET['acao']);
+        $strLinkGerar = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_lista_recolhimento_preparacao_gerar&acao_origem=' . $_GET['acao']);
     }
 
     if ($bolAcaoExcluir) {
         $arrComandos[] = '<button type="button" accesskey="E" id="btnExcluir" value="Excluir" onclick="acaoExclusaoMultipla();" class="infraButton"><span class="infraTeclaAtalho">E</span>xcluir</button>';
-        $strLinkExcluir = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_prep_list_recolhimento_excluir&acao_origem=' . $_GET['acao']);
+        $strLinkExcluir = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_lista_recolhimento_preparacao_excluir&acao_origem=' . $_GET['acao']);
     }
 
     $arrComandos[] = '<button type="button" accesskey="I" id="btnImprimir" value="Imprimir" onclick="infraImprimirTabela();" class="infraButton"><span class="infraTeclaAtalho">I</span>mprimir</button>';
@@ -169,7 +167,7 @@ try {
             $strResultado .= '<td align="center">';
 
             if ($bolAcaoObservar) {
-                $strLinkObservar = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_prep_list_recolhimento_observar&acao_origem=' . $_GET['acao'] . '&id_arquivamento=' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento());
+                $strLinkObservar = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_lista_recolhimento_preparacao_observar&acao_origem=' . $_GET['acao'] . '&id_arquivamento=' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento());
                 $strResultado .= '<a href="#" onclick="exibirJanelaObservacao(\'' . $strLinkObservar . '\');"><img src="imagens/alterar.gif" title="Adicionar Observação e/ou Justificativa" title="Adicionar Observação e/ou Justificativa" class="infraImg" /></a>&nbsp;';
             }
 

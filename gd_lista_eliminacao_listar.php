@@ -11,17 +11,17 @@ try {
     //////////////////////////////////////////////////////////////////////////////
 
     SessaoSEI::getInstance()->validarLink();
+    SessaoSEI::getInstance()->validarPermissao($_GET['acao']);
 
     $strTitulo = 'Gestão da Listagem de Eliminação';
 
     switch ($_GET['acao']) {
 
-        case 'gd_gestao_listagem_eliminacao':
-            SessaoSEI::getInstance()->validarPermissao('gestao_documental_gestao_listagem_eliminacao');
+        case 'gd_lista_eliminacao_listar':
             PaginaSEI::getInstance()->salvarCamposPost(array('txtPeriodoEmissaoDe', 'txtPeriodoEmissaoAte', 'txtAnoLimiteDe', 'txtAnoLimiteAte'));
         
             break;
-        case 'gd_editar_listagem_eliminacao':
+        case 'gd_lista_eliminacao_editar':
             PaginaSEI::getInstance()->salvarCamposPost(array('hdnInfraItemId'));
             $numIdListaEliminacao = PaginaSEI::getInstance()->recuperarCampo('hdnInfraItemId');
 
@@ -33,7 +33,7 @@ try {
 
             break;
 
-        case 'gd_concluir_edicao_listagem_elim':
+        case 'gd_lista_eliminacao_edicao_concluir':
             PaginaSEI::getInstance()->salvarCamposPost(array('hdnInfraItemId'));
             $numIdListaEliminacao = PaginaSEI::getInstance()->recuperarCampo('hdnInfraItemId');
 
@@ -44,46 +44,20 @@ try {
             $objMdGdListaEliminacaoRN->concluirEdicaoListaEliminacao($objMdGdListaEliminacaoDTO);
 
             break;
-        case 'gd_prep_list_eliminacao_gerar':
-            SessaoSEI::getInstance()->validarPermissao('gestao_documental_prep_list_eliminacao_gerar');
-            $arrNumIdsArquivamento = PaginaSEI::getInstance()->getArrStrItensSelecionados();
-
-            //Busca os arquivamentos dos processos que serão enviados para a listagem de eliminação
-            /*   $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
-              $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
-
-              $objMdGdArquivamentoDTO->setNumIdArquivamento($arrNumIdsArquivamento, InfraDTO::$OPER_IN);
-              $objMdGdArquivamentoDTO->retNumIdArquivamento();
-              $objMdGdArquivamentoDTO->retDblIdProcedimento();
-              $objMdGdArquivamentoDTO->retDblIdProtocoloProcedimentoEliminacaoFormatado();
-              $objMdGdArquivamentoDTO->retStrObservacaoEliminacao();
-
-              $arrObjMdGdArquivamentoDTO = $objMdGdArquivamentoRN->listar($objMdGdArquivamentoDTO);
-
-              //Envia os processos para a listagem de eliminação
-              $objMdGdListaEliminacaoDTO = new MdGdListaEliminacaoDTO();
-              $objMdGdListaEliminacaoDTO->setArrObjMdGdArquivamentoDTO($arrObjMdGdArquivamentoDTO);
-
-              $objMdGdListaEliminacaoRN = new MdGdListaEliminacaoRN();
-              $objMdGdListaEliminacaoRN->cadastrar($objMdGdListaEliminacaoDTO);
-
-              header('Location: ' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . $_GET['acao_origem'] . '&acao_origem=' . $_GET['acao'])); */
-            break;
-
         default:
             throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
     }
 
-    $bolAcaoVisualizar = SessaoSEI::getInstance()->verificarPermissao('gestao_documental_visualizacao_listagem_eliminacao');
-    $bolAcaoEliminar = SessaoSEI::getInstance()->verificarPermissao('gestao_documental_eliminacao');
-    $bolAcaoEliminarDocumentoFisico = SessaoSEI::getInstance()->verificarPermissao('gestao_documental_list_elim_documentos_fisicos');
-    $bolAcaoAdicionarProcessosListagem = true;
-    $bolAcaoRemoverProcessosListagem = true;
-    $bolAcaoConcluirEdicaoListagem = true;
-    $bolAcaoEditarListagem = true;
+    $bolAcaoVisualizar = SessaoSEI::getInstance()->verificarPermissao('gd_lista_eliminacao_visualizar');
+    $bolAcaoEliminar = SessaoSEI::getInstance()->verificarPermissao('gd_lista_eliminacao_eliminar');
+    $bolAcaoEliminarDocumentoFisico = SessaoSEI::getInstance()->verificarPermissao('gd_lista_eliminacao_documentos_fisicos_listar');
+    $bolAcaoAdicionarProcessosListagem = SessaoSEI::getInstance()->verificarPermissao('gd_lista_eliminacao_procedimento_adicionar');
+    $bolAcaoRemoverProcessosListagem = SessaoSEI::getInstance()->verificarPermissao('gd_lista_eliminacao_procedimento_remover');
+    $bolAcaoConcluirEdicaoListagem = SessaoSEI::getInstance()->verificarPermissao('gd_lista_eliminacao_edicao_concluir');
+    $bolAcaoEditarListagem = SessaoSEI::getInstance()->verificarPermissao('gd_lista_eliminacao_editar');
 
-    $strLinkEditarListagem = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_editar_listagem_eliminacao&acao_origem=' . $_GET['acao']);
-    $strLinkConcluirEdicaoListagem = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_concluir_edicao_listagem_elim&acao_origem=' . $_GET['acao']);
+    $strLinkEditarListagem = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_lista_eliminacao_editar&acao_origem=' . $_GET['acao']);
+    $strLinkConcluirEdicaoListagem = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_lista_eliminacao_edicao_concluir&acao_origem=' . $_GET['acao']);
 
     $arrComandos = array();
     $arrComandos[] = '<button type="submit" accesskey="P" id="sbmPesquisar" value="Pesquisar" class="infraButton"><span class="infraTeclaAtalho">P</span>esquisar</button>';
@@ -160,32 +134,31 @@ try {
 
             $strResultado .= '<td align="center">';
 
+            if ($bolAcaoVisualizar) {
+                $strLinkVisualizar = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_lista_eliminacao_visualizar&acao_origem=' . $_GET['acao'] . '&id_listagem_eliminacao=' . $arrObjMdGdListaEliminacaoDTO[$i]->getNumIdListaEliminacao());
+                $strResultado .= '<a href="' . $strLinkVisualizar . '" ><img src="imagens/consultar.gif" title="Visualizar Listagem de Eliminacao" title="Visualizar Listagem de Eliminacao" class="infraImg" /></a>&nbsp;';
+            }
+
             if ($bolAcaoEditarListagem && $arrObjMdGdListaEliminacaoDTO[$i]->getStrSituacao() == MdGdListaEliminacaoRN::$ST_GERADA) {
                 $strResultado .= '<a href="#ID-' . $arrObjMdGdListaEliminacaoDTO[$i]->getNumIdListaEliminacao() . '" onclick="acaoEditarListagemEliminacao(\'' . $arrObjMdGdListaEliminacaoDTO[$i]->getNumIdListaEliminacao() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="modulos/sei-mod-gestao-documental/imagens/editar_listagem.gif" title="Editar Listagem de Eliminação" title="Editar Listagem de Eliminação" class="infraImg" /></a>';
             }
 
-            if ($bolAcaoVisualizar) {
-                $strLinkVisualizar = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_visualizacao_listagem_eliminacao&acao_origem=' . $_GET['acao'] . '&id_listagem_eliminacao=' . $arrObjMdGdListaEliminacaoDTO[$i]->getNumIdListaEliminacao());
-                $strResultado .= '<a href="' . $strLinkVisualizar . '" ><img src="imagens/consultar.gif" title="Visualizar Listagem de Eliminacao" title="Visualizar Listagem de Eliminacao" class="infraImg" /></a>&nbsp;';
-            }
-
             if ($bolAcaoEliminar && $arrObjMdGdListaEliminacaoDTO[$i]->getStrSituacao() == MdGdListaEliminacaoRN::$ST_GERADA) {
-                $strLinkEliminar = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_listagem_eliminacao_eliminar&acao_origem=' . $_GET['acao'] . '&id_listagem_eliminacao=' . $arrObjMdGdListaEliminacaoDTO[$i]->getNumIdListaEliminacao());
-                $strResultado .= '<a href="' .$strLinkEliminar . '" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="imagens/arquivo.png" title="Eliminar Processos" alt="Eliminar Processos" class="infraImg" /></a>&nbsp;';
+                $strResultado .= '<a href="' .$strLinkVisualizar . '" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="imagens/arquivo.png" title="Eliminar Processos" alt="Eliminar Processos" class="infraImg" /></a>&nbsp;';
             }
 
             if ($bolAcaoEliminarDocumentoFisico && $arrObjMdGdListaEliminacaoDTO[$i]->getStrSituacao() == MdGdListaEliminacaoRN::$ST_GERADA && $arrObjMdGdListaEliminacaoDTO[$i]->getStrSinDocumentosFisicos() == 'S') {
-                $strLinkEliminacaoDocumentosFisicos = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_eliminacao_documentos_fisicos&id_listagem_eliminacao=' . $arrObjMdGdListaEliminacaoDTO[$i]->getNumIdListaEliminacao() . '&acao_origem=' . $_GET['acao']);
+                $strLinkEliminacaoDocumentosFisicos = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_lista_eliminacao_documentos_fisicos_listar&id_listagem_eliminacao=' . $arrObjMdGdListaEliminacaoDTO[$i]->getNumIdListaEliminacao() . '&acao_origem=' . $_GET['acao']);
                 $strResultado .= '<a href="' . $strLinkEliminacaoDocumentosFisicos . '" ><img src="imagens/procedimento_desanexado.gif" title="Eliminar Documentos Físicos" title="Eliminar Documentos Físicos" class="infraImg" /></a>&nbsp;';
             }
 
             if ($bolAcaoAdicionarProcessosListagem && $arrObjMdGdListaEliminacaoDTO[$i]->getStrSituacao() == MdGdListaEliminacaoRN::$ST_EDICAO) {
-                $strLinkAdicionarProcessosListagem = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_lista_eliminacao_processo_adicao_listar&id_listagem_eliminacao=' . $arrObjMdGdListaEliminacaoDTO[$i]->getNumIdListaEliminacao() . '&acao_origem=' . $_GET['acao']);
+                $strLinkAdicionarProcessosListagem = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_lista_eliminacao_procedimento_adicionar&id_listagem_eliminacao=' . $arrObjMdGdListaEliminacaoDTO[$i]->getNumIdListaEliminacao() . '&acao_origem=' . $_GET['acao']);
                 $strResultado .= '<a href="' . $strLinkAdicionarProcessosListagem . '" ><img src="modulos/sei-mod-gestao-documental/imagens/adicionar_processo_listagem.gif" title="Adicionar Processos" title="Adicionar Processos" class="infraImg" /></a>&nbsp;';
             }
             
             if ($bolAcaoRemoverProcessosListagem && $arrObjMdGdListaEliminacaoDTO[$i]->getStrSituacao() == MdGdListaEliminacaoRN::$ST_EDICAO) {
-                $strLinkRemoverProcessosListagem = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_remover_processo_listagem_elim&id_listagem_eliminacao=' . $arrObjMdGdListaEliminacaoDTO[$i]->getNumIdListaEliminacao() . '&acao_origem=' . $_GET['acao']);
+                $strLinkRemoverProcessosListagem = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_lista_eliminacao_procedimento_remover&id_listagem_eliminacao=' . $arrObjMdGdListaEliminacaoDTO[$i]->getNumIdListaEliminacao() . '&acao_origem=' . $_GET['acao']);
                 $strResultado .= '<a href="' . $strLinkRemoverProcessosListagem . '" ><img src="modulos/sei-mod-gestao-documental/imagens/remover_processo_listagem.gif" title="Remover Processos" title="Remover Processos" class="infraImg" /></a>&nbsp;';
             }
 

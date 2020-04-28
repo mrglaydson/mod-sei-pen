@@ -12,28 +12,70 @@ try {
 
     SessaoSEI::getInstance()->validarLink();
 
-    $strTitulo = 'Visualizar Listagem de Recolhimento';
+    $strTitulo = 'Remover Processos da Listagem';
 
     switch ($_GET['acao']) {
 
-        case 'gd_visualizacao_listagem_recolhimento':
-            SessaoSEI::getInstance()->validarPermissao('gestao_documental_geracao_pdf_list_recolhimento');
-            break;
+        case 'gd_lista_recolhimento_procedimento_remover':
+            //SessaoSEI::getInstance()->validarPermissao('gestao_documental_geracao_pdf_list_recolhimento');
+            PaginaSEI::getInstance()->salvarCamposPost(array('hdnInfraItensSelecionados', 'hdnInfraItemId'));
 
-        case 'gd_geracao_pdf_listagem_recolhimento':
-            SessaoSEI::getInstance()->validarPermissao('gestao_documental_geracao_pdf_list_recolhimento');
+            $strTitulo = 'Remover Processos da Listagem';
+            
+            if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
-            $objMdGdListaRecolhimentoRN = new MdGdListaRecolhimentoRN();
-            $objMdGdListaRecolhimentoRN->gerarPdfConectado($_GET['id_listagem_recolhimento']);
-            header('Location: ' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . $_GET['acao_origem'] . '&acao_origem=' . $_GET['acao']));
+                $numIdListaRecolhimento  = (int) PaginaSEI::getInstance()->recuperarCampo('hdnInfraItemId');
+                $arrNumIdsArquivamento = explode(',', PaginaSEI::getInstance()->recuperarCampo('hdnInfraItensSelecionados'));
+            
+                // Obtem os processos do arquivamento
+                $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
+                $objMdGdArquivamentoDTO->setNumIdArquivamento($arrNumIdsArquivamento, InfraDTO::$OPER_IN);
+                $objMdGdArquivamentoDTO->retDblIdProcedimento();
+                $objMdGdArquivamentoDTO->retNumIdArquivamento();
+
+                $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
+                $arrObjMdGdArquivamentoDTO = $objMdGdArquivamentoRN->listar($objMdGdArquivamentoDTO);
+
+                // Adiciona os processos a listagem de recolhimento
+                $objMdGdListaRecolProcedimentoRN = new MdGdListaRecolProcedimentoRN();
+                
+                foreach($arrObjMdGdArquivamentoDTO as $objMdGdArquivamentoDTO){
+                    // Atualiza a situação do arquivamento
+                    $objMdGdArquivamentoDTO->setStrSituacao(MdGdArquivamentoRN::$ST_PREPARACAO_RECOLHIMENTO);
+                    $objMdGdArquivamentoRN->alterar($objMdGdArquivamentoDTO);
+
+                    // Excluí da listagem
+                    $objMdGdListaRecolProcedimentoDTO = new MdGdListaRecolProcedimentoDTO();
+                    $objMdGdListaRecolProcedimentoDTO->setDblIdProcedimento($objMdGdArquivamentoDTO->getDblIdProcedimento());
+                    $objMdGdListaRecolProcedimentoDTO->setNumIdListaRecolhimento($numIdListaRecolhimento);
+                    $objMdGdListaRecolProcedimentoDTO->retNumIdListaRecolhimento();
+                    $objMdGdListaRecolProcedimentoDTO->retDblIdProcedimento();
+
+                    $objMdGdListaRecolProcedimentoDTO = $objMdGdListaRecolProcedimentoRN->consultar($objMdGdListaRecolProcedimentoDTO);                    
+                    $objMdGdListaRecolProcedimentoRN->excluir([$objMdGdListaRecolProcedimentoDTO]);
+                }
+
+                // Atualiza o total de processos da listagem
+                $objMdGdListaRecolhimentoDTO = new MdGdListaRecolhimentoDTO();
+                $objMdGdListaRecolhimentoDTO->setNumIdListaRecolhimento($numIdListaRecolhimento);
+
+                $objMdGdListaRecolhimentoRN = new MdGdListaRecolhimentoRN();
+                $objMdGdListaRecolhimentoRN->atualizarNumeroProcessos($objMdGdListaRecolhimentoDTO);
+
+            }
+
             break;
 
         default:
             throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
     }
 
-    $bolAcaoGerarPdf = SessaoSEI::getInstance()->verificarPermissao('gestao_documental_geracao_pdf_list_recolhimento');
-    $arrComandos = array();
+    $arrComandos = [];
+    $arrComandos[] = '<button type="button" accesskey="P" id="btnExcluirListagem" value="Excluir da Listagem" onclick="acaoExcluirListagemRecolhimento('.$_GET['id_listagem_recolhimento'].');" class="infraButton"><span class="infraTeclaAtalho">E</span>xcluir da Listagem de Recolhimento</button>';
+    $arrComandos[] = '<button type="button" accesskey="I" id="btnImprimir" value="Imprimir" onclick="infraImprimirTabela();" class="infraButton"><span class="infraTeclaAtalho">I</span>mprimir</button>';
+    $arrComandos[] = '<button type="button" accesskey="F" name="btnFechar" id="btnFechar" value="Fechar" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_lista_recolhimento_listar&acao_origem=' . $_GET['acao']) . '\';" class="infraButton"><span class="infraTeclaAtalho">F</span>echar</button>';
+
+    $strLinkExcluirListagem = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_lista_recolhimento_procedimento_remover&acao_origem=' . $_GET['acao'].'&id_listagem_recolhimento='.$_GET['id_listagem_recolhimento']);
 
 
     // Busca os processos daquela listagem de recolhimento implodindo seus id's
@@ -62,18 +104,6 @@ try {
 
     $arrObjMdGdArquivamentoDTO = $objMdGdArquivamentoRN->listar($objMdGdArquivamentoDTO);
     $numRegistros = count($arrObjMdGdArquivamentoDTO);
-
-    if ($bolAcaoGerarPdf && $numRegistros) {
-        $strLinkGerar = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_geracao_pdf_listagem_recolhimento&acao_origem=' . $_GET['acao'] . '&id_listagem_recolhimento=' . $_GET['id_listagem_recolhimento']);
-        $arrComandos[] = '<button type="button" accesskey="P" id="btnGerarPdf" value="Gerar PDF" class="infraButton" onclick="location.href=\'' . $strLinkGerar . '\'"><span class="infraTeclaAtalho">G</span>erar PDF</button>';
-    }
-
-    if ($numRegistros) {
-        $arrComandos[] = '<button type="button" accesskey="I" id="btnImprimir" value="Imprimir" onclick="infraImprimirTabela();" class="infraButton"><span class="infraTeclaAtalho">I</span>mprimir</button>';
-
-    }
-    $arrComandos[] = '<button type="button" accesskey="C" name="btnCancelar" id="btnCancelar" value="Cancelar" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_gestao_listagem_recolhimento&acao_origem=' . $_GET['acao']) . '\';" class="infraButton"><span class="infraTeclaAtalho">C</span>ancelar</button>';
-
 
     if ($numRegistros > 0) {
         $strResultado = '';
@@ -160,6 +190,19 @@ PaginaSEI::getInstance()->abrirJavaScript();
 function inicializar() {
 infraEfeitoTabelas();
 document.getElementById('btnFechar').focus();
+}
+
+function acaoExcluirListagemRecolhimento(id_listagem_recolhimento){
+    if (document.getElementById('hdnInfraItensSelecionados').value == '') {
+        alert('Nenhum Processo Selecionado.');
+        return;
+    }
+
+    if(confirm('Confirma a retirada dos processos selecionados da listagem de recolhimento?')){
+        document.getElementById('hdnInfraItemId').value = id_listagem_recolhimento;
+        document.getElementById('frmPrepararListagemRecolhimento').action = '<?= $strLinkExcluirListagem ?>';
+        document.getElementById('frmPrepararListagemRecolhimento').submit();
+    }
 }
 
 <?

@@ -16,7 +16,7 @@ class MdGdDocumentoFisicoElimRN extends InfraRN {
         try {
 
             //Valida Permissao
-            SessaoSEI::getInstance()->validarAuditarPermissao('gestao_documental_eliminacao_documentos_fisicos', __METHOD__, $objMdGdDocumentoFisicoElimDTO);
+            SessaoSEI::getInstance()->validarAuditarPermissao('gd_lista_eliminacao_documentos_fisicos_listar', __METHOD__, $objMdGdDocumentoFisicoElimDTO);
 
             $objMdGdDocumentoFisicoElimBD = new MdGdDocumentoFisicoElimBD($this->inicializarObjInfraIBanco());
             return $objMdGdDocumentoFisicoElimBD->cadastrar($objMdGdDocumentoFisicoElimDTO);
@@ -28,7 +28,7 @@ class MdGdDocumentoFisicoElimRN extends InfraRN {
     protected function consultarConectado(MdGdDocumentoFisicoElimDTO $objMdGdDocumentoFisicoElimDTO) {
         try {
             //Valida Permissao
-            SessaoSEI::getInstance()->validarAuditarPermissao('gestao_documental_list_elim_documentos_fisicos', __METHOD__, $objMdGdDocumentoFisicoElimDTO);
+            SessaoSEI::getInstance()->validarAuditarPermissao('gd_lista_eliminacao_documentos_fisicos_listar', __METHOD__, $objMdGdDocumentoFisicoElimDTO);
 
             $objMdGdDocumentoFisicoElimBD = new MdGdDocumentoFisicoElimBD($this->inicializarObjInfraIBanco());
             return $objMdGdDocumentoFisicoElimBD->consultar($objMdGdDocumentoFisicoElimDTO);
@@ -40,7 +40,7 @@ class MdGdDocumentoFisicoElimRN extends InfraRN {
     protected function listarConectado(MdGdDocumentoFisicoElimDTO $objMdGdDocumentoFisicoElimDTO) {
         try {
             //Valida Permissao
-            SessaoSEI::getInstance()->validarAuditarPermissao('gestao_documental_list_elim_documentos_fisicos', __METHOD__, $objMdGdDocumentoFisicoElimDTO);
+            SessaoSEI::getInstance()->validarAuditarPermissao('gd_lista_eliminacao_documentos_fisicos_listar', __METHOD__, $objMdGdDocumentoFisicoElimDTO);
 
             $objMdGdDocumentoFisicoElimBD = new MdGdDocumentoFisicoElimBD($this->inicializarObjInfraIBanco());
             return $objMdGdDocumentoFisicoElimBD->listar($objMdGdDocumentoFisicoElimDTO);
@@ -52,7 +52,7 @@ class MdGdDocumentoFisicoElimRN extends InfraRN {
     protected function contarConectado(MdGdDocumentoFisicoElimDTO $objMdGdDocumentoFisicoElimDTO) {
         try {
             //Valida Permissao
-            SessaoSEI::getInstance()->validarAuditarPermissao('gestao_documental_list_elim_documentos_fisicos', __METHOD__, $objMdGdDocumentoFisicoElimDTO);
+            SessaoSEI::getInstance()->validarAuditarPermissao('gd_lista_eliminacao_documentos_fisicos_listar', __METHOD__, $objMdGdDocumentoFisicoElimDTO);
 
             $objMdGdDocumentoFisicoElimBD = new MdGdDocumentoFisicoElimBD($this->inicializarObjInfraIBanco());
             return $objMdGdDocumentoFisicoElimBD->contar($objMdGdDocumentoFisicoElimDTO);

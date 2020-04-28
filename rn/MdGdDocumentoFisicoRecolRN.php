@@ -16,7 +16,7 @@ class MdGdDocumentoFisicoRecolRN extends InfraRN {
         try {
 
             //Valida Permissao
-            SessaoSEI::getInstance()->validarAuditarPermissao('gestao_documental_recolhimento_documentos_fisicos', __METHOD__, $objMdGdDocumentoFisicoRecolDTO);
+            SessaoSEI::getInstance()->validarAuditarPermissao('gd_lista_recolhimento_documentos_fisicos_listar', __METHOD__, $objMdGdDocumentoFisicoRecolDTO);
 
             $objMdGdDocumentoFisicoRecolBD = new MdGdDocumentoFisicoRecolBD($this->inicializarObjInfraIBanco());
             return $objMdGdDocumentoFisicoRecolBD->cadastrar($objMdGdDocumentoFisicoRecolDTO);
@@ -28,7 +28,7 @@ class MdGdDocumentoFisicoRecolRN extends InfraRN {
     protected function consultarConectado(MdGdDocumentoFisicoRecolDTO $objMdGdDocumentoFisicoRecolDTO) {
         try {
             //Valida Permissao
-            SessaoSEI::getInstance()->validarAuditarPermissao('gestao_documental_list_recol_documentos_fisicos', __METHOD__, $objMdGdDocumentoFisicoRecolDTO);
+            SessaoSEI::getInstance()->validarAuditarPermissao('gd_lista_recolhimento_documentos_fisicos_listar', __METHOD__, $objMdGdDocumentoFisicoRecolDTO);
 
             $objMdGdDocumentoFisicoRecolBD = new MdGdDocumentoFisicoRecolBD($this->inicializarObjInfraIBanco());
             return $objMdGdDocumentoFisicoRecolBD->consultar($objMdGdDocumentoFisicoRecolDTO);
@@ -40,7 +40,7 @@ class MdGdDocumentoFisicoRecolRN extends InfraRN {
     protected function listarConectado(MdGdDocumentoFisicoRecolDTO $objMdGdDocumentoFisicoRecolDTO) {
         try {
             //Valida Permissao
-            SessaoSEI::getInstance()->validarAuditarPermissao('gestao_documental_list_recol_documentos_fisicos', __METHOD__, $objMdGdDocumentoFisicoRecolDTO);
+            SessaoSEI::getInstance()->validarAuditarPermissao('gd_lista_recolhimento_documentos_fisicos_listar', __METHOD__, $objMdGdDocumentoFisicoRecolDTO);
 
             $objMdGdDocumentoFisicoRecolBD = new MdGdDocumentoFisicoRecolBD($this->inicializarObjInfraIBanco());
             return $objMdGdDocumentoFisicoRecolBD->listar($objMdGdDocumentoFisicoRecolDTO);
@@ -52,7 +52,7 @@ class MdGdDocumentoFisicoRecolRN extends InfraRN {
     protected function contarConectado(MdGdDocumentoFisicoRecolDTO $objMdGdDocumentoFisicoRecolDTO) {
         try {
             //Valida Permissao
-            SessaoSEI::getInstance()->validarAuditarPermissao('gestao_documental_list_recol_documentos_fisicos', __METHOD__, $objMdGdDocumentoFisicoRecolDTO);
+            SessaoSEI::getInstance()->validarAuditarPermissao('gd_lista_recolhimento_documentos_fisicos_listar', __METHOD__, $objMdGdDocumentoFisicoRecolDTO);
 
             $objMdGdDocumentoFisicoRecolBD = new MdGdDocumentoFisicoRecolBD($this->inicializarObjInfraIBanco());
             return $objMdGdDocumentoFisicoRecolBD->contar($objMdGdDocumentoFisicoRecolDTO);

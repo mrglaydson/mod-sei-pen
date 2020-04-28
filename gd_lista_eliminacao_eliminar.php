@@ -19,14 +19,14 @@ try {
     //////////////////////////////////////////////////////////////////////////////
 
     SessaoSEI::getInstance()->validarLink();
-    SessaoSEI::getInstance()->validarPermissao('gestao_documental_eliminacao');
+    SessaoSEI::getInstance()->validarPermissao($_GET['acao']);
     PaginaSEI::getInstance()->setTipoPagina(InfraPagina::$TIPO_PAGINA_SIMPLES);
 
     $arrComandos[] = '<button type="submit" accesskey="P" id="sbmEliminar" name="sbmEliminar" value="Eliminar" class="infraButton"><span class="infraTeclaAtalho">E</span>liminar</button>';
 
     switch ($_GET['acao']) {
 
-        case 'gd_eliminacao':
+        case 'gd_lista_eliminacao_eliminar':
 
             $strTitulo = 'Confirmar Eliminação de Processos';
 
@@ -101,7 +101,7 @@ PaginaSEI::getInstance()->abrirJavaScript();
 ?>
 //<script>
 <? if ($_POST['sbmEliminar']) { ?>
-        window.opener.location.href = '<?= SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_gestao_listagem_eliminacao&acao_origem=' . $_GET['acao']); ?>';
+        window.opener.location.href = '<?= SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_lista_eliminacao_listar&acao_origem=' . $_GET['acao']); ?>';
         window.close();
 <? } ?>
 

@@ -15,7 +15,7 @@ try {
 
     switch ($_GET['acao']) {
 
-        case 'gd_remover_processo_listagem_elim':
+        case 'gd_lista_eliminacao_procedimento_remover':
             PaginaSEI::getInstance()->salvarCamposPost(array('hdnInfraItensSelecionados', 'hdnInfraItemId'));
 
             $strTitulo = 'Remover Processos da Listagem';
@@ -71,9 +71,9 @@ try {
     $arrComandos = array();
     $arrComandos[] = '<button type="button" accesskey="P" id="btnExcluirListagem" value="Excluir da Listagem" onclick="acaoExcluirListagemEliminacao('.$_GET['id_listagem_eliminacao'].');" class="infraButton"><span class="infraTeclaAtalho">E</span>xcluir da Listagem de Eliminação</button>';
     $arrComandos[] = '<button type="button" accesskey="I" id="btnImprimir" value="Imprimir" onclick="infraImprimirTabela();" class="infraButton"><span class="infraTeclaAtalho">I</span>mprimir</button>';
-    $arrComandos[] = '<button type="button" accesskey="F" name="btnFechar" id="btnFechar" value="Fechar" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_gestao_listagem_eliminacao&acao_origem=' . $_GET['acao']) . '\';" class="infraButton"><span class="infraTeclaAtalho">F</span>echar</button>';
+    $arrComandos[] = '<button type="button" accesskey="F" name="btnFechar" id="btnFechar" value="Fechar" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_lista_eliminacao_listar&acao_origem=' . $_GET['acao']) . '\';" class="infraButton"><span class="infraTeclaAtalho">F</span>echar</button>';
 
-    $strLinkExcluirListagem = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_remover_processo_listagem_elim&acao_origem=' . $_GET['acao'].'&id_listagem_eliminacao='.$_GET['id_listagem_eliminacao']);
+    $strLinkExcluirListagem = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_lista_eliminacao_procedimento_remover&acao_origem=' . $_GET['acao'].'&id_listagem_eliminacao='.$_GET['id_listagem_eliminacao']);
     
     // Busca os processos daquela listagem de eliminacao implodindo seus id's
     $objMdGdListaElimProcedimentoDTO = new MdGdListaElimProcedimentoDTO();

@@ -20,7 +20,7 @@ class MdGdListaEliminacaoRN extends InfraRN {
         try {
 
             //Valida Permissao
-            SessaoSEI::getInstance()->validarAuditarPermissao('gestao_documental_prep_list_eliminacao_gerar', __METHOD__, $objMdGdListaEliminacao);
+            SessaoSEI::getInstance()->validarAuditarPermissao('gd_lista_eliminacao_preparacao_gerar', __METHOD__, $objMdGdListaEliminacao);
 
             // Recupera os arquivamentos
             $arrObjMdGdArquivamentoDTO = $objMdGdListaEliminacao->getArrObjMdGdArquivamentoDTO();
@@ -284,11 +284,18 @@ class MdGdListaEliminacaoRN extends InfraRN {
     public function gerarPdfConectado($numIdListagem) {
         $objMdGdListaElimProcedimentoDTO = new MdGdListaElimProcedimentoDTO();
         $objMdGdListaElimProcedimentoDTO->setNumIdListaEliminacao($numIdListagem);
+ 
+        if($_POST['hdnInfraItensSelecionados']){
+            $arrIdsProcedimentos = explode(',', $_POST['hdnInfraItensSelecionados']);
+            $objMdGdListaElimProcedimentoDTO->setDblIdProcedimento($arrIdsProcedimentos, InfraDTO::$OPER_IN);
+        }
+        
         $objMdGdListaElimProcedimentoDTO->retDblIdProcedimento();
 
         $objMdGdListaElimProcedimentoRN = new MdGdListaElimProcedimentoRN();
         $arrObjMdGdListaElimProcedimentoDTO = $objMdGdListaElimProcedimentoRN->listar($objMdGdListaElimProcedimentoDTO);
 
+        
         $arrIdsEliminacao = explode(',', InfraArray::implodeArrInfraDTO($arrObjMdGdListaElimProcedimentoDTO, 'IdProcedimento'));
 
         // Busca todos os arquivamentos dos processos daquela listagem

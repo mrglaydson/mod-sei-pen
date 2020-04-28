@@ -19,7 +19,7 @@ try {
     //////////////////////////////////////////////////////////////////////////////
 
     SessaoSEI::getInstance()->validarLink();
-    SessaoSEI::getInstance()->validarPermissao('gestao_documental_eliminacao_documentos_fisicos');
+    SessaoSEI::getInstance()->validarPermissao($_GET['acao']);
     PaginaSEI::getInstance()->setTipoPagina(InfraPagina::$TIPO_PAGINA_SIMPLES);
 
 
@@ -27,7 +27,7 @@ try {
 
     switch ($_GET['acao']) {
 
-        case 'gd_eliminar_documento_fisico':
+        case 'gd_lista_eliminacao_documentos_fisicos_eliminar':
 
             $strTitulo = 'Confirmar Eliminação de Documentos Físicos';
 

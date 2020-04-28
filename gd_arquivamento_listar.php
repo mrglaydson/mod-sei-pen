@@ -46,20 +46,31 @@ try {
     }
 
     // Ação de desarquivar processo
-    $bolAcaoDesarquivar = SessaoSEI::getInstance()->validarPermissao('gd_procedimento_desarquivar');
-    $strLinkDesarquivar = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_procedimento_desarquivar&acao_origem=' . $_GET['acao']);
+    $bolAcaoDesarquivar = SessaoSEI::getInstance()->verificarPermissao('gd_procedimento_desarquivar');
     
     // Ação de devolver arquivamento
-    $bolAcaoEditarArquivamento = SessaoSEI::getInstance()->validarPermissao('gd_arquivamento_editar');
-    $strLinkAcaoEditarArquivamento = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_procedimento_editar_arquivamento&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao']);
+    $bolAcaoEditarArquivamento = SessaoSEI::getInstance()->verificarPermissao('gd_arquivamento_editar');
     
     // Ação de conclusão da edição do arquivamento
-    $bolAcaoConcluirEdicaoArquivamento = SessaoSEI::getInstance()->validarPermissao('gd_arquivamento_edicao_concluir');
-    $strLinkAcaoConcluirEdicaoArquivamento = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_procedimento_concluir_edicao_arquivamento&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao']);
+    $bolAcaoConcluirEdicaoArquivamento = SessaoSEI::getInstance()->verificarPermissao('gd_arquivamento_edicao_concluir');
 
     $arrComandos = array();
     $arrComandos[] = '<button type="submit" accesskey="P" id="sbmPesquisar" value="Pesquisar" class="infraButton"><span class="infraTeclaAtalho">P</span>esquisar</button>';
-    $arrComandos[] = '<button type="submit" accesskey="D" id="sbmDesarquivar" value="Desarquivar" class="infraButton" onclick="acaoDesarquivarMultiplo()"><span class="infraTeclaAtalho">D</span>esarquivar</button>';
+    
+    if($bolAcaoDesarquivar){
+        $strLinkDesarquivar = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_procedimento_desarquivar&acao_origem=' . $_GET['acao']);
+        $arrComandos[] = '<button type="submit" accesskey="D" id="sbmDesarquivar" value="Desarquivar" class="infraButton" onclick="acaoDesarquivarMultiplo()"><span class="infraTeclaAtalho">D</span>esarquivar</button>';
+    }
+
+    if($bolAcaoEditarArquivamento){
+        $strLinkAcaoEditarArquivamento = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_arquivamento_editar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao']);
+    }
+
+    if($bolAcaoConcluirEdicaoArquivamento){
+        $strLinkAcaoConcluirEdicaoArquivamento = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_arquivamento_edicao_concluir&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao']);
+    }
+
+
 
     $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
     $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();

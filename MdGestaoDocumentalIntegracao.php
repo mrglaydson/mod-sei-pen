@@ -346,76 +346,98 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
                 require_once dirname(__FILE__) . '/gd_arquivamento_avaliar.php';
                 return true;
 
+            // Preparação da lista de eliminação
+            case 'gd_lista_eliminacao_preparacao_listar':
+            case 'gd_lista_eliminacao_preparacao_gerar':
+            case 'gd_lista_eliminacao_preparacao_excluir':
+                require_once dirname(__FILE__) . '/gd_lista_eliminacao_preparacao_listar.php';
+                return true;
+
+            case 'gd_lista_eliminacao_preparacao_observar':
+                require_once dirname(__FILE__) . '/gd_lista_eliminacao_preparacao_observar.php';
+                return true;
+
+            // Gestão das listagens de eliminação
+            case 'gd_lista_eliminacao_listar':
+            case 'gd_lista_eliminacao_editar':
+            case 'gd_lista_eliminacao_edicao_concluir':
+                require_once dirname(__FILE__) . '/gd_lista_eliminacao_listar.php';
+                return true;
+
+            case 'gd_lista_eliminacao_visualizar':
+            case 'gd_lista_eliminacao_pdf_gerar':
+                require_once dirname(__FILE__) . '/gd_lista_eliminacao_visualizar.php';
+                return true;
+        
+            // Edição da listagem de eliminação
+            case 'gd_lista_eliminacao_procedimento_adicionar':
+                require_once dirname(__FILE__) . '/gd_lista_eliminacao_procedimento_adicionar.php';
+                return true;
+
+            case 'gd_lista_eliminacao_procedimento_remover':
+                require_once dirname(__FILE__) . '/gd_lista_eliminacao_procedimento_remover.php';
+                return true;
+            
+            // Eliminação de processos
+            case 'gd_lista_eliminacao_eliminar':
+                require_once dirname(__FILE__) . '/gd_lista_eliminacao_eliminar.php';
+                return true;
+
+            // Preparação da lista de recolhimento
+            case 'gd_lista_recolhimento_preparacao_listar':
+            case 'gd_lista_recolhimento_preparacao_gerar':
+            case 'gd_lista_recolhimento_preparacao_excluir':
+                require_once dirname(__FILE__) . '/gd_lista_recolhimento_preparacao_listar.php';
+                return true;
+
+            case 'gd_lista_recolhimento_preparacao_observar':
+                require_once dirname(__FILE__) . '/gd_lista_recolhimento_preparacao_observar.php';
+                return true;
+    
+            // Edição da listagem de recolhimento
+            case 'gd_lista_recolhimento_procedimento_adicionar':
+                require_once dirname(__FILE__) . '/gd_lista_recolhimento_procedimento_adicionar.php';
+                return true;
+
+            case 'gd_lista_recolhimento_procedimento_remover':
+                require_once dirname(__FILE__) . '/gd_lista_recolhimento_procedimento_remover.php';
+                return true;
+
+            // Gestão das listagens de recolhimento
+            case 'gd_lista_recolhimento_listar':
+            case 'gd_lista_recolhimento_editar':
+            case 'gd_lista_recolhimento_edicao_concluir':
+            case 'gd_lista_recolhimento_recolher':
+                require_once dirname(__FILE__) . '/gd_lista_recolhimento_listar.php';
+                return true;
+
+            case 'gd_lista_recolhimento_visualizar':
+            case 'gd_lista_recolhimento_pdf_gerar':
+                require_once dirname(__FILE__) . '/gd_lista_recolhimento_visualizar.php';
+                return true;
+
+            // Recolher documento fisico
+            case 'gd_lista_recolhimento_documentos_fisicos_listar':
+                require_once dirname(__FILE__) . '/gd_lista_recolhimento_documento_fisico_listar.php';
+                return true;
+
+            case 'gd_lista_recolhimento_documentos_fisicos_recolher':
+                require_once dirname(__FILE__) . '/gd_lista_recolhimento_documento_fisico_recolher.php';
+                return true;
+
+            // Eliminar documento fisico
+            case 'gd_lista_eliminacao_documentos_fisicos_listar':
+                require_once dirname(__FILE__) . '/gd_lista_eliminacao_documento_fisico_listar.php';
+                return true;
+
+            case 'gd_lista_eliminacao_documentos_fisicos_eliminar':
+                require_once dirname(__FILE__) . '/gd_lista_eliminacao_documento_fisico_eliminar.php';
+                return true;
+            
+            // Relatório
             case 'gd_relatorio':
                 require_once dirname(__FILE__) . '/gd_relatorio.php';
                 return true;
-
-            case 'gd_gestao_listagem_recolhimento':
-            case 'gd_editar_listagem_recolhimento':
-            case 'gd_concluir_edicao_listagem_recol':
-            case 'gd_recolhimento':
-                require_once dirname(__FILE__) . '/gd_gestao_listagem_recolhimento.php';
-                return true;
-            case 'gd_lista_eliminacao_processo_adicao_listar':
-            case 'gd_lista_eliminacao_processo_adicao_adicionar':
-                require_once dirname(__FILE__) . '/gd_lista_eliminacao_processo_adicao_listar.php';
-                return true;
-            case 'gd_adicionar_processo_listagem_recol':
-                require_once dirname(__FILE__) . '/gd_adicionar_processo_listagem_recol.php';
-                return true;
-            case 'gd_remover_processo_listagem_elim':
-                require_once dirname(__FILE__) . '/gd_remover_processo_listagem_elim.php';
-                return true;
-            case 'gd_remover_processo_listagem_recol':
-                require_once dirname(__FILE__) . '/gd_remover_processos_listagem_recol.php';
-                return true;
-            case 'gd_visualizacao_listagem_recolhimento':
-            case 'gd_geracao_pdf_listagem_recolhimento':
-                require_once dirname(__FILE__) . '/gd_visualizar_listagem_recolhimento.php';
-                return true;
-            case 'gd_recolhimento_documentos_fisicos':
-                require_once dirname(__FILE__) . '/gd_recolhimento_documento_fisico.php';
-                return true;
-            case 'gd_recolher_documento_fisico':
-                require_once dirname(__FILE__) . '/gd_recolher_documento_fisico.php';
-                return true;
-            case 'gd_gestao_listagem_eliminacao':
-            case 'gd_editar_listagem_eliminacao':
-            case 'gd_concluir_edicao_listagem_elim':
-                require_once dirname(__FILE__) . '/gd_gestao_listagem_eliminacao.php';
-                return true;
-            case 'gd_eliminar_documento_fisico':
-                require_once dirname(__FILE__) . '/gd_eliminar_documento_fisico.php';
-                return true;
-            case 'gd_eliminacao':
-                require_once dirname(__FILE__) . '/gd_eliminar_processo.php';
-                return true;
-            case 'gd_eliminacao_documentos_fisicos':
-                require_once dirname(__FILE__) . '/gd_eliminacao_documento_fisico.php';
-                return true;
-            case 'gd_visualizacao_listagem_eliminacao':
-            case 'gd_listagem_eliminacao_eliminar':
-            case 'gd_geracao_pdf_listagem_eliminacao':
-                require_once dirname(__FILE__) . '/gd_visualizar_listagem_eliminacao.php';
-                return true;
-            case 'gd_prep_list_eliminacao_observar':
-                require_once dirname(__FILE__) . '/gd_observar_listagem_eliminacao.php';
-                return true;
-            case 'gd_prep_list_recolhimento_observar':
-                require_once dirname(__FILE__) . '/gd_observar_listagem_recolhimento.php';
-                return true;
-            case 'gd_prep_list_eliminacao_gerar':
-            case 'gd_prep_list_eliminacao_listar':
-            case 'gd_prep_list_eliminacao_excluir':
-                require_once dirname(__FILE__) . '/gd_preparar_listagem_eliminacao.php';
-                return true;
-            case 'gd_prep_list_recolhimento_gerar':
-            case 'gd_prep_list_recolhimento_listar':
-            case 'gd_prep_list_recolhimento_excluir':
-                require_once dirname(__FILE__) . '/gd_preparar_listagem_recolhimento.php';
-                return true;
-
-
         }
 
         return false;

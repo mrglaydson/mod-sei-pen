@@ -16,7 +16,6 @@ class MdGdEliminacaoRN extends InfraRN {
         try {
 
             //Valida Permissao
-            SessaoSEI::getInstance()->validarAuditarPermissao('gestao_documental_eliminacao', __METHOD__, $objMdGdEliminacaoDTO);
 
             // Altera a situação da eliminação para eliminado
             $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
@@ -112,7 +111,6 @@ class MdGdEliminacaoRN extends InfraRN {
     protected function consultarConectado(MdGdEliminacaoDTO $objMdGdEliminacaoDTO) {
         try {
             //Valida Permissao
-            SessaoSEI::getInstance()->validarAuditarPermissao('gestao_documental_eliminacao_listar', __METHOD__, $objMdGdEliminacaoDTO);
 
             $objMdGdEliminacaoBD = new MdGdEliminacaoBD($this->inicializarObjInfraIBanco());
             return $objMdGdEliminacaoBD->consultar($objMdGdEliminacaoDTO);
@@ -124,7 +122,6 @@ class MdGdEliminacaoRN extends InfraRN {
     protected function listarConectado(MdGdEliminacaoDTO $objMdGdEliminacaoDTO) {
         try {
             //Valida Permissao
-            SessaoSEI::getInstance()->validarAuditarPermissao('gestao_documental_eliminacao_listar', __METHOD__, $objMdGdEliminacaoDTO);
 
             $objMdGdEliminacaoBD = new MdGdEliminacaoBD($this->inicializarObjInfraIBanco());
             return $objMdGdEliminacaoBD->listar($objMdGdEliminacaoDTO);

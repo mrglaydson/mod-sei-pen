@@ -16,7 +16,7 @@ class MdGdRecolhimentoRN extends InfraRN {
         try {
 
             //Valida Permissao
-            SessaoSEI::getInstance()->validarAuditarPermissao('gestao_documental_recolhimento', __METHOD__, $objMdGdRecolhimentoDTO);
+            SessaoSEI::getInstance()->validarAuditarPermissao('gd_lista_recolhimento_recolher', __METHOD__, $objMdGdRecolhimentoDTO);
 
             // Altera a situação do recolhimento para recolhido
             $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
@@ -50,7 +50,7 @@ class MdGdRecolhimentoRN extends InfraRN {
     protected function consultarConectado(MdGdRecolhimentoDTO $objMdGdRecolhimentoDTO) {
         try {
             //Valida Permissao
-            SessaoSEI::getInstance()->validarAuditarPermissao('gestao_documental_recolhimento_listar', __METHOD__, $objMdGdRecolhimentoDTO);
+            SessaoSEI::getInstance()->validarAuditarPermissao('gd_lista_recolhimento_listar', __METHOD__, $objMdGdRecolhimentoDTO);
 
             $objMdGdRecolhimentoBD = new MdGdRecolhimentoBD($this->inicializarObjInfraIBanco());
             return $objMdGdRecolhimentoBD->consultar($objMdGdRecolhimentoDTO);
@@ -62,7 +62,6 @@ class MdGdRecolhimentoRN extends InfraRN {
     protected function listarConectado(MdGdRecolhimentoDTO $objMdGdRecolhimentoDTO) {
         try {
             //Valida Permissao
-            SessaoSEI::getInstance()->validarAuditarPermissao('gestao_documental_recolhimento_listar', __METHOD__, $objMdGdRecolhimentoDTO);
 
             $objMdGdRecolhimentoBD = new MdGdRecolhimentoBD($this->inicializarObjInfraIBanco());
             return $objMdGdRecolhimentoBD->listar($objMdGdRecolhimentoDTO);
