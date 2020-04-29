@@ -156,6 +156,8 @@ try {
     $id_recurso_arquivamento_listar = $fnCadastrarRecurso($id_sistema, 'gd_arquivamento_listar', 'Listar arquivo da unidade.', 'controlador.php?acao=gd_arquivamento_listar', 'S');
     $id_recurso_arquivamento_editar = $fnCadastrarRecurso($id_sistema, 'gd_arquivamento_editar', 'Editar processo arquivado.', 'controlador.php?acao=gd_arquivamento_editar', 'S');
     $id_recurso_arquivamento_edicao_concluir = $fnCadastrarRecurso($id_sistema, 'gd_arquivamento_edicao_concluir', 'Concluir edição de processo arquivado.', 'controlador.php?acao=gd_arquivamento_edicao_concluir', 'S');
+    $id_recurso_procedimento_reabrir = $fnCadastrarRecurso($id_sistema, 'gd_procedimento_reabrir', 'Reabrir processo no contexto módulo de gestão documental.', 'controlador.php?acao=gd_procedimento_reabrir', 'S');
+
     
     # RECUROS DE CONSULTA AO HISTÓRICO DE ARQUIVAMENTO
     $id_recurso_arquivamento_historico_listar = $fnCadastrarRecurso($id_sistema, 'gd_arquivamento_historico_listar', 'Listar o histórico de arquivamento.', 'controlador.php?acao=gd_arquivamento_historico_listar', 'S');
@@ -167,8 +169,6 @@ try {
     $id_recurso_arquivamento_eliminacao_enviar = $fnCadastrarRecurso($id_sistema, 'gd_arquivamento_eliminacao_enviar', 'Enviar processo arquivado para eliminação.', 'controlador.php?acao=gd_arquivamento_eliminacao_enviar', 'S');
     $id_recurso_arquivamento_devolver = $fnCadastrarRecurso($id_sistema, 'gd_arquivamento_devolver', 'Devolver processos arquivado para unidade que o arquivou.', 'controlador.php?acao=gd_arquivamento_devolver', 'S');
 
-
-    ###########################################################RECURSOS#############################################################################################
 
     # PREPARAÇÃO DA LISTA DE ELIMINAÇÃO
 
@@ -293,6 +293,8 @@ try {
     $id_menu_pendencias_arquivamento = $fnItemMenu($id_menu, null, $id_sistema, $id_recurso_pendencias_arquivamento, 'Pendências de Arquivamento', 'N', 'S', 131);
     $id_menu_arquivamento_listar = $fnItemMenu($id_menu, null, $id_sistema, $id_recurso_arquivamento_listar, 'Arquivo da Unidade', 'N', 'S', 132);
 
+
+    
     //Cria o item de menu de modelos de documento
     $id_menu_modelos_documento_alterar = $fnItemMenu($id_menu, $id_menu_gestao_documental, $id_sistema, $id_recurso_modelos_documento_alterar, 'Modelos de Documento', 'N', 'S', 3);
 
