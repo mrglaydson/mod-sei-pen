@@ -338,7 +338,39 @@
       "targets": [],
       "value": ""
     }, {
-      "id": "32277ecf-236f-4096-952d-3ed703361ba8",
+      "id": "bae67684-6923-46bf-a162-7e47b9423609",
+      "comment": "",
+      "command": "selectFrame",
+      "target": "index=0",
+      "targets": [
+        ["index=0"]
+      ],
+      "value": ""
+    }, {
+      "id": "e1fc9d95-a18f-47c8-9372-fc534cc5e89e",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//span",
+      "targets": [
+        ["id=span7", "id"],
+        ["css=#span7", "css:finder"],
+        ["xpath=//span[@id='span7']", "xpath:attributes"],
+        ["xpath=//a[@id='anchor7']/span", "xpath:idRelative"],
+        ["xpath=//span", "xpath:position"],
+        ["xpath=//span[contains(.,'99993.000004/2020-71')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "06c92e40-0347-4ad9-823b-d1111200af0b",
+      "comment": "",
+      "command": "selectFrame",
+      "target": "relative=parent",
+      "targets": [
+        ["relative=parent"]
+      ],
+      "value": ""
+    }, {
+      "id": "0e46aa56-6b0b-43a7-a779-9a3990c3eece",
       "comment": "",
       "command": "selectFrame",
       "target": "index=1",
@@ -350,14 +382,14 @@
       "id": "4178d480-ba8e-4206-9ab2-3c392ae2cf09",
       "comment": "",
       "command": "waitForElementVisible",
-      "target": "css=.botaoSEI:nth-child(15) > .infraCorBarraSistema",
+      "target": "css=.botaoSEI:nth-child(23) > .infraCorBarraSistema",
       "targets": [],
       "value": "30000"
     }, {
       "id": "665e9272-48b0-41d5-9afc-6b3c39198b78",
       "comment": "",
       "command": "click",
-      "target": "css=.botaoSEI:nth-child(15) > .infraCorBarraSistema",
+      "target": "css=.botaoSEI:nth-child(23) > .infraCorBarraSistema",
       "targets": [
         ["css=.botaoSEI:nth-child(15) > .infraCorBarraSistema", "css:finder"],
         ["xpath=//img[@alt='Arquivar Processo']", "xpath:img"],
@@ -549,14 +581,14 @@
       "id": "04deb8ff-ad46-430e-afaa-65aebf51e720",
       "comment": "",
       "command": "waitForElementVisible",
-      "target": "css=.botaoSEI:nth-child(10) > .infraCorBarraSistema",
+      "target": "//*[@id=\"divArvoreAcoes\"]/a[11]/img",
       "targets": [],
       "value": "30000"
     }, {
       "id": "de5b8aa2-bf58-42ed-9366-0963c3878ce3",
       "comment": "",
       "command": "click",
-      "target": "css=.botaoSEI:nth-child(10) > .infraCorBarraSistema",
+      "target": "//*[@id=\"divArvoreAcoes\"]/a[11]/img",
       "targets": [
         ["css=.botaoSEI:nth-child(10) > .infraCorBarraSistema", "css:finder"],
         ["xpath=//img[@alt='Desarquivar Processo']", "xpath:img"],
