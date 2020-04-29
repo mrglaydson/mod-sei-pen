@@ -123,8 +123,8 @@ class Test00ConfigSIP():
     self.driver.find_element(By.XPATH, "(//img[@alt=\'Montar Perfil\'])[9]").click()
     # 28 | click | id=txtNomeRecurso | 
     self.driver.find_element(By.ID, "txtNomeRecurso").click()
-    # 29 | type | id=txtNomeRecurso | gestao
-    self.driver.find_element(By.ID, "txtNomeRecurso").send_keys("gestao")
+    # 29 | type | id=txtNomeRecurso | gd_
+    self.driver.find_element(By.ID, "txtNomeRecurso").send_keys("gd_")
     # 30 | click | id=btnPesquisar | 
     self.driver.find_element(By.ID, "btnPesquisar").click()
     # 31 | click | id=imgInfraCheckRecursos | 
@@ -139,8 +139,8 @@ class Test00ConfigSIP():
     self.driver.find_element(By.XPATH, "(//img[@alt=\'Montar Perfil\'])[10]").click()
     # 36 | click | id=txtNomeRecurso | 
     self.driver.find_element(By.ID, "txtNomeRecurso").click()
-    # 37 | type | id=txtNomeRecurso | gestao
-    self.driver.find_element(By.ID, "txtNomeRecurso").send_keys("gestao")
+    # 37 | type | id=txtNomeRecurso | gd_
+    self.driver.find_element(By.ID, "txtNomeRecurso").send_keys("gd_")
     # 38 | click | id=btnPesquisar | 
     self.driver.find_element(By.ID, "btnPesquisar").click()
     # 39 | click | id=imgInfraCheckRecursos | 
