@@ -193,7 +193,7 @@
         ["xpath=//div[@id='divInfraAreaDados']/input", "xpath:idRelative"],
         ["xpath=//div[2]/input", "xpath:position"]
       ],
-      "value": "gestao"
+      "value": "gd_"
     }, {
       "id": "170a8110-379e-46f5-9e0c-e7c219941d66",
       "comment": "",
