@@ -193,7 +193,7 @@
         ["xpath=//div[@id='divInfraAreaDados']/input", "xpath:idRelative"],
         ["xpath=//div[2]/input", "xpath:position"]
       ],
-      "value": "gd_"
+      "value": "gestao"
     }, {
       "id": "170a8110-379e-46f5-9e0c-e7c219941d66",
       "comment": "",
@@ -1085,7 +1085,7 @@
         ["xpath=//div[@id='divInfraAreaDados']/input", "xpath:idRelative"],
         ["xpath=//div[2]/input", "xpath:position"]
       ],
-      "value": "gd_"
+      "value": "gestao"
     }, {
       "id": "2d1070f2-fe28-4594-aab0-5a227052f3ce",
       "comment": "",
@@ -1192,7 +1192,7 @@
         ["xpath=//div[@id='divInfraAreaDados']/input", "xpath:idRelative"],
         ["xpath=//div[2]/input", "xpath:position"]
       ],
-      "value": "gd_"
+      "value": "gestao"
     }, {
       "id": "d10122ef-d1bf-4b4b-8999-8d0917ec4ac9",
       "comment": "",

@@ -19,412 +19,222 @@ class Test00ConfigSIP():
     self.driver.quit()
   
   def test_sIPPermissaoAdmin(self):
-    # Test name: SIP-Permissao Admin
-    # Step # | name | target | value
-    # 1 | open | sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SIP | 
     self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SIP")
-    # 2 | click | id=txtUsuario | 
     self.driver.find_element(By.ID, "txtUsuario").click()
-    # 3 | type | id=txtUsuario | teste
     self.driver.find_element(By.ID, "txtUsuario").send_keys("teste")
-    # 4 | click | id=pwdSenha | 
     self.driver.find_element(By.ID, "pwdSenha").click()
-    # 5 | type | id=pwdSenha | teste
     self.driver.find_element(By.ID, "pwdSenha").send_keys("teste")
-    # 6 | click | id=sbmLogin | 
     self.driver.find_element(By.ID, "sbmLogin").click()
-    # 7 | storeText | xpath=html | var1
     self.vars["var1"] = self.driver.find_element(By.XPATH, "html").text
-    # 8 | click | xpath=//ul[@id='main-menu']/li[11]/a | 
     self.driver.find_element(By.XPATH, "//ul[@id=\'main-menu\']/li[11]/a").click()
-    # 9 | click | linkText=Listar | 
     self.driver.find_element(By.LINK_TEXT, "Listar").click()
-    # 10 | click | id=selSistema | 
     self.driver.find_element(By.ID, "selSistema").click()
-    # 11 | select | id=selSistema | label=SEI
     dropdown = self.driver.find_element(By.ID, "selSistema")
     dropdown.find_element(By.XPATH, "//option[. = 'SEI']").click()
-    # 12 | click | id=selSistema | 
     self.driver.find_element(By.ID, "selSistema").click()
-    # 13 | click | xpath=(//img[@alt='Montar Perfil'])[2] | 
     self.driver.find_element(By.XPATH, "(//img[@alt=\'Montar Perfil\'])[2]").click()
-    # 14 | click | id=txtNomeRecurso | 
     self.driver.find_element(By.ID, "txtNomeRecurso").click()
-    # 15 | type | id=txtNomeRecurso | gd_
-    self.driver.find_element(By.ID, "txtNomeRecurso").send_keys("gd_")
-    # 16 | click | id=btnPesquisar | 
+    self.driver.find_element(By.ID, "txtNomeRecurso").send_keys("gestao")
     self.driver.find_element(By.ID, "btnPesquisar").click()
-    # 17 | click | id=imgInfraCheckRecursos | 
     self.driver.find_element(By.ID, "imgInfraCheckRecursos").click()
-    # 18 | click | id=imgInfraCheckMenus | 
     self.driver.find_element(By.ID, "imgInfraCheckMenus").click()
-    # 19 | click | name=sbmMontarPerfil | 
     self.driver.find_element(By.NAME, "sbmMontarPerfil").click()
   
   def test_sIPCriarPerfilArquivistas(self):
-    # Test name: SIP-CriarPerfilArquivistas
-    # Step # | name | target | value
-    # 1 | open | sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SIP | 
     self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SIP")
-    # 2 | click | id=txtUsuario | 
     self.driver.find_element(By.ID, "txtUsuario").click()
-    # 3 | type | id=txtUsuario | teste
     self.driver.find_element(By.ID, "txtUsuario").send_keys("teste")
-    # 4 | click | id=pwdSenha | 
     self.driver.find_element(By.ID, "pwdSenha").click()
-    # 5 | type | id=pwdSenha | teste
     self.driver.find_element(By.ID, "pwdSenha").send_keys("teste")
-    # 6 | click | id=sbmLogin | 
     self.driver.find_element(By.ID, "sbmLogin").click()
-    # 7 | storeText | xpath=html | var1
     self.vars["var1"] = self.driver.find_element(By.XPATH, "html").text
-    # 8 | click | xpath=//ul[@id='main-menu']/li[11]/a | 
     self.driver.find_element(By.XPATH, "//ul[@id=\'main-menu\']/li[11]/a").click()
-    # 9 | click | linkText=Clonar | 
     self.driver.find_element(By.LINK_TEXT, "Clonar").click()
-    # 10 | select | id=selSistema | label=SEI
     dropdown = self.driver.find_element(By.ID, "selSistema")
     dropdown.find_element(By.XPATH, "//option[. = 'SEI']").click()
-    # 11 | click | id=selSistema | 
     self.driver.find_element(By.ID, "selSistema").click()
-    # 12 | select | id=selPerfilOrigem | label=Básico
     dropdown = self.driver.find_element(By.ID, "selPerfilOrigem")
     dropdown.find_element(By.XPATH, "//option[. = 'Básico']").click()
-    # 13 | click | id=txtPerfilDestino | 
     self.driver.find_element(By.ID, "txtPerfilDestino").click()
-    # 14 | type | id=txtPerfilDestino | PerfilArquivistaBasico
     self.driver.find_element(By.ID, "txtPerfilDestino").send_keys("PerfilArquivistaBasico")
-    # 15 | click | name=sbmClonarPerfil | 
     self.driver.find_element(By.NAME, "sbmClonarPerfil").click()
-    # 16 | click | xpath=//ul[@id='main-menu']/li[11]/a | 
     self.driver.find_element(By.XPATH, "//ul[@id=\'main-menu\']/li[11]/a").click()
-    # 17 | click | linkText=Clonar | 
     self.driver.find_element(By.LINK_TEXT, "Clonar").click()
-    # 18 | click | id=txtPerfilDestino | 
     self.driver.find_element(By.ID, "txtPerfilDestino").click()
-    # 19 | type | id=txtPerfilDestino | PerfilArquivistaGeral
     self.driver.find_element(By.ID, "txtPerfilDestino").send_keys("PerfilArquivistaGeral")
-    # 20 | click | name=sbmClonarPerfil | 
     self.driver.find_element(By.NAME, "sbmClonarPerfil").click()
-    # 21 | click | xpath=//ul[@id='main-menu']/li[11]/a | 
     self.driver.find_element(By.XPATH, "//ul[@id=\'main-menu\']/li[11]/a").click()
-    # 22 | waitForElementVisible | linkText=Listar | 30000
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.LINK_TEXT, "Listar")))
-    # 23 | click | linkText=Listar | 
     self.driver.find_element(By.LINK_TEXT, "Listar").click()
-    # 24 | click | id=selSistema | 
     self.driver.find_element(By.ID, "selSistema").click()
-    # 25 | select | id=selSistema | label=SEI
     dropdown = self.driver.find_element(By.ID, "selSistema")
     dropdown.find_element(By.XPATH, "//option[. = 'SEI']").click()
-    # 26 | click | id=selSistema | 
     self.driver.find_element(By.ID, "selSistema").click()
-    # 27 | click | xpath=(//img[@alt='Montar Perfil'])[9] | 
     self.driver.find_element(By.XPATH, "(//img[@alt=\'Montar Perfil\'])[9]").click()
-    # 28 | click | id=txtNomeRecurso | 
     self.driver.find_element(By.ID, "txtNomeRecurso").click()
-    # 29 | type | id=txtNomeRecurso | gd_
-    self.driver.find_element(By.ID, "txtNomeRecurso").send_keys("gd_")
-    # 30 | click | id=btnPesquisar | 
+    self.driver.find_element(By.ID, "txtNomeRecurso").send_keys("gestao")
     self.driver.find_element(By.ID, "btnPesquisar").click()
-    # 31 | click | id=imgInfraCheckRecursos | 
     self.driver.find_element(By.ID, "imgInfraCheckRecursos").click()
-    # 32 | click | id=imgInfraCheckMenus | 
     self.driver.find_element(By.ID, "imgInfraCheckMenus").click()
-    # 33 | click | name=sbmMontarPerfil | 
     self.driver.find_element(By.NAME, "sbmMontarPerfil").click()
-    # 34 | click | name=btnCancelar | 
     self.driver.find_element(By.NAME, "btnCancelar").click()
-    # 35 | click | xpath=(//img[@alt='Montar Perfil'])[10] | 
     self.driver.find_element(By.XPATH, "(//img[@alt=\'Montar Perfil\'])[10]").click()
-    # 36 | click | id=txtNomeRecurso | 
     self.driver.find_element(By.ID, "txtNomeRecurso").click()
-    # 37 | type | id=txtNomeRecurso | gd_
-    self.driver.find_element(By.ID, "txtNomeRecurso").send_keys("gd_")
-    # 38 | click | id=btnPesquisar | 
+    self.driver.find_element(By.ID, "txtNomeRecurso").send_keys("gestao")
     self.driver.find_element(By.ID, "btnPesquisar").click()
-    # 39 | click | id=imgInfraCheckRecursos | 
     self.driver.find_element(By.ID, "imgInfraCheckRecursos").click()
-    # 40 | click | id=imgInfraCheckMenus | 
     self.driver.find_element(By.ID, "imgInfraCheckMenus").click()
-    # 41 | click | name=sbmMontarPerfil | 
     self.driver.find_element(By.NAME, "sbmMontarPerfil").click()
   
   def test_sIPCriarMontarUnidades(self):
-    # Test name: SIP-CriarMontarUnidades
-    # Step # | name | target | value
-    # 1 | open | /sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SIP | 
     self.driver.get("http://seigd.intra.planejamento//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SIP")
-    # 2 | type | id=txtUsuario | teste
     self.driver.find_element(By.ID, "txtUsuario").send_keys("teste")
-    # 3 | click | id=pwdSenha | 
     self.driver.find_element(By.ID, "pwdSenha").click()
-    # 4 | type | id=pwdSenha | teste
     self.driver.find_element(By.ID, "pwdSenha").send_keys("teste")
-    # 5 | click | id=sbmLogin | 
     self.driver.find_element(By.ID, "sbmLogin").click()
-    # 6 | click | xpath=//ul[@id='main-menu']/li[8]/a | 
     self.driver.find_element(By.XPATH, "//ul[@id=\'main-menu\']/li[8]/a").click()
-    # 7 | click | linkText=Nova | 
     self.driver.find_element(By.LINK_TEXT, "Nova").click()
-    # 8 | select | id=selOrgao | label=ME
     dropdown = self.driver.find_element(By.ID, "selOrgao")
     dropdown.find_element(By.XPATH, "//option[. = 'ME']").click()
-    # 9 | click | id=selOrgao | 
     self.driver.find_element(By.ID, "selOrgao").click()
-    # 10 | waitForElementEditable | id=txtSigla | 30000
     WebDriverWait(self.driver, 30000).until(expected_conditions.element_to_be_clickable((By.ID, "txtSigla")))
-    # 11 | click | id=txtSigla | 
     self.driver.find_element(By.ID, "txtSigla").click()
-    # 12 | type | id=txtSigla | Arquivo01
     self.driver.find_element(By.ID, "txtSigla").send_keys("Arquivo01")
-    # 13 | click | id=txtDescricao | 
     self.driver.find_element(By.ID, "txtDescricao").click()
-    # 14 | type | id=txtDescricao | Arquivo01
     self.driver.find_element(By.ID, "txtDescricao").send_keys("Arquivo01")
-    # 15 | click | name=sbmCadastrarUnidade | 
     self.driver.find_element(By.NAME, "sbmCadastrarUnidade").click()
-    # 16 | click | xpath=//ul[@id='main-menu']/li[8]/a | 
     self.driver.find_element(By.XPATH, "//ul[@id=\'main-menu\']/li[8]/a").click()
-    # 17 | click | linkText=Nova | 
     self.driver.find_element(By.LINK_TEXT, "Nova").click()
-    # 18 | click | id=txtSigla | 
     self.driver.find_element(By.ID, "txtSigla").click()
-    # 19 | type | id=txtSigla | ArquivoGeral
     self.driver.find_element(By.ID, "txtSigla").send_keys("ArquivoGeral")
-    # 20 | click | id=txtDescricao | 
     self.driver.find_element(By.ID, "txtDescricao").click()
-    # 21 | type | id=txtDescricao | ArquivoGeral
     self.driver.find_element(By.ID, "txtDescricao").send_keys("ArquivoGeral")
-    # 22 | click | name=sbmCadastrarUnidade | 
     self.driver.find_element(By.NAME, "sbmCadastrarUnidade").click()
-    # 23 | click | xpath=//ul[@id='main-menu']/li[7]/a | 
     self.driver.find_element(By.XPATH, "//ul[@id=\'main-menu\']/li[7]/a").click()
-    # 24 | click | linkText=Montar | 
     self.driver.find_element(By.LINK_TEXT, "Montar").click()
-    # 25 | select | id=selHierarquia | label=SEI
     dropdown = self.driver.find_element(By.ID, "selHierarquia")
     dropdown.find_element(By.XPATH, "//option[. = 'SEI']").click()
-    # 26 | click | id=selHierarquia | 
     self.driver.find_element(By.ID, "selHierarquia").click()
-    # 27 | click | id=btnNova | 
     self.driver.find_element(By.ID, "btnNova").click()
-    # 28 | select | id=selUnidade | label=Arquivo01
     dropdown = self.driver.find_element(By.ID, "selUnidade")
     dropdown.find_element(By.XPATH, "//option[. = 'Arquivo01']").click()
-    # 29 | click | id=selUnidade | 
     self.driver.find_element(By.ID, "selUnidade").click()
-    # 30 | type | id=txtDataInicio | 01/01/2019
     self.driver.find_element(By.ID, "txtDataInicio").send_keys("01/01/2019")
-    # 31 | click | name=sbmCadastrarHierarquiaUnidade | 
     self.driver.find_element(By.NAME, "sbmCadastrarHierarquiaUnidade").click()
-    # 32 | click | id=btnNova | 
     self.driver.find_element(By.ID, "btnNova").click()
-    # 33 | select | id=selUnidade | label=ArquivoGeral
     dropdown = self.driver.find_element(By.ID, "selUnidade")
     dropdown.find_element(By.XPATH, "//option[. = 'ArquivoGeral']").click()
-    # 34 | click | id=selUnidade | 
     self.driver.find_element(By.ID, "selUnidade").click()
-    # 35 | click | id=txtDataInicio | 
     self.driver.find_element(By.ID, "txtDataInicio").click()
-    # 36 | type | id=txtDataInicio | 01/01/2019
     self.driver.find_element(By.ID, "txtDataInicio").send_keys("01/01/2019")
-    # 37 | click | name=sbmCadastrarHierarquiaUnidade | 
     self.driver.find_element(By.NAME, "sbmCadastrarHierarquiaUnidade").click()
   
   def test_sIPCriarMontarUsers(self):
-    # Test name: SIP-CriarMontarUsers
-    # Step # | name | target | value
-    # 1 | open | /sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SIP | 
     self.driver.get("http://seigd.intra.planejamento//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SIP")
-    # 2 | type | id=txtUsuario | teste
     self.driver.find_element(By.ID, "txtUsuario").send_keys("teste")
-    # 3 | click | id=pwdSenha | 
     self.driver.find_element(By.ID, "pwdSenha").click()
-    # 4 | type | id=pwdSenha | teste
     self.driver.find_element(By.ID, "pwdSenha").send_keys("teste")
-    # 5 | click | id=sbmLogin | 
     self.driver.find_element(By.ID, "sbmLogin").click()
-    # 6 | click | xpath=//ul[@id='main-menu']/li[6]/a | 
     self.driver.find_element(By.XPATH, "//ul[@id=\'main-menu\']/li[6]/a").click()
-    # 7 | click | linkText=Novo | 
     self.driver.find_element(By.LINK_TEXT, "Novo").click()
-    # 8 | select | id=selOrgao | label=ME
     dropdown = self.driver.find_element(By.ID, "selOrgao")
     dropdown.find_element(By.XPATH, "//option[. = 'ME']").click()
-    # 9 | click | id=selOrgao | 
     self.driver.find_element(By.ID, "selOrgao").click()
-    # 10 | click | id=txtSigla | 
     self.driver.find_element(By.ID, "txtSigla").click()
-    # 11 | type | id=txtSigla | arquivista01
     self.driver.find_element(By.ID, "txtSigla").send_keys("arquivista01")
-    # 12 | click | id=txtNome | 
     self.driver.find_element(By.ID, "txtNome").click()
-    # 13 | type | id=txtNome | Arquivista01
     self.driver.find_element(By.ID, "txtNome").send_keys("Arquivista01")
-    # 14 | click | name=sbmCadastrarUsuario | 
     self.driver.find_element(By.NAME, "sbmCadastrarUsuario").click()
-    # 15 | click | xpath=//ul[@id='main-menu']/li[6]/a | 
     self.driver.find_element(By.XPATH, "//ul[@id=\'main-menu\']/li[6]/a").click()
-    # 16 | click | linkText=Novo | 
     self.driver.find_element(By.LINK_TEXT, "Novo").click()
-    # 17 | select | id=selOrgao | label=ME
     dropdown = self.driver.find_element(By.ID, "selOrgao")
     dropdown.find_element(By.XPATH, "//option[. = 'ME']").click()
-    # 18 | click | id=selOrgao | 
     self.driver.find_element(By.ID, "selOrgao").click()
-    # 19 | click | id=txtSigla | 
     self.driver.find_element(By.ID, "txtSigla").click()
-    # 20 | type | id=txtSigla | arquivista02
     self.driver.find_element(By.ID, "txtSigla").send_keys("arquivista02")
-    # 21 | click | id=txtNome | 
     self.driver.find_element(By.ID, "txtNome").click()
-    # 22 | type | id=txtNome | Arquivista02
     self.driver.find_element(By.ID, "txtNome").send_keys("Arquivista02")
-    # 23 | click | name=sbmCadastrarUsuario | 
     self.driver.find_element(By.NAME, "sbmCadastrarUsuario").click()
-    # 24 | click | xpath=//ul[@id='main-menu']/li[1]/a | 
     self.driver.find_element(By.XPATH, "//ul[@id=\'main-menu\']/li[1]/a").click()
-    # 25 | click | linkText=Nova | 
     self.driver.find_element(By.LINK_TEXT, "Nova").click()
-    # 26 | click | id=selOrgaoSistema | 
     self.driver.find_element(By.ID, "selOrgaoSistema").click()
-    # 27 | select | id=selOrgaoSistema | label=ME
     dropdown = self.driver.find_element(By.ID, "selOrgaoSistema")
     dropdown.find_element(By.XPATH, "//option[. = 'ME']").click()
-    # 28 | click | id=selOrgaoSistema | 
     self.driver.find_element(By.ID, "selOrgaoSistema").click()
-    # 29 | select | id=selSistema | label=SEI
     dropdown = self.driver.find_element(By.ID, "selSistema")
     dropdown.find_element(By.XPATH, "//option[. = 'SEI']").click()
-    # 30 | click | id=selSistema | 
     self.driver.find_element(By.ID, "selSistema").click()
-    # 31 | waitForElementEditable | id=selOrgaoUnidade | 30000
     WebDriverWait(self.driver, 30000).until(expected_conditions.element_to_be_clickable((By.ID, "selOrgaoUnidade")))
-    # 32 | click | id=selOrgaoUnidade | 
     self.driver.find_element(By.ID, "selOrgaoUnidade").click()
-    # 33 | select | id=selOrgaoUnidade | label=ME
     dropdown = self.driver.find_element(By.ID, "selOrgaoUnidade")
     dropdown.find_element(By.XPATH, "//option[. = 'ME']").click()
-    # 34 | click | id=selOrgaoUnidade | 
     self.driver.find_element(By.ID, "selOrgaoUnidade").click()
-    # 35 | echo | un | 
     print(str("un"))
-    # 36 | waitForElementEditable | id=selUnidade | 30000
     WebDriverWait(self.driver, 30000).until(expected_conditions.element_to_be_clickable((By.ID, "selUnidade")))
-    # 37 | click | id=selUnidade | 
     self.driver.find_element(By.ID, "selUnidade").click()
-    # 38 | select | id=selUnidade | value=110000004
     dropdown = self.driver.find_element(By.ID, "selUnidade")
     dropdown.find_element(By.CSS_SELECTOR, "*[value='110000004']").click()
-    # 40 | echo | un2 | 
     print(str("un2"))
-    # 41 | click | id=selOrgaoUsuario | 
     self.driver.find_element(By.ID, "selOrgaoUsuario").click()
-    # 42 | select | id=selOrgaoUsuario | label=ME
     dropdown = self.driver.find_element(By.ID, "selOrgaoUsuario")
     dropdown.find_element(By.XPATH, "//option[. = 'ME']").click()
-    # 43 | click | id=selOrgaoUsuario | 
     self.driver.find_element(By.ID, "selOrgaoUsuario").click()
-    # 44 | click | id=txtUsuario | 
     self.driver.find_element(By.ID, "txtUsuario").click()
-    # 45 | type | id=txtUsuario | arquivista01
     self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivista01")
-    # 46 | waitForElementVisible | css=b:nth-child(1) | 30000
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, "b:nth-child(1)")))
-    # 47 | mouseDown | css=b:nth-child(1) | 
     element = self.driver.find_element(By.CSS_SELECTOR, "b:nth-child(1)")
     actions = ActionChains(self.driver)
     actions.move_to_element(element).click_and_hold().perform()
-    # 48 | mouseUp | id=divInfraAreaDados | 
     element = self.driver.find_element(By.ID, "divInfraAreaDados")
     actions = ActionChains(self.driver)
     actions.move_to_element(element).release().perform()
-    # 49 | click | css=body | 
     self.driver.find_element(By.CSS_SELECTOR, "body").click()
-    # 50 | click | id=selPerfil | 
     self.driver.find_element(By.ID, "selPerfil").click()
-    # 51 | select | id=selPerfil | label=PerfilArquivistaBasico
     dropdown = self.driver.find_element(By.ID, "selPerfil")
     dropdown.find_element(By.XPATH, "//option[. = 'PerfilArquivistaBasico']").click()
-    # 52 | echo | un4 | 
     print(str("un4"))
-    # 53 | click | name=sbmCadastrarPermissao | 
     self.driver.find_element(By.NAME, "sbmCadastrarPermissao").click()
   
   def test_sIPCriarMontarUsers2(self):
-    # Test name: SIP-CriarMontarUsers2
-    # Step # | name | target | value
-    # 1 | open | /sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SIP | 
     self.driver.get("http://seigd.intra.planejamento//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SIP")
-    # 2 | type | id=txtUsuario | teste
     self.driver.find_element(By.ID, "txtUsuario").send_keys("teste")
-    # 3 | click | id=pwdSenha | 
     self.driver.find_element(By.ID, "pwdSenha").click()
-    # 4 | type | id=pwdSenha | teste
     self.driver.find_element(By.ID, "pwdSenha").send_keys("teste")
-    # 5 | click | id=sbmLogin | 
     self.driver.find_element(By.ID, "sbmLogin").click()
-    # 6 | click | xpath=//ul[@id='main-menu']/li[1]/a | 
     self.driver.find_element(By.XPATH, "//ul[@id=\'main-menu\']/li[1]/a").click()
-    # 7 | echo | un6 | 
     print(str("un6"))
-    # 8 | click | linkText=Nova | 
     self.driver.find_element(By.LINK_TEXT, "Nova").click()
-    # 9 | click | id=selOrgaoSistema | 
     self.driver.find_element(By.ID, "selOrgaoSistema").click()
-    # 10 | select | id=selOrgaoSistema | label=ME
     dropdown = self.driver.find_element(By.ID, "selOrgaoSistema")
     dropdown.find_element(By.XPATH, "//option[. = 'ME']").click()
-    # 11 | click | id=selOrgaoSistema | 
     self.driver.find_element(By.ID, "selOrgaoSistema").click()
-    # 12 | select | id=selSistema | label=SEI
     dropdown = self.driver.find_element(By.ID, "selSistema")
     dropdown.find_element(By.XPATH, "//option[. = 'SEI']").click()
-    # 13 | click | id=selSistema | 
     self.driver.find_element(By.ID, "selSistema").click()
-    # 14 | click | id=selOrgaoUnidade | 
     self.driver.find_element(By.ID, "selOrgaoUnidade").click()
-    # 15 | select | id=selOrgaoUnidade | label=ME
     dropdown = self.driver.find_element(By.ID, "selOrgaoUnidade")
     dropdown.find_element(By.XPATH, "//option[. = 'ME']").click()
-    # 16 | click | id=selOrgaoUnidade | 
     self.driver.find_element(By.ID, "selOrgaoUnidade").click()
-    # 17 | select | id=selUnidade | value=110000005
     dropdown = self.driver.find_element(By.ID, "selUnidade")
     dropdown.find_element(By.CSS_SELECTOR, "*[value='110000005']").click()
-    # 18 | click | id=selUnidade | 
     self.driver.find_element(By.ID, "selUnidade").click()
-    # 19 | click | id=selOrgaoUsuario | 
     self.driver.find_element(By.ID, "selOrgaoUsuario").click()
-    # 20 | select | id=selOrgaoUsuario | label=ME
     dropdown = self.driver.find_element(By.ID, "selOrgaoUsuario")
     dropdown.find_element(By.XPATH, "//option[. = 'ME']").click()
-    # 21 | click | id=selOrgaoUsuario | 
     self.driver.find_element(By.ID, "selOrgaoUsuario").click()
-    # 22 | click | id=txtUsuario | 
     self.driver.find_element(By.ID, "txtUsuario").click()
-    # 23 | echo | aqui | 
     print(str("aqui"))
-    # 24 | type | id=txtUsuario | arquivista02
     self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivista02")
-    # 25 | waitForElementVisible | css=b:nth-child(1) | 30000
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, "b:nth-child(1)")))
-    # 26 | mouseDown | css=b:nth-child(1) | 
     element = self.driver.find_element(By.CSS_SELECTOR, "b:nth-child(1)")
     actions = ActionChains(self.driver)
     actions.move_to_element(element).click_and_hold().perform()
-    # 27 | mouseUp | id=divInfraAreaDados | 
     element = self.driver.find_element(By.ID, "divInfraAreaDados")
     actions = ActionChains(self.driver)
     actions.move_to_element(element).release().perform()
-    # 28 | click | css=body | 
     self.driver.find_element(By.CSS_SELECTOR, "body").click()
-    # 29 | click | id=selPerfil | 
     self.driver.find_element(By.ID, "selPerfil").click()
-    # 30 | select | id=selPerfil | label=PerfilArquivistaGeral
     dropdown = self.driver.find_element(By.ID, "selPerfil")
     dropdown.find_element(By.XPATH, "//option[. = 'PerfilArquivistaGeral']").click()
-    # 31 | click | name=sbmCadastrarPermissao | 
     self.driver.find_element(By.NAME, "sbmCadastrarPermissao").click()
   
