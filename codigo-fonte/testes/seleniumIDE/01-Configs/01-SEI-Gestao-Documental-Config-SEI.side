@@ -2058,7 +2058,7 @@
       "id": "1f856a95-f226-4368-9af9-dd862a8713e8",
       "comment": "",
       "command": "click",
-      "target": "//*[@id=\"main-menu\"]/li[1]/ul/li[18]/a",
+      "target": "//a[contains(.,'Tipos de Documento')]",
       "targets": [],
       "value": ""
     }, {
@@ -2225,7 +2225,7 @@
       "id": "bc43a144-8f16-42d7-b4fd-a7950feb769b",
       "comment": "",
       "command": "click",
-      "target": "//*[@id=\"main-menu\"]/li[1]/ul/li[18]/a",
+      "target": "//a[contains(.,'Tipos de Documento')]",
       "targets": [],
       "value": ""
     }, {
@@ -2422,7 +2422,7 @@
       "id": "57c836cd-9441-4b53-8c6d-a3f59ffe06d3",
       "comment": "",
       "command": "click",
-      "target": "//*[@id=\"main-menu\"]/li[1]/ul/li[18]/a",
+      "target": "//a[contains(.,'Tipos de Documento')]",
       "targets": [],
       "value": ""
     }, {
@@ -2590,7 +2590,7 @@
       "id": "4b1cd3c8-1a03-4b92-b5c2-56f8c584b7ed",
       "comment": "",
       "command": "click",
-      "target": "//*[@id=\"main-menu\"]/li[1]/ul/li[18]/a",
+      "target": "//a[contains(.,'Tipos de Documento')]",
       "targets": [],
       "value": ""
     }, {
@@ -2877,7 +2877,7 @@
       "id": "7a6106e8-c9ae-41ff-a2d8-d9a342438610",
       "comment": "",
       "command": "click",
-      "target": "//*[@id=\"main-menu\"]/li[1]/ul/li[21]/a",
+      "target": "//a[normalize-space(text())='Unidades']",
       "targets": [],
       "value": ""
     }, {
@@ -3177,7 +3177,7 @@
       "id": "212bb04b-e381-4ffd-97cf-5fb909612de2",
       "comment": "",
       "command": "click",
-      "target": "//*[@id=\"main-menu\"]/li[1]/ul/li[21]/a",
+      "target": "//a[normalize-space(text())='Unidades']",
       "targets": [],
       "value": ""
     }, {
@@ -4017,7 +4017,7 @@
       "id": "cf87e00e-b4d2-4801-a283-82da9d6b15af",
       "comment": "",
       "command": "click",
-      "target": "//*[@id=\"main-menu\"]/li[1]/ul/li[21]/a",
+      "target": "//a[normalize-space(text())='Unidades']",
       "targets": [],
       "value": ""
     }, {
