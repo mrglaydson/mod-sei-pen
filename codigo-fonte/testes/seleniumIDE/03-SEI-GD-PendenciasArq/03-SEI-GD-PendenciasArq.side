@@ -263,8 +263,8 @@
     }, {
       "id": "233f202c-fd1d-481b-96c7-da61122ddc66",
       "comment": "",
-      "command": "//click",
-      "target": "//*[@id=\"main-menu\"]/li[2]/a",
+      "command": "pause",
+      "target": "5",
       "targets": [],
       "value": ""
     }, {
@@ -319,6 +319,13 @@
         ["xpath=//div[@id='divComandos']/a[6]/img", "xpath:idRelative"],
         ["xpath=//a[6]/img", "xpath:position"]
       ],
+      "value": ""
+    }, {
+      "id": "cd4ed809-23a9-4802-aa78-0f25ff2e4714",
+      "comment": "",
+      "command": "pause",
+      "target": "5",
+      "targets": [],
       "value": ""
     }]
   }, {
@@ -420,6 +427,13 @@
       "comment": "",
       "command": "webdriverChooseOkOnVisibleConfirmation",
       "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ab1bab1d-a1dc-479f-b398-d632b8f72bca",
+      "comment": "",
+      "command": "pause",
+      "target": "5",
       "targets": [],
       "value": ""
     }, {
@@ -596,6 +610,13 @@
         ["xpath=//button", "xpath:position"],
         ["xpath=//button[contains(.,'Salvar')]", "xpath:innerText"]
       ],
+      "value": ""
+    }, {
+      "id": "4868ada9-eea8-42e8-ae65-701df259f3a1",
+      "comment": "",
+      "command": "pause",
+      "target": "5",
+      "targets": [],
       "value": ""
     }, {
       "id": "71acaa0f-6604-44a6-b476-d824f552e7c5",
@@ -788,6 +809,13 @@
         ["xpath=//button[contains(.,'Salvar')]", "xpath:innerText"]
       ],
       "value": ""
+    }, {
+      "id": "14d5ece1-607b-4580-a126-7ae01da9c94c",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "xpath=//*[@id=\"divInfraAreaTabela\"]/table/caption",
+      "targets": [],
+      "value": "60000"
     }, {
       "id": "8a06c0c3-c77e-457b-bfd5-ab78b58765a7",
       "comment": "",
@@ -998,6 +1026,13 @@
       "target": "",
       "targets": [],
       "value": ""
+    }, {
+      "id": "71d8051e-dc4f-49e4-82dd-fb22e42db443",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "css=.infraCaption",
+      "targets": [],
+      "value": "60000"
     }, {
       "id": "97ee8584-db8b-450d-b88c-65ed175ae4d1",
       "comment": "",
@@ -1212,37 +1247,44 @@
       "targets": [],
       "value": ""
     }, {
+      "id": "d7091faa-6b01-4bad-8fb7-1eaecc6d9ff7",
+      "comment": "",
+      "command": "pause",
+      "target": "5",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "cbd73688-9cfb-4bcb-8c9c-64b1e519ebc9",
+      "comment": "",
+      "command": "verifyElementNotPresent",
+      "target": "css=td .infraImg",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "01f79cb9-5c9e-4ded-8922-74fd1325394f",
       "comment": "",
-      "command": "selectFrame",
+      "command": "//selectFrame",
       "target": "index=0",
-      "targets": [
-        ["index=0"]
-      ],
+      "targets": [],
       "value": ""
     }, {
       "id": "2f6314cb-8618-4eae-9ca0-c95532ef0e7c",
       "comment": "",
-      "command": "waitForElementVisible",
+      "command": "//waitForElementVisible",
       "target": "css=span:nth-child(2)",
       "targets": [],
       "value": "30000"
     }, {
       "id": "2533c33b-8442-4e59-8b5c-160913145fee",
       "comment": "",
-      "command": "verifyText",
+      "command": "//verifyText",
       "target": "css=span:nth-child(2)",
-      "targets": [
-        ["css=span:nth-child(2)", "css:finder"],
-        ["xpath=//div[@id='divConsultarAndamento']/a/span", "xpath:idRelative"],
-        ["xpath=//div[2]/a/span", "xpath:position"],
-        ["xpath=//span[contains(.,' Consultar Andamento')]", "xpath:innerText"]
-      ],
+      "targets": [],
       "value": "Consultar Andamento"
     }, {
       "id": "bf3cb92a-8732-42a3-ab93-4bc9918f3d09",
       "comment": "",
-      "command": "pause",
+      "command": "//pause",
       "target": "1",
       "targets": [],
       "value": ""
@@ -1472,6 +1514,13 @@
       ],
       "value": ""
     }, {
+      "id": "888d768a-24a7-424e-9e32-5d27f96a5ee4",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "css=.infraCaption",
+      "targets": [],
+      "value": "60000"
+    }, {
       "id": "169f39f5-6bb4-4394-a3ca-259becc828c0",
       "comment": "",
       "command": "click",
@@ -1662,6 +1711,13 @@
         ["xpath=//button", "xpath:position"],
         ["xpath=//button[contains(.,'Salvar')]", "xpath:innerText"]
       ],
+      "value": ""
+    }, {
+      "id": "00bb61dd-0dff-4a25-b51d-db7a5d5f57f2",
+      "comment": "",
+      "command": "pause",
+      "target": "5",
+      "targets": [],
       "value": ""
     }, {
       "id": "64cf9d85-aa04-4c28-8fd2-6eee0d829616",

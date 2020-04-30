@@ -713,6 +713,13 @@
       "target": "",
       "targets": [],
       "value": ""
+    }, {
+      "id": "567838b6-6b27-4fb0-a740-56f27de16d66",
+      "comment": "",
+      "command": "pause",
+      "target": "5",
+      "targets": [],
+      "value": ""
     }]
   }],
   "suites": [{

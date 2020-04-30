@@ -100,4 +100,5 @@ class Test0200SEIGDCadArquivaProc():
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
     self.driver.find_element(By.ID, "sbmSalvar").click()
     self.driver.switch_to.alert.accept()
+    time.sleep(5)
   
