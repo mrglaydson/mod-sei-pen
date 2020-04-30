@@ -101,7 +101,7 @@ class Test1100SEIGDAvaliacaoMassa():
     self.driver.find_element(By.ID, "sbmPesquisar").click()
     WebDriverWait(self.driver, 30000).until(expected_conditions.presence_of_element_located((By.CSS_SELECTOR, ".infraCaption")))
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (57 registros):"
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (57 registros - 1 a 50):"
   
   def test_1110VerificafiltrosRecolhimentoSemExpirarInterm(self):
     self.driver.get("http://seigd.intra.planejamento//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
@@ -118,7 +118,7 @@ class Test1100SEIGDAvaliacaoMassa():
     self.driver.find_element(By.ID, "selAssunto").click()
     self.driver.find_element(By.ID, "sbmPesquisar").click()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (57 registros):"
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (57 registros - 1 a 50):"
     elements = self.driver.find_elements(By.XPATH, "//a[contains(.,\'99990.000001\')]/../../td[11]/a[2]")
     assert len(elements) == 0
   

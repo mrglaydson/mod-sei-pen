@@ -1257,7 +1257,7 @@
         ["xpath=//caption", "xpath:position"],
         ["xpath=//caption[contains(.,'Lista de Processos Arquivados (40 registros):')]", "xpath:innerText"]
       ],
-      "value": "Lista de Processos Arquivados (57 registros):"
+      "value": "Lista de Processos Arquivados (57 registros - 1 a 50):"
     }, {
       "id": "2dcc7f79-bcf7-4238-a7cf-633d157b2534",
       "comment": "",
@@ -1589,7 +1589,7 @@
         ["xpath=//caption", "xpath:position"],
         ["xpath=//caption[contains(.,'Lista de Processos Arquivados (40 registros):')]", "xpath:innerText"]
       ],
-      "value": "Lista de Processos Arquivados (57 registros):"
+      "value": "Lista de Processos Arquivados (57 registros - 1 a 50):"
     }]
   }],
   "suites": [{
