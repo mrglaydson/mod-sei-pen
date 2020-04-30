@@ -228,12 +228,19 @@
       ],
       "value": ""
     }, {
+      "id": "5b423330-899c-479a-9baa-166e371079c8",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "//*[@id=\"divInfraAreaTabela\"]/table/caption",
+      "targets": [],
+      "value": "60000"
+    }, {
       "id": "31c9351c-af0e-4358-8675-b9d93d00a16a",
       "comment": "",
       "command": "waitForElementVisible",
       "target": "id=divInfraBarraLocalizacao",
       "targets": [],
-      "value": "30000"
+      "value": "60000"
     }, {
       "id": "301a43dd-2431-45cd-99b9-f88df31eab0c",
       "comment": "",

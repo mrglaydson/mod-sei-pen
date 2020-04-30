@@ -320,7 +320,7 @@
       "id": "26411453-63c1-4149-baa8-1c6ec2ee61c0",
       "comment": "",
       "command": "click",
-      "target": "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[7]/a[2]",
+      "target": "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[7]/a[1]",
       "targets": [
         ["css=.infraTrSelecionada a:nth-child(2) > .infraImg", "css:finder"],
         ["xpath=//img[@title='Visualizar Listagem de Eliminacao']", "xpath:img"],
@@ -566,7 +566,7 @@
       "id": "e94f71ef-7b02-4eda-8de9-1e62a6056906",
       "comment": "",
       "command": "click",
-      "target": "xpath=//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[7]/a[1]",
+      "target": "xpath=//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[7]/a[2]",
       "targets": [
         ["css=.infraTrSelecionada a:nth-child(1) > .infraImg", "css:finder"],
         ["xpath=//img[@title='Editar Listagem de Eliminação']", "xpath:img"],

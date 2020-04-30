@@ -43,7 +43,7 @@ class Test06SEIGDListasEliminacaoGestao():
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraTrSelecionada > td:nth-child(3)").text == "99994.000001/2022-90"
     self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[2]/td[3]").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraTrSelecionada > td:nth-child(3)").text == "99994.000002/2022-34"
-    self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[7]/a[2]").click()
+    self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[7]/a[1]").click()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Lista de Processos (4 registros):"
     self.driver.find_element(By.ID, "btnCancelar").click()
@@ -63,7 +63,7 @@ class Test06SEIGDListasEliminacaoGestao():
     self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[10]/a").click()
     self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[10]/ul/li[2]/a").click()
     self.driver.find_element(By.LINK_TEXT, "Gestão das Listagens").click()
-    self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[7]/a[1]").click()
+    self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[7]/a[2]").click()
     self.driver.switch_to.alert.accept()
     self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[7]/a[3]").click()
     self.driver.find_element(By.ID, "chkInfraItem0").click()
