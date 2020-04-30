@@ -41,7 +41,7 @@ class Test09SEIGDEliminarProcsDocs():
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "imgInfraCheck")))
     self.driver.find_element(By.ID, "imgInfraCheck").click()
     self.vars["window_handles"] = self.driver.window_handles
-    self.driver.find_element(By.ID, "btnGerarPdf").click()
+    self.driver.find_element(By.XPATH, "//*[@id=\"btnGerarPdf\"][2]").click()
     self.vars["win6388"] = self.wait_for_window(2000)
     self.vars["root"] = self.driver.current_window_handle
     self.driver.switch_to.window(self.vars["win6388"])

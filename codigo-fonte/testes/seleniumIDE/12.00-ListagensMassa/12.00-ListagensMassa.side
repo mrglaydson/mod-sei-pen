@@ -332,7 +332,7 @@
       "id": "26411453-63c1-4149-baa8-1c6ec2ee61c0",
       "comment": "",
       "command": "click",
-      "target": "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[7]/a[2]",
+      "target": "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[7]/a[1]",
       "targets": [
         ["css=.infraTrSelecionada a:nth-child(2) > .infraImg", "css:finder"],
         ["xpath=//img[@title='Visualizar Listagem de Eliminacao']", "xpath:img"],
@@ -685,7 +685,7 @@
       "id": "e47e40ca-204c-4254-96c5-1f7fdeeefd98",
       "comment": "",
       "command": "click",
-      "target": "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[6]/a[2]",
+      "target": "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[6]/a[1]",
       "targets": [
         ["css=.infraTrSelecionada a:nth-child(2) > .infraImg", "css:finder"],
         ["xpath=//img[@title='Visualizar Listagem de Eliminacao']", "xpath:img"],
@@ -716,7 +716,7 @@
         ["xpath=//caption", "xpath:position"],
         ["xpath=//caption[contains(.,'Lista de Lista de Processos (4 registros):')]", "xpath:innerText"]
       ],
-      "value": "Lista de Listagens de Recolhimento (39 registros):"
+      "value": "Lista de Processos (39 registros):"
     }, {
       "id": "6ab98ef5-0b74-44be-be9f-030c763a00ac",
       "comment": "",

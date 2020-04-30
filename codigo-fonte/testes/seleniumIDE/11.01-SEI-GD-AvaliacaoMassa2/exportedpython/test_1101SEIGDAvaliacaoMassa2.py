@@ -33,7 +33,7 @@ class Test1101SEIGDAvaliacaoMassa2():
     self.driver.find_element(By.ID, "selDestinacaoFinal").click()
     self.driver.find_element(By.ID, "sbmPesquisar").click()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (15 registros):"
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (32 registros):"
     for i in range(0, 15):
       self.driver.find_element(By.ID, "divInfraAreaDados").click()
       self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[11]/a[1]").click()

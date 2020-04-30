@@ -159,7 +159,7 @@
         ["xpath=//caption", "xpath:position"],
         ["xpath=//caption[contains(.,'Lista de Processos Arquivados (71 registros - 1 a 50):')]", "xpath:innerText"]
       ],
-      "value": "Lista de Processos Arquivados (71 registros - 1 a 50):"
+      "value": "Lista de Processos Arquivados (91 registros - 1 a 50):"
     }, {
       "id": "dd216b92-05cb-44a1-aaaf-468d8173ebc0",
       "comment": "",
@@ -279,7 +279,7 @@
         ["xpath=//caption", "xpath:position"],
         ["xpath=//caption[contains(.,'Lista de Processos Arquivados (30 registros):')]", "xpath:innerText"]
       ],
-      "value": "Lista de Processos Arquivados (30 registros):"
+      "value": "Lista de Processos Arquivados (50 registros):"
     }, {
       "id": "4a50aeca-ac21-4069-9087-5f577d41d35c",
       "comment": "",
@@ -339,7 +339,7 @@
         ["xpath=//caption", "xpath:position"],
         ["xpath=//caption[contains(.,'Lista de Processos Arquivados (15 registros):')]", "xpath:innerText"]
       ],
-      "value": "Lista de Processos Arquivados (15 registros):"
+      "value": "Lista de Processos Arquivados (19 registros):"
     }, {
       "id": "ad2652c2-3661-49de-b1b0-7c2086a8e2da",
       "comment": "",
@@ -429,7 +429,7 @@
         ["xpath=//caption", "xpath:position"],
         ["xpath=//caption[contains(.,'Lista de Processos Arquivados (25 registros):')]", "xpath:innerText"]
       ],
-      "value": "Lista de Processos Arquivados (25 registros):"
+      "value": "Lista de Processos Arquivados (26 registros):"
     }, {
       "id": "49bda0fb-f85a-47e3-8a25-dabd1874fce3",
       "comment": "",
@@ -748,12 +748,12 @@
         ["xpath=//caption", "xpath:position"],
         ["xpath=//caption[contains(.,'Lista de Processos Arquivados (31 registros):')]", "xpath:innerText"]
       ],
-      "value": "Lista de Processos Arquivados (31 registros):"
+      "value": "Lista de Processos Arquivados (34 registros):"
     }, {
       "id": "91e2de13-da7f-43e6-8ff2-8a49f79b1c8b",
       "comment": "",
       "command": "times",
-      "target": "31",
+      "target": "30",
       "targets": [],
       "value": ""
     }, {
@@ -1003,7 +1003,7 @@
         ["xpath=//caption", "xpath:position"],
         ["xpath=//caption[contains(.,'Lista de Processos Arquivados (31 registros):')]", "xpath:innerText"]
       ],
-      "value": "Lista de Processos Arquivados (40 registros):"
+      "value": "Lista de Processos Arquivados (57 registros - 1 a 50):"
     }, {
       "id": "d41a28e9-2d1a-4210-a948-70871b17935c",
       "comment": "",
@@ -1257,7 +1257,7 @@
         ["xpath=//caption", "xpath:position"],
         ["xpath=//caption[contains(.,'Lista de Processos Arquivados (40 registros):')]", "xpath:innerText"]
       ],
-      "value": "Lista de Processos Arquivados (40 registros):"
+      "value": "Lista de Processos Arquivados (57 registros):"
     }, {
       "id": "2dcc7f79-bcf7-4238-a7cf-633d157b2534",
       "comment": "",
@@ -1422,7 +1422,7 @@
         ["xpath=//caption", "xpath:position"],
         ["xpath=//caption[contains(.,'Lista de Processos Arquivados (71 registros - 1 a 50):')]", "xpath:innerText"]
       ],
-      "value": "Lista de Processos Arquivados (71 registros - 1 a 50):"
+      "value": "Lista de Processos Arquivados (91 registros - 1 a 50):"
     }, {
       "id": "c5d0dc80-0c98-462b-b237-c3971ba5d4d7",
       "comment": "",
@@ -1523,7 +1523,7 @@
         ["xpath=//caption", "xpath:position"],
         ["xpath=//caption[contains(.,'Lista de Processos Arquivados (71 registros - 1 a 50):')]", "xpath:innerText"]
       ],
-      "value": "Lista de Processos Arquivados (71 registros - 1 a 50):"
+      "value": "Lista de Processos Arquivados (91 registros - 1 a 50):"
     }, {
       "id": "383fe436-b72d-4389-94d2-656359e24b0a",
       "comment": "",
@@ -1589,7 +1589,7 @@
         ["xpath=//caption", "xpath:position"],
         ["xpath=//caption[contains(.,'Lista de Processos Arquivados (40 registros):')]", "xpath:innerText"]
       ],
-      "value": "Lista de Processos Arquivados (40 registros):"
+      "value": "Lista de Processos Arquivados (57 registros):"
     }]
   }],
   "suites": [{

@@ -183,7 +183,7 @@
       "id": "27e38094-0aa3-431c-a343-4fef167ddd54",
       "comment": "",
       "command": "click",
-      "target": "id=btnGerarPdf",
+      "target": "//*[@id=\"btnGerarPdf\"][2]",
       "targets": [
         ["id=btnGerarPdf", "id"],
         ["css=#btnGerarPdf", "css:finder"],

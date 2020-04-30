@@ -1928,7 +1928,7 @@
     "persistSession": false,
     "parallel": false,
     "timeout": 300,
-    "tests": []
+    "tests": ["af2cfc1a-8937-420e-acf1-57b179c26c01", "3394efd9-9534-474d-a457-043911d7bfe1"]
   }],
   "urls": ["http://seigd.nuvem.gov.br/sei", "http://seigd.intra.planejamento/sei", "http://seigd.intra.planejamento/"],
   "plugins": []

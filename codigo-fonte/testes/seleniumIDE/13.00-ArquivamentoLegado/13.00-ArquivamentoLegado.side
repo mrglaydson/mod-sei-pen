@@ -308,7 +308,7 @@
       "id": "dd83c5b0-7a27-459d-9b3b-dfcd7de91435",
       "comment": "",
       "command": "executeScript",
-      "target": "var d= new Date(); var m=((d.getMonth()+1)<10)?'0'+(d.getMonth()+1):(d.getMonth()+1); var di=(d.getDate()<10)?'0'+(d.getDate()):(d.getDate());  return di+\"/\"+m+\"/\"+(d.getFullYear()-2);",
+      "target": "var d= new Date(); var m=((d.getMonth()+1)<10)?'0'+(d.getMonth()+1):(d.getMonth()+1); var di=(d.getDate()<10)?'0'+(d.getDate()):(d.getDate());  return di+\"/\"+m+\"/\"+(d.getFullYear());",
       "targets": [],
       "value": "data"
     }, {
@@ -409,7 +409,7 @@
       "command": "waitForElementVisible",
       "target": "css=.infraCaption",
       "targets": [],
-      "value": "30000"
+      "value": "60000"
     }, {
       "id": "03a8c135-1f8c-4fbb-b439-51cefc883d97",
       "comment": "",
@@ -634,7 +634,7 @@
       "command": "waitForElementVisible",
       "target": "id=sbmPesquisar",
       "targets": [],
-      "value": "30000"
+      "value": "60000"
     }, {
       "id": "256e936c-c0fa-4307-8a1a-071a66fbe61c",
       "comment": "",
@@ -774,6 +774,20 @@
       ],
       "value": ""
     }, {
+      "id": "9f3a2d32-325a-4e2b-bb5d-0e67a806a877",
+      "comment": "",
+      "command": "pause",
+      "target": "2",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d062a381-f204-4ce6-bb1f-ab67e674fd00",
+      "comment": "",
+      "command": "//verifyElementNotPresent",
+      "target": "css=.infraCaption",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "d8b3adad-f7da-442f-b74a-b94934fab821",
       "comment": "",
       "command": "waitForElementVisible",
@@ -785,24 +799,14 @@
       "comment": "",
       "command": "click",
       "target": "css=.infraCaption",
-      "targets": [
-        ["css=.infraCaption", "css:finder"],
-        ["xpath=//div[@id='divInfraAreaTabela']/table/caption", "xpath:idRelative"],
-        ["xpath=//caption", "xpath:position"],
-        ["xpath=//caption[contains(.,'Lista de Processos Arquivados (48 registros):')]", "xpath:innerText"]
-      ],
+      "targets": [],
       "value": ""
     }, {
       "id": "c3faa219-7965-41d9-83fe-9282842aeacc",
       "comment": "",
       "command": "verifyText",
       "target": "css=.infraCaption",
-      "targets": [
-        ["css=.infraCaption", "css:finder"],
-        ["xpath=//div[@id='divInfraAreaTabela']/table/caption", "xpath:idRelative"],
-        ["xpath=//caption", "xpath:position"],
-        ["xpath=//caption[contains(.,'Lista de Processos Arquivados (48 registros):')]", "xpath:innerText"]
-      ],
+      "targets": [],
       "value": "Lista de Processos Arquivados (48 registros):"
     }]
   }, {

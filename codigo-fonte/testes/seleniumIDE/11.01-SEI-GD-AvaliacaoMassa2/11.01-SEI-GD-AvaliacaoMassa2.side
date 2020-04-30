@@ -183,7 +183,7 @@
         ["xpath=//caption", "xpath:position"],
         ["xpath=//caption[contains(.,'Lista de Processos Arquivados (31 registros):')]", "xpath:innerText"]
       ],
-      "value": "Lista de Processos Arquivados (15 registros):"
+      "value": "Lista de Processos Arquivados (32 registros):"
     }, {
       "id": "8b76d9b3-a331-43db-bf58-64c1d6fe103a",
       "comment": "",

@@ -47,7 +47,7 @@ class Test1300ArquivamentoLegado():
     dropdown.find_element(By.XPATH, "//option[. = 'Justificativa de Arquivamento 01']").click()
     self.driver.find_element(By.ID, "selJustificativa").click()
     self.driver.find_element(By.ID, "chkSinLegado").click()
-    self.vars["data"] = self.driver.execute_script("var d= new Date(); var m=((d.getMonth()+1)<10)?\'0\'+(d.getMonth()+1):(d.getMonth()+1); var di=(d.getDate()<10)?\'0\'+(d.getDate()):(d.getDate());  return di+\'/\'+m+\'/\'+(d.getFullYear()-2);")
+    self.vars["data"] = self.driver.execute_script("var d= new Date(); var m=((d.getMonth()+1)<10)?\'0\'+(d.getMonth()+1):(d.getMonth()+1); var di=(d.getDate()<10)?\'0\'+(d.getDate()):(d.getDate());  return di+\'/\'+m+\'/\'+(d.getFullYear());")
     self.driver.find_element(By.ID, "txtDataArquivamento").click()
     self.driver.find_element(By.ID, "txtDataArquivamento").send_keys(self.vars["data"])
     dropdown = self.driver.find_element(By.ID, "selCargoFuncao")
@@ -56,7 +56,7 @@ class Test1300ArquivamentoLegado():
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("teste")
     self.driver.find_element(By.ID, "sbmSalvar").click()
-    WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".infraCaption")))
+    WebDriverWait(self.driver, 60000).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".infraCaption")))
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Pendências de Arquivamento (5 registros):"
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "selTipoProcedimento")))
     dropdown = self.driver.find_element(By.ID, "selTipoProcedimento")
@@ -78,7 +78,7 @@ class Test1300ArquivamentoLegado():
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("teste")
     self.driver.find_element(By.ID, "sbmSalvar").click()
-    WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "sbmPesquisar")))
+    WebDriverWait(self.driver, 60000).until(expected_conditions.visibility_of_element_located((By.ID, "sbmPesquisar")))
     self.driver.find_element(By.ID, "sbmPesquisar").click()
     self.driver.find_element(By.CSS_SELECTOR, "#divInfraAreaTabela > label").click()
     assert self.driver.find_element(By.CSS_SELECTOR, "#divInfraAreaTabela > label").text == "Nenhum registro encontrado."
@@ -93,6 +93,7 @@ class Test1300ArquivamentoLegado():
     self.driver.find_element(By.ID, "selTipoProcedimento").click()
     time.sleep(2)
     self.driver.find_element(By.ID, "sbmPesquisar").click()
+    time.sleep(2)
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".infraCaption")))
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (48 registros):"
