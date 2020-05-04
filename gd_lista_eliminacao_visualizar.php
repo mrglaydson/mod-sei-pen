@@ -67,7 +67,7 @@ try {
 
     if ($bolAcaoEliminar  && $numRegistros) {
         $strLinkEliminar = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_lista_eliminacao_eliminar&acao_origem=' . $_GET['acao'] . '&id_listagem_eliminacao=' . $_GET['id_listagem_eliminacao']);
-        $arrComandos[] = '<button type="button" accesskey="P" id="btnGerarPdf" value="Gerar PDF" class="infraButton" onclick="acaoEliminar(\'' . $strLinkEliminar . '\')"><span class="infraTeclaAtalho">E</span>liminar Processos</button>';
+        $arrComandos[] = '<button type="button" accesskey="P" id="btnEliminar" value="Gerar PDF" class="infraButton" onclick="acaoEliminar(\'' . $strLinkEliminar . '\')"><span class="infraTeclaAtalho">E</span>liminar Processos</button>';
     }
 
     if($numRegistros){
@@ -80,8 +80,8 @@ try {
     if ($numRegistros > 0) {
         $strResultado = '';
 
-        $strSumarioTabela = 'Lista de Processos';
-        $strCaptionTabela = 'Lista de Processos';
+        $strSumarioTabela = 'Processos';
+        $strCaptionTabela = 'Processos';
 
         $strResultado .= '<table width="99%" class="infraTable" summary="' . $strSumarioTabela . '">' . "\n";
         $strResultado .= '<caption class="infraCaption">' . PaginaSEI::getInstance()->gerarCaptionTabela($strCaptionTabela, $numRegistros) . '</caption>';
