@@ -665,7 +665,7 @@
         ["xpath=//caption", "xpath:position"],
         ["xpath=//caption[contains(.,'Lista de Lista de Processos (3 registros):')]", "xpath:innerText"]
       ],
-      "value": "Lista de Processos (3 registros):"
+      "value": "Lista de Lista de Processos (3 registros):"
     }, {
       "id": "c1644bb4-c455-4955-a498-2bfc38026785",
       "comment": "",
@@ -836,7 +836,7 @@
         ["xpath=//caption", "xpath:position"],
         ["xpath=//caption[contains(.,'Lista de Lista de Processos (3 registros):')]", "xpath:innerText"]
       ],
-      "value": "Lista de Processos (3 registros):"
+      "value": "Lista de Lista de Processos (3 registros):"
     }, {
       "id": "e6985688-bfd7-4813-beb9-ee91c92014d7",
       "comment": "",
