@@ -69,7 +69,7 @@ class Test08SEIGDListasRecolhimentoGestao():
     self.driver.find_element(By.ID, "btnExcluirListagem").click()
     self.driver.switch_to.alert.accept()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos (3 registros):"
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Lista de Processos (3 registros):"
     self.driver.find_element(By.ID, "imgInfraCheck").click()
     self.driver.find_element(By.ID, "btnExcluirListagem").click()
     self.driver.switch_to.alert.accept()
@@ -82,7 +82,7 @@ class Test08SEIGDListasRecolhimentoGestao():
     self.driver.find_element(By.ID, "chkInfraItem0").click()
     self.driver.find_element(By.ID, "btnAdicionarListagem").click()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos (3 registros):"
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "lista de Lista de Processos (3 registros):"
     self.driver.find_element(By.ID, "imgInfraCheck").click()
     self.driver.find_element(By.ID, "btnAdicionarListagem").click()
     self.driver.find_element(By.ID, "btnFechar").click()
