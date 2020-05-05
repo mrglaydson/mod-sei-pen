@@ -355,7 +355,7 @@
         ["xpath=//caption", "xpath:position"],
         ["xpath=//caption[contains(.,'Lista de Lista de Processos (4 registros):')]", "xpath:innerText"]
       ],
-      "value": "Lista de Lista de Processos (4 registros):"
+      "value": "Lista de Processos (4 registros):"
     }, {
       "id": "b56138ad-53bf-4ef9-aa76-72ce189ec131",
       "comment": "",
@@ -413,7 +413,7 @@
         ["xpath=//caption", "xpath:position"],
         ["xpath=//caption[contains(.,'Lista de Lista de Processos (1 registro):')]", "xpath:innerText"]
       ],
-      "value": "Lista de Lista de Processos (1 registro):"
+      "value": "Lista de Processos (1 registro):"
     }, {
       "id": "26743a3a-2cc3-4cea-84be-7e7b854a4bd3",
       "comment": "",
@@ -676,7 +676,7 @@
         ["xpath=//caption", "xpath:position"],
         ["xpath=//caption[contains(.,'Lista de Lista de Processos (3 registros):')]", "xpath:innerText"]
       ],
-      "value": "Lista de Lista de Processos (3 registros):"
+      "value": "Lista de Processos (3 registros):"
     }, {
       "id": "c1644bb4-c455-4955-a498-2bfc38026785",
       "comment": "",
@@ -847,7 +847,7 @@
         ["xpath=//caption", "xpath:position"],
         ["xpath=//caption[contains(.,'Lista de Lista de Processos (3 registros):')]", "xpath:innerText"]
       ],
-      "value": "Lista de Lista de Processos (3 registros):"
+      "value": "Lista de Processos (3 registros):"
     }, {
       "id": "e6985688-bfd7-4813-beb9-ee91c92014d7",
       "comment": "",
