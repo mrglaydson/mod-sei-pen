@@ -45,11 +45,11 @@ class Test06SEIGDListasEliminacaoGestao():
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraTrSelecionada > td:nth-child(3)").text == "99994.000002/2022-34"
     self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[7]/a[1]").click()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Lista de Processos (4 registros):"
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos (4 registros):"
     self.driver.find_element(By.ID, "btnCancelar").click()
     self.driver.find_element(By.XPATH, "(//img[@title=\'Visualizar Listagem de Eliminacao\'])[2]").click()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Lista de Processos (1 registro):"
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos (1 registro):"
     self.driver.find_element(By.ID, "btnCancelar").click()
   
   def test_0620AlterarListagem(self):
@@ -70,7 +70,7 @@ class Test06SEIGDListasEliminacaoGestao():
     self.driver.find_element(By.ID, "btnExcluirListagem").click()
     self.driver.switch_to.alert.accept()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Lista de Processos (3 registros):"
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos (3 registros):"
     self.driver.find_element(By.ID, "imgInfraCheck").click()
     self.driver.find_element(By.ID, "btnExcluirListagem").click()
     self.driver.switch_to.alert.accept()
