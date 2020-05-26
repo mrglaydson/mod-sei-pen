@@ -17,7 +17,7 @@ class MdGdEliminacaoRN extends InfraRN {
 
             //Valida Permissao
 
-            // Altera a situação da eliminação para eliminado
+            // Altera a situa??o da elimina??o para eliminado
             $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
             $objMdGdArquivamentoDTO->setNumIdListaEliminacao($objMdGdEliminacaoDTO->getNumIdListaEliminacao());
             $objMdGdArquivamentoDTO->retNumIdArquivamento();
@@ -30,7 +30,7 @@ class MdGdEliminacaoRN extends InfraRN {
                 $objMdGdArquivamentoRN->alterar($objMdGdArquivamentoDTO);
             }
 
-            // Altera a situação da listagem para eliminada
+            // Altera a situa??o da listagem para eliminada
             $objMdGdListaEliminacaoDTO = new MdGdListaEliminacaoDTO();
             $objMdGdListaEliminacaoDTO->setNumIdListaEliminacao($objMdGdEliminacaoDTO->getNumIdListaEliminacao());
             $objMdGdListaEliminacaoDTO->setStrSituacao(MdGdListaEliminacaoRN::$ST_ELIMINADA);
@@ -38,7 +38,7 @@ class MdGdEliminacaoRN extends InfraRN {
             $objMdGdListaEliminacaoRN = new MdGdListaEliminacaoRN();
             $objMdGdListaEliminacaoRN->alterar($objMdGdListaEliminacaoDTO);
 
-            // Obtem os parâmetros para criação do processo e documento de eliminação
+            // Obtem os parâmetros para cria??o do processo e documento de elimina??o
             $objMdGdParametroRN = new MdGdParametroRN();
             $numIdSerie = $objMdGdParametroRN->obterParametro(MdGdParametroRN::$PAR_TIPO_DOCUMENTO_ELIMINACAO);
             $numIdTipoProcedimento = $objMdGdParametroRN->obterParametro(MdGdParametroRN::$PAR_TIPO_PROCEDIMENTO_ELIMINACAO);  
@@ -51,7 +51,7 @@ class MdGdEliminacaoRN extends InfraRN {
             // Gera o processo
             $objProtocoloProcedimentoDTO = new ProtocoloDTO();
             $objProtocoloProcedimentoDTO->setStrStaProtocolo('G');
-            $objProtocoloProcedimentoDTO->setStrDescricao('Processo de registro de eliminação');
+            $objProtocoloProcedimentoDTO->setStrDescricao('Processo de registro de elimina??o');
             $objProtocoloProcedimentoDTO->setStrStaNivelAcessoLocal(ProtocoloRN::$NA_PUBLICO);
             $objProtocoloProcedimentoDTO->setArrObjParticipanteDTO(array());
             $objProtocoloProcedimentoDTO->setArrObjObservacaoDTO(array());
@@ -100,11 +100,11 @@ class MdGdEliminacaoRN extends InfraRN {
            // $objDocumentoRN->assinar($objAssinaturaDTO);
 
             
-            // Registra a eliminação
+            // Registra a elimina??o
             $objMdGdEliminacaoBD = new MdGdEliminacaoBD($this->inicializarObjInfraIBanco());
             return $objMdGdEliminacaoBD->cadastrar($objMdGdEliminacaoDTO);
         } catch (Exception $e) {
-            throw new InfraException('Erro ao cadatrar eliminação.', $e);
+            throw new InfraException('Erro ao cadatrar elimina??o.', $e);
         }
     }
 
@@ -115,7 +115,7 @@ class MdGdEliminacaoRN extends InfraRN {
             $objMdGdEliminacaoBD = new MdGdEliminacaoBD($this->inicializarObjInfraIBanco());
             return $objMdGdEliminacaoBD->consultar($objMdGdEliminacaoDTO);
         } catch (Exception $e) {
-            throw new InfraException('Erro ao consultar eliminação.', $e);
+            throw new InfraException('Erro ao consultar elimina??o.', $e);
         }
     }
 
@@ -131,7 +131,7 @@ class MdGdEliminacaoRN extends InfraRN {
     }
 
     /**
-     * Obtem o conteúdo do documento de eliminação
+     * Obtem o conteúdo do documento de elimina??o
      * 
      * @param string $strNumeroListagem
      * @return string

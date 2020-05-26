@@ -53,8 +53,18 @@ try {
             throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
     }
     $strItensSelCargoFuncao = AssinanteINT::montarSelectCargoFuncaoUnidadeUsuarioRI1344('null', '&nbsp;', 'null', SessaoSEI::getInstance()->getNumIdUsuario());
-    $selVeiculoPublicacao = VeiculoPublicacaoINT::montarSelectNome('null', '&nbsp;', '');
     $selSecaoImprensaNacional = SecaoImprensaNacionalINT::montarSelectNome('null', '&nbsp;', '');
+
+    $objVeiculoPublicacaoDTO = new VeiculoPublicacaoDTO();
+    $objVeiculoPublicacaoDTO->retNumIdVeiculoPublicacao();
+    $objVeiculoPublicacaoDTO->retStrNome();
+    
+    $objVeiculoPublicacaoBD = new VeiculoPublicacaoBD(BancoSEI::getInstance());
+    $arrVeiculos = $objVeiculoPublicacaoBD->listar($objVeiculoPublicacaoDTO);
+
+    $selVeiculoPublicacao = InfraINT::montarSelectArrInfraDTO('null', '&nbsp;', '', $arrVeiculos, 'IdVeiculoPublicacao', 'Nome');
+    
+    
 } catch (Exception $e) {
     PaginaSEI::getInstance()->processarExcecao($e);
 }

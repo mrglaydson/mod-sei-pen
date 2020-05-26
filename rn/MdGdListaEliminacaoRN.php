@@ -29,13 +29,22 @@ class MdGdListaEliminacaoRN extends InfraRN {
             $objMdGdParametroRN = new MdGdParametroRN();
             $numIdTipoProcedimentoArquivamento = $objMdGdParametroRN->obterParametro(MdGdParametroRN::$PAR_TIPO_PROCEDIMENTO_LISTAGEM_ELIMINACAO);
             $numIdTipoDocumentoArquivamento = $objMdGdParametroRN->obterParametro(MdGdParametroRN::$PAR_TIPO_DOCUMENTO_LISTAGEM_ELIMINACAO);
+            
+            $arrIdProtocolo = [];
+            foreach($arrObjMdGdArquivamentoDTO as $objMdGdArquivamentoDTO){
+                $arrIdProtocolo[] = $objMdGdArquivamentoDTO->getDblIdProcedimento();
+            }
 
+            //IdProtocolo
             // INCLUI  O PROCESSO
             // INFORMA OS ASSUNTOS
             $objRelProtocoloAssuntoDTO = new RelProtocoloAssuntoDTO();
-            $objRelProtocoloAssuntoDTO->setNumIdAssunto(2);
-            $objRelProtocoloAssuntoDTO->setNumSequencia(1);
-            $arrayAssuntos[] = $objRelProtocoloAssuntoDTO;
+            $objRelProtocoloAssuntoDTO->setDblIdProtocolo($arrIdProtocolo, InfraDTO::$OPER_IN);
+            $objRelProtocoloAssuntoDTO->retNumIdAssunto();
+            $objRelProtocoloAssuntoDTO->retNumSequencia();
+
+            $objRelProtocoloProtocoloRN = new RelProtocoloAssuntoRN();
+            $arrayAssuntos = $objRelProtocoloProtocoloRN->listarRN0188($objRelProtocoloAssuntoDTO);
 
             // INCLUI  OS DEMAIS DADOS DO PROCESSO
             $objProtocoloDTO = new ProtocoloDTO();
@@ -55,7 +64,6 @@ class MdGdListaEliminacaoRN extends InfraRN {
             // REALIZA A INCLUSÃO DO PROCESSO 
             $objProcedimentoRN = new ProcedimentoRN();
             $objProcedimentoDTO = $objProcedimentoRN->gerarRN0156($objProcedimentoDTO);
-
             //INCLUSÃO DO DOCUMENTO
             $objDocumentoDTO = new DocumentoDTO();
             $objDocumentoDTO->setDblIdDocumento(null);
