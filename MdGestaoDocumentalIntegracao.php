@@ -120,7 +120,7 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
         // Verifica se o processo encontra-se aberto em mais de uma unidade
         $objAtividadeDTO = new AtividadeDTO();
         $objAtividadeDTO->setDistinct(true);
-        $objAtividadeDTO->setOrdStrSiglaUnidade(InfraDTO::$TIPO_ORDENACAO_ASC);
+       // $objAtividadeDTO->setOrdStrSiglaUnidade(InfraDTO::$TIPO_ORDENACAO_ASC);
         $objAtividadeDTO->setDblIdProtocolo($objProcedimentoAPI->getIdProcedimento());
         $objAtividadeDTO->setDthConclusao(null);
         $objAtividadeDTO->retNumIdUnidade();
@@ -185,7 +185,7 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
         // Verifica se o processo encontra-se aberto em mais de uma unidade
         $objAtividadeDTO = new AtividadeDTO();
         $objAtividadeDTO->setDistinct(true);
-        $objAtividadeDTO->setOrdStrSiglaUnidade(InfraDTO::$TIPO_ORDENACAO_ASC);
+       // $objAtividadeDTO->setOrdStrSiglaUnidade(InfraDTO::$TIPO_ORDENACAO_ASC);
         $objAtividadeDTO->setDblIdProtocolo($objProcedimentoAPI->getIdProcedimento());
         $objAtividadeDTO->setDthConclusao(null);
         $objAtividadeDTO->retNumIdUnidade();
