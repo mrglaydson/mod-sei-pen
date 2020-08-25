@@ -260,7 +260,7 @@
       "value": "",
       "opensWindow": true,
       "windowHandleName": "win3408",
-      "windowTimeout": 2000
+      "windowTimeout": 10000
     }, {
       "id": "4fa289ad-8f4b-49a9-af9e-51585ea934d3",
       "comment": "",
@@ -574,7 +574,7 @@
       "id": "a9b87f2e-cbe4-4e3c-8505-290848ffb8d7",
       "comment": "",
       "command": "pause",
-      "target": "5",
+      "target": "5000",
       "targets": [],
       "value": ""
     }, {

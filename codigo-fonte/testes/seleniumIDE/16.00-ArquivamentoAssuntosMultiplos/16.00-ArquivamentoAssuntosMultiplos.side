@@ -403,7 +403,7 @@
       "value": "",
       "opensWindow": true,
       "windowHandleName": "win3408",
-      "windowTimeout": 2000
+      "windowTimeout": 10000
     }, {
       "id": "fd17a2c1-fc7a-4c3f-aba8-53f2d3eff2f9",
       "comment": "",
@@ -551,6 +551,19 @@
         ["index=1"]
       ],
       "value": ""
+    }, {
+      "id": "3db05c0c-0822-492a-a8be-12545b261932",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "id=divInformacao",
+      "targets": [
+        ["id=divInformacao", "id"],
+        ["css=#divInformacao", "css:finder"],
+        ["xpath=//div[@id='divInformacao']", "xpath:attributes"],
+        ["xpath=//div[@id='divArvoreHtml']/div", "xpath:idRelative"],
+        ["xpath=//div[4]/div", "xpath:position"]
+      ],
+      "value": "30000"
     }, {
       "id": "0fc2d5de-4edc-47f2-9b67-30670524692b",
       "comment": "",
@@ -1409,7 +1422,7 @@
       "value": "",
       "opensWindow": true,
       "windowHandleName": "win3408",
-      "windowTimeout": 2000
+      "windowTimeout": 10000
     }, {
       "id": "52bf8b2e-ece5-44e1-86ec-f8508eb24578",
       "comment": "",
@@ -1557,6 +1570,19 @@
         ["index=1"]
       ],
       "value": ""
+    }, {
+      "id": "bbe11062-920e-43d2-92cf-fe8d1c327f96",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "id=divInformacao",
+      "targets": [
+        ["id=divInformacao", "id"],
+        ["css=#divInformacao", "css:finder"],
+        ["xpath=//div[@id='divInformacao']", "xpath:attributes"],
+        ["xpath=//div[@id='divArvoreHtml']/div", "xpath:idRelative"],
+        ["xpath=//div[4]/div", "xpath:position"]
+      ],
+      "value": "30000"
     }, {
       "id": "c7911c49-6fc5-49f1-a645-cef02eaf06de",
       "comment": "",

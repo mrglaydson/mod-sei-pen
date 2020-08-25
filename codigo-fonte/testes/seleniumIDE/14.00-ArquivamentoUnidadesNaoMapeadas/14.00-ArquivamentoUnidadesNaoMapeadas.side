@@ -403,7 +403,7 @@
       "value": "",
       "opensWindow": true,
       "windowHandleName": "win3408",
-      "windowTimeout": 2000
+      "windowTimeout": 30000
     }, {
       "id": "e8527989-fde9-4c01-9cc4-a8d4c0ff022f",
       "comment": "",

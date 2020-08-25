@@ -363,7 +363,7 @@
         ["xpath=//caption", "xpath:position"],
         ["xpath=//caption[contains(.,'Lista de Lista de Processos (4 registros):')]", "xpath:innerText"]
       ],
-      "value": "Lista de Lista de Processos (30 registros):"
+      "value": "Lista de Processos (29 registros):"
     }, {
       "id": "b56138ad-53bf-4ef9-aa76-72ce189ec131",
       "comment": "",

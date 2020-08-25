@@ -393,7 +393,7 @@
       "id": "ab1b5c05-7c86-47f3-8fc0-ab377279e0ce",
       "comment": "",
       "command": "pause",
-      "target": "5",
+      "target": "5000",
       "targets": [],
       "value": ""
     }, {
@@ -407,7 +407,7 @@
       "id": "2c4084b8-4725-46b7-8dbb-9ebb600c0621",
       "comment": "",
       "command": "pause",
-      "target": "5",
+      "target": "5000",
       "targets": [],
       "value": ""
     }, {
@@ -476,7 +476,7 @@
       "id": "f393c1f0-9878-4d6b-b7da-fbf6ddf30978",
       "comment": "",
       "command": "pause",
-      "target": "3",
+      "target": "5000",
       "targets": [],
       "value": ""
     }, {

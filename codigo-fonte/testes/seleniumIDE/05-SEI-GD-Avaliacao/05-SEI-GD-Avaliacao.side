@@ -622,7 +622,7 @@
       "value": "",
       "opensWindow": true,
       "windowHandleName": "win2086",
-      "windowTimeout": 2000
+      "windowTimeout": 10000
     }, {
       "id": "edcb2dfd-b984-4dc4-963b-8191485276c9",
       "comment": "",

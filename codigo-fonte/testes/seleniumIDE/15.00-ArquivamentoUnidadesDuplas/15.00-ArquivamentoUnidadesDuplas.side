@@ -403,7 +403,7 @@
       "value": "",
       "opensWindow": true,
       "windowHandleName": "win3408",
-      "windowTimeout": 2000
+      "windowTimeout": 10000
     }, {
       "id": "e8527989-fde9-4c01-9cc4-a8d4c0ff022f",
       "comment": "",
@@ -523,6 +523,13 @@
         ["index=1"]
       ],
       "value": ""
+    }, {
+      "id": "141478d0-d909-415d-b7f5-d4d30f6177ae",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "id=divInformacao",
+      "targets": [],
+      "value": "30000"
     }, {
       "id": "c469a9ac-4603-4b62-a2cf-2652991ee9b8",
       "comment": "",
