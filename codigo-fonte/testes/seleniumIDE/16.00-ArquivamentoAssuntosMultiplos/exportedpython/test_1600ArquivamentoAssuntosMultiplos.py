@@ -65,7 +65,7 @@ class Test1600ArquivamentoAssuntosMultiplos():
     self.driver.find_element(By.ID, "optPublico").click()
     self.vars["window_handles"] = self.driver.window_handles
     self.driver.find_element(By.ID, "btnSalvar").click()
-    self.vars["win3408"] = self.wait_for_window(2000)
+    self.vars["win3408"] = self.wait_for_window(10000)
     self.vars["root"] = self.driver.current_window_handle
     time.sleep(2000)
     self.driver.switch_to.window(self.vars["win3408"])
@@ -85,6 +85,7 @@ class Test1600ArquivamentoAssuntosMultiplos():
     time.sleep(2)
     self.driver.switch_to.default_content()
     self.driver.switch_to.frame(1)
+    WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "divInformacao")))
     self.driver.find_element(By.CSS_SELECTOR, ".botaoSEI:nth-child(3) > .infraCorBarraSistema").click()
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "selAssuntos")))
     self.driver.find_element(By.ID, "txtAssunto").click()
@@ -165,7 +166,7 @@ class Test1600ArquivamentoAssuntosMultiplos():
     self.driver.find_element(By.ID, "optPublico").click()
     self.vars["window_handles"] = self.driver.window_handles
     self.driver.find_element(By.ID, "btnSalvar").click()
-    self.vars["win3408"] = self.wait_for_window(2000)
+    self.vars["win3408"] = self.wait_for_window(10000)
     self.vars["root"] = self.driver.current_window_handle
     time.sleep(2000)
     self.driver.switch_to.window(self.vars["win3408"])
@@ -185,6 +186,7 @@ class Test1600ArquivamentoAssuntosMultiplos():
     time.sleep(2)
     self.driver.switch_to.default_content()
     self.driver.switch_to.frame(1)
+    WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "divInformacao")))
     self.driver.find_element(By.CSS_SELECTOR, ".botaoSEI:nth-child(3) > .infraCorBarraSistema").click()
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "selAssuntos")))
     dropdown = self.driver.find_element(By.ID, "selAssuntos")

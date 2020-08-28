@@ -46,7 +46,7 @@ class Test1200ListagensMassa():
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraTrSelecionada > td:nth-child(3)").text == "99994.000001/2037-76"
     self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[7]/a[1]").click()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Lista de Processos (30 registros):"
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos (29 registros):"
     self.driver.find_element(By.ID, "btnCancelar").click()
   
   def test_1210GerarListagemRecolhimento(self):

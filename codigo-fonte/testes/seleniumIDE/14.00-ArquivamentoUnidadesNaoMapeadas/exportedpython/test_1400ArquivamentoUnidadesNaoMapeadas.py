@@ -65,7 +65,7 @@ class Test1400ArquivamentoUnidadesNaoMapeadas():
     self.driver.find_element(By.ID, "optPublico").click()
     self.vars["window_handles"] = self.driver.window_handles
     self.driver.find_element(By.ID, "btnSalvar").click()
-    self.vars["win3408"] = self.wait_for_window(2000)
+    self.vars["win3408"] = self.wait_for_window(30000)
     self.vars["root"] = self.driver.current_window_handle
     self.driver.switch_to.window(self.vars["win3408"])
     self.driver.close()
