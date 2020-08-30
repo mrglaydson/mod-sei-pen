@@ -88,7 +88,7 @@ class MdGdArquivamentoRN extends InfraRN {
             
             // Informa a data do arquivamento
             if($objMdGdArquivamentoDTO->isSetDthDataArquivamento()){
-                $dtaDataArquivamentoBr = $objMdGdArquivamentoDTO->getDthDataArquivamento().' H:i:s';
+                $dtaDataArquivamentoBr = $objMdGdArquivamentoDTO->getDthDataArquivamento();
                 $arrDtaDataArquivamento = explode('/', $objMdGdArquivamentoDTO->getDthDataArquivamento());
                 $dtaDataArquivamentoUs = $arrDtaDataArquivamento[2].'-'.$arrDtaDataArquivamento[1].'-'.$arrDtaDataArquivamento[0].' '.date('H:i:s');
                 
@@ -833,7 +833,8 @@ class MdGdArquivamentoRN extends InfraRN {
                         $objProcedimentoDTO->retObjAnotacaoDTO();
                         $objProcedimentoDTO->retStrStaNivelAcessoGlobalProtocolo();
                         $objProcedimentoDTO->retStrDescricaoProtocolo();
-            
+                        $objProcedimentoDTO->setOrdStrDescricaoProtocolo(InfraDTO::$TIPO_ORDENACAO_ASC);
+
                         if ($objMdGdPesquisarPendenciasArquivamentoDTO->isSetNumIdTipoProcedimento()) {
                             $objProcedimentoDTO->setNumIdTipoProcedimento($objMdGdPesquisarPendenciasArquivamentoDTO->getNumIdTipoProcedimento());
                         }

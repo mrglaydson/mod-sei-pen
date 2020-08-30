@@ -89,7 +89,7 @@ try {
                         $objMdGdArquivamentoDTO->setObjAssinaturaDTO($objAssinaturaDTO);
 
                         if(isset($_POST['txtDataArquivamento'])){
-                            $objMdGdArquivamentoDTO->setDthDataArquivamento($_POST['txtDataArquivamento']);
+                            $objMdGdArquivamentoDTO->setDthDataArquivamento($_POST['txtDataArquivamento'].' 00:00:00');
                         }
                         
                         if ($_POST['hdnOrigem'] == 'gd_pendencia_arquivamento_listar') {

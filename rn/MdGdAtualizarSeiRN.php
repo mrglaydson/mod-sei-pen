@@ -78,7 +78,7 @@ class MdGdAtualizarSeiRN extends InfraRN {
             // Criação da tabela de parâmetros
             $this->objInfraBanco->executarSql('CREATE TABLE md_gd_parametro (
                 nome  ' . $this->objMetaBD->tipoTextoVariavel(100) . '  NOT NULL ,
-                valor ' . $this->objMetaBD->tipoTextoVariavel(50) . ' 
+                valor ' . $this->objMetaBD->tipoTextoVariavel(50) . '  NULL
             )');
 
             $this->objMetaBD->adicionarChavePrimaria('md_gd_parametro', 'pk_md_gd_parametro_nome', array('nome'));
@@ -106,11 +106,11 @@ class MdGdAtualizarSeiRN extends InfraRN {
                 id_procedimento ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL,
                 id_usuario ' . $this->objMetaBD->tipoNumero() . ' NOT NULL,
                 id_unidade_corrente ' . $this->objMetaBD->tipoNumero() . ' NOT NULL,
-                id_unidade_intermediaria ' . $this->objMetaBD->tipoNumero() . ' ,
+                id_unidade_intermediaria ' . $this->objMetaBD->tipoNumero() . ' NULL ,
                 id_despacho_arquivamento ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL,
                 id_justificativa ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL,
-                id_lista_eliminacao ' . $this->objMetaBD->tipoNumeroGrande() . ' ,
-                id_lista_recolhimento ' . $this->objMetaBD->tipoNumeroGrande() . ' ,
+                id_lista_eliminacao ' . $this->objMetaBD->tipoNumeroGrande() . ' NULL ,
+                id_lista_recolhimento ' . $this->objMetaBD->tipoNumeroGrande() . ' NULL,
                 dta_arquivamento ' . $this->objMetaBD->tipoDataHora() . ' NOT NULL,
                 dta_guarda_corrente ' . $this->objMetaBD->tipoDataHora() . ' NOT NULL,
                 dta_guarda_intermediaria ' . $this->objMetaBD->tipoDataHora() . ' NOT NULL,
@@ -121,8 +121,8 @@ class MdGdAtualizarSeiRN extends InfraRN {
                 sta_destinacao_final ' .$this->objMetaBD->tipoTextoFixo(1). ' NOT NULL,
                 sin_condicionante ' .$this->objMetaBD->tipoTextoFixo(1). ' NOT NULL,
                 sin_ativo ' . $this->objMetaBD->tipoTextoFixo(1) . ' NOT NULL,
-                observacao_eliminacao ' . $this->objMetaBD->tipoTextoGrande() . ',
-                observacao_recolhimento ' . $this->objMetaBD->tipoTextoGrande() . '
+                observacao_eliminacao ' . $this->objMetaBD->tipoTextoGrande() . ' NULL,
+                observacao_recolhimento ' . $this->objMetaBD->tipoTextoGrande() . ' NULL
             )');
 
             $this->objMetaBD->adicionarChavePrimaria('md_gd_arquivamento', 'pk_md_gd_id_arquivamento', array('id_arquivamento'));
@@ -144,7 +144,7 @@ class MdGdAtualizarSeiRN extends InfraRN {
                 id_arquivamento ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL,
                 id_usuario ' . $this->objMetaBD->tipoNumero() . ' NOT NULL,
                 id_unidade ' . $this->objMetaBD->tipoNumero() . ' NOT NULL,
-                sta_situacao_antiga ' . $this->objMetaBD->tipoTextoFixo(2) . ' ,
+                sta_situacao_antiga ' . $this->objMetaBD->tipoTextoFixo(2) . ' NULL,
                 sta_situacao_atual ' . $this->objMetaBD->tipoTextoFixo(2) . ' NOT NULL,
                 descricao ' . $this->objMetaBD->tipoTextoVariavel(255) . ' NOT NULL,
                 dth_historico ' . $this->objMetaBD->tipoDataHora() . ' NOT NULL
@@ -163,7 +163,7 @@ class MdGdAtualizarSeiRN extends InfraRN {
             $this->objInfraBanco->executarSql('CREATE TABLE md_gd_anotacao_pendencia (
                 id_anotacao_pendencia ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL,
                 id_procedimento ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL,
-                anotacao ' . $this->objMetaBD->tipoTextoGrande() . '
+                anotacao ' . $this->objMetaBD->tipoTextoGrande() . ' NULL
             )');
 
             $this->objMetaBD->adicionarChavePrimaria('md_gd_anotacao_pendencia', 'pk_md_gd_id_anotacao_pendencia', array('id_anotacao_pendencia'));
