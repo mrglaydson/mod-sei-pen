@@ -720,6 +720,13 @@
       ],
       "value": ""
     }, {
+      "id": "e5fcab21-6ec6-43c4-ac2b-a17bbf17386e",
+      "comment": "",
+      "command": "chooseOkOnNextConfirmation",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "89fd1065-4c70-49c9-a940-12b2261d08ba",
       "comment": "",
       "command": "waitForElementVisible",

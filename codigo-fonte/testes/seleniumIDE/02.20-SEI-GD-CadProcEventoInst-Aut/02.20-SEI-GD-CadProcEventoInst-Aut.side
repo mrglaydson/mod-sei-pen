@@ -431,7 +431,7 @@
         ["xpath=//div[@id='divArquivo']/input", "xpath:idRelative"],
         ["xpath=//form[2]/div/input", "xpath:position"]
       ],
-      "value": "/home/marcelo/projetos/git/planejamento/sei-mod-gestao-documental/codigo-fonte/testes/seleniumIDE/02.04-SEI-GD-FloodProcsAcessoInf-Aut/teste.pdf"
+      "value": "teste.pdf"
     }, {
       "id": "5d7f92ff-471f-4dc0-9aba-6c02b882c925",
       "comment": "",
