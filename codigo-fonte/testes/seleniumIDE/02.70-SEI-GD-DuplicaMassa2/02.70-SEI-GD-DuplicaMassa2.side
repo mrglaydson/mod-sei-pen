@@ -127,6 +127,13 @@
       "targets": [],
       "value": ""
     }, {
+      "id": "f95a0ad6-3c90-426d-a076-6e4542c3b1c2",
+      "comment": "",
+      "command": "pause",
+      "target": "2",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "a105dd45-7ba5-4012-978a-d616de4f7585",
       "comment": "",
       "command": "times",
@@ -172,7 +179,7 @@
       "id": "04656872-3c02-4a81-9c8b-1034a0cb553a",
       "comment": "",
       "command": "pause",
-      "target": "1",
+      "target": "2",
       "targets": [],
       "value": ""
     }, {
@@ -235,6 +242,13 @@
       ],
       "value": ""
     }, {
+      "id": "e5fcc841-aef3-4029-bb9a-1c11255c4db6",
+      "comment": "",
+      "command": "pause",
+      "target": "2",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "6b38d4bb-b37e-4d6b-8c97-c8e55047e779",
       "comment": "",
       "command": "selectFrame",
@@ -257,6 +271,20 @@
       "target": "",
       "targets": [],
       "value": ""
+    }, {
+      "id": "33b691c2-e67f-4dab-a787-c8ead1d02f04",
+      "comment": "",
+      "command": "selectFrame",
+      "target": "index=0",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "060ee545-d055-41f0-b921-09cdba8ab466",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "css=.botaoSEI:nth-child(9) > .infraCorBarraSistema",
+      "targets": [],
+      "value": "30000"
     }, {
       "id": "efe3b40d-118e-4708-8f37-9dee0c3b5cc0",
       "comment": "",

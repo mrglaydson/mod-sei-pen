@@ -164,7 +164,7 @@
     }, {
       "id": "5927300b-33fb-448a-aa96-75ddf067c8dc",
       "comment": "",
-      "command": "//click",
+      "command": "click",
       "target": "xpath=//span[contains(text(),'9999')][1]",
       "targets": [],
       "value": ""
@@ -276,6 +276,13 @@
       "comment": "",
       "command": "echo",
       "target": "fim2",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d6b3d633-5755-4d4d-8cee-75a9ad45a57e",
+      "comment": "",
+      "command": "pause",
+      "target": "1",
       "targets": [],
       "value": ""
     }, {
