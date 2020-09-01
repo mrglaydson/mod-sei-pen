@@ -171,14 +171,14 @@
     }, {
       "id": "b67c2dd4-ea6d-4b46-ac1f-d0b7b8d7a4b5",
       "comment": "",
-      "command": "waitForElementVisible",
+      "command": "//waitForElementVisible",
       "target": "xpath=//span[contains(text(),'9999')][1]",
       "targets": [],
       "value": "30000"
     }, {
       "id": "04656872-3c02-4a81-9c8b-1034a0cb553a",
       "comment": "",
-      "command": "//pause",
+      "command": "pause",
       "target": "2",
       "targets": [],
       "value": ""

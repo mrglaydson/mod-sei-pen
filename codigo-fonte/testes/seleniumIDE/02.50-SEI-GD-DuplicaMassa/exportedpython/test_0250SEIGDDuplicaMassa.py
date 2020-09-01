@@ -34,7 +34,7 @@ class Test0250SEIGDDuplicaMassa():
     for i in range(0, 5):
       self.driver.switch_to.frame(0)
       WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.XPATH, "//span[contains(text(),\'9999\')][1]")))
-      WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.XPATH, "//span[contains(text(),\'9999\')][1]")))
+      time.sleep(2)
       self.driver.switch_to.default_content()
       self.driver.switch_to.frame(1)
       WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".botaoSEI:nth-child(9) > .infraCorBarraSistema")))
