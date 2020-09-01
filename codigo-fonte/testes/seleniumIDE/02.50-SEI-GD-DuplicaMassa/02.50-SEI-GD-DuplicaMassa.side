@@ -127,6 +127,13 @@
       "targets": [],
       "value": ""
     }, {
+      "id": "3f16c6e1-7fb6-4e0a-adb7-58b8d5c05f74",
+      "comment": "",
+      "command": "pause",
+      "target": "2",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "a105dd45-7ba5-4012-978a-d616de4f7585",
       "comment": "",
       "command": "times",
@@ -157,7 +164,7 @@
     }, {
       "id": "5927300b-33fb-448a-aa96-75ddf067c8dc",
       "comment": "",
-      "command": "click",
+      "command": "//click",
       "target": "xpath=//span[contains(text(),'9999')][1]",
       "targets": [],
       "value": ""
@@ -172,7 +179,7 @@
       "id": "04656872-3c02-4a81-9c8b-1034a0cb553a",
       "comment": "",
       "command": "pause",
-      "target": "1",
+      "target": "2",
       "targets": [],
       "value": ""
     }, {
