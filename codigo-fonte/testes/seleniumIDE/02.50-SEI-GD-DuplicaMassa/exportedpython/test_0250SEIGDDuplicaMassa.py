@@ -33,7 +33,6 @@ class Test0250SEIGDDuplicaMassa():
     for i in range(0, 5):
       self.driver.switch_to.frame(0)
       WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.XPATH, "//span[contains(text(),\'9999\')][1]")))
-      self.driver.find_element(By.XPATH, "//span[contains(text(),\'9999\')][1]").click()
       WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.XPATH, "//span[contains(text(),\'9999\')][1]")))
       self.driver.switch_to.default_content()
       self.driver.switch_to.frame(1)
