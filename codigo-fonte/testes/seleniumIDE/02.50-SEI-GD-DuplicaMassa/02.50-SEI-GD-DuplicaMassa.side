@@ -134,6 +134,13 @@
       "targets": [],
       "value": ""
     }, {
+      "id": "f675f801-8886-4a93-aac2-f2c64bb22490",
+      "comment": "",
+      "command": "pause",
+      "target": "2",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "86538f66-31df-43ef-ae02-69006f8c5ca3",
       "comment": "",
       "command": "waitForElementVisible",
@@ -178,7 +185,7 @@
     }, {
       "id": "04656872-3c02-4a81-9c8b-1034a0cb553a",
       "comment": "",
-      "command": "//pause",
+      "command": "pause",
       "target": "2",
       "targets": [],
       "value": ""
