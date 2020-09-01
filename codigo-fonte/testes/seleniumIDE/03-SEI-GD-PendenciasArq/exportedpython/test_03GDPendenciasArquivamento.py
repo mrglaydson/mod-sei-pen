@@ -37,9 +37,14 @@ class Test03GDPendenciasArquivamento():
     self.vars["win9237"] = self.wait_for_window(2000)
     self.vars["root"] = self.driver.current_window_handle
     self.driver.switch_to.window(self.vars["win9237"])
+    WebDriverWait(self.driver, 30000).until(expected_conditions.element_to_be_clickable((By.ID, "txaAnotacao")))
     self.driver.find_element(By.ID, "txaAnotacao").click()
     self.driver.find_element(By.ID, "txaAnotacao").send_keys("Anotacao01")
     self.driver.find_element(By.NAME, "sbmAnotar").click()
+    self.driver.switch_to.window(self.vars["root"])
+    WebDriverWait(self.driver, 30000).until(expected_conditions.presence_of_element_located((By.XPATH, "//td[contains(.,\'Anotacao01\')]")))
+    elements = self.driver.find_elements(By.XPATH, "//td[contains(.,\'Anotacao01\')]")
+    assert len(elements) > 0
   
   def test_011PendenciasArquivamentoAnotacao(self):
     self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
@@ -53,8 +58,13 @@ class Test03GDPendenciasArquivamento():
     time.sleep(2)
     self.vars["root"] = self.driver.current_window_handle
     self.driver.switch_to.window(self.vars["win9237"])
+    WebDriverWait(self.driver, 30000).until(expected_conditions.element_to_be_clickable((By.ID, "txaAnotacao")))
     self.driver.find_element(By.ID, "txaAnotacao").send_keys("Anotacao02")
     self.driver.find_element(By.NAME, "sbmAnotar").click()
+    self.driver.switch_to.window(self.vars["root"])
+    WebDriverWait(self.driver, 30000).until(expected_conditions.presence_of_element_located((By.XPATH, "//td[contains(.,\'Anotacao02\')]")))
+    elements = self.driver.find_elements(By.XPATH, "//td[contains(.,\'Anotacao02\')]")
+    assert len(elements) > 0
   
   def test_012PendenciasArquivamentoAnotacao(self):
     self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
@@ -68,9 +78,14 @@ class Test03GDPendenciasArquivamento():
     time.sleep(2)
     self.vars["root"] = self.driver.current_window_handle
     self.driver.switch_to.window(self.vars["win9237"])
+    WebDriverWait(self.driver, 30000).until(expected_conditions.element_to_be_clickable((By.ID, "txaAnotacao")))
     self.driver.find_element(By.ID, "txaAnotacao").click()
     self.driver.find_element(By.ID, "txaAnotacao").send_keys("alt")
     self.driver.find_element(By.NAME, "sbmAnotar").click()
+    self.driver.switch_to.window(self.vars["root"])
+    WebDriverWait(self.driver, 30000).until(expected_conditions.presence_of_element_located((By.XPATH, "//td[contains(.,\'alt\')]")))
+    elements = self.driver.find_elements(By.XPATH, "//td[contains(.,\'alt\')]")
+    assert len(elements) > 0
   
   def test_020PendenciasArquivamentoReabrirMassa(self):
     self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
@@ -81,12 +96,13 @@ class Test03GDPendenciasArquivamento():
     self.driver.find_element(By.ID, "imgInfraCheck").click()
     self.driver.find_element(By.ID, "sbmReabrir").click()
     self.driver.switch_to.alert.accept()
-    time.sleep(5)
+    time.sleep(10)
+    WebDriverWait(self.driver, 30000).until(expected_conditions.presence_of_element_located((By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/caption")))
     assert self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/caption").text == "Lista de Pendências de Arquivamento (13 registros):"
     self.driver.find_element(By.LINK_TEXT, "Controle de Processos").click()
     self.driver.find_element(By.ID, "imgGeradosCheck").click()
     self.driver.find_element(By.CSS_SELECTOR, ".botaoSEI:nth-child(6) > .infraCorBarraSistema").click()
-    time.sleep(5)
+    WebDriverWait(self.driver, 30000).until(expected_conditions.presence_of_element_located((By.XPATH, "//div[contains(.,\'Controle\')]")))
   
   def test_030PendenciasArquivamentoReabrirUnico(self):
     self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
@@ -96,7 +112,7 @@ class Test03GDPendenciasArquivamento():
     self.driver.find_element(By.LINK_TEXT, "Pendências de Arquivamento").click()
     self.driver.find_element(By.XPATH, "//td[contains(.,\'99993.000001\')]/../td[9]/a[1]").click()
     self.driver.switch_to.alert.accept()
-    time.sleep(5)
+    WebDriverWait(self.driver, 30000).until(expected_conditions.presence_of_element_located((By.XPATH, "//a[contains(text(),\'99993\')]")))
     elements = self.driver.find_elements(By.XPATH, "//a[starts-with(.,\'99993.000001\') and contains(.,\'9\')]")
     assert len(elements) == 0
   
@@ -105,9 +121,11 @@ class Test03GDPendenciasArquivamento():
     self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivista01")
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
     self.driver.find_element(By.ID, "sbmLogin").click()
+    WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.LINK_TEXT, "Pendências de Arquivamento")))
     self.driver.find_element(By.LINK_TEXT, "Pendências de Arquivamento").click()
     self.driver.find_element(By.ID, "imgInfraCheck").click()
     self.driver.find_element(By.ID, "sbmArquivar").click()
+    WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "selJustificativa")))
     dropdown = self.driver.find_element(By.ID, "selJustificativa")
     dropdown.find_element(By.XPATH, "//option[. = 'Justificativa de Arquivamento 01']").click()
     self.driver.find_element(By.ID, "selJustificativa").click()
@@ -125,8 +143,11 @@ class Test03GDPendenciasArquivamento():
     self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivista01")
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
     self.driver.find_element(By.ID, "sbmLogin").click()
+    WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.LINK_TEXT, "Pendências de Arquivamento")))
     self.driver.find_element(By.LINK_TEXT, "Pendências de Arquivamento").click()
+    WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.XPATH, "//td[contains(.,\'99993.000056/\')]/../td[9]/a[2]")))
     self.driver.find_element(By.XPATH, "//td[contains(.,\'99993.000056/\')]/../td[9]/a[2]").click()
+    WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "selJustificativa")))
     dropdown = self.driver.find_element(By.ID, "selJustificativa")
     dropdown.find_element(By.XPATH, "//option[. = 'Justificativa de Arquivamento 01']").click()
     self.driver.find_element(By.ID, "selJustificativa").click()
@@ -136,7 +157,7 @@ class Test03GDPendenciasArquivamento():
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
     self.driver.find_element(By.ID, "sbmSalvar").click()
-    time.sleep(5)
+    WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.XPATH, "//a[starts-with(.,\'99993.000057\')]")))
     elements = self.driver.find_elements(By.XPATH, "//a[starts-with(.,\'99993.000056\') and contains(.,\'9\')]")
     assert len(elements) == 0
   
@@ -145,9 +166,11 @@ class Test03GDPendenciasArquivamento():
     self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivista01")
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
     self.driver.find_element(By.ID, "sbmLogin").click()
+    WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.LINK_TEXT, "Arquivo da Unidade")))
     self.driver.find_element(By.LINK_TEXT, "Arquivo da Unidade").click()
     self.driver.find_element(By.ID, "imgInfraCheck").click()
     self.driver.find_element(By.ID, "sbmDesarquivar").click()
+    WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "selJustificativa")))
     dropdown = self.driver.find_element(By.ID, "selJustificativa")
     dropdown.find_element(By.XPATH, "//option[. = 'Justificativa de Desarquivamento 02']").click()
     self.driver.find_element(By.ID, "selJustificativa").click()
@@ -167,9 +190,11 @@ class Test03GDPendenciasArquivamento():
     self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivista01")
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
     self.driver.find_element(By.ID, "sbmLogin").click()
+    WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.LINK_TEXT, "Arquivo da Unidade")))
     self.driver.find_element(By.LINK_TEXT, "Arquivo da Unidade").click()
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, "td .infraImg")))
     self.driver.find_element(By.CSS_SELECTOR, "td .infraImg").click()
+    WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "selJustificativa")))
     dropdown = self.driver.find_element(By.ID, "selJustificativa")
     dropdown.find_element(By.XPATH, "//option[. = 'Justificativa de Desarquivamento 01']").click()
     self.driver.find_element(By.ID, "selJustificativa").click()
@@ -180,7 +205,7 @@ class Test03GDPendenciasArquivamento():
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
     self.driver.find_element(By.ID, "sbmSalvar").click()
     self.driver.switch_to.alert.accept()
-    time.sleep(5)
+    time.sleep(10)
     elements = self.driver.find_elements(By.CSS_SELECTOR, "td .infraImg")
     assert len(elements) == 0
   
@@ -189,12 +214,15 @@ class Test03GDPendenciasArquivamento():
     self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivista01")
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
     self.driver.find_element(By.ID, "sbmLogin").click()
+    WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.LINK_TEXT, "Controle de Processos")))
     self.driver.find_element(By.LINK_TEXT, "Controle de Processos").click()
     self.driver.find_element(By.ID, "imgGeradosCheck").click()
     self.driver.find_element(By.CSS_SELECTOR, ".botaoSEI:nth-child(6) > .infraCorBarraSistema").click()
+    WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.LINK_TEXT, "Pendências de Arquivamento")))
     self.driver.find_element(By.LINK_TEXT, "Pendências de Arquivamento").click()
     self.driver.find_element(By.ID, "imgInfraCheck").click()
     self.driver.find_element(By.ID, "sbmArquivar").click()
+    WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "selJustificativa")))
     dropdown = self.driver.find_element(By.ID, "selJustificativa")
     dropdown.find_element(By.XPATH, "//option[. = 'Justificativa de Arquivamento 01']").click()
     self.driver.find_element(By.ID, "selJustificativa").click()

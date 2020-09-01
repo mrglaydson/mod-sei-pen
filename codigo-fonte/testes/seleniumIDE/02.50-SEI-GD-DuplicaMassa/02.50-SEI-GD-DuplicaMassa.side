@@ -63,13 +63,6 @@
       ],
       "value": ""
     }, {
-      "id": "5d96e64d-9889-4155-a631-c201492ea470",
-      "comment": "",
-      "command": "waitForElementVisible",
-      "target": "id=pwdSenha",
-      "targets": [],
-      "value": "30000"
-    }, {
       "id": "a423e898-111d-46d5-ba82-9a8bdb7d0cab",
       "comment": "",
       "command": "click",
@@ -127,17 +120,17 @@
       "targets": [],
       "value": ""
     }, {
-      "id": "a105dd45-7ba5-4012-978a-d616de4f7585",
+      "id": "2ebddc2e-786b-4efb-aa61-5a6a46cb3890",
       "comment": "",
-      "command": "times",
+      "command": "pause",
       "target": "5",
       "targets": [],
       "value": ""
     }, {
-      "id": "4bffe4a0-e36c-4771-a0df-25995188cdaf",
+      "id": "a105dd45-7ba5-4012-978a-d616de4f7585",
       "comment": "",
-      "command": "//selectFrame",
-      "target": "relative=parent",
+      "command": "times",
+      "target": "5",
       "targets": [],
       "value": ""
     }, {
@@ -168,13 +161,6 @@
       "target": "xpath=//span[contains(text(),'9999')][1]",
       "targets": [],
       "value": "30000"
-    }, {
-      "id": "04656872-3c02-4a81-9c8b-1034a0cb553a",
-      "comment": "",
-      "command": "pause",
-      "target": "1",
-      "targets": [],
-      "value": ""
     }, {
       "id": "ace57c50-9d01-4923-944d-ba50f52f449d",
       "comment": "",
@@ -244,19 +230,26 @@
       ],
       "value": ""
     }, {
-      "id": "dacc47da-a7c1-4c65-b974-79181de8da97",
-      "comment": "",
-      "command": "//selectFrame",
-      "target": "index=0",
-      "targets": [],
-      "value": ""
-    }, {
       "id": "e6298e88-e836-48db-a764-bf258decc4d2",
       "comment": "",
       "command": "end",
       "target": "",
       "targets": [],
       "value": ""
+    }, {
+      "id": "cbcdb84c-cb55-4910-a453-0a66ab72a585",
+      "comment": "",
+      "command": "selectFrame",
+      "target": "index=0",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a389827d-4271-449c-acd5-99270fb8d4d3",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "xpath=//span[contains(text(),'9999')][1]",
+      "targets": [],
+      "value": "30000"
     }, {
       "id": "efe3b40d-118e-4708-8f37-9dee0c3b5cc0",
       "comment": "",
