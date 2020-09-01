@@ -40,7 +40,7 @@ class Test0250SEIGDDuplicaMassa():
       self.driver.find_element(By.CSS_SELECTOR, ".botaoSEI:nth-child(9) > .infraCorBarraSistema").click()
       WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "btnDuplicarProcesso")))
       self.driver.find_element(By.ID, "btnDuplicarProcesso").click()
-      time.sleep(4000)
+      time.sleep(4)
       self.driver.switch_to.default_content()
       WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "ifrVisualizacao")))
       self.driver.find_element(By.CSS_SELECTOR, "#lnkControleProcessos > .infraImg").click()
