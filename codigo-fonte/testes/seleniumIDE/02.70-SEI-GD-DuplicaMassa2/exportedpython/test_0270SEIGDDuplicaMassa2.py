@@ -22,11 +22,11 @@ class Test0270SEIGDDuplicaMassa2():
     self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "txtUsuario")))
     self.driver.find_element(By.ID, "txtUsuario").click()
-    self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivista01")
+    self.driver.find_element(By.ID, "txtUsuario").send_keys("teste")
     self.driver.find_element(By.ID, "lblUsuario").click()
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "pwdSenha")))
     self.driver.find_element(By.ID, "pwdSenha").click()
-    self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
+    self.driver.find_element(By.ID, "pwdSenha").send_keys("teste")
     self.driver.find_element(By.ID, "sbmLogin").click()
     for i in range(0, 5):
       WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.XPATH, "//a[contains(text(),\'9999\')][1]")))
