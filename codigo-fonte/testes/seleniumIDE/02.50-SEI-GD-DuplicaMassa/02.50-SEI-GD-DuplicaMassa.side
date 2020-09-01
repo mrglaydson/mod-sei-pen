@@ -164,7 +164,7 @@
     }, {
       "id": "5927300b-33fb-448a-aa96-75ddf067c8dc",
       "comment": "",
-      "command": "click",
+      "command": "//click",
       "target": "xpath=//span[contains(text(),'9999')][1]",
       "targets": [],
       "value": ""

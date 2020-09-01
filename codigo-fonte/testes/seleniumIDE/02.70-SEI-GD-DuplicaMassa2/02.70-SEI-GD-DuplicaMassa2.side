@@ -164,7 +164,7 @@
     }, {
       "id": "5927300b-33fb-448a-aa96-75ddf067c8dc",
       "comment": "",
-      "command": "click",
+      "command": "//click",
       "target": "xpath=//span[contains(text(),'9999')][1]",
       "targets": [],
       "value": ""
@@ -212,12 +212,7 @@
       "comment": "",
       "command": "click",
       "target": "css=.botaoSEI:nth-child(9) > .infraCorBarraSistema",
-      "targets": [
-        ["css=.botaoSEI:nth-child(9) > .infraCorBarraSistema", "css:finder"],
-        ["xpath=//img[@alt='Duplicar Processo']", "xpath:img"],
-        ["xpath=//div[@id='divArvoreAcoes']/a[9]/img", "xpath:idRelative"],
-        ["xpath=//a[9]/img", "xpath:position"]
-      ],
+      "targets": [],
       "value": ""
     }, {
       "id": "9a74bb52-0756-4bb0-9273-813949cb835c",
