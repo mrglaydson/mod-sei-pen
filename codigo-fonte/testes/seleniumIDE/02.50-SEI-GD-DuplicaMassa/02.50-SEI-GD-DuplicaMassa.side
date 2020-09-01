@@ -123,7 +123,7 @@
       "id": "2ebddc2e-786b-4efb-aa61-5a6a46cb3890",
       "comment": "",
       "command": "pause",
-      "target": "5",
+      "target": "1",
       "targets": [],
       "value": ""
     }, {
@@ -154,13 +154,6 @@
       "target": "xpath=//span[contains(text(),'9999')][1]",
       "targets": [],
       "value": ""
-    }, {
-      "id": "b67c2dd4-ea6d-4b46-ac1f-d0b7b8d7a4b5",
-      "comment": "",
-      "command": "waitForElementVisible",
-      "target": "xpath=//span[contains(text(),'9999')][1]",
-      "targets": [],
-      "value": "30000"
     }, {
       "id": "ace57c50-9d01-4923-944d-ba50f52f449d",
       "comment": "",
@@ -219,6 +212,13 @@
         ["xpath=//button", "xpath:position"],
         ["xpath=//button[contains(.,'Duplicar')]", "xpath:innerText"]
       ],
+      "value": ""
+    }, {
+      "id": "d409bd09-00b6-4de0-93e3-25219798e081",
+      "comment": "",
+      "command": "pause",
+      "target": "1",
+      "targets": [],
       "value": ""
     }, {
       "id": "6b38d4bb-b37e-4d6b-8c97-c8e55047e779",
