@@ -127,12 +127,12 @@
       "targets": [],
       "value": ""
     }, {
-      "id": "3f16c6e1-7fb6-4e0a-adb7-58b8d5c05f74",
+      "id": "86538f66-31df-43ef-ae02-69006f8c5ca3",
       "comment": "",
-      "command": "pause",
-      "target": "2",
+      "command": "waitForElementVisible",
+      "target": "id=ifrVisualizacao",
       "targets": [],
-      "value": ""
+      "value": "30000"
     }, {
       "id": "a105dd45-7ba5-4012-978a-d616de4f7585",
       "comment": "",
@@ -178,7 +178,7 @@
     }, {
       "id": "04656872-3c02-4a81-9c8b-1034a0cb553a",
       "comment": "",
-      "command": "pause",
+      "command": "//pause",
       "target": "2",
       "targets": [],
       "value": ""
@@ -250,6 +250,13 @@
         ["relative=parent"]
       ],
       "value": ""
+    }, {
+      "id": "e8a467c1-b661-41e3-bada-9feb6201a2ff",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "id=ifrVisualizacao",
+      "targets": [],
+      "value": "30000"
     }, {
       "id": "dacc47da-a7c1-4c65-b974-79181de8da97",
       "comment": "",
