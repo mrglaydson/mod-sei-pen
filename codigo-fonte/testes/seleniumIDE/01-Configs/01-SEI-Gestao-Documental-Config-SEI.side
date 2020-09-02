@@ -3538,7 +3538,7 @@
       "id": "ee502001-1ac8-4372-a3a2-6b95cdf2f42f",
       "comment": "",
       "command": "click",
-      "target": "xpath=(//img[@alt='Alterar Assinatura'])[4]",
+      "target": "xpath=//td[contains(text(), 'Assessor(a)')]/../td[4]/a[1]",
       "targets": [
         ["css=.infraTrSelecionada a:nth-child(1) > .infraImg", "css:finder"],
         ["xpath=(//img[@alt='Alterar Assinatura'])[4]", "xpath:img"],
@@ -3628,7 +3628,7 @@
       "id": "8568134f-39ef-4aed-ac57-87b062f218d0",
       "comment": "",
       "command": "click",
-      "target": "xpath=(//img[@alt='Alterar Assinatura'])[4]",
+      "target": "xpath=//td[contains(text(), 'Assessor(a)')]/../td[4]/a[1]",
       "targets": [
         ["css=.infraTrSelecionada a:nth-child(1) > .infraImg", "css:finder"],
         ["xpath=(//img[@alt='Alterar Assinatura'])[4]", "xpath:img"],
@@ -3718,7 +3718,7 @@
       "id": "eaa86f55-f79e-42d2-b110-20b7bbf28fa4",
       "comment": "",
       "command": "click",
-      "target": "xpath=(//img[@alt='Alterar Assinatura'])[12]",
+      "target": "xpath=//td[contains(text(), 'Gestor de Contrato')]/../td[4]/a[1]",
       "targets": [
         ["css=.infraTrSelecionada a:nth-child(1) > .infraImg", "css:finder"],
         ["xpath=(//img[@alt='Alterar Assinatura'])[4]", "xpath:img"],
@@ -3808,7 +3808,7 @@
       "id": "90e63111-436d-4b08-8a22-31ae6c67fc87",
       "comment": "",
       "command": "click",
-      "target": "xpath=(//img[@alt='Alterar Assinatura'])[12]",
+      "target": "xpath=//td[contains(text(), 'Gestor de Contrato')]/../td[4]/a[1]",
       "targets": [
         ["css=.infraTrSelecionada a:nth-child(1) > .infraImg", "css:finder"],
         ["xpath=(//img[@alt='Alterar Assinatura'])[4]", "xpath:img"],
