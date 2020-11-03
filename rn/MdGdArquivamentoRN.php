@@ -747,31 +747,44 @@ class MdGdArquivamentoRN extends InfraRN {
             $condicao .= " AND atv.dth_abertura <= '".$strDthPeriodoFinal." 23:59:59' ";     
         }
 
+      
+        $sql = '  SELECT 
+                max(atv.id_atividade) as id_atividade 
+            FROM
+                atividade atv
+            INNER JOIN 
+                procedimento pr
+                ON pr.id_procedimento  = atv.id_protocolo 
+            WHERE
+                    1 = 1 
+                    '.$condicao.'
+            GROUP BY 
+                atv.id_protocolo';
+
+        $arrAtividadesIds = $this->getObjInfraIBanco()->consultarSql($sql);
+
+        if(count($arrAtividadesIds) == 0){
+            return [[], []];
+        }
+
+        $ids = [];
+        foreach($arrAtividadesIds as $atividadeId){
+            $ids[] = $atividadeId['id_atividade'];
+        }
+
         $sql = '
-            SELECT  
-                atv.id_protocolo, atv.dth_abertura 
-            FROM 
-                atividade as atv 
-            WHERE 
-                atv.id_atividade IN (
-                SELECT 
-                    max(atv.id_atividade) as id_atividade 
-                FROM
-                    atividade atv
-                INNER JOIN 
-                    procedimento pr
-                    ON pr.id_procedimento  = atv.id_protocolo 
-                WHERE
-                     1 = 1 
-                     '.$condicao.'
-                GROUP BY 
-                    atv.id_protocolo)
-            AND 
-                atv.id_tarefa IN ('.implode(',', $arrTarefas).')
-            AND 
-                atv.id_unidade = '.SessaoSEI::getInstance()->getNumIdUnidadeAtual().' ';
-                    
-        $arrProcedimentos = $this->getObjInfraIBanco()->consultarSql($sql);
+                SELECT  
+                    atv.id_protocolo, atv.dth_abertura 
+                FROM 
+                    atividade atv 
+                WHERE 
+                    atv.id_atividade IN ('.implode(',', $ids).')
+                AND 
+                    atv.id_tarefa IN ('.implode(',', $arrTarefas).')
+                AND 
+                    atv.id_unidade = '.SessaoSEI::getInstance()->getNumIdUnidadeAtual().' ';
+
+        $arrProcedimentos = $this->getObjInfraIBanco()->consultarSql($sql);        
         $arrIdProcedimentos = [];
         $arrIdProcedimentoDth = [];
 
