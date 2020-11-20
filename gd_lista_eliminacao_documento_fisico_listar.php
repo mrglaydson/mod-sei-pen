@@ -87,6 +87,7 @@ try {
     $objArquivamentoDTO->retStrNomeTipoLocalizador();
     $objArquivamentoDTO->retNumIdLocalizador();
     $objArquivamentoDTO->setDblIdProtocoloDocumento($arrIdDocumento, InfraDTO::$OPER_IN);
+    $objArquivamentoDTO->setOrdStrProtocoloFormatadoDocumento(InfraDTO::$TIPO_ORDENACAO_ASC);
 
     PaginaSEI::getInstance()->prepararPaginacao($objArquivamentoDTO);
 

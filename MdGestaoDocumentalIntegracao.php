@@ -452,7 +452,54 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
                 $arrObjUnidadeDTO = MdGdArquivamentoINT::montarSelectAjaxUnidadesArquivamento($_POST['palavras_pesquisa']);
                 $xml = InfraAjax::gerarXMLItensArrInfraDTO($arrObjUnidadeDTO, 'IdUnidade', 'Sigla');
                 break;
+            case 'gd_arquivamento_validar_senha':
+                $objUsuarioDTOPesquisa = new UsuarioDTO();
+                $objUsuarioDTOPesquisa->setBolExclusaoLogica(false);
+                $objUsuarioDTOPesquisa->retNumIdUsuario();
+                $objUsuarioDTOPesquisa->retStrSigla();
+                $objUsuarioDTOPesquisa->retStrNome();
+                $objUsuarioDTOPesquisa->retDblCpfContato();
+                $objUsuarioDTOPesquisa->retStrStaTipo();
+                $objUsuarioDTOPesquisa->retStrSenha();
+                $objUsuarioDTOPesquisa->retNumIdContato();
+                $objUsuarioDTOPesquisa->setNumIdUsuario(SessaoSEI::getInstance()->getNumIdUsuario());
+          
+                $objUsuarioRN = new UsuarioRN();
+                $objUsuarioDTO = $objUsuarioRN->consultarRN0489($objUsuarioDTOPesquisa);
+                $bolSenha = 'S';
+
+                if ($objUsuarioDTO->getStrStaTipo()==UsuarioRN::$TU_SIP){
+
+                    $objInfraSip = new InfraSip(SessaoSEI::getInstance());
+                    $objInfraSip->autenticar($_REQUEST['orgao'],
+                        SessaoSEI::getInstance()->getNumIdContextoUsuario(),
+                        $objUsuarioDTO->getStrSigla(),
+                        $_REQUEST['senha']);          
+                  }else{
+          
+                    $bcrypt = new InfraBcrypt();
+                    if (!$bcrypt->verificar(md5($_REQUEST['senha']), $objUsuarioDTO->getStrSenha())) {
+                      $bolSenha = 'N';
+                    }
+                  }
+     
+                $xml = InfraAjax::gerarXMLComplementosArray(array('SinValida'=> $bolSenha));
+                break;
+            case 'gd_arquivamento_validar_configuracao':
+                // Validar configuração do módulo
+                $objMdGdParametroRN = new MdGdParametroRN();
+                if(!$objMdGdParametroRN->obterParametro(MdGdParametroRN::$PAR_DESPACHO_ARQUIVAMENTO)){
+                    throw new InfraException('Não foi configurado o tipo de documento para arquivamento!');
+                }
+
+                // Validar unidade de arquivamento
+                $objMdGdUnidadeArquivamentoRN = new MdGdUnidadeArquivamentoRN();
+                if(!$objMdGdUnidadeArquivamentoRN->getNumIdUnidadeArquivamentoAtual()){
+                    throw new InfraException('A unidade atual não possuí unidade de arquivamento configurada');
+                }
+                $xml = InfraAjax::gerarXMLComplementosArray(array('SinValida'=> 'S'));
         }
+                
         return $xml;
     }
 

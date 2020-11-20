@@ -164,6 +164,9 @@ PaginaSEI::getInstance()->montarJavaScript();
 PaginaSEI::getInstance()->abrirJavaScript();
 ?>
 //<script>
+    var validSenha = false;
+    var validConfiguracao = false;
+
     function inicializar() {
         document.getElementById('sbmSalvar').focus();
         infraEfeitoTabelas();
@@ -171,6 +174,33 @@ PaginaSEI::getInstance()->abrirJavaScript();
 
     function OnSubmitForm() {
         return validarDesarquivar();
+    }
+
+    function validarSenhaConfiguracao() {
+        // Valida a senha do usuário
+        objAjaxVerificacaoAssinatura = new infraAjaxComplementar(null,'<?=SessaoSEI::getInstance()->assinarLink('controlador_ajax.php?acao_ajax=gd_arquivamento_validar_senha')?>');
+        objAjaxVerificacaoAssinatura.async = false;
+        objAjaxVerificacaoAssinatura.prepararExecucao = function(){
+            return 'orgao='+ document.getElementById('selOrgao').value + '&senha=' + document.getElementById('pwdSenha').value ;
+        };
+        objAjaxVerificacaoAssinatura.processarResultado = function(arr){
+            if (arr!=null) {
+                if(arr.SinValida == 'S'){
+                    validSenha = true
+                    // Valida as configurações do módulo
+                    objAjaxVerificacaoConfiguracao = new infraAjaxComplementar(null,'<?=SessaoSEI::getInstance()->assinarLink('controlador_ajax.php?acao_ajax=gd_arquivamento_validar_configuracao')?>');
+                    objAjaxVerificacaoConfiguracao.async = false;
+                    objAjaxVerificacaoConfiguracao.processarResultado = function(arr){
+                        if(arr.SinValida == 'S'){
+                            validConfiguracao = true
+                        }
+                    };
+                    objAjaxVerificacaoConfiguracao.executar();
+
+                }
+            }
+        };
+        objAjaxVerificacaoAssinatura.executar();
     }
 
     function validarDesarquivar() {
@@ -194,6 +224,22 @@ PaginaSEI::getInstance()->abrirJavaScript();
             alert('Informe a senha.');
             return false;
         }
+        
+        // Valida a senha e configuração do módulo
+        if(!validSenha){
+            alert('Senha incorreta!');
+            return false;
+        }
+
+        if(!validConfiguracao){
+            alert('O módulo não está corretamente configurado. Verifique a existência de unidades de arquivamento para a sua unidade!');
+            return false;
+        }
+
+        if(validSenha && validConfiguracao){
+            return true
+        }
+
 
         if (confirm('Atenção! Caso este processo seja desarquivado retornará para a área de trabalho da unidade e seu prazo de guarda será reiniciado. Tem certeza que deseja continuar?')) {
             return true;
@@ -259,7 +305,7 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
             <br />
             <div id="divAutenticacao" class="infraAreaDados" style="height:2.5em;">
                 <label id="lblSenha" for="pwdSenha" accesskey="S" class="infraLabelRadio infraLabelObrigatorio" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>"><span class="infraTeclaAtalho">S</span>enha</label>&nbsp;&nbsp;
-                <input type="password" id="pwdSenha" name="pwdSenha" autocomplete="off" class="infraText"  value="" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="password" id="pwdSenha" name="pwdSenha" autocomplete="off" class="infraText"  value="" onchange="validarSenhaConfiguracao()" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />&nbsp;&nbsp;&nbsp;&nbsp;
             </div>
         </fieldset>
 

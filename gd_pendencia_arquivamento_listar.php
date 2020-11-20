@@ -96,9 +96,13 @@ try {
     // Obtem os procedimentos pendentes
     $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
     $arrObjProcedimentoDTO = $objMdGdArquivamentoRN->obterProcedimentosPendentes($objMdGdPesquisaPendenciasArquivamentoDTO);
+
     $objProcedimentoDTO = $arrObjProcedimentoDTO[0];
+
     $arrDthConclusaoProcedimento = $arrObjProcedimentoDTO[1];
     
+  
+
     if ($objProcedimentoDTO) {
     
         PaginaSEI::getInstance()->prepararPaginacao($objProcedimentoDTO);
@@ -196,7 +200,7 @@ try {
                 $strResultado .= '</td>';
 
                 $strResultado .= '<td>'. $arrObjProcedimentoDTO[$i]->getStrDescricaoProtocolo().'</td>';
-                $strResultado .= '<td>' . $arrDthConclusaoProcedimento [$arrObjProcedimentoDTO[$i]->getDblIdProcedimento()] . '</td>';
+                $strResultado .= '<td>' . $arrDthConclusaoProcedimento[$arrObjProcedimentoDTO[$i]->getDblIdProcedimento()] . '</td>';
                 $strResultado .= '<td>' . $arrObjProcedimentoDTO[$i]->getStrNomeTipoProcedimento() . '</td>';
                 $strResultado .= '<td>' . $strAssuntosProcedimento. '</td>';
                 $strResultado .= '<td>'.  $strAnotacao.'</td>';

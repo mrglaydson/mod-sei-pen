@@ -248,9 +248,14 @@ document.getElementById('btnFechar').focus();
 
 <? if ($bolAcaoObservar) { ?>
     function acaoGerarListagemEliminacao(){
-    document.getElementById('hdnInfraItemId').value = '';
-    document.getElementById('frmPrepararListagemEliminacao').action = '<?= $strLinkGerar ?>';
-    document.getElementById('frmPrepararListagemEliminacao').submit();
+        if (document.getElementById('hdnInfraItensSelecionados').value == '') {
+            alert('Nenhum Processo Selecionado.');
+            return;
+        }
+        
+        document.getElementById('hdnInfraItemId').value = '';
+        document.getElementById('frmPrepararListagemEliminacao').action = '<?= $strLinkGerar ?>';
+        document.getElementById('frmPrepararListagemEliminacao').submit();
     }
 <? } ?>
 

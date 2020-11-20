@@ -739,12 +739,12 @@ class MdGdArquivamentoRN extends InfraRN {
         // Aplicação dos filtros de período
         if($objMdGdPesquisarPendenciasArquivamentoDTO->isSetDthPeriodoInicial()){ 
             $strDthPeriodoInicial = InfraData::formatarDataBanco($objMdGdPesquisarPendenciasArquivamentoDTO->getDthPeriodoInicial());
-            $condicao .= " AND atv.dth_abertura >= '".$strDthPeriodoInicial." 00:00:00' ";     
+            $condicao .= " AND atv.dth_abertura >= '".$strDthPeriodoInicial."' ";     
         }
 
         if($objMdGdPesquisarPendenciasArquivamentoDTO->isSetDthPeriodoFinal()){
             $strDthPeriodoFinal = InfraData::formatarDataBanco($objMdGdPesquisarPendenciasArquivamentoDTO->getDthPeriodoInicial());
-            $condicao .= " AND atv.dth_abertura <= '".$strDthPeriodoFinal." 23:59:59' ";     
+            $condicao .= " AND atv.dth_abertura <= '".$strDthPeriodoFinal."' ";     
         }
 
       
@@ -761,6 +761,7 @@ class MdGdArquivamentoRN extends InfraRN {
             GROUP BY 
                 atv.id_protocolo';
 
+        $sql = str_replace(' 00:00:00', '', $sql);
         $arrAtividadesIds = $this->getObjInfraIBanco()->consultarSql($sql);
 
         if(count($arrAtividadesIds) == 0){
@@ -792,9 +793,9 @@ class MdGdArquivamentoRN extends InfraRN {
             $arrIdProcedimentos[] = $idProcedimento['id_protocolo'];
             $idProcedimento['dth_abertura'] = explode(' ', $idProcedimento['dth_abertura']);
             $idProcedimento['dth_abertura'] = explode('-', $idProcedimento['dth_abertura'][0]);
+            $idProcedimento['dth_abertura'] = explode('/', $idProcedimento['dth_abertura'][0]);
             $arrIdProcedimentoDth[$idProcedimento['id_protocolo']] = $idProcedimento['dth_abertura'][2].'/'.$idProcedimento['dth_abertura'][1].'/'.$idProcedimento['dth_abertura'][0];
         }
-        
         
         if($arrIdProcedimentos){  
    
