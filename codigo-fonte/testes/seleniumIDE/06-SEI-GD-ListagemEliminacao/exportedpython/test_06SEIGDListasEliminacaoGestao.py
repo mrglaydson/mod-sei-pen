@@ -40,9 +40,11 @@ class Test06SEIGDListasEliminacaoGestao():
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Listagens de Eliminacao (2 registros):"
     self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[3]/td[3]").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraTrSelecionada > td:nth-child(3)").text == "99994.000001/2022-90"
+    elements = self.driver.find_elements(By.XPATH, "//td[starts-with(.,\'99994.000001\')]")
+    assert len(elements) > 0
     self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[2]/td[3]").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraTrSelecionada > td:nth-child(3)").text == "99994.000002/2022-34"
+    elements = self.driver.find_elements(By.XPATH, "//td[starts-with(.,\'99994.000002\')]")
+    assert len(elements) > 0
     self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[7]/a[1]").click()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos (4 registros):"

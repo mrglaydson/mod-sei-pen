@@ -1111,7 +1111,7 @@
     }, {
       "id": "57d3576c-8faa-4770-b499-a26c51c04d9b",
       "comment": "",
-      "command": "webdriverChooseOkOnVisibleConfirmation",
+      "command": "//webdriverChooseOkOnVisibleConfirmation",
       "target": "",
       "targets": [],
       "value": ""
@@ -1345,7 +1345,7 @@
     }, {
       "id": "e9f3299f-db65-4299-a29f-f7d882c81e69",
       "comment": "",
-      "command": "webdriverChooseOkOnVisibleConfirmation",
+      "command": "//webdriverChooseOkOnVisibleConfirmation",
       "target": "",
       "targets": [],
       "value": ""
