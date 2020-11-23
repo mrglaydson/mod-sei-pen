@@ -709,7 +709,7 @@
     }, {
       "id": "e44e6504-a171-4197-9e25-7237fd62de78",
       "comment": "",
-      "command": "webdriverChooseOkOnVisibleConfirmation",
+      "command": "//webdriverChooseOkOnVisibleConfirmation",
       "target": "",
       "targets": [],
       "value": ""

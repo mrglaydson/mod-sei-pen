@@ -49,7 +49,7 @@ class Test0200SEIGDCadArquivaProc():
     self.driver.find_element(By.ID, "optPublico").click()
     self.vars["window_handles"] = self.driver.window_handles
     self.driver.find_element(By.ID, "btnSalvar").click()
-    self.vars["win3408"] = self.wait_for_window(2000)
+    self.vars["win3408"] = self.wait_for_window(10000)
     self.vars["root"] = self.driver.current_window_handle
     self.driver.switch_to.window(self.vars["win3408"])
     self.driver.close()
@@ -99,6 +99,5 @@ class Test0200SEIGDCadArquivaProc():
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
     self.driver.find_element(By.ID, "sbmSalvar").click()
-    self.driver.switch_to.alert.accept()
     time.sleep(5)
   
