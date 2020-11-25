@@ -101,7 +101,7 @@
       "id": "2baf2b4f-0504-4bea-8371-5c5f4961dc43",
       "comment": "",
       "command": "click",
-      "target": "xpath=//*[@id=\"main-menu\"]/li[27]/a",
+      "target": "//a[contains(.,'Infra')]",
       "targets": [
         ["css=.highlighted", "css:finder"],
         ["xpath=//ul[@id='main-menu']/li/a", "xpath:idRelative"],
