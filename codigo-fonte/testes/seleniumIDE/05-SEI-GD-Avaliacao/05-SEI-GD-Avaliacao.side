@@ -166,11 +166,112 @@
         ["xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[2]/td[11]/a[2]/img", "xpath:idRelative"],
         ["xpath=//td[11]/a[2]/img", "xpath:position"]
       ],
+      "value": "",
+      "opensWindow": true,
+      "windowHandleName": "win7640",
+      "windowTimeout": 3000
+    }, {
+      "id": "42ff043f-c75d-48a9-b9ce-05caee6a86e1",
+      "comment": "",
+      "command": "storeWindowHandle",
+      "target": "root",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "95531357-9cad-47a5-917f-3df99a056d13",
+      "comment": "",
+      "command": "selectWindow",
+      "target": "handle=${win7640}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "44ac672d-174f-46cd-9564-bd2edf09f213",
+      "comment": "",
+      "command": "click",
+      "target": "id=txtObservacaoDevolucao",
+      "targets": [
+        ["id=txtObservacaoDevolucao", "id"],
+        ["name=txtObservacaoDevolucao", "name"],
+        ["css=#txtObservacaoDevolucao", "css:finder"],
+        ["xpath=//textarea[@id='txtObservacaoDevolucao']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "0c651380-2310-49c5-9751-4f8d19be428e",
+      "comment": "",
+      "command": "selectWindow",
+      "target": "handle=${root}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d10bbead-4d91-43b2-acbd-1641f884d675",
+      "comment": "",
+      "command": "selectWindow",
+      "target": "handle=${win7640}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4741f52c-041c-499e-9888-53461228d593",
+      "comment": "",
+      "command": "click",
+      "target": "id=txtObservacaoDevolucao",
+      "targets": [
+        ["id=txtObservacaoDevolucao", "id"],
+        ["name=txtObservacaoDevolucao", "name"],
+        ["css=#txtObservacaoDevolucao", "css:finder"],
+        ["xpath=//textarea[@id='txtObservacaoDevolucao']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "094ee703-a0e4-4c37-9cfc-47d5d9104cad",
+      "comment": "",
+      "command": "type",
+      "target": "id=txtObservacaoDevolucao",
+      "targets": [
+        ["id=txtObservacaoDevolucao", "id"],
+        ["name=txtObservacaoDevolucao", "name"],
+        ["css=#txtObservacaoDevolucao", "css:finder"],
+        ["xpath=//textarea[@id='txtObservacaoDevolucao']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": "teste"
+    }, {
+      "id": "8797b77a-53b2-4329-bacd-8b8989f0b105",
+      "comment": "",
+      "command": "click",
+      "target": "name=sbmDevolver",
+      "targets": [
+        ["name=sbmDevolver", "name"],
+        ["css=.infraButton:nth-child(1)", "css:finder"],
+        ["xpath=//button[@name='sbmDevolver']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraBarraComandosSuperior']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Salvar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "1147392e-3886-4e54-8b6d-49b03b2cd58c",
+      "comment": "",
+      "command": "pause",
+      "target": "3000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8d3706fb-8150-446a-a8a9-df137e00912a",
+      "comment": "",
+      "command": "selectWindow",
+      "target": "handle=${root}",
+      "targets": [],
       "value": ""
     }, {
       "id": "b133ca70-b9b4-4cd6-9672-3055ce872aeb",
       "comment": "",
-      "command": "chooseOkOnNextConfirmation",
+      "command": "//chooseOkOnNextConfirmation",
       "target": "",
       "targets": [],
       "value": ""
@@ -184,7 +285,7 @@
     }, {
       "id": "99178b44-b9f7-4571-867f-cb102a5399cc",
       "comment": "",
-      "command": "webdriverChooseOkOnVisibleConfirmation",
+      "command": "//webdriverChooseOkOnVisibleConfirmation",
       "target": "",
       "targets": [],
       "value": ""

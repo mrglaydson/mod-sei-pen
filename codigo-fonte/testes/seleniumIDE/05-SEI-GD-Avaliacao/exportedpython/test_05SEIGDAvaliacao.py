@@ -37,8 +37,19 @@ class Test05SEIGDAvaliacao():
     self.driver.find_element(By.LINK_TEXT, "Avaliação de Processos").click()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (20 registros):"
+    self.vars["window_handles"] = self.driver.window_handles
     self.driver.find_element(By.XPATH, "//img[@title=\'Enviar para Correção\']").click()
-    self.driver.switch_to.alert.accept()
+    self.vars["win7640"] = self.wait_for_window(3000)
+    self.vars["root"] = self.driver.current_window_handle
+    self.driver.switch_to.window(self.vars["win7640"])
+    self.driver.find_element(By.ID, "txtObservacaoDevolucao").click()
+    self.driver.switch_to.window(self.vars["root"])
+    self.driver.switch_to.window(self.vars["win7640"])
+    self.driver.find_element(By.ID, "txtObservacaoDevolucao").click()
+    self.driver.find_element(By.ID, "txtObservacaoDevolucao").send_keys("teste")
+    self.driver.find_element(By.NAME, "sbmDevolver").click()
+    time.sleep(3000)
+    self.driver.switch_to.window(self.vars["root"])
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (19 registros):"
   
@@ -76,7 +87,7 @@ class Test05SEIGDAvaliacao():
     self.driver.find_element(By.ID, "optPublico").click()
     self.vars["window_handles"] = self.driver.window_handles
     self.driver.find_element(By.ID, "btnSalvar").click()
-    self.vars["win2086"] = self.wait_for_window(2000)
+    self.vars["win2086"] = self.wait_for_window(10000)
     self.vars["root"] = self.driver.current_window_handle
     self.driver.switch_to.window(self.vars["win2086"])
     self.driver.close()
