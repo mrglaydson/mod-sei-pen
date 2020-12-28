@@ -91,6 +91,10 @@ class MdGdArquivamentoDTO extends InfraDTO
             'sin_ativo');
         
         $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_STR,
+            'ObservacaoDevolucao',
+            'observacao_devolucao');
+
+        $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_STR,
             'ObservacaoEliminacao',
             'observacao_eliminacao');
             

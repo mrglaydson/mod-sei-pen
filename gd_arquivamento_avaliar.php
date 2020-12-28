@@ -12,7 +12,7 @@ try {
 
     SessaoSEI::getInstance()->validarLink();
     SessaoSEI::getInstance()->validarPermissao($_GET['acao']);
-    PaginaSEI::getInstance()->salvarCamposPost(array('hdnInfraItemId', 'selUnidade', 'selTipoProcedimento', 'selDestinacaoFinal', 'txtPeriodoDe', 'txtPeriodoA', 'selAssunto'));
+    PaginaSEI::getInstance()->salvarCamposPost(array('hdnInfraItemId', 'selUnidade', 'selTipoProcedimento', 'selDestinacaoFinal', 'txtPeriodoDe', 'txtPeriodoA', 'selAssunto', 'txtAnoDestinacao', 'selCondicionante'));
 
     $strTitulo = 'Avaliação de Processos';
 
@@ -20,17 +20,21 @@ try {
 
         case 'gd_arquivamento_avaliar':
             break;
-            
+               
         case 'gd_arquivamento_eliminacao_enviar':   
             $arrStrIds = PaginaSEI::getInstance()->getArrStrItensSelecionados();
             
-            foreach($arrStrIds as $strId){
-                // Cria o objeto do arquivamento
-                $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
-                $objMdGdArquivamentoDTO->setNumIdArquivamento($strId);
+            // Valida a destinação final dos arquivamentos enviados
+            $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
+            $objMdGdArquivamentoDTO->setNumIdArquivamento($arrStrIds, InfraDTO::$OPER_IN);
+            $objMdGdArquivamentoDTO->setStrStaDestinacaoFinal(MdGdArquivamentoRN::$DF_ELIMINACAO);
+            $objMdGdArquivamentoDTO->retNumIdArquivamento();
 
-                // Envia o arquivamento para eliminação
-                $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
+            $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
+            $arrObjMdGdrquivamentoDTO = $objMdGdArquivamentoRN->listar($objMdGdArquivamentoDTO);
+
+            // Envia os arquivamentos para eliminação
+            foreach($arrObjMdGdrquivamentoDTO as $objMdGdArquivamentoDTO){
                 $objMdGdArquivamentoRN->enviarEliminacao($objMdGdArquivamentoDTO);
             }
             break;
@@ -38,29 +42,20 @@ try {
         case 'gd_arquivamento_recolhimento_enviar':
             $arrStrIds = PaginaSEI::getInstance()->getArrStrItensSelecionados();
             
-            foreach($arrStrIds as $strId){
-                // Cria o objeto do arquivamento
-                $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
-                $objMdGdArquivamentoDTO->setNumIdArquivamento($strId);
+            // Valida a destinação final dos arquivamentos enviados
+            $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
+            $objMdGdArquivamentoDTO->setNumIdArquivamento($arrStrIds, InfraDTO::$OPER_IN);
+            $objMdGdArquivamentoDTO->setStrStaDestinacaoFinal(MdGdArquivamentoRN::$DF_RECOLHIMENTO);
+            $objMdGdArquivamentoDTO->retNumIdArquivamento();
 
-                // Envia o arquivamento para recolhimento
-                $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
+            $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
+            $arrObjMdGdrquivamentoDTO = $objMdGdArquivamentoRN->listar($objMdGdArquivamentoDTO);
+
+            // Envias o arquivamentos para recolhimento
+            foreach($arrObjMdGdrquivamentoDTO as $objMdGdArquivamentoDTO){
                 $objMdGdArquivamentoRN->enviarRecolhimento($objMdGdArquivamentoDTO);
             }
             
-            break;
-        case 'gd_arquivamento_devolver':
-            $numIdArquivamento = PaginaSEI::getInstance()->recuperarCampo('hdnInfraItemId');
-
-            // Instancia o arquivamento 
-            $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
-            $objMdGdArquivamentoDTO->setNumIdArquivamento($numIdArquivamento);
-            $objMdGdArquivamentoDTO->retDblIdProcedimento();
-            
-            // Muda a situação do arquivamento para editado
-            $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
-            $objMdGdArquivamentoRN->devolverArquivamento($objMdGdArquivamentoDTO);
-          //  header('Location: '.SessaoSEI::getInstance()->assinarLink('controlador.php?acao=procedimento_trabalhar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao'].'&id_procedimento='.$objMdGdArquivamentoDTO->getDblIdProcedimento()));
             break;
         default:
             throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
@@ -79,7 +74,6 @@ try {
 
     // Ação de devolver arquivamento
     $bolAcaoDevolverArquivamento = SessaoSEI::getInstance()->verificarPermissao('gd_arquivamento_devolver');
-    $strLinkAcaoDevolverArquivamento = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_arquivamento_devolver&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao']);
 
     // Busca os arquivamentos em fase intermediária para listagem
     $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
@@ -111,13 +105,20 @@ try {
     }
 
     $txtPeriodoDe = PaginaSEI::getInstance()->recuperarCampo('txtPeriodoDe');
-    if ($txtPeriodoDe) {
+    if ($txtPeriodoDe && !$txtPeriodoA) {
         $objMdGdArquivamentoDTO->setDthDataArquivamento($txtPeriodoDe, InfraDTO::$OPER_MAIOR_IGUAL);
     }
 
     $txtPeriodoA = PaginaSEI::getInstance()->recuperarCampo('txtPeriodoA');
-    if ($txtPeriodoA) {
+    if ($txtPeriodoA && !$txtPeriodoDe) {
         $objMdGdArquivamentoDTO->setDthDataArquivamento($txtPeriodoA, InfraDTO::$OPER_MENOR_IGUAL);
+    }
+
+    if($txtPeriodoDe && $txtPeriodoA) {
+        $objMdGdArquivamentoDTO->adicionarCriterio(array('DataArquivamento','DataArquivamento'),
+                    array(InfraDTO::$OPER_MAIOR_IGUAL,InfraDTO::$OPER_MENOR_IGUAL),
+                    array($txtPeriodoDe, $txtPeriodoA),
+                    array(InfraDTO::$OPER_LOGICO_AND));
     }
 
     // Faz a pesquisa por assunto caso o filtro tenha sido acionado
@@ -141,18 +142,31 @@ try {
     $selDestinacaoFinal = PaginaSEI::getInstance()->recuperarCampo('selDestinacaoFinal');
     if ($selDestinacaoFinal && $selDestinacaoFinal !== 'null') {
         $objMdGdArquivamentoDTO->setStrStaDestinacaoFinal($selDestinacaoFinal);
+    }
 
-        if($bolAcaoProcedimentoEliminacaoEnviar && $selDestinacaoFinal == MdGdArquivamentoRN::$DF_ELIMINACAO){
-            $arrComandos[] = '<button type="button" accesskey="E" id="sbmEliminacao" value="Eliminar" class="infraButton" onclick="acaoEnviarEliminacaoMultiplo()"><span class="infraTeclaAtalho">E</span>liminar</button>';
-        }
+    $selCondicionante = PaginaSEI::getInstance()->recuperarCampo('selCondicionante');
+    if ($selCondicionante && $selCondicionante !== 'null') {
+        $objMdGdArquivamentoDTO->setStrSinCondicionante($selCondicionante);
+    }
 
-        if($bolAcaoProcedimentoRecolhimentoEnviar && $selDestinacaoFinal == MdGdArquivamentoRN::$DF_RECOLHIMENTO){
-            $arrComandos[] = '<button type="button" accesskey="R" id="sbmRecolhimento" value="Recolher" class="infraButton"  onclick="acaoEnviarRecolhimentoMultiplo()"><span class="infraTeclaAtalho">R</span>ecolher</button>';
-        }
-
+    $txtAnoDestinacao = PaginaSEI::getInstance()->recuperarCampo('txtAnoDestinacao');
+    if ($txtAnoDestinacao) {
+        $objMdGdArquivamentoDTO->adicionarCriterio(array('DataGuardaIntermediaria','DataGuardaIntermediaria'),
+                            array(InfraDTO::$OPER_MAIOR_IGUAL,InfraDTO::$OPER_MENOR_IGUAL),
+                            array("01/01/".$txtAnoDestinacao." 00:00:00", "31/12/".$txtAnoDestinacao." 23:59:59"),
+                            InfraDTO::$OPER_LOGICO_AND);
     }
 
     $objRelProtoloAssuntoRN = new RelProtocoloAssuntoRN();
+
+
+    if($bolAcaoProcedimentoEliminacaoEnviar){
+        $arrComandos[] = '<button type="button" accesskey="E" id="sbmEliminacao" value="Eliminar" class="infraButton" onclick="acaoEnviarEliminacaoMultiplo()"><span class="infraTeclaAtalho">E</span>nviar para eliminação</button>';
+    }
+
+    if($bolAcaoProcedimentoRecolhimentoEnviar){
+        $arrComandos[] = '<button type="button" accesskey="R" id="sbmRecolhimento" value="Recolher" class="infraButton"  onclick="acaoEnviarRecolhimentoMultiplo()"><span class="infraTeclaAtalho">E</span>nviar para recolhimento</button>';
+    }
 
     $arrComandos[] = '<button type="button" accesskey="I" id="btnImprimir" value="Imprimir" onclick="infraImprimirTabela();" class="infraButton"><span class="infraTeclaAtalho">I</span>mprimir</button>';
 
@@ -171,11 +185,31 @@ try {
         $objRelProtocoloAssuntoDTO = new RelProtocoloAssuntoDTO();
         $objRelProtocoloAssuntoDTO->setDblIdProtocolo($arrIdsProcedimento, InfraDTO::$OPER_IN);
         $objRelProtocoloAssuntoDTO->retDblIdProtocolo();
+        $objRelProtocoloAssuntoDTO->retNumIdAssunto();
         $objRelProtocoloAssuntoDTO->retStrCodigoEstruturadoAssunto();
         $objRelProtocoloAssuntoDTO->retStrDescricaoAssunto();
 
         $arrObjRelProtocoloAssuntoDTO = InfraArray::indexarArrInfraDTO($objRelProtoloAssuntoRN->listarRN0188($objRelProtocoloAssuntoDTO),'IdProtocolo', true);
+        $arrIdsAssuntos = [];
+        $arrAssuntosObservacoes = [];
+
+        foreach($arrObjRelProtocoloAssuntoDTO as $objRelProtocoloAssuntoDTO){
+            foreach($objRelProtocoloAssuntoDTO as $objRelProtocoloAssuntoDTO2){
+                $arrIdsAssuntos[$objRelProtocoloAssuntoDTO2->getNumIdAssunto()] = $objRelProtocoloAssuntoDTO2->getNumIdAssunto();
+            }
+        }
         
+        if($arrIdsAssuntos){
+            $objAssuntoDTO = new AssuntoDTO();
+            $objAssuntoDTO->setNumIdAssunto($arrIdsAssuntos, InfraDTO::$OPER_IN);
+            $objAssuntoDTO->retNumIdAssunto();
+            $objAssuntoDTO->retStrObservacao();
+    
+            $objAssuntoRN = new AssuntoRN();
+            $arrAssuntosObservacoes = InfraArray::indexarArrInfraDTO($objAssuntoRN->listarRN0247($objAssuntoDTO),'IdAssunto');
+        }
+ 
+
         $strResultado = '';
 
         $strSumarioTabela = 'Processos Arquivados';
@@ -188,49 +222,59 @@ try {
         $strResultado .= '<th class="infraTh" width="9%">Órgão</th>' . "\n";
         $strResultado .= '<th class="infraTh" width="10%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdArquivamentoDTO, 'Unidade', 'DescricaoUnidadeCorrente', $arrObjMdGdArquivamentoDTO) . '</th>' . "\n";
         $strResultado .= '<th class="infraTh" width="10%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdArquivamentoDTO, 'Processo', 'ProtocoloFormatado', $arrObjMdGdArquivamentoDTO) . '</th>' . "\n";
-        $strResultado .= '<th class="infraTh" width="15%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdArquivamentoDTO, 'Descrição', 'Descricao', $arrObjMdGdArquivamentoDTO) . '</th>' . "\n";
-        $strResultado .= '<th class="infraTh" width="15%">Assunto</th>' . "\n";
         $strResultado .= '<th class="infraTh" width="10%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdArquivamentoDTO, 'Tipo', 'NomeTipoProcedimento', $arrObjMdGdArquivamentoDTO) . '</th>' . "\n";
-        $strResultado .= '<th class="infraTh" width="10%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdArquivamentoDTO, 'Usuário', 'NomeUsuario', $arrObjMdGdArquivamentoDTO) . '</th>' . "\n";
-        $strResultado .= '<th class="infraTh" width="10%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdArquivamentoDTO, 'Data de arquivamento', 'DataArquivamento', $arrObjMdGdArquivamentoDTO) . '</th>' . "\n";
+        $strResultado .= '<th class="infraTh" width="15%">Assunto</th>' . "\n";
         $strResultado .= '<th class="infraTh" width="5%">Destinação Final</th>' . "\n";
+        $strResultado .= '<th class="infraTh" width="10%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdArquivamentoDTO, 'Data de destinação', 'DataGuardaIntermediaria', $arrObjMdGdArquivamentoDTO) . '</th>' . "\n";
+        $strResultado .= '<th class="infraTh" width="10%">Condicionante</th>' . "\n";
         $strResultado .= '<th class="infraTh" width="10%">Ações</th>' . "\n";
         $strResultado .= '</tr>' . "\n";
         $strCssTr = '';
 
         for ($i = 0; $i < $numRegistros; $i++) {
             
-            // Isola os assuntos do processo
+            // Isola os assuntos do processo e concatena as observações
             $arrObjRelProtocoloAssuntoDTOProcedimento = $arrObjRelProtocoloAssuntoDTO[$arrObjMdGdArquivamentoDTO[$i]->getDblIdProcedimento()];
             $strAssuntosProcedimento = '';
+            $strObservacoesAssuntos = '';
 
             foreach($arrObjRelProtocoloAssuntoDTOProcedimento as $k => $objRelProtocoloAssuntoDTO){
                 $strAssuntosProcedimento .= $objRelProtocoloAssuntoDTO->getStrCodigoEstruturadoAssunto() .' - ' .$objRelProtocoloAssuntoDTO->getStrDescricaoAssunto();
                 if($k + 1 != count($arrObjRelProtocoloAssuntoDTOProcedimento)){
                     $strAssuntosProcedimento .= ' / ';
                 }
+
+                if(empty($strObservacoesAssuntos)){
+                    $strObservacoesAssuntos .= $arrAssuntosObservacoes[$objRelProtocoloAssuntoDTO->getNumIdAssunto()]->getStrObservacao();
+                }else{
+                    $strObservacoesAssuntos .= ' / '.$arrAssuntosObservacoes[$objRelProtocoloAssuntoDTO->getNumIdAssunto()]->getStrObservacao();
+                }
             }
 
             $strCssTr = ($strCssTr == '<tr class="infraTrClara">') ? '<tr class="infraTrEscura">' : '<tr class="infraTrClara">';
             $strResultado .= $strCssTr;
 
-            $strResultado .= '<td valign="top">' . PaginaSEI::getInstance()->getTrCheck($i, $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento(), $arrObjMdGdArquivamentoDTO[$i]->getStrProtocoloFormatado()) . '</td>';
+            if (InfraData::compararDatas($arrObjMdGdArquivamentoDTO[$i]->getDthDataGuardaIntermediaria(), date('d/m/Y H:i:s')) >= 0) {
+                $strResultado .= '<td valign="top">' . PaginaSEI::getInstance()->getTrCheck($i, $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento(), $arrObjMdGdArquivamentoDTO[$i]->getStrProtocoloFormatado()) . '</td>';
+            }else{
+                $strResultado .= '<td valign="top"></td>';
+            }
+
+
             $strResultado .= '<td>' . PaginaSEI::tratarHTML(SessaoSEI::getInstance()->getStrDescricaoOrgaoSistema()) . '</td>';
             $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getStrDescricaoUnidadeCorrente()) . '</td>';
             $strResultado .= '<td><a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=procedimento_trabalhar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao'] . '&id_procedimento=' . $arrObjMdGdArquivamentoDTO[$i]->getDblIdProcedimento()) . '" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . ' " target="_blank">' . $arrObjMdGdArquivamentoDTO[$i]->getStrProtocoloFormatado() . '</a></td>';
-            $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getStrDescricao()) . '</td>';
-            $strResultado .= '<td>' . $strAssuntosProcedimento . '</td>';
             $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getStrNomeTipoProcedimento()) . '</td>';
-            $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getStrNomeUsuario()) . '</td>';
-            $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getDthDataArquivamento()) . '</td>';
+            $strResultado .= '<td>' . $strAssuntosProcedimento . '</td>';
 
             if ($arrObjMdGdArquivamentoDTO[$i]->getStrStaDestinacaoFinal() == MdGdArquivamentoRN::$DF_ELIMINACAO) {
                 $strResultado .= '<td>Eliminação</td>';
             } else {
                 $strResultado .= '<td>Recolhimento</td>';
             }
+            $strResultado .= '<td>' . PaginaSEI::tratarHTML(substr($arrObjMdGdArquivamentoDTO[$i]->getDthDataGuardaIntermediaria(), 0, 10)) . '</td>';
 
-
+            $strResultado .= '<td>' . PaginaSEI::tratarHTML($strObservacoesAssuntos) . '</td>';
             $strAcoes = '<td align="center">';
             
             // Ações para fase intermediária
@@ -238,25 +282,22 @@ try {
                 // Ação de envio para recolhimento / eliminação
                 if (InfraData::compararDatas($arrObjMdGdArquivamentoDTO[$i]->getDthDataGuardaIntermediaria(), date('d/m/Y H:i:s')) >= 0) {
                     if ($bolAcaoProcedimentoEliminacaoEnviar && $arrObjMdGdArquivamentoDTO[$i]->getStrStaDestinacaoFinal() == MdGdArquivamentoRN::$DF_ELIMINACAO) {
-                        $strAcoes .= '<a href="#ID-' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '" onclick="acaoEnviarEliminacao(\'' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '\', \'' . $arrObjMdGdArquivamentoDTO[$i]->getStrProtocoloFormatado() . '\');"   tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="modulos/sei-mod-gestao-documental/imagens/transicao.png" title="Enviar para Eliminação" title="Enviar para Eliminação" class="infraImg" /></a>';
+                        $strAcoes .= '<a href="#ID-' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '" onclick="acaoEnviarEliminacao(\'' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '\', \'' . $arrObjMdGdArquivamentoDTO[$i]->getStrProtocoloFormatado() . '\');"   tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="modulos/sei-mod-gestao-documental/imagens/transicao.png" title="Enviar para Eliminação" title="Enviar para Eliminação" class="infraImg" /></a><br>';
                     }
                     
                     if ($bolAcaoProcedimentoRecolhimentoEnviar && $arrObjMdGdArquivamentoDTO[$i]->getStrStaDestinacaoFinal() == MdGdArquivamentoRN::$DF_RECOLHIMENTO){
-                        $strAcoes .= '<a href="#ID-' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '" onclick="acaoEnviarRecolhimento(\'' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '\', \'' . $arrObjMdGdArquivamentoDTO[$i]->getStrProtocoloFormatado() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="modulos/sei-mod-gestao-documental/imagens/transicao.png" title="Enviar para Recolhimento" title="Enviar para Recolhimento" class="infraImg" /></a>';
+                        $strAcoes .= '<a href="#ID-' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '" onclick="acaoEnviarRecolhimento(\'' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '\', \'' . $arrObjMdGdArquivamentoDTO[$i]->getStrProtocoloFormatado() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="modulos/sei-mod-gestao-documental/imagens/transicao.png" title="Enviar para Recolhimento" title="Enviar para Recolhimento" class="infraImg" /></a><br>';
                     }
                 } 
 
                 // Ação de edição de metadados
-                $strAcoes .= '<a href="#ID-' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '" onclick="acaoDevolver(\'' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '\', \'' . $arrObjMdGdArquivamentoDTO[$i]->getStrProtocoloFormatado() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="modulos/sei-mod-gestao-documental/imagens/devolver.gif" title="Enviar para Correção" title="Enviar para Correção" class="infraImg" /></a>';
+                if($bolAcaoDevolverArquivamento){
+                    $strLinkDevolver = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_arquivamento_devolver&acao_origem=' . $_GET['acao'] . '&id_arquivamento=' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento());
+                    $strAcoes .= '<a href="#ID-' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '" onclick="acaoDevolver(\'' . $strLinkDevolver . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="modulos/sei-mod-gestao-documental/imagens/transicao.png" title="Enviar para Correção" title="Enviar para Correção" class="infraImg" style="transform: scaleX(-1);" /></a>';
+                }
             }
             
-            // Ações para fase em edição
-         /*   if($arrObjMdGdArquivamentoDTO[$i]->getStrSituacao() == MdGdArquivamentoRN::$ST_DEVOLVIDO){
-                $strAcoes .= '<a href="#ID-' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '" onclick="acaoConcluirEdicaoArquivamento(\'' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '\', \'' . $arrObjMdGdArquivamentoDTO[$i]->getStrProtocoloFormatado() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="modulos/sei-mod-gestao-documental/imagens/alterar_metadados.gif" title="Concluir Alteração" title="Concluir Alteração" class="infraImg" /></a>';
-            }*/
-            
             $strAcoes .= '</td></tr>';
-
             $strResultado .= $strAcoes;
 
         }
@@ -282,28 +323,33 @@ PaginaSEI::getInstance()->montarStyle();
 PaginaSEI::getInstance()->abrirStyle();
 ?>
 #lblOrgao {position:absolute;left:0%;top:0%;width:20%;}
-#selOrgao {position:absolute;left:0%;top:20%;width:20%;}
+#selOrgao {position:absolute;left:0%;top:16%;width:20%;}
 
 #lblUnidade {position:absolute;left:21%;top:0%;width:20%;}
-#selUnidade {position:absolute;left:21%;top:20%;width:20%;}
+#selUnidade {position:absolute;left:21%;top:16%;width:20%;}
 
 #lblTiposProcedimento {position:absolute;left:42%;top:0%;width:20%;}
-#selTipoProcedimento {position:absolute;left:42%;top:20%;width:20%;}
+#selTipoProcedimento {position:absolute;left:42%;top:16%;width:20%;}
 
 #lblDestinacaoFinal {position:absolute;left:63%;top:0%;width:20%;}
-#selDestinacaoFinal {position:absolute;left:63%;top:20%;width:20%;}
+#selDestinacaoFinal {position:absolute;left:63%;top:16%;width:20%;}
 
-#lblPeriodoDe {position:absolute;left:0%;top:55%;width:20%;}
-#txtPeriodoDe {position:absolute;left:0%;top:70%;width:17%;}
-#imgCalPeriodoD {position:absolute;left:18%;top:72%;}
+#lblPeriodoDe {position:absolute;left:0%;top:33%;width:20%;}
+#txtPeriodoDe {position:absolute;left:0%;top:48%;width:17%;}
+#imgCalPeriodoD {position:absolute;left:18%;top:49%;}
 
-#lblPeriodoA {position:absolute;left:21%;top:55%;width:20%;}
-#txtPeriodoA {position:absolute;left:21%;top:70%;width:17%;}
-#imgCalPeriodoA {position:absolute;left:39%;top:72%;}
+#lblPeriodoA {position:absolute;left:21%;top:33%;width:20%;}
+#txtPeriodoA {position:absolute;left:21%;top:48%;width:17%;}
+#imgCalPeriodoA {position:absolute;left:39%;top:49%;}
 
-#lblSelAssunto {position:absolute;left:42%;top:55%;width:20%;}
-#selAssunto {position:absolute;left:42%;top:70%;width:41%;}
+#lblSelAssunto {position:absolute;left:42%;top:33%;width:20%;}
+#selAssunto {position:absolute;left:42%;top:48%;width:41%;}
 
+#lblAnoDestinacao {position:absolute;left:0%;top:66%;width:20%;}
+#txtAnoDestinacao {position:absolute;left:0%;top:80%;width:20%;}
+
+#lblCondicionante {position:absolute;left:21%;top:66%;width:20%;}
+#selCondicionante {position:absolute;left:21%;top:80%;width:20%;}
 
 <?
 PaginaSEI::getInstance()->fecharStyle();
@@ -339,7 +385,12 @@ PaginaSEI::getInstance()->montarJavaScript();
 
 <? if ($bolAcaoProcedimentoEliminacaoEnviar) { ?>
         function acaoEnviarEliminacaoMultiplo() {
-            if (confirm("Confirma o envio dos processos selecionados para eliminação?")) {
+            if (document.getElementById('hdnInfraItensSelecionados').value == '') {
+                alert('Nenhum processo selecionado.');
+                return;
+            }
+
+            if (confirm("Confirma o envio dos processos selecionados para eliminação? Se um processo com destinação final diferente de eliminação foi selecionado ele será desconsiderado.")) {
                 document.getElementById('hdnInfraItemId').value = '';
                 document.getElementById('frmAvaliacaoProcessoLista').action = '<?= $strLinkProcedimentoEliminacaoEnviar ?>';
                 document.getElementById('frmAvaliacaoProcessoLista').submit();
@@ -349,7 +400,12 @@ PaginaSEI::getInstance()->montarJavaScript();
 
 <? if ($bolAcaoProcedimentoRecolhimentoEnviar) { ?>
         function acaoEnviarRecolhimentoMultiplo() {
-            if (confirm("Confirma o envio dos processos selecionados para o recolhimento?")) {
+            if (document.getElementById('hdnInfraItensSelecionados').value == '') {
+                alert('Nenhum processo selecionado.');
+                return;
+            }
+
+            if (confirm("Confirma o envio dos processos selecionados para o recolhimento? Se um processo com destinação final diferente de recolhimento foi selecionado ele será desconsiderado.")) {
                 document.getElementById('hdnInfraItemId').value = '';
                 document.getElementById('frmAvaliacaoProcessoLista').action = '<?= $strLinkProcedimentoRecolhimentoEnviar ?>';
                 document.getElementById('frmAvaliacaoProcessoLista').submit();
@@ -358,7 +414,8 @@ PaginaSEI::getInstance()->montarJavaScript();
 <? } ?>
 
 <? if ($bolAcaoDevolverArquivamento) { ?>
-    function acaoDevolver(id_arquivamento){
+    function acaoDevolver(link){
+        infraAbrirJanela(link, 'janelaAnotacao', 720, 300, 'location=0,status=1,resizable=1,scrollbars=1', false);
         if (confirm("Deseja devolver o processo para correção na unidade corrente?")) {
             document.getElementById('hdnInfraItemId').value = id_arquivamento;
             document.getElementById('frmAvaliacaoProcessoLista').action = '<?= $strLinkAcaoDevolverArquivamento ?>';
@@ -387,7 +444,7 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
       action="<?= SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . $_GET['acao'] . '&acao_origem=' . $_GET['acao']) ?>">
           <?
           PaginaSEI::getInstance()->montarBarraComandosSuperior($arrComandos);
-          PaginaSEI::getInstance()->abrirAreaDados('9.5em');
+          PaginaSEI::getInstance()->abrirAreaDados('13em');
           ?>
 
     <label id="lblOrgao" for="selOrgao" accesskey="" class="infraLabelOpcional">Órgão:</label>
@@ -423,6 +480,15 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
         <?= $strItensSelAssunto; ?>
     </select>
 
+    <label id="lblAnoDestinacao" for="txtAnoDestinacao" accesskey="" class="infraLabelOpcional">Ano de Destinação:</label>
+    <input type="text" id="txtAnoDestinacao" value="<?= $txtAnoDestinacao ?>" name="txtAnoDestinacao" class="infraText" value="<?= PaginaSEI::tratarHTML($txtAnoDestinacao) ?>" onkeypress="return infraMascaraNumero(this, event)" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" maxlength="4" />
+
+    <label id="lblCondicionante" for="selCondicionante" accesskey="" class="infraLabelOpcional">Condicionante:</label>
+    <select id="selCondicionante" name="selCondicionante" onchange="this.form.submit();" class="infraSelect" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" >
+        <option value="null"></option>
+        <option value="S">Sim</option>
+        <option value="N">Não</option>
+    </select>
 
     <?
     PaginaSEI::getInstance()->fecharAreaDados();

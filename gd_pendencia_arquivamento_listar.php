@@ -100,8 +100,7 @@ try {
     $objProcedimentoDTO = $arrObjProcedimentoDTO[0];
 
     $arrDthConclusaoProcedimento = $arrObjProcedimentoDTO[1];
-    
-  
+
 
     if ($objProcedimentoDTO) {
     
@@ -109,7 +108,7 @@ try {
 
         $objProcedimentoRN = new ProcedimentoRN();
         $arrObjProcedimentoDTO = $objProcedimentoRN->listarRN0278($objProcedimentoDTO);
-
+        
         PaginaSEI::getInstance()->processarPaginacao($objProcedimentoDTO);
         $numRegistros = count($arrObjProcedimentoDTO);
         $c = 1;
@@ -210,16 +209,16 @@ try {
                 $strProtocoloProcedimentoFormatado = $arrObjProcedimentoDTO[$i]->getStrProtocoloProcedimentoFormatado();
 
                 if($bolAcaoReabrir){
-                    $strResultado .= '<a href="' . PaginaSEI::getInstance()->montarAncora($strId) . '" onclick="acaoReabrir(\'' . $strId . '\',\'' . $strProtocoloProcedimentoFormatado . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="modulos/sei-mod-gestao-documental/imagens/reabrir_procedimento.gif" title="Reabrir Processo" alt="Reabrir Processo" class="infraImg"  /></a>&nbsp;';
+                    $strResultado .= '<a href="' . PaginaSEI::getInstance()->montarAncora($strId) . '" onclick="acaoReabrir(\'' . $strId . '\',\'' . $strProtocoloProcedimentoFormatado . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="imagens/sei_reabrir_processo.gif" title="Reabrir Processo" alt="Reabrir Processo" class="infraImg" style="width: 29px; height: 29px;" /></a>&nbsp;';
                 } 
 
                 if($bolAcaoArquivar){
-                    $strResultado .= '<a href="' . PaginaSEI::getInstance()->montarAncora($strId) . '" onclick="acaoArquivar(\'' . $strId . '\',\'' . $strProtocoloProcedimentoFormatado . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="modulos/sei-mod-gestao-documental/imagens/arquivar.gif" title="Arquivar Processo" alt="Arquivar Processo" class="infraImg" /></a>&nbsp;';
+                    $strResultado .= '<a href="' . PaginaSEI::getInstance()->montarAncora($strId) . '" onclick="acaoArquivar(\'' . $strId . '\',\'' . $strProtocoloProcedimentoFormatado . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="modulos/sei-mod-gestao-documental/imagens/arquivamento.png" title="Arquivar Processo" alt="Arquivar Processo" class="infraImg" style="width: 22px; height: 22px; padding-bottom: 3px;"/></a>&nbsp;';
                 }
 
                 if($bolAcaoAnotacao){
                     $strLinkAnotar = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_pendencia_arquivamento_anotar&acao_origem=' . $_GET['acao'] . '&id_procedimento=' . $arrObjProcedimentoDTO[$i]->getDblIdProcedimento());
-                    $strResultado .= '<a href="#" onclick="exibirJanelaAnotacao(\'' . $strLinkAnotar . '\');"><img src="modulos/sei-mod-gestao-documental/imagens/anotacoes.gif" title="Realizar Realizar" alt="Realizar Anotação" class="infraImg" /></a>&nbsp;';
+                    $strResultado .= '<a href="#" onclick="exibirJanelaAnotacao(\'' . $strLinkAnotar . '\');"><img src="modulos/sei-mod-gestao-documental/imagens/anotacoes.gif" title="Realizar Anotação" alt="Realizar Anotação" class="infraImg" style="width: 18px; height: 18px;padding-bottom: 5px;"/></a>&nbsp;';
                 }
         
 

@@ -89,7 +89,7 @@ class MdGdArquivamentoRN extends InfraRN {
             // Informa a data do arquivamento
             if($objMdGdArquivamentoDTO->isSetDthDataArquivamento()){
                 $dtaDataArquivamentoBr = $objMdGdArquivamentoDTO->getDthDataArquivamento();
-                $arrDtaDataArquivamento = explode('/', $objMdGdArquivamentoDTO->getDthDataArquivamento());
+                $arrDtaDataArquivamento = explode('/', str_replace(['00:00:00', ' '], ['', ''], $objMdGdArquivamentoDTO->getDthDataArquivamento()));
                 $dtaDataArquivamentoUs = $arrDtaDataArquivamento[2].'-'.$arrDtaDataArquivamento[1].'-'.$arrDtaDataArquivamento[0].' '.date('H:i:s');
                 
             }else{
@@ -783,7 +783,10 @@ class MdGdArquivamentoRN extends InfraRN {
                 AND 
                     atv.id_tarefa IN ('.implode(',', $arrTarefas).')
                 AND 
-                    atv.id_unidade = '.SessaoSEI::getInstance()->getNumIdUnidadeAtual().' ';
+                    atv.id_unidade = '.SessaoSEI::getInstance()->getNumIdUnidadeAtual().' 
+                AND
+                    (SELECT count(atv2.id_atividade) FROM atividade atv2 WHERE atv2.dth_conclusao IS NULL AND atv2.id_protocolo = atv.id_protocolo) = 0
+                    ';
 
         $arrProcedimentos = $this->getObjInfraIBanco()->consultarSql($sql);        
         $arrIdProcedimentos = [];
@@ -793,8 +796,12 @@ class MdGdArquivamentoRN extends InfraRN {
             $arrIdProcedimentos[] = $idProcedimento['id_protocolo'];
             $idProcedimento['dth_abertura'] = explode(' ', $idProcedimento['dth_abertura']);
             $idProcedimento['dth_abertura'] = explode('-', $idProcedimento['dth_abertura'][0]);
-            $idProcedimento['dth_abertura'] = explode('/', $idProcedimento['dth_abertura'][0]);
-            $arrIdProcedimentoDth[$idProcedimento['id_protocolo']] = $idProcedimento['dth_abertura'][2].'/'.$idProcedimento['dth_abertura'][1].'/'.$idProcedimento['dth_abertura'][0];
+
+            if(count($idProcedimento['dth_abertura']) > 1){
+                $arrIdProcedimentoDth[$idProcedimento['id_protocolo']] = $idProcedimento['dth_abertura'][2].'/'.$idProcedimento['dth_abertura'][1].'/'.$idProcedimento['dth_abertura'][0];
+            }else{
+                $arrIdProcedimentoDth[$idProcedimento['id_protocolo']] = $idProcedimento['dth_abertura'][0];
+            }
         }
         
         if($arrIdProcedimentos){  
@@ -987,20 +994,24 @@ class MdGdArquivamentoRN extends InfraRN {
             if (!$objMdGdArquivamentoDTO->isSetNumIdArquivamento()) {
                 throw new InfraException('Informe o número do arquivamento');
             }
-
+            
+            $strObservacao = $objMdGdArquivamentoDTO->getStrObservacaoDevolucao();
+            
             // Obtem o objeto de arquivamento
+            $objMdGdArquivamentoDTO->setStrObservacaoDevolucao(null);
             $objMdGdArquivamentoDTO->retNumIdArquivamento();
             $objMdGdArquivamentoDTO->retDblIdProcedimento();
             $objMdGdArquivamentoDTO->retStrSituacao();
-            $objMdGdArquivamentoDTO = $this->consultarConectado($objMdGdArquivamentoDTO);
+            $objMdGdArquivamentoDTO = $this->consultar($objMdGdArquivamentoDTO);
 
             // Valida se o arquivamento está em fase intermediária para ser editado
             if($objMdGdArquivamentoDTO->getStrSituacao() != self::$ST_FASE_INTERMEDIARIA){
                 throw new InfraException('A devolução do processo só pode ser feita quando o arquivamento estiver em fase intermediária e em avaliação.');
             }
-
+            
             // Atualiza a situação do arquivamento
             $objMdGdArquivamentoDTO->setStrSituacao(self::$ST_DEVOLVIDO);
+            $objMdGdArquivamentoDTO->setStrObservacaoDevolucao($strObservacao);
             return $this->alterar($objMdGdArquivamentoDTO);
         } catch (Exception $e) {
             throw new InfraException('Erro ao editar arquivamento.', $e);
@@ -1231,22 +1242,17 @@ class MdGdArquivamentoRN extends InfraRN {
 
         $date1 = strtotime($strDataInicial);  
         $date2 = strtotime($strDataFinal);  
-        
+
         if($date1 >= $date2){
             return array(0, 0, 0);   
         }
 
-        $diff = abs($date2 - $date1);  
+        $dtDataInicial = new DateTime(date('Y-m-d'));
+        $dtDataFinal = new DateTime($strDataFinal);
+        $tempo = $dtDataFinal->diff($dtDataInicial);
 
-        $years = floor($diff / (365*60*60*24));  
-        $months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));  
-        $days = floor(($diff - $years * 365*60*60*24 -  $months*30*60*60*24)/ (60*60*24)); 
-        
-        return array($years, $months, $days);
+        return array($tempo->y, $tempo->m, $tempo->d);      
     }
-
-    
-
 }
 
 ?>

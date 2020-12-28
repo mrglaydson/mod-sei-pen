@@ -67,6 +67,7 @@ try {
     $objMdGdListaEliminacaoDTO = new MdGdListaEliminacaoDTO();
     $objMdGdListaEliminacaoDTO->retStrSituacao();
     $objMdGdListaEliminacaoDTO->retStrProtocoloProcedimentoEliminacaoFormatado();
+    $objMdGdListaEliminacaoDTO->retDblIdProcedimentoEliminacao();
     $objMdGdListaEliminacaoDTO->retTodos();
 
 
@@ -127,7 +128,7 @@ try {
 
             $strResultado .= '<td valign="top">' . PaginaSEI::getInstance()->getTrCheck($i, $arrObjMdGdListaEliminacaoDTO[$i]->getNumIdListaEliminacao(), $arrObjMdGdListaEliminacaoDTO[$i]->getStrNumero()) . '</td>';
             $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdListaEliminacaoDTO[$i]->getStrNumero()) . '</td>';
-            $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdListaEliminacaoDTO[$i]->getStrProtocoloProcedimentoEliminacaoFormatado()) . '</td>';
+            $strResultado .= '<td><a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=procedimento_trabalhar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao'] . '&id_procedimento=' . $arrObjMdGdListaEliminacaoDTO[$i]->getDblIdProcedimentoEliminacao()) . '" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . ' " target="_blank">' . $arrObjMdGdListaEliminacaoDTO[$i]->getStrProtocoloProcedimentoEliminacaoFormatado() . '</a></td>';
             $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdListaEliminacaoDTO[$i]->getNumAnoLimiteInicio() . '-' . $arrObjMdGdListaEliminacaoDTO[$i]->getNumAnoLimiteFim()) . '</td>';
             $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdListaEliminacaoDTO[$i]->getDthEmissaoListagem()) . '</td>';
             $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdListaEliminacaoDTO[$i]->getNumQtdProcessos()) . '</td>';

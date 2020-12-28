@@ -121,6 +121,7 @@ class MdGdAtualizarSeiRN extends InfraRN {
                 sta_destinacao_final ' .$this->objMetaBD->tipoTextoFixo(1). ' NOT NULL,
                 sin_condicionante ' .$this->objMetaBD->tipoTextoFixo(1). ' NOT NULL,
                 sin_ativo ' . $this->objMetaBD->tipoTextoFixo(1) . ' NOT NULL,
+                observacao_devolucao ' . $this->objMetaBD->tipoTextoGrande() . ' NULL,
                 observacao_eliminacao ' . $this->objMetaBD->tipoTextoGrande() . ' NULL,
                 observacao_recolhimento ' . $this->objMetaBD->tipoTextoGrande() . ' NULL
             )');

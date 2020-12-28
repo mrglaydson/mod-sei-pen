@@ -28,10 +28,18 @@ class MdGdListaRecolhimentoRN extends InfraRN {
             // CONSULTA PARA VERIFICAÇÃO DA EXISTÊNCIA DE DOCUMENTOS FÍSICOS ARQUIVADOS
             $strSinDocumentosFisicos = 'N';
             
-            // Obtem os ids dos procedimentos vinculdados
+            // Obtem os ids dos procedimentos vinculdados e os anos limite inicial e final
             $arrIdsProcedimentos = array();
+            $numAnoLimiteInicial = 0;
+            $numAnoLimiteFinal = 0;
+
             foreach ($arrObjMdGdArquivamentoDTO as $objMdGdArquivamentoDTO) {
                 $arrIdsProcedimentos[] = $objMdGdArquivamentoDTO->getDblIdProcedimento();
+                $numAnoInicial = (int) substr($objMdGdArquivamentoDTO->getDthDataGuardaCorrente(), 6, 4);
+                $numAnoFinal = (int) substr($objMdGdArquivamentoDTO->getDthDataGuardaIntermediaria(), 6, 4);
+
+                $numAnoLimiteInicial = $numAnoLimiteInicial > $numAnoInicial || !$numAnoLimiteInicial ? $numAnoInicial : $numAnoLimiteInicial;
+                $numAnoLimiteFinal = $numAnoLimiteFinal < $numAnoFinal ? $numAnoFinal : $numAnoLimiteFinal;
             }
 
             // Obtem os documentos vinculados aos processos da listagem
@@ -46,7 +54,7 @@ class MdGdListaRecolhimentoRN extends InfraRN {
             if ($arrObjRelProtocoloProtocoloDTO) {
                 $arrIdsDocumentos = explode(',', InfraArray::implodeArrInfraDTO($arrObjRelProtocoloProtocoloDTO, 'IdProtocolo2'));
             }
-
+            
             // Obtem todos os arquivamentos fisicos registrados para os documentos do processo
             $objArquivamentoDTO = new ArquivamentoDTO();
             $objArquivamentoDTO->retDblIdProtocoloDocumento();
@@ -59,8 +67,8 @@ class MdGdListaRecolhimentoRN extends InfraRN {
             $objMdGdListaRecolhimentoDTO = new MdGdListaRecolhimentoDTO();
             $objMdGdListaRecolhimentoDTO->setStrNumero($this->obterProximaNumeroListagem());
             $objMdGdListaRecolhimentoDTO->setDthEmissaoListagem(date('d/m/Y H:i:s'));
-            $objMdGdListaRecolhimentoDTO->setNumAnoLimiteInicio(2004); // TODO NOW
-            $objMdGdListaRecolhimentoDTO->setNumAnoLimiteFim(2018); // TODO NOW
+            $objMdGdListaRecolhimentoDTO->setNumAnoLimiteInicio($numAnoLimiteInicial);
+            $objMdGdListaRecolhimentoDTO->setNumAnoLimiteFim($numAnoLimiteFinal);
             $objMdGdListaRecolhimentoDTO->setNumQtdProcessos(count($arrObjMdGdArquivamentoDTO));
             $objMdGdListaRecolhimentoDTO->setStrSituacao(self::$ST_GERADA);
             $objMdGdListaRecolhimentoDTO->setStrSinDocumentosFisicos($strSinDocumentosFisicos);
@@ -241,7 +249,7 @@ class MdGdListaRecolhimentoRN extends InfraRN {
 
         $strComandoGerarPdf = DIR_SEI_BIN . '/wkhtmltopdf-amd64 --quiet --title md_gd_pdf_listagem_recolhimento-' . InfraUtil::retirarFormatacao('1123123', false) . ' ' . $strCaminhoArquivoHtml . '  ' . $strCaminhoArquivoPdf . ' 2>&1';
         shell_exec($strComandoGerarPdf);
-        SeiINT::download(null, $strCaminhoArquivoPdf, 'listagem_recolhiment.pdf', 'attachment', true);
+        SeiINT::download(null, $strCaminhoArquivoPdf, 'listagem_recolhimento.pdf', 'attachment', true);
     }
 
      /**
@@ -302,33 +310,34 @@ class MdGdListaRecolhimentoRN extends InfraRN {
             $arrObjMdGdListaRecolProcedimentoDTO = $objMdGdListaRecolProcedimentoRN->listar($objMdGdListaRecolProcedimentoDTO);
             $totalProcessos = count($arrObjMdGdListaRecolProcedimentoDTO);
 
+            // Obtem os documentos vinculados aos processos da listagem
             $arrIdsProcedimentos = [];
 
             foreach($arrObjMdGdListaRecolProcedimentoDTO as $objMdGdListaRecolProcedimentoDTO){
                 $arrIdsProcedimentos[] = $objMdGdListaRecolProcedimentoDTO->getDblIdProcedimento();
             }
-
-            // Obtem os documentos vinculados aos processos da listagem
-            $objRelProtocoloProtocoloDTO = new RelProtocoloProtocoloDTO();
-            $objRelProtocoloProtocoloDTO->setDblIdProtocolo1($arrIdsProcedimentos, InfraDTO::$OPER_IN);
-            $objRelProtocoloProtocoloDTO->retDblIdProtocolo2();
-
-            $objRelProtocoloProtocoloRN = new RelProtocoloProtocoloRN();
-            $arrObjRelProtocoloProtocoloDTO = $objRelProtocoloProtocoloRN->listarRN0187($objRelProtocoloProtocoloDTO);
             
-            $arrIdsDocumentos = array();
-            if ($arrObjRelProtocoloProtocoloDTO) {
-                $arrIdsDocumentos = explode(',', InfraArray::implodeArrInfraDTO($arrObjRelProtocoloProtocoloDTO, 'IdProtocolo2'));
+            if($arrIdsProcedimentos){
+                $objRelProtocoloProtocoloDTO = new RelProtocoloProtocoloDTO();
+                $objRelProtocoloProtocoloDTO->setDblIdProtocolo1($arrIdsProcedimentos, InfraDTO::$OPER_IN);
+                $objRelProtocoloProtocoloDTO->retDblIdProtocolo2();
+
+                $objRelProtocoloProtocoloRN = new RelProtocoloProtocoloRN();
+                $arrObjRelProtocoloProtocoloDTO = $objRelProtocoloProtocoloRN->listarRN0187($objRelProtocoloProtocoloDTO);
+                
+                $arrIdsDocumentos = array();
+                if ($arrObjRelProtocoloProtocoloDTO) {
+                    $arrIdsDocumentos = explode(',', InfraArray::implodeArrInfraDTO($arrObjRelProtocoloProtocoloDTO, 'IdProtocolo2'));
+                }
+
+                // Obtem todos os arquivamentos fisicos registrados para os documentos do processo
+                $objArquivamentoDTO = new ArquivamentoDTO();
+                $objArquivamentoDTO->retDblIdProtocoloDocumento();
+                $objArquivamentoDTO->setDblIdProtocoloDocumento($arrIdsDocumentos, InfraDTO::$OPER_IN);
+
+                $objArquivamentoRN = new ArquivamentoRN();
+                $strSinDocumentosFisicos = $objArquivamentoRN->contar($objArquivamentoDTO) == 0 ? 'N' : 'S';
             }
-
-            // Obtem todos os arquivamentos fisicos registrados para os documentos do processo
-            $objArquivamentoDTO = new ArquivamentoDTO();
-            $objArquivamentoDTO->retDblIdProtocoloDocumento();
-            $objArquivamentoDTO->setDblIdProtocoloDocumento($arrIdsDocumentos, InfraDTO::$OPER_IN);
-
-            $objArquivamentoRN = new ArquivamentoRN();
-            $strSinDocumentosFisicos = $objArquivamentoRN->contar($objArquivamentoDTO) == 0 ? 'N' : 'S';
-
             $objMdGdListaRecolhimentoDTO->setStrSituacao(self::$ST_GERADA);
             $objMdGdListaRecolhimentoDTO->setNumQtdProcessos($totalProcessos);
             $objMdGdListaRecolhimentoDTO->setStrSinDocumentosFisicos($strSinDocumentosFisicos);

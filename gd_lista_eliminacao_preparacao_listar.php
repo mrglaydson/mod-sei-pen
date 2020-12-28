@@ -34,6 +34,8 @@ try {
             $objMdGdArquivamentoDTO->retDblIdProcedimento();
             $objMdGdArquivamentoDTO->retDblIdProtocoloProcedimento();
             $objMdGdArquivamentoDTO->retStrObservacaoEliminacao();
+            $objMdGdArquivamentoDTO->retDthDataGuardaCorrente();
+            $objMdGdArquivamentoDTO->retDthDataGuardaIntermediaria();
             
             $arrObjMdGdArquivamentoDTO = $objMdGdArquivamentoRN->listar($objMdGdArquivamentoDTO);
 

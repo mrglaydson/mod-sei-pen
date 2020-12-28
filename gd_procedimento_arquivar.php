@@ -50,12 +50,16 @@ try {
 
             if ($_GET['acao_origem'] == 'gd_pendencia_arquivamento_listar') {
                 $arrComandos[] = '<button type="button" accesskey="C" id="btnCancelar" name="btnCancelar" value="Cancelar" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_pendencia_arquivamento_listar&acao_origem=' . $_GET['acao'] . $strParametros) . '\';" class="infraButton"><span class="infraTeclaAtalho">C</span>ancelar</button>';
+            } else if($_GET['acao_origem'] == 'procedimento_controlar') {
+                $arrComandos[] = '<button type="button" accesskey="C" id="btnCancelar" name="btnCancelar" value="Cancelar" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=procedimento_controlar&acao_origem=' . $_GET['acao'] . $strParametros) . '\';" class="infraButton"><span class="infraTeclaAtalho">C</span>ancelar</button>';
             } else {
                 $arrComandos[] = '<button type="button" accesskey="C" id="btnCancelar" name="btnCancelar" value="Cancelar" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . PaginaSEI::getInstance()->getAcaoRetorno() . '&acao_origem=' . $_GET['acao'] . $strParametros) . '\';" class="infraButton"><span class="infraTeclaAtalho">C</span>ancelar</button>';
             }
-
+     
             if ($_GET['acao_origem'] == 'gd_pendencia_arquivamento_listar') {
                 $arrProtocolosOrigem = PaginaSEI::getInstance()->getArrStrItensSelecionados();
+            } else if($_GET['acao_origem'] == 'procedimento_controlar') {
+                $arrProtocolosOrigem = array_merge(PaginaSEI::getInstance()->getArrStrItensSelecionados('Gerados'), PaginaSEI::getInstance()->getArrStrItensSelecionados('Recebidos'), PaginaSEI::getInstance()->getArrStrItensSelecionados('Detalhado'));
             } else {
                 $arrProtocolosOrigem = array($_GET['id_procedimento']);
             }
@@ -105,6 +109,8 @@ try {
 
                     if ($_POST['hdnOrigem'] == 'gd_pendencia_arquivamento_listar') {
                        PaginaSEI::getInstance()->finalizarBarraProgresso2(SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_pendencia_arquivamento_listar&acao_origem=' . $_GET['acao']), true);
+                    } else if ($_POST['hdnOrigem'] == 'procedimento_controlar') {
+                        PaginaSEI::getInstance()->finalizarBarraProgresso2(SessaoSEI::getInstance()->assinarLink('controlador.php?acao=procedimento_controlar&acao_origem=' . $_GET['acao']), true);
                     } else {
                       PaginaSEI::getInstance()->finalizarBarraProgresso2(SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_procedimento_arquivar&acao_origem=' . $_GET['acao'] . '&id_procedimento='.$arrProtocolosOrigem[0].'&arvore=1&redirect=true'), true);
                     }

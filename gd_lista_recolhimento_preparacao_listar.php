@@ -31,6 +31,8 @@ try {
             $objMdGdArquivamentoDTO->retNumIdArquivamento();
             $objMdGdArquivamentoDTO->retDblIdProcedimento();
             $objMdGdArquivamentoDTO->retDblIdProtocoloProcedimento();
+            $objMdGdArquivamentoDTO->retDthDataGuardaCorrente();
+            $objMdGdArquivamentoDTO->retDthDataGuardaIntermediaria();
             
             $arrObjMdGdArquivamentoDTO = $objMdGdArquivamentoRN->listar($objMdGdArquivamentoDTO);
 
@@ -69,7 +71,7 @@ try {
     $arrComandos[] = '<button type="submit" accesskey="P" id="sbmPesquisar" value="Pesquisar" class="infraButton"><span class="infraTeclaAtalho">P</span>esquisar</button>';
 
     if ($bolAcaoGerar) {
-        $arrComandos[] = '<button type="button" accesskey="P" id="btnGerarListagem" value="Gerar SIP" onclick="acaoGerarListagemRecolhimento();" class="infraButton"><span class="infraTeclaAtalho">G</span>erar SIP</button>';
+        $arrComandos[] = '<button type="button" accesskey="P" id="btnGerarListagem" value="Gerar Listagem de Recolhimento" onclick="acaoGerarListagemRecolhimento();" class="infraButton"><span class="infraTeclaAtalho">G</span>erar Listagem de Recolhimento</button>';
         $strLinkGerar = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_lista_recolhimento_preparacao_gerar&acao_origem=' . $_GET['acao']);
     }
 

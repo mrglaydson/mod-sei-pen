@@ -92,6 +92,7 @@ try {
     $objMdGdArquivamentoDTO->retStrStaNivelAcessoGlobal();
     $objMdGdArquivamentoDTO->retDthDataGuardaCorrente();
     $objMdGdArquivamentoDTO->retDthDataGuardaIntermediaria();
+    $objMdGdArquivamentoDTO->retStrObservacaoDevolucao();
     $objMdGdArquivamentoDTO->setOrdDthDataGuardaCorrente(InfraDTO::$TIPO_ORDENACAO_ASC);
 
     $selTipoProcedimento = PaginaSEI::getInstance()->recuperarCampo('selTipoProcedimento');
@@ -225,7 +226,8 @@ try {
             if($arrObjMdGdArquivamentoDTO[$i]->getStrSituacao() != MdGdArquivamentoRN::$ST_DEVOLVIDO){
                 $strTempoGuardaIntermediaria = MdGdArquivamentoRN::descreverTempoArquivamentoIntermediario($strDthDataArquivamento, $arrObjMdGdArquivamentoDTO[$i]->getNumGuardaCorrente(), $arrObjMdGdArquivamentoDTO[$i]->getNumGuardaIntermediaria());
             }else{
-                $strTempoGuardaIntermediaria = '<b>Devolvido para correção</b>';
+                $strTempoGuardaIntermediaria = '<b>Devolvido para correção</b><br>';
+                $strTempoGuardaIntermediaria .= '<b>Motivo: </b> '. (!is_null($arrObjMdGdArquivamentoDTO[$i]->getStrObservacaoDevolucao()) ? $arrObjMdGdArquivamentoDTO[$i]->getStrObservacaoDevolucao() : 'Não Informado');
             }
             
             $strResultado .= '</td>';
@@ -246,7 +248,7 @@ try {
             }
 
             if($bolAcaoDesarquivar && $arrObjMdGdArquivamentoDTO[$i]->getStrSituacao() == MdGdArquivamentoRN::$ST_FASE_CORRENTE){
-                $strAcoes .= '<a href="#" onclick="acaoDesarquivar('.$arrObjMdGdArquivamentoDTO[$i]->getDblIdProcedimento().');"><img src="modulos/sei-mod-gestao-documental/imagens/anotacoes.gif" title="Desarquivar Processo" alt="Desarquivar Processo" class="infraImg" /></a>&nbsp;';
+                $strAcoes .= '<a href="#" onclick="acaoDesarquivar('.$arrObjMdGdArquivamentoDTO[$i]->getDblIdProcedimento().');"><img src="modulos/sei-mod-gestao-documental/imagens/desarquivamento.png" title="Desarquivar Processo" alt="Desarquivar Processo" class="infraImg" style="width: 22px; height: 22px;"/></a>&nbsp;';
             }
 
             if($bolAcaoConcluirEdicaoArquivamento && $arrObjMdGdArquivamentoDTO[$i]->getStrSituacao() == MdGdArquivamentoRN::$ST_FASE_EDICAO){
