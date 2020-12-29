@@ -149,6 +149,13 @@
       ],
       "value": "Lista de Processos Arquivados (20 registros):"
     }, {
+      "id": "42ff043f-c75d-48a9-b9ce-05caee6a86e1",
+      "comment": "",
+      "command": "storeWindowHandle",
+      "target": "root",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "a88184bc-40ac-4394-aeda-0e5a72afcc87",
       "comment": "",
       "command": "chooseOkOnNextConfirmation",
@@ -159,7 +166,7 @@
       "id": "b8e66839-c7e7-4bf9-999a-cc073c3ad132",
       "comment": "",
       "command": "click",
-      "target": "xpath=//img[@title='Enviar para Correção']",
+      "target": "xpath=//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[4]/td[10]/a[2]/img",
       "targets": [
         ["css=.infraTrSelecionada a:nth-child(2) > .infraImg", "css:finder"],
         ["xpath=//img[@title='Enviar para Correção']", "xpath:img"],
@@ -169,12 +176,12 @@
       "value": "",
       "opensWindow": true,
       "windowHandleName": "win7640",
-      "windowTimeout": 3000
+      "windowTimeout": 2000
     }, {
-      "id": "42ff043f-c75d-48a9-b9ce-05caee6a86e1",
+      "id": "0a50682a-9608-423c-8151-585d9b4f55b5",
       "comment": "",
-      "command": "storeWindowHandle",
-      "target": "root",
+      "command": "webdriverChooseOkOnVisibleConfirmation",
+      "target": "",
       "targets": [],
       "value": ""
     }, {
@@ -185,35 +192,14 @@
       "targets": [],
       "value": ""
     }, {
-      "id": "44ac672d-174f-46cd-9564-bd2edf09f213",
+      "id": "79636a30-56d4-48f8-bea9-d2b503d3fe7f",
       "comment": "",
-      "command": "click",
+      "command": "waitForElementEditable",
       "target": "id=txtObservacaoDevolucao",
-      "targets": [
-        ["id=txtObservacaoDevolucao", "id"],
-        ["name=txtObservacaoDevolucao", "name"],
-        ["css=#txtObservacaoDevolucao", "css:finder"],
-        ["xpath=//textarea[@id='txtObservacaoDevolucao']", "xpath:attributes"],
-        ["xpath=//div[@id='divInfraAreaDados']/textarea", "xpath:idRelative"],
-        ["xpath=//textarea", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "0c651380-2310-49c5-9751-4f8d19be428e",
-      "comment": "",
-      "command": "selectWindow",
-      "target": "handle=${root}",
       "targets": [],
-      "value": ""
+      "value": "30000"
     }, {
-      "id": "d10bbead-4d91-43b2-acbd-1641f884d675",
-      "comment": "",
-      "command": "selectWindow",
-      "target": "handle=${win7640}",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "4741f52c-041c-499e-9888-53461228d593",
+      "id": "44ac672d-174f-46cd-9564-bd2edf09f213",
       "comment": "",
       "command": "click",
       "target": "id=txtObservacaoDevolucao",
@@ -253,6 +239,13 @@
         ["xpath=//button", "xpath:position"],
         ["xpath=//button[contains(.,'Salvar')]", "xpath:innerText"]
       ],
+      "value": ""
+    }, {
+      "id": "06c6dc42-4e93-4e68-8371-4e1476b7339c",
+      "comment": "",
+      "command": "//close",
+      "target": "",
+      "targets": [],
       "value": ""
     }, {
       "id": "1147392e-3886-4e54-8b6d-49b03b2cd58c",

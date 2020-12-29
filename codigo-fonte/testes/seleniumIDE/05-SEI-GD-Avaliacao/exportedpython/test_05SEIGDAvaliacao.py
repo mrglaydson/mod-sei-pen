@@ -37,22 +37,22 @@ class Test05SEIGDAvaliacao():
     self.driver.find_element(By.LINK_TEXT, "Avaliação de Processos").click()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (20 registros):"
-    self.vars["window_handles"] = self.driver.window_handles
-    self.driver.find_element(By.XPATH, "//img[@title=\'Enviar para Correção\']").click()
-    self.vars["win7640"] = self.wait_for_window(3000)
     self.vars["root"] = self.driver.current_window_handle
+    self.vars["window_handles"] = self.driver.window_handles
+    self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[4]/td[10]/a[2]/img").click()
+    self.vars["win7640"] = self.wait_for_window(2000)
+    self.driver.switch_to.alert.accept()
     self.driver.switch_to.window(self.vars["win7640"])
-    self.driver.find_element(By.ID, "txtObservacaoDevolucao").click()
-    self.driver.switch_to.window(self.vars["root"])
-    self.driver.switch_to.window(self.vars["win7640"])
+    WebDriverWait(self.driver, 30000).until(expected_conditions.element_to_be_clickable((By.ID, "txtObservacaoDevolucao")))
     self.driver.find_element(By.ID, "txtObservacaoDevolucao").click()
     self.driver.find_element(By.ID, "txtObservacaoDevolucao").send_keys("teste")
     self.driver.find_element(By.NAME, "sbmDevolver").click()
-    time.sleep(3000)
+    time.sleep(3)
     self.driver.switch_to.window(self.vars["root"])
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (19 registros):"
   
+  """ 
   def test_0520VerificaVolta(self):
     self.driver.get("http://seigd.intra.planejamento//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
     self.driver.find_element(By.ID, "divUsuario").click()
@@ -259,3 +259,4 @@ class Test05SEIGDAvaliacao():
     self.driver.find_element(By.ID, "txaObservacao").send_keys("observacao 3")
     self.driver.find_element(By.NAME, "sbmObservar").click()
   
+""" 
