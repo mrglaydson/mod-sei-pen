@@ -47,12 +47,11 @@ class Test05SEIGDAvaliacao():
     self.driver.find_element(By.ID, "txtObservacaoDevolucao").click()
     self.driver.find_element(By.ID, "txtObservacaoDevolucao").send_keys("teste")
     self.driver.find_element(By.NAME, "sbmDevolver").click()
-    time.sleep(3)
+    time.sleep(3000)
     self.driver.switch_to.window(self.vars["root"])
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (19 registros):"
   
-  """ 
   def test_0520VerificaVolta(self):
     self.driver.get("http://seigd.intra.planejamento//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
     self.driver.find_element(By.ID, "divUsuario").click()
@@ -259,4 +258,3 @@ class Test05SEIGDAvaliacao():
     self.driver.find_element(By.ID, "txaObservacao").send_keys("observacao 3")
     self.driver.find_element(By.NAME, "sbmObservar").click()
   
-""" 
