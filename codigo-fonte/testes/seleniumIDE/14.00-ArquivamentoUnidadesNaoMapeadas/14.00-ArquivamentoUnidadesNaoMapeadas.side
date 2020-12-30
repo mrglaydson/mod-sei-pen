@@ -705,7 +705,14 @@
       ],
       "value": "teste"
     }, {
-      "id": "aab1e001-eee7-4c3d-8a08-c18aa8466ad3",
+      "id": "2edf3864-6dd2-40c4-885e-4595e63166a3",
+      "comment": "",
+      "command": "chooseOkOnNextConfirmation",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "21c42a0e-ed1c-4b74-ab10-93eaee11056d",
       "comment": "",
       "command": "click",
       "target": "id=sbmSalvar",
@@ -720,47 +727,59 @@
       ],
       "value": ""
     }, {
-      "id": "e5fcab21-6ec6-43c4-ac2b-a17bbf17386e",
+      "id": "e1db96aa-5719-4b95-aaba-d5e46037de6d",
       "comment": "",
-      "command": "chooseOkOnNextConfirmation",
+      "command": "webdriverChooseOkOnVisibleConfirmation",
       "target": "",
       "targets": [],
       "value": ""
     }, {
-      "id": "89fd1065-4c70-49c9-a940-12b2261d08ba",
+      "id": "b8575611-621e-46cd-a02b-76df47be0750",
       "comment": "",
-      "command": "waitForElementVisible",
-      "target": "id=sbmPesquisar",
+      "command": "//assertAlert",
+      "target": "A unidade atual não possuí unidade de arquivamento configurada",
       "targets": [],
-      "value": "30000"
-    }, {
-      "id": "22f79a26-e75c-4354-ab78-34e69436c431",
-      "comment": "",
-      "command": "click",
-      "target": "id=sbmPesquisar",
-      "targets": [
-        ["id=sbmPesquisar", "id"],
-        ["css=#sbmPesquisar", "css:finder"],
-        ["xpath=//button[@id='sbmPesquisar']", "xpath:attributes"],
-        ["xpath=//div[@id='divInfraBarraComandosSuperior']/button", "xpath:idRelative"],
-        ["xpath=//button", "xpath:position"],
-        ["xpath=//button[contains(.,'Pesquisar')]", "xpath:innerText"]
-      ],
       "value": ""
     }, {
-      "id": "af674007-767e-47bc-bf01-1eb2711fc3c5",
+      "id": "1e1c2969-61d1-48c6-b086-743d937718cb",
       "comment": "",
       "command": "pause",
       "target": "2",
       "targets": [],
       "value": ""
     }, {
-      "id": "f2f6a315-b502-44b8-95ef-74442d9ab399",
+      "id": "212124e6-bcc2-4dc3-bf1b-78d3e160a376",
       "comment": "",
-      "command": "verifyElementNotPresent",
-      "target": "css=#divInfraAreaTabela > label",
+      "command": "webdriverChooseOkOnVisibleConfirmation",
+      "target": "",
       "targets": [],
       "value": ""
+    }, {
+      "id": "0cb0b658-7e3f-4916-8d29-3e24d4ab4183",
+      "comment": "",
+      "command": "click",
+      "target": "id=divInfraBarraLocalizacao",
+      "targets": [
+        ["id=divInfraBarraLocalizacao", "id"],
+        ["css=#divInfraBarraLocalizacao", "css:finder"],
+        ["xpath=//div[@id='divInfraBarraLocalizacao']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaTelaD']/div", "xpath:idRelative"],
+        ["xpath=//div[4]/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f61061c5-8e04-4c5c-a5f1-83d311909cff",
+      "comment": "",
+      "command": "verifyText",
+      "target": "id=divInfraBarraLocalizacao",
+      "targets": [
+        ["id=divInfraBarraLocalizacao", "id"],
+        ["css=#divInfraBarraLocalizacao", "css:finder"],
+        ["xpath=//div[@id='divInfraBarraLocalizacao']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaTelaD']/div", "xpath:idRelative"],
+        ["xpath=//div[4]/div/div", "xpath:position"]
+      ],
+      "value": "Concluir e Arquivar Processo"
     }]
   }],
   "suites": [{

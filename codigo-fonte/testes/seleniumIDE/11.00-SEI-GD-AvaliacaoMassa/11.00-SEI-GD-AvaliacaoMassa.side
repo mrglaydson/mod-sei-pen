@@ -780,7 +780,7 @@
       "id": "a1d83630-898f-4811-b83f-29a0fac8090a",
       "comment": "",
       "command": "click",
-      "target": "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[11]/a[1]",
+      "target": "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[10]/a[1]",
       "targets": [
         ["css=.infraTrSelecionada a:nth-child(1) > .infraImg", "css:finder"],
         ["xpath=//img[@title='Enviar para Eliminação']", "xpath:img"],
@@ -1035,7 +1035,7 @@
       "id": "e064b883-24ed-4815-992c-04d0c650df02",
       "comment": "",
       "command": "click",
-      "target": "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[11]/a[1]",
+      "target": "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[10]/a[1]",
       "targets": [
         ["css=.infraTrSelecionada a:nth-child(1) > .infraImg", "css:finder"],
         ["xpath=//img[@title='Enviar para Eliminação']", "xpath:img"],

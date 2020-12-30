@@ -135,7 +135,7 @@
       "id": "752945db-4826-4e87-8efa-c50fb5ace6a7",
       "comment": "",
       "command": "click",
-      "target": "xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[2]/td[11]/a/img",
+      "target": "xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[2]/td[10]/a/img",
       "targets": [
         ["css=.infraTrSelecionada a:nth-child(1) > .infraImg", "css:finder"],
         ["xpath=//img[@title='Enviar para Eliminação']", "xpath:img"],
@@ -168,7 +168,7 @@
       "id": "3df54c7a-9e85-410a-8ad6-88e3b5ff9b85",
       "comment": "",
       "command": "click",
-      "target": "xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[2]/td[11]/a/img",
+      "target": "xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[2]/td[10]/a/img",
       "targets": [
         ["css=.infraTrSelecionada a:nth-child(1) > .infraImg", "css:finder"],
         ["xpath=//img[@title='Enviar para Eliminação']", "xpath:img"],
@@ -201,7 +201,7 @@
       "id": "217e9d0e-d85b-462c-83dd-ad8055b549cb",
       "comment": "",
       "command": "click",
-      "target": "xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[2]/td[11]/a/img",
+      "target": "xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[2]/td[10]/a/img",
       "targets": [
         ["css=.infraTrSelecionada a:nth-child(1) > .infraImg", "css:finder"],
         ["xpath=//img[@title='Enviar para Eliminação']", "xpath:img"],
@@ -1360,7 +1360,7 @@
       "id": "d990ab40-758a-4243-b09a-28ee50796454",
       "comment": "",
       "command": "click",
-      "target": "xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[2]/td[11]/a/img",
+      "target": "xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[2]/td[10]/a/img",
       "targets": [
         ["css=.infraTrSelecionada a:nth-child(1) > .infraImg", "css:finder"],
         ["xpath=//img[@title='Enviar para Eliminação']", "xpath:img"],
@@ -1393,7 +1393,7 @@
       "id": "ebf48b0e-2a5e-4b8c-b406-cbd960e70beb",
       "comment": "",
       "command": "click",
-      "target": "xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[2]/td[11]/a/img",
+      "target": "xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[2]/td[10]/a/img",
       "targets": [
         ["css=.infraTrSelecionada a:nth-child(1) > .infraImg", "css:finder"],
         ["xpath=//img[@title='Enviar para Eliminação']", "xpath:img"],
@@ -1426,7 +1426,7 @@
       "id": "ed350c99-edeb-4eaf-bef2-64656155e67a",
       "comment": "",
       "command": "click",
-      "target": "xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[2]/td[11]/a/img",
+      "target": "xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[2]/td[10]/a/img",
       "targets": [
         ["css=.infraTrSelecionada a:nth-child(1) > .infraImg", "css:finder"],
         ["xpath=//img[@title='Enviar para Eliminação']", "xpath:img"],
@@ -1459,7 +1459,7 @@
       "id": "6d7a1a0a-f286-43e3-bd76-e45caa7a4433",
       "comment": "",
       "command": "click",
-      "target": "xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[2]/td[11]/a/img",
+      "target": "xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[2]/td[10]/a/img",
       "targets": [
         ["css=.infraTrSelecionada a:nth-child(1) > .infraImg", "css:finder"],
         ["xpath=//img[@title='Enviar para Eliminação']", "xpath:img"],
@@ -1492,7 +1492,7 @@
       "id": "de5d0c8c-e067-4a89-9808-057762341794",
       "comment": "",
       "command": "click",
-      "target": "xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[2]/td[11]/a/img",
+      "target": "xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[2]/td[10]/a/img",
       "targets": [
         ["css=.infraTrSelecionada a:nth-child(1) > .infraImg", "css:finder"],
         ["xpath=//img[@title='Enviar para Eliminação']", "xpath:img"],

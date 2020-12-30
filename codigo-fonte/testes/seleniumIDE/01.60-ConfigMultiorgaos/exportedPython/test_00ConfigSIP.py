@@ -34,6 +34,10 @@ class Test00ConfigSIP():
     self.driver.find_element(By.ID, "txtOrdem").click()
     self.driver.find_element(By.ID, "txtOrdem").send_keys("1")
     self.driver.find_element(By.NAME, "sbmCadastrarOrgao").click()
+    self.driver.switch_to.alert.accept()
+    WebDriverWait(self.driver, 30000).until(expected_conditions.presence_of_element_located((By.ID, "divInfraAreaTelaD")))
+    self.driver.find_element(By.ID, "divInfraAreaTelaD").click()
+    assert self.driver.find_element(By.ID, "divInfraBarraLocalizacao").text == "Órgãos"
   
   def test_sIPCriarMontarUnidades(self):
     self.driver.get("http://seigd.intra.planejamento//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SIP")
@@ -111,6 +115,17 @@ class Test00ConfigSIP():
     self.driver.find_element(By.ID, "txtNome").click()
     self.driver.find_element(By.ID, "txtNome").send_keys("ArquivistaOrg2")
     self.driver.find_element(By.NAME, "sbmCadastrarUsuario").click()
+    time.sleep(5)
+  
+  def test_sIPCriarMontarUsers2(self):
+    self.driver.get("http://seigd.intra.planejamento//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SIP")
+    self.driver.find_element(By.ID, "txtUsuario").send_keys("teste")
+    self.driver.find_element(By.ID, "pwdSenha").click()
+    self.driver.find_element(By.ID, "pwdSenha").send_keys("teste")
+    self.driver.find_element(By.ID, "selOrgao").click()
+    dropdown = self.driver.find_element(By.ID, "selOrgao")
+    dropdown.find_element(By.XPATH, "//option[. = 'ME']").click()
+    self.driver.find_element(By.ID, "sbmLogin").click()
     self.driver.find_element(By.XPATH, "//ul[@id=\'main-menu\']/li[1]/a").click()
     self.driver.find_element(By.LINK_TEXT, "Nova").click()
     self.driver.find_element(By.ID, "selOrgaoSistema").click()
@@ -133,8 +148,11 @@ class Test00ConfigSIP():
     print(str("un2"))
     self.driver.find_element(By.ID, "selOrgaoUsuario").click()
     dropdown = self.driver.find_element(By.ID, "selOrgaoUsuario")
-    dropdown.find_element(By.XPATH, "//option[. = 'Org2']").click()
+    dropdown.find_element(By.CSS_SELECTOR, "*[value='1']").click()
     self.driver.find_element(By.ID, "selOrgaoUsuario").click()
+    self.driver.find_element(By.ID, "divInfraBarraLocalizacao").click()
+    self.driver.find_element(By.ID, "divInfraAreaTelaD").click()
+    assert self.driver.find_element(By.ID, "divInfraBarraLocalizacao").text == "Nova Permissão"
     self.driver.find_element(By.ID, "txtUsuario").click()
     self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivistaOrg2")
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, "b:nth-child(1)")))
@@ -150,4 +168,5 @@ class Test00ConfigSIP():
     dropdown.find_element(By.XPATH, "//option[. = 'PerfilArquivistaBasico']").click()
     print(str("un4"))
     self.driver.find_element(By.NAME, "sbmCadastrarPermissao").click()
+    time.sleep(5)
   

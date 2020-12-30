@@ -215,7 +215,7 @@
       "id": "8693a409-a219-4989-b35b-2d8178e0a4a6",
       "comment": "",
       "command": "click",
-      "target": "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[11]/a[1]",
+      "target": "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[10]/a[1]",
       "targets": [
         ["css=.infraTrSelecionada a:nth-child(1) > .infraImg", "css:finder"],
         ["xpath=//img[@title='Enviar para Eliminação']", "xpath:img"],

@@ -997,7 +997,7 @@
         ["xpath=//tr[3]/td[8]", "xpath:position"],
         ["xpath=//td[contains(.,'5 anos, 0 meses e 1 dia.')]", "xpath:innerText"]
       ],
-      "value": "5 anos, 0 meses e 1 dia."
+      "value": "5 anos, 0 meses e 0 dias."
     }, {
       "id": "c8be4b2d-b769-4e4e-ac2a-b6d3eda0cb6b",
       "comment": "",
@@ -1922,7 +1922,7 @@
         ["xpath=//tr[3]/td[8]", "xpath:position"],
         ["xpath=//td[contains(.,'5 anos, 0 meses e 1 dia.')]", "xpath:innerText"]
       ],
-      "value": "4 anos, 0 meses e 1 dia."
+      "value": "4 anos, 0 meses e 0 dias."
     }, {
       "id": "e4fd7de1-2d3a-44a5-af02-91017d7396b7",
       "comment": "",

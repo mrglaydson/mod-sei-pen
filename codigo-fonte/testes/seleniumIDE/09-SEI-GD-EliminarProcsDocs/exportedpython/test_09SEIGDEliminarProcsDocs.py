@@ -71,11 +71,11 @@ class Test09SEIGDEliminarProcsDocs():
     self.driver.find_element(By.ID, "txtPesquisaRapida").click()
     self.driver.find_element(By.ID, "txtPesquisaRapida").send_keys("99993.000033/2020-33")
     self.driver.find_element(By.ID, "txtPesquisaRapida").send_keys(Keys.ENTER)
-    time.sleep(3)
+    time.sleep(5)
     self.driver.switch_to.frame(1)
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "divInformacao")))
     elements = self.driver.find_elements(By.XPATH, "//div[contains(.,\'andamentos abertos\')]")
     assert len(elements) > 0
-    elements = self.driver.find_elements(By.XPATH, "//div[contains(.,\'Processo eliminado\')]")
+    elements = self.driver.find_elements(By.XPATH, "//div[contains(.,\'Processo incluído em listagem de elimi\')]")
     assert len(elements) > 0
   

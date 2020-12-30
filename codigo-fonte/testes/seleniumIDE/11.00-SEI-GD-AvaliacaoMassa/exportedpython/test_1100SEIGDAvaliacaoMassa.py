@@ -140,7 +140,7 @@ class Test1100SEIGDAvaliacaoMassa():
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (34 registros):"
     for i in range(0, 30):
       self.driver.find_element(By.ID, "divInfraAreaDados").click()
-      self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[11]/a[1]").click()
+      self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[10]/a[1]").click()
       self.driver.switch_to.alert.accept()
       WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.XPATH, "//*[@id=\"divInfraBarraLocalizacao\"]")))
       assert self.driver.find_element(By.ID, "divInfraBarraLocalizacao").text == "Avaliação de Processos"
@@ -163,7 +163,7 @@ class Test1100SEIGDAvaliacaoMassa():
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (57 registros - 1 a 50):"
     for i in range(0, 25):
       self.driver.find_element(By.ID, "divInfraAreaDados").click()
-      self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[11]/a[1]").click()
+      self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[10]/a[1]").click()
       self.driver.switch_to.alert.accept()
       WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.XPATH, "//*[@id=\"divInfraBarraLocalizacao\"]")))
       assert self.driver.find_element(By.ID, "divInfraBarraLocalizacao").text == "Avaliação de Processos"

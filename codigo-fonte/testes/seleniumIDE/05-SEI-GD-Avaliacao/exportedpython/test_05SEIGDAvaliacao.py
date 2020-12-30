@@ -39,7 +39,7 @@ class Test05SEIGDAvaliacao():
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (20 registros):"
     self.vars["root"] = self.driver.current_window_handle
     self.vars["window_handles"] = self.driver.window_handles
-    self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[4]/td[10]/a[2]/img").click()
+    self.driver.find_element(By.XPATH, "//img[@title=\'Enviar para Correção\']").click()
     self.vars["win7640"] = self.wait_for_window(2000)
     self.driver.switch_to.alert.accept()
     self.driver.switch_to.window(self.vars["win7640"])
@@ -47,7 +47,7 @@ class Test05SEIGDAvaliacao():
     self.driver.find_element(By.ID, "txtObservacaoDevolucao").click()
     self.driver.find_element(By.ID, "txtObservacaoDevolucao").send_keys("teste")
     self.driver.find_element(By.NAME, "sbmDevolver").click()
-    time.sleep(3000)
+    time.sleep(3)
     self.driver.switch_to.window(self.vars["root"])
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (19 registros):"
@@ -129,11 +129,11 @@ class Test05SEIGDAvaliacao():
     self.driver.find_element(By.ID, "sbmLogin").click()
     self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[10]/a").click()
     self.driver.find_element(By.LINK_TEXT, "Avaliação de Processos").click()
-    self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[2]/td[11]/a/img").click()
+    self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[2]/td[10]/a/img").click()
     self.driver.switch_to.alert.accept()
-    self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[2]/td[11]/a/img").click()
+    self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[2]/td[10]/a/img").click()
     self.driver.switch_to.alert.accept()
-    self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[2]/td[11]/a/img").click()
+    self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[2]/td[10]/a/img").click()
     self.driver.switch_to.alert.accept()
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.XPATH, "//*[@id=\"divInfraBarraLocalizacao\"]")))
   
@@ -157,15 +157,15 @@ class Test05SEIGDAvaliacao():
     assert self.driver.find_element(By.CSS_SELECTOR, "#divInfraAreaTabela > label").text == "Nenhum registro encontrado."
     self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[10]/a").click()
     self.driver.find_element(By.LINK_TEXT, "Avaliação de Processos").click()
-    self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[2]/td[11]/a/img").click()
+    self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[2]/td[10]/a/img").click()
     self.driver.switch_to.alert.accept()
-    self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[2]/td[11]/a/img").click()
+    self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[2]/td[10]/a/img").click()
     self.driver.switch_to.alert.accept()
-    self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[2]/td[11]/a/img").click()
+    self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[2]/td[10]/a/img").click()
     self.driver.switch_to.alert.accept()
-    self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[2]/td[11]/a/img").click()
+    self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[2]/td[10]/a/img").click()
     self.driver.switch_to.alert.accept()
-    self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[2]/td[11]/a/img").click()
+    self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[2]/td[10]/a/img").click()
     self.driver.switch_to.alert.accept()
     self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[10]/a").click()
     self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[10]/ul/li[2]/a").click()

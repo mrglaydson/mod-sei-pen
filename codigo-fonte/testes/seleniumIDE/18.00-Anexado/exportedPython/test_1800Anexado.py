@@ -119,7 +119,7 @@ class Test1800Anexado():
     self.driver.find_element(By.CSS_SELECTOR, "#btnPesquisar > .infraTeclaAtalho").click()
     self.driver.find_element(By.ID, "sbmAnexar").click()
     self.driver.switch_to.alert.accept()
-    time.sleep(5000)
+    time.sleep(5)
     self.driver.switch_to.default_content()
     self.driver.switch_to.frame(0)
     self.driver.find_element(By.XPATH, "//span").click()

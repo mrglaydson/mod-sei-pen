@@ -98,9 +98,9 @@ class Test1400ArquivamentoUnidadesNaoMapeadas():
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("teste")
     self.driver.find_element(By.ID, "sbmSalvar").click()
-    WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "sbmPesquisar")))
-    self.driver.find_element(By.ID, "sbmPesquisar").click()
+    self.driver.switch_to.alert.accept()
     time.sleep(2)
-    elements = self.driver.find_elements(By.CSS_SELECTOR, "#divInfraAreaTabela > label")
-    assert len(elements) == 0
+    self.driver.switch_to.alert.accept()
+    self.driver.find_element(By.ID, "divInfraBarraLocalizacao").click()
+    assert self.driver.find_element(By.ID, "divInfraBarraLocalizacao").text == "Concluir e Arquivar Processo"
   
