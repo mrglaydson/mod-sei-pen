@@ -123,14 +123,14 @@
       "id": "26fd375f-f92a-4125-a3d7-6c37b7f0c804",
       "comment": "",
       "command": "waitForElementVisible",
-      "target": "xpath=//a[contains(text(),'99993.000001')][1]",
+      "target": "xpath=//a[contains(text(),'9999')][1]",
       "targets": [],
       "value": "30000"
     }, {
       "id": "1d3a8e4d-140d-48d8-b2f3-ec52768c6cb4",
       "comment": "",
       "command": "click",
-      "target": "xpath=//a[contains(text(),'99993.000001')][1]",
+      "target": "xpath=//a[contains(text(),'9999')][1]",
       "targets": [],
       "value": ""
     }, {
@@ -164,7 +164,7 @@
     }, {
       "id": "7b7536ed-653e-4abe-ba1a-d1ecb243f0b4",
       "comment": "",
-      "command": "//storeText",
+      "command": "storeText",
       "target": "xpath=//span[contains(text(),'9999')][1]",
       "targets": [],
       "value": "protocolo"
@@ -252,7 +252,7 @@
       "id": "a73d38a7-86bf-4b63-af21-61b8ee668021",
       "comment": "",
       "command": "waitForElementNotPresent",
-      "target": "xpath=//span[contains(text(),'99993.000001')][1]",
+      "target": "xpath=//span[contains(text(),'${protocolo}')][1]",
       "targets": [],
       "value": "30000"
     }, {
@@ -275,7 +275,7 @@
       "id": "b3b9ea00-587e-41b0-992c-aa5e5079aab9",
       "comment": "",
       "command": "waitForElementNotPresent",
-      "target": "xpath=//span[contains(text(),'99993.000001')][1]",
+      "target": "xpath=//span[contains(text(),'${protocolo}')][1]",
       "targets": [],
       "value": "30000"
     }, {
