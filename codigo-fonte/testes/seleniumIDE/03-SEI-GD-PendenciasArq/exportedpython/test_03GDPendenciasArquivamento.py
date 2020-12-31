@@ -135,7 +135,7 @@ class Test03GDPendenciasArquivamento():
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
     self.driver.find_element(By.ID, "sbmSalvar").click()
-    WebDriverWait(self.driver, 150000).until(expected_conditions.presence_of_element_located((By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/caption")))
+    WebDriverWait(self.driver, 180000).until(expected_conditions.presence_of_element_located((By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/caption")))
     assert self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/caption").text == "Lista de Pendências de Arquivamento (12 registros):"
   
   def test_050PendenciasArquivamentoArquivarUnico(self):
@@ -180,7 +180,7 @@ class Test03GDPendenciasArquivamento():
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
     self.driver.find_element(By.ID, "sbmSalvar").click()
-    WebDriverWait(self.driver, 150000).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".infraCaption")))
+    WebDriverWait(self.driver, 180000).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".infraCaption")))
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (1 registro):"
   
@@ -230,7 +230,7 @@ class Test03GDPendenciasArquivamento():
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
     self.driver.find_element(By.ID, "sbmSalvar").click()
-    WebDriverWait(self.driver, 150000).until(expected_conditions.presence_of_element_located((By.CSS_SELECTOR, ".infraCaption")))
+    WebDriverWait(self.driver, 180000).until(expected_conditions.presence_of_element_located((By.CSS_SELECTOR, ".infraCaption")))
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Pendências de Arquivamento (13 registros):"
   

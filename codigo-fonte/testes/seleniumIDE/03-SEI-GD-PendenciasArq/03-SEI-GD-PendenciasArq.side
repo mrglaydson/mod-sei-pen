@@ -890,7 +890,7 @@
       "command": "waitForElementPresent",
       "target": "xpath=//*[@id=\"divInfraAreaTabela\"]/table/caption",
       "targets": [],
-      "value": "150000"
+      "value": "180000"
     }, {
       "id": "8a06c0c3-c77e-457b-bfd5-ab78b58765a7",
       "comment": "",
@@ -1121,7 +1121,7 @@
       "command": "waitForElementVisible",
       "target": "css=.infraCaption",
       "targets": [],
-      "value": "150000"
+      "value": "180000"
     }, {
       "id": "97ee8584-db8b-450d-b88c-65ed175ae4d1",
       "comment": "",
@@ -1643,7 +1643,7 @@
       "command": "waitForElementPresent",
       "target": "css=.infraCaption",
       "targets": [],
-      "value": "150000"
+      "value": "180000"
     }, {
       "id": "169f39f5-6bb4-4394-a3ca-259becc828c0",
       "comment": "",
