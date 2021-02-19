@@ -641,78 +641,51 @@
     }, {
       "id": "b4651098-b492-4aee-8cb9-4d2f897dc41f",
       "comment": "",
-      "command": "waitForElementVisible",
+      "command": "//waitForElementVisible",
       "target": "css=.botaoSEI:nth-child(1) > .infraCorBarraSistema",
       "targets": [],
       "value": "30000"
     }, {
       "id": "c6fd51df-5333-4726-8234-08149bb61a18",
       "comment": "",
-      "command": "click",
+      "command": "//click",
       "target": "css=.botaoSEI:nth-child(1) > .infraCorBarraSistema",
-      "targets": [
-        ["css=.botaoSEI:nth-child(1) > .infraCorBarraSistema", "css:finder"],
-        ["xpath=//img[@alt='Incluir Documento']", "xpath:img"],
-        ["xpath=//div[@id='divArvoreAcoes']/a/img", "xpath:idRelative"],
-        ["xpath=//img", "xpath:position"]
-      ],
+      "targets": [],
       "value": ""
     }, {
       "id": "6a46765d-b078-4aca-acca-92c75f124e73",
       "comment": "",
-      "command": "waitForElementVisible",
+      "command": "//waitForElementVisible",
       "target": "linkText=Despacho",
       "targets": [],
       "value": "30000"
     }, {
       "id": "1371af61-c911-4adf-b501-b5f890056888",
       "comment": "",
-      "command": "click",
+      "command": "//click",
       "target": "linkText=Despacho",
-      "targets": [
-        ["linkText=Despacho", "linkText"],
-        ["css=.infraTrSelecionada .ancoraOpcao", "css:finder"],
-        ["xpath=//a[contains(text(),'Despacho')]", "xpath:link"],
-        ["xpath=//table[@id='tblSeries']/tbody/tr[2]/td/a[2]", "xpath:idRelative"],
-        ["xpath=//a[contains(@href, 'controlador.php?acao=documento_gerar&acao_origem=documento_escolher_tipo&acao_retorno=documento_escolher_tipo&id_procedimento=1&id_serie=5&arvore=1&id_procedimento=1&infra_sistema=100000100&infra_unidade_atual=110000004&infra_hash=9e71505e5c18f529bdf3df90bb73bc4f0a2697d73e2e85c708e94b0e54e15ab8')]", "xpath:href"],
-        ["xpath=//tr[2]/td/a[2]", "xpath:position"],
-        ["xpath=//a[contains(.,'Despacho')]", "xpath:innerText"]
-      ],
+      "targets": [],
       "value": ""
     }, {
       "id": "3365ab6b-b7e9-41f2-87dd-15b4ccb89113",
       "comment": "",
-      "command": "waitForElementVisible",
+      "command": "//waitForElementVisible",
       "target": "id=optPublico",
       "targets": [],
       "value": "30000"
     }, {
       "id": "0a984f09-5e47-4126-9818-f70854bb18d0",
       "comment": "",
-      "command": "click",
+      "command": "//click",
       "target": "id=optPublico",
-      "targets": [
-        ["id=optPublico", "id"],
-        ["css=#optPublico", "css:finder"],
-        ["xpath=//input[@id='optPublico']", "xpath:attributes"],
-        ["xpath=//div[@id='divOptPublico']/input", "xpath:idRelative"],
-        ["xpath=//div[15]/fieldset/div[3]/input", "xpath:position"]
-      ],
+      "targets": [],
       "value": ""
     }, {
       "id": "8d211d45-9bc7-4304-acbb-8ac8c0eaad46",
       "comment": "",
-      "command": "click",
+      "command": "//click",
       "target": "id=btnSalvar",
-      "targets": [
-        ["id=btnSalvar", "id"],
-        ["name=btnSalvar", "name"],
-        ["css=#divInfraBarraComandosSuperior > #btnSalvar", "css:finder"],
-        ["xpath=//button[@id='btnSalvar']", "xpath:attributes"],
-        ["xpath=//div[@id='divInfraBarraComandosSuperior']/button", "xpath:idRelative"],
-        ["xpath=//button", "xpath:position"],
-        ["xpath=//button[contains(.,'Confirmar Dados')]", "xpath:innerText"]
-      ],
+      "targets": [],
       "value": "",
       "opensWindow": true,
       "windowHandleName": "win2086",
@@ -720,73 +693,65 @@
     }, {
       "id": "edcb2dfd-b984-4dc4-963b-8191485276c9",
       "comment": "",
-      "command": "storeWindowHandle",
+      "command": "//storeWindowHandle",
       "target": "root",
       "targets": [],
       "value": ""
     }, {
       "id": "d68b6f5c-919f-44e8-b3f8-2aa93b98690a",
       "comment": "",
-      "command": "selectWindow",
+      "command": "//selectWindow",
       "target": "handle=${win2086}",
       "targets": [],
       "value": ""
     }, {
       "id": "3cbf1458-e3ed-48de-8fea-c6a57f66e7fd",
       "comment": "",
-      "command": "close",
+      "command": "//close",
       "target": "",
       "targets": [],
       "value": ""
     }, {
       "id": "f6ab7f71-16b8-404f-b93b-d8c1b36e91fc",
       "comment": "",
-      "command": "selectWindow",
+      "command": "//selectWindow",
       "target": "handle=${root}",
       "targets": [],
       "value": ""
     }, {
       "id": "06ef7e68-fd05-479a-83a4-daa033882adc",
       "comment": "",
-      "command": "selectFrame",
+      "command": "//selectFrame",
       "target": "index=0",
-      "targets": [
-        ["index=4"]
-      ],
+      "targets": [],
       "value": ""
     }, {
       "id": "6459f186-c9fc-43f5-895d-bb6145f3cbea",
       "comment": "",
-      "command": "selectFrame",
+      "command": "//selectFrame",
       "target": "relative=parent",
-      "targets": [
-        ["relative=parent"]
-      ],
+      "targets": [],
       "value": ""
     }, {
       "id": "31481303-14ac-432e-91b6-c762efe57e7a",
       "comment": "",
-      "command": "selectFrame",
+      "command": "//selectFrame",
       "target": "index=1",
-      "targets": [
-        ["index=4"]
-      ],
+      "targets": [],
       "value": ""
     }, {
       "id": "1f3e6555-aec4-4f02-bf0e-905fe1e9de48",
       "comment": "",
-      "command": "selectWindow",
+      "command": "//selectWindow",
       "target": "handle=${root}",
       "targets": [],
       "value": ""
     }, {
       "id": "79123be9-bbea-45e9-89a4-f80f5576d451",
       "comment": "",
-      "command": "selectFrame",
+      "command": "//selectFrame",
       "target": "index=0",
-      "targets": [
-        ["index=4"]
-      ],
+      "targets": [],
       "value": ""
     }, {
       "id": "6c560b15-060a-41ac-afe6-ff731bd8a1b3",
