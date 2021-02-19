@@ -88,7 +88,7 @@
         ["xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[3]/td[8]", "xpath:idRelative"],
         ["xpath=//tr[3]/td[8]", "xpath:position"]
       ],
-      "value": "0 anos, 9 meses e 22 dias."
+      "value": "0 anos, 9 meses e 21 dias."
     }, {
       "id": "3fd9e6ba-4c24-467b-9c6c-30c03688542a",
       "comment": "",
@@ -99,7 +99,7 @@
         ["xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[3]/td[8]", "xpath:idRelative"],
         ["xpath=//tr[3]/td[8]", "xpath:position"]
       ],
-      "value": "2 anos, 9 meses e 22 dias."
+      "value": "2 anos, 9 meses e 21 dias."
     }]
   }, {
     "id": "ac925c14-6d8d-4bce-9b52-6b5c76d49685",
@@ -186,7 +186,7 @@
         ["xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[3]/td[8]", "xpath:idRelative"],
         ["xpath=//tr[3]/td[8]", "xpath:position"]
       ],
-      "value": "1 ano, 9 meses e 20 dias."
+      "value": "1 ano, 9 meses e 19 dias."
     }, {
       "id": "582a4b37-d9bc-4b65-9621-5d432dcfb28d",
       "comment": "",
