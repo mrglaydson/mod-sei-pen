@@ -159,11 +159,11 @@ class MdGdListaEliminacaoRN extends InfraRN {
                 $objMdGdListElimProcedimentoBD->cadastrar($objMdGdListaElimProcedimentoDTO);
 
                 // Altera a situação do arquivamento do procedimento
+                $objMdGdArquivamentoDTO->setNumIdListaEliminacao($objMdGdListaEliminacaoDTO->getNumIdListaEliminacao());
                 $objMdGdArquivamentoDTO->setStrSituacao(MdGdArquivamentoRN::$ST_ENVIADO_ELIMINACAO);
                 $objMdGdArquivamentoRN->alterar($objMdGdArquivamentoDTO);
             }
 
-            //  
         } catch (Exception $e) {
             throw new InfraException('Erro ao cadastrar a listagem de eliminação.', $e);
         }
@@ -224,6 +224,17 @@ class MdGdListaEliminacaoRN extends InfraRN {
     public function obterConteudoDocumentoEliminacao($arrObjMdGdArquivamentoDTO) {
         $objSessaoSEI = SessaoSEI::getInstance();
 
+        $numAnoLimiteInicial = 0;
+        $numAnoLimiteFinal = 0;
+
+        foreach ($arrObjMdGdArquivamentoDTO as $objMdGdArquivamentoDTO) {
+            $numAnoInicial = (int) substr($objMdGdArquivamentoDTO->getDthDataGuardaCorrente(), 6, 4);
+            $numAnoFinal = (int) substr($objMdGdArquivamentoDTO->getDthDataGuardaIntermediaria(), 6, 4);
+
+            $numAnoLimiteInicial = $numAnoLimiteInicial > $numAnoInicial || !$numAnoLimiteInicial ? $numAnoInicial : $numAnoLimiteInicial;
+            $numAnoLimiteFinal = $numAnoLimiteFinal < $numAnoFinal ? $numAnoFinal : $numAnoLimiteFinal;
+        }
+
         $arrVariaveisModelo = [
             '@orgao@' => $objSessaoSEI->getStrDescricaoOrgaoUsuario(),
             '@unidade@' => $objSessaoSEI->getStrSiglaUnidadeAtual() . ' - ' . $objSessaoSEI->getStrSiglaUnidadeAtual(),
@@ -231,17 +242,16 @@ class MdGdListaEliminacaoRN extends InfraRN {
             '@folha@' => '1/1', // Verificar depois
             '@tabela@' => '',
             '@mensuracao_total@' => count($arrObjMdGdArquivamentoDTO) . ' processos',
-            '@datas_limites_gerais@' => '2010-2018'
+            '@datas_limites_gerais@' => $numAnoLimiteInicial.'-'.$numAnoLimiteFinal
         ];
 
         $strHtmlTabela = '<table border="1" style="width: 1000px;">';
         $strHtmlTabela .= '<thead><tr>';
-        $strHtmlTabela .= '<th>Código Referente a Classificação</th>';
-        $strHtmlTabela .= '<th>Descritor do código</th>';
-        $strHtmlTabela .= '<th>Datas Limite</th>';
-        $strHtmlTabela .= '<th>Unidade - Quantificação</th>';
-        $strHtmlTabela .= '<th>Unidade - Especificação</th>';
-        $strHtmlTabela .= '<th>Observações e/ou justificativas</th>';
+        $strHtmlTabela .= '<th>CÓDIGO DE CLASSIFICAÇÃO</th>';
+        $strHtmlTabela .= '<th>DESCRITOR DO CÓDIGO</th>';
+        $strHtmlTabela .= '<th>DATAS-LIMITE</th>';
+        $strHtmlTabela .= '<th>PROCESSO Nº</th>';
+        $strHtmlTabela .= '<th>OBSERVAÇÕES E/OU JUSTIFICATIVAS</th>';
         $strHtmlTabela .= '</thead></tr>';
 
         $strHtmlTabela .= '<tbody>';
@@ -265,17 +275,27 @@ class MdGdListaEliminacaoRN extends InfraRN {
                     $strCodigoClassificacao .= $objRelProtocoloAssuntoDTO->getStrCodigoEstruturadoAssunto();
                     $strDescritorCodigo .= $objRelProtocoloAssuntoDTO->getStrDescricaoAssunto();
                 } else {
-                    $strCodigoClassificacao .= $objRelProtocoloAssuntoDTO->getStrCodigoEstruturadoAssunto() . " / ";
-                    $strDescritorCodigo .= $objRelProtocoloAssuntoDTO->getStrDescricaoAssunto() . " / ";
+                    $strCodigoClassificacao .= $objRelProtocoloAssuntoDTO->getStrCodigoEstruturadoAssunto() . "  <br><br>  ";
+                    $strDescritorCodigo .= $objRelProtocoloAssuntoDTO->getStrDescricaoAssunto() . "  <br><br>  ";
                 }
+            }
+
+            $numAnoLimiteInicial = 0;
+            $numAnoLimiteFinal = 0;
+
+            foreach ($arrObjMdGdArquivamentoDTO as $objMdGdArquivamentoDTO2) {
+                $numAnoInicial = (int) substr($objMdGdArquivamentoDTO2->getDthDataGuardaCorrente(), 6, 4);
+                $numAnoFinal = (int) substr($objMdGdArquivamentoDTO2->getDthDataGuardaIntermediaria(), 6, 4);
+    
+                $numAnoLimiteInicial = $numAnoLimiteInicial > $numAnoInicial || !$numAnoLimiteInicial ? $numAnoInicial : $numAnoLimiteInicial;
+                $numAnoLimiteFinal = $numAnoLimiteFinal < $numAnoFinal ? $numAnoFinal : $numAnoLimiteFinal;
             }
 
             $strHtmlTabela .= '<tr>';
             $strHtmlTabela .= '<td>' . $strCodigoClassificacao . '</td>';
             $strHtmlTabela .= '<td>' . $strDescritorCodigo . '</td>';
-            $strHtmlTabela .= '<td>2010-2018</td>';
-            $strHtmlTabela .= '<td>1</td>';
-            $strHtmlTabela .= '<td></td>';
+            $strHtmlTabela .= '<td>' . $numAnoLimiteInicial.'-'.$numAnoLimiteFinal.'</td>';
+            $strHtmlTabela .= '<td>' . $objMdGdArquivamentoDTO->getStrProtocoloFormatado().'</td>';
             $strHtmlTabela .= '<td>' . $objMdGdArquivamentoDTO->getStrObservacaoEliminacao() . '</td>';
             $strHtmlTabela .= '</tr>';
         }
@@ -284,6 +304,50 @@ class MdGdListaEliminacaoRN extends InfraRN {
         $strHtmlTabela .= '</table>';
 
         $arrVariaveisModelo['@tabela@'] = $strHtmlTabela;
+
+        // Calcula o tamanho
+        $arrIdProcedimentos = [];
+        foreach($arrObjMdGdArquivamentoDTO as $objMdGdArquivamentoDTO){
+            $arrIdProcedimentos[] = $objMdGdArquivamentoDTO->getDblIdProcedimento();
+        }
+
+        $objDocumentoDTO = new DocumentoDTO();
+        $objDocumentoDTO->setDblIdProcedimento($arrIdProcedimentos, InfraDTO::$OPER_IN);
+        $objDocumentoDTO->retDblIdDocumento();
+
+        $objDocumentoRN = new DocumentoRN();
+        $arrObjDocumentoDTO = $objDocumentoRN->listarRN0008($objDocumentoDTO);
+
+        $arrIdDocumentos = [];
+        foreach($arrObjDocumentoDTO as $objDocumentoDTO){
+            $arrIdDocumentos[] = $objDocumentoDTO->getDblIdDocumento();
+        }
+
+        // Calcula o tamanho dos anexos
+        $objAnexoDTO = new AnexoDTO();
+        $objAnexoDTO->setNumIdAnexo($arrIdDocumentos, InfraDTO::$OPER_IN);
+        $objAnexoDTO->retNumTamanho();
+
+        $objAnexoRN = new AnexoRN();
+        $arrAnexoDTO = $objAnexoRN->listarRN0218($objAnexoDTO);
+
+        $numTamanho = 0;
+        foreach($arrAnexoDTO as $objAnexoDTO) {
+            $numTamanho += $objAnexoDTO->getNumTamanho();
+        }
+
+        // Calcula o tamanho dos documentos nato digital
+        $objDocumentoConteudoDTO = new DocumentoConteudoDTO();
+        $objDocumentoConteudoDTO->setDblIdDocumento($arrIdDocumentos, InfraDTO::$OPER_IN);
+        $objDocumentoConteudoDTO->retStrConteudo();
+
+        $objDocumentoConteudoRN = new DocumentoConteudoBD($this->getObjInfraIBanco());
+        $arrObjDocumentoConteudoDTO = $objDocumentoConteudoRN->listar($objDocumentoConteudoDTO);
+
+        foreach($arrObjDocumentoConteudoDTO as $objDocumentoConteudoDTO){
+            $numTamanho += strlen($objDocumentoConteudoDTO->getStrConteudo()) / 8000;
+        }
+        $arrVariaveisModelo['@folha@'] = $numTamanho;
 
         $objMdGdModeloDocumentoDTO = new MdGdModeloDocumentoDTO();
         $objMdGdModeloDocumentoDTO->setStrNome(MdGdModeloDocumentoRN::MODELO_LISTAGEM_ELIMINACAO);
@@ -340,7 +404,7 @@ class MdGdListaEliminacaoRN extends InfraRN {
             $strResultado .= '<table width="99%" class="infraTable" border="1">';
             $strResultado .= '<tr>';
             $strResultado .= '<th class="infraTh" width="13%">Descrição Unidade Corrente</th>';
-            $strResultado .= '<th class="infraTh" width="10%">Código da Classificação</th>';
+            $strResultado .= '<th class="infraTh" width="10%">Código de Classificação</th>';
             $strResultado .= '<th class="infraTh" width="20%">Descritor do Código</th>';
             $strResultado .= '<th class="infraTh" width="14%">Nº do Processo</th>';
             $strResultado .= '<th class="infraTh" width="15%">Tipo de Processo</th>';
@@ -369,8 +433,8 @@ class MdGdListaEliminacaoRN extends InfraRN {
                         $strCodigoClassificacao .= $objRelProtocoloAssuntoDTO->getStrCodigoEstruturadoAssunto();
                         $strDescritorCodigo .= $objRelProtocoloAssuntoDTO->getStrDescricaoAssunto();
                     } else {
-                        $strCodigoClassificacao .= $objRelProtocoloAssuntoDTO->getStrCodigoEstruturadoAssunto() . " / ";
-                        $strDescritorCodigo .= $objRelProtocoloAssuntoDTO->getStrDescricaoAssunto() . " / ";
+                        $strCodigoClassificacao .= $objRelProtocoloAssuntoDTO->getStrCodigoEstruturadoAssunto() . " <br><br> ";
+                        $strDescritorCodigo .= $objRelProtocoloAssuntoDTO->getStrDescricaoAssunto() . " <br><br> ";
                     }
                 }
 
@@ -378,8 +442,8 @@ class MdGdListaEliminacaoRN extends InfraRN {
                 $strResultado .= $strCssTr;
 
                 $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getStrDescricaoUnidadeCorrente()) . '</td>';
-                $strResultado .= '<td>' . PaginaSEI::tratarHTML($strCodigoClassificacao) . '</td>';
-                $strResultado .= '<td>' . PaginaSEI::tratarHTML($strDescritorCodigo) . '</td>';
+                $strResultado .= '<td>' . $strCodigoClassificacao . '</td>';
+                $strResultado .= '<td>' . $strDescritorCodigo . '</td>';
                 $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getStrProtocoloFormatado()) . '</td>';
                 $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getStrNomeTipoProcedimento()) . '</td>';
                 $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getDthDataArquivamento()) . '</td>';
@@ -393,7 +457,7 @@ class MdGdListaEliminacaoRN extends InfraRN {
         $strCaminhoArquivoPdf = DIR_SEI_TEMP . '/gerar-pdf-listagem-eliminacao-' . date('YmdHis') . '.pdf';
         file_put_contents($strCaminhoArquivoHtml, $strResultado);
 
-        $strComandoGerarPdf = DIR_SEI_BIN . '/wkhtmltopdf-amd64 --quiet --title md_gd_pdf_listagem_eliminacao-' . InfraUtil::retirarFormatacao('1123123', false) . ' ' . $strCaminhoArquivoHtml . '  ' . $strCaminhoArquivoPdf . ' 2>&1';
+        $strComandoGerarPdf = DIR_SEI_BIN . '/wkhtmltopdf-amd64 --quiet --orientation \'landscape\' --title md_gd_pdf_listagem_eliminacao-' . InfraUtil::retirarFormatacao('1123123', false) . ' ' . $strCaminhoArquivoHtml . '  ' . $strCaminhoArquivoPdf . ' 2>&1';
         shell_exec($strComandoGerarPdf);
         SeiINT::download(null, $strCaminhoArquivoPdf, 'listagem_eliminacao.pdf', 'attachment', true);
     }
@@ -459,6 +523,12 @@ class MdGdListaEliminacaoRN extends InfraRN {
             $objMdGdListaElimProcedimentoRN = new MdGdListaElimProcedimentoRN();
             $arrObjMdGdListaElimProcedimentoDTO = $objMdGdListaElimProcedimentoRN->listar($objMdGdListaElimProcedimentoDTO);
 
+            // Verifica a existência de processos na lista de eliminação
+            if(count($arrObjMdGdListaElimProcedimentoDTO) == 0) {
+                $objInfraException = new InfraException();
+                $objInfraException->lancarValidacao('Não é possível concluir a edição pois não há processos na listagem.');
+            }
+            
             $arrIdsProcedimentos = [];
             $arrObjMdGdArquivamentoDTO = [];
 
@@ -466,11 +536,10 @@ class MdGdListaEliminacaoRN extends InfraRN {
                 $arrIdsProcedimentos[] = $objMdGdListaElimProcedimentoDTO->getDblIdProcedimento();
             }
 
-            if($arrIdsProcedimentos){
-                // CONSULTA PARA VERIFICAÇÃO DA EXISTÊNCIA DE DOCUMENTOS FÍSICOS ARQUIVADOS
-                $strSinDocumentosFisicos = 'N';
+            $strSinDocumentosFisicos = 'N';
             
-                // Obtem os documentos vinculados aos processos da listagem
+            if($arrIdsProcedimentos){    
+                // CONSULTA PARA VERIFICAÇÃO DA EXISTÊNCIA DE DOCUMENTOS FÍSICOS ARQUIVADOS
                 $objRelProtocoloProtocoloDTO = new RelProtocoloProtocoloDTO();
                 $objRelProtocoloProtocoloDTO->setDblIdProtocolo1($arrIdsProcedimentos, InfraDTO::$OPER_IN);
                 $objRelProtocoloProtocoloDTO->retDblIdProtocolo2();
@@ -495,8 +564,12 @@ class MdGdListaEliminacaoRN extends InfraRN {
                 $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
                 $objMdGdArquivamentoDTO->setDblIdProcedimento($arrIdsProcedimentos, InfraDTO::$OPER_IN);
                 $objMdGdArquivamentoDTO->setStrSinAtivo('S');
+                $objMdGdArquivamentoDTO->retDblIdProcedimento();
                 $objMdGdArquivamentoDTO->retDblIdProtocoloProcedimento();
                 $objMdGdArquivamentoDTO->retStrObservacaoEliminacao();
+                $objMdGdArquivamentoDTO->retDthDataGuardaCorrente();
+                $objMdGdArquivamentoDTO->retDthDataGuardaIntermediaria();
+                $objMdGdArquivamentoDTO->retStrProtocoloFormatado();
 
                 $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
                 $arrObjMdGdArquivamentoDTO = $objMdGdArquivamentoRN->listar($objMdGdArquivamentoDTO);

@@ -191,7 +191,7 @@ try {
             foreach($arrObjRelProtocoloAssuntoDTOProcedimento as $k => $objRelProtocoloAssuntoDTO){
                 $strAssuntosProcedimento .= $objRelProtocoloAssuntoDTO->getStrCodigoEstruturadoAssunto() .' - ' .$objRelProtocoloAssuntoDTO->getStrDescricaoAssunto();
                 if($k + 1 != count($arrObjRelProtocoloAssuntoDTOProcedimento)){
-                    $strAssuntosProcedimento .= ' / ';
+                    $strAssuntosProcedimento .= '  <br><br>  ';
                 }
             }
 
@@ -231,7 +231,7 @@ try {
             }
             
             $strResultado .= '</td>';
-            $strResultado .= '<td>' . PaginaSEI::tratarHTML($strAssuntosProcedimento) . '</td>';
+            $strResultado .= '<td>' . $strAssuntosProcedimento . '</td>';
             $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getStrNomeTipoProcedimento()) . '</td>';
             $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getStrNomeUsuario()) . '</td>';
             $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getDthDataArquivamento()) . '</td>';

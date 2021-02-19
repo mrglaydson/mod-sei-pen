@@ -241,13 +241,13 @@ try {
             foreach($arrObjRelProtocoloAssuntoDTOProcedimento as $k => $objRelProtocoloAssuntoDTO){
                 $strAssuntosProcedimento .= $objRelProtocoloAssuntoDTO->getStrCodigoEstruturadoAssunto() .' - ' .$objRelProtocoloAssuntoDTO->getStrDescricaoAssunto();
                 if($k + 1 != count($arrObjRelProtocoloAssuntoDTOProcedimento)){
-                    $strAssuntosProcedimento .= ' / ';
+                    $strAssuntosProcedimento .= ' <br><br> ';
                 }
 
                 if(empty($strObservacoesAssuntos)){
                     $strObservacoesAssuntos .= $arrAssuntosObservacoes[$objRelProtocoloAssuntoDTO->getNumIdAssunto()]->getStrObservacao();
                 }else{
-                    $strObservacoesAssuntos .= ' / '.$arrAssuntosObservacoes[$objRelProtocoloAssuntoDTO->getNumIdAssunto()]->getStrObservacao();
+                    $strObservacoesAssuntos .= ' <br><br> '.$arrAssuntosObservacoes[$objRelProtocoloAssuntoDTO->getNumIdAssunto()]->getStrObservacao();
                 }
             }
 
@@ -274,7 +274,7 @@ try {
             }
             $strResultado .= '<td>' . PaginaSEI::tratarHTML(substr($arrObjMdGdArquivamentoDTO[$i]->getDthDataGuardaIntermediaria(), 0, 10)) . '</td>';
 
-            $strResultado .= '<td>' . PaginaSEI::tratarHTML($strObservacoesAssuntos) . '</td>';
+            $strResultado .= '<td>' .$strObservacoesAssuntos . '</td>';
             $strAcoes = '<td align="center">';
             
             // Ações para fase intermediária

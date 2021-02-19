@@ -53,8 +53,12 @@ try {
             $objMdGdListaRecolhimentoDTO = new MdGdListaRecolhimentoDTO();
             $objMdGdListaRecolhimentoDTO->setNumIdListaRecolhimento($numIdListaRecolhimento);
 
-            $objMdGdListaRecolhimentoRN = new MdGdListaRecolhimentoRN();
-            $objMdGdListaRecolhimentoRN->concluirEdicaoListaRecolhimento($objMdGdListaRecolhimentoDTO);
+            try{
+                $objMdGdListaRecolhimentoRN = new MdGdListaRecolhimentoRN();
+                $objMdGdListaRecolhimentoRN->concluirEdicaoListaRecolhimento($objMdGdListaRecolhimentoDTO);
+            }catch(Exception $ex){
+                PaginaSEI::getInstance()->processarExcecao($ex);
+            }
 
             break;
         default:
@@ -82,6 +86,8 @@ try {
     $objMdGdListaRecolhimentoRN = new MdGdListaRecolhimentoRN();
     $objMdGdListaRecolhimentoDTO = new MdGdListaRecolhimentoDTO();
     $objMdGdListaRecolhimentoDTO->retStrSituacao();
+    $objMdGdListaRecolhimentoDTO->retStrProtocoloProcedimentoRecolhimentoFormatado();
+    $objMdGdListaRecolhimentoDTO->retDblIdProcedimentoRecolhimento();
     $objMdGdListaRecolhimentoDTO->retTodos();
 
 
@@ -125,7 +131,8 @@ try {
         $strResultado .= '<caption class="infraCaption">' . PaginaSEI::getInstance()->gerarCaptionTabela($strCaptionTabela, $numRegistros) . '</caption>';
         $strResultado .= '<tr>';
         $strResultado .= '<th class="infraTh" width="1%">' . PaginaSEI::getInstance()->getThCheck() . '</th>' . "\n";
-        $strResultado .= '<th class="infraTh" width="29%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdListaRecolhimentoDTO, 'Listagem de Recolhimento', 'Numero', $arrObjMdGdListaRecolhimentoDTO) . '</th>' . "\n";
+        $strResultado .= '<th class="infraTh" width="19%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdListaRecolhimentoDTO, 'Listagem de Recolhimento', 'Numero', $arrObjMdGdListaRecolhimentoDTO) . '</th>' . "\n";
+        $strResultado .= '<th class="infraTh" width="10%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdListaEliminacaoDTO, 'Número de Processo de Eliminação', 'ProtocoloProcedimentoEliminacaoFormatado', $arrObjMdGdListaEliminacaoDTO) . '</th>' . "\n";
         $strResultado .= '<th class="infraTh" width="20%">Data Limite</th>' . "\n";
         $strResultado .= '<th class="infraTh" width="25%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdListaRecolhimentoDTO, 'Data de Emissão da Listagem', 'EmissaoListagem', $arrObjMdGdListaRecolhimentoDTO) . '</th>' . "\n";
         $strResultado .= '<th class="infraTh" width="10%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdListaRecolhimentoDTO, 'Quantidade de Processos', 'QtdProcessos', $arrObjMdGdListaRecolhimentoDTO) . '</th>' . "\n";
@@ -141,6 +148,7 @@ try {
 
             $strResultado .= '<td valign="top">' . PaginaSEI::getInstance()->getTrCheck($i, $arrObjMdGdListaRecolhimentoDTO[$i]->getNumIdListaRecolhimento(), $arrObjMdGdListaRecolhimentoDTO[$i]->getStrNumero()) . '</td>';
             $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdListaRecolhimentoDTO[$i]->getStrNumero()) . '</td>';
+            $strResultado .= '<td><a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=procedimento_trabalhar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao'] . '&id_procedimento=' . $arrObjMdGdListaRecolhimentoDTO[$i]->getDblIdProcedimentoRecolhimento()) . '" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . ' " target="_blank">' . $arrObjMdGdListaRecolhimentoDTO[$i]->getStrProtocoloProcedimentoRecolhimentoFormatado() . '</a></td>';
             $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdListaRecolhimentoDTO[$i]->getNumAnoLimiteInicio() . '-' . $arrObjMdGdListaRecolhimentoDTO[$i]->getNumAnoLimiteFim()) . '</td>';
             $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdListaRecolhimentoDTO[$i]->getDthEmissaoListagem()) . '</td>';
             $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdListaRecolhimentoDTO[$i]->getNumQtdProcessos()) . '</td>';

@@ -63,7 +63,7 @@ try {
             } else {
                 $arrProtocolosOrigem = array($_GET['id_procedimento']);
             }
-      
+        
             if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_GET['acao_origem'] == 'gd_procedimento_arquivar') {
                 try {
                     $arrProtocolosOrigem = explode(',', $_POST['hdnIdProtocolos']);
@@ -120,6 +120,47 @@ try {
                 }
             }
 
+            // Verifica o últomo andamento de cada processo
+            $arrIdsProtocolosValidacao = [];
+            foreach($arrProtocolosOrigem as $k => $protocoloValidacao) {
+                $arrIdsProtocolosValidacao[$k] = 0;
+
+                // Busca os documentos vinculados
+                $objDocumentoDTO = new DocumentoDTO();
+                $objDocumentoDTO->setDblIdProcedimento($protocoloValidacao);
+                $objDocumentoDTO->retDblIdDocumento();
+
+                $objDocumentoRN = new DocumentoRN();
+                $arrObjDocumentoDTO = $objDocumentoRN->listarRN0008($objDocumentoDTO);
+
+                $arrIdsProtocolos = [$protocoloValidacao];
+
+                if($arrObjDocumentoDTO){
+                    foreach($arrObjDocumentoDTO as $objDocumentoDTO) {
+                        $arrIdsProtocolos[] = $objDocumentoDTO->getDblIdDocumento();
+                    }
+                }
+
+                $objAtividadeDTO = new AtividadeDTO();
+                $objAtividadeDTO->setDblIdProtocolo($arrIdsProtocolos, InfraDTO::$OPER_IN);
+                $objAtividadeDTO->setOrdDthAbertura(InfraDTO::$TIPO_ORDENACAO_ASC);
+                $objAtividadeDTO->retDthAbertura();
+
+                $objAtividadeRN = new AtividadeRN();
+                $arrObjAtividadeDTO = $objAtividadeRN->listarRN0036($objAtividadeDTO);
+    
+
+                $dthPrimeiroAndamento = $arrObjAtividadeDTO[0]->getDthAbertura();
+                $dthPrimeiroAndamento = explode(' ', $dthPrimeiroAndamento);
+                $dthPrimeiroAndamento = explode('/', $dthPrimeiroAndamento[0]);
+
+                $arrIdsProtocolosValidacao[$k] = $dthPrimeiroAndamento[2].$dthPrimeiroAndamento[1].$dthPrimeiroAndamento[0];
+            }
+            
+            arsort($arrIdsProtocolosValidacao);
+            $dataMinima = $arrIdsProtocolosValidacao[0];
+
+              
             break;
 
         default:
@@ -236,6 +277,19 @@ PaginaSEI::getInstance()->abrirJavaScript();
         if(document.getElementById('chkSinLegado').checked){
             if (document.getElementById('txtDataArquivamento').value == '') {
                 alert('Informe a data do arquivamento.');
+                return false;
+            }
+
+            var dataMinima = <?php echo $dataMinima; ?>;
+            dataMinima = new Number(dataMinima);
+
+            var dataArquivamento = document.getElementById('txtDataArquivamento').value ;
+            dataArquivamento = dataArquivamento.split('/');
+            dataArquivamento = dataArquivamento[2] + dataArquivamento[1] + dataArquivamento[0];
+            dataArquivamento = new Number(dataArquivamento);
+
+            if(dataArquivamento < dataMinima) {
+                alert('Não existe andamento registrado no(s) processo(s) selecionado na data de arquivamento informada.');
                 return false;
             }
 

@@ -40,8 +40,12 @@ try {
             $objMdGdListaEliminacaoDTO = new MdGdListaEliminacaoDTO();
             $objMdGdListaEliminacaoDTO->setNumIdListaEliminacao($numIdListaEliminacao);
 
-            $objMdGdListaEliminacaoRN = new MdGdListaEliminacaoRN();
-            $objMdGdListaEliminacaoRN->concluirEdicaoListaEliminacao($objMdGdListaEliminacaoDTO);
+            try{
+                $objMdGdListaEliminacaoRN = new MdGdListaEliminacaoRN();
+                $objMdGdListaEliminacaoRN->concluirEdicaoListaEliminacao($objMdGdListaEliminacaoDTO);
+            }catch(Exception $ex){
+                PaginaSEI::getInstance()->processarExcecao($ex);
+            }
 
             break;
         default:
@@ -145,7 +149,7 @@ try {
             }
 
             if ($bolAcaoEliminar && $arrObjMdGdListaEliminacaoDTO[$i]->getStrSituacao() == MdGdListaEliminacaoRN::$ST_GERADA) {
-                $strResultado .= '<a href="' .$strLinkVisualizar . '" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="imagens/arquivo.png" title="Eliminar Processos" alt="Eliminar Processos" class="infraImg" /></a>&nbsp;';
+                $strResultado .= '<a href="' .$strLinkVisualizar . '" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="modulos/sei-mod-gestao-documental/imagens/eliminar.png" title="Eliminar Processos" alt="Eliminar Processos" class="infraImg" /></a>&nbsp;';
             }
 
             if ($bolAcaoEliminarDocumentoFisico && $arrObjMdGdListaEliminacaoDTO[$i]->getStrSituacao() == MdGdListaEliminacaoRN::$ST_GERADA && $arrObjMdGdListaEliminacaoDTO[$i]->getStrSinDocumentosFisicos() == 'S') {

@@ -16,6 +16,15 @@ class MdGdListaRecolhimentoDTO extends InfraDTO
             'IdListaRecolhimento',
             'id_lista_recolhimento');
 
+
+        $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_DBL,
+            'IdProcedimentoRecolhimento',
+            'id_procedimento_recolhimento');
+
+        $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_DBL,
+            'IdDocumentoRecolhimento',
+            'id_documento_recolhimento');
+
         $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_STR,
             'Numero',
             'numero');
@@ -47,7 +56,22 @@ class MdGdListaRecolhimentoDTO extends InfraDTO
                        
         $this->adicionarAtributo(InfraDTO::$PREFIXO_ARR,'ObjMdGdArquivamentoDTO');
 
+        $this->adicionarAtributoTabelaRelacionada(InfraDTO::$PREFIXO_DBL,
+                                            'IdProtocoloProcedimentoRecolhimento',
+                                            'p.id_procedimento',
+                                            'procedimento p');
+
+
+        $this->adicionarAtributoTabelaRelacionada(InfraDTO::$PREFIXO_STR,
+                                              'ProtocoloProcedimentoRecolhimentoFormatado',
+                                              'pro.protocolo_formatado',
+                                              'protocolo pro');
+
         $this->configurarPK('IdListaRecolhimento', InfraDTO::$TIPO_PK_SEQUENCIAL);
+        $this->configurarFK('IdProcedimentoRecolhimento', 'procedimento p', 'p.id_procedimento');
+        $this->configurarFK('IdDocumentoRecolhimento', 'documento d', 'd.id_documento');
+
+        $this->configurarFK('IdProtocoloProcedimentoRecolhimento', 'protocolo pro', 'pro.id_protocolo');
 
     }
 

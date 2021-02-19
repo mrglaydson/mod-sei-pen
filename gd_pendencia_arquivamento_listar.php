@@ -173,7 +173,7 @@ try {
                 foreach($arrObjRelProtocoloAssuntoDTOProcedimento as $k => $objRelProtocoloAssuntoDTO){
                     $strAssuntosProcedimento .= $objRelProtocoloAssuntoDTO->getStrCodigoEstruturadoAssunto() .' - ' .$objRelProtocoloAssuntoDTO->getStrDescricaoAssunto();
                     if($k + 1 != count($arrObjRelProtocoloAssuntoDTOProcedimento)){
-                        $strAssuntosProcedimento .= ' / ';
+                        $strAssuntosProcedimento .= ' <br><br>  ';
                     }
                 }
 

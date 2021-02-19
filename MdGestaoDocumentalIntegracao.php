@@ -290,6 +290,8 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
             case 'gd_ajuda_variaveis_modelo_desarquivamento':
             case 'gd_ajuda_variaveis_modelo_listagem_eliminacao':
             case 'gd_ajuda_variaveis_modelo_documento_eliminacao':
+            case 'gd_ajuda_variaveis_modelo_listagem_recolhimento':
+            case 'gd_ajuda_variaveis_modelo_documento_recolhimento':
                 require_once dirname(__FILE__) . '/gd_ajuda_variaveis_modelo.php';
                 return true;    
     
@@ -564,6 +566,7 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
         $objMdGdArquivamentoDTO->setDblIdProcedimento($objProcedimentoAPI->getIdProcedimento());
         $objMdGdArquivamentoDTO->setStrSinAtivo('S');
         $objMdGdArquivamentoDTO->retDblIdProcedimento();
+        $objMdGdArquivamentoDTO->retStrSiglaUnidadeCorrente();
         $objMdGdArquivamentoDTO->retStrSituacao();
         
         $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
@@ -585,7 +588,7 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
             }
             
             if($objMdGdArquivamentoDTO && $objMdGdArquivamentoDTO->getStrSituacao() == MdGdArquivamentoRN::$ST_FASE_EDICAO){
-                $strMsg = 'Processo arquivado em edição. Após realizar as edições necessárias sua edição deverá ser concluída na avaliação de processos.';
+                $strMsg = 'Processo arquivado em fase de correção. A ação deve ser concluída no Arquivo da Unidade '.$objMdGdArquivamentoDTO->getStrSiglaUnidadeCorrente().'.';
             }
 
         }
@@ -608,6 +611,95 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
             $objInfraException = new InfraException();
             $objInfraException->lancarValidacao('O processo não pode ser reaberto pois encontra-se arquivado!');
             return false;
+        }
+
+        return null;
+    }
+
+    public function excluirDocumento(DocumentoAPI $objDocumentoAPI){
+        $objInfraException = new InfraException();
+
+        // Valida se o documento não está vinculado a uma lista de eliminação
+        $objMdGdListaEliminacaoDTO = new MdGdListaEliminacaoDTO();
+        $objMdGdListaEliminacaoDTO->setDblIdDocumentoEliminacao($objDocumentoAPI->getIdDocumento());
+        $objMdGdListaEliminacaoDTO->retDblIdDocumentoEliminacao();
+
+        $objMdGdListaEliminacaoRN = new MdGdListaEliminacaoRN();
+
+        if($objMdGdListaEliminacaoRN->contar($objMdGdListaEliminacaoDTO) > 0){
+            $objInfraException->lancarValidacao('O documento não pode ser excluído!');
+            return false;
+        }
+
+        // Valida se o documento não está vinculado a uma lista de recolhimento
+        $objMdGdListaRecolhimentoDTO = new MdGdListaRecolhimentoDTO();
+        $objMdGdListaRecolhimentoDTO->setDblIdDocumentoRecolhimento($objDocumentoAPI->getIdDocumento());
+        $objMdGdListaRecolhimentoDTO->retDblIdDocumentoRecolhimento();
+
+        $objMdGdListaRecolhimentoRN = new MdGdListaRecolhimentoRN();
+
+        if($objMdGdListaRecolhimentoRN->contar($objMdGdListaRecolhimentoDTO) > 0){
+            $objInfraException->lancarValidacao('O documento não pode ser excluído!');
+            return false;
+        }
+
+        return null;
+    }
+
+    public function concluirProcesso($arrObjProcedimentoAPI) {
+
+        foreach($arrObjProcedimentoAPI as $objProcedimentoAPI) {
+            $objProcedimentoDTO = new ProcedimentoDTO();
+            $objProcedimentoDTO->setDblIdProcedimento($objProcedimentoAPI->getIdProcedimento());
+            $objProcedimentoDTO->retStrStaEstadoProtocolo();
+            $objProcedimentoDTO->retDblIdProcedimento();
+
+            $objProcedimentoRN = new ProcedimentoRN();
+            $objProcedimentoDTO = $objProcedimentoRN->consultarRN0201($objProcedimentoDTO);
+            
+            // Bloqueia o processo
+            if ($objProcedimentoDTO->getStrStaEstadoProtocolo() != ProtocoloRN::$TE_PROCEDIMENTO_BLOQUEADO) {
+                $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
+                $objMdGdArquivamentoDTO->setDblIdProcedimento($objProcedimentoAPI->getIdProcedimento());
+                $objMdGdArquivamentoDTO->setStrSinAtivo('S');
+                $objMdGdArquivamentoDTO->retStrSituacao();
+                $objMdGdArquivamentoDTO->retDblIdProcedimento();
+        
+                $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
+                $objMdGdArquivamentoDTO = $objMdGdArquivamentoRN->consultar($objMdGdArquivamentoDTO);
+
+                if($objMdGdArquivamentoDTO) {
+                    if($objMdGdArquivamentoDTO->getStrSituacao() == MdGdArquivamentoRN::$ST_FASE_EDICAO){
+                        $objInfraException = new InfraException();
+                        $objInfraException->lancarValidacao('O processo não pode ser concluído.');
+                        return false;
+                    }
+                }
+
+            }
+
+        }
+
+        return null;
+    }
+
+    public function gerarDocumento(DocumentoAPI $objDocumentoAPI){
+        $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
+        $objMdGdArquivamentoDTO->setDblIdProcedimento($objDocumentoAPI->getIdProcedimento());
+        $objMdGdArquivamentoDTO->setStrSinAtivo('S');
+        $objMdGdArquivamentoDTO->retStrSituacao();
+        $objMdGdArquivamentoDTO->retDblIdProcedimento();
+        $objMdGdArquivamentoDTO->retStrSiglaUnidadeCorrente();
+
+        $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
+        $objMdGdArquivamentoDTO = $objMdGdArquivamentoRN->consultar($objMdGdArquivamentoDTO);
+
+        if($objMdGdArquivamentoDTO) {
+            if($objMdGdArquivamentoDTO->getStrSituacao() == MdGdArquivamentoRN::$ST_FASE_EDICAO){
+                $objInfraException = new InfraException();
+                $objInfraException->lancarValidacao('O documento não pode ser incluído pois o processo encontra-se em correção no arquivo da unidade '.$objMdGdArquivamentoDTO->getStrSiglaUnidadeCorrente().'.');
+                return false;
+            }
         }
 
         return null;

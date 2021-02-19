@@ -269,6 +269,8 @@ class MdGdAtualizarSeiRN extends InfraRN {
             // Criação da tabela da listagem de recolhimento
             $this->objInfraBanco->executarSql('CREATE TABLE md_gd_lista_recolhimento (
                 id_lista_recolhimento ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL,
+                id_procedimento_recolhimento ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL,
+                id_documento_recolhimento ' . $this->objMetaBD->tipoNumeroGrande() . ' NOT NULL,
                 numero ' . $this->objMetaBD->tipoTextoVariavel(50) . ' NOT NULL,
                 dth_emissao_listagem ' . $this->objMetaBD->tipoDataHora() . ' NOT NULL,
                 ano_limite_inicio ' . $this->objMetaBD->tipoNumero() . ' NOT NULL,
@@ -280,6 +282,8 @@ class MdGdAtualizarSeiRN extends InfraRN {
             )');
 
             $this->objMetaBD->adicionarChavePrimaria('md_gd_lista_recolhimento', 'pk_md_gd_id_lista_recolhimento', array('id_lista_recolhimento'));
+            $this->objMetaBD->adicionarChaveEstrangeira('fk_md_gd_list_rec_procedimento', 'md_gd_lista_recolhimento', array('id_procedimento_recolhimento'), 'procedimento', array('id_procedimento'));
+            $this->objMetaBD->adicionarChaveEstrangeira('fk_md_gd_list_rec_documento', 'md_gd_lista_recolhimento', array('id_documento_recolhimento'), 'documento', array('id_documento'));
             $this->objMetaBD->adicionarChaveEstrangeira('fk_md_gd_arquivamento_list_rec', 'md_gd_arquivamento', array('id_lista_recolhimento'), 'md_gd_lista_recolhimento', array('id_lista_recolhimento'));
 
             if (!$this->objInfraSequencia->verificarSequencia('md_gd_lista_recolhimento')) {
@@ -379,18 +383,25 @@ class MdGdAtualizarSeiRN extends InfraRN {
     protected function cadastrarParametros(){
         $despachoArquivamento = $this->cadastrarTipoDocumento(1, 'Termo de Arquivamento', 'Termo automático para arquivamento de processos no sistema', SerieRN::$TA_INTERNO, 34, SerieRN::$TN_SEQUENCIAL_UNIDADE);
         $despachoDesarquivamento = $this->cadastrarTipoDocumento(1, 'Termo de Desarquivamento', 'Termo automático para desarquivamento de processos no sistema', SerieRN::$TA_INTERNO, 34, SerieRN::$TN_SEQUENCIAL_UNIDADE);
+        
         $tipoProcedimentoListagemEliminacao = $this->cadastrarTipoProcedimento('Processo de listagem de eliminação', 'Processo de listagem de eliminação');
         $tipoDocumentoListagemEliminacao = $this->cadastrarTipoDocumento(1, 'Termo de Listagem de Eliminação', 'Termo automático para listagem de eliminação de processos no sistema', SerieRN::$TA_INTERNO, 34, SerieRN::$TN_SEQUENCIAL_UNIDADE);
         $tipoDocumentoEliminacao = $this->cadastrarTipoDocumento(1, 'Termo de Eliminação', 'Termo automático para eliminação de processos no sistema', SerieRN::$TA_INTERNO, 34, SerieRN::$TN_SEQUENCIAL_UNIDADE);;
-        $tipoProcedimentoEliminacao = $this->cadastrarTipoProcedimento('Processo de Eliminação', 'Processo de eliminação');
-
+        
+        $tipoProcedimentoListagemRecolhimento = $this->cadastrarTipoProcedimento('Processo de listagem de recolhimento', 'Processo de listagem de recolhimento');
+        $tipoDocumentoListagemRecolhimento = $this->cadastrarTipoDocumento(1, 'Termo de Listagem de Recolhimento', 'Termo automático para listagem de recolhimento de processos no sistema', SerieRN::$TA_INTERNO, 34, SerieRN::$TN_SEQUENCIAL_UNIDADE);
+        $tipoDocumentoRecolhimento = $this->cadastrarTipoDocumento(1, 'Termo de Recolhimento', 'Termo automático para recolhimento de processos no sistema', SerieRN::$TA_INTERNO, 34, SerieRN::$TN_SEQUENCIAL_UNIDADE);;
+        
         $this->cadastrarParametro('DESPACHO_ARQUIVAMENTO', $despachoArquivamento);
         $this->cadastrarParametro('DESPACHO_DESARQUIVAMENTO', $despachoDesarquivamento);
+
         $this->cadastrarParametro('TIPO_PROCEDIMENTO_LISTAGEM_ELIMINACAO', $tipoProcedimentoListagemEliminacao);
         $this->cadastrarParametro('TIPO_DOCUMENTO_LISTAGEM_ELIMINACAO', $tipoDocumentoListagemEliminacao);
         $this->cadastrarParametro('TIPO_DOCUMENTO_ELIMINACAO', $tipoDocumentoEliminacao);
-        $this->cadastrarParametro('TIPO_PROCEDIMENTO_ELIMINACAO', $tipoProcedimentoEliminacao);
 
+        $this->cadastrarParametro('TIPO_PROCEDIMENTO_LISTAGEM_RECOLHIMENTO', $tipoProcedimentoListagemRecolhimento);
+        $this->cadastrarParametro('TIPO_DOCUMENTO_LISTAGEM_RECOLHIMENTO', $tipoDocumentoListagemRecolhimento);
+        $this->cadastrarParametro('TIPO_DOCUMENTO_RECOLHIMENTO', $tipoDocumentoRecolhimento);
     }
 
     /**
@@ -451,58 +462,335 @@ class MdGdAtualizarSeiRN extends InfraRN {
             </table>
         ';
 
-        $strModeloListagemEliminacao = '<table summary="Tabela de Variveis Disponveis" width="99%">
-                <tbody>
-                    <tr>
-                        <td>@unidade@</td>
-                        <td>Unidade geradora</td>
-                    </tr>
-                    <tr>
-                        <td>@numero_listagem@</td>
-                        <td>N&uacute;mero da listagem</td>
-                    </tr>
-                    <tr>
-                        <td>@folha@</td>
-                        <td>N&uacute;mero de folhas</td>
-                    </tr>
-                    <tr>
-                        <td>@tabela@</td>
-                        <td>Tabela de detalhamento da listagem</td>
-                    </tr>
-                    <tr>
-                        <td>@mensuracao_total@</td>
-                        <td>Mensura&ccedil;&atilde;o total</td>
-                    </tr>
-                    <tr>
-                        <td>@datas_limites_gerais@</td>
-                        <td>Datas limite do arquivamento</td>
-                    </tr>
-                </tbody>
-            </table>
-            ';
+        $strModeloListagemEliminacao = '<meta http-equiv="Pragma" content="no-cache" /><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+        <style type="text/css">p.Citacao {font-size:10pt;font-family:Calibri;word-wrap:normal;margin:4pt 0 4pt 160px;text-align:justify;} p.Item_Alinea_Letra {font-size:12pt;font-family:Calibri;text-indent:0mm;text-align:justify;word-wrap:normal;margin:6pt 6pt 6pt 120px;counter-increment:letra_minuscula;} p.Item_Alinea_Letra:before {content:counter(letra_minuscula, lower-latin) ") ";display:inline-block;width:5mm;font-weight:normal;} p.Item_Inciso_Romano {font-size:12pt;font-family:Calibri;text-align:justify;word-wrap:normal;text-indent:0mm;margin:6pt 6pt 6pt 120px;counter-increment:romano_maiusculo;counter-reset:letra_minuscula;} p.Item_Inciso_Romano:before {content:counter(romano_maiusculo, upper-roman) " - ";display:inline-block;width:15mm;font-weight:normal;} p.Item_Nivel1 {text-transform:uppercase;font-weight:bold;background-color:#e6e6e6;font-size:12pt;font-family:Calibri;text-align:justify;word-wrap:normal;text-indent:0;margin:6pt;counter-increment:item-n1;counter-reset:item-n2 item-n3 item-n4 romano_maiusculo letra_minuscula;} p.Item_Nivel1:before {content:counter(item-n1) ".";display:inline-block;width:25mm;font-weight:normal;} p.Item_Nivel2 {font-size:12pt;font-family:Calibri;text-indent:0mm;text-align:justify;word-wrap:normal;margin:6pt;counter-increment:item-n2;counter-reset:item-n3 item-n4 romano_maiusculo letra_minuscula;} p.Item_Nivel2:before {content:counter(item-n1) "." counter(item-n2) ".";display:inline-block;width:25mm;font-weight:normal;} p.Item_Nivel3 {font-size:12pt;font-family:Calibri;text-indent:0mm;text-align:justify;word-wrap:normal;margin:6pt;counter-increment:item-n3;counter-reset:item-n4 romano_maiusculo letra_minuscula;} p.Item_Nivel3:before {content:counter(item-n1) "." counter(item-n2) "." counter(item-n3) ".";display:inline-block;width:25mm;font-weight:normal;} p.Item_Nivel4 {font-size:12pt;font-family:Calibri;text-indent:0mm;text-align:justify;word-wrap:normal;margin:6pt;counter-increment:item-n4;counter-reset:romano_maiusculo letra_minuscula;} p.Item_Nivel4:before {content:counter(item-n1) "." counter(item-n2) "." counter(item-n3) "."  counter(item-n4) ".";display:inline-block;width:25mm;font-weight:normal;} p.Paragrafo_Numerado_Nivel1 {font-size:12pt;font-family:Calibri;text-align:justify;word-wrap:normal;text-indent:0mm;margin:6pt;counter-increment:paragrafo-n1;counter-reset:paragrafo-n2 paragrafo-n3 paragrafo-n4 romano_maiusculo letra_minuscula;} p.Paragrafo_Numerado_Nivel1:before {content:counter(paragrafo-n1) ".";display:inline-block;width:25mm;font-weight:normal;} p.Paragrafo_Numerado_Nivel2 {font-size:12pt;font-family:Calibri;text-indent:0mm;text-align:justify;word-wrap:normal;margin:6pt;counter-increment:paragrafo-n2;counter-reset:paragrafo-n3 paragrafo-n4 romano_maiusculo letra_minuscula;} p.Paragrafo_Numerado_Nivel2:before {content:counter(paragrafo-n1) "." counter(paragrafo-n2) ".";display:inline-block;width:25mm;font-weight:normal;} p.Paragrafo_Numerado_Nivel3 {font-size:12pt;font-family:Calibri;text-indent:0mm;text-align:justify;word-wrap:normal;margin:6pt;counter-increment:paragrafo-n3;counter-reset:paragrafo-n4 romano_maiusculo letra_minuscula;} p.Paragrafo_Numerado_Nivel3:before {content:counter(paragrafo-n1) "." counter(paragrafo-n2) "." counter(paragrafo-n3) ".";display:inline-block;width:25mm;font-weight:normal;} p.Paragrafo_Numerado_Nivel4 {font-size:12pt;font-family:Calibri;text-indent:0mm;text-align:justify;word-wrap:normal;margin:6pt;counter-increment:paragrafo-n4;counter-reset:romano_maiusculo letra_minuscula;} p.Paragrafo_Numerado_Nivel4:before {content:counter(paragrafo-n1) "." counter(paragrafo-n2) "." counter(paragrafo-n3) "." counter(paragrafo-n4) ".";display:inline-block;width:25mm;font-weight:normal;} p.Tabela_Texto_8 {font-size:8pt;font-family:Calibri;text-align:left;word-wrap:normal;margin:0 3pt 0 3pt;} p.Tabela_Texto_Alinhado_Direita {font-size:11pt;font-family:Calibri;text-align:right;word-wrap:normal;margin:0 3pt 0 3pt;} p.Tabela_Texto_Alinhado_Esquerda {font-size:11pt;font-family:Calibri;text-align:left;word-wrap:normal;margin:0 3pt 0 3pt;} p.Tabela_Texto_Centralizado {font-size:11pt;font-family:Calibri;text-align:center;word-wrap:normal;margin:0 3pt 0;} p.Texto_Alinhado_Direita {font-size:12pt;font-family:Calibri;text-align:right;word-wrap:normal;margin:6pt;} p.Texto_Alinhado_Esquerda {font-size:12pt;font-family:Calibri;text-align:left;word-wrap:normal;margin:6pt;} p.Texto_Alinhado_Esquerda_Espacamento_Simples {font-size:12pt;font-family:Calibri;text-align:left;word-wrap:normal;margin:0;} p.Texto_Alinhado_Esquerda_Espacamento_Simples_Maiusc {font-size:12pt;font-family:Calibri;text-align:left;text-transform:uppercase;word-wrap:normal;margin:0;} p.Texto_Centralizado {font-size:12pt;font-family:Calibri;text-align:center;word-wrap:normal;margin:6pt;} p.Texto_Centralizado_Maiusculas {font-size:13pt;font-family:Calibri;text-align:center;text-transform:uppercase;word-wrap:normal;} p.Texto_Centralizado_Maiusculas_Negrito {font-weight:bold;font-size:13pt;font-family:Calibri;text-align:center;text-transform:uppercase;word-wrap:normal;} p.Texto_Espaco_Duplo_Recuo_Primeira_Linha {letter-spacing:0.2em;font-weight:bold;font-size:12pt;font-family:Calibri;text-indent:25mm;text-align:justify;word-wrap:normal;margin:6pt;} p.Texto_Fundo_Cinza_Maiusculas_Negrito {text-transform:uppercase;font-weight:bold;background-color:#e6e6e6;font-size:12pt;font-family:Calibri;text-align:justify;word-wrap:normal;text-indent:0;margin:6pt;} p.Texto_Fundo_Cinza_Negrito {font-weight:bold;background-color:#e6e6e6;font-size:12pt;font-family:Calibri;text-align:justify;word-wrap:normal;text-indent:0;margin:6pt;} p.Texto_Justificado {font-size:12pt;font-family:Calibri;text-align:justify;word-wrap:normal;text-indent:0;margin:6pt;} p.Texto_Justificado_Maiusculas {font-size:12pt;font-family:Calibri;text-align:justify;word-wrap:normal;text-indent:0;margin:6pt;text-transform:uppercase;} p.Texto_Justificado_Recuo_Primeira_Linha {font-size:12pt;font-family:Calibri;text-indent:25mm;text-align:justify;word-wrap:normal;margin:6pt;} p.Texto_Justificado_Recuo_Primeira_Linha_Esp_Simples {font-size:12pt;font-family:Calibri;text-indent:25mm;text-align:justify;word-wrap:normal;margin:0 0 0 6pt;}
+        </style>
+        <title></title>
+        <p>@orgao@</p>
+        </div>
+        
+        <div align="center" wfd-id="1">&nbsp;</div>
+        
+        <p class="Texto_Centralizado_Maiusculas_Negrito">LISTAGEM DE&nbsp;ELIMINA&Ccedil;&Atilde;O DE DOCUMENTOS</p>
+        
+        <p class="Texto_Justificado">&nbsp;</p>
+        
+        <table border="1" cellpadding="1" cellspacing="1" style="margin-left:auto;margin-right:auto;">
+            <tbody>
+                <tr>
+                    <td colspan="2" rowspan="1">
+                    <p class="Tabela_Texto_Alinhado_Esquerda">@orgao@</p>
+        
+                    <p class="Tabela_Texto_Alinhado_Esquerda">@unidade@</p>
+                    </td>
+                    <td colspan="3" rowspan="1">
+                    <p class="Tabela_Texto_Alinhado_Esquerda">@orgao@</p>
+        
+                    <p class="Tabela_Texto_Alinhado_Esquerda">Listagem n&ordm; @numero_listagem@</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5" style="width: 105px;">
+                    <p class="Tabela_Texto_Centralizado">&nbsp;</p>
+        
+                    <p>@tabela@</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 105px;">
+                    <p class="Tabela_Texto_Centralizado"><strong>MENSURA&Ccedil;&Atilde;O</strong></p>
+        
+                    <p class="Tabela_Texto_Centralizado"><strong>TOTAL</strong></p>
+                    </td>
+                    <td style="width: 329px;">@mensuracao_total@</td>
+                </tr>
+                <tr>
+                    <td style="width: 105px;">
+                    <p class="Tabela_Texto_Centralizado"><strong>DATAS-LIMITE</strong></p>
+        
+                    <p class="Tabela_Texto_Centralizado"><strong>GERAIS</strong></p>
+                    </td>
+                    <td style="width: 329px;">@datas_limites_gerais@</td>
+                </tr>
+                <tr>
+                    <td style="width: 105px;">
+                    <p class="Tabela_Texto_Centralizado"><strong>VOLUME /</strong></p>
+        
+                    <p class="Tabela_Texto_Centralizado"><strong>QUANTIFICA&Ccedil;&Atilde;O</strong></p>
+                    </td>
+                    <td style="width: 329px;">@folha@</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <p class="Texto_Justificado">&nbsp;</p>
+        
+        <p class="Texto_Justificado">O quadro abaixo somente dever&aacute; ser preenchido se os documentos a serem eliminados necessitarem de comprova&ccedil;&atilde;o de aprova&ccedil;&atilde;o das contas pelos Tribunais de Contas.</p>
+        
+        <p class="Texto_Justificado">&nbsp;</p>
+        
+        <table border="1" cellpadding="1" cellspacing="1" style="margin-left:auto;margin-right:auto;width:870px;">
+            <tbody>
+                <tr>
+                    <td>
+                    <p class="Tabela_Texto_Centralizado"><strong>EXERC&Iacute;CIO</strong></p>
+                    </td>
+                    <td>
+                    <p class="Tabela_Texto_Centralizado"><strong>APROVA&Ccedil;&Atilde;O PELO TRIBUNAL DE CONTAS</strong></p>
+                    </td>
+                    <td>
+                    <p class="Tabela_Texto_Centralizado"><strong>Publica&ccedil;&atilde;o no Di&aacute;rio Oficial </strong>(data, se&ccedil;&atilde;o, p&aacute;gina)</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 198px;">
+                    <p class="Tabela_Texto_Centralizado">[Informar o ano]</p>
+                    </td>
+                    <td>
+                    <p class="Tabela_Texto_Centralizado">[Informar a data]</p>
+                    </td>
+                    <td>
+                    <p class="Tabela_Texto_Centralizado">&nbsp;</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <p class="Texto_Justificado">&nbsp;</p>
+        
+        <p class="Texto_Justificado">[Cidade], 28 de janeiro&nbsp;de 2021.</p>
+        
+        <p class="Texto_Justificado">&nbsp;</p>
+        
+        <p class="Texto_Centralizado">[NOME]</p>
+        
+        <p class="Texto_Centralizado">Respons&aacute;vel pela sele&ccedil;&atilde;o</p>
+        
+        <p class="Texto_Centralizado">&nbsp;</p>
+        
+        <p class="Texto_Centralizado">[NOME]</p>
+        
+        <p class="Texto_Centralizado">Presidente da Comiss&atilde;o Permanente de Avalia&ccedil;&atilde;o de Documentos</p>
+        
+        <p class="Texto_Centralizado">&nbsp;</p>
+        
+        <p class="Texto_Centralizado">[NOME DO TITULAR DO &Oacute;RG&Atilde;O/ENTIDADE PRODUTOR/ACUMULADOR DO ARQUIVO]</p>
+        
+        <p class="Texto_Centralizado">[Cargo]</p>
+        
+        <p class="Texto_Centralizado">&nbsp;</p>
+        
+        <hr style="border:none; padding:0; margin:5px 2px 0 2px; border-top:medium double #333" />
+        <table border="0" cellpadding="2" cellspacing="0" width="100%">
+            <tbody>
+                <tr>
+                    <td align="left" style="font-family:Calibri;font-size:9pt;border:0;" width="50%"><strong>Refer&ecirc;ncia:</strong> Processo n&ordm; 99990.000006/2020-91</td>
+                    <td align="right" style="font-family:Calibri;font-size:9pt;border:0;" width="50%">SEI n&ordm; 0000045</td>
+                </tr>
+            </tbody>
+        </table>
+        ';
+    
+        $strModeloListagemRecolhimento = '<meta http-equiv="Pragma" content="no-cache" /><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+        <style type="text/css">p.Citacao {font-size:10pt;font-family:Calibri;word-wrap:normal;margin:4pt 0 4pt 160px;text-align:justify;} p.Item_Alinea_Letra {font-size:12pt;font-family:Calibri;text-indent:0mm;text-align:justify;word-wrap:normal;margin:6pt 6pt 6pt 120px;counter-increment:letra_minuscula;} p.Item_Alinea_Letra:before {content:counter(letra_minuscula, lower-latin) ") ";display:inline-block;width:5mm;font-weight:normal;} p.Item_Inciso_Romano {font-size:12pt;font-family:Calibri;text-align:justify;word-wrap:normal;text-indent:0mm;margin:6pt 6pt 6pt 120px;counter-increment:romano_maiusculo;counter-reset:letra_minuscula;} p.Item_Inciso_Romano:before {content:counter(romano_maiusculo, upper-roman) " - ";display:inline-block;width:15mm;font-weight:normal;} p.Item_Nivel1 {text-transform:uppercase;font-weight:bold;background-color:#e6e6e6;font-size:12pt;font-family:Calibri;text-align:justify;word-wrap:normal;text-indent:0;margin:6pt;counter-increment:item-n1;counter-reset:item-n2 item-n3 item-n4 romano_maiusculo letra_minuscula;} p.Item_Nivel1:before {content:counter(item-n1) ".";display:inline-block;width:25mm;font-weight:normal;} p.Item_Nivel2 {font-size:12pt;font-family:Calibri;text-indent:0mm;text-align:justify;word-wrap:normal;margin:6pt;counter-increment:item-n2;counter-reset:item-n3 item-n4 romano_maiusculo letra_minuscula;} p.Item_Nivel2:before {content:counter(item-n1) "." counter(item-n2) ".";display:inline-block;width:25mm;font-weight:normal;} p.Item_Nivel3 {font-size:12pt;font-family:Calibri;text-indent:0mm;text-align:justify;word-wrap:normal;margin:6pt;counter-increment:item-n3;counter-reset:item-n4 romano_maiusculo letra_minuscula;} p.Item_Nivel3:before {content:counter(item-n1) "." counter(item-n2) "." counter(item-n3) ".";display:inline-block;width:25mm;font-weight:normal;} p.Item_Nivel4 {font-size:12pt;font-family:Calibri;text-indent:0mm;text-align:justify;word-wrap:normal;margin:6pt;counter-increment:item-n4;counter-reset:romano_maiusculo letra_minuscula;} p.Item_Nivel4:before {content:counter(item-n1) "." counter(item-n2) "." counter(item-n3) "."  counter(item-n4) ".";display:inline-block;width:25mm;font-weight:normal;} p.Paragrafo_Numerado_Nivel1 {font-size:12pt;font-family:Calibri;text-align:justify;word-wrap:normal;text-indent:0mm;margin:6pt;counter-increment:paragrafo-n1;counter-reset:paragrafo-n2 paragrafo-n3 paragrafo-n4 romano_maiusculo letra_minuscula;} p.Paragrafo_Numerado_Nivel1:before {content:counter(paragrafo-n1) ".";display:inline-block;width:25mm;font-weight:normal;} p.Paragrafo_Numerado_Nivel2 {font-size:12pt;font-family:Calibri;text-indent:0mm;text-align:justify;word-wrap:normal;margin:6pt;counter-increment:paragrafo-n2;counter-reset:paragrafo-n3 paragrafo-n4 romano_maiusculo letra_minuscula;} p.Paragrafo_Numerado_Nivel2:before {content:counter(paragrafo-n1) "." counter(paragrafo-n2) ".";display:inline-block;width:25mm;font-weight:normal;} p.Paragrafo_Numerado_Nivel3 {font-size:12pt;font-family:Calibri;text-indent:0mm;text-align:justify;word-wrap:normal;margin:6pt;counter-increment:paragrafo-n3;counter-reset:paragrafo-n4 romano_maiusculo letra_minuscula;} p.Paragrafo_Numerado_Nivel3:before {content:counter(paragrafo-n1) "." counter(paragrafo-n2) "." counter(paragrafo-n3) ".";display:inline-block;width:25mm;font-weight:normal;} p.Paragrafo_Numerado_Nivel4 {font-size:12pt;font-family:Calibri;text-indent:0mm;text-align:justify;word-wrap:normal;margin:6pt;counter-increment:paragrafo-n4;counter-reset:romano_maiusculo letra_minuscula;} p.Paragrafo_Numerado_Nivel4:before {content:counter(paragrafo-n1) "." counter(paragrafo-n2) "." counter(paragrafo-n3) "." counter(paragrafo-n4) ".";display:inline-block;width:25mm;font-weight:normal;} p.Tabela_Texto_8 {font-size:8pt;font-family:Calibri;text-align:left;word-wrap:normal;margin:0 3pt 0 3pt;} p.Tabela_Texto_Alinhado_Direita {font-size:11pt;font-family:Calibri;text-align:right;word-wrap:normal;margin:0 3pt 0 3pt;} p.Tabela_Texto_Alinhado_Esquerda {font-size:11pt;font-family:Calibri;text-align:left;word-wrap:normal;margin:0 3pt 0 3pt;} p.Tabela_Texto_Centralizado {font-size:11pt;font-family:Calibri;text-align:center;word-wrap:normal;margin:0 3pt 0;} p.Texto_Alinhado_Direita {font-size:12pt;font-family:Calibri;text-align:right;word-wrap:normal;margin:6pt;} p.Texto_Alinhado_Esquerda {font-size:12pt;font-family:Calibri;text-align:left;word-wrap:normal;margin:6pt;} p.Texto_Alinhado_Esquerda_Espacamento_Simples {font-size:12pt;font-family:Calibri;text-align:left;word-wrap:normal;margin:0;} p.Texto_Alinhado_Esquerda_Espacamento_Simples_Maiusc {font-size:12pt;font-family:Calibri;text-align:left;text-transform:uppercase;word-wrap:normal;margin:0;} p.Texto_Centralizado {font-size:12pt;font-family:Calibri;text-align:center;word-wrap:normal;margin:6pt;} p.Texto_Centralizado_Maiusculas {font-size:13pt;font-family:Calibri;text-align:center;text-transform:uppercase;word-wrap:normal;} p.Texto_Centralizado_Maiusculas_Negrito {font-weight:bold;font-size:13pt;font-family:Calibri;text-align:center;text-transform:uppercase;word-wrap:normal;} p.Texto_Espaco_Duplo_Recuo_Primeira_Linha {letter-spacing:0.2em;font-weight:bold;font-size:12pt;font-family:Calibri;text-indent:25mm;text-align:justify;word-wrap:normal;margin:6pt;} p.Texto_Fundo_Cinza_Maiusculas_Negrito {text-transform:uppercase;font-weight:bold;background-color:#e6e6e6;font-size:12pt;font-family:Calibri;text-align:justify;word-wrap:normal;text-indent:0;margin:6pt;} p.Texto_Fundo_Cinza_Negrito {font-weight:bold;background-color:#e6e6e6;font-size:12pt;font-family:Calibri;text-align:justify;word-wrap:normal;text-indent:0;margin:6pt;} p.Texto_Justificado {font-size:12pt;font-family:Calibri;text-align:justify;word-wrap:normal;text-indent:0;margin:6pt;} p.Texto_Justificado_Maiusculas {font-size:12pt;font-family:Calibri;text-align:justify;word-wrap:normal;text-indent:0;margin:6pt;text-transform:uppercase;} p.Texto_Justificado_Recuo_Primeira_Linha {font-size:12pt;font-family:Calibri;text-indent:25mm;text-align:justify;word-wrap:normal;margin:6pt;} p.Texto_Justificado_Recuo_Primeira_Linha_Esp_Simples {font-size:12pt;font-family:Calibri;text-indent:25mm;text-align:justify;word-wrap:normal;margin:0 0 0 6pt;}
+        </style>
+        <title></title>
+        @orgao@</div>
+        
+        <div align="center" wfd-id="1">&nbsp;</div>
+        
+        <p class="Texto_Centralizado_Maiusculas_Negrito">LISTAGEM DE&nbsp;RECOLHIMENTO&nbsp;DE DOCUMENTOS</p>
+        
+        <p class="Texto_Justificado">&nbsp;</p>
+        
+        <table border="1" cellpadding="1" cellspacing="1" style="margin-left:auto;margin-right:auto;">
+            <tbody>
+                <tr>
+                    <td colspan="2" rowspan="1">
+                    <p class="Tabela_Texto_Alinhado_Esquerda">@orgao@</p>
+        
+                    <p class="Tabela_Texto_Alinhado_Esquerda">@unidade@</p>
+                    </td>
+                    <td colspan="3" rowspan="1">
+                    <p class="Tabela_Texto_Alinhado_Esquerda">@orgao@</p>
+        
+                    <p class="Tabela_Texto_Alinhado_Esquerda">Listagem n&ordm; @numero_listagem@</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5" style="width: 105px;">
+                    <p class="Tabela_Texto_Centralizado">&nbsp;</p>
+        
+                    <p>@tabela@</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 105px;">
+                    <p class="Tabela_Texto_Centralizado"><strong>MENSURA&Ccedil;&Atilde;O</strong></p>
+        
+                    <p class="Tabela_Texto_Centralizado"><strong>TOTAL</strong></p>
+                    </td>
+                    <td style="width: 329px;">@mensuracao_total@</td>
+                </tr>
+                <tr>
+                    <td style="width: 105px;">
+                    <p class="Tabela_Texto_Centralizado"><strong>DATAS-LIMITE</strong></p>
+        
+                    <p class="Tabela_Texto_Centralizado"><strong>GERAIS</strong></p>
+                    </td>
+                    <td style="width: 329px;">@datas_limites_gerais@</td>
+                </tr>
+                <tr>
+                    <td style="width: 105px;">
+                    <p class="Tabela_Texto_Centralizado"><strong>VOLUME /</strong></p>
+        
+                    <p class="Tabela_Texto_Centralizado"><strong>QUANTIFICA&Ccedil;&Atilde;O</strong></p>
+                    </td>
+                    <td style="width: 329px;">@folha@</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <p class="Texto_Justificado">&nbsp;</p>
+        
+        <p class="Texto_Justificado">O quadro abaixo somente dever&aacute; ser preenchido se os documentos a serem eliminados necessitarem de comprova&ccedil;&atilde;o de aprova&ccedil;&atilde;o das contas pelos Tribunais de Contas.</p>
+        
+        <p class="Texto_Justificado">&nbsp;</p>
+        
+        <table border="1" cellpadding="1" cellspacing="1" style="margin-left:auto;margin-right:auto;width:870px;">
+            <tbody>
+                <tr>
+                    <td>
+                    <p class="Tabela_Texto_Centralizado"><strong>EXERC&Iacute;CIO</strong></p>
+                    </td>
+                    <td>
+                    <p class="Tabela_Texto_Centralizado"><strong>APROVA&Ccedil;&Atilde;O PELO TRIBUNAL DE CONTAS</strong></p>
+                    </td>
+                    <td>
+                    <p class="Tabela_Texto_Centralizado"><strong>Publica&ccedil;&atilde;o no Di&aacute;rio Oficial </strong>(data, se&ccedil;&atilde;o, p&aacute;gina)</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 198px;">
+                    <p class="Tabela_Texto_Centralizado">[Informar o ano]</p>
+                    </td>
+                    <td>
+                    <p class="Tabela_Texto_Centralizado">[Informar a data]</p>
+                    </td>
+                    <td>
+                    <p class="Tabela_Texto_Centralizado">&nbsp;</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <p class="Texto_Justificado">&nbsp;</p>
+        
+        <p class="Texto_Justificado">[Cidade], 28 de janeiro&nbsp;de 2021.</p>
+        
+        <p class="Texto_Justificado">&nbsp;</p>
+        
+        <p class="Texto_Centralizado">[NOME]</p>
+        
+        <p class="Texto_Centralizado">Respons&aacute;vel pela sele&ccedil;&atilde;o</p>
+        
+        <p class="Texto_Centralizado">&nbsp;</p>
+        
+        <p class="Texto_Centralizado">[NOME]</p>
+        
+        <p class="Texto_Centralizado">Presidente da Comiss&atilde;o Permanente de Avalia&ccedil;&atilde;o de Documentos</p>
+        
+        <p class="Texto_Centralizado">&nbsp;</p>
+        
+        <p class="Texto_Centralizado">[NOME DO TITULAR DO &Oacute;RG&Atilde;O/ENTIDADE PRODUTOR/ACUMULADOR DO ARQUIVO]</p>
+        
+        <p class="Texto_Centralizado">[Cargo]</p>
+        
+        <p class="Texto_Centralizado">&nbsp;</p>
+        
+        <hr style="border:none; padding:0; margin:5px 2px 0 2px; border-top:medium double #333" />
+        <table border="0" cellpadding="2" cellspacing="0" width="100%">
+            <tbody>
+                <tr>
+                    <td align="left" style="font-family:Calibri;font-size:9pt;border:0;" width="50%"><strong>Refer&ecirc;ncia:</strong> Processo n&ordm; 99990.000006/2020-91</td>
+                    <td align="right" style="font-family:Calibri;font-size:9pt;border:0;" width="50%">SEI n&ordm; 0000045</td>
+                </tr>
+            </tbody>
+        </table>
+        ';
 
-        $strModeloDocumentoEliminacao = '<table summary="Tabela de Variveis Disponveis" width="99%">
-                    <tbody>
-                        <tr>
-                            <td>@unidade@</td>
-                            <td>Unidade geradora</td>
-                        </tr>
-                        <tr>
-                            <td>@data_eliminacao@</td>
-                            <td>Data do arquivamento</td>
-                        </tr>
-                        <tr>
-                            <td>@responsavel_eliminacao@</td>
-                            <td>Respons&aacute;vel pelo arquivamento</td>
-                        </tr>
-                    </tbody>
-                </table>
-                ';
+        $strModeloDocumentoEliminacao = '<meta http-equiv="Pragma" content="no-cache" /><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+        <style type="text/css">p.Citacao {font-size:10pt;font-family:Calibri;word-wrap:normal;margin:4pt 0 4pt 160px;text-align:justify;} p.Item_Alinea_Letra {font-size:12pt;font-family:Calibri;text-indent:0mm;text-align:justify;word-wrap:normal;margin:6pt 6pt 6pt 120px;counter-increment:letra_minuscula;} p.Item_Alinea_Letra:before {content:counter(letra_minuscula, lower-latin) ") ";display:inline-block;width:5mm;font-weight:normal;} p.Item_Inciso_Romano {font-size:12pt;font-family:Calibri;text-align:justify;word-wrap:normal;text-indent:0mm;margin:6pt 6pt 6pt 120px;counter-increment:romano_maiusculo;counter-reset:letra_minuscula;} p.Item_Inciso_Romano:before {content:counter(romano_maiusculo, upper-roman) " - ";display:inline-block;width:15mm;font-weight:normal;} p.Item_Nivel1 {text-transform:uppercase;font-weight:bold;background-color:#e6e6e6;font-size:12pt;font-family:Calibri;text-align:justify;word-wrap:normal;text-indent:0;margin:6pt;counter-increment:item-n1;counter-reset:item-n2 item-n3 item-n4 romano_maiusculo letra_minuscula;} p.Item_Nivel1:before {content:counter(item-n1) ".";display:inline-block;width:25mm;font-weight:normal;} p.Item_Nivel2 {font-size:12pt;font-family:Calibri;text-indent:0mm;text-align:justify;word-wrap:normal;margin:6pt;counter-increment:item-n2;counter-reset:item-n3 item-n4 romano_maiusculo letra_minuscula;} p.Item_Nivel2:before {content:counter(item-n1) "." counter(item-n2) ".";display:inline-block;width:25mm;font-weight:normal;} p.Item_Nivel3 {font-size:12pt;font-family:Calibri;text-indent:0mm;text-align:justify;word-wrap:normal;margin:6pt;counter-increment:item-n3;counter-reset:item-n4 romano_maiusculo letra_minuscula;} p.Item_Nivel3:before {content:counter(item-n1) "." counter(item-n2) "." counter(item-n3) ".";display:inline-block;width:25mm;font-weight:normal;} p.Item_Nivel4 {font-size:12pt;font-family:Calibri;text-indent:0mm;text-align:justify;word-wrap:normal;margin:6pt;counter-increment:item-n4;counter-reset:romano_maiusculo letra_minuscula;} p.Item_Nivel4:before {content:counter(item-n1) "." counter(item-n2) "." counter(item-n3) "."  counter(item-n4) ".";display:inline-block;width:25mm;font-weight:normal;} p.Paragrafo_Numerado_Nivel1 {font-size:12pt;font-family:Calibri;text-align:justify;word-wrap:normal;text-indent:0mm;margin:6pt;counter-increment:paragrafo-n1;counter-reset:paragrafo-n2 paragrafo-n3 paragrafo-n4 romano_maiusculo letra_minuscula;} p.Paragrafo_Numerado_Nivel1:before {content:counter(paragrafo-n1) ".";display:inline-block;width:25mm;font-weight:normal;} p.Paragrafo_Numerado_Nivel2 {font-size:12pt;font-family:Calibri;text-indent:0mm;text-align:justify;word-wrap:normal;margin:6pt;counter-increment:paragrafo-n2;counter-reset:paragrafo-n3 paragrafo-n4 romano_maiusculo letra_minuscula;} p.Paragrafo_Numerado_Nivel2:before {content:counter(paragrafo-n1) "." counter(paragrafo-n2) ".";display:inline-block;width:25mm;font-weight:normal;} p.Paragrafo_Numerado_Nivel3 {font-size:12pt;font-family:Calibri;text-indent:0mm;text-align:justify;word-wrap:normal;margin:6pt;counter-increment:paragrafo-n3;counter-reset:paragrafo-n4 romano_maiusculo letra_minuscula;} p.Paragrafo_Numerado_Nivel3:before {content:counter(paragrafo-n1) "." counter(paragrafo-n2) "." counter(paragrafo-n3) ".";display:inline-block;width:25mm;font-weight:normal;} p.Paragrafo_Numerado_Nivel4 {font-size:12pt;font-family:Calibri;text-indent:0mm;text-align:justify;word-wrap:normal;margin:6pt;counter-increment:paragrafo-n4;counter-reset:romano_maiusculo letra_minuscula;} p.Paragrafo_Numerado_Nivel4:before {content:counter(paragrafo-n1) "." counter(paragrafo-n2) "." counter(paragrafo-n3) "." counter(paragrafo-n4) ".";display:inline-block;width:25mm;font-weight:normal;} p.Tabela_Texto_8 {font-size:8pt;font-family:Calibri;text-align:left;word-wrap:normal;margin:0 3pt 0 3pt;} p.Tabela_Texto_Alinhado_Direita {font-size:11pt;font-family:Calibri;text-align:right;word-wrap:normal;margin:0 3pt 0 3pt;} p.Tabela_Texto_Alinhado_Esquerda {font-size:11pt;font-family:Calibri;text-align:left;word-wrap:normal;margin:0 3pt 0 3pt;} p.Tabela_Texto_Centralizado {font-size:11pt;font-family:Calibri;text-align:center;word-wrap:normal;margin:0 3pt 0;} p.Texto_Alinhado_Direita {font-size:12pt;font-family:Calibri;text-align:right;word-wrap:normal;margin:6pt;} p.Texto_Alinhado_Esquerda {font-size:12pt;font-family:Calibri;text-align:left;word-wrap:normal;margin:6pt;} p.Texto_Alinhado_Esquerda_Espacamento_Simples {font-size:12pt;font-family:Calibri;text-align:left;word-wrap:normal;margin:0;} p.Texto_Alinhado_Esquerda_Espacamento_Simples_Maiusc {font-size:12pt;font-family:Calibri;text-align:left;text-transform:uppercase;word-wrap:normal;margin:0;} p.Texto_Centralizado {font-size:12pt;font-family:Calibri;text-align:center;word-wrap:normal;margin:6pt;} p.Texto_Centralizado_Maiusculas {font-size:13pt;font-family:Calibri;text-align:center;text-transform:uppercase;word-wrap:normal;} p.Texto_Centralizado_Maiusculas_Negrito {font-weight:bold;font-size:13pt;font-family:Calibri;text-align:center;text-transform:uppercase;word-wrap:normal;} p.Texto_Espaco_Duplo_Recuo_Primeira_Linha {letter-spacing:0.2em;font-weight:bold;font-size:12pt;font-family:Calibri;text-indent:25mm;text-align:justify;word-wrap:normal;margin:6pt;} p.Texto_Fundo_Cinza_Maiusculas_Negrito {text-transform:uppercase;font-weight:bold;background-color:#e6e6e6;font-size:12pt;font-family:Calibri;text-align:justify;word-wrap:normal;text-indent:0;margin:6pt;} p.Texto_Fundo_Cinza_Negrito {font-weight:bold;background-color:#e6e6e6;font-size:12pt;font-family:Calibri;text-align:justify;word-wrap:normal;text-indent:0;margin:6pt;} p.Texto_Justificado {font-size:12pt;font-family:Calibri;text-align:justify;word-wrap:normal;text-indent:0;margin:6pt;} p.Texto_Justificado_Maiusculas {font-size:12pt;font-family:Calibri;text-align:justify;word-wrap:normal;text-indent:0;margin:6pt;text-transform:uppercase;} p.Texto_Justificado_Recuo_Primeira_Linha {font-size:12pt;font-family:Calibri;text-indent:25mm;text-align:justify;word-wrap:normal;margin:6pt;} p.Texto_Justificado_Recuo_Primeira_Linha_Esp_Simples {font-size:12pt;font-family:Calibri;text-indent:25mm;text-align:justify;word-wrap:normal;margin:0 0 0 6pt;}
+        </style>
+        <title></title>
+        @orgao@</div>
+        
+        <div align="center" wfd-id="1">&nbsp;</div>
+        
+        <p class="Texto_Centralizado_Maiusculas_Negrito">TERMO DE ELIMINA&Ccedil;&Atilde;O DE DOCUMENTOS</p>
+        
+        <p class="Texto_Justificado">&nbsp;</p>
+        
+        <p class="Texto_Justificado">Aos 28 dias do m&ecirc;s de janeiro do ano de 2021, o(a) ME, de acordo com o que consta da Listagem de Elimina&ccedil;&atilde;o de Documentos n&ordm; (indicar o n&ordm; / ano da listagem), aprovada pelo(a) titular do(a) ME&nbsp;e respectivo Edital de Ci&ecirc;ncia de Elimina&ccedil;&atilde;o de Documentos n&ordm; (indicar o n&ordm; / ano do edital), publicado no (indicar o nome do peri&oacute;dico oficial ou, na aus&ecirc;ncia dele, o do ve&iacute;culo de divulga&ccedil;&atilde;o local), de (indicar a data de publica&ccedil;&atilde;o do edital), procedeu &agrave; elimina&ccedil;&atilde;o de (indicar a mensura&ccedil;&atilde;o total) dos documentos relativos a (indicar as refer&ecirc;ncias gerais dos descritores dos c&oacute;digos de classifica&ccedil;&atilde;o dos documentos a serem eliminados), do per&iacute;odo de (indicar as datas-limite gerais), do(a) (indicar o nome do(a) &oacute;rg&atilde;o/entidade produtor(a) ou acumulador(a) dos documentos que foram eliminados).</p>
+        
+        <p class="Texto_Justificado">&nbsp;</p>
+        
+        <p class="Texto_Justificado">[Cidade], 28 de janeiro&nbsp;de 2021.</p>
+        
+        <p class="Texto_Justificado">&nbsp;</p>
+        
+        <p class="Texto_Justificado">&nbsp;</p>
+        
+        <p class="Texto_Centralizado">[NOME DO RESPONS&Aacute;VEL DESIGNADO PARA SUPERVISIONAR E ACOMPANHAR A ELIMINA&Ccedil;&Atilde;O]</p>
+        
+        <p class="Texto_Centralizado">Cargo</p>
+        
+        <p class="Texto_Centralizado">&nbsp;</p>
+        
+        <p class="Texto_Centralizado">[NOME]</p>
+        
+        <p class="Texto_Centralizado">Presidente da Comiss&atilde;o Permanente de Avalia&ccedil;&atilde;o de Documentos</p>
+        ';
+
+        $strModeloDocumentoRecolhimento = '<meta http-equiv="Pragma" content="no-cache" /><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+        <style type="text/css">p.Citacao {font-size:10pt;font-family:Calibri;word-wrap:normal;margin:4pt 0 4pt 160px;text-align:justify;} p.Item_Alinea_Letra {font-size:12pt;font-family:Calibri;text-indent:0mm;text-align:justify;word-wrap:normal;margin:6pt 6pt 6pt 120px;counter-increment:letra_minuscula;} p.Item_Alinea_Letra:before {content:counter(letra_minuscula, lower-latin) ") ";display:inline-block;width:5mm;font-weight:normal;} p.Item_Inciso_Romano {font-size:12pt;font-family:Calibri;text-align:justify;word-wrap:normal;text-indent:0mm;margin:6pt 6pt 6pt 120px;counter-increment:romano_maiusculo;counter-reset:letra_minuscula;} p.Item_Inciso_Romano:before {content:counter(romano_maiusculo, upper-roman) " - ";display:inline-block;width:15mm;font-weight:normal;} p.Item_Nivel1 {text-transform:uppercase;font-weight:bold;background-color:#e6e6e6;font-size:12pt;font-family:Calibri;text-align:justify;word-wrap:normal;text-indent:0;margin:6pt;counter-increment:item-n1;counter-reset:item-n2 item-n3 item-n4 romano_maiusculo letra_minuscula;} p.Item_Nivel1:before {content:counter(item-n1) ".";display:inline-block;width:25mm;font-weight:normal;} p.Item_Nivel2 {font-size:12pt;font-family:Calibri;text-indent:0mm;text-align:justify;word-wrap:normal;margin:6pt;counter-increment:item-n2;counter-reset:item-n3 item-n4 romano_maiusculo letra_minuscula;} p.Item_Nivel2:before {content:counter(item-n1) "." counter(item-n2) ".";display:inline-block;width:25mm;font-weight:normal;} p.Item_Nivel3 {font-size:12pt;font-family:Calibri;text-indent:0mm;text-align:justify;word-wrap:normal;margin:6pt;counter-increment:item-n3;counter-reset:item-n4 romano_maiusculo letra_minuscula;} p.Item_Nivel3:before {content:counter(item-n1) "." counter(item-n2) "." counter(item-n3) ".";display:inline-block;width:25mm;font-weight:normal;} p.Item_Nivel4 {font-size:12pt;font-family:Calibri;text-indent:0mm;text-align:justify;word-wrap:normal;margin:6pt;counter-increment:item-n4;counter-reset:romano_maiusculo letra_minuscula;} p.Item_Nivel4:before {content:counter(item-n1) "." counter(item-n2) "." counter(item-n3) "."  counter(item-n4) ".";display:inline-block;width:25mm;font-weight:normal;} p.Paragrafo_Numerado_Nivel1 {font-size:12pt;font-family:Calibri;text-align:justify;word-wrap:normal;text-indent:0mm;margin:6pt;counter-increment:paragrafo-n1;counter-reset:paragrafo-n2 paragrafo-n3 paragrafo-n4 romano_maiusculo letra_minuscula;} p.Paragrafo_Numerado_Nivel1:before {content:counter(paragrafo-n1) ".";display:inline-block;width:25mm;font-weight:normal;} p.Paragrafo_Numerado_Nivel2 {font-size:12pt;font-family:Calibri;text-indent:0mm;text-align:justify;word-wrap:normal;margin:6pt;counter-increment:paragrafo-n2;counter-reset:paragrafo-n3 paragrafo-n4 romano_maiusculo letra_minuscula;} p.Paragrafo_Numerado_Nivel2:before {content:counter(paragrafo-n1) "." counter(paragrafo-n2) ".";display:inline-block;width:25mm;font-weight:normal;} p.Paragrafo_Numerado_Nivel3 {font-size:12pt;font-family:Calibri;text-indent:0mm;text-align:justify;word-wrap:normal;margin:6pt;counter-increment:paragrafo-n3;counter-reset:paragrafo-n4 romano_maiusculo letra_minuscula;} p.Paragrafo_Numerado_Nivel3:before {content:counter(paragrafo-n1) "." counter(paragrafo-n2) "." counter(paragrafo-n3) ".";display:inline-block;width:25mm;font-weight:normal;} p.Paragrafo_Numerado_Nivel4 {font-size:12pt;font-family:Calibri;text-indent:0mm;text-align:justify;word-wrap:normal;margin:6pt;counter-increment:paragrafo-n4;counter-reset:romano_maiusculo letra_minuscula;} p.Paragrafo_Numerado_Nivel4:before {content:counter(paragrafo-n1) "." counter(paragrafo-n2) "." counter(paragrafo-n3) "." counter(paragrafo-n4) ".";display:inline-block;width:25mm;font-weight:normal;} p.Tabela_Texto_8 {font-size:8pt;font-family:Calibri;text-align:left;word-wrap:normal;margin:0 3pt 0 3pt;} p.Tabela_Texto_Alinhado_Direita {font-size:11pt;font-family:Calibri;text-align:right;word-wrap:normal;margin:0 3pt 0 3pt;} p.Tabela_Texto_Alinhado_Esquerda {font-size:11pt;font-family:Calibri;text-align:left;word-wrap:normal;margin:0 3pt 0 3pt;} p.Tabela_Texto_Centralizado {font-size:11pt;font-family:Calibri;text-align:center;word-wrap:normal;margin:0 3pt 0;} p.Texto_Alinhado_Direita {font-size:12pt;font-family:Calibri;text-align:right;word-wrap:normal;margin:6pt;} p.Texto_Alinhado_Esquerda {font-size:12pt;font-family:Calibri;text-align:left;word-wrap:normal;margin:6pt;} p.Texto_Alinhado_Esquerda_Espacamento_Simples {font-size:12pt;font-family:Calibri;text-align:left;word-wrap:normal;margin:0;} p.Texto_Alinhado_Esquerda_Espacamento_Simples_Maiusc {font-size:12pt;font-family:Calibri;text-align:left;text-transform:uppercase;word-wrap:normal;margin:0;} p.Texto_Centralizado {font-size:12pt;font-family:Calibri;text-align:center;word-wrap:normal;margin:6pt;} p.Texto_Centralizado_Maiusculas {font-size:13pt;font-family:Calibri;text-align:center;text-transform:uppercase;word-wrap:normal;} p.Texto_Centralizado_Maiusculas_Negrito {font-weight:bold;font-size:13pt;font-family:Calibri;text-align:center;text-transform:uppercase;word-wrap:normal;} p.Texto_Espaco_Duplo_Recuo_Primeira_Linha {letter-spacing:0.2em;font-weight:bold;font-size:12pt;font-family:Calibri;text-indent:25mm;text-align:justify;word-wrap:normal;margin:6pt;} p.Texto_Fundo_Cinza_Maiusculas_Negrito {text-transform:uppercase;font-weight:bold;background-color:#e6e6e6;font-size:12pt;font-family:Calibri;text-align:justify;word-wrap:normal;text-indent:0;margin:6pt;} p.Texto_Fundo_Cinza_Negrito {font-weight:bold;background-color:#e6e6e6;font-size:12pt;font-family:Calibri;text-align:justify;word-wrap:normal;text-indent:0;margin:6pt;} p.Texto_Justificado {font-size:12pt;font-family:Calibri;text-align:justify;word-wrap:normal;text-indent:0;margin:6pt;} p.Texto_Justificado_Maiusculas {font-size:12pt;font-family:Calibri;text-align:justify;word-wrap:normal;text-indent:0;margin:6pt;text-transform:uppercase;} p.Texto_Justificado_Recuo_Primeira_Linha {font-size:12pt;font-family:Calibri;text-indent:25mm;text-align:justify;word-wrap:normal;margin:6pt;} p.Texto_Justificado_Recuo_Primeira_Linha_Esp_Simples {font-size:12pt;font-family:Calibri;text-indent:25mm;text-align:justify;word-wrap:normal;margin:0 0 0 6pt;}
+        </style>
+        <title></title>
+        @orgao@</div>
+        
+        <div align="center" wfd-id="1">&nbsp;</div>
+        
+        <p class="Texto_Centralizado_Maiusculas_Negrito">TERMO DE RECOLHIMENTO&nbsp;DE DOCUMENTOS</p>
+        
+        <p class="Texto_Justificado">&nbsp;</p>
+        
+        <p class="Texto_Justificado">[DIGITE AQUI O TEXTO]</p>
+        
+        <p class="Texto_Justificado">&nbsp;</p>
+        
+        <p class="Texto_Justificado">[Cidade], 28 de janeiro&nbsp;de 2021.</p>
+        
+        <p class="Texto_Justificado">&nbsp;</p>
+        
+        <p class="Texto_Justificado">&nbsp;</p>
+        
+        <p class="Texto_Centralizado">[NOME DO RESPONS&Aacute;VEL DESIGNADO PARA SUPERVISIONAR E ACOMPANHAR A ELIMINA&Ccedil;&Atilde;O]</p>
+        
+        <p class="Texto_Centralizado">Cargo</p>
+        
+        <p class="Texto_Centralizado">&nbsp;</p>
+        
+        <p class="Texto_Centralizado">[NOME]</p>
+        
+        <p class="Texto_Centralizado">Presidente da Comiss&atilde;o Permanente de Avalia&ccedil;&atilde;o de Documentos</p>
+        ';
 
         $this->cadastrarModeloDocumento('MODELO_DESPACHO_ARQUIVAMENTO', $strModeloDespachoArquivamento);
         $this->cadastrarModeloDocumento('MODELO_DESPACHO_DESARQUIVAMENTO', $strModeloDespachoDesarquivamento);
         $this->cadastrarModeloDocumento('MODELO_LISTAGEM_ELIMINACAO', $strModeloListagemEliminacao);
+        $this->cadastrarModeloDocumento('MODELO_LISTAGEM_RECOLHIMENTO', $strModeloListagemRecolhimento);
         $this->cadastrarModeloDocumento('MODELO_DOCUMENTO_ELIMINACAO', $strModeloDocumentoEliminacao);
+        $this->cadastrarModeloDocumento('MODELO_DOCUMENTO_RECOLHIMENTO', $strModeloDocumentoRecolhimento);
     }
 
     /**

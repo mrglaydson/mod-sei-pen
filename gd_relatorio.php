@@ -44,6 +44,8 @@ try {
     $objMdGdArquivamentoDTO->retNumGuardaIntermediaria();
     $objMdGdArquivamentoDTO->retStrStaDestinacaoFinal();
 
+    $objMdGdArquivamentoDTO->setStrSinAtivo('S');
+
     $selUnidade = PaginaSEI::getInstance()->recuperarCampo('selUnidade');
     if ($selUnidade && $selUnidade !== 'null') {
         $objMdGdArquivamentoDTO->setNumIdUnidadeCorrente($selUnidade);

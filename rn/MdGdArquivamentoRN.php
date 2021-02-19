@@ -15,7 +15,7 @@ class MdGdArquivamentoRN extends InfraRN {
     public static $ST_ENVIADO_ELIMINACAO = 'EE';
     public static $ST_RECOLHIDO = 'RE';
     public static $ST_ELIMINADO = 'EL';
-    public static $ST_DESARQUIVADO = 'DE';
+    public static $ST_DESARQUIVADO = 'DA';
 
     # Guarda
     public static $GUARDA_CORRENTE = 'C';
@@ -190,6 +190,7 @@ class MdGdArquivamentoRN extends InfraRN {
             }
             return true;
         } catch (Exception $e) {
+            LogSEI::getInstance()->gravar($e->getMessage(),InfraLog::$ERRO);
             throw new InfraException('Erro ao arquivar processo.', $e);
         }
     }
@@ -408,7 +409,8 @@ class MdGdArquivamentoRN extends InfraRN {
 
             return true;
         } catch (Exception $e) {
-            throw new InfraException('Erro ao arquivar processo.', $e);
+            LogSEI::getInstance()->gravar($e->getMessage(),InfraLog::$ERRO);
+            throw new InfraException('Erro ao desarquivar processo.', $e);
         }
     }
 
@@ -710,8 +712,13 @@ class MdGdArquivamentoRN extends InfraRN {
                 $objAssuntoDTO->retStrStaDestinacao();
 
                 $objAssuntoDTO = $objAssuntoRN->consultarRN0256($objAssuntoDTO);
-                $strDestinacaoFinal = $objAssuntoDTO->getStrStaDestinacao() == AssuntoRN::$TD_GUARDA_PERMANENTE ? self::$DF_RECOLHIMENTO : self::$DF_ELIMINACAO;
+
+                if($strDestinacaoFinal !== AssuntoRN::$TD_GUARDA_PERMANENTE){
+                    $strDestinacaoFinal = $objAssuntoDTO->getStrStaDestinacao() == AssuntoRN::$TD_GUARDA_PERMANENTE ? self::$DF_RECOLHIMENTO : self::$DF_ELIMINACAO;
+                }
             }
+            
+       
 
             return $strDestinacaoFinal;
         } catch (Exception $e) {
@@ -743,7 +750,8 @@ class MdGdArquivamentoRN extends InfraRN {
         }
 
         if($objMdGdPesquisarPendenciasArquivamentoDTO->isSetDthPeriodoFinal()){
-            $strDthPeriodoFinal = InfraData::formatarDataBanco($objMdGdPesquisarPendenciasArquivamentoDTO->getDthPeriodoInicial());
+            $strDthPeriodoFinal = InfraData::formatarDataBanco($objMdGdPesquisarPendenciasArquivamentoDTO->getDthPeriodoFinal());
+            $strDthPeriodoFinal = str_replace(' 00:00:00', ' 23:59:59', $strDthPeriodoFinal);
             $condicao .= " AND atv.dth_abertura <= '".$strDthPeriodoFinal."' ";     
         }
 
@@ -996,14 +1004,17 @@ class MdGdArquivamentoRN extends InfraRN {
             }
             
             $strObservacao = $objMdGdArquivamentoDTO->getStrObservacaoDevolucao();
-            
+            $numIdArquivamento = $objMdGdArquivamentoDTO->getNumIdArquivamento();
+
             // Obtem o objeto de arquivamento
-            $objMdGdArquivamentoDTO->setStrObservacaoDevolucao(null);
+            $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
+            $objMdGdArquivamentoDTO->setNumIdArquivamento($numIdArquivamento);
             $objMdGdArquivamentoDTO->retNumIdArquivamento();
             $objMdGdArquivamentoDTO->retDblIdProcedimento();
             $objMdGdArquivamentoDTO->retStrSituacao();
-            $objMdGdArquivamentoDTO = $this->consultar($objMdGdArquivamentoDTO);
 
+            $objMdGdArquivamentoDTO = $this->consultar($objMdGdArquivamentoDTO);
+            
             // Valida se o arquivamento está em fase intermediária para ser editado
             if($objMdGdArquivamentoDTO->getStrSituacao() != self::$ST_FASE_INTERMEDIARIA){
                 throw new InfraException('A devolução do processo só pode ser feita quando o arquivamento estiver em fase intermediária e em avaliação.');
@@ -1095,6 +1106,7 @@ class MdGdArquivamentoRN extends InfraRN {
             $objMdGdArquivamentoDTO->retDblIdProcedimento();
             $objMdGdArquivamentoDTO->retStrSituacao();
             $objMdGdArquivamentoDTO->retNumIdArquivamento();
+            $objMdGdArquivamentoDTO->retDthDataArquivamento();
             $objMdGdArquivamentoDTO = $this->consultarConectado($objMdGdArquivamentoDTO);
 
             // Valida se o arquivamento está em fase intermediária para ser editado
@@ -1102,11 +1114,84 @@ class MdGdArquivamentoRN extends InfraRN {
                 throw new InfraException('O arquivamento precisa estar em edição.');
             }
 
+            $dtaDataArquivamentoBr = explode(' ', $objMdGdArquivamentoDTO->getDthDataArquivamento());
+            $dtaDataArquivamentoBr = explode('/', $dtaDataArquivamentoBr[0]);
+            $dtaDataArquivamentoUs = $dtaDataArquivamentoBr[2] . '-' .  $dtaDataArquivamentoBr[1] . '-' . $dtaDataArquivamentoBr[0];
+            
+            // Obtem os tempos de guarda corrente e intermediária e adiciona ao arquivamento
+            $objRelProtocoloAssuntoDTO = new RelProtocoloAssuntoDTO();
+            $objRelProtocoloAssuntoDTO->setDblIdProtocolo($objMdGdArquivamentoDTO->getDblIdProcedimento());
+            $objRelProtocoloAssuntoDTO->retNumIdAssunto();
+
+            $objRelProtocoloAssuntoRN = new RelProtocoloAssuntoRN();
+            $arrObjRelProtocoloAssuntoDTO = $objRelProtocoloAssuntoRN->listarRN0188($objRelProtocoloAssuntoDTO);
+
+            $objAssuntoRN = new AssuntoRN();
+            $numTempoGuardaCorrente = 0;
+            $numTempoGuardaIntermediaria = 0;
+
+            foreach ($arrObjRelProtocoloAssuntoDTO as $objRelProtocoloAssuntoDTO) {
+                $objAssuntoDTO = new AssuntoDTO();
+                $objAssuntoDTO->setNumIdAssunto($objRelProtocoloAssuntoDTO->getNumIdAssunto());
+                $objAssuntoDTO->retNumPrazoCorrente();
+                $objAssuntoDTO->retNumPrazoIntermediario();
+
+                $objAssuntoDTO = $objAssuntoRN->consultarRN0256($objAssuntoDTO);
+
+                if ($numTempoGuardaCorrente < $objAssuntoDTO->getNumPrazoCorrente()) {
+                    $numTempoGuardaCorrente = $objAssuntoDTO->getNumPrazoCorrente();
+                }
+
+                if ($numTempoGuardaIntermediaria < $objAssuntoDTO->getNumPrazoIntermediario()) {
+                    $numTempoGuardaIntermediaria = $objAssuntoDTO->getNumPrazoIntermediario();
+                }
+            }
+ 
+            $guardaTotal = $numTempoGuardaCorrente + $numTempoGuardaIntermediaria;
+            
+            $dtaGuardaCorrente = date('d/m/Y H:i:s', strtotime("+{$numTempoGuardaCorrente} years", strtotime($dtaDataArquivamentoUs)));
+            $dtaGuardaIntermediaria = date('d/m/Y H:i:s', strtotime("+{$guardaTotal} years", strtotime($dtaDataArquivamentoUs)));
+
+            $objMdGdArquivamentoDTO->setDthDataGuardaCorrente($dtaGuardaCorrente);
+            $objMdGdArquivamentoDTO->setDthDataGuardaIntermediaria($dtaGuardaIntermediaria);
+            $objMdGdArquivamentoDTO->setNumGuardaCorrente($numTempoGuardaCorrente);
+            $objMdGdArquivamentoDTO->setNumGuardaIntermediaria($numTempoGuardaIntermediaria);
+
+            //Informa os demais parâmetros do arquivamento e realiza seu salvamento
+            $objMdGdArquivamentoDTO->setStrStaDestinacaoFinal($this->obterDestinacaoFinalProtocolo($objMdGdArquivamentoDTO->getDblIdProcedimento()));
+
+             if ($this->contarCondicionantes($objMdGdArquivamentoDTO->getDblIdProcedimento())) {
+                 $objMdGdArquivamentoDTO->setStrSinCondicionante('S');
+             } else {
+                 $objMdGdArquivamentoDTO->setStrSinCondicionante('N');
+             }
+
+            $dtaGuardaCorrente = date('YmdHis', strtotime("+{$numTempoGuardaCorrente} years", strtotime($dtaDataArquivamentoUs)));
+            $dtaGuardaIntermediaria = date('YmdHis', strtotime("+{$guardaTotal} years", strtotime($dtaDataArquivamentoUs)));
+
+            if($dtaGuardaCorrente >= date('YmdHis')){
+                $objMdGdArquivamentoDTO->setStrSituacao(self::$ST_FASE_CORRENTE);
+                $objMdGdArquivamentoDTO->setStrStaGuarda(self::$GUARDA_CORRENTE);
+            }else{
+                $objMdGdArquivamentoDTO->setStrSituacao(self::$ST_FASE_INTERMEDIARIA);
+                $objMdGdArquivamentoDTO->setStrStaGuarda(self::$GUARDA_INTERMEDIARIA);
+
+                $objMdGdUnidadeArquivamentoDTO = new MdGdUnidadeArquivamentoDTO();
+                $objMdGdUnidadeArquivamentoDTO->setNumIdUnidadeOrigem(SessaoSEI::getInstance()->getNumIdUnidadeAtual());
+                $objMdGdUnidadeArquivamentoDTO->retNumIdUnidadeDestino();
+
+                $objMdGdUnidadeArquivamentoRN = new MdGdUnidadeArquivamentoRN();
+                
+                if($objMdGdUnidadeArquivamentoRN->contar($objMdGdUnidadeArquivamentoDTO) == 1){
+                    $objMdGdUnidadeArquivamentoDTO = $objMdGdUnidadeArquivamentoRN->consultar($objMdGdUnidadeArquivamentoDTO);
+                    $objMdGdArquivamentoDTO->setNumIdUnidadeIntermediaria($objMdGdUnidadeArquivamentoDTO->getNumIdUnidadeDestino());
+                }
+            }
+
             // Fecha o procedimento
             $this->fecharProcedimentoArquivamentoControlado($objMdGdArquivamentoDTO);
             
             // Atualiza a situação do arquivamento
-            $objMdGdArquivamentoDTO->setStrSituacao(self::$ST_FASE_INTERMEDIARIA);
             return $this->alterarConectado($objMdGdArquivamentoDTO);
         } catch (Exception $e) {
             throw new InfraException('Erro ao concluir edição do arquivamento.', $e);

@@ -12,10 +12,17 @@ class MdGdEliminacaoRN extends InfraRN {
         return BancoSEI::getInstance();
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param MdGdEliminacaoDTO $objMdGdEliminacaoDTO
+     * @return void
+     */
     protected function cadastrarControlado(MdGdEliminacaoDTO $objMdGdEliminacaoDTO) {
         try {
 
-            //Valida Permissao
+            //Valida Permissão
+            SessaoSEI::getInstance()->validarAuditarPermissao('gd_procedimento_arquivar', __METHOD__, $objMdGdEliminacaoDTO);
 
             // Altera a situação da eliminação para eliminado
             $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
@@ -34,6 +41,7 @@ class MdGdEliminacaoRN extends InfraRN {
             $objMdGdListaEliminacaoDTO = new MdGdListaEliminacaoDTO();
             $objMdGdListaEliminacaoDTO->setNumIdListaEliminacao($objMdGdEliminacaoDTO->getNumIdListaEliminacao());
             $objMdGdListaEliminacaoDTO->setStrSituacao(MdGdListaEliminacaoRN::$ST_ELIMINADA);
+            $objMdGdListaEliminacaoDTO->retDblIdProcedimentoEliminacao();
 
             $objMdGdListaEliminacaoRN = new MdGdListaEliminacaoRN();
             $objMdGdListaEliminacaoRN->alterar($objMdGdListaEliminacaoDTO);
@@ -41,43 +49,24 @@ class MdGdEliminacaoRN extends InfraRN {
             // Obtem os parâmetros para criação do processo e documento de eliminação
             $objMdGdParametroRN = new MdGdParametroRN();
             $numIdSerie = $objMdGdParametroRN->obterParametro(MdGdParametroRN::$PAR_TIPO_DOCUMENTO_ELIMINACAO);
-            $numIdTipoProcedimento = $objMdGdParametroRN->obterParametro(MdGdParametroRN::$PAR_TIPO_PROCEDIMENTO_ELIMINACAO);  
             $strConteudo = $this->obterConteudoDocumentoEliminacao();
 
-            $objRelProtocoloAssuntoDTO = new RelProtocoloAssuntoDTO();
-            $objRelProtocoloAssuntoDTO->setNumIdAssunto(340);
-            $objRelProtocoloAssuntoDTO->setNumSequencia(1);
-
-            // Gera o processo
-            $objProtocoloProcedimentoDTO = new ProtocoloDTO();
-            $objProtocoloProcedimentoDTO->setStrStaProtocolo('G');
-            $objProtocoloProcedimentoDTO->setStrDescricao('Processo de registro de eliminação');
-            $objProtocoloProcedimentoDTO->setStrStaNivelAcessoLocal(ProtocoloRN::$NA_PUBLICO);
-            $objProtocoloProcedimentoDTO->setArrObjParticipanteDTO(array());
-            $objProtocoloProcedimentoDTO->setArrObjObservacaoDTO(array());
-            $objProtocoloProcedimentoDTO->setArrObjRelProtocoloAssuntoDTO(array($objRelProtocoloAssuntoDTO));
-            
-            $objProcedimentoDTO = new ProcedimentoDTO();
-            $objProcedimentoDTO->setStrSinGerarPendencia('S');
-            $objProcedimentoDTO->setNumIdTipoProcedimento($numIdTipoProcedimento);
-            $objProcedimentoDTO->setObjProtocoloDTO($objProtocoloProcedimentoDTO);
-
-            $objProcedimentoRN = new ProcedimentoRN();
-            $objProcedimentoDTO = $objProcedimentoRN->gerarRN0156($objProcedimentoDTO);
+            // Obtem a listagem de eliminação
+            $objMdGdListaEliminacaoDTO = $objMdGdListaEliminacaoRN->consultar($objMdGdListaEliminacaoDTO);
 
             // Gera o protocolo do despacho de arquivamento
             $objProtocoloDTO = new ProtocoloDTO();
             $objProtocoloDTO->setDblIdProtocolo(null);
             $objProtocoloDTO->setStrStaProtocolo('G');
             $objProtocoloDTO->setStrStaNivelAcessoLocal(ProtocoloRN::$NA_PUBLICO);
-            $objProtocoloDTO->setStrDescricao('Despacho de Arquivamento');
+            $objProtocoloDTO->setStrDescricao('Termo de Eliminação');
             $objProtocoloDTO->setArrObjParticipanteDTO(array());
             $objProtocoloDTO->setArrObjObservacaoDTO(array());
 
-            // Gera o documento de despacho de arquivamento
+            // Gera o documento do termo de eliminação
             $objDocumentoDTO = new DocumentoDTO();
             $objDocumentoDTO->setDblIdDocumento(null);
-            $objDocumentoDTO->setDblIdProcedimento($objProcedimentoDTO->getDblIdProcedimento());
+            $objDocumentoDTO->setDblIdProcedimento($objMdGdListaEliminacaoDTO->getDblIdProcedimentoEliminacao());
             $objDocumentoDTO->setNumIdSerie($numIdSerie);
             $objDocumentoDTO->setStrStaDocumento(DocumentoRN::$TD_EDITOR_INTERNO);
             $objDocumentoDTO->setDblIdDocumentoEdoc(null);
@@ -92,13 +81,10 @@ class MdGdEliminacaoRN extends InfraRN {
             $objDocumentoRN = new DocumentoRN();
             $objDocumentoDTO = $objDocumentoRN->cadastrarRN0003($objDocumentoDTO);
 
-            // Assinatura do despacho de arquivamento
-            // $objAssinaturaDTO = $objMdGdArquivamentoDTO->getObjAssinaturaDTO();
-            // $objAssinaturaDTO->setArrObjDocumentoDTO([$objDocumentoDTO]);
-
-         //   $objDocumentoRN = new DocumentoRN();
-           // $objDocumentoRN->assinar($objAssinaturaDTO);
-
+            // Assinatura do documento termo de eliminação
+            /*$objAssinaturaDTO = $objMdGdEliminacaoDTO->getObjAssinaturaDTO();
+            $objAssinaturaDTO->setArrObjDocumentoDTO([$objDocumentoDTO]);
+            $objDocumentoRN->assinar($objAssinaturaDTO);*/
             
             // Registra a eliminação
             $objMdGdEliminacaoBD = new MdGdEliminacaoBD($this->inicializarObjInfraIBanco());
@@ -149,7 +135,6 @@ class MdGdEliminacaoRN extends InfraRN {
             '@unidade@' => $objUnidadeDTO->getStrSigla()." - ".$objUnidadeDTO->getStrDescricao(),
             '@data_eliminacao@' => date('d/m/Y H:i:s'),
             '@responsavel_eliminacao@' => SessaoSEI::getInstance()->getStrNomeUsuario()
-
         ];
 
         $objMdGdModeloDocumentoDTO = new MdGdModeloDocumentoDTO();

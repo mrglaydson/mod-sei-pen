@@ -56,6 +56,27 @@ try {
             $arrVariaveis[] = array('@data_eliminacao@', 'Data da eliminação');
             $arrVariaveis[] = array('@responsavel_eliminacao@', 'Responsável pela eliminação');
             break;
+        case 'gd_ajuda_variaveis_modelo_listagem_recolhimento':
+
+            $strTitulo = 'Variáveis Disponíveis no Modelo';
+
+            $arrVariaveis[] = array('@orgao@', 'Órgão gerador');
+            $arrVariaveis[] = array('@unidade@', 'Unidade geradora');
+            $arrVariaveis[] = array('@numero_listagem@', 'Número da listagem');
+            $arrVariaveis[] = array('@folha@', 'Número de folhas');
+            $arrVariaveis[] = array('@tabela@', 'Tabela de detalhamento da listagem');
+            $arrVariaveis[] = array('@mensuracao_total@', 'Mensuração total');
+            $arrVariaveis[] = array('@datas_limites_gerais@', 'Datas limite do arquivamento');
+            break;
+        case 'gd_ajuda_variaveis_modelo_documento_recolhimento':
+
+            $strTitulo = 'Variáveis Disponíveis no Modelo';
+
+            $arrVariaveis[] = array('@orgao@', 'Órgão gerador');
+            $arrVariaveis[] = array('@unidade@', 'Unidade geradora');
+            $arrVariaveis[] = array('@data_recolhimento@', 'Data do recolhimento');
+            $arrVariaveis[] = array('@responsavel_recolhimento@', 'Responsável pelo recolhimento');
+                break;
         default:
             throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
     }

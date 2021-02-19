@@ -53,17 +53,20 @@ try {
     $strSelSerieArquivamento = MdGdArquivamentoINT::montarSelectsSerieNomeGerados('null', '&nbsp;', $arrObjMdGdParametroDTO['DESPACHO_ARQUIVAMENTO']->getStrValor());
     $strSelSerieDesarquivamento = MdGdArquivamentoINT::montarSelectsSerieNomeGerados('null', '&nbsp;', $arrObjMdGdParametroDTO['DESPACHO_DESARQUIVAMENTO']->getStrValor());
     $strSelTipoProcedimentoListagemEliminacao = TipoProcedimentoINT::montarSelectNome('null', '&nbsp;', $arrObjMdGdParametroDTO['TIPO_PROCEDIMENTO_LISTAGEM_ELIMINACAO']->getStrValor());
-    $strSelSerieListagemEliminacao = MdGdArquivamentoINT::montarSelectsSerieNomeGerados('null', '&nbsp;', $arrObjMdGdParametroDTO['TIPO_DOCUMENTO_LISTAGEM_ELIMINACAO']->getStrValor());
-   
-    $strSelTipoProcedimetoEliminacao =TipoProcedimentoINT::montarSelectNome('null', '&nbsp;', $arrObjMdGdParametroDTO['TIPO_PROCEDIMENTO_ELIMINACAO']->getStrValor());  
+    $strSelSerieListagemEliminacao = MdGdArquivamentoINT::montarSelectsSerieNomeGerados('null', '&nbsp;', $arrObjMdGdParametroDTO['TIPO_DOCUMENTO_LISTAGEM_ELIMINACAO']->getStrValor());   
     $strSelSerieDocumentoEliminacao = MdGdArquivamentoINT::montarSelectsSerieNomeGerados('null', '&nbsp;', $arrObjMdGdParametroDTO['TIPO_DOCUMENTO_ELIMINACAO']->getStrValor());
+    $strSelTipoProcedimentoListagemRecolhimento = TipoProcedimentoINT::montarSelectNome('null', '&nbsp;', $arrObjMdGdParametroDTO['TIPO_PROCEDIMENTO_LISTAGEM_RECOLHIMENTO']->getStrValor()); // MUDARRRR
+    $strSelSerieListagemRecolhimento = MdGdArquivamentoINT::montarSelectsSerieNomeGerados('null', '&nbsp;', $arrObjMdGdParametroDTO['TIPO_DOCUMENTO_LISTAGEM_RECOLHIMENTO']->getStrValor());   
+    $strSelSerieDocumentoRecolhimento = MdGdArquivamentoINT::montarSelectsSerieNomeGerados('null', '&nbsp;', $arrObjMdGdParametroDTO['TIPO_DOCUMENTO_RECOLHIMENTO']->getStrValor());
 
     $strNomeDespachoArquivamento = $arrObjMdGdParametroDTO[MdGdParametroRN::$PAR_DESPACHO_ARQUIVAMENTO]->getStrNome();
     $strNomeDespachoDesarquivamento = $arrObjMdGdParametroDTO[MdGdParametroRN::$PAR_DESPACHO_DESARQUIVAMENTO]->getStrNome();
     $strNomeTipoProcedimentoListagemEliminacao = $arrObjMdGdParametroDTO[MdGdParametroRN::$PAR_TIPO_PROCEDIMENTO_LISTAGEM_ELIMINACAO]->getStrNome();
     $strNomeTipoDocumentoListagemEliminacao = $arrObjMdGdParametroDTO[MdGdParametroRN::$PAR_TIPO_DOCUMENTO_LISTAGEM_ELIMINACAO]->getStrNome();
-    $strNomeTipoProcedimentoEliminacao = $arrObjMdGdParametroDTO[MdGdParametroRN::$PAR_TIPO_PROCEDIMENTO_ELIMINACAO]->getStrNome();
     $strNomeTipoDocumentoEliminacao = $arrObjMdGdParametroDTO[MdGdParametroRN::$PAR_TIPO_DOCUMENTO_ELIMINACAO]->getStrNome();
+    $strNomeTipoProcedimentoListagemRecolhimento = $arrObjMdGdParametroDTO[MdGdParametroRN::$PAR_TIPO_PROCEDIMENTO_LISTAGEM_RECOLHIMENTO]->getStrNome();
+    $strNomeTipoDocumentoListagemRecolhimento = $arrObjMdGdParametroDTO[MdGdParametroRN::$PAR_TIPO_DOCUMENTO_LISTAGEM_RECOLHIMENTO]->getStrNome();
+    $strNomeTipoDocumentoRecolhimento = $arrObjMdGdParametroDTO[MdGdParametroRN::$PAR_TIPO_DOCUMENTO_RECOLHIMENTO]->getStrNome();
 
 } catch (Exception $e) {
     PaginaSEI::getInstance()->processarExcecao($e);
@@ -79,22 +82,28 @@ PaginaSEI::getInstance()->abrirStyle();
 ?>
 
 #lbl<?= $strNomeDespachoArquivamento; ?> {position:absolute;left:0%;top:0%;width:50%;}
-#sel<?= $strNomeDespachoArquivamento; ?> {position:absolute;left:0%;top:6%;width:50%;}
+#sel<?= $strNomeDespachoArquivamento; ?> {position:absolute;left:0%;top:5%;width:50%;}
 
-#lbl<?= $strNomeDespachoDesarquivamento; ?> {position:absolute;left:0%;top:14%;width:20%;}
-#sel<?= $strNomeDespachoDesarquivamento; ?> {position:absolute;left:0%;top:20%;width:20%;}
+#lbl<?= $strNomeDespachoDesarquivamento; ?> {position:absolute;left:0%;top:12%;width:20%;}
+#sel<?= $strNomeDespachoDesarquivamento; ?> {position:absolute;left:0%;top:17%;width:20%;}
 
-#lbl<?= $strNomeTipoProcedimentoListagemEliminacao; ?> {position:absolute;left:0%;top:28%;width:30%;}
-#sel<?= $strNomeTipoProcedimentoListagemEliminacao; ?> {position:absolute;left:0%;top:34%;width:40%;}
+#lbl<?= $strNomeTipoProcedimentoListagemEliminacao; ?> {position:absolute;left:0%;top:24%;width:30%;}
+#sel<?= $strNomeTipoProcedimentoListagemEliminacao; ?> {position:absolute;left:0%;top:29%;width:40%;}
 
-#lbl<?= $strNomeTipoDocumentoListagemEliminacao; ?> {position:absolute;left:0%;top:43%;width:30%;}
-#sel<?= $strNomeTipoDocumentoListagemEliminacao; ?> {position:absolute;left:0%;top:49%;width:40%;}
+#lbl<?= $strNomeTipoDocumentoListagemEliminacao; ?> {position:absolute;left:0%;top:36%;width:30%;}
+#sel<?= $strNomeTipoDocumentoListagemEliminacao; ?> {position:absolute;left:0%;top:41%;width:40%;}
 
-#lbl<?= $strNomeTipoProcedimentoEliminacao; ?> {position:absolute;left:0%;top:56%;width:30%;}
-#sel<?= $strNomeTipoProcedimentoEliminacao; ?> {position:absolute;left:0%;top:62%;width:40%;}
+#lbl<?= $strNomeTipoDocumentoEliminacao; ?> {position:absolute;left:0%;top:48%;width:30%;}
+#sel<?= $strNomeTipoDocumentoEliminacao; ?> {position:absolute;left:0%;top:53%;width:40%;}
 
-#lbl<?= $strNomeTipoDocumentoEliminacao; ?> {position:absolute;left:0%;top:69%;width:30%;}
-#sel<?= $strNomeTipoDocumentoEliminacao; ?> {position:absolute;left:0%;top:75%;width:40%;}
+#lbl<?= $strNomeTipoProcedimentoListagemRecolhimento; ?> {position:absolute;left:0%;top:61%;width:30%;}
+#sel<?= $strNomeTipoProcedimentoListagemRecolhimento; ?> {position:absolute;left:0%;top:66%;width:40%;}
+
+#lbl<?= $strNomeTipoDocumentoListagemRecolhimento; ?> {position:absolute;left:0%;top:73%;width:30%;}
+#sel<?= $strNomeTipoDocumentoListagemRecolhimento; ?> {position:absolute;left:0%;top:78%;width:40%;}
+
+#lbl<?= $strNomeTipoDocumentoRecolhimento; ?> {position:absolute;left:0%;top:85%;width:30%;}
+#sel<?= $strNomeTipoDocumentoRecolhimento; ?> {position:absolute;left:0%;top:90%;width:40%;}
 <?
 PaginaSEI::getInstance()->fecharStyle();
 PaginaSEI::getInstance()->montarJavaScript();
@@ -130,15 +139,27 @@ document.getElementById('sel<?= $strNomeTipoDocumentoListagemEliminacao; ?>').fo
 return false;
 }
 
-if (infraTrim(document.getElementById('sel<?= $strNomeTipoProcedimentoEliminacao; ?>').value)=='null') {
-alert('Informe o tipo de processo da eliminação.');
-document.getElementById('sel<?= $strNomeTipoProcedimentoEliminacao; ?>').focus();
-return false;
-}
-
 if (infraTrim(document.getElementById('sel<?= $strNomeTipoDocumentoEliminacao; ?>').value)=='null') {
 alert('Informe o tipo de documento da eliminação.');
 document.getElementById('sel<?= $strNomeTipoDocumentoEliminacao; ?>').focus();
+return false;
+}
+
+if (infraTrim(document.getElementById('sel<?= $strNomeTipoProcedimentoListagemRecolhimento; ?>').value)=='null') {
+alert('Informe o tipo de processo da listagem de recolhimento.');
+document.getElementById('sel<?= $strNomeTipoProcedimentoListagemRecolhimento; ?>').focus();
+return false;
+}
+
+if (infraTrim(document.getElementById('sel<?= $strNomeTipoDocumentoListagemRecolhimento; ?>').value)=='null') {
+alert('Informe o tipo de documento da listagem de recolhimento.');
+document.getElementById('sel<?= $strNomeTipoDocumentoListagemRecolhimento; ?>').focus();
+return false;
+}
+
+if (infraTrim(document.getElementById('sel<?= $strNomeTipoDocumentoRecolhimento; ?>').value)=='null') {
+alert('Informe o tipo de documento da recolhimento.');
+document.getElementById('sel<?= $strNomeTipoDocumentoRecolhimento; ?>').focus();
 return false;
 }
 
@@ -159,7 +180,7 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
           <?
           PaginaSEI::getInstance()->montarBarraComandosSuperior($arrComandos);
 //PaginaSEI::getInstance()->montarAreaValidacao();
-          PaginaSEI::getInstance()->abrirAreaDados('30em');
+          PaginaSEI::getInstance()->abrirAreaDados('40em');
           ?>
 
     <label id="lbl<?= $strNomeDespachoArquivamento ?>" for="sel<?= $strNomeDespachoArquivamento ?>" accesskey="p"
@@ -197,17 +218,6 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
                 <?= $strSelSerieListagemEliminacao; ?>
     </select>
 
-
-    <label id="lbl<?= $strNomeTipoProcedimentoEliminacao ?>" for="sel<?= $strNomeTipoProcedimentoEliminacao ?>" accesskey="p"
-           class="infraLabelObrigatorio"><span
-            class="infraTeclaAtalho">T</span>ipo de processo da eliminação:</label>
-    <select name="sel<?= $strNomeTipoProcedimentoEliminacao ?>" id="sel<?= $strNomeTipoProcedimentoEliminacao ?>"
-            class="infraSelect"
-            tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
-                <?= $strSelTipoProcedimetoEliminacao; ?>
-    </select>
-
-
     <label id="lbl<?= $strNomeTipoDocumentoEliminacao ?>" for="sel<?= $strNomeTipoDocumentoEliminacao ?>" accesskey="p"
            class="infraLabelObrigatorio"><span
             class="infraTeclaAtalho">T</span>ipo de documento da eliminação:</label>
@@ -216,6 +226,34 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
             tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
                 <?= $strSelSerieDocumentoEliminacao; ?>
     </select>
+
+    <label id="lbl<?= $strNomeTipoProcedimentoListagemRecolhimento ?>" for="sel<?= $strNomeTipoProcedimentoListagemRecolhimento ?>" accesskey="p"
+           class="infraLabelObrigatorio"><span
+            class="infraTeclaAtalho">T</span>ipo de processo da listagem de recolhimento:</label>
+    <select name="sel<?= $strNomeTipoProcedimentoListagemRecolhimento ?>" id="sel<?= $strNomeTipoProcedimentoListagemRecolhimento ?>"
+            class="infraSelect"
+            tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
+                <?= $strSelTipoProcedimentoListagemRecolhimento; ?>
+    </select>
+
+    <label id="lbl<?= $strNomeTipoDocumentoListagemRecolhimento ?>" for="sel<?= $strNomeTipoDocumentoListagemRecolhimento ?>" accesskey="p"
+           class="infraLabelObrigatorio"><span
+            class="infraTeclaAtalho">T</span>ipo de documento da listagem de recolhimento:</label>
+    <select name="sel<?= $strNomeTipoDocumentoListagemRecolhimento ?>" id="sel<?= $strNomeTipoDocumentoListagemRecolhimento ?>"
+            class="infraSelect"
+            tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
+                <?= $strSelSerieListagemRecolhimento; ?>
+    </select>
+
+    <label id="lbl<?= $strNomeTipoDocumentoRecolhimento ?>" for="sel<?= $strNomeTipoDocumentoRecolhimento ?>" accesskey="p"
+           class="infraLabelObrigatorio"><span
+            class="infraTeclaAtalho">T</span>ipo de documento da recolhimento:</label>
+    <select name="sel<?= $strNomeTipoDocumentoRecolhimento ?>" id="sel<?= $strNomeTipoDocumentoRecolhimento ?>"
+            class="infraSelect"
+            tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
+                <?= $strSelSerieDocumentoRecolhimento; ?>
+    </select>
+
 
     <?
     PaginaSEI::getInstance()->fecharAreaDados();

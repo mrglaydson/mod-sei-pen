@@ -63,6 +63,69 @@ class MdGdListaRecolhimentoRN extends InfraRN {
             $objArquivamentoRN = new ArquivamentoRN();
             $strSinDocumentosFisicos = $objArquivamentoRN->contar($objArquivamentoDTO) == 0 ? 'N' : 'S';
 
+            // Recupera os tipos de procedimento e documento que serão criados no arquivamento
+            $objMdGdParametroRN = new MdGdParametroRN();
+            $numIdTipoProcedimentoArquivamento = $objMdGdParametroRN->obterParametro(MdGdParametroRN::$PAR_TIPO_PROCEDIMENTO_LISTAGEM_RECOLHIMENTO);
+            $numIdTipoDocumentoArquivamento = $objMdGdParametroRN->obterParametro(MdGdParametroRN::$PAR_TIPO_DOCUMENTO_LISTAGEM_RECOLHIMENTO);
+            
+            $arrIdProtocolo = [];
+            foreach($arrObjMdGdArquivamentoDTO as $objMdGdArquivamentoDTO){
+                $arrIdProtocolo[] = $objMdGdArquivamentoDTO->getDblIdProcedimento();
+            }
+
+            // Busca os assuntos que serão inseridos no processo
+            $objRelProtocoloAssuntoDTO = new RelProtocoloAssuntoDTO();
+            $objRelProtocoloAssuntoDTO->setDblIdProtocolo($arrIdProtocolo, InfraDTO::$OPER_IN);
+            $objRelProtocoloAssuntoDTO->retNumIdAssunto();
+            $objRelProtocoloAssuntoDTO->retNumSequencia();
+
+            $objRelProtocoloProtocoloRN = new RelProtocoloAssuntoRN();
+            $arrayAssuntos = $objRelProtocoloProtocoloRN->listarRN0188($objRelProtocoloAssuntoDTO);
+
+            // Cria o processo
+            $objProtocoloDTO = new ProtocoloDTO();
+            $objProtocoloDTO->setStrDescricao('Listagem de recolhimento');
+            $objProtocoloDTO->setStrStaNivelAcessoLocal(ProtocoloRN::$NA_PUBLICO);
+            $objProtocoloDTO->setArrObjRelProtocoloAssuntoDTO($arrayAssuntos);
+            $objProtocoloDTO->setArrObjParticipanteDTO(array());
+            $objProtocoloDTO->setArrObjObservacaoDTO(array());
+
+            $objProcedimentoDTO = new ProcedimentoDTO();
+            $objProcedimentoDTO->setNumIdTipoProcedimento($numIdTipoProcedimentoArquivamento);
+            $objProcedimentoDTO->setObjProtocoloDTO($objProtocoloDTO);
+            $objProcedimentoDTO->setStrSinGerarPendencia('S');
+
+            // Cadastra o processo
+            $objProcedimentoRN = new ProcedimentoRN();
+            $objProcedimentoDTO = $objProcedimentoRN->gerarRN0156($objProcedimentoDTO);
+
+            // Cadastra o doumento
+            $objDocumentoDTO = new DocumentoDTO();
+            $objDocumentoDTO->setDblIdDocumento(null);
+            $objDocumentoDTO->setDblIdProcedimento($objProcedimentoDTO->getDblIdProcedimento());
+
+            $objProtocoloDTO = new ProtocoloDTO();
+            $objProtocoloDTO->setDblIdProtocolo(null);
+            $objProtocoloDTO->setStrStaProtocolo('G');
+            $objProtocoloDTO->setStrDescricao('');
+
+            $objDocumentoDTO->setNumIdSerie($numIdTipoDocumentoArquivamento);
+            $objDocumentoDTO->setDblIdDocumentoEdoc(null);
+            $objDocumentoDTO->setDblIdDocumentoEdocBase(null);
+            $objDocumentoDTO->setNumIdUnidadeResponsavel(SessaoSEI::getInstance()->getNumIdUnidadeAtual());
+            $objDocumentoDTO->setNumIdTipoConferencia(null);
+            $objDocumentoDTO->setStrNumero('');
+
+            $objProtocoloDTO->setStrStaNivelAcessoLocal(ProtocoloRN::$NA_PUBLICO);
+            $objProtocoloDTO->setArrObjParticipanteDTO(array());
+            $objProtocoloDTO->setArrObjObservacaoDTO(array());
+            $objDocumentoDTO->setObjProtocoloDTO($objProtocoloDTO);
+            $objDocumentoDTO->setStrStaDocumento(DocumentoRN::$TD_EDITOR_INTERNO);
+            $objDocumentoDTO->setStrConteudo($this->obterConteudoDocumentoRecolhimento($arrObjMdGdArquivamentoDTO));
+
+            $objDocumentoRN = new DocumentoRN();
+            $objDocumentoDTO = $objDocumentoRN->cadastrarRN0003($objDocumentoDTO);
+            
             // Cria a listagem de recolhimento
             $objMdGdListaRecolhimentoDTO = new MdGdListaRecolhimentoDTO();
             $objMdGdListaRecolhimentoDTO->setStrNumero($this->obterProximaNumeroListagem());
@@ -72,6 +135,8 @@ class MdGdListaRecolhimentoRN extends InfraRN {
             $objMdGdListaRecolhimentoDTO->setNumQtdProcessos(count($arrObjMdGdArquivamentoDTO));
             $objMdGdListaRecolhimentoDTO->setStrSituacao(self::$ST_GERADA);
             $objMdGdListaRecolhimentoDTO->setStrSinDocumentosFisicos($strSinDocumentosFisicos);
+            $objMdGdListaRecolhimentoDTO->setDblIdProcedimentoRecolhimento($objProcedimentoDTO->getDblIdProcedimento());
+            $objMdGdListaRecolhimentoDTO->setDblIdDocumentoRecolhimento($objDocumentoDTO->getDblIdDocumento());
 
             $objMdGdListaRecolhimentoBD = new MdGdListaRecolhimentoBD($this->getObjInfraIBanco());
             $objMdGdListaRecolhimentoDTO = $objMdGdListaRecolhimentoBD->cadastrar($objMdGdListaRecolhimentoDTO);
@@ -90,13 +155,11 @@ class MdGdListaRecolhimentoRN extends InfraRN {
                 $objMdGdListRecolProcedimentoBD->cadastrar($objMdGdListaRecolProcedimentoDTO);
 
                 // Altera a situação do arquivamento do procedimento
+                $objMdGdArquivamentoDTO->setNumIdListaRecolhimento($objMdGdListaRecolhimentoDTO->getNumIdListaRecolhimento());
                 $objMdGdArquivamentoDTO->setStrSituacao(MdGdArquivamentoRN::$ST_ENVIADO_RECOLHIMENTO);
                 $objMdGdArquivamentoRN->alterar($objMdGdArquivamentoDTO);
             }
 
-
-            // CODE: 
-            // -- Criação da listagem de recolhimento
         } catch (Exception $e) {
             throw new InfraException('Erro ao cadastrar a listagem de recolhimento.', $e);
         }
@@ -155,6 +218,146 @@ class MdGdListaRecolhimentoRN extends InfraRN {
         return $numeroListagem . "/" . date('Y');
     }
 
+    public function obterConteudoDocumentoRecolhimento($arrObjMdGdArquivamentoDTO) {
+        $objSessaoSEI = SessaoSEI::getInstance();
+
+        $numAnoLimiteInicial = 0;
+        $numAnoLimiteFinal = 0;
+
+        foreach ($arrObjMdGdArquivamentoDTO as $objMdGdArquivamentoDTO) {
+            $numAnoInicial = (int) substr($objMdGdArquivamentoDTO->getDthDataGuardaCorrente(), 6, 4);
+            $numAnoFinal = (int) substr($objMdGdArquivamentoDTO->getDthDataGuardaIntermediaria(), 6, 4);
+
+            $numAnoLimiteInicial = $numAnoLimiteInicial > $numAnoInicial || !$numAnoLimiteInicial ? $numAnoInicial : $numAnoLimiteInicial;
+            $numAnoLimiteFinal = $numAnoLimiteFinal < $numAnoFinal ? $numAnoFinal : $numAnoLimiteFinal;
+        }
+
+        $arrVariaveisModelo = [
+            '@orgao@' => $objSessaoSEI->getStrDescricaoOrgaoUsuario(),
+            '@unidade@' => $objSessaoSEI->getStrSiglaUnidadeAtual() . ' - ' . $objSessaoSEI->getStrSiglaUnidadeAtual(),
+            '@numero_listagem@' => $this->obterProximaNumeroListagem(),
+            '@folha@' => '1/1', // Verificar depois
+            '@tabela@' => '',
+            '@mensuracao_total@' => count($arrObjMdGdArquivamentoDTO) . ' processos',
+            '@datas_limites_gerais@' => $numAnoLimiteInicial.'-'.$numAnoLimiteFinal
+        ];
+
+        $strHtmlTabela = '<table border="1" style="width: 1000px;">';
+        $strHtmlTabela .= '<thead><tr>';
+        $strHtmlTabela .= '<th>CÓDIGO DE CLASSIFICAÇÃO</th>';
+        $strHtmlTabela .= '<th>DESCRITOR DO CÓDIGO</th>';
+        $strHtmlTabela .= '<th>DATAS-LIMITE</th>';
+        $strHtmlTabela .= '<th>PROCESSO Nº</th>';
+        $strHtmlTabela .= '<th>OBSERVAÇÕES E/OU JUSTIFICATIVAS</th>';
+        $strHtmlTabela .= '</thead></tr>';
+
+        $strHtmlTabela .= '<tbody>';
+
+        foreach ($arrObjMdGdArquivamentoDTO as $objMdGdArquivamentoDTO) {
+            // Obtem os dados do assunto
+            $objRelProtocoloAssuntoRN = new RelProtocoloAssuntoRN();
+            $objRelProtocoloAssuntoDTO = new RelProtocoloAssuntoDTO();
+
+            $objRelProtocoloAssuntoDTO->setDblIdProtocolo($objMdGdArquivamentoDTO->getDblIdProtocoloProcedimento());
+            $objRelProtocoloAssuntoDTO->retStrCodigoEstruturadoAssunto();
+            $objRelProtocoloAssuntoDTO->retStrDescricaoAssunto();
+
+            $arrObjRelProtocoloAssuntoDTO = $objRelProtocoloAssuntoRN->listarRN0188($objRelProtocoloAssuntoDTO);
+
+            $strCodigoClassificacao = '';
+            $strDescritorCodigo = '';
+
+            foreach ($arrObjRelProtocoloAssuntoDTO as $key => $objRelProtocoloAssuntoDTO) {
+                if ($key + 1 == count($arrObjRelProtocoloAssuntoDTO)) {
+                    $strCodigoClassificacao .= $objRelProtocoloAssuntoDTO->getStrCodigoEstruturadoAssunto();
+                    $strDescritorCodigo .= $objRelProtocoloAssuntoDTO->getStrDescricaoAssunto();
+                } else {
+                    $strCodigoClassificacao .= $objRelProtocoloAssuntoDTO->getStrCodigoEstruturadoAssunto() . "  <br><br>  ";
+                    $strDescritorCodigo .= $objRelProtocoloAssuntoDTO->getStrDescricaoAssunto() . "  <br><br>  ";
+                }
+            }
+
+            $numAnoLimiteInicial = 0;
+            $numAnoLimiteFinal = 0;
+
+            foreach ($arrObjMdGdArquivamentoDTO as $objMdGdArquivamentoDTO2) {
+                $numAnoInicial = (int) substr($objMdGdArquivamentoDTO2->getDthDataGuardaCorrente(), 6, 4);
+                $numAnoFinal = (int) substr($objMdGdArquivamentoDTO2->getDthDataGuardaIntermediaria(), 6, 4);
+    
+                $numAnoLimiteInicial = $numAnoLimiteInicial > $numAnoInicial || !$numAnoLimiteInicial ? $numAnoInicial : $numAnoLimiteInicial;
+                $numAnoLimiteFinal = $numAnoLimiteFinal < $numAnoFinal ? $numAnoFinal : $numAnoLimiteFinal;
+            }
+
+            $strHtmlTabela .= '<tr>';
+            $strHtmlTabela .= '<td>' . $strCodigoClassificacao . '</td>';
+            $strHtmlTabela .= '<td>' . $strDescritorCodigo . '</td>';
+            $strHtmlTabela .= '<td>' . $numAnoLimiteInicial.'-'.$numAnoLimiteFinal.'</td>';
+            $strHtmlTabela .= '<td>' . $objMdGdArquivamentoDTO->getStrProtocoloFormatado().'</td>';
+            $strHtmlTabela .= '<td>' . $objMdGdArquivamentoDTO->getStrObservacaoRecolhimento() . '</td>';
+            $strHtmlTabela .= '</tr>';
+        }
+
+        $strHtmlTabela .= '</tbody>';
+        $strHtmlTabela .= '</table>';
+
+        $arrVariaveisModelo['@tabela@'] = $strHtmlTabela;
+
+        // Calcula o tamanho
+        $arrIdProcedimentos = [];
+        foreach($arrObjMdGdArquivamentoDTO as $objMdGdArquivamentoDTO){
+            $arrIdProcedimentos[] = $objMdGdArquivamentoDTO->getDblIdProcedimento();
+        }
+
+        $objDocumentoDTO = new DocumentoDTO();
+        $objDocumentoDTO->setDblIdProcedimento($arrIdProcedimentos, InfraDTO::$OPER_IN);
+        $objDocumentoDTO->retDblIdDocumento();
+
+        $objDocumentoRN = new DocumentoRN();
+        $arrObjDocumentoDTO = $objDocumentoRN->listarRN0008($objDocumentoDTO);
+
+        $arrIdDocumentos = [];
+        foreach($arrObjDocumentoDTO as $objDocumentoDTO){
+            $arrIdDocumentos[] = $objDocumentoDTO->getDblIdDocumento();
+        }
+
+        // Calcula o tamanho dos anexos
+        $objAnexoDTO = new AnexoDTO();
+        $objAnexoDTO->setNumIdAnexo($arrIdDocumentos, InfraDTO::$OPER_IN);
+        $objAnexoDTO->retNumTamanho();
+
+        $objAnexoRN = new AnexoRN();
+        $arrAnexoDTO = $objAnexoRN->listarRN0218($objAnexoDTO);
+
+        $numTamanho = 0;
+        foreach($arrAnexoDTO as $objAnexoDTO) {
+            $numTamanho += $objAnexoDTO->getNumTamanho();
+        }
+
+        // Calcula o tamanho dos documentos nato digital
+        $objDocumentoConteudoDTO = new DocumentoConteudoDTO();
+        $objDocumentoConteudoDTO->setDblIdDocumento($arrIdDocumentos, InfraDTO::$OPER_IN);
+        $objDocumentoConteudoDTO->retStrConteudo();
+
+        $objDocumentoConteudoRN = new DocumentoConteudoBD($this->getObjInfraIBanco());
+        $arrObjDocumentoConteudoDTO = $objDocumentoConteudoRN->listar($objDocumentoConteudoDTO);
+
+        foreach($arrObjDocumentoConteudoDTO as $objDocumentoConteudoDTO){
+            $numTamanho += strlen($objDocumentoConteudoDTO->getStrConteudo()) / 8000;
+        }
+        $arrVariaveisModelo['@folha@'] = $numTamanho;
+
+        $objMdGdModeloDocumentoDTO = new MdGdModeloDocumentoDTO();
+        $objMdGdModeloDocumentoDTO->setStrNome(MdGdModeloDocumentoRN::MODELO_LISTAGEM_ELIMINACAO);
+        $objMdGdModeloDocumentoDTO->retTodos();
+
+        $objMdGdModeloDocumentoRN = new MdGdModeloDocumentoRN();
+        $objMdGdModeloDocumentoDTO = $objMdGdModeloDocumentoRN->consultar($objMdGdModeloDocumentoDTO);
+
+        $str = $objMdGdModeloDocumentoDTO->getStrValor();
+        $str = strtr($str, $arrVariaveisModelo);
+        return $str;
+    }
+
     public function gerarPdfConectado($numIdListagem) {
         $objMdGdListaRecolProcedimentoDTO = new MdGdListaRecolProcedimentoDTO();
         $objMdGdListaRecolProcedimentoDTO->setNumIdListaRecolhimento($_GET['id_listagem_recolhimento']);
@@ -194,7 +397,7 @@ class MdGdListaRecolhimentoRN extends InfraRN {
             $strResultado .= '<table width="99%" class="infraTable" border="1">';
             $strResultado .= '<tr>';
             $strResultado .= '<th class="infraTh" width="13%">Descrição Unidade Corrente</th>';
-            $strResultado .= '<th class="infraTh" width="10%">Código da Classificação</th>';
+            $strResultado .= '<th class="infraTh" width="10%">Código de Classificação</th>';
             $strResultado .= '<th class="infraTh" width="20%">Descritor do Código</th>';
             $strResultado .= '<th class="infraTh" width="14%">Nº do Processo</th>';
             $strResultado .= '<th class="infraTh" width="15%">Tipo de Processo</th>';
@@ -223,8 +426,8 @@ class MdGdListaRecolhimentoRN extends InfraRN {
                         $strCodigoClassificacao .= $objRelProtocoloAssuntoDTO->getStrCodigoEstruturadoAssunto();
                         $strDescritorCodigo .= $objRelProtocoloAssuntoDTO->getStrDescricaoAssunto();
                     } else {
-                        $strCodigoClassificacao .= $objRelProtocoloAssuntoDTO->getStrCodigoEstruturadoAssunto() . " / ";
-                        $strDescritorCodigo .= $objRelProtocoloAssuntoDTO->getStrDescricaoAssunto() . " / ";
+                        $strCodigoClassificacao .= $objRelProtocoloAssuntoDTO->getStrCodigoEstruturadoAssunto() . " <br><br> ";
+                        $strDescritorCodigo .= $objRelProtocoloAssuntoDTO->getStrDescricaoAssunto() . " <br><br> ";
                     }
                 }
 
@@ -232,8 +435,8 @@ class MdGdListaRecolhimentoRN extends InfraRN {
                 $strResultado .= $strCssTr;
 
                 $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getStrDescricaoUnidadeCorrente()) . '</td>';
-                $strResultado .= '<td>' . PaginaSEI::tratarHTML($strCodigoClassificacao) . '</td>';
-                $strResultado .= '<td>' . PaginaSEI::tratarHTML($strDescritorCodigo) . '</td>';
+                $strResultado .= '<td>' . $strCodigoClassificacao . '</td>';
+                $strResultado .= '<td>' . $strDescritorCodigo . '</td>';
                 $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getStrProtocoloFormatado()) . '</td>';
                 $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getStrNomeTipoProcedimento()) . '</td>';
                 $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getDthDataArquivamento()) . '</td>';
@@ -247,7 +450,7 @@ class MdGdListaRecolhimentoRN extends InfraRN {
         $strCaminhoArquivoPdf = DIR_SEI_TEMP . '/gerar-pdf-listagem-recolhimento-' . date('YmdHis') . '.pdf';
         file_put_contents($strCaminhoArquivoHtml, $strResultado);
 
-        $strComandoGerarPdf = DIR_SEI_BIN . '/wkhtmltopdf-amd64 --quiet --title md_gd_pdf_listagem_recolhimento-' . InfraUtil::retirarFormatacao('1123123', false) . ' ' . $strCaminhoArquivoHtml . '  ' . $strCaminhoArquivoPdf . ' 2>&1';
+        $strComandoGerarPdf = DIR_SEI_BIN . '/wkhtmltopdf-amd64 --quiet --orientation \'landscape\' --title md_gd_pdf_listagem_recolhimento-' . InfraUtil::retirarFormatacao('1123123', false) . ' ' . $strCaminhoArquivoHtml . '  ' . $strCaminhoArquivoPdf . ' 2>&1';
         shell_exec($strComandoGerarPdf);
         SeiINT::download(null, $strCaminhoArquivoPdf, 'listagem_recolhimento.pdf', 'attachment', true);
     }
@@ -292,6 +495,7 @@ class MdGdListaRecolhimentoRN extends InfraRN {
                 throw new InfraException('Informe o id da lista de recolhimento para concluir a edição.');
             }
 
+            $objMdGdListaRecolhimentoDTO->retDblIdProcedimentoRecolhimento();
             $objMdGdListaRecolhimentoDTO->retNumIdListaRecolhimento();
             $objMdGdListaRecolhimentoDTO->retStrSituacao();
 
@@ -310,8 +514,14 @@ class MdGdListaRecolhimentoRN extends InfraRN {
             $arrObjMdGdListaRecolProcedimentoDTO = $objMdGdListaRecolProcedimentoRN->listar($objMdGdListaRecolProcedimentoDTO);
             $totalProcessos = count($arrObjMdGdListaRecolProcedimentoDTO);
 
+            if($totalProcessos == 0) {
+                $objInfraException = new InfraException();
+                $objInfraException->lancarValidacao('Não é possível concluir a edição pois não há processos na listagem.');
+            }
+
             // Obtem os documentos vinculados aos processos da listagem
             $arrIdsProcedimentos = [];
+            $arrObjMdGdArquivamentoDTO = [];
 
             foreach($arrObjMdGdListaRecolProcedimentoDTO as $objMdGdListaRecolProcedimentoDTO){
                 $arrIdsProcedimentos[] = $objMdGdListaRecolProcedimentoDTO->getDblIdProcedimento();
@@ -337,7 +547,59 @@ class MdGdListaRecolhimentoRN extends InfraRN {
 
                 $objArquivamentoRN = new ArquivamentoRN();
                 $strSinDocumentosFisicos = $objArquivamentoRN->contar($objArquivamentoDTO) == 0 ? 'N' : 'S';
+
+                // Obtem os arquivamentos dos processos
+                $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
+                $objMdGdArquivamentoDTO->setDblIdProcedimento($arrIdsProcedimentos, InfraDTO::$OPER_IN);
+                $objMdGdArquivamentoDTO->setStrSinAtivo('S');
+                $objMdGdArquivamentoDTO->retDblIdProcedimento();
+                $objMdGdArquivamentoDTO->retDblIdProtocoloProcedimento();
+                $objMdGdArquivamentoDTO->retDthDataGuardaCorrente();
+                $objMdGdArquivamentoDTO->retDthDataGuardaIntermediaria();
+                $objMdGdArquivamentoDTO->retStrProtocoloFormatado();
+                $objMdGdArquivamentoDTO->retStrObservacaoRecolhimento();
+
+                $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
+                $arrObjMdGdArquivamentoDTO = $objMdGdArquivamentoRN->listar($objMdGdArquivamentoDTO);
+
             }
+
+            $objMdGdParametroRN = new MdGdParametroRN();
+            $numIdTipoDocumento = $objMdGdParametroRN->obterParametro(MdGdParametroRN::$PAR_TIPO_DOCUMENTO_LISTAGEM_RECOLHIMENTO);
+
+            $objDocumentoDTO = new DocumentoDTO();
+            $objDocumentoDTO->setDblIdDocumento(null);
+            $objDocumentoDTO->setDblIdProcedimento($objMdGdListaRecolhimentoDTO->getDblIdProcedimentoRecolhimento());
+
+            $objProtocoloDTO = new ProtocoloDTO();
+            $objProtocoloDTO->setDblIdProtocolo(null);
+            $objProtocoloDTO->setStrStaProtocolo('G');
+            $objProtocoloDTO->setStrDescricao('');
+
+            $objDocumentoDTO->setNumIdSerie($numIdTipoDocumento);
+            $objDocumentoDTO->setDblIdDocumentoEdoc(null);
+            $objDocumentoDTO->setDblIdDocumentoEdocBase(null);
+            $objDocumentoDTO->setNumIdUnidadeResponsavel(SessaoSEI::getInstance()->getNumIdUnidadeAtual());
+            $objDocumentoDTO->setNumIdTipoConferencia(null);
+            $objDocumentoDTO->setStrNumero('');
+
+            $objProtocoloDTO->setStrStaNivelAcessoLocal(ProtocoloRN::$NA_PUBLICO);
+            $objProtocoloDTO->setArrObjParticipanteDTO(array());
+            $objProtocoloDTO->setArrObjObservacaoDTO(array());
+
+            $objDocumentoDTO->setObjProtocoloDTO($objProtocoloDTO);
+            $objDocumentoDTO->setStrStaDocumento(DocumentoRN::$TD_EDITOR_INTERNO);
+
+            if($arrObjMdGdArquivamentoDTO){
+                $objDocumentoDTO->setStrConteudo($this->obterConteudoDocumentoRecolhimento($arrObjMdGdArquivamentoDTO));
+            }else{
+                $objDocumentoDTO->setStrConteudo('');
+            }
+
+            $objDocumentoRN = new DocumentoRN();
+            $objDocumentoDTO = $objDocumentoRN->cadastrarRN0003($objDocumentoDTO);
+
+            $objMdGdListaRecolhimentoDTO->setDblIdDocumentoRecolhimento($objDocumentoDTO->getDblIdDocumento());
             $objMdGdListaRecolhimentoDTO->setStrSituacao(self::$ST_GERADA);
             $objMdGdListaRecolhimentoDTO->setNumQtdProcessos($totalProcessos);
             $objMdGdListaRecolhimentoDTO->setStrSinDocumentosFisicos($strSinDocumentosFisicos);

@@ -52,6 +52,12 @@ try {
         case MdGdModeloDocumentoRN::MODELO_DOCUMENTO_ELIMINACAO:
             $link = 'gd_ajuda_variaveis_modelo_documento_eliminacao';
             break;
+        case MdGdModeloDocumentoRN::MODELO_LISTAGEM_RECOLHIMENTO:
+            $link = 'gd_ajuda_variaveis_modelo_listagem_recolhimento';
+            break;
+        case MdGdModeloDocumentoRN::MODELO_DOCUMENTO_RECOLHIMENTO:
+            $link = 'gd_ajuda_variaveis_modelo_documento_recolhimento';
+            break;
     }
     //Cria o editor que ir ser exibido na tela
     $objEditorRN = new EditorRN();
@@ -105,6 +111,12 @@ $objPagina->montarJavaScript();
             </option>
             <option value="<?= MdGdModeloDocumentoRN::MODELO_DOCUMENTO_ELIMINACAO ?>" <?= $_POST['selModeloDocumento'] == MdGdModeloDocumentoRN::MODELO_DOCUMENTO_ELIMINACAO ? 'selected' : '' ?>>
                 Documento de eliminação
+            </option>
+            <option value="<?= MdGdModeloDocumentoRN::MODELO_LISTAGEM_RECOLHIMENTO ?>" <?= $_POST['selModeloDocumento'] == MdGdModeloDocumentoRN::MODELO_LISTAGEM_RECOLHIMENTO ? 'selected' : '' ?>>
+                Listagem de recolhimento
+            </option>
+            <option value="<?= MdGdModeloDocumentoRN::MODELO_DOCUMENTO_RECOLHIMENTO ?>" <?= $_POST['selModeloDocumento'] == MdGdModeloDocumentoRN::MODELO_DOCUMENTO_RECOLHIMENTO ? 'selected' : '' ?>>
+                Documento de recolhimento
             </option>
         </select><br>
         <? if (isset($_POST['selModeloDocumento']) && !empty($_POST['selModeloDocumento'])): ?>

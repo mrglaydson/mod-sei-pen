@@ -108,6 +108,11 @@ class MdGdArquivamentoDTO extends InfraDTO
                                               'usuario u');
         
         $this->adicionarAtributoTabelaRelacionada(InfraDTO::$PREFIXO_STR,
+                                              'SiglaUnidadeCorrente',
+                                              'unc.sigla',
+                                              'unidade unc');
+
+        $this->adicionarAtributoTabelaRelacionada(InfraDTO::$PREFIXO_STR,
                                      'DescricaoUnidadeCorrente',
                                      'unc.descricao',
                                      'unidade unc');
