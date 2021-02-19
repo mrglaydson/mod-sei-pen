@@ -438,7 +438,7 @@
         ["xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[3]/td[8]", "xpath:idRelative"],
         ["xpath=//tr[3]/td[8]", "xpath:position"]
       ],
-      "value": "0 anos, 11 meses e 29 dias."
+      "value": "0 anos, 11 meses e 26 dias."
     }, {
       "id": "f57dc5bd-512f-49e1-9516-e0d1a33da74e",
       "comment": "",
@@ -449,7 +449,7 @@
         ["xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[3]/td[8]", "xpath:idRelative"],
         ["xpath=//tr[3]/td[8]", "xpath:position"]
       ],
-      "value": "2 anos, 11 meses e 29 dias."
+      "value": "2 anos, 11 meses e 26 dias."
     }, {
       "id": "582a4b37-d9bc-4b65-9621-5d432dcfb28d",
       "comment": "",

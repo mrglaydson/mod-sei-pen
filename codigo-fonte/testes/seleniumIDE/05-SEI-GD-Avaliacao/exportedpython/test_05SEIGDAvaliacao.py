@@ -47,7 +47,7 @@ class Test05SEIGDAvaliacao():
     self.driver.find_element(By.ID, "txtObservacaoDevolucao").click()
     self.driver.find_element(By.ID, "txtObservacaoDevolucao").send_keys("teste")
     self.driver.find_element(By.NAME, "sbmDevolver").click()
-    time.sleep(3)
+    time.sleep(3000)
     self.driver.switch_to.window(self.vars["root"])
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (19 registros):"
@@ -62,14 +62,14 @@ class Test05SEIGDAvaliacao():
     self.driver.find_element(By.ID, "sbmLogin").click()
     self.driver.find_element(By.LINK_TEXT, "Arquivo da Unidade").click()
     assert self.driver.find_element(By.CSS_SELECTOR, "b").text == "Devolvido para correção"
-    assert self.driver.find_element(By.LINK_TEXT, "99993.000001/2020-38").text == "99993.000001/2020-38"
+    assert self.driver.find_element(By.LINK_TEXT, "99993.000001/2021-19").text == "99993.000001/2021-19"
     self.driver.find_element(By.XPATH, "//img[@title=\'Editar Processo\']").click()
     self.driver.switch_to.alert.accept()
     self.driver.find_element(By.LINK_TEXT, "Controle de Processos").click()
-    element = self.driver.find_element(By.LINK_TEXT, "99993.000001/2020-38")
+    element = self.driver.find_element(By.LINK_TEXT, "99993.000001/2021-19")
     actions = ActionChains(self.driver)
     actions.move_to_element(element).perform()
-    self.driver.find_element(By.LINK_TEXT, "99993.000001/2020-38").click()
+    self.driver.find_element(By.LINK_TEXT, "99993.000001/2021-19").click()
     self.driver.switch_to.frame(1)
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".botaoSEI:nth-child(3) > .infraCorBarraSistema")))
     self.driver.find_element(By.CSS_SELECTOR, ".botaoSEI:nth-child(3) > .infraCorBarraSistema").click()
