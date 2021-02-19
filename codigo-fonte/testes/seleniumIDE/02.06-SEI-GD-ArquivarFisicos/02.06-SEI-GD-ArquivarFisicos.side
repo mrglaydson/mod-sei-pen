@@ -163,6 +163,35 @@
       "targets": [],
       "value": "label=Tipo de Localizador 01"
     }, {
+      "id": "34bbb92c-9e92-4045-a4ee-c97a5ae27725",
+      "comment": "",
+      "command": "pause",
+      "target": "5000",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8a593917-298b-4f48-b5a2-f7d5ca9755de",
+      "comment": "",
+      "command": "click",
+      "target": "id=selLocalizador",
+      "targets": [
+        ["id=selLocalizador", "id"],
+        ["name=selLocalizador", "name"],
+        ["css=#selLocalizador", "css:finder"],
+        ["xpath=//select[@id='selLocalizador']", "xpath:attributes"],
+        ["xpath=//div[@id='divDadosArquivamento']/select[2]", "xpath:idRelative"],
+        ["xpath=//select[2]", "xpath:position"],
+        ["xpath=//select[contains(.,'TLOC01-1')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "00ba6e77-3d57-4f77-b845-6692c2d7b379",
+      "comment": "",
+      "command": "select",
+      "target": "id=selLocalizador",
+      "targets": [],
+      "value": "label=TLOC01-1"
+    }, {
       "id": "f5dc4783-b02b-4b52-bc1d-e62a9c444e68",
       "comment": "",
       "command": "click",
@@ -175,28 +204,6 @@
         ["xpath=//div[@id='divDadosArquivamento']/select", "xpath:idRelative"],
         ["xpath=//div[3]/select", "xpath:position"],
         ["xpath=//select[contains(.,' \nTipo de Localizador 01\nTipo de Localizador 02')]", "xpath:innerText"]
-      ],
-      "value": ""
-    }, {
-      "id": "a50f70c1-e41b-404c-b75f-92ed8a9214b4",
-      "comment": "",
-      "command": "select",
-      "target": "id=selLocalizador",
-      "targets": [],
-      "value": "label=TLOC01-1"
-    }, {
-      "id": "86eab063-a821-4966-afd8-c01f9479b1d4",
-      "comment": "",
-      "command": "click",
-      "target": "id=selLocalizador",
-      "targets": [
-        ["id=selLocalizador", "id"],
-        ["name=selLocalizador", "name"],
-        ["css=#selLocalizador", "css:finder"],
-        ["xpath=//select[@id='selLocalizador']", "xpath:attributes"],
-        ["xpath=//div[@id='divDadosArquivamento']/select[2]", "xpath:idRelative"],
-        ["xpath=//select[2]", "xpath:position"],
-        ["xpath=//select[contains(.,'TLOC01-1')]", "xpath:innerText"]
       ],
       "value": ""
     }, {
@@ -561,6 +568,13 @@
       "target": "id=selTipoLocalizador",
       "targets": [],
       "value": "label=Tipo de Localizador 01"
+    }, {
+      "id": "a36ae04e-0788-44f5-b3db-8821cd60c700",
+      "comment": "",
+      "command": "pause",
+      "target": "5000",
+      "targets": [],
+      "value": ""
     }, {
       "id": "6830c433-9732-4d46-9457-786516405967",
       "comment": "",
