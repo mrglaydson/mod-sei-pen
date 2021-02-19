@@ -236,21 +236,14 @@
     }, {
       "id": "17c7c36d-fd39-407b-940a-d2d97cac431c",
       "comment": "",
-      "command": "click",
+      "command": "//click",
       "target": "id=selTIPO_PROCEDIMENTO_ELIMINACAO",
-      "targets": [
-        ["id=selTIPO_PROCEDIMENTO_ELIMINACAO", "id"],
-        ["name=selTIPO_PROCEDIMENTO_ELIMINACAO", "name"],
-        ["css=#selTIPO_PROCEDIMENTO_ELIMINACAO", "css:finder"],
-        ["xpath=//select[@id='selTIPO_PROCEDIMENTO_ELIMINACAO']", "xpath:attributes"],
-        ["xpath=//div[@id='divInfraAreaDados']/select[5]", "xpath:idRelative"],
-        ["xpath=//select[5]", "xpath:position"]
-      ],
+      "targets": [],
       "value": ""
     }, {
       "id": "35124497-30a8-477d-ac0a-7aed0fd7f4b3",
       "comment": "",
-      "command": "click",
+      "command": "//click",
       "target": "xpath=//select[@id='selTIPO_PROCEDIMENTO_ELIMINACAO']/option[text()='Gestão da Informação: Avaliação/Destinação de Documentos']",
       "targets": [],
       "value": ""
@@ -264,21 +257,14 @@
     }, {
       "id": "fc8e5b0c-2cac-4f7b-a220-17e6d9941a80",
       "comment": "",
-      "command": "click",
+      "command": "//click",
       "target": "id=selTIPO_PROCEDIMENTO_ELIMINACAO",
-      "targets": [
-        ["id=selTIPO_PROCEDIMENTO_ELIMINACAO", "id"],
-        ["name=selTIPO_PROCEDIMENTO_ELIMINACAO", "name"],
-        ["css=#selTIPO_PROCEDIMENTO_ELIMINACAO", "css:finder"],
-        ["xpath=//select[@id='selTIPO_PROCEDIMENTO_ELIMINACAO']", "xpath:attributes"],
-        ["xpath=//div[@id='divInfraAreaDados']/select[5]", "xpath:idRelative"],
-        ["xpath=//select[5]", "xpath:position"]
-      ],
+      "targets": [],
       "value": ""
     }, {
       "id": "728d621e-54a7-4aae-bbfd-5460372358e7",
       "comment": "",
-      "command": "click",
+      "command": "//click",
       "target": "xpath=//select[@id='selTIPO_DOCUMENTO_ELIMINACAO']/option[text()='Termo de Eliminação']",
       "targets": [],
       "value": ""
@@ -292,22 +278,22 @@
     }, {
       "id": "8b63b350-b519-4f54-832c-73f9bb81a0f4",
       "comment": "",
-      "command": "click",
+      "command": "//click",
       "target": "id=selTIPO_DOCUMENTO_ELIMINACAO",
-      "targets": [
-        ["id=selTIPO_DOCUMENTO_ELIMINACAO", "id"],
-        ["name=selTIPO_DOCUMENTO_ELIMINACAO", "name"],
-        ["css=#selTIPO_DOCUMENTO_ELIMINACAO", "css:finder"],
-        ["xpath=//select[@id='selTIPO_DOCUMENTO_ELIMINACAO']", "xpath:attributes"],
-        ["xpath=//div[@id='divInfraAreaDados']/select[6]", "xpath:idRelative"],
-        ["xpath=//select[6]", "xpath:position"]
-      ],
+      "targets": [],
       "value": ""
     }, {
       "id": "9e2ca171-6637-4fe6-b8a9-8bf3c9cb80fa",
       "comment": "",
       "command": "click",
       "target": "id=sbmSalvarParametro",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "71a0be10-9a0b-4360-b39a-63e97eb9126b",
+      "comment": "",
+      "command": "pause",
+      "target": "5",
       "targets": [],
       "value": ""
     }]

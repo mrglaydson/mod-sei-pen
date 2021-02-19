@@ -141,12 +141,8 @@ class Test01ConfigSEI():
     self.driver.find_element(By.ID, "selTIPO_DOCUMENTO_LISTAGEM_ELIMINACAO").click()
     self.driver.find_element(By.XPATH, "//select[@id=\'selTIPO_DOCUMENTO_LISTAGEM_ELIMINACAO\']/option[text()=\'Listagem de Eliminação\']").click()
     self.driver.find_element(By.ID, "selTIPO_DOCUMENTO_LISTAGEM_ELIMINACAO").click()
-    self.driver.find_element(By.ID, "selTIPO_PROCEDIMENTO_ELIMINACAO").click()
-    self.driver.find_element(By.XPATH, "//select[@id=\'selTIPO_PROCEDIMENTO_ELIMINACAO\']/option[text()=\'Gestão da Informação: Avaliação/Destinação de Documentos\']").click()
-    self.driver.find_element(By.ID, "selTIPO_PROCEDIMENTO_ELIMINACAO").click()
-    self.driver.find_element(By.XPATH, "//select[@id=\'selTIPO_DOCUMENTO_ELIMINACAO\']/option[text()=\'Termo de Eliminação\']").click()
-    self.driver.find_element(By.ID, "selTIPO_DOCUMENTO_ELIMINACAO").click()
     self.driver.find_element(By.ID, "sbmSalvarParametro").click()
+    time.sleep(5)
   
   def test_justificativas(self):
     self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
