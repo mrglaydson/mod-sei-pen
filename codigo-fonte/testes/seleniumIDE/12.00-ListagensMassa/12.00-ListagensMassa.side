@@ -685,7 +685,7 @@
       "id": "e47e40ca-204c-4254-96c5-1f7fdeeefd98",
       "comment": "",
       "command": "click",
-      "target": "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[6]/a[1]",
+      "target": "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[7]/a[1]",
       "targets": [
         ["css=.infraTrSelecionada a:nth-child(2) > .infraImg", "css:finder"],
         ["xpath=//img[@title='Visualizar Listagem de Eliminacao']", "xpath:img"],

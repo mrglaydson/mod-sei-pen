@@ -124,7 +124,8 @@ class Test1300ArquivamentoLegado():
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (48 registros):"
     self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[2]/td[8]").click()
-    assert self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[2]/td[8]").text == "1 ano, 9 meses e 20 dias."
+    elements = self.driver.find_elements(By.XPATH, "//td[contains(.,\'1 ano, 9 meses\')]")
+    assert len(elements) > 0
     dropdown = self.driver.find_element(By.ID, "selTipoProcedimento")
     dropdown.find_element(By.XPATH, "//option[. = 'Acesso à Informação: Demanda do e-SIC']").click()
     self.driver.find_element(By.ID, "selTipoProcedimento").click()

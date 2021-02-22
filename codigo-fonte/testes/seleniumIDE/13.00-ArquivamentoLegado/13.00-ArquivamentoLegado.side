@@ -1080,16 +1080,18 @@
       ],
       "value": ""
     }, {
+      "id": "53dc8421-ec0c-4a3a-802c-4ddfd216c489",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "xpath=//td[contains(.,'1 ano, 9 meses')]",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "2df3be33-c201-418b-ab36-4d696db2aa75",
       "comment": "",
-      "command": "verifyText",
+      "command": "//verifyText",
       "target": "xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[2]/td[8]",
-      "targets": [
-        ["css=.infraTrSelecionada > td:nth-child(8)", "css:finder"],
-        ["xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[2]/td[8]", "xpath:idRelative"],
-        ["xpath=//td[8]", "xpath:position"],
-        ["xpath=//td[contains(.,'1 ano, 9 meses e 25 dias.')]", "xpath:innerText"]
-      ],
+      "targets": [],
       "value": "1 ano, 9 meses e 26 dias."
     }, {
       "id": "367fd4b8-1591-4edc-8ac6-8df640c7690f",
