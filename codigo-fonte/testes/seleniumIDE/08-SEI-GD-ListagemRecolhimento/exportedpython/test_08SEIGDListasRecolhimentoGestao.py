@@ -45,6 +45,7 @@ class Test08SEIGDListasRecolhimentoGestao():
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos (4 registros):"
     self.driver.find_element(By.ID, "btnCancelar").click()
+    WebDriverWait(self.driver, 30000).until(expected_conditions.presence_of_element_located((By.XPATH, "(//img[@title=\'Visualizar Listagem de Recolhimento\'])[2]")))
     self.driver.find_element(By.XPATH, "(//img[@title=\'Visualizar Listagem de Recolhimento\'])[2]").click()
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".infraCaption")))
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()

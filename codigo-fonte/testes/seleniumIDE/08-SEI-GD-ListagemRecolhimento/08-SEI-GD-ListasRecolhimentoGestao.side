@@ -372,6 +372,13 @@
       ],
       "value": ""
     }, {
+      "id": "df6b78b5-6693-4abf-9956-92c3bf3f06f1",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "xpath=(//img[@title='Visualizar Listagem de Recolhimento'])[2]",
+      "targets": [],
+      "value": "30000"
+    }, {
       "id": "161f33b9-7fe7-4715-b17e-5845f8600008",
       "comment": "",
       "command": "click",
