@@ -335,14 +335,9 @@
     }, {
       "id": "42f8498c-b524-417f-9b5e-88af425cdc49",
       "comment": "",
-      "command": "click",
+      "command": "//click",
       "target": "css=.infraCaption",
-      "targets": [
-        ["css=.infraCaption", "css:finder"],
-        ["xpath=//div[@id='divInfraAreaTabela']/table/caption", "xpath:idRelative"],
-        ["xpath=//caption", "xpath:position"],
-        ["xpath=//caption[contains(.,'Lista de Lista de Processos (4 registros):')]", "xpath:innerText"]
-      ],
+      "targets": [],
       "value": ""
     }, {
       "id": "75e38d27-da7f-43b5-b099-efd6f20aee5c",
@@ -356,6 +351,33 @@
         ["xpath=//caption[contains(.,'Lista de Lista de Processos (4 registros):')]", "xpath:innerText"]
       ],
       "value": "Lista de Processos (4 registros):"
+    }, {
+      "id": "0f1d58b2-652a-466e-87fa-66883f21f797",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "id=divInfraBarraLocalizacao",
+      "targets": [],
+      "value": "30000"
+    }, {
+      "id": "146afc64-2e76-4633-8fa7-f8a23083b390",
+      "comment": "",
+      "command": "click",
+      "target": "id=divInfraBarraLocalizacao",
+      "targets": [
+        ["id=divInfraBarraLocalizacao", "id"],
+        ["css=#divInfraBarraLocalizacao", "css:finder"],
+        ["xpath=//div[@id='divInfraBarraLocalizacao']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaTelaD']/div", "xpath:idRelative"],
+        ["xpath=//div[4]/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "73a6ea5c-61c3-4d23-986c-3c579962b83e",
+      "comment": "",
+      "command": "waitForElementPresent",
+      "target": "id=btnCancelar",
+      "targets": [],
+      "value": "30000"
     }, {
       "id": "b56138ad-53bf-4ef9-aa76-72ce189ec131",
       "comment": "",
