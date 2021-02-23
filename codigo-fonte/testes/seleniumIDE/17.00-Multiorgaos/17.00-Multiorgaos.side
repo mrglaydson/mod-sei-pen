@@ -1406,6 +1406,13 @@
       ],
       "value": "arquivistaorg2"
     }, {
+      "id": "86769b43-a121-4509-b579-030ecb238575",
+      "comment": "",
+      "command": "chooseOkOnNextConfirmation",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "8d638755-8a1e-4b4f-bb00-21ef66023747",
       "comment": "",
       "command": "click",
@@ -1422,6 +1429,13 @@
       "comment": "",
       "command": "assertAlert",
       "target": "Não existe andamento registrado no(s) processo(s) selecionado na data de arquivamento informada.",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d2b0d825-5dd8-4ed6-8f8d-0365b208b06f",
+      "comment": "",
+      "command": "webdriverChooseOkOnVisibleConfirmation",
+      "target": "",
       "targets": [],
       "value": ""
     }, {

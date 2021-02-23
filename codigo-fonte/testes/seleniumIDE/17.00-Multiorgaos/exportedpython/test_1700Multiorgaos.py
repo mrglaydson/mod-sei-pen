@@ -177,6 +177,7 @@ class Test1700Multiorgaos():
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivistaorg2")
     self.driver.find_element(By.CSS_SELECTOR, "#sbmSalvar > .infraTeclaAtalho").click()
     assert self.driver.switch_to.alert.text == "Não existe andamento registrado no(s) processo(s) selecionado na data de arquivamento informada."
+    self.driver.switch_to.alert.accept()
     self.driver.find_element(By.ID, "divInfraAreaTelaD").click()
     elements = self.driver.find_elements(By.ID, "divInfraBarraLocalizacao")
     assert len(elements) > 0
