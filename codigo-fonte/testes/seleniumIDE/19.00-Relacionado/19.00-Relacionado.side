@@ -2297,18 +2297,25 @@
       "value": "",
       "opensWindow": true,
       "windowHandleName": "win1700",
-      "windowTimeout": 2000
+      "windowTimeout": 5000
+    }, {
+      "id": "7d3caa41-85eb-4b48-a096-ad4ae4af0750",
+      "comment": "",
+      "command": "pause",
+      "target": "5000",
+      "targets": [],
+      "value": ""
     }, {
       "id": "a82898cc-0e25-4b30-9cb5-f4309bce9ce1",
       "comment": "",
-      "command": "selectWindow",
+      "command": "//selectWindow",
       "target": "handle=${win1700}",
       "targets": [],
       "value": ""
     }, {
       "id": "82bc96e1-b336-4b81-81f0-c24414f26cc0",
       "comment": "",
-      "command": "close",
+      "command": "//close",
       "target": "",
       "targets": [],
       "value": ""
