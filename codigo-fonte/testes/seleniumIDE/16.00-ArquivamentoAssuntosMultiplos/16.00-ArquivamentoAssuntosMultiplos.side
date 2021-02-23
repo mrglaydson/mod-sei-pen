@@ -953,7 +953,7 @@
     }, {
       "id": "49d0a516-e20a-4eb0-86a9-8a7cd40f30fa",
       "comment": "",
-      "command": "webdriverChooseOkOnVisibleConfirmation",
+      "command": "//webdriverChooseOkOnVisibleConfirmation",
       "target": "",
       "targets": [],
       "value": ""
@@ -1878,7 +1878,7 @@
     }, {
       "id": "f2cde374-54d8-4e7b-92d6-ae6e55f8d3e6",
       "comment": "",
-      "command": "webdriverChooseOkOnVisibleConfirmation",
+      "command": "//webdriverChooseOkOnVisibleConfirmation",
       "target": "",
       "targets": [],
       "value": ""
