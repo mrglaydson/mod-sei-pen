@@ -17,6 +17,7 @@ class Test00ConfigSIP():
   
   def teardown_method(self, method):
     self.driver.quit()
+    #asdf
   
   def test_sIPCriarMontarOrgao(self):
     self.driver.get("http://seigd.intra.planejamento//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SIP")
