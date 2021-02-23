@@ -379,6 +379,13 @@
       "targets": [],
       "value": "30000"
     }, {
+      "id": "b8f36faf-2e0d-4e98-bb0f-b6ac32a1b5ff",
+      "comment": "",
+      "command": "pause",
+      "target": "5000",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "b56138ad-53bf-4ef9-aa76-72ce189ec131",
       "comment": "",
       "command": "click",

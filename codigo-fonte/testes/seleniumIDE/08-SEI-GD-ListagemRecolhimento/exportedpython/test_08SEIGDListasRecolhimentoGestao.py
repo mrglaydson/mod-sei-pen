@@ -45,7 +45,10 @@ class Test08SEIGDListasRecolhimentoGestao():
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos (4 registros):"
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "divInfraBarraLocalizacao")))
     self.driver.find_element(By.ID, "divInfraBarraLocalizacao").click()
+    time.sleep(2)
+    self.driver.find_element(By.ID, "divInfraBarraLocalizacao").click()
     WebDriverWait(self.driver, 30000).until(expected_conditions.presence_of_element_located((By.ID, "btnCancelar")))
+    time.sleep(5)
     self.driver.find_element(By.ID, "btnCancelar").click()
     WebDriverWait(self.driver, 30000).until(expected_conditions.presence_of_element_located((By.XPATH, "(//img[@title=\'Visualizar Listagem de Recolhimento\'])[2]")))
     self.driver.find_element(By.XPATH, "(//img[@title=\'Visualizar Listagem de Recolhimento\'])[2]").click()
