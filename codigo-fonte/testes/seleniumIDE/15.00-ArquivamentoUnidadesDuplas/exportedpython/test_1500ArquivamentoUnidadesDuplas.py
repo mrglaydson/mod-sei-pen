@@ -93,6 +93,7 @@ class Test1500ArquivamentoUnidadesDuplas():
     self.driver.find_element(By.CSS_SELECTOR, "body").click()
     self.driver.find_element(By.ID, "chkSinManterAberto").click()
     self.driver.find_element(By.ID, "sbmEnviar").click()
+    WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.XPATH, "//img[@alt=\'Concluir Processo\']")))
     self.driver.find_element(By.XPATH, "//img[@alt=\'Concluir Processo\']").click()
     time.sleep(2)
     self.driver.switch_to.default_content()
@@ -100,6 +101,6 @@ class Test1500ArquivamentoUnidadesDuplas():
     self.driver.find_element(By.LINK_TEXT, "Pendências de Arquivamento").click()
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[2]")))
     self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[2]").click()
-    elements = self.driver.find_elements(By.XPATH, "//a[contains(text(),\'99992\')]")
+    elements = self.driver.find_elements(By.XPATH, "//a[contains(text(),\'99992.000002\')]")
     assert len(elements) == 0
   

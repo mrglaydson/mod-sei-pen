@@ -659,6 +659,13 @@
       ],
       "value": ""
     }, {
+      "id": "e04a4948-07a7-47e9-9ab7-1270fc63450e",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "xpath=//img[@alt='Concluir Processo']",
+      "targets": [],
+      "value": "30000"
+    }, {
       "id": "08bd09f0-e201-4979-8f2e-268757e9b432",
       "comment": "",
       "command": "click",
@@ -740,7 +747,7 @@
       "id": "4e3af24b-0276-48c2-9246-5a37c50bcd9d",
       "comment": "",
       "command": "verifyElementNotPresent",
-      "target": "xpath=//a[contains(text(),'99992')]",
+      "target": "xpath=//a[contains(text(),'99992.000002')]",
       "targets": [
         ["linkText=99992.000007/2035-00", "linkText"],
         ["css=td:nth-child(3) > a", "css:finder"],
