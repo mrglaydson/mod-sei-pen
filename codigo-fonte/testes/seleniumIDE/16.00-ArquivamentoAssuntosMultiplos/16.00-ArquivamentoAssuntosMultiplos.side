@@ -961,9 +961,16 @@
       "id": "6ef482b1-e6a4-4eba-b887-e055f384afe6",
       "comment": "",
       "command": "pause",
-      "target": "10000",
+      "target": "2",
       "targets": [],
       "value": ""
+    }, {
+      "id": "9e9f60c1-0bfc-48b9-a472-ccaa669194ed",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "linkText=Arquivo da Unidade",
+      "targets": [],
+      "value": "30000"
     }, {
       "id": "ac63b9d1-0819-4254-9070-2e9b0211fbf2",
       "comment": "",
@@ -1886,9 +1893,16 @@
       "id": "4140671e-fc0c-4644-8273-2c1a967297ed",
       "comment": "",
       "command": "pause",
-      "target": "10000",
+      "target": "2",
       "targets": [],
       "value": ""
+    }, {
+      "id": "c22c37cc-b756-4132-ada5-735e17f017e9",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "linkText=Arquivo da Unidade",
+      "targets": [],
+      "value": "30000"
     }, {
       "id": "2adf9a9e-0df2-4d2c-a718-0b6f2c266e21",
       "comment": "",

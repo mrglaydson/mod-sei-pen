@@ -118,7 +118,8 @@ class Test1600ArquivamentoAssuntosMultiplos():
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("teste")
     self.driver.find_element(By.ID, "sbmSalvar").click()
-    time.sleep(10000)
+    time.sleep(2)
+    WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.LINK_TEXT, "Arquivo da Unidade")))
     self.driver.find_element(By.LINK_TEXT, "Arquivo da Unidade").click()
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.XPATH, "//div[@id=\'divInfraAreaTabela\']")))
     assert self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[last()]/td[8]").text == "4 anos, 0 meses e 0 dias."
@@ -231,7 +232,8 @@ class Test1600ArquivamentoAssuntosMultiplos():
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("teste")
     self.driver.find_element(By.ID, "sbmSalvar").click()
-    time.sleep(10000)
+    time.sleep(2)
+    WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.LINK_TEXT, "Arquivo da Unidade")))
     self.driver.find_element(By.LINK_TEXT, "Arquivo da Unidade").click()
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.XPATH, "//div[@id=\'divInfraAreaTabela\']")))
     assert self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[last()]/td[8]").text == "5 anos, 0 meses e 0 dias."
