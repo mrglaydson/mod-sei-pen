@@ -140,6 +140,13 @@
       ],
       "value": ""
     }, {
+      "id": "30929559-a417-472c-a9b6-909f2cb86dc1",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "id=chkInfraItem0",
+      "targets": [],
+      "value": "30000"
+    }, {
       "id": "2bb20c02-27d8-49e6-8a5a-2f4350238227",
       "comment": "",
       "command": "click",
@@ -701,6 +708,13 @@
       "comment": "",
       "command": "webdriverChooseOkOnVisibleConfirmation",
       "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f29ea283-7003-49aa-be9b-00dfe596f111",
+      "comment": "",
+      "command": "pause",
+      "target": "5000",
       "targets": [],
       "value": ""
     }, {
