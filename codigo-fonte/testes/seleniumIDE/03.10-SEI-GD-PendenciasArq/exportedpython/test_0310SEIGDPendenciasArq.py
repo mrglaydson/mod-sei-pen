@@ -38,8 +38,8 @@ class Test0310SEIGDPendenciasArq():
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("teste")
     self.driver.find_element(By.ID, "sbmSalvar").click()
-    WebDriverWait(self.driver, 60000).until(expected_conditions.visibility_of_element_located((By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/caption")))
-    WebDriverWait(self.driver, 60000).until(expected_conditions.visibility_of_element_located((By.ID, "divInfraBarraLocalizacao")))
+    WebDriverWait(self.driver, 180000).until(expected_conditions.visibility_of_element_located((By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/caption")))
+    WebDriverWait(self.driver, 180000).until(expected_conditions.visibility_of_element_located((By.ID, "divInfraBarraLocalizacao")))
     assert self.driver.find_element(By.ID, "divInfraBarraLocalizacao").text == "Pendências de Arquivamento"
   
   def test_0320VerificarPrazosUnidadeTeste(self):
