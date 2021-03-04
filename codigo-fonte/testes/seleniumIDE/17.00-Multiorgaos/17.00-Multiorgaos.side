@@ -1428,7 +1428,7 @@
       "id": "5acac6bd-9dcf-4b91-a267-41ae577ca22d",
       "comment": "",
       "command": "assertAlert",
-      "target": "Não existe andamento registrado no(s) processo(s) selecionado na data de arquivamento informada.",
+      "target": "Não existe andamento registrado no(s) processo(s) selecionado(s) na data de arquivamento informada.",
       "targets": [],
       "value": ""
     }, {
