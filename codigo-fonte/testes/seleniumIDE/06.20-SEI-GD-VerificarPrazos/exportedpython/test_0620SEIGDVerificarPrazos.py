@@ -30,7 +30,8 @@ class Test0620SEIGDVerificarPrazos():
     self.driver.find_element(By.LINK_TEXT, "Arquivo da Unidade").click()
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.XPATH, "//td[contains(.,\'Prazo expirado!\')]")))
     assert self.driver.find_element(By.XPATH, "//td[contains(.,\'Prazo expirado!\')]").text == "Prazo expirado!"
-    assert self.driver.find_element(By.XPATH, "//td[contains(.,\'1 ano\')]").text == "1 ano, 9 meses e 17 dias."
+    elements = self.driver.find_elements(By.XPATH, "//td[contains(.,\'1 ano, 9 meses\')]")
+    assert len(elements) > 0
   
   def test_0630VerificarPrazosUnidadeArquivo(self):
     self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
@@ -39,6 +40,7 @@ class Test0620SEIGDVerificarPrazos():
     self.driver.find_element(By.ID, "sbmLogin").click()
     self.driver.find_element(By.LINK_TEXT, "Arquivo da Unidade").click()
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.XPATH, "//td[contains(.,\'0 ano\')]")))
-    assert self.driver.find_element(By.XPATH, "//td[contains(.,\'0 ano\')]").text == "0 anos, 9 meses e 15 dias."
+    elements = self.driver.find_elements(By.XPATH, "//td[contains(.,\'0 anos, 9 meses\')]")
+    assert len(elements) > 0
     assert self.driver.find_element(By.XPATH, "//td[contains(.,\'10 anos\')]").text == "10 anos"
   
