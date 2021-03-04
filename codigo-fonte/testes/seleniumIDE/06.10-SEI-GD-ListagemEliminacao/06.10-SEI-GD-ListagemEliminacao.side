@@ -79,26 +79,32 @@
       "targets": [],
       "value": "30000"
     }, {
+      "id": "2dda20e8-e0ab-4b5b-a8f3-966928e4a4b4",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "//td[contains(.,'0 anos, 9 meses')]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a7131d93-4101-4a82-bb87-f4203da26cf8",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "//td[contains(.,'2 anos, 9 meses')]",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "72abaf47-3d29-4c07-bdbd-340e0347231e",
       "comment": "",
-      "command": "verifyText",
+      "command": "//verifyText",
       "target": "//td[contains(.,'0 anos')]",
-      "targets": [
-        ["css=.infraTrSelecionada > td:nth-child(8)", "css:finder"],
-        ["xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[3]/td[8]", "xpath:idRelative"],
-        ["xpath=//tr[3]/td[8]", "xpath:position"]
-      ],
+      "targets": [],
       "value": "0 anos, 9 meses e 21 dias."
     }, {
       "id": "3fd9e6ba-4c24-467b-9c6c-30c03688542a",
       "comment": "",
-      "command": "verifyText",
+      "command": "//verifyText",
       "target": "//td[contains(.,'2 anos')]",
-      "targets": [
-        ["css=.infraTrSelecionada > td:nth-child(8)", "css:finder"],
-        ["xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[3]/td[8]", "xpath:idRelative"],
-        ["xpath=//tr[3]/td[8]", "xpath:position"]
-      ],
+      "targets": [],
       "value": "2 anos, 9 meses e 21 dias."
     }]
   }, {
