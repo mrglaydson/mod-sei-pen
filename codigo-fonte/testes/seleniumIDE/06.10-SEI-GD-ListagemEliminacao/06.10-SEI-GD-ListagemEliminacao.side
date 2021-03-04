@@ -183,15 +183,18 @@
       "targets": [],
       "value": "30000"
     }, {
+      "id": "20e4dd34-10fe-4cfd-bc64-19a7bc1e671f",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "//td[contains(.,'1 ano, 9 meses')]",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "f57dc5bd-512f-49e1-9516-e0d1a33da74e",
       "comment": "",
-      "command": "verifyText",
+      "command": "//verifyText",
       "target": "//td[contains(.,'1 ano')]",
-      "targets": [
-        ["css=.infraTrSelecionada > td:nth-child(8)", "css:finder"],
-        ["xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[3]/td[8]", "xpath:idRelative"],
-        ["xpath=//tr[3]/td[8]", "xpath:position"]
-      ],
+      "targets": [],
       "value": "1 ano, 9 meses e 19 dias."
     }, {
       "id": "582a4b37-d9bc-4b65-9621-5d432dcfb28d",
