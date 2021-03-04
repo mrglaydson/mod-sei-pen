@@ -59,7 +59,10 @@ class Test0310SEIGDPendenciasArq():
     self.driver.find_element(By.ID, "sbmLogin").click()
     self.driver.find_element(By.LINK_TEXT, "Arquivo da Unidade").click()
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.XPATH, "//td[contains(.,\'2 anos\')]")))
-    assert self.driver.find_element(By.XPATH, "//td[contains(.,\'0 anos\')]").text == "0 anos, 11 meses e 26 dias."
-    assert self.driver.find_element(By.XPATH, "//td[contains(.,\'2 anos\')]").text == "2 anos, 11 meses e 26 dias."
-    assert self.driver.find_element(By.XPATH, "//td[contains(.,\'10 anos\')]").text == "10 anos"
+    elements = self.driver.find_elements(By.XPATH, "//td[contains(.,\'0 anos, 11 meses\')]")
+    assert len(elements) > 0
+    elements = self.driver.find_elements(By.XPATH, "//td[contains(.,\'2 anos, 11 meses\')]")
+    assert len(elements) > 0
+    elements = self.driver.find_elements(By.XPATH, "//td[contains(.,\'10 anos\')]")
+    assert len(elements) > 0
   
