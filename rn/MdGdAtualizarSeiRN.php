@@ -383,23 +383,23 @@ class MdGdAtualizarSeiRN extends InfraRN {
     protected function cadastrarParametros(){
         $despachoArquivamento = $this->cadastrarTipoDocumento(1, 'Termo de Arquivamento', 'Termo automático para arquivamento de processos no sistema', SerieRN::$TA_INTERNO, 34, SerieRN::$TN_SEQUENCIAL_UNIDADE);
         $despachoDesarquivamento = $this->cadastrarTipoDocumento(1, 'Termo de Desarquivamento', 'Termo automático para desarquivamento de processos no sistema', SerieRN::$TA_INTERNO, 34, SerieRN::$TN_SEQUENCIAL_UNIDADE);
-        
-        $tipoProcedimentoListagem = $this->cadastrarTipoProcedimento('Gestão da Informação: Avaliação/Destinação de Documentos', 'Gestão da Informação: Avaliação/Destinação de Documentos');
-      
+              
+        $tipoProcedimentoEliminacao = $this->cadastrarTipoProcedimento('Processo de eliminação', 'Processo de eliminação');
         $tipoDocumentoListagemEliminacao = $this->cadastrarTipoDocumento(1, 'Listagem de eliminação de documentos', 'Termo automático para listagem de eliminação de processos no sistema', SerieRN::$TA_INTERNO, 34, SerieRN::$TN_SEQUENCIAL_UNIDADE);
         $tipoDocumentoEliminacao = $this->cadastrarTipoDocumento(1, 'Termo de Eliminação', 'Termo automático para eliminação de processos no sistema', SerieRN::$TA_INTERNO, 34, SerieRN::$TN_SEQUENCIAL_UNIDADE);;
         
+        $tipoProcedimentoListagemRecolhimento = $this->cadastrarTipoProcedimento('Processo de listagem de recolhimento', 'Processo de listagem de recolhimento');
         $tipoDocumentoListagemRecolhimento = $this->cadastrarTipoDocumento(1, 'Listagem de recolhimento de documentos', 'Termo automático para listagem de recolhimento de processos no sistema', SerieRN::$TA_INTERNO, 34, SerieRN::$TN_SEQUENCIAL_UNIDADE);
         $tipoDocumentoRecolhimento = $this->cadastrarTipoDocumento(1, 'Termo de Recolhimento', 'Termo automático para recolhimento de processos no sistema', SerieRN::$TA_INTERNO, 34, SerieRN::$TN_SEQUENCIAL_UNIDADE);;
         
         $this->cadastrarParametro('DESPACHO_ARQUIVAMENTO', $despachoArquivamento);
         $this->cadastrarParametro('DESPACHO_DESARQUIVAMENTO', $despachoDesarquivamento);
 
-        $this->cadastrarParametro('TIPO_PROCEDIMENTO_LISTAGEM_ELIMINACAO', $tipoProcedimentoListagem);
+        $this->cadastrarParametro('TIPO_PROCEDIMENTO_LISTAGEM_ELIMINACAO', $tipoProcedimentoEliminacao);
         $this->cadastrarParametro('TIPO_DOCUMENTO_LISTAGEM_ELIMINACAO', $tipoDocumentoListagemEliminacao);
         $this->cadastrarParametro('TIPO_DOCUMENTO_ELIMINACAO', $tipoDocumentoEliminacao);
 
-        $this->cadastrarParametro('TIPO_PROCEDIMENTO_LISTAGEM_RECOLHIMENTO', $tipoProcedimentoListagem);
+        $this->cadastrarParametro('TIPO_PROCEDIMENTO_LISTAGEM_RECOLHIMENTO', $tipoProcedimentoListagemRecolhimento);
         $this->cadastrarParametro('TIPO_DOCUMENTO_LISTAGEM_RECOLHIMENTO', $tipoDocumentoListagemRecolhimento);
         $this->cadastrarParametro('TIPO_DOCUMENTO_RECOLHIMENTO', $tipoDocumentoRecolhimento);
     }
