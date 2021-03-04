@@ -32,6 +32,7 @@ try {
             $objMdGdArquivamentoDTO->retDblIdProcedimento();
             $objMdGdArquivamentoDTO->retDblIdProtocoloProcedimento();
             $objMdGdArquivamentoDTO->retStrProtocoloFormatado();
+            $objMdGdArquivamentoDTO->retDthDataArquivamento();
             $objMdGdArquivamentoDTO->retDthDataGuardaCorrente();
             $objMdGdArquivamentoDTO->retDthDataGuardaIntermediaria();
             $objMdGdArquivamentoDTO->retStrObservacaoRecolhimento();

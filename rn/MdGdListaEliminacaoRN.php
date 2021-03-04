@@ -48,7 +48,7 @@ class MdGdListaEliminacaoRN extends InfraRN {
 
             // INCLUI  OS DEMAIS DADOS DO PROCESSO
             $objProtocoloDTO = new ProtocoloDTO();
-            $objProtocoloDTO->setStrDescricao('Listagem de eliminação');
+            $objProtocoloDTO->setStrDescricao('Eliminação de documentos');
             $objProtocoloDTO->setStrStaNivelAcessoLocal(ProtocoloRN::$NA_PUBLICO);
             // $objProtocoloDTO->setNumIdHipoteseLegal($hipoteseLegal);
             $objProtocoloDTO->setArrObjRelProtocoloAssuntoDTO($arrayAssuntos);
@@ -97,18 +97,31 @@ class MdGdListaEliminacaoRN extends InfraRN {
             
             // Obtem os ids dos procedimentos vinculdados e os anos limite inicial e final
             $arrIdsProcedimentos = array();
+
+            // Calcula as datas limite
             $numAnoLimiteInicial = 0;
             $numAnoLimiteFinal = 0;
 
             foreach ($arrObjMdGdArquivamentoDTO as $objMdGdArquivamentoDTO) {
-                $arrIdsProcedimentos[] = $objMdGdArquivamentoDTO->getDblIdProcedimento();
-                $numAnoInicial = (int) substr($objMdGdArquivamentoDTO->getDthDataGuardaCorrente(), 6, 4);
-                $numAnoFinal = (int) substr($objMdGdArquivamentoDTO->getDthDataGuardaIntermediaria(), 6, 4);
-                
-                $numAnoLimiteInicial = $numAnoLimiteInicial > $numAnoInicial || !$numAnoLimiteInicial ? $numAnoInicial : $numAnoLimiteInicial;
+                $numAnoFinal = (int) substr($objMdGdArquivamentoDTO->getDthDataArquivamento(), 6, 4);
                 $numAnoLimiteFinal = $numAnoLimiteFinal < $numAnoFinal ? $numAnoFinal : $numAnoLimiteFinal;
+                $arrIdsProcedimentos[] = $objMdGdArquivamentoDTO->getDblIdProcedimento();
             }
 
+            $objAtividadeDTO = new AtividadeDTO();
+            $objAtividadeDTO->setDblIdProtocolo($arrIdsProcedimentos, InfraDTO::$OPER_IN);
+            $objAtividadeDTO->setOrdDthAbertura(InfraDTO::$TIPO_ORDENACAO_ASC);
+            $objAtividadeDTO->retDthAbertura();
+
+            $objAtividadeRN = new AtividadeRN();
+            $arrObjAtividadeDTO = $objAtividadeRN->listarRN0036($objAtividadeDTO);
+
+            $dthPrimeiroAndamento = $arrObjAtividadeDTO[0]->getDthAbertura();
+            $dthPrimeiroAndamento = explode(' ', $dthPrimeiroAndamento);
+            $dthPrimeiroAndamento = explode('/', $dthPrimeiroAndamento[0]);
+
+            $numAnoLimiteInicial = $dthPrimeiroAndamento[2];
+            
             // Obtem os documentos vinculados aos processos da listagem
             $objRelProtocoloProtocoloDTO = new RelProtocoloProtocoloDTO();
             $objRelProtocoloProtocoloDTO->setDblIdProtocolo1($arrIdsProcedimentos, InfraDTO::$OPER_IN);
@@ -224,16 +237,29 @@ class MdGdListaEliminacaoRN extends InfraRN {
     public function obterConteudoDocumentoEliminacao($arrObjMdGdArquivamentoDTO) {
         $objSessaoSEI = SessaoSEI::getInstance();
 
+        // Calcula as datas limite
         $numAnoLimiteInicial = 0;
         $numAnoLimiteFinal = 0;
 
         foreach ($arrObjMdGdArquivamentoDTO as $objMdGdArquivamentoDTO) {
-            $numAnoInicial = (int) substr($objMdGdArquivamentoDTO->getDthDataGuardaCorrente(), 6, 4);
-            $numAnoFinal = (int) substr($objMdGdArquivamentoDTO->getDthDataGuardaIntermediaria(), 6, 4);
-
-            $numAnoLimiteInicial = $numAnoLimiteInicial > $numAnoInicial || !$numAnoLimiteInicial ? $numAnoInicial : $numAnoLimiteInicial;
+            $numAnoFinal = (int) substr($objMdGdArquivamentoDTO->getDthDataArquivamento(), 6, 4);
             $numAnoLimiteFinal = $numAnoLimiteFinal < $numAnoFinal ? $numAnoFinal : $numAnoLimiteFinal;
+            $arrIdsProcedimentos[] = $objMdGdArquivamentoDTO->getDblIdProcedimento();
         }
+
+        $objAtividadeDTO = new AtividadeDTO();
+        $objAtividadeDTO->setDblIdProtocolo($arrIdsProcedimentos, InfraDTO::$OPER_IN);
+        $objAtividadeDTO->setOrdDthAbertura(InfraDTO::$TIPO_ORDENACAO_ASC);
+        $objAtividadeDTO->retDthAbertura();
+
+        $objAtividadeRN = new AtividadeRN();
+        $arrObjAtividadeDTO = $objAtividadeRN->listarRN0036($objAtividadeDTO);
+
+        $dthPrimeiroAndamento = $arrObjAtividadeDTO[0]->getDthAbertura();
+        $dthPrimeiroAndamento = explode(' ', $dthPrimeiroAndamento);
+        $dthPrimeiroAndamento = explode('/', $dthPrimeiroAndamento[0]);
+
+        $numAnoLimiteInicial = $dthPrimeiroAndamento[2];
 
         $arrVariaveisModelo = [
             '@orgao@' => $objSessaoSEI->getStrDescricaoOrgaoUsuario(),
@@ -245,7 +271,7 @@ class MdGdListaEliminacaoRN extends InfraRN {
             '@datas_limites_gerais@' => $numAnoLimiteInicial.'-'.$numAnoLimiteFinal
         ];
 
-        $strHtmlTabela = '<table border="1" style="width: 1000px;">';
+        $strHtmlTabela = '<table border="1" cellpadding="1" cellspacing="1" style="margin-left:auto;margin-right:auto; width: 873px;">';
         $strHtmlTabela .= '<thead><tr>';
         $strHtmlTabela .= '<th>CÓDIGO DE CLASSIFICAÇÃO</th>';
         $strHtmlTabela .= '<th>DESCRITOR DO CÓDIGO</th>';
@@ -280,16 +306,20 @@ class MdGdListaEliminacaoRN extends InfraRN {
                 }
             }
 
-            $numAnoLimiteInicial = 0;
-            $numAnoLimiteFinal = 0;
-
-            foreach ($arrObjMdGdArquivamentoDTO as $objMdGdArquivamentoDTO2) {
-                $numAnoInicial = (int) substr($objMdGdArquivamentoDTO2->getDthDataGuardaCorrente(), 6, 4);
-                $numAnoFinal = (int) substr($objMdGdArquivamentoDTO2->getDthDataGuardaIntermediaria(), 6, 4);
+            $objAtividadeDTO = new AtividadeDTO();
+            $objAtividadeDTO->setDblIdProtocolo($objMdGdArquivamentoDTO->getDblIdProtocoloProcedimento());
+            $objAtividadeDTO->setOrdDthAbertura(InfraDTO::$TIPO_ORDENACAO_ASC);
+            $objAtividadeDTO->retDthAbertura();
     
-                $numAnoLimiteInicial = $numAnoLimiteInicial > $numAnoInicial || !$numAnoLimiteInicial ? $numAnoInicial : $numAnoLimiteInicial;
-                $numAnoLimiteFinal = $numAnoLimiteFinal < $numAnoFinal ? $numAnoFinal : $numAnoLimiteFinal;
-            }
+            $objAtividadeRN = new AtividadeRN();
+            $arrObjAtividadeDTO = $objAtividadeRN->listarRN0036($objAtividadeDTO);
+    
+            $dthPrimeiroAndamento = $arrObjAtividadeDTO[0]->getDthAbertura();
+            $dthPrimeiroAndamento = explode(' ', $dthPrimeiroAndamento);
+            $dthPrimeiroAndamento = explode('/', $dthPrimeiroAndamento[0]);
+    
+            $numAnoLimiteInicial = $dthPrimeiroAndamento[2];
+            $numAnoLimiteFinal = (int) substr($objMdGdArquivamentoDTO->getDthDataArquivamento(), 6, 4);
 
             $strHtmlTabela .= '<tr>';
             $strHtmlTabela .= '<td>' . $strCodigoClassificacao . '</td>';
@@ -567,12 +597,42 @@ class MdGdListaEliminacaoRN extends InfraRN {
                 $objMdGdArquivamentoDTO->retDblIdProcedimento();
                 $objMdGdArquivamentoDTO->retDblIdProtocoloProcedimento();
                 $objMdGdArquivamentoDTO->retStrObservacaoEliminacao();
+                $objMdGdArquivamentoDTO->retDthDataArquivamento();
                 $objMdGdArquivamentoDTO->retDthDataGuardaCorrente();
                 $objMdGdArquivamentoDTO->retDthDataGuardaIntermediaria();
                 $objMdGdArquivamentoDTO->retStrProtocoloFormatado();
 
                 $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
                 $arrObjMdGdArquivamentoDTO = $objMdGdArquivamentoRN->listar($objMdGdArquivamentoDTO);
+
+                // Calcula as datas limite
+                $numAnoLimiteInicial = 0;
+                $numAnoLimiteFinal = 0;
+                $idsProcedimento = [];
+
+                foreach ($arrObjMdGdArquivamentoDTO as $objMdGdArquivamentoDTO) {
+                    $numAnoFinal = (int) substr($objMdGdArquivamentoDTO->getDthDataArquivamento(), 6, 4);
+                    $numAnoLimiteFinal = $numAnoLimiteFinal < $numAnoFinal ? $numAnoFinal : $numAnoLimiteFinal;
+                    $idsProcedimento[] = $objMdGdArquivamentoDTO->getDblIdProcedimento();
+                }
+
+                $objAtividadeDTO = new AtividadeDTO();
+                $objAtividadeDTO->setDblIdProtocolo($idsProcedimento, InfraDTO::$OPER_IN);
+                $objAtividadeDTO->setOrdDthAbertura(InfraDTO::$TIPO_ORDENACAO_ASC);
+                $objAtividadeDTO->retDthAbertura();
+
+                $objAtividadeRN = new AtividadeRN();
+                $arrObjAtividadeDTO = $objAtividadeRN->listarRN0036($objAtividadeDTO);
+
+                $dthPrimeiroAndamento = $arrObjAtividadeDTO[0]->getDthAbertura();
+                $dthPrimeiroAndamento = explode(' ', $dthPrimeiroAndamento);
+                $dthPrimeiroAndamento = explode('/', $dthPrimeiroAndamento[0]);
+
+                $numAnoLimiteInicial = $dthPrimeiroAndamento[2];
+
+                $objMdGdListaEliminacaoDTO->setNumAnoLimiteInicio($numAnoLimiteInicial);
+                $objMdGdListaEliminacaoDTO->setNumAnoLimiteFim($numAnoLimiteFinal);
+
             }
             
             // Gera um novo documento atualizado no processo da listagem de eliminação

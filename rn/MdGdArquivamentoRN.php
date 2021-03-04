@@ -227,7 +227,7 @@ class MdGdArquivamentoRN extends InfraRN {
         // Validar unidade de arquivamento
         $objMdGdUnidadeArquivamentoRN = new MdGdUnidadeArquivamentoRN();
         if(!$objMdGdUnidadeArquivamentoRN->getNumIdUnidadeArquivamentoAtual()){
-            throw new InfraException('A unidade atual não possuí unidade de arquivamento configurada');
+            throw new InfraException('A unidade atual não possui unidade de arquivamento configurada');
         }
     }
     

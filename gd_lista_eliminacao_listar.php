@@ -149,7 +149,8 @@ try {
             }
 
             if ($bolAcaoEliminar && $arrObjMdGdListaEliminacaoDTO[$i]->getStrSituacao() == MdGdListaEliminacaoRN::$ST_GERADA) {
-                $strResultado .= '<a href="' .$strLinkVisualizar . '" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="modulos/sei-mod-gestao-documental/imagens/eliminar.png" title="Eliminar Processos" alt="Eliminar Processos" class="infraImg" /></a>&nbsp;';
+                $strLinkEliminar = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_lista_eliminacao_eliminar&acao_origem=' . $_GET['acao'] . '&id_listagem_eliminacao=' . $arrObjMdGdListaEliminacaoDTO[$i]->getNumIdListaEliminacao());
+                $strResultado .= '<a href="#" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '" onclick="acaoEliminar(\'' . $strLinkEliminar . '\')"><img src="modulos/sei-mod-gestao-documental/imagens/eliminar.png" title="Eliminar Processos" alt="Eliminar Processos" class="infraImg" /></a>&nbsp;';
             }
 
             if ($bolAcaoEliminarDocumentoFisico && $arrObjMdGdListaEliminacaoDTO[$i]->getStrSituacao() == MdGdListaEliminacaoRN::$ST_GERADA && $arrObjMdGdListaEliminacaoDTO[$i]->getStrSinDocumentosFisicos() == 'S') {
@@ -233,12 +234,18 @@ PaginaSEI::getInstance()->abrirJavaScript();
     }
 
     function acaoConcluirEdicaoListagemEliminacao(id_listagem_eliminacao){
-        if (confirm("Confirma a conclusão edição na listagem de eliminação?")) {
+        if (confirm("Confirma a conclusão da edição na listagem de eliminação?")) {
             document.getElementById('hdnInfraItemId').value = id_listagem_eliminacao;
             document.getElementById('frmAvaliacaoProcessoLista').action = '<?= $strLinkConcluirEdicaoListagem ?>';
             document.getElementById('frmAvaliacaoProcessoLista').submit();
         }
     }
+
+    <? if ($bolAcaoEliminar) { ?>
+    function acaoEliminar(link) {
+        infraAbrirJanela(link, 'janelaObservarPreparacaoListagemEliminacao', 750, 500, 'location=0,status=1,resizable=1,scrollbars=1', false);
+    }
+<? } ?>
 
 //</script>
 <?

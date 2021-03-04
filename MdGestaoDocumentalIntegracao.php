@@ -515,7 +515,7 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
                 // Validar unidade de arquivamento
                 $objMdGdUnidadeArquivamentoRN = new MdGdUnidadeArquivamentoRN();
                 if(!$objMdGdUnidadeArquivamentoRN->getNumIdUnidadeArquivamentoAtual()){
-                    throw new InfraException('A unidade atual não possuí unidade de arquivamento configurada');
+                    throw new InfraException('A unidade atual não possui unidade de arquivamento configurada');
                 }
                 $xml = InfraAjax::gerarXMLComplementosArray(array('SinValida'=> 'S'));
         }
@@ -700,6 +700,23 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
                 $objInfraException->lancarValidacao('O documento não pode ser incluído pois o processo encontra-se em correção no arquivo da unidade '.$objMdGdArquivamentoDTO->getStrSiglaUnidadeCorrente().'.');
                 return false;
             }
+        }
+
+        return null;
+    }
+
+    public function anexarProcesso(ProcedimentoAPI $objProcedimentoAPIPrincipal, ProcedimentoAPI $objProcedimentoAPIAnexado){
+        $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
+        $objMdGdArquivamentoDTO->setDblIdProcedimento([$objProcedimentoAPIPrincipal->getIdProcedimento(), $objProcedimentoAPIAnexado->getIdProcedimento()], InfraDTO::$OPER_IN);
+        $objMdGdArquivamentoDTO->setStrSituacao(MdGdArquivamentoRN::$ST_FASE_EDICAO);
+        $objMdGdArquivamentoDTO->retDblIdProcedimento();
+
+        $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
+
+        if($objMdGdArquivamentoRN->contar($objMdGdArquivamentoDTO) != 0){
+            $objInfraException = new InfraException();
+            $objInfraException->lancarValidacao('O processo não pode ser anexado pois encontra-se arquivado!');
+            return false;
         }
 
         return null;

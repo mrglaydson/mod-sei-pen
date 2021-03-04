@@ -46,7 +46,7 @@ try {
                     $objMdGdEliminacaoDTO = new MdGdEliminacaoDTO();
                     $objMdGdEliminacaoDTO->setNumIdListaEliminacao($_POST['hdnIdListagemEliminacao']);
                     $objMdGdEliminacaoDTO->setNumIdUsuario(SessaoSEI::getInstance()->getNumIdUsuario());
-                    //$objMdGdEliminacaoDTO->setStrAssinante($_POST['selCargoFuncao']);
+                    $objMdGdEliminacaoDTO->setStrAssinante($_POST['selCargoFuncao']);
                     $objMdGdEliminacaoDTO->setNumIdUnidade(SessaoSEI::getInstance()->getNumIdUnidadeAtual());
                     $objMdGdEliminacaoDTO->setNumIdSecaoImprensaNacional($_POST['selSecaoImprensaNacional']);
                     $objMdGdEliminacaoDTO->setNumIdVeiculoPublicacao($_POST['selVeiculoPublicacao']);
@@ -131,17 +131,17 @@ PaginaSEI::getInstance()->abrirJavaScript();
         window.close();
 <? } ?>
 
-    //var validSenha = false;
+    var validSenha = false;
 
     function inicializar() {
         document.getElementById('pwdSenha').focus();
     }
 
     function OnSubmitForm() {
-        /*if (document.getElementById('selCargoFuncao').value == 'null') {
+        if (document.getElementById('selCargoFuncao').value == 'null') {
             alert('Informe o cargo e função');
             return false;
-        }*/
+        }
 
         if (document.getElementById('selVeiculoPublicacao').value == 'null') {
             alert('Informe o veículo de publicação');
@@ -163,10 +163,10 @@ PaginaSEI::getInstance()->abrirJavaScript();
             return false;
         }
 
-       /* if(!validSenha){
+        if(!validSenha){
             alert('Senha incorreta!');
             return false;
-        }*/
+        }
 
         if (OnSubmitForm()) {
             bolProcessando = true;
@@ -187,7 +187,7 @@ PaginaSEI::getInstance()->abrirJavaScript();
         }
     }
 
-    /*function validarSenhaConfiguracao() {
+    function validarSenhaConfiguracao() {
         // Valida a senha do usuário
         objAjaxVerificacaoAssinatura = new infraAjaxComplementar(null,'<?=SessaoSEI::getInstance()->assinarLink('controlador_ajax.php?acao_ajax=gd_arquivamento_validar_senha')?>');
             objAjaxVerificacaoAssinatura.async = false;
@@ -202,7 +202,7 @@ PaginaSEI::getInstance()->abrirJavaScript();
                 }
             };
             objAjaxVerificacaoAssinatura.executar();
-    }*/
+    }
 
 
 //</script>
@@ -230,10 +230,10 @@ $strItensSelOrgaos = OrgaoINT::montarSelectSiglaRI1358('null', '&nbsp;', SessaoS
     <label id="lblUsuario" for="txtUsuario" accesskey="A" class="infraLabelObrigatorio"><span class="infraTeclaAtalho">U</span>suário:</label>
     <input type="text" id="txtUsuario" name="txtUsuario" class="infraText" value="<?= SessaoSEI::getInstance()->getStrNomeUsuario(); ?>" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" readonly/>
 
-    <!--<label id="lblSelCargoFuncao" for="selCargoFuncao" accesskey="F" class="infraLabelObrigatorio">Cargo / <span class="infraTeclaAtalho">F</span>unção:</label>
+    <label id="lblSelCargoFuncao" for="selCargoFuncao" accesskey="F" class="infraLabelObrigatorio">Cargo / <span class="infraTeclaAtalho">F</span>unção:</label>
     <select id="selCargoFuncao" name="selCargoFuncao" class="infraSelect" tabindex="<?php // echo PaginaSEI::getInstance()->getProxTabDados() ?>">
-        <?php // echo $strItensSelCargoFuncao ?>
-    </select> -->
+        <?php  echo $strItensSelCargoFuncao ?>
+    </select> 
     <br />
 
     <fieldset class="infraFieldset" id="fieldsetDadosImprensaNacional">
@@ -258,9 +258,9 @@ $strItensSelOrgaos = OrgaoINT::montarSelectSiglaRI1358('null', '&nbsp;', SessaoS
 
     </fieldset>
 
-    <!--<label id="lblSenha" for="pwdSenha" accesskey="" class="infraLabelObrigatorio">Senha:</label>
+    <label id="lblSenha" for="pwdSenha" accesskey="" class="infraLabelObrigatorio">Senha:</label>
     <input type="password" id="pwdSenha" name="pwdSenha" class="infraText" onkeypress="return tratarSenha(this, event);" onchange="validarSenhaConfiguracao()" value="" tabindex="<?php //echo PaginaSEI::getInstance()->getProxTabDados() ?>" />
-    -->
+    
     <?
 //PaginaSEI::getInstance()->fecharAreaDados();
     PaginaSEI::getInstance()->montarAreaDebug();

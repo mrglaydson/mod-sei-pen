@@ -331,7 +331,7 @@ document.getElementById('btnFechar').focus();
 
 <? if ($bolAcaoEditarArquivamento) { ?>
     function acaoEditarArquivamento(id_arquivamento){
-        if (confirm("Deseja editar o processo para correção? O processo será reaberto porém seu registro de arquivamento seguirá aberto.")) {
+        if (confirm("Deseja editar o processo para correção? O processo será reaberto porém seu registro de arquivamento será mantido.")) {
             document.getElementById('hdnInfraItemId').value = id_arquivamento;
             document.getElementById('frmArquivamentoListar').action = '<?= $strLinkAcaoEditarArquivamento ?>';
             document.getElementById('frmArquivamentoListar').submit();

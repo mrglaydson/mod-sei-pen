@@ -242,7 +242,7 @@ PaginaSEI::getInstance()->abrirJavaScript();
     }
 
     function acaoRecolher(id) {
-        if (confirm('Deseja mesmo enviar para recolhimento a lista selecionada?')) {
+        if (confirm('Deseja mesmo enviar para recolhimento a listagem selecionada?')) {
             document.getElementById('hdnIdListaRecolhimento').value = id;
             document.getElementById('frmGestaoListagemRecolhimento').action = '<?= SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_lista_recolhimento_recolher&acao_origem=' . $_GET['acao']) ?>';
             document.getElementById('frmGestaoListagemRecolhimento').submit();
@@ -259,7 +259,7 @@ PaginaSEI::getInstance()->abrirJavaScript();
     }
 
     function acaoConcluirEdicaoListagemRecolhimento(id_listagem_recolhimento){
-        if (confirm("Confirma a conclusão edição na listagem de recolhimento?")) {
+        if (confirm("Confirma a conclusão da edição na listagem de recolhimento?")) {
             document.getElementById('hdnInfraItemId').value = id_listagem_recolhimento;
             document.getElementById('frmGestaoListagemRecolhimento').action = '<?= $strLinkConcluirEdicaoListagem ?>';
             document.getElementById('frmGestaoListagemRecolhimento').submit();

@@ -72,12 +72,7 @@ try {
         $strLinkGerarPdf = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_lista_eliminacao_pdf_gerar&acao_origem=' . $_GET['acao'] . '&id_listagem_eliminacao=' . $_GET['id_listagem_eliminacao']);
         $arrComandos[] = '<button type="button" accesskey="P" id="btnGerarPdf" value="Gerar PDF" class="infraButton" onclick="gerarPdfMultiplo()"><span class="infraTeclaAtalho">G</span>erar PDF</button>';
     }
-
-    if ($bolAcaoEliminar && $numRegistros && $objMdGdListaEliminacaoDTO->getStrSituacao() == MdGdListaEliminacaoRN::$ST_GERADA) {
-        $strLinkEliminar = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_lista_eliminacao_eliminar&acao_origem=' . $_GET['acao'] . '&id_listagem_eliminacao=' . $_GET['id_listagem_eliminacao']);
-        $arrComandos[] = '<button type="button" accesskey="P" id="btnEliminar" value="Gerar PDF" class="infraButton" onclick="acaoEliminar(\'' . $strLinkEliminar . '\')"><span class="infraTeclaAtalho">E</span>liminar Processos</button>';
-    }
-
+    
     if($numRegistros){
         $arrComandos[] = '<button type="button" accesskey="I" id="btnImprimir" value="Imprimir" onclick="infraImprimirTabela();" class="infraButton"><span class="infraTeclaAtalho">I</span>mprimir</button>';
     }
@@ -170,11 +165,6 @@ infraEfeitoTabelas();
 document.getElementById('btnFechar').focus();
 }
 
-<? if ($bolAcaoEliminar) { ?>
-    function acaoEliminar(link) {
-    infraAbrirJanela(link, 'janelaObservarPreparacaoListagemEliminacao', 750, 500, 'location=0,status=1,resizable=1,scrollbars=1', false);
-    }
-<? } ?>
 
 
 function gerarPdfMultiplo() {

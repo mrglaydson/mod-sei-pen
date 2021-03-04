@@ -384,22 +384,22 @@ class MdGdAtualizarSeiRN extends InfraRN {
         $despachoArquivamento = $this->cadastrarTipoDocumento(1, 'Termo de Arquivamento', 'Termo automático para arquivamento de processos no sistema', SerieRN::$TA_INTERNO, 34, SerieRN::$TN_SEQUENCIAL_UNIDADE);
         $despachoDesarquivamento = $this->cadastrarTipoDocumento(1, 'Termo de Desarquivamento', 'Termo automático para desarquivamento de processos no sistema', SerieRN::$TA_INTERNO, 34, SerieRN::$TN_SEQUENCIAL_UNIDADE);
         
-        $tipoProcedimentoListagemEliminacao = $this->cadastrarTipoProcedimento('Processo de listagem de eliminação', 'Processo de listagem de eliminação');
-        $tipoDocumentoListagemEliminacao = $this->cadastrarTipoDocumento(1, 'Termo de Listagem de Eliminação', 'Termo automático para listagem de eliminação de processos no sistema', SerieRN::$TA_INTERNO, 34, SerieRN::$TN_SEQUENCIAL_UNIDADE);
+        $tipoProcedimentoListagem = $this->cadastrarTipoProcedimento('Gestão da Informação: Avaliação/Destinação de Documentos', 'Gestão da Informação: Avaliação/Destinação de Documentos');
+      
+        $tipoDocumentoListagemEliminacao = $this->cadastrarTipoDocumento(1, 'Listagem de eliminação de documentos', 'Termo automático para listagem de eliminação de processos no sistema', SerieRN::$TA_INTERNO, 34, SerieRN::$TN_SEQUENCIAL_UNIDADE);
         $tipoDocumentoEliminacao = $this->cadastrarTipoDocumento(1, 'Termo de Eliminação', 'Termo automático para eliminação de processos no sistema', SerieRN::$TA_INTERNO, 34, SerieRN::$TN_SEQUENCIAL_UNIDADE);;
         
-        $tipoProcedimentoListagemRecolhimento = $this->cadastrarTipoProcedimento('Processo de listagem de recolhimento', 'Processo de listagem de recolhimento');
-        $tipoDocumentoListagemRecolhimento = $this->cadastrarTipoDocumento(1, 'Termo de Listagem de Recolhimento', 'Termo automático para listagem de recolhimento de processos no sistema', SerieRN::$TA_INTERNO, 34, SerieRN::$TN_SEQUENCIAL_UNIDADE);
+        $tipoDocumentoListagemRecolhimento = $this->cadastrarTipoDocumento(1, 'Listagem de recolhimento de documentos', 'Termo automático para listagem de recolhimento de processos no sistema', SerieRN::$TA_INTERNO, 34, SerieRN::$TN_SEQUENCIAL_UNIDADE);
         $tipoDocumentoRecolhimento = $this->cadastrarTipoDocumento(1, 'Termo de Recolhimento', 'Termo automático para recolhimento de processos no sistema', SerieRN::$TA_INTERNO, 34, SerieRN::$TN_SEQUENCIAL_UNIDADE);;
         
         $this->cadastrarParametro('DESPACHO_ARQUIVAMENTO', $despachoArquivamento);
         $this->cadastrarParametro('DESPACHO_DESARQUIVAMENTO', $despachoDesarquivamento);
 
-        $this->cadastrarParametro('TIPO_PROCEDIMENTO_LISTAGEM_ELIMINACAO', $tipoProcedimentoListagemEliminacao);
+        $this->cadastrarParametro('TIPO_PROCEDIMENTO_LISTAGEM_ELIMINACAO', $tipoProcedimentoListagem);
         $this->cadastrarParametro('TIPO_DOCUMENTO_LISTAGEM_ELIMINACAO', $tipoDocumentoListagemEliminacao);
         $this->cadastrarParametro('TIPO_DOCUMENTO_ELIMINACAO', $tipoDocumentoEliminacao);
 
-        $this->cadastrarParametro('TIPO_PROCEDIMENTO_LISTAGEM_RECOLHIMENTO', $tipoProcedimentoListagemRecolhimento);
+        $this->cadastrarParametro('TIPO_PROCEDIMENTO_LISTAGEM_RECOLHIMENTO', $tipoProcedimentoListagem);
         $this->cadastrarParametro('TIPO_DOCUMENTO_LISTAGEM_RECOLHIMENTO', $tipoDocumentoListagemRecolhimento);
         $this->cadastrarParametro('TIPO_DOCUMENTO_RECOLHIMENTO', $tipoDocumentoRecolhimento);
     }
@@ -467,7 +467,6 @@ class MdGdAtualizarSeiRN extends InfraRN {
         </style>
         <title></title>
         <p>@orgao@</p>
-        </div>
         
         <div align="center" wfd-id="1">&nbsp;</div>
         
@@ -475,7 +474,7 @@ class MdGdAtualizarSeiRN extends InfraRN {
         
         <p class="Texto_Justificado">&nbsp;</p>
         
-        <table border="1" cellpadding="1" cellspacing="1" style="margin-left:auto;margin-right:auto;">
+        <table border="1" cellpadding="1" cellspacing="1" style="margin-left:auto;margin-right:auto; width: 873px;">
             <tbody>
                 <tr>
                     <td colspan="2" rowspan="1">
@@ -489,13 +488,13 @@ class MdGdAtualizarSeiRN extends InfraRN {
                     <p class="Tabela_Texto_Alinhado_Esquerda">Listagem n&ordm; @numero_listagem@</p>
                     </td>
                 </tr>
-                <tr>
-                    <td colspan="5" style="width: 105px;">
-                    <p class="Tabela_Texto_Centralizado">&nbsp;</p>
+            </tbody>
+        </table>
         
-                    <p>@tabela@</p>
-                    </td>
-                </tr>
+        <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;@tabela@</p>
+        
+        <table border="1" cellpadding="1" cellspacing="1" style="margin-left:auto;margin-right:auto; width: 873px;">
+            <tbody>
                 <tr>
                     <td style="width: 105px;">
                     <p class="Tabela_Texto_Centralizado"><strong>MENSURA&Ccedil;&Atilde;O</strong></p>
@@ -588,14 +587,14 @@ class MdGdAtualizarSeiRN extends InfraRN {
                     <td align="right" style="font-family:Calibri;font-size:9pt;border:0;" width="50%">SEI n&ordm; 0000045</td>
                 </tr>
             </tbody>
-        </table>
+        </table>        
         ';
     
         $strModeloListagemRecolhimento = '<meta http-equiv="Pragma" content="no-cache" /><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
         <style type="text/css">p.Citacao {font-size:10pt;font-family:Calibri;word-wrap:normal;margin:4pt 0 4pt 160px;text-align:justify;} p.Item_Alinea_Letra {font-size:12pt;font-family:Calibri;text-indent:0mm;text-align:justify;word-wrap:normal;margin:6pt 6pt 6pt 120px;counter-increment:letra_minuscula;} p.Item_Alinea_Letra:before {content:counter(letra_minuscula, lower-latin) ") ";display:inline-block;width:5mm;font-weight:normal;} p.Item_Inciso_Romano {font-size:12pt;font-family:Calibri;text-align:justify;word-wrap:normal;text-indent:0mm;margin:6pt 6pt 6pt 120px;counter-increment:romano_maiusculo;counter-reset:letra_minuscula;} p.Item_Inciso_Romano:before {content:counter(romano_maiusculo, upper-roman) " - ";display:inline-block;width:15mm;font-weight:normal;} p.Item_Nivel1 {text-transform:uppercase;font-weight:bold;background-color:#e6e6e6;font-size:12pt;font-family:Calibri;text-align:justify;word-wrap:normal;text-indent:0;margin:6pt;counter-increment:item-n1;counter-reset:item-n2 item-n3 item-n4 romano_maiusculo letra_minuscula;} p.Item_Nivel1:before {content:counter(item-n1) ".";display:inline-block;width:25mm;font-weight:normal;} p.Item_Nivel2 {font-size:12pt;font-family:Calibri;text-indent:0mm;text-align:justify;word-wrap:normal;margin:6pt;counter-increment:item-n2;counter-reset:item-n3 item-n4 romano_maiusculo letra_minuscula;} p.Item_Nivel2:before {content:counter(item-n1) "." counter(item-n2) ".";display:inline-block;width:25mm;font-weight:normal;} p.Item_Nivel3 {font-size:12pt;font-family:Calibri;text-indent:0mm;text-align:justify;word-wrap:normal;margin:6pt;counter-increment:item-n3;counter-reset:item-n4 romano_maiusculo letra_minuscula;} p.Item_Nivel3:before {content:counter(item-n1) "." counter(item-n2) "." counter(item-n3) ".";display:inline-block;width:25mm;font-weight:normal;} p.Item_Nivel4 {font-size:12pt;font-family:Calibri;text-indent:0mm;text-align:justify;word-wrap:normal;margin:6pt;counter-increment:item-n4;counter-reset:romano_maiusculo letra_minuscula;} p.Item_Nivel4:before {content:counter(item-n1) "." counter(item-n2) "." counter(item-n3) "."  counter(item-n4) ".";display:inline-block;width:25mm;font-weight:normal;} p.Paragrafo_Numerado_Nivel1 {font-size:12pt;font-family:Calibri;text-align:justify;word-wrap:normal;text-indent:0mm;margin:6pt;counter-increment:paragrafo-n1;counter-reset:paragrafo-n2 paragrafo-n3 paragrafo-n4 romano_maiusculo letra_minuscula;} p.Paragrafo_Numerado_Nivel1:before {content:counter(paragrafo-n1) ".";display:inline-block;width:25mm;font-weight:normal;} p.Paragrafo_Numerado_Nivel2 {font-size:12pt;font-family:Calibri;text-indent:0mm;text-align:justify;word-wrap:normal;margin:6pt;counter-increment:paragrafo-n2;counter-reset:paragrafo-n3 paragrafo-n4 romano_maiusculo letra_minuscula;} p.Paragrafo_Numerado_Nivel2:before {content:counter(paragrafo-n1) "." counter(paragrafo-n2) ".";display:inline-block;width:25mm;font-weight:normal;} p.Paragrafo_Numerado_Nivel3 {font-size:12pt;font-family:Calibri;text-indent:0mm;text-align:justify;word-wrap:normal;margin:6pt;counter-increment:paragrafo-n3;counter-reset:paragrafo-n4 romano_maiusculo letra_minuscula;} p.Paragrafo_Numerado_Nivel3:before {content:counter(paragrafo-n1) "." counter(paragrafo-n2) "." counter(paragrafo-n3) ".";display:inline-block;width:25mm;font-weight:normal;} p.Paragrafo_Numerado_Nivel4 {font-size:12pt;font-family:Calibri;text-indent:0mm;text-align:justify;word-wrap:normal;margin:6pt;counter-increment:paragrafo-n4;counter-reset:romano_maiusculo letra_minuscula;} p.Paragrafo_Numerado_Nivel4:before {content:counter(paragrafo-n1) "." counter(paragrafo-n2) "." counter(paragrafo-n3) "." counter(paragrafo-n4) ".";display:inline-block;width:25mm;font-weight:normal;} p.Tabela_Texto_8 {font-size:8pt;font-family:Calibri;text-align:left;word-wrap:normal;margin:0 3pt 0 3pt;} p.Tabela_Texto_Alinhado_Direita {font-size:11pt;font-family:Calibri;text-align:right;word-wrap:normal;margin:0 3pt 0 3pt;} p.Tabela_Texto_Alinhado_Esquerda {font-size:11pt;font-family:Calibri;text-align:left;word-wrap:normal;margin:0 3pt 0 3pt;} p.Tabela_Texto_Centralizado {font-size:11pt;font-family:Calibri;text-align:center;word-wrap:normal;margin:0 3pt 0;} p.Texto_Alinhado_Direita {font-size:12pt;font-family:Calibri;text-align:right;word-wrap:normal;margin:6pt;} p.Texto_Alinhado_Esquerda {font-size:12pt;font-family:Calibri;text-align:left;word-wrap:normal;margin:6pt;} p.Texto_Alinhado_Esquerda_Espacamento_Simples {font-size:12pt;font-family:Calibri;text-align:left;word-wrap:normal;margin:0;} p.Texto_Alinhado_Esquerda_Espacamento_Simples_Maiusc {font-size:12pt;font-family:Calibri;text-align:left;text-transform:uppercase;word-wrap:normal;margin:0;} p.Texto_Centralizado {font-size:12pt;font-family:Calibri;text-align:center;word-wrap:normal;margin:6pt;} p.Texto_Centralizado_Maiusculas {font-size:13pt;font-family:Calibri;text-align:center;text-transform:uppercase;word-wrap:normal;} p.Texto_Centralizado_Maiusculas_Negrito {font-weight:bold;font-size:13pt;font-family:Calibri;text-align:center;text-transform:uppercase;word-wrap:normal;} p.Texto_Espaco_Duplo_Recuo_Primeira_Linha {letter-spacing:0.2em;font-weight:bold;font-size:12pt;font-family:Calibri;text-indent:25mm;text-align:justify;word-wrap:normal;margin:6pt;} p.Texto_Fundo_Cinza_Maiusculas_Negrito {text-transform:uppercase;font-weight:bold;background-color:#e6e6e6;font-size:12pt;font-family:Calibri;text-align:justify;word-wrap:normal;text-indent:0;margin:6pt;} p.Texto_Fundo_Cinza_Negrito {font-weight:bold;background-color:#e6e6e6;font-size:12pt;font-family:Calibri;text-align:justify;word-wrap:normal;text-indent:0;margin:6pt;} p.Texto_Justificado {font-size:12pt;font-family:Calibri;text-align:justify;word-wrap:normal;text-indent:0;margin:6pt;} p.Texto_Justificado_Maiusculas {font-size:12pt;font-family:Calibri;text-align:justify;word-wrap:normal;text-indent:0;margin:6pt;text-transform:uppercase;} p.Texto_Justificado_Recuo_Primeira_Linha {font-size:12pt;font-family:Calibri;text-indent:25mm;text-align:justify;word-wrap:normal;margin:6pt;} p.Texto_Justificado_Recuo_Primeira_Linha_Esp_Simples {font-size:12pt;font-family:Calibri;text-indent:25mm;text-align:justify;word-wrap:normal;margin:0 0 0 6pt;}
         </style>
         <title></title>
-        @orgao@</div>
+        <p>@orgao@</p>
         
         <div align="center" wfd-id="1">&nbsp;</div>
         
@@ -603,7 +602,7 @@ class MdGdAtualizarSeiRN extends InfraRN {
         
         <p class="Texto_Justificado">&nbsp;</p>
         
-        <table border="1" cellpadding="1" cellspacing="1" style="margin-left:auto;margin-right:auto;">
+        <table border="1" cellpadding="1" cellspacing="1" style="margin-left: auto; margin-right: auto; width: 873px;">
             <tbody>
                 <tr>
                     <td colspan="2" rowspan="1">
@@ -611,26 +610,26 @@ class MdGdAtualizarSeiRN extends InfraRN {
         
                     <p class="Tabela_Texto_Alinhado_Esquerda">@unidade@</p>
                     </td>
-                    <td colspan="3" rowspan="1">
+                    <td colspan="3" rowspan="1" style="width: 381px;">
                     <p class="Tabela_Texto_Alinhado_Esquerda">@orgao@</p>
         
                     <p class="Tabela_Texto_Alinhado_Esquerda">Listagem n&ordm; @numero_listagem@</p>
                     </td>
                 </tr>
-                <tr>
-                    <td colspan="5" style="width: 105px;">
-                    <p class="Tabela_Texto_Centralizado">&nbsp;</p>
+            </tbody>
+        </table>
         
-                    <p>@tabela@</p>
-                    </td>
-                </tr>
+        <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; @tabela@</p>
+        
+        <p>&nbsp;</p>
+        
+        <table border="1" cellpadding="1" cellspacing="1" style="margin-left: auto; margin-right: auto; width: 873px;">
+            <tbody>
                 <tr>
                     <td style="width: 105px;">
                     <p class="Tabela_Texto_Centralizado"><strong>MENSURA&Ccedil;&Atilde;O</strong></p>
-        
-                    <p class="Tabela_Texto_Centralizado"><strong>TOTAL</strong></p>
                     </td>
-                    <td style="width: 329px;">@mensuracao_total@</td>
+                    <td style="width: 722px;">@mensuracao_total@</td>
                 </tr>
                 <tr>
                     <td style="width: 105px;">
@@ -638,7 +637,7 @@ class MdGdAtualizarSeiRN extends InfraRN {
         
                     <p class="Tabela_Texto_Centralizado"><strong>GERAIS</strong></p>
                     </td>
-                    <td style="width: 329px;">@datas_limites_gerais@</td>
+                    <td style="width: 722px;">@datas_limites_gerais@</td>
                 </tr>
                 <tr>
                     <td style="width: 105px;">
@@ -646,7 +645,7 @@ class MdGdAtualizarSeiRN extends InfraRN {
         
                     <p class="Tabela_Texto_Centralizado"><strong>QUANTIFICA&Ccedil;&Atilde;O</strong></p>
                     </td>
-                    <td style="width: 329px;">@folha@</td>
+                    <td style="width: 722px;">@folha@</td>
                 </tr>
             </tbody>
         </table>
@@ -716,7 +715,7 @@ class MdGdAtualizarSeiRN extends InfraRN {
                     <td align="right" style="font-family:Calibri;font-size:9pt;border:0;" width="50%">SEI n&ordm; 0000045</td>
                 </tr>
             </tbody>
-        </table>
+        </table>        
         ';
 
         $strModeloDocumentoEliminacao = '<meta http-equiv="Pragma" content="no-cache" /><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">

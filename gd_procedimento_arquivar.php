@@ -120,7 +120,86 @@ try {
                 }
             }
 
-            // Verifica o últomo andamento de cada processo
+            // Verifica se não existem andamentos abertos em mais de uma unidade nos processos selecionados
+            $arrProtocolosAndamentosAbertos = [];
+            $strProtocolosAndamentosAbertos = null;
+
+            foreach($arrProtocolosOrigem as $k => $protocoloValidacao) {
+                $objAtividadeDTO = new AtividadeDTO();
+                $objAtividadeDTO->setDistinct(true);
+                $objAtividadeDTO->setDblIdProtocolo($protocoloValidacao);
+                $objAtividadeDTO->setDthConclusao(null);
+                $objAtividadeDTO->retNumIdUnidade();
+                $objAtividadeDTO->retStrProtocoloFormatadoProtocolo();
+        
+                $objAtividadeRN = new AtividadeRN();
+                $arrObjAtividadeDTO = $objAtividadeRN->listarRN0036($objAtividadeDTO);
+
+                if(count($arrObjAtividadeDTO) > 1) {
+                    $arrProtocolosAndamentosAbertos[$protocoloValidacao] = $arrObjAtividadeDTO[0]->getStrProtocoloFormatadoProtocolo();
+                }
+            }
+
+            if($arrProtocolosAndamentosAbertos) {
+                $strProtocolosAndamentosAbertos = implode(',', $arrProtocolosAndamentosAbertos);
+            }
+
+            // Verifica se algum dos processos não está anexado ou não possuí anexos
+            $arrProtocolosAnexos = [];
+            $strProtocolosAnexos = null;
+
+            foreach($arrProtocolosOrigem as $k => $protocoloValidacao) {
+                $objRelProtocoloProtocoloDTO = new RelProtocoloProtocoloDTO();
+                $objRelProtocoloProtocoloDTO->adicionarCriterio(array('IdProtocolo1','IdProtocolo2'),
+                                                                    array(InfraDTO::$OPER_IGUAL,InfraDTO::$OPER_IGUAL),
+                                                                    array($protocoloValidacao, $protocoloValidacao),
+                                                                    InfraDTO::$OPER_LOGICO_OR);
+                $objRelProtocoloProtocoloDTO->setStrStaAssociacao(RelProtocoloProtocoloRN::$TA_PROCEDIMENTO_ANEXADO);
+                $objRelProtocoloProtocoloDTO->retDblIdProtocolo1();
+                $objRelProtocoloProtocoloDTO->retDblIdProtocolo2();
+                $objRelProtocoloProtocoloDTO->retStrProtocoloFormatadoProtocolo1();
+                $objRelProtocoloProtocoloDTO->retStrProtocoloFormatadoProtocolo2();
+                
+
+                $objRelProtocoloProtocoloRN = new RelProtocoloProtocoloRN();
+                $arrObjRelProtocoloProtocoloDTO = $objRelProtocoloProtocoloRN->listarRN0187($objRelProtocoloProtocoloDTO);
+                
+                if($arrObjAtividadeDTO) {
+                    foreach($arrObjRelProtocoloProtocoloDTO as $objRelProtocoloProtocoloDTO) {
+                        if($protocoloValidacao == $objRelProtocoloProtocoloDTO->getDblIdProtocolo1()) {
+                            $arrProtocolosAnexos[$objRelProtocoloProtocoloDTO->getDblIdProtocolo1()] = $objRelProtocoloProtocoloDTO->getStrProtocoloFormatadoProtocolo1();
+                        }
+                        
+                        if($protocoloValidacao == $objRelProtocoloProtocoloDTO->getDblIdProtocolo2()) {
+                            $arrProtocolosAnexos[$objRelProtocoloProtocoloDTO->getDblIdProtocolo2()] = $objRelProtocoloProtocoloDTO->getStrProtocoloFormatadoProtocolo2();
+                        }
+                    }
+                }
+            }
+
+            if($arrProtocolosAnexos) {
+                $strProtocolosAnexos = implode(', ', $arrProtocolosAnexos);
+            }
+            
+            // Remove os processos que possuem anexos e/ou estão abertos em mais de uma unidade
+            foreach($arrProtocolosAnexos as $k => $protocoloAnexo){
+                foreach($arrProtocolosOrigem as $x => $protocoloOrigem){
+                    if($protocoloOrigem == $k){
+                        unset($arrProtocolosOrigem[$x]);
+                    }
+                }
+            }
+
+
+            foreach($arrProtocolosAndamentosAbertos as $k => $protocoloAndamento){
+                foreach($arrProtocolosOrigem as $x => $protocoloOrigem){
+                    if($protocoloOrigem == $k){
+                        unset($arrProtocolosOrigem[$x]);
+                    }
+                }
+            }
+
+            // Verifica o último andamento de cada processo
             $arrIdsProtocolosValidacao = [];
             foreach($arrProtocolosOrigem as $k => $protocoloValidacao) {
                 $arrIdsProtocolosValidacao[$k] = 0;
@@ -148,7 +227,6 @@ try {
 
                 $objAtividadeRN = new AtividadeRN();
                 $arrObjAtividadeDTO = $objAtividadeRN->listarRN0036($objAtividadeDTO);
-    
 
                 $dthPrimeiroAndamento = $arrObjAtividadeDTO[0]->getDthAbertura();
                 $dthPrimeiroAndamento = explode(' ', $dthPrimeiroAndamento);
@@ -156,11 +234,14 @@ try {
 
                 $arrIdsProtocolosValidacao[$k] = $dthPrimeiroAndamento[2].$dthPrimeiroAndamento[1].$dthPrimeiroAndamento[0];
             }
+
             
             arsort($arrIdsProtocolosValidacao);
+            $arrIdsProtocolosValidacao = array_values($arrIdsProtocolosValidacao);
             $dataMinima = $arrIdsProtocolosValidacao[0];
+            $dataMaxima = date('Ymd');
 
-              
+
             break;
 
         default:
@@ -231,6 +312,16 @@ PaginaSEI::getInstance()->abrirJavaScript();
 
     var validSenha = false;
     var validConfiguracao = false;
+    var processosAnexos = '<?php echo $strProtocolosAnexos; ?>';
+    var processosAndamentosAbertos = '<?php echo $strProtocolosAndamentosAbertos; ?>';
+
+    if(processosAnexos) {
+        alert('Os processos ' + processosAnexos + ' estão anexados ou possuem anexos, portanto não podem ser arquivados.');
+    }
+
+    if(processosAndamentosAbertos) {
+        alert('Os processos ' + processosAndamentosAbertos + ' estão com andamentos abertos.');
+    }
 
     function inicializar() {
         document.getElementById('sbmSalvar').focus();
@@ -280,8 +371,11 @@ PaginaSEI::getInstance()->abrirJavaScript();
                 return false;
             }
 
-            var dataMinima = <?php echo $dataMinima; ?>;
+            var dataMinima = '<?php echo $dataMinima ? $dataMinima : ''; ?>';
             dataMinima = new Number(dataMinima);
+
+            var dataMaxima = <?php echo $dataMaxima; ?>;
+            dataMaxima = new Number(dataMaxima);
 
             var dataArquivamento = document.getElementById('txtDataArquivamento').value ;
             dataArquivamento = dataArquivamento.split('/');
@@ -289,7 +383,12 @@ PaginaSEI::getInstance()->abrirJavaScript();
             dataArquivamento = new Number(dataArquivamento);
 
             if(dataArquivamento < dataMinima) {
-                alert('Não existe andamento registrado no(s) processo(s) selecionado na data de arquivamento informada.');
+                alert('Não existe andamento registrado no(s) processo(s) selecionado(s) na data de arquivamento informada.');
+                return false;
+            }
+
+            if(dataArquivamento > dataMaxima) {
+                alert('Não é permitido informar um arquivamento com uma data futura.');
                 return false;
             }
 
