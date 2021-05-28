@@ -19,7 +19,7 @@ class Test1100SEIGDAvaliacaoMassa():
     self.driver.quit()
   
   def test_1110Verificafiltros(self):
-    self.driver.get("http://seigd.intra.planejamento//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.get("http://sei.gd.nuvem.gov.br//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
     self.driver.find_element(By.ID, "divUsuario").click()
     self.driver.find_element(By.ID, "txtUsuario").click()
     self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivista02")
@@ -75,7 +75,7 @@ class Test1100SEIGDAvaliacaoMassa():
     assert self.driver.find_element(By.CSS_SELECTOR, "#divInfraAreaTabela > label").text == "Nenhum registro encontrado."
   
   def test_1110Verificafiltroscont(self):
-    self.driver.get("http://seigd.intra.planejamento//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.get("http://sei.gd.nuvem.gov.br//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
     self.driver.find_element(By.ID, "divUsuario").click()
     self.driver.find_element(By.ID, "txtUsuario").click()
     self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivista02")
@@ -104,7 +104,7 @@ class Test1100SEIGDAvaliacaoMassa():
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (57 registros - 1 a 50):"
   
   def test_1110VerificafiltrosRecolhimentoSemExpirarInterm(self):
-    self.driver.get("http://seigd.intra.planejamento//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.get("http://sei.gd.nuvem.gov.br//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
     self.driver.find_element(By.ID, "divUsuario").click()
     self.driver.find_element(By.ID, "txtUsuario").click()
     self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivista02")
@@ -123,7 +123,7 @@ class Test1100SEIGDAvaliacaoMassa():
     assert len(elements) == 0
   
   def test_1120EnviarEliminacao(self):
-    self.driver.get("http://seigd.intra.planejamento//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.get("http://sei.gd.nuvem.gov.br//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
     self.driver.find_element(By.ID, "divUsuario").click()
     self.driver.find_element(By.ID, "txtUsuario").click()
     self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivista02")
@@ -146,7 +146,7 @@ class Test1100SEIGDAvaliacaoMassa():
       assert self.driver.find_element(By.ID, "divInfraBarraLocalizacao").text == "Avaliação de Processos"
   
   def test_1130EnviarRecolhimento(self):
-    self.driver.get("http://seigd.intra.planejamento//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.get("http://sei.gd.nuvem.gov.br//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
     self.driver.find_element(By.ID, "divUsuario").click()
     self.driver.find_element(By.ID, "txtUsuario").click()
     self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivista02")

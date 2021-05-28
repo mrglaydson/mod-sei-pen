@@ -19,7 +19,7 @@ class Test1300ArquivamentoLegado():
     self.driver.quit()
   
   def test_01Legado(self):
-    self.driver.get("http://seigd.intra.planejamento//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.get("http://sei.gd.nuvem.gov.br//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
     self.driver.find_element(By.ID, "divUsuario").click()
     self.driver.find_element(By.ID, "txtUsuario").click()
     self.driver.find_element(By.ID, "txtUsuario").send_keys("teste")
@@ -99,7 +99,7 @@ class Test1300ArquivamentoLegado():
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (48 registros):"
   
   def test_02Legado(self):
-    self.driver.get("http://seigd.intra.planejamento//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.get("http://sei.gd.nuvem.gov.br//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
     self.driver.find_element(By.ID, "divUsuario").click()
     self.driver.find_element(By.ID, "txtUsuario").click()
     self.driver.find_element(By.ID, "txtUsuario").send_keys("teste")

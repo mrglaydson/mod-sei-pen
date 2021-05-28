@@ -19,7 +19,7 @@ class Test06SEIGDListasEliminacaoGestao():
     self.driver.quit()
   
   def test_0610GerarListagem(self):
-    self.driver.get("http://seigd.intra.planejamento//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.get("http://sei.gd.nuvem.gov.br//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
     self.driver.find_element(By.ID, "divUsuario").click()
     self.driver.find_element(By.ID, "txtUsuario").click()
     self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivista02")
@@ -51,7 +51,7 @@ class Test06SEIGDListasEliminacaoGestao():
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos (4 registros):"
     time.sleep(10)
     self.driver.find_element(By.CSS_SELECTOR, "#lnkSairSistema > .infraImg").click()
-    self.driver.get("http://seigd.intra.planejamento//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.get("http://sei.gd.nuvem.gov.br//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "pwdSenha")))
     self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivista02")
     self.driver.find_element(By.ID, "pwdSenha").click()
@@ -67,7 +67,7 @@ class Test06SEIGDListasEliminacaoGestao():
     self.driver.find_element(By.ID, "btnCancelar").click()
   
   def test_0620AlterarListagem(self):
-    self.driver.get("http://seigd.intra.planejamento//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.get("http://sei.gd.nuvem.gov.br//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
     self.driver.find_element(By.ID, "divUsuario").click()
     self.driver.find_element(By.ID, "txtUsuario").click()
     self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivista02")

@@ -20,7 +20,7 @@ class Test00ConfigSIP():
     #asdf
   
   def test_sIPCriarMontarOrgao(self):
-    self.driver.get("http://seigd.intra.planejamento//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SIP")
+    self.driver.get("http://sei.gd.nuvem.gov.br//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SIP")
     self.driver.find_element(By.ID, "txtUsuario").send_keys("teste")
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("teste")
@@ -41,7 +41,7 @@ class Test00ConfigSIP():
     assert self.driver.find_element(By.ID, "divInfraBarraLocalizacao").text == "Órgãos"
   
   def test_sIPCriarMontarUnidades(self):
-    self.driver.get("http://seigd.intra.planejamento//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SIP")
+    self.driver.get("http://sei.gd.nuvem.gov.br//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SIP")
     self.driver.find_element(By.ID, "txtUsuario").send_keys("teste")
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("teste")
@@ -98,7 +98,7 @@ class Test00ConfigSIP():
     self.driver.find_element(By.NAME, "sbmCadastrarHierarquiaUnidade").click()
   
   def test_sIPCriarMontarUsers(self):
-    self.driver.get("http://seigd.intra.planejamento//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SIP")
+    self.driver.get("http://sei.gd.nuvem.gov.br//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SIP")
     self.driver.find_element(By.ID, "txtUsuario").send_keys("teste")
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("teste")
@@ -119,7 +119,7 @@ class Test00ConfigSIP():
     time.sleep(5)
   
   def test_sIPCriarMontarUsers2(self):
-    self.driver.get("http://seigd.intra.planejamento//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SIP")
+    self.driver.get("http://sei.gd.nuvem.gov.br//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SIP")
     self.driver.find_element(By.ID, "txtUsuario").send_keys("teste")
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("teste")

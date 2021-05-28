@@ -26,7 +26,7 @@ class Test03GDPendenciasArquivamento():
       return set(wh_now).difference(set(wh_then)).pop()
   
   def test_010PendenciasArquivamentoAnotacao(self):
-    self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.get("http://sei.gd.nuvem.gov.br/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
     self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivista01")
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
     self.driver.find_element(By.ID, "sbmLogin").click()
@@ -47,7 +47,7 @@ class Test03GDPendenciasArquivamento():
     assert len(elements) > 0
   
   def test_011PendenciasArquivamentoAnotacao(self):
-    self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.get("http://sei.gd.nuvem.gov.br/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
     self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivista01")
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
     self.driver.find_element(By.ID, "sbmLogin").click()
@@ -67,7 +67,7 @@ class Test03GDPendenciasArquivamento():
     assert len(elements) > 0
   
   def test_012PendenciasArquivamentoAnotacao(self):
-    self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.get("http://sei.gd.nuvem.gov.br/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
     self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivista01")
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
     self.driver.find_element(By.ID, "sbmLogin").click()
@@ -88,7 +88,7 @@ class Test03GDPendenciasArquivamento():
     assert len(elements) > 0
   
   def test_020PendenciasArquivamentoReabrirMassa(self):
-    self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.get("http://sei.gd.nuvem.gov.br/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
     self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivista01")
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
     self.driver.find_element(By.ID, "sbmLogin").click()
@@ -105,7 +105,7 @@ class Test03GDPendenciasArquivamento():
     WebDriverWait(self.driver, 30000).until(expected_conditions.presence_of_element_located((By.XPATH, "//div[contains(.,\'Controle\')]")))
   
   def test_030PendenciasArquivamentoReabrirUnico(self):
-    self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.get("http://sei.gd.nuvem.gov.br/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
     self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivista01")
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
     self.driver.find_element(By.ID, "sbmLogin").click()
@@ -117,7 +117,7 @@ class Test03GDPendenciasArquivamento():
     assert len(elements) == 0
   
   def test_040PendenciasArquivamentoArquivarMassa(self):
-    self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.get("http://sei.gd.nuvem.gov.br/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
     self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivista01")
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
     self.driver.find_element(By.ID, "sbmLogin").click()
@@ -139,7 +139,7 @@ class Test03GDPendenciasArquivamento():
     assert self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/caption").text == "Lista de Pendências de Arquivamento (12 registros):"
   
   def test_050PendenciasArquivamentoArquivarUnico(self):
-    self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.get("http://sei.gd.nuvem.gov.br/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
     self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivista01")
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
     self.driver.find_element(By.ID, "sbmLogin").click()
@@ -162,7 +162,7 @@ class Test03GDPendenciasArquivamento():
     assert len(elements) == 0
   
   def test_060ArquivoUnidadeDesarquivarMassa(self):
-    self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.get("http://sei.gd.nuvem.gov.br/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
     self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivista01")
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
     self.driver.find_element(By.ID, "sbmLogin").click()
@@ -185,7 +185,7 @@ class Test03GDPendenciasArquivamento():
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (1 registro):"
   
   def test_070ArquivoUnidadeDesarquivarUnico(self):
-    self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.get("http://sei.gd.nuvem.gov.br/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
     self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivista01")
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
     self.driver.find_element(By.ID, "sbmLogin").click()
@@ -208,7 +208,7 @@ class Test03GDPendenciasArquivamento():
     assert len(elements) == 0
   
   def test_080PendenciasArquivamentoArquivarMassa(self):
-    self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.get("http://sei.gd.nuvem.gov.br/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
     self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivista01")
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
     self.driver.find_element(By.ID, "sbmLogin").click()
@@ -235,7 +235,7 @@ class Test03GDPendenciasArquivamento():
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Pendências de Arquivamento (13 registros):"
   
   def test_090PendenciasArquivamentoArquivarUnico(self):
-    self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.get("http://sei.gd.nuvem.gov.br/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
     self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivista01")
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
     self.driver.find_element(By.ID, "sbmLogin").click()

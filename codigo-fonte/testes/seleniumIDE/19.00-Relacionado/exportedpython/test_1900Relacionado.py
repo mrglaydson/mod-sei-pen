@@ -26,7 +26,7 @@ class Test1900Relacionado():
       return set(wh_now).difference(set(wh_then)).pop()
   
   def test_cadastrarProcessosarrecadacao(self):
-    self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.get("http://sei.gd.nuvem.gov.br/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "txtUsuario")))
     self.driver.find_element(By.ID, "txtUsuario").click()
     self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivistaorg2")
@@ -71,7 +71,7 @@ class Test1900Relacionado():
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".botaoSEI:nth-child(23) > .infraCorBarraSistema")))
   
   def test_cadastrarProcessosacessoinf(self):
-    self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.get("http://sei.gd.nuvem.gov.br/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "txtUsuario")))
     self.driver.find_element(By.ID, "txtUsuario").click()
     self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivistaorg2")

@@ -19,7 +19,7 @@ class Test0610SEIGDListagemEliminacao():
     self.driver.quit()
   
   def test_0610VerificarPrazosUnidadeTeste(self):
-    self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.get("http://sei.gd.nuvem.gov.br/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
     self.driver.find_element(By.ID, "txtUsuario").send_keys("teste")
     self.driver.find_element(By.ID, "pwdSenha").send_keys("teste")
     self.driver.find_element(By.ID, "sbmLogin").click()
@@ -31,7 +31,7 @@ class Test0610SEIGDListagemEliminacao():
     assert len(elements) > 0
   
   def test_0630VerificarPrazosUnidadeArquivo(self):
-    self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.get("http://sei.gd.nuvem.gov.br/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
     self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivista01")
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
     self.driver.find_element(By.ID, "sbmLogin").click()

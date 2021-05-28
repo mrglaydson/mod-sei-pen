@@ -26,7 +26,7 @@ class Test1600ArquivamentoAssuntosMultiplos():
       return set(wh_now).difference(set(wh_then)).pop()
   
   def test_01ProcCadMultiAssunto(self):
-    self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.get("http://sei.gd.nuvem.gov.br/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "txtUsuario")))
     self.driver.find_element(By.ID, "txtUsuario").click()
     self.driver.find_element(By.ID, "txtUsuario").send_keys("teste")
@@ -127,7 +127,7 @@ class Test1600ArquivamentoAssuntosMultiplos():
     assert self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[last()]/td[10]").text == "Recolhimento"
   
   def test_02ProcCadOutrosAssuntos(self):
-    self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.get("http://sei.gd.nuvem.gov.br/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "txtUsuario")))
     self.driver.find_element(By.ID, "txtUsuario").click()
     self.driver.find_element(By.ID, "txtUsuario").send_keys("teste")

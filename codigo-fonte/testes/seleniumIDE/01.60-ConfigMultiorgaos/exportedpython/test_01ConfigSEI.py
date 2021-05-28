@@ -26,7 +26,7 @@ class Test01ConfigSEI():
       return set(wh_now).difference(set(wh_then)).pop()
   
   def test_orgaos(self):
-    self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.get("http://sei.gd.nuvem.gov.br/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
     WebDriverWait(self.driver, 30000).until(expected_conditions.element_to_be_clickable((By.ID, "txtUsuario")))
     self.driver.find_element(By.ID, "txtUsuario").send_keys("teste")
     self.driver.find_element(By.ID, "pwdSenha").click()
@@ -54,7 +54,7 @@ class Test01ConfigSEI():
     self.driver.find_element(By.XPATH, "//div[@id=\'divInfraBarraComandosSuperior\']/button/span").click()
   
   def test_enderecoUnidades(self):
-    self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.get("http://sei.gd.nuvem.gov.br/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
     WebDriverWait(self.driver, 30000).until(expected_conditions.element_to_be_clickable((By.ID, "txtUsuario")))
     self.driver.find_element(By.ID, "txtUsuario").send_keys("teste")
     self.driver.find_element(By.ID, "pwdSenha").click()
@@ -104,7 +104,7 @@ class Test01ConfigSEI():
     self.driver.find_element(By.XPATH, "//ul[@id=\'main-menu\']/li/a").click()
   
   def test_assinaturas(self):
-    self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.get("http://sei.gd.nuvem.gov.br/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
     WebDriverWait(self.driver, 30000).until(expected_conditions.element_to_be_clickable((By.ID, "txtUsuario")))
     self.driver.find_element(By.ID, "txtUsuario").send_keys("teste")
     self.driver.find_element(By.ID, "pwdSenha").click()
@@ -130,7 +130,7 @@ class Test01ConfigSEI():
     self.driver.find_element(By.NAME, "sbmAlterarAssinante").click()
   
   def test_unidadesArquivamento(self):
-    self.driver.get("http://seigd.intra.planejamento/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.get("http://sei.gd.nuvem.gov.br/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
     WebDriverWait(self.driver, 30000).until(expected_conditions.element_to_be_clickable((By.ID, "txtUsuario")))
     self.driver.find_element(By.ID, "txtUsuario").send_keys("teste")
     self.driver.find_element(By.ID, "pwdSenha").send_keys("teste")
