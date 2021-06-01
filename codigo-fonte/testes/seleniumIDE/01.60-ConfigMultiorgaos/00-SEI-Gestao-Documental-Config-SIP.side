@@ -2,7 +2,7 @@
   "id": "565c3481-f0b6-42f6-a947-d7514d57929f",
   "version": "2.0",
   "name": "00-SEI-Gestao-Documental-Config-SIP",
-  "url": "http://seigd.intra.planejamento/",
+  "url": "http://sei.gd.nuvem.gov.br/",
   "tests": [{
     "id": "35f98682-f3ae-496d-8cc0-3168c83c7399",
     "name": "SIP-Permissao Admin",
@@ -2666,6 +2666,6 @@
     "timeout": 300,
     "tests": ["f5ec8aaf-7f68-46c8-a24f-f64784126f7b", "47c38ddc-84bc-46e4-95cb-9e7ee60d3d8c", "0d2ee38e-2acd-4ab3-9df6-0d85d10c711b", "7ffcbf37-1e2f-47d8-9d0b-3c76cc0b3c22"]
   }],
-  "urls": ["http://seigd.nuvem.gov.br/", "http://seigd.intra.planejamento/"],
+  "urls": ["http://seigd.nuvem.gov.br/", "http://sei.gd.nuvem.gov.br/"],
   "plugins": []
 }

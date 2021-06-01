@@ -2,7 +2,7 @@
   "id": "b617c0e4-d881-4bbb-b4c9-754fd196cbb0",
   "version": "2.0",
   "name": "16.00-ArquivamentoAssuntosMultiplos",
-  "url": "http://seigd.intra.planejamento",
+  "url": "http://sei.gd.nuvem.gov.br",
   "tests": [{
     "id": "3394efd9-9534-474d-a457-043911d7bfe1",
     "name": "02-ProcCad-OutrosAssuntos",
@@ -1970,6 +1970,6 @@
     "timeout": 300,
     "tests": ["af2cfc1a-8937-420e-acf1-57b179c26c01", "3394efd9-9534-474d-a457-043911d7bfe1"]
   }],
-  "urls": ["http://seigd.nuvem.gov.br/sei", "http://seigd.intra.planejamento/sei", "http://seigd.intra.planejamento/"],
+  "urls": ["http://seigd.nuvem.gov.br/sei", "http://sei.gd.nuvem.gov.br/sei", "http://sei.gd.nuvem.gov.br/"],
   "plugins": []
 }

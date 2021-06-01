@@ -2,7 +2,7 @@
   "id": "a7d57b3a-6e19-499d-b3ec-292ec3e7dd66",
   "version": "2.0",
   "name": "06.20-SEI-GD-VerificarPrazos",
-  "url": "http://seigd.intra.planejamento",
+  "url": "http://sei.gd.nuvem.gov.br",
   "tests": [{
     "id": "f0b7a7eb-fdeb-478a-a006-f59c0ea14530",
     "name": "06-20-VerificarPrazos-UnidadeTeste",
@@ -243,6 +243,6 @@
     "timeout": 300,
     "tests": ["f0b7a7eb-fdeb-478a-a006-f59c0ea14530", "ac925c14-6d8d-4bce-9b52-6b5c76d49685"]
   }],
-  "urls": ["http://seigd.intra.planejamento/"],
+  "urls": ["http://sei.gd.nuvem.gov.br/"],
   "plugins": []
 }

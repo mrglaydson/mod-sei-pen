@@ -2,7 +2,7 @@
   "id": "b617c0e4-d881-4bbb-b4c9-754fd196cbb0",
   "version": "2.0",
   "name": "02.20-SEI-GD-CadProcEventoInst-Aut",
-  "url": "http://seigd.intra.planejamento",
+  "url": "http://sei.gd.nuvem.gov.br",
   "tests": [{
     "id": "70a611f4-556f-40e2-b1e2-e521cde1b5cc",
     "name": "CadastrarProcessos-Flood",
@@ -527,6 +527,6 @@
     "timeout": 300,
     "tests": ["70a611f4-556f-40e2-b1e2-e521cde1b5cc"]
   }],
-  "urls": ["http://seigd.nuvem.gov.br/sei", "http://seigd.intra.planejamento/sei", "http://seigd.intra.planejamento/"],
+  "urls": ["http://seigd.nuvem.gov.br/sei", "http://sei.gd.nuvem.gov.br/sei", "http://sei.gd.nuvem.gov.br/"],
   "plugins": []
 }

@@ -2,7 +2,7 @@
   "id": "565c3481-f0b6-42f6-a947-d7514d57929f",
   "version": "2.0",
   "name": "11.01-SEI-GD-AvaliacaoMassa2",
-  "url": "http://seigd.intra.planejamento/",
+  "url": "http://sei.gd.nuvem.gov.br/",
   "tests": [{
     "id": "53dfd164-5674-4791-836b-1dadd8e614ca",
     "name": "11.30-EnviarRecolhimento (1)",
@@ -267,6 +267,6 @@
     "timeout": 300,
     "tests": ["53dfd164-5674-4791-836b-1dadd8e614ca"]
   }],
-  "urls": ["http://seigd.nuvem.gov.br/", "http://seigd.intra.planejamento/"],
+  "urls": ["http://seigd.nuvem.gov.br/", "http://sei.gd.nuvem.gov.br/"],
   "plugins": []
 }

@@ -2,7 +2,7 @@
   "id": "b617c0e4-d881-4bbb-b4c9-754fd196cbb0",
   "version": "2.0",
   "name": "19.00-Relacionado",
-  "url": "http://seigd.intra.planejamento",
+  "url": "http://sei.gd.nuvem.gov.br",
   "tests": [{
     "id": "694c2bcc-69e7-47f2-8cf6-440a019882e9",
     "name": "CadastrarProcessos",
@@ -2808,6 +2808,6 @@
     "timeout": 300,
     "tests": ["1916be0c-375d-43f2-98e6-4df825044923", "f63e045a-df16-4d57-a159-b90e09cf3426"]
   }],
-  "urls": ["http://seigd.nuvem.gov.br/sei", "http://seigd.intra.planejamento/sei", "http://seigd.intra.planejamento/"],
+  "urls": ["http://seigd.nuvem.gov.br/sei", "http://sei.gd.nuvem.gov.br/sei", "http://sei.gd.nuvem.gov.br/"],
   "plugins": []
 }

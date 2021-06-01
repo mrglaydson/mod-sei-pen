@@ -2,7 +2,7 @@
   "id": "b617c0e4-d881-4bbb-b4c9-754fd196cbb0",
   "version": "2.0",
   "name": "02.80-SEI-GD-ConcluirMassa2",
-  "url": "http://seigd.intra.planejamento",
+  "url": "http://sei.gd.nuvem.gov.br",
   "tests": [{
     "id": "d2e9d098-391e-42ad-8e83-4009d430b279",
     "name": "02Concluir",
@@ -200,6 +200,6 @@
     "timeout": 300,
     "tests": ["d2e9d098-391e-42ad-8e83-4009d430b279"]
   }],
-  "urls": ["http://seigd.nuvem.gov.br/sei", "http://seigd.intra.planejamento/sei", "http://seigd.intra.planejamento/"],
+  "urls": ["http://seigd.nuvem.gov.br/sei", "http://sei.gd.nuvem.gov.br/sei", "http://sei.gd.nuvem.gov.br/"],
   "plugins": []
 }

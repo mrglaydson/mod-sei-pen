@@ -2,7 +2,7 @@
   "id": "faffb495-de05-4239-be21-eca3cdb4f630",
   "version": "2.0",
   "name": "01-SEI-Gestao-Documental-Config-SEI",
-  "url": "http://seigd.intra.planejamento/",
+  "url": "http://sei.gd.nuvem.gov.br/",
   "tests": [{
     "id": "0aef73fd-dc4f-4dfe-8311-8d0dd6e72ddf",
     "name": "Configuracoes",
@@ -4331,6 +4331,6 @@
     "timeout": 300,
     "tests": ["585bb47c-4cfc-4689-8898-35f914c2d4d6", "0aef73fd-dc4f-4dfe-8311-8d0dd6e72ddf", "679dfa33-fa95-4fb7-bf1c-9b36a7088e0b", "c483162d-6a7e-4b1e-a67a-22addda2d3fb", "981c26ac-fe85-42ea-977d-9a970ddee613", "99067832-f583-4a2f-8851-9268be801c8e", "c7025714-c8bd-42d1-8e6a-24de0eccebcb", "d6c9894a-b841-4df7-b211-d9de33ea4b27", "d6b1e768-f913-49b2-b2a5-df210e9ddd85"]
   }],
-  "urls": ["http://seigd.nuvem.gov.br/", "http://seigd.nuvem.gov.br/sei", "http://seigd.intra.planejamento/sei", "http://seigd.intra.planejamento/"],
+  "urls": ["http://seigd.nuvem.gov.br/", "http://seigd.nuvem.gov.br/sei", "http://sei.gd.nuvem.gov.br/sei", "http://sei.gd.nuvem.gov.br/"],
   "plugins": []
 }

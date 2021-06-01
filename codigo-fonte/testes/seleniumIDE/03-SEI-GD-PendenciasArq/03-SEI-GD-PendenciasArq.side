@@ -2,7 +2,7 @@
   "id": "a7d57b3a-6e19-499d-b3ec-292ec3e7dd66",
   "version": "2.0",
   "name": "03-SEI-GD-PendenciasArq",
-  "url": "http://seigd.intra.planejamento",
+  "url": "http://sei.gd.nuvem.gov.br",
   "tests": [{
     "id": "22745301-e048-45c3-945a-0d3f73a2aeea",
     "name": "010-PendenciasArquivamento-Anotacao",
@@ -2593,6 +2593,6 @@
     "timeout": 300,
     "tests": ["22745301-e048-45c3-945a-0d3f73a2aeea", "fa52ed39-7fb0-43c3-84da-94a65a05618e", "8a357c49-9ea9-4fb8-8659-e9f7804848c7", "bd1703ac-35c6-48e7-8ea2-ed0d694400a4", "d1080f34-1f78-42de-8ec5-6e3554452dab", "51a7b2c4-9360-4c65-a0f4-7080c868229c", "a13507be-556e-4dbc-8995-a328f6266f93", "99d13639-c668-414b-bedc-07abdb0eaa0f", "c2555a08-ce73-4ef2-8c4a-ea1ffd46b2c6", "90e60442-ddc7-4ae8-a3c1-abe45da5be76", "8f087752-49f2-44dd-b8e8-368c067a7435"]
   }],
-  "urls": ["http://seigd.intra.planejamento/"],
+  "urls": ["http://sei.gd.nuvem.gov.br/"],
   "plugins": []
 }

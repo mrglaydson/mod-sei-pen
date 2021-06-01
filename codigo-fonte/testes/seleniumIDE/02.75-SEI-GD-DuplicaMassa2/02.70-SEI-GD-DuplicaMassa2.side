@@ -2,7 +2,7 @@
   "id": "b617c0e4-d881-4bbb-b4c9-754fd196cbb0",
   "version": "2.0",
   "name": "02.70-SEI-GD-DuplicaMassa2",
-  "url": "http://seigd.intra.planejamento",
+  "url": "http://sei.gd.nuvem.gov.br",
   "tests": [{
     "id": "2d3c43bb-844e-4d59-9a77-6cd3f3806c04",
     "name": "01CadastrarProcessos-Flood1",
@@ -310,6 +310,6 @@
     "timeout": 300,
     "tests": ["2d3c43bb-844e-4d59-9a77-6cd3f3806c04"]
   }],
-  "urls": ["http://seigd.nuvem.gov.br/sei", "http://seigd.intra.planejamento/sei", "http://seigd.intra.planejamento/"],
+  "urls": ["http://seigd.nuvem.gov.br/sei", "http://sei.gd.nuvem.gov.br/sei", "http://sei.gd.nuvem.gov.br/"],
   "plugins": []
 }

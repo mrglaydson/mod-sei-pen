@@ -2,7 +2,7 @@
   "id": "faffb495-de05-4239-be21-eca3cdb4f630",
   "version": "2.0",
   "name": "02-SEI-Gestao-Documental-Config-SEI",
-  "url": "http://seigd.intra.planejamento/",
+  "url": "http://sei.gd.nuvem.gov.br/",
   "tests": [{
     "id": "e73d1362-d124-425a-af5f-d01ca47421d7",
     "name": "01.01-Localizadores-Lugares",
@@ -754,6 +754,6 @@
     "timeout": 300,
     "tests": ["e73d1362-d124-425a-af5f-d01ca47421d7"]
   }],
-  "urls": ["http://seigd.nuvem.gov.br/", "http://seigd.nuvem.gov.br/sei", "http://seigd.intra.planejamento/sei", "http://seigd.intra.planejamento/"],
+  "urls": ["http://seigd.nuvem.gov.br/", "http://seigd.nuvem.gov.br/sei", "http://sei.gd.nuvem.gov.br/sei", "http://sei.gd.nuvem.gov.br/"],
   "plugins": []
 }

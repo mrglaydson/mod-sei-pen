@@ -2,7 +2,7 @@
   "id": "565c3481-f0b6-42f6-a947-d7514d57929f",
   "version": "2.0",
   "name": "04-SEI-GD-RunAgendamento",
-  "url": "http://seigd.intra.planejamento/",
+  "url": "http://sei.gd.nuvem.gov.br/",
   "tests": [{
     "id": "8e9baf2a-bdda-4d40-ab63-15741729ea68",
     "name": "RunAgendamento",
@@ -167,6 +167,6 @@
     "timeout": 300,
     "tests": ["8e9baf2a-bdda-4d40-ab63-15741729ea68"]
   }],
-  "urls": ["http://seigd.nuvem.gov.br/", "http://seigd.intra.planejamento/"],
+  "urls": ["http://seigd.nuvem.gov.br/", "http://sei.gd.nuvem.gov.br/"],
   "plugins": []
 }
