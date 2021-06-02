@@ -1,0 +1,759 @@
+{
+  "id": "faffb495-de05-4239-be21-eca3cdb4f630",
+  "version": "2.0",
+  "name": "02-SEI-Gestao-Documental-Config-SEI",
+  "url": "http://sei.gd.nuvem.gov.br/",
+  "tests": [{
+    "id": "e73d1362-d124-425a-af5f-d01ca47421d7",
+    "name": "01.01-Localizadores-Lugares",
+    "commands": [{
+      "id": "f9f2399a-2176-445e-bf43-6f8595cff8e8",
+      "comment": "",
+      "command": "open",
+      "target": "sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f5220af7-13bf-47b8-91de-74eefde85e75",
+      "comment": "",
+      "command": "waitForElementEditable",
+      "target": "id=txtUsuario",
+      "targets": [],
+      "value": "30000"
+    }, {
+      "id": "44c99b31-161b-41d3-bf25-0b8d992b06a3",
+      "comment": "",
+      "command": "type",
+      "target": "id=txtUsuario",
+      "targets": [
+        ["id=txtUsuario", "id"],
+        ["name=txtUsuario", "name"],
+        ["css=#txtUsuario", "css:finder"],
+        ["xpath=//input[@id='txtUsuario']", "xpath:attributes"],
+        ["xpath=//div[@id='divUsuario']/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "teste"
+    }, {
+      "id": "58f59f36-27bf-4276-98ae-92b549cd4095",
+      "comment": "",
+      "command": "click",
+      "target": "id=pwdSenha",
+      "targets": [
+        ["id=pwdSenha", "id"],
+        ["name=pwdSenha", "name"],
+        ["css=#pwdSenha", "css:finder"],
+        ["xpath=//input[@id='pwdSenha']", "xpath:attributes"],
+        ["xpath=//div[@id='divUsuario']/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "e7c11956-9791-4c1e-924c-0df11a71195f",
+      "comment": "",
+      "command": "type",
+      "target": "id=pwdSenha",
+      "targets": [
+        ["id=pwdSenha", "id"],
+        ["name=pwdSenha", "name"],
+        ["css=#pwdSenha", "css:finder"],
+        ["xpath=//input[@id='pwdSenha']", "xpath:attributes"],
+        ["xpath=//div[@id='divUsuario']/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "teste"
+    }, {
+      "id": "cf04a133-6247-48d1-87e6-b629a885b949",
+      "comment": "",
+      "command": "click",
+      "target": "id=sbmLogin",
+      "targets": [
+        ["id=sbmLogin", "id"],
+        ["name=sbmLogin", "name"],
+        ["css=#sbmLogin", "css:finder"],
+        ["xpath=//button[@id='sbmLogin']", "xpath:attributes"],
+        ["xpath=//div[@id='divBotoes']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Acessar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "ea7074d4-a586-469e-a45f-a1034e930b7f",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "xpath=//*[@id=\"main-menu\"]/li[21]/a",
+      "targets": [],
+      "value": "30000"
+    }, {
+      "id": "65d129b5-5300-4140-bb2b-962ffd60efeb",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//*[@id=\"main-menu\"]/li[21]/a",
+      "targets": [
+        ["linkText=Configurações", "linkText"],
+        ["css=li:nth-child(25) > ul > li:nth-child(1) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Configurações')]", "xpath:link"],
+        ["xpath=//ul[@id='main-menu']/li/ul/li[25]/ul/li/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'controlador.php?acao=gd_parametros_alterar&infra_sistema=100000100&infra_unidade_atual=110000001&infra_hash=92c3f2afddc0b87a665835d6a500908f0eda3de8e332f110ca058f74a31e0630')]", "xpath:href"],
+        ["xpath=//li[25]/ul/li/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Configurações')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "9f43d3ff-f002-48b0-9f36-c29ea3d7d9cf",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//*[@id=\"main-menu\"]/li[21]/ul/li[4]/a",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "62f9b36c-3a8a-494e-addc-0a2780d58616",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//*[@id=\"main-menu\"]/li[21]/ul/li[4]/ul/li[2]/a",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "16ef5beb-110e-4f49-bc63-e36c4cfa9579",
+      "comment": "",
+      "command": "click",
+      "target": "id=btnNovo",
+      "targets": [
+        ["id=btnNovo", "id"],
+        ["css=#btnNovo", "css:finder"],
+        ["xpath=//button[@id='btnNovo']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraBarraComandosSuperior']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Novo')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "5f271fa4-add7-4dce-aec2-1c44f9efe60f",
+      "comment": "",
+      "command": "type",
+      "target": "id=txtNome",
+      "targets": [
+        ["id=txtNome", "id"],
+        ["name=txtNome", "name"],
+        ["css=#txtNome", "css:finder"],
+        ["xpath=//input[@id='txtNome']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "Lugar 01"
+    }, {
+      "id": "14b48409-fb76-4d15-b3c4-cf5f32daff0c",
+      "comment": "",
+      "command": "click",
+      "target": "css=.infraButton:nth-child(1) > .infraTeclaAtalho",
+      "targets": [
+        ["css=.infraButton:nth-child(1) > .infraTeclaAtalho", "css:finder"],
+        ["xpath=//div[@id='divInfraBarraComandosSuperior']/button/span", "xpath:idRelative"],
+        ["xpath=//button/span", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "53cd6883-7e23-4ec2-b517-72cc8027af45",
+      "comment": "",
+      "command": "click",
+      "target": "id=btnNovo",
+      "targets": [
+        ["id=btnNovo", "id"],
+        ["css=#btnNovo", "css:finder"],
+        ["xpath=//button[@id='btnNovo']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraBarraComandosSuperior']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Novo')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "b2dc6c56-e684-4f2f-96b2-ddd705b05918",
+      "comment": "",
+      "command": "type",
+      "target": "id=txtNome",
+      "targets": [
+        ["id=txtNome", "id"],
+        ["name=txtNome", "name"],
+        ["css=#txtNome", "css:finder"],
+        ["xpath=//input[@id='txtNome']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "Lugar 02"
+    }, {
+      "id": "51af7b8f-61ca-4a3f-94b0-0daef36e3179",
+      "comment": "",
+      "command": "click",
+      "target": "name=sbmCadastrarLugarLocalizador",
+      "targets": [
+        ["name=sbmCadastrarLugarLocalizador", "name"],
+        ["css=.infraButton:nth-child(1)", "css:finder"],
+        ["xpath=//button[@name='sbmCadastrarLugarLocalizador']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraBarraComandosSuperior']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Salvar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "bed43910-ee7f-4c60-8105-1c49c447012c",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//*[@id=\"main-menu\"]/li[21]/a",
+      "targets": [
+        ["linkText=Configurações", "linkText"],
+        ["css=li:nth-child(25) > ul > li:nth-child(1) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Configurações')]", "xpath:link"],
+        ["xpath=//ul[@id='main-menu']/li/ul/li[25]/ul/li/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'controlador.php?acao=gd_parametros_alterar&infra_sistema=100000100&infra_unidade_atual=110000001&infra_hash=92c3f2afddc0b87a665835d6a500908f0eda3de8e332f110ca058f74a31e0630')]", "xpath:href"],
+        ["xpath=//li[25]/ul/li/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Configurações')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "1d27ea63-871f-46e2-b62b-4d8a56fa7bbe",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//*[@id=\"main-menu\"]/li[21]/ul/li[3]/a",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "402bae65-f3af-4069-8ec3-9d449cb3954e",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//*[@id=\"main-menu\"]/li[21]/ul/li[3]/ul/li[2]/a",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8759ddbe-7e36-4fbb-98eb-33fd2a94e581",
+      "comment": "",
+      "command": "click",
+      "target": "id=btnNovo",
+      "targets": [
+        ["id=btnNovo", "id"],
+        ["css=#btnNovo", "css:finder"],
+        ["xpath=//button[@id='btnNovo']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraBarraComandosSuperior']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Novo')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "27c1c725-02a7-4869-a034-dc55ae5a683d",
+      "comment": "",
+      "command": "type",
+      "target": "id=txtSigla",
+      "targets": [
+        ["id=txtSigla", "id"],
+        ["name=txtSigla", "name"],
+        ["css=#txtSigla", "css:finder"],
+        ["xpath=//input[@id='txtSigla']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "TLOC01"
+    }, {
+      "id": "1acd94c6-fa4c-483b-b85e-50a0eee7b3b5",
+      "comment": "",
+      "command": "click",
+      "target": "id=txtNome",
+      "targets": [
+        ["id=txtNome", "id"],
+        ["name=txtNome", "name"],
+        ["css=#txtNome", "css:finder"],
+        ["xpath=//input[@id='txtNome']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "6336d2e2-dfc7-4f96-a3b4-bda270e3c85e",
+      "comment": "",
+      "command": "type",
+      "target": "id=txtNome",
+      "targets": [
+        ["id=txtNome", "id"],
+        ["name=txtNome", "name"],
+        ["css=#txtNome", "css:finder"],
+        ["xpath=//input[@id='txtNome']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "Tipo de Localizador 01"
+    }, {
+      "id": "1fabc881-eb14-4130-8368-a188925c4ed1",
+      "comment": "",
+      "command": "type",
+      "target": "id=txaDescricao",
+      "targets": [
+        ["id=txaDescricao", "id"],
+        ["name=txaDescricao", "name"],
+        ["css=#txaDescricao", "css:finder"],
+        ["xpath=//textarea[@id='txaDescricao']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": "desc1"
+    }, {
+      "id": "0e859638-a89e-4a5b-89ce-cf400a787399",
+      "comment": "",
+      "command": "click",
+      "target": "css=.infraButton:nth-child(1) > .infraTeclaAtalho",
+      "targets": [
+        ["css=.infraButton:nth-child(1) > .infraTeclaAtalho", "css:finder"],
+        ["xpath=//div[@id='divInfraBarraComandosSuperior']/button/span", "xpath:idRelative"],
+        ["xpath=//button/span", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "d722dcd4-d35d-48b7-a7bf-fd161e7d9fcc",
+      "comment": "",
+      "command": "click",
+      "target": "id=btnNovo",
+      "targets": [
+        ["id=btnNovo", "id"],
+        ["css=#btnNovo", "css:finder"],
+        ["xpath=//button[@id='btnNovo']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraBarraComandosSuperior']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Novo')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c28595d9-84ca-4e23-b99c-6cdf8ae28045",
+      "comment": "",
+      "command": "type",
+      "target": "id=txtSigla",
+      "targets": [
+        ["id=txtSigla", "id"],
+        ["name=txtSigla", "name"],
+        ["css=#txtSigla", "css:finder"],
+        ["xpath=//input[@id='txtSigla']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "TLOC02"
+    }, {
+      "id": "4b8f8df9-dc4a-4da3-b9be-d08b756557ad",
+      "comment": "",
+      "command": "click",
+      "target": "id=txtNome",
+      "targets": [
+        ["id=txtNome", "id"],
+        ["name=txtNome", "name"],
+        ["css=#txtNome", "css:finder"],
+        ["xpath=//input[@id='txtNome']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "089fbe90-f987-4625-9842-bbc2b79541ac",
+      "comment": "",
+      "command": "type",
+      "target": "id=txtNome",
+      "targets": [
+        ["id=txtNome", "id"],
+        ["name=txtNome", "name"],
+        ["css=#txtNome", "css:finder"],
+        ["xpath=//input[@id='txtNome']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "Tipo de Localizador 02"
+    }, {
+      "id": "2c43bfef-3557-40d0-a2c2-f52aa603f886",
+      "comment": "",
+      "command": "click",
+      "target": "id=txaDescricao",
+      "targets": [
+        ["id=txaDescricao", "id"],
+        ["name=txaDescricao", "name"],
+        ["css=#txaDescricao", "css:finder"],
+        ["xpath=//textarea[@id='txaDescricao']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "a15eae9c-3e89-42df-a01b-4f5f6555e98f",
+      "comment": "",
+      "command": "type",
+      "target": "id=txaDescricao",
+      "targets": [
+        ["id=txaDescricao", "id"],
+        ["name=txaDescricao", "name"],
+        ["css=#txaDescricao", "css:finder"],
+        ["xpath=//textarea[@id='txaDescricao']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": "desc2"
+    }, {
+      "id": "a850eda9-ce7b-44b3-add8-5c54fa980e86",
+      "comment": "",
+      "command": "click",
+      "target": "name=sbmCadastrarTipoLocalizador",
+      "targets": [
+        ["name=sbmCadastrarTipoLocalizador", "name"],
+        ["css=.infraButton:nth-child(1)", "css:finder"],
+        ["xpath=//button[@name='sbmCadastrarTipoLocalizador']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraBarraComandosSuperior']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Salvar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "4986991d-de3f-40e7-b7f0-4ca8b89a8b51",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//*[@id=\"main-menu\"]/li[21]/a",
+      "targets": [
+        ["linkText=Configurações", "linkText"],
+        ["css=li:nth-child(25) > ul > li:nth-child(1) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Configurações')]", "xpath:link"],
+        ["xpath=//ul[@id='main-menu']/li/ul/li[25]/ul/li/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'controlador.php?acao=gd_parametros_alterar&infra_sistema=100000100&infra_unidade_atual=110000001&infra_hash=92c3f2afddc0b87a665835d6a500908f0eda3de8e332f110ca058f74a31e0630')]", "xpath:href"],
+        ["xpath=//li[25]/ul/li/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Configurações')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "b6a2bf74-a3bb-494b-9cf9-d4468ab6d772",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Listar",
+      "targets": [
+        ["linkText=Listar", "linkText"],
+        ["css=li:nth-child(20) > .sm-nowrap > li:nth-child(2) > a", "css:finder"],
+        ["xpath=(//a[contains(text(),'Listar')])[25]", "xpath:link"],
+        ["xpath=//ul[@id='main-menu']/li[20]/ul/li[2]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'controlador.php?acao=localizador_listar&infra_sistema=100000100&infra_unidade_atual=110000001&infra_hash=fb89d48347c46c360489de48acc5f0531d6a4d8225f088db085fb990f613c3f7')]", "xpath:href"],
+        ["xpath=//div[2]/ul/li[20]/ul/li[2]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "78aca8ca-15b2-4f97-89cd-9a898fc9f8a0",
+      "comment": "",
+      "command": "click",
+      "target": "css=#btnNovo > .infraTeclaAtalho",
+      "targets": [
+        ["css=#btnNovo > .infraTeclaAtalho", "css:finder"],
+        ["xpath=//button[@id='btnNovo']/span", "xpath:idRelative"],
+        ["xpath=//button/span", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "db328f46-795a-4434-abe6-f7a6a051b7a4",
+      "comment": "",
+      "command": "select",
+      "target": "id=selTipoLocalizador",
+      "targets": [],
+      "value": "label=Tipo de Localizador 01"
+    }, {
+      "id": "7f18f73c-6573-416a-87a0-3feafb030f49",
+      "comment": "",
+      "command": "click",
+      "target": "id=selTipoLocalizador",
+      "targets": [
+        ["id=selTipoLocalizador", "id"],
+        ["name=selTipoLocalizador", "name"],
+        ["css=#selTipoLocalizador", "css:finder"],
+        ["xpath=//select[@id='selTipoLocalizador']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/select", "xpath:idRelative"],
+        ["xpath=//div[2]/select", "xpath:position"],
+        ["xpath=//select[contains(.,' \nTipo de Localizador 01\nTipo de Localizador 02')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "63f6372c-e6ed-4f92-b32d-beca840bc8be",
+      "comment": "",
+      "command": "click",
+      "target": "id=txtComplemento",
+      "targets": [
+        ["id=txtComplemento", "id"],
+        ["name=txtComplemento", "name"],
+        ["css=#txtComplemento", "css:finder"],
+        ["xpath=//input[@id='txtComplemento']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/input[3]", "xpath:idRelative"],
+        ["xpath=//input[3]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "38419ccb-51c3-466c-b9ce-6be20bd35369",
+      "comment": "",
+      "command": "type",
+      "target": "id=txtComplemento",
+      "targets": [
+        ["id=txtComplemento", "id"],
+        ["name=txtComplemento", "name"],
+        ["css=#txtComplemento", "css:finder"],
+        ["xpath=//input[@id='txtComplemento']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/input[3]", "xpath:idRelative"],
+        ["xpath=//input[3]", "xpath:position"]
+      ],
+      "value": "complemento localizador 01"
+    }, {
+      "id": "b00de612-d5d7-4984-adab-1c67ea12d9b0",
+      "comment": "",
+      "command": "select",
+      "target": "id=selTipoSuporte",
+      "targets": [],
+      "value": "label=Papel"
+    }, {
+      "id": "f095f249-410f-486f-a3cd-5ffab1b6da98",
+      "comment": "",
+      "command": "click",
+      "target": "id=selTipoSuporte",
+      "targets": [
+        ["id=selTipoSuporte", "id"],
+        ["name=selTipoSuporte", "name"],
+        ["css=#selTipoSuporte", "css:finder"],
+        ["xpath=//select[@id='selTipoSuporte']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/select[2]", "xpath:idRelative"],
+        ["xpath=//select[2]", "xpath:position"],
+        ["xpath=//select[contains(.,' \nCD / DVD\nDisquete\nFita Cassete\nFita Magnética\nFita VHS\nHD (Hard Disk)\nPapel\nPen Drive / Cartão de Memória')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "8858d70f-0cb8-4e0a-904f-c36bb3aa52b9",
+      "comment": "",
+      "command": "select",
+      "target": "id=selLugarLocalizador",
+      "targets": [],
+      "value": "label=Lugar 01"
+    }, {
+      "id": "b8f906ce-7746-4e4f-a65c-6eb67ec733b4",
+      "comment": "",
+      "command": "click",
+      "target": "id=selLugarLocalizador",
+      "targets": [
+        ["id=selLugarLocalizador", "id"],
+        ["name=selLugarLocalizador", "name"],
+        ["css=#selLugarLocalizador", "css:finder"],
+        ["xpath=//select[@id='selLugarLocalizador']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/select[3]", "xpath:idRelative"],
+        ["xpath=//select[3]", "xpath:position"],
+        ["xpath=//select[contains(.,' \nLugar 01\nLugar 02')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "4a27fae4-e8b7-4b22-a139-0af3793161f8",
+      "comment": "",
+      "command": "select",
+      "target": "id=selStaEstado",
+      "targets": [],
+      "value": "label=Aberto"
+    }, {
+      "id": "d1a2937c-4619-48d7-b371-6d82b1f17d71",
+      "comment": "",
+      "command": "click",
+      "target": "id=selStaEstado",
+      "targets": [
+        ["id=selStaEstado", "id"],
+        ["name=selStaEstado", "name"],
+        ["css=#selStaEstado", "css:finder"],
+        ["xpath=//select[@id='selStaEstado']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/select[4]", "xpath:idRelative"],
+        ["xpath=//select[4]", "xpath:position"],
+        ["xpath=//select[contains(.,' \nAberto\nFechado')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "5bb431d1-f9f2-45b9-a537-cacdc9773096",
+      "comment": "",
+      "command": "click",
+      "target": "name=sbmCadastrarLocalizador",
+      "targets": [
+        ["name=sbmCadastrarLocalizador", "name"],
+        ["css=.infraButton:nth-child(1)", "css:finder"],
+        ["xpath=//button[@name='sbmCadastrarLocalizador']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraBarraComandosSuperior']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Salvar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "68fd6752-5f02-4de5-808d-fdf571bbff27",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//*[@id=\"main-menu\"]/li[21]/a",
+      "targets": [
+        ["linkText=Configurações", "linkText"],
+        ["css=li:nth-child(25) > ul > li:nth-child(1) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Configurações')]", "xpath:link"],
+        ["xpath=//ul[@id='main-menu']/li/ul/li[25]/ul/li/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'controlador.php?acao=gd_parametros_alterar&infra_sistema=100000100&infra_unidade_atual=110000001&infra_hash=92c3f2afddc0b87a665835d6a500908f0eda3de8e332f110ca058f74a31e0630')]", "xpath:href"],
+        ["xpath=//li[25]/ul/li/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Configurações')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "56cd1c26-e1cb-4ee9-9b13-3e3092016741",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Listar",
+      "targets": [
+        ["linkText=Listar", "linkText"],
+        ["css=li:nth-child(20) > .sm-nowrap > li:nth-child(2) > a", "css:finder"],
+        ["xpath=(//a[contains(text(),'Listar')])[25]", "xpath:link"],
+        ["xpath=//ul[@id='main-menu']/li[20]/ul/li[2]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'controlador.php?acao=localizador_listar&infra_sistema=100000100&infra_unidade_atual=110000001&infra_hash=fb89d48347c46c360489de48acc5f0531d6a4d8225f088db085fb990f613c3f7')]", "xpath:href"],
+        ["xpath=//div[2]/ul/li[20]/ul/li[2]/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "4dbcf5a4-0f29-4540-8b46-1db7ffabbca5",
+      "comment": "",
+      "command": "click",
+      "target": "css=#btnNovo > .infraTeclaAtalho",
+      "targets": [
+        ["css=#btnNovo > .infraTeclaAtalho", "css:finder"],
+        ["xpath=//button[@id='btnNovo']/span", "xpath:idRelative"],
+        ["xpath=//button/span", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "05119ca4-5c01-4483-8209-9d7d1109d10b",
+      "comment": "",
+      "command": "select",
+      "target": "id=selTipoLocalizador",
+      "targets": [],
+      "value": "label=Tipo de Localizador 02"
+    }, {
+      "id": "e53d3295-8a8a-4170-9708-36a64c789841",
+      "comment": "",
+      "command": "click",
+      "target": "id=selTipoLocalizador",
+      "targets": [
+        ["id=selTipoLocalizador", "id"],
+        ["name=selTipoLocalizador", "name"],
+        ["css=#selTipoLocalizador", "css:finder"],
+        ["xpath=//select[@id='selTipoLocalizador']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/select", "xpath:idRelative"],
+        ["xpath=//div[2]/select", "xpath:position"],
+        ["xpath=//select[contains(.,' \nTipo de Localizador 01\nTipo de Localizador 02')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "fd7b940e-ce6b-4e2d-ae0f-da5aefa92582",
+      "comment": "",
+      "command": "select",
+      "target": "id=selTipoSuporte",
+      "targets": [],
+      "value": "label=Papel"
+    }, {
+      "id": "d788a463-aff3-44c0-8ebd-6df4e0dbe2de",
+      "comment": "",
+      "command": "click",
+      "target": "id=selTipoSuporte",
+      "targets": [
+        ["id=selTipoSuporte", "id"],
+        ["name=selTipoSuporte", "name"],
+        ["css=#selTipoSuporte", "css:finder"],
+        ["xpath=//select[@id='selTipoSuporte']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/select[2]", "xpath:idRelative"],
+        ["xpath=//select[2]", "xpath:position"],
+        ["xpath=//select[contains(.,' \nCD / DVD\nDisquete\nFita Cassete\nFita Magnética\nFita VHS\nHD (Hard Disk)\nPapel\nPen Drive / Cartão de Memória')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "db0cc8fe-1d98-49ac-bd3f-6122b0f1ec84",
+      "comment": "",
+      "command": "click",
+      "target": "id=selTipoSuporte",
+      "targets": [
+        ["id=selTipoSuporte", "id"],
+        ["name=selTipoSuporte", "name"],
+        ["css=#selTipoSuporte", "css:finder"],
+        ["xpath=//select[@id='selTipoSuporte']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/select[2]", "xpath:idRelative"],
+        ["xpath=//select[2]", "xpath:position"],
+        ["xpath=//select[contains(.,' \nCD / DVD\nDisquete\nFita Cassete\nFita Magnética\nFita VHS\nHD (Hard Disk)\nPapel\nPen Drive / Cartão de Memória')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "dd463b17-0611-472d-b6c9-c470e094db56",
+      "comment": "",
+      "command": "select",
+      "target": "id=selLugarLocalizador",
+      "targets": [],
+      "value": "label=Lugar 02"
+    }, {
+      "id": "7cef4610-eea4-4953-9590-0fd41261b937",
+      "comment": "",
+      "command": "click",
+      "target": "id=selLugarLocalizador",
+      "targets": [
+        ["id=selLugarLocalizador", "id"],
+        ["name=selLugarLocalizador", "name"],
+        ["css=#selLugarLocalizador", "css:finder"],
+        ["xpath=//select[@id='selLugarLocalizador']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/select[3]", "xpath:idRelative"],
+        ["xpath=//select[3]", "xpath:position"],
+        ["xpath=//select[contains(.,' \nLugar 01\nLugar 02')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "14de3d65-8011-4857-9a96-6a9a332380f0",
+      "comment": "",
+      "command": "select",
+      "target": "id=selStaEstado",
+      "targets": [],
+      "value": "label=Aberto"
+    }, {
+      "id": "beb11b54-48cb-4958-bbc4-36e156c51cc9",
+      "comment": "",
+      "command": "click",
+      "target": "id=selStaEstado",
+      "targets": [
+        ["id=selStaEstado", "id"],
+        ["name=selStaEstado", "name"],
+        ["css=#selStaEstado", "css:finder"],
+        ["xpath=//select[@id='selStaEstado']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/select[4]", "xpath:idRelative"],
+        ["xpath=//select[4]", "xpath:position"],
+        ["xpath=//select[contains(.,' \nAberto\nFechado')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "123f48f3-3882-405b-a019-af1bcf9956f1",
+      "comment": "",
+      "command": "click",
+      "target": "name=sbmCadastrarLocalizador",
+      "targets": [
+        ["name=sbmCadastrarLocalizador", "name"],
+        ["css=.infraButton:nth-child(1)", "css:finder"],
+        ["xpath=//button[@name='sbmCadastrarLocalizador']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraBarraComandosSuperior']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Salvar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "2be1fda9-6e7e-4381-956e-8f62edff107d",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//*[@id=\"main-menu\"]/li[21]/a",
+      "targets": [
+        ["linkText=Configurações", "linkText"],
+        ["css=li:nth-child(25) > ul > li:nth-child(1) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Configurações')]", "xpath:link"],
+        ["xpath=//ul[@id='main-menu']/li/ul/li[25]/ul/li/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'controlador.php?acao=gd_parametros_alterar&infra_sistema=100000100&infra_unidade_atual=110000001&infra_hash=92c3f2afddc0b87a665835d6a500908f0eda3de8e332f110ca058f74a31e0630')]", "xpath:href"],
+        ["xpath=//li[25]/ul/li/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Configurações')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "117bcc92-def1-4ca1-8553-d5f8927e85f9",
+    "name": "02-Config SEI-Localizadores",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["e73d1362-d124-425a-af5f-d01ca47421d7"]
+  }],
+  "urls": ["http://seigd.nuvem.gov.br/", "http://seigd.nuvem.gov.br/sei", "http://sei.gd.nuvem.gov.br/sei", "http://sei.gd.nuvem.gov.br/"],
+  "plugins": []
+}

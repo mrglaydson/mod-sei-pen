@@ -1,0 +1,1437 @@
+{
+  "id": "565c3481-f0b6-42f6-a947-d7514d57929f",
+  "version": "2.0",
+  "name": "13.00-ArquivamentoLegado",
+  "url": "http://sei.gd.nuvem.gov.br/",
+  "tests": [{
+    "id": "8e9baf2a-bdda-4d40-ab63-15741729ea68",
+    "name": "01-Legado",
+    "commands": [{
+      "id": "278b88a4-e671-40cd-98f6-f22f009d3f0c",
+      "comment": "",
+      "command": "open",
+      "target": "/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d236ed58-3f4b-407c-8762-c57f3dcc2705",
+      "comment": "",
+      "command": "click",
+      "target": "id=divUsuario",
+      "targets": [
+        ["id=divUsuario", "id"],
+        ["css=#divUsuario", "css:finder"],
+        ["xpath=//div[@id='divUsuario']", "xpath:attributes"],
+        ["xpath=//div[@id='divAreaRestrita']/div[2]", "xpath:idRelative"],
+        ["xpath=//form/div/div[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "546ae43c-9315-4ccd-afb1-c467f5ff56b4",
+      "comment": "",
+      "command": "click",
+      "target": "id=txtUsuario",
+      "targets": [
+        ["id=txtUsuario", "id"],
+        ["name=txtUsuario", "name"],
+        ["css=#txtUsuario", "css:finder"],
+        ["xpath=//input[@id='txtUsuario']", "xpath:attributes"],
+        ["xpath=//div[@id='divUsuario']/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f34f59cd-660d-42d3-acf0-115efdff13a6",
+      "comment": "",
+      "command": "type",
+      "target": "id=txtUsuario",
+      "targets": [
+        ["id=txtUsuario", "id"],
+        ["name=txtUsuario", "name"],
+        ["css=#txtUsuario", "css:finder"],
+        ["xpath=//input[@id='txtUsuario']", "xpath:attributes"],
+        ["xpath=//div[@id='divUsuario']/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "teste"
+    }, {
+      "id": "06b237ee-fb08-4df0-abea-58dac38f28fa",
+      "comment": "",
+      "command": "click",
+      "target": "id=pwdSenha",
+      "targets": [
+        ["id=pwdSenha", "id"],
+        ["name=pwdSenha", "name"],
+        ["css=#pwdSenha", "css:finder"],
+        ["xpath=//input[@id='pwdSenha']", "xpath:attributes"],
+        ["xpath=//div[@id='divUsuario']/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "68cbe4e7-1145-4a32-a6de-30578751562c",
+      "comment": "",
+      "command": "type",
+      "target": "id=pwdSenha",
+      "targets": [
+        ["id=pwdSenha", "id"],
+        ["name=pwdSenha", "name"],
+        ["css=#pwdSenha", "css:finder"],
+        ["xpath=//input[@id='pwdSenha']", "xpath:attributes"],
+        ["xpath=//div[@id='divUsuario']/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "teste"
+    }, {
+      "id": "6dbf8cf8-5bba-4d7d-96ca-1ae39335095d",
+      "comment": "",
+      "command": "click",
+      "target": "id=sbmLogin",
+      "targets": [
+        ["id=sbmLogin", "id"],
+        ["name=sbmLogin", "name"],
+        ["css=#sbmLogin", "css:finder"],
+        ["xpath=//button[@id='sbmLogin']", "xpath:attributes"],
+        ["xpath=//div[@id='divBotoes']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Acessar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "10f42c23-65dd-4beb-a016-9dd7a8f0d508",
+      "comment": "",
+      "command": "select",
+      "target": "id=selInfraUnidades",
+      "targets": [],
+      "value": "label=TESTE_1_1"
+    }, {
+      "id": "aa527dcb-f5db-41a6-8cce-dcc0571bd62a",
+      "comment": "",
+      "command": "click",
+      "target": "id=selInfraUnidades",
+      "targets": [
+        ["id=selInfraUnidades", "id"],
+        ["name=selInfraUnidades", "name"],
+        ["css=#selInfraUnidades", "css:finder"],
+        ["xpath=//select[@id='selInfraUnidades']", "xpath:attributes"],
+        ["xpath=//form[@id='frmInfraSelecionarUnidade']/select", "xpath:idRelative"],
+        ["xpath=//select", "xpath:position"],
+        ["xpath=//select[contains(.,'Arquivo01\nArquivoGeral\nArquivoGeral02\nTESTE\nTESTE_1_1\nTESTE_1_2')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "7598d7c4-b22a-49dd-979e-0068341311fa",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Pendências de Arquivamento",
+      "targets": [
+        ["linkText=Pendências de Arquivamento", "linkText"],
+        ["css=#main-menu > li:nth-child(23) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Pendências de Arquivamento')]", "xpath:link"],
+        ["xpath=//ul[@id='main-menu']/li[23]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'controlador.php?acao=gd_pendencias_arquivamento&infra_sistema=100000100&infra_unidade_atual=110000003&infra_hash=5ce32622d3c555881c07bcbe9baba474ded5fe25bfcf8d22685033f73a9a8ca5')]", "xpath:href"],
+        ["xpath=//div[2]/ul/li[23]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Pendências de Arquivamento')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d0aa3fd5-5254-4b16-8355-b3da71b0d272",
+      "comment": "",
+      "command": "select",
+      "target": "id=selTipoProcedimento",
+      "targets": [],
+      "value": "label=Acesso à Informação: Demanda do e-SIC"
+    }, {
+      "id": "c074a75a-dddd-4a7c-8296-28d90aabbfff",
+      "comment": "",
+      "command": "click",
+      "target": "id=selTipoProcedimento",
+      "targets": [
+        ["id=selTipoProcedimento", "id"],
+        ["name=selTipoProcedimento", "name"],
+        ["css=#selTipoProcedimento", "css:finder"],
+        ["xpath=//select[@id='selTipoProcedimento']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/select", "xpath:idRelative"],
+        ["xpath=//div[2]/select", "xpath:position"],
+        ["xpath=//select[contains(.,'Todos\nAcesso à Informação: Demanda do e-SIC\nAcompanhamento Legislativo: Câmara dos Deputados\nAcompanhamento Legislativo: Congresso Nacional\nAcompanhamento Legislativo: Estadual/Distrital\nAcompanhamento Legislativo: Municipal\nAcompanhamento Legislativo: Senado Federal\nArrecadação: Cobrança\nArrecadação: Cumprimento de Ação Judicial\nArrecadação: Encaminhamento para Dívida Ativa\nArrecadação: Normatização Interna\nArrecadação: Notificação/Comunicado\nArrecadação: Parcelamento Administrativo\nArrecadação: Receita\nArrecadação: Regularização de Indébitos\nArrecadação: Restituição/Compensação\nArrecadação: Subsidiar Ação Judicial\nComunicação: Evento Institucional Público Externo\nComunicação: Evento Institucional Público Interno\nComunicação: Pedido de Apoio Institucional\nComunicação: Publicidade Institucional\nComunicação: Publicidade Legal\nContabilidade: Análise Contábil\nContabilidade: Conformidade de Gestão\nContabilidade: Contratos e Garantias\nContabilidade: DIRF\nContabilidade: Encerramento do Exercício\nContabilidade: Fechamento Contábil - Estoque\nContabilidade: Fechamento Contábil Patrimonial\nContabilidade: Manuais\nContabilidade: Normatização Interna\nContabilidade: Prestação de Contas\nConvênios/Ajustes: Acompanhamento da Execução\nConvênios/Ajustes: Formalização/Alteração com Repasse\nConvênios/Ajustes: Formalização/Alteração sem Repasse\nCorregedoria: Análise Prescricional de Processo\nCorregedoria: Avaliação para Estabilidade\nCorregedoria: Correição\nCorregedoria: Investigação Preliminar\nCorregedoria: Procedimento Geral\nCorregedoria: Processo Administrativo Disciplinar\nCorregedoria: Sindicância Punitiva\nDemanda Externa: Cidadão (Pessoa Física)\nDemanda Externa: Deputado Estadual/Distrital\nDemanda Externa: Deputado Federal\nDemanda Externa: Judiciário\nDemanda Externa: Ministério Público Estadual\nDemanda Externa: Ministério Público Federal\nDemanda Externa: Orgãos Governamentais Estaduais\nDemanda Externa: Orgãos Governamentais Federais\nDemanda Externa: Orgãos Governamentais Municipais\nDemanda Externa: Outras Entidades Privadas\nDemanda Externa: Outros Orgãos Públicos\nDemanda Externa: Senador\nDemanda Externa: Vereador/Câmara Municipal\nÉtica: Análise de Conflito de Interesse\nÉtica: Processo de Apuração Ética\nFinanças: Execução Financeira\nFinanças: Normatização Interna\nFinanças: Reembolso/Ressarcimento\nGestão da Informação: Arrecadação\nGestão da Informação: Avaliação/Destinação de Documentos\nGestão da Informação: Cadastro de Usuário Externo no SEI\nGestão da Informação: Controle de Malote\nGestão da Informação: Credenciamento de Segurança\nGestão da Informação: Gestão Documental\nGestão da Informação: Normatização Interna\nGestão da Informação: Reconstituição Documental\nGestão da Informação: Rol Anual de Informações Classificadas\nGestão da Informação: Segurança da Informação e Comunicações\nGestão de Contrato: Acompanhamento da Execução\nGestão de Contrato: Acréscimo Contratual\nGestão de Contrato: Alterações Contratuais Conjuntas\nGestão de Contrato: Aplicação de Sanção Contratual\nGestão de Contrato: Consulta à Procuradoria/Conjur\nGestão de Contrato: Execução de Garantia\nGestão de Contrato: Outras Alterações Contratuais não Relacionadas\nGestão de Contrato: Pagamento Direto a Terceiros\nGestão de Contrato: Processo de Pagamento\nGestão de Contrato: Prorrogação Contratual\nGestão de Contrato: Reajuste ou Repactuação Contratual\nGestão de Contrato: Rescisão Contratual\nGestão de Contrato: Revisão Contratual\nGestão de Contrato: Supressão Contratual\nGestão de Processos: Mapeamento e Modelagem\nGestão de Projetos: Planejamento e Execução\nGestão de TI: CITI\nGestão e Controle: Coordenação - Demandas Externas\nGestão e Controle: Coordenação - Demandas Internas\nGestão e Controle: Demandas de Órgãos de Controle\nGestão e Controle: Executar Auditoria Interna\nInfraestrutura: Abastecimento de Água e Esgoto\nInfraestrutura: Apoio de Engenharia Civil\nInfraestrutura: Fornecimento de Energia Elétrica\nLicitação: Adesão a Ata de RP-Não Participante\nLicitação: Adesão a Ata de RP-Participante\nLicitação: Aplicação de Sanção decorrente de Procedimento Licitatório\nLicitação: Concorrência\nLicitação: Concorrência-Registro de Preço\nLicitação: Concurso\nLicitação: Consulta\nLicitação: Convite\nLicitação: Dispensa - Acima de R$ 8 mil\nLicitação: Dispensa - Até R$ 8 mil\nLicitação: Inexigibilidade\nLicitação: Leilão\nLicitação: Plano de Aquisições\nLicitação: Pregão Eletrônico\nLicitação: Pregão Eletrônico-Registro de Preço\nLicitação: Pregão Presencial\nLicitação: Regime Diferenciado de Contratação-RDC\nLicitação: Tomada de Preços\nMaterial: Desfazimento de Material de Consumo\nMaterial: Desfazimento de Material Permanente\nMaterial: Inventário de Material de Consumo\nMaterial: Inventário de Material Permanente\nMaterial: Movimentação de Material de Consumo\nMaterial: Movimentação de Material Permanente\nOrçamento: Acompanhamento de Despesa Mensal\nOrçamento: Contingenciamento\nOrçamento: Créditos Adicionais\nOrçamento: Descentralização de Créditos\nOrçamento: Manuais\nOrçamento: Programação Orçamentária\nOuvidoria: Agradecimento ao Órgão (Ouvidoria)\nOuvidoria: Crítica à atuação do Órgão (Ouvidoria)\nOuvidoria: Denúncia contra a atuação do Órgão (Ouvidoria)\nOuvidoria: Elogio à atuação do Órgão (Ouvidoria)\nOuvidoria: Pedido de Informação (Ouvidoria)\nOuvidoria: Reclamação à atuação do Órgão (Ouvidoria)\nPatrimônio: Cobrança de Acervo Bibliográfico\nPatrimônio: Gestão de Acervo Bibliográfico\nPatrimônio: Gestão de Bens Imóveis\nPessoal: Abono Permanência - Concessão\nPessoal: Abono Permanência - Revisão\nPessoal: Adicional de Férias (1/3 constitucional)\nPessoal: Adicional de Insalubridade\nPessoal: Adicional de Periculosidade\nPessoal: Adicional Noturno\nPessoal: Adicional por Atividade Penosa\nPessoal: Adicional por Serviço Extraordinário\nPessoal: Adicional por Tempo de Serviço\nPessoal: Afastamento para Atividade Desportiva\nPessoal: Afastamento para Curso de Formação\nPessoal: Afastamento para Depor\nPessoal: Afastamento para Exercer Mandato Eletivo\nPessoal: Afastamento para Pós-Graduação\nPessoal: Afastamento para Serviço Eleitoral (TRE)\nPessoal: Afastamento para Servir como Jurado\nPessoal: Afastamento para servir em Organismo Internacional\nPessoal: Ajuda de Custo com Mudança de Domicílio\nPessoal: Aposentadoria - Concessão\nPessoal: Aposentadoria - Contagem Tempo de Serviço\nPessoal: Aposentadoria - Pensão Temporária\nPessoal: Aposentadoria - Pensão Vitalícia\nPessoal: Aposentadoria - Revisão\nPessoal: Apresentação de Certificado de Curso\nPessoal: Assentamento Funcional do Servidor\nPessoal: Ausência em razão de Casamento\nPessoal: Ausência para Alistamento Eleitoral\nPessoal: Ausência para Doação de Sangue\nPessoal: Ausência por Falecimento de Familiar\nPessoal: Auxílio Acidente\nPessoal: Auxílio Alimentação/Refeição\nPessoal: Auxílio Assistência Pré-Escolar/Creche\nPessoal: Auxílio Doença\nPessoal: Auxílio Funeral\nPessoal: Auxílio Moradia\nPessoal: Auxílio Natalidade\nPessoal: Auxílio Reclusão\nPessoal: Auxílio-Transporte\nPessoal: Avaliação de Desempenho Individual\nPessoal: Avaliação de Desempenho Institucional\nPessoal: Avaliação de Estágio Probatório\nPessoal: Averbação de Tempo de Serviço\nPessoal: Bolsa de Estudo de Idioma Estrangeiro\nPessoal: Bolsa de Pós-Graduação\nPessoal: Cadastro de Dependente no Imposto de Renda\nPessoal: Cessão de Servidor para outro Órgão\nPessoal: CIPA\nPessoal: Coleta de Imagem de Assinatura\nPessoal: Concurso Público - Exames Admissionais\nPessoal: Concurso Público - Organização\nPessoal: Concurso Público - Provas e Títulos\nPessoal: Controle de Frequência/Abono de Falta\nPessoal: Controle de Frequência/Cumprir Hora Extra\nPessoal: Controle de Frequência/Folha de Ponto\nPessoal: Curso de Pós-Graduação\nPessoal: Curso no Exterior - com ônus\nPessoal: Curso no Exterior - ônus limitado\nPessoal: Curso no Exterior - sem ônus\nPessoal: Curso Promovido pela própria Instituição\nPessoal: Curso Promovido por outra Instituição\nPessoal: Delegação de Competência\nPessoal: Desconto da Contribuição para o INSS\nPessoal: Desconto de Contribuição Associativa\nPessoal: Desconto de Contribuição Sindical\nPessoal: Desconto de Empréstimo Consignado\nPessoal: Desconto de Pensão Alimentícia\nPessoal: Desconto do IRPF Retido na Fonte\nPessoal: Emissão de Certidões e Declarações\nPessoal: Emissão de Procuração\nPessoal: Encargo Patronal - Contribuição para INSS\nPessoal: Estágio - Dossiê do Estagiário\nPessoal: Estágio - Planejamento/Organização Geral\nPessoal: Estágio de Servidor no Brasil\nPessoal: Estágio de Servidor no Exterior\nPessoal: Exoneração de Cargo Efetivo\nPessoal: Falecimento de Servidor\nPessoal: Férias - Alteração\nPessoal: Férias - Interrupção\nPessoal: Férias - Solicitação\nPessoal: Ficha Financeira\nPessoal: Folha de Pagamento\nPessoal: Gratificação de Desempenho\nPessoal: Gratificação Natalina (Décimo Terceiro)\nPessoal: Gratificação por Encargo - Curso/Concurso\nPessoal: Horário de Expediente - Definição\nPessoal: Horário de Expediente - Escala de Plantão\nPessoal: Horário Especial - Familiar Deficiente\nPessoal: Horário Especial - Instrutor de Curso\nPessoal: Horário Especial - Servidor Deficiente\nPessoal: Horário Especial - Servidor Estudante\nPessoal: Indenização de Transporte (meio próprio)\nPessoal: Licença Adotante\nPessoal: Licença Gestante\nPessoal: Licença para Atividade Política\nPessoal: Licença para Capacitação\nPessoal: Licença para Mandato Classista\nPessoal: Licença para Serviço Militar\nPessoal: Licença para Tratamento da Própria Saúde\nPessoal: Licença para Tratar de Interesses Particulares\nPessoal: Licença Paternidade\nPessoal: Licença por Acidente em Serviço\nPessoal: Licença por Afastamento do Cônjuge\nPessoal: Licença por Doença em Pessoa da Família\nPessoal: Licença por Doença Profissional\nPessoal: Licença Prêmio por Assiduidade\nPessoal: Licenças por Aborto/Natimorto\nPessoal: Movimentação de Servidor\nPessoal: Movimento Reivindicatório\nPessoal: Negociação Sindical e Acordo Coletivo\nPessoal: Nomeação/Exoneração de Cargo Comissionado e Designação/Dispensa de Substituto\nPessoal: Normatização Interna\nPessoal: Ocupação de Imóvel Funcional\nPessoal: Orientações e Diretrizes Gerais\nPessoal: Pagamento de Provento\nPessoal: Pagamento de Remuneração\nPessoal: Penalidade Advertência\nPessoal: Penalidade Cassação de Aposentadoria\nPessoal: Penalidade Demissão de Cargo Efetivo\nPessoal: Penalidade Destituição Cargo em Comissão\nPessoal: Penalidade Disponibilidade\nPessoal: Penalidade Suspensão\nPessoal: Pensão por Morte de Servidor\nPessoal: Planejamento da Força de Trabalho\nPessoal: Plano de Capacitação\nPessoal: Prêmios de Reconhecimento\nPessoal: Prevenção de Acidentes no Trabalho\nPessoal: Progressão e Promoção (Quadro Efetivo)\nPessoal: Progressão e Promoção (Quadro Específico)\nPessoal: Provimento - Nomeação para Cargo Efetivo\nPessoal: Provimento - Nomeação para Cargo em Comissão\nPessoal: Provimento - por Aproveitamento\nPessoal: Provimento - por Readaptação\nPessoal: Provimento - por Recondução\nPessoal: Provimento - por Reintegração\nPessoal: Provimento - por Reversão\nPessoal: Relação com Conselho Profissional\nPessoal: Remoção a Pedido - Concurso Interno\nPessoal: Remoção a Pedido com Mudança de Sede\nPessoal: Remoção a Pedido para Acompanhar Cônjuge\nPessoal: Remoção a Pedido por Motivo de Saúde\nPessoal: Remoção a Pedido sem Mudança de Sede\nPessoal: Remoção de Ofício com Mudança de Sede\nPessoal: Remoção de Ofício sem Mudança de Sede\nPessoal: Requisição de Servidor Externo\nPessoal: Requisição de Servidor Interno\nPessoal: Ressarcimento ao Erário\nPessoal: Restruturação de Cargos e Funções\nPessoal: Retribuição por Cargo em Comissão\nPessoal: Salário-Família\nPessoal: Saúde - Atestado de Comparecimento\nPessoal: Saúde - Auxílio-Saúde GEAP\nPessoal: Saúde - Cadastro de Dependente Estudante no Auxílio-Saúde\nPessoal: Saúde - Exclusão de Auxílio-Saúde\nPessoal: Saúde - Inspeção Periódica\nPessoal: Saúde - Lançamento Mensal do Auxílio-Saúde no SIAPE\nPessoal: Saúde - Pagamento de Auxílio-Saúde\nPessoal: Saúde - Pagamento de Retroativo\nPessoal: Saúde - Plano de Saúde\nPessoal: Saúde - Prontuário Médico\nPessoal: Saúde - Ressarcimento ao Erário\nPessoal: Saúde - Solicitação de Auxílio-Saúde\nPessoal: Saúde e Qualidade de Vida no Trabalho\nPessoal: Subsidiar Ação Judicial\nPessoal: Vacância - Posse em Cargo Inacumulável\nPlanejamento Estratégico: Acompanhamento do Plano Operacional\nPlanejamento Estratégico: Elaboração do Plano Estratégico\nPlanejamento Estratégico: Elaboração do Plano Operacional\nPlanejamento Estratégico: Gestão de Risco\nPlanejamento Estratégico: Gestão do Plano Estratégico\nPlanejamento Estratégico: Inteligência Estratégica\nProcesso de Eliminação\nProcesso de listagem de eliminação\nRelações Internacionais: Composição de Delegação - com ônus\nRelações Internacionais: Composição de Delegação - ônus limitado\nRelações Internacionais: Composição de Delegação - sem ônus\nRelações Internacionais: Cooperação Internacional\nSegurança Institucional: Automação e Controle Predial\nSegurança Institucional: Controle de Acesso/Garagem\nSegurança Institucional: Controle de Acesso/Portaria\nSegurança Institucional: Prevenção contra Incêndio\nSegurança Institucional: Projeto contra Incêndio\nSegurança Institucional: Serviço de Vigilância\nSuprimento de Fundos: Concessão e Prestação de Contas\nSuprimento de Fundos: Solicitação de Despesa\nViagem: Exterior - Prestação de Contas\nViagem: No País - Prestação de Contas\nViagem: Publicação de Boletim')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "e1ffed00-a1fa-40dc-9d8b-5dee3ceb57d0",
+      "comment": "",
+      "command": "pause",
+      "target": "4",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "839a3654-7c0b-4f45-9eab-e9196210a956",
+      "comment": "",
+      "command": "click",
+      "target": "id=sbmPesquisar",
+      "targets": [
+        ["id=sbmPesquisar", "id"],
+        ["css=#divInfraBarraComandosSuperior > #sbmPesquisar", "css:finder"],
+        ["xpath=//button[@id='sbmPesquisar']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraBarraComandosSuperior']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Pesquisar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c6f7dbf4-25f0-461f-9090-e2701d92dc4c",
+      "comment": "",
+      "command": "pause",
+      "target": "4",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "45fe7ad3-ece0-4e95-b891-28e7b1442245",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "id=imgInfraCheck",
+      "targets": [],
+      "value": "30000"
+    }, {
+      "id": "8907e468-082c-4346-9ae2-9787659074d3",
+      "comment": "",
+      "command": "click",
+      "target": "id=imgInfraCheck",
+      "targets": [
+        ["id=imgInfraCheck", "id"],
+        ["css=#imgInfraCheck", "css:finder"],
+        ["xpath=//img[@alt='Selecionar Tudo']", "xpath:img"],
+        ["xpath=//img[@id='imgInfraCheck']", "xpath:attributes"],
+        ["xpath=//a[@id='lnkInfraCheck']/img", "xpath:idRelative"],
+        ["xpath=//th/a/img", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "748d28d8-0e39-492d-8a84-ed60f154cbfc",
+      "comment": "",
+      "command": "click",
+      "target": "id=chkInfraItem0",
+      "targets": [
+        ["id=chkInfraItem0", "id"],
+        ["name=chkInfraItem0", "name"],
+        ["css=#chkInfraItem0", "css:finder"],
+        ["xpath=//input[@id='chkInfraItem0']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[2]/td/input", "xpath:idRelative"],
+        ["xpath=//td/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "e5bd732a-dbe9-4523-8c72-45be946e9c4c",
+      "comment": "",
+      "command": "click",
+      "target": "id=chkInfraItem1",
+      "targets": [
+        ["id=chkInfraItem1", "id"],
+        ["name=chkInfraItem1", "name"],
+        ["css=#chkInfraItem1", "css:finder"],
+        ["xpath=//input[@id='chkInfraItem1']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[3]/td/input", "xpath:idRelative"],
+        ["xpath=//tr[3]/td/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "1d65b34d-3411-4033-a812-7cd86dfaa9ee",
+      "comment": "",
+      "command": "click",
+      "target": "id=chkInfraItem2",
+      "targets": [
+        ["id=chkInfraItem2", "id"],
+        ["name=chkInfraItem2", "name"],
+        ["css=#chkInfraItem2", "css:finder"],
+        ["xpath=//input[@id='chkInfraItem2']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[4]/td/input", "xpath:idRelative"],
+        ["xpath=//tr[4]/td/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f83700ed-fb07-4f94-a853-8b908bbcf9ca",
+      "comment": "",
+      "command": "click",
+      "target": "id=sbmArquivar",
+      "targets": [
+        ["id=sbmArquivar", "id"],
+        ["css=#divInfraBarraComandosSuperior > #sbmArquivar", "css:finder"],
+        ["xpath=//button[@id='sbmArquivar']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraBarraComandosSuperior']/button[3]", "xpath:idRelative"],
+        ["xpath=//button[3]", "xpath:position"],
+        ["xpath=//button[contains(.,'Arquivar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "948d37fb-40fe-4109-82ea-7bf8e6f69656",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "id=selJustificativa",
+      "targets": [],
+      "value": "30000"
+    }, {
+      "id": "963553e3-c540-4431-9037-f13bc3c6c29c",
+      "comment": "",
+      "command": "select",
+      "target": "id=selJustificativa",
+      "targets": [],
+      "value": "label=Justificativa de Arquivamento 01"
+    }, {
+      "id": "56ada72d-87dc-4534-88ae-8412fa04bed5",
+      "comment": "",
+      "command": "click",
+      "target": "id=selJustificativa",
+      "targets": [
+        ["id=selJustificativa", "id"],
+        ["name=selJustificativa", "name"],
+        ["css=#selJustificativa", "css:finder"],
+        ["xpath=//select[@id='selJustificativa']", "xpath:attributes"],
+        ["xpath=//div[@id='divJustificativa']/select", "xpath:idRelative"],
+        ["xpath=//div[2]/select", "xpath:position"],
+        ["xpath=//select[contains(.,'Just Dup\nJustificativa de Arquivamento 01\nJustificativa de Arquivamento 02')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d3bea4f7-b332-4ea8-8d4a-3016e7f4922b",
+      "comment": "",
+      "command": "click",
+      "target": "id=chkSinLegado",
+      "targets": [
+        ["id=chkSinLegado", "id"],
+        ["name=chkSinLegado", "name"],
+        ["css=#chkSinLegado", "css:finder"],
+        ["xpath=//input[@id='chkSinLegado']", "xpath:attributes"],
+        ["xpath=//div[@id='divSinLegado']/input", "xpath:idRelative"],
+        ["xpath=//div[3]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "dd83c5b0-7a27-459d-9b3b-dfcd7de91435",
+      "comment": "",
+      "command": "executeScript",
+      "target": "var d= new Date(); var m=((d.getMonth()+1)<10)?'0'+(d.getMonth()+1):(d.getMonth()+1); var di=(d.getDate()<10)?'0'+(d.getDate()):(d.getDate());  return di+\"/\"+m+\"/\"+(d.getFullYear());",
+      "targets": [],
+      "value": "data"
+    }, {
+      "id": "dc4db774-7311-498b-a470-07613579e057",
+      "comment": "",
+      "command": "click",
+      "target": "id=txtDataArquivamento",
+      "targets": [
+        ["id=txtDataArquivamento", "id"],
+        ["name=txtDataArquivamento", "name"],
+        ["css=#txtDataArquivamento", "css:finder"],
+        ["xpath=//input[@id='txtDataArquivamento']", "xpath:attributes"],
+        ["xpath=//div[@id='divDataArquivamento']/input", "xpath:idRelative"],
+        ["xpath=//div[4]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "6929c383-79c3-43fa-ba60-9ee409697c5e",
+      "comment": "",
+      "command": "type",
+      "target": "id=txtDataArquivamento",
+      "targets": [
+        ["id=txtDataArquivamento", "id"],
+        ["name=txtDataArquivamento", "name"],
+        ["css=#txtDataArquivamento", "css:finder"],
+        ["xpath=//input[@id='txtDataArquivamento']", "xpath:attributes"],
+        ["xpath=//div[@id='divDataArquivamento']/input", "xpath:idRelative"],
+        ["xpath=//div[4]/input", "xpath:position"]
+      ],
+      "value": "${data}"
+    }, {
+      "id": "642d6fb0-5019-4bdf-983a-e201675c48d5",
+      "comment": "",
+      "command": "select",
+      "target": "id=selCargoFuncao",
+      "targets": [],
+      "value": "label=Agente Fiscalizador de Contrato"
+    }, {
+      "id": "3b42f7e9-dbaf-4494-811c-ac7e544b7735",
+      "comment": "",
+      "command": "click",
+      "target": "id=selCargoFuncao",
+      "targets": [
+        ["id=selCargoFuncao", "id"],
+        ["name=selCargoFuncao", "name"],
+        ["css=#selCargoFuncao", "css:finder"],
+        ["xpath=//select[@id='selCargoFuncao']", "xpath:attributes"],
+        ["xpath=//div[@id='divCargoFuncao']/select", "xpath:idRelative"],
+        ["xpath=//div[3]/select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "3e75d81c-52d9-4dff-b932-7f4af602646c",
+      "comment": "",
+      "command": "click",
+      "target": "id=pwdSenha",
+      "targets": [
+        ["id=pwdSenha", "id"],
+        ["name=pwdSenha", "name"],
+        ["css=#pwdSenha", "css:finder"],
+        ["xpath=//input[@id='pwdSenha']", "xpath:attributes"],
+        ["xpath=//div[@id='divAutenticacao']/input", "xpath:idRelative"],
+        ["xpath=//fieldset[2]/div[4]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "69f0d263-e5e1-43de-a778-cf2a6d3b3cd6",
+      "comment": "",
+      "command": "type",
+      "target": "id=pwdSenha",
+      "targets": [
+        ["id=pwdSenha", "id"],
+        ["name=pwdSenha", "name"],
+        ["css=#pwdSenha", "css:finder"],
+        ["xpath=//input[@id='pwdSenha']", "xpath:attributes"],
+        ["xpath=//div[@id='divAutenticacao']/input", "xpath:idRelative"],
+        ["xpath=//fieldset[2]/div[4]/input", "xpath:position"]
+      ],
+      "value": "teste"
+    }, {
+      "id": "cf46a0e3-50bb-4a8d-9a0c-5ed1d14e839d",
+      "comment": "",
+      "command": "click",
+      "target": "id=sbmSalvar",
+      "targets": [
+        ["id=sbmSalvar", "id"],
+        ["name=sbmSalvar", "name"],
+        ["css=#sbmSalvar", "css:finder"],
+        ["xpath=//button[@id='sbmSalvar']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraBarraComandosSuperior']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Salvar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "f2d99f11-afdc-4813-9a4e-46946b94fe5f",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "css=.infraCaption",
+      "targets": [],
+      "value": "60000"
+    }, {
+      "id": "03a8c135-1f8c-4fbb-b439-51cefc883d97",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=.infraCaption",
+      "targets": [
+        ["css=.infraCaption", "css:finder"],
+        ["xpath=//div[@id='divInfraAreaTabela']/table/caption", "xpath:idRelative"],
+        ["xpath=//caption", "xpath:position"],
+        ["xpath=//caption[contains(.,'Lista de Pendências de Arquivamento (5 registros):')]", "xpath:innerText"]
+      ],
+      "value": "Lista de Pendências de Arquivamento (5 registros):"
+    }, {
+      "id": "399e029c-80df-4a5a-862a-e219d1b2ef1d",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "id=selTipoProcedimento",
+      "targets": [],
+      "value": "30000"
+    }, {
+      "id": "f0b33b32-36ff-41a5-8faa-d80993499f02",
+      "comment": "",
+      "command": "select",
+      "target": "id=selTipoProcedimento",
+      "targets": [],
+      "value": "label=Comunicação: Evento Institucional Público Externo"
+    }, {
+      "id": "a3a669bc-5f7b-4e45-85e5-091c3fe20f85",
+      "comment": "",
+      "command": "click",
+      "target": "id=selTipoProcedimento",
+      "targets": [
+        ["id=selTipoProcedimento", "id"],
+        ["name=selTipoProcedimento", "name"],
+        ["css=#selTipoProcedimento", "css:finder"],
+        ["xpath=//select[@id='selTipoProcedimento']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/select", "xpath:idRelative"],
+        ["xpath=//div[2]/select", "xpath:position"],
+        ["xpath=//select[contains(.,'Todos\nAcesso à Informação: Demanda do e-SIC\nAcompanhamento Legislativo: Câmara dos Deputados\nAcompanhamento Legislativo: Congresso Nacional\nAcompanhamento Legislativo: Estadual/Distrital\nAcompanhamento Legislativo: Municipal\nAcompanhamento Legislativo: Senado Federal\nArrecadação: Cobrança\nArrecadação: Cumprimento de Ação Judicial\nArrecadação: Encaminhamento para Dívida Ativa\nArrecadação: Normatização Interna\nArrecadação: Notificação/Comunicado\nArrecadação: Parcelamento Administrativo\nArrecadação: Receita\nArrecadação: Regularização de Indébitos\nArrecadação: Restituição/Compensação\nArrecadação: Subsidiar Ação Judicial\nComunicação: Evento Institucional Público Externo\nComunicação: Evento Institucional Público Interno\nComunicação: Pedido de Apoio Institucional\nComunicação: Publicidade Institucional\nComunicação: Publicidade Legal\nContabilidade: Análise Contábil\nContabilidade: Conformidade de Gestão\nContabilidade: Contratos e Garantias\nContabilidade: DIRF\nContabilidade: Encerramento do Exercício\nContabilidade: Fechamento Contábil - Estoque\nContabilidade: Fechamento Contábil Patrimonial\nContabilidade: Manuais\nContabilidade: Normatização Interna\nContabilidade: Prestação de Contas\nConvênios/Ajustes: Acompanhamento da Execução\nConvênios/Ajustes: Formalização/Alteração com Repasse\nConvênios/Ajustes: Formalização/Alteração sem Repasse\nCorregedoria: Análise Prescricional de Processo\nCorregedoria: Avaliação para Estabilidade\nCorregedoria: Correição\nCorregedoria: Investigação Preliminar\nCorregedoria: Procedimento Geral\nCorregedoria: Processo Administrativo Disciplinar\nCorregedoria: Sindicância Punitiva\nDemanda Externa: Cidadão (Pessoa Física)\nDemanda Externa: Deputado Estadual/Distrital\nDemanda Externa: Deputado Federal\nDemanda Externa: Judiciário\nDemanda Externa: Ministério Público Estadual\nDemanda Externa: Ministério Público Federal\nDemanda Externa: Orgãos Governamentais Estaduais\nDemanda Externa: Orgãos Governamentais Federais\nDemanda Externa: Orgãos Governamentais Municipais\nDemanda Externa: Outras Entidades Privadas\nDemanda Externa: Outros Orgãos Públicos\nDemanda Externa: Senador\nDemanda Externa: Vereador/Câmara Municipal\nÉtica: Análise de Conflito de Interesse\nÉtica: Processo de Apuração Ética\nFinanças: Execução Financeira\nFinanças: Normatização Interna\nFinanças: Reembolso/Ressarcimento\nGestão da Informação: Arrecadação\nGestão da Informação: Avaliação/Destinação de Documentos\nGestão da Informação: Cadastro de Usuário Externo no SEI\nGestão da Informação: Controle de Malote\nGestão da Informação: Credenciamento de Segurança\nGestão da Informação: Gestão Documental\nGestão da Informação: Normatização Interna\nGestão da Informação: Reconstituição Documental\nGestão da Informação: Rol Anual de Informações Classificadas\nGestão da Informação: Segurança da Informação e Comunicações\nGestão de Contrato: Acompanhamento da Execução\nGestão de Contrato: Acréscimo Contratual\nGestão de Contrato: Alterações Contratuais Conjuntas\nGestão de Contrato: Aplicação de Sanção Contratual\nGestão de Contrato: Consulta à Procuradoria/Conjur\nGestão de Contrato: Execução de Garantia\nGestão de Contrato: Outras Alterações Contratuais não Relacionadas\nGestão de Contrato: Pagamento Direto a Terceiros\nGestão de Contrato: Processo de Pagamento\nGestão de Contrato: Prorrogação Contratual\nGestão de Contrato: Reajuste ou Repactuação Contratual\nGestão de Contrato: Rescisão Contratual\nGestão de Contrato: Revisão Contratual\nGestão de Contrato: Supressão Contratual\nGestão de Processos: Mapeamento e Modelagem\nGestão de Projetos: Planejamento e Execução\nGestão de TI: CITI\nGestão e Controle: Coordenação - Demandas Externas\nGestão e Controle: Coordenação - Demandas Internas\nGestão e Controle: Demandas de Órgãos de Controle\nGestão e Controle: Executar Auditoria Interna\nInfraestrutura: Abastecimento de Água e Esgoto\nInfraestrutura: Apoio de Engenharia Civil\nInfraestrutura: Fornecimento de Energia Elétrica\nLicitação: Adesão a Ata de RP-Não Participante\nLicitação: Adesão a Ata de RP-Participante\nLicitação: Aplicação de Sanção decorrente de Procedimento Licitatório\nLicitação: Concorrência\nLicitação: Concorrência-Registro de Preço\nLicitação: Concurso\nLicitação: Consulta\nLicitação: Convite\nLicitação: Dispensa - Acima de R$ 8 mil\nLicitação: Dispensa - Até R$ 8 mil\nLicitação: Inexigibilidade\nLicitação: Leilão\nLicitação: Plano de Aquisições\nLicitação: Pregão Eletrônico\nLicitação: Pregão Eletrônico-Registro de Preço\nLicitação: Pregão Presencial\nLicitação: Regime Diferenciado de Contratação-RDC\nLicitação: Tomada de Preços\nMaterial: Desfazimento de Material de Consumo\nMaterial: Desfazimento de Material Permanente\nMaterial: Inventário de Material de Consumo\nMaterial: Inventário de Material Permanente\nMaterial: Movimentação de Material de Consumo\nMaterial: Movimentação de Material Permanente\nOrçamento: Acompanhamento de Despesa Mensal\nOrçamento: Contingenciamento\nOrçamento: Créditos Adicionais\nOrçamento: Descentralização de Créditos\nOrçamento: Manuais\nOrçamento: Programação Orçamentária\nOuvidoria: Agradecimento ao Órgão (Ouvidoria)\nOuvidoria: Crítica à atuação do Órgão (Ouvidoria)\nOuvidoria: Denúncia contra a atuação do Órgão (Ouvidoria)\nOuvidoria: Elogio à atuação do Órgão (Ouvidoria)\nOuvidoria: Pedido de Informação (Ouvidoria)\nOuvidoria: Reclamação à atuação do Órgão (Ouvidoria)\nPatrimônio: Cobrança de Acervo Bibliográfico\nPatrimônio: Gestão de Acervo Bibliográfico\nPatrimônio: Gestão de Bens Imóveis\nPessoal: Abono Permanência - Concessão\nPessoal: Abono Permanência - Revisão\nPessoal: Adicional de Férias (1/3 constitucional)\nPessoal: Adicional de Insalubridade\nPessoal: Adicional de Periculosidade\nPessoal: Adicional Noturno\nPessoal: Adicional por Atividade Penosa\nPessoal: Adicional por Serviço Extraordinário\nPessoal: Adicional por Tempo de Serviço\nPessoal: Afastamento para Atividade Desportiva\nPessoal: Afastamento para Curso de Formação\nPessoal: Afastamento para Depor\nPessoal: Afastamento para Exercer Mandato Eletivo\nPessoal: Afastamento para Pós-Graduação\nPessoal: Afastamento para Serviço Eleitoral (TRE)\nPessoal: Afastamento para Servir como Jurado\nPessoal: Afastamento para servir em Organismo Internacional\nPessoal: Ajuda de Custo com Mudança de Domicílio\nPessoal: Aposentadoria - Concessão\nPessoal: Aposentadoria - Contagem Tempo de Serviço\nPessoal: Aposentadoria - Pensão Temporária\nPessoal: Aposentadoria - Pensão Vitalícia\nPessoal: Aposentadoria - Revisão\nPessoal: Apresentação de Certificado de Curso\nPessoal: Assentamento Funcional do Servidor\nPessoal: Ausência em razão de Casamento\nPessoal: Ausência para Alistamento Eleitoral\nPessoal: Ausência para Doação de Sangue\nPessoal: Ausência por Falecimento de Familiar\nPessoal: Auxílio Acidente\nPessoal: Auxílio Alimentação/Refeição\nPessoal: Auxílio Assistência Pré-Escolar/Creche\nPessoal: Auxílio Doença\nPessoal: Auxílio Funeral\nPessoal: Auxílio Moradia\nPessoal: Auxílio Natalidade\nPessoal: Auxílio Reclusão\nPessoal: Auxílio-Transporte\nPessoal: Avaliação de Desempenho Individual\nPessoal: Avaliação de Desempenho Institucional\nPessoal: Avaliação de Estágio Probatório\nPessoal: Averbação de Tempo de Serviço\nPessoal: Bolsa de Estudo de Idioma Estrangeiro\nPessoal: Bolsa de Pós-Graduação\nPessoal: Cadastro de Dependente no Imposto de Renda\nPessoal: Cessão de Servidor para outro Órgão\nPessoal: CIPA\nPessoal: Coleta de Imagem de Assinatura\nPessoal: Concurso Público - Exames Admissionais\nPessoal: Concurso Público - Organização\nPessoal: Concurso Público - Provas e Títulos\nPessoal: Controle de Frequência/Abono de Falta\nPessoal: Controle de Frequência/Cumprir Hora Extra\nPessoal: Controle de Frequência/Folha de Ponto\nPessoal: Curso de Pós-Graduação\nPessoal: Curso no Exterior - com ônus\nPessoal: Curso no Exterior - ônus limitado\nPessoal: Curso no Exterior - sem ônus\nPessoal: Curso Promovido pela própria Instituição\nPessoal: Curso Promovido por outra Instituição\nPessoal: Delegação de Competência\nPessoal: Desconto da Contribuição para o INSS\nPessoal: Desconto de Contribuição Associativa\nPessoal: Desconto de Contribuição Sindical\nPessoal: Desconto de Empréstimo Consignado\nPessoal: Desconto de Pensão Alimentícia\nPessoal: Desconto do IRPF Retido na Fonte\nPessoal: Emissão de Certidões e Declarações\nPessoal: Emissão de Procuração\nPessoal: Encargo Patronal - Contribuição para INSS\nPessoal: Estágio - Dossiê do Estagiário\nPessoal: Estágio - Planejamento/Organização Geral\nPessoal: Estágio de Servidor no Brasil\nPessoal: Estágio de Servidor no Exterior\nPessoal: Exoneração de Cargo Efetivo\nPessoal: Falecimento de Servidor\nPessoal: Férias - Alteração\nPessoal: Férias - Interrupção\nPessoal: Férias - Solicitação\nPessoal: Ficha Financeira\nPessoal: Folha de Pagamento\nPessoal: Gratificação de Desempenho\nPessoal: Gratificação Natalina (Décimo Terceiro)\nPessoal: Gratificação por Encargo - Curso/Concurso\nPessoal: Horário de Expediente - Definição\nPessoal: Horário de Expediente - Escala de Plantão\nPessoal: Horário Especial - Familiar Deficiente\nPessoal: Horário Especial - Instrutor de Curso\nPessoal: Horário Especial - Servidor Deficiente\nPessoal: Horário Especial - Servidor Estudante\nPessoal: Indenização de Transporte (meio próprio)\nPessoal: Licença Adotante\nPessoal: Licença Gestante\nPessoal: Licença para Atividade Política\nPessoal: Licença para Capacitação\nPessoal: Licença para Mandato Classista\nPessoal: Licença para Serviço Militar\nPessoal: Licença para Tratamento da Própria Saúde\nPessoal: Licença para Tratar de Interesses Particulares\nPessoal: Licença Paternidade\nPessoal: Licença por Acidente em Serviço\nPessoal: Licença por Afastamento do Cônjuge\nPessoal: Licença por Doença em Pessoa da Família\nPessoal: Licença por Doença Profissional\nPessoal: Licença Prêmio por Assiduidade\nPessoal: Licenças por Aborto/Natimorto\nPessoal: Movimentação de Servidor\nPessoal: Movimento Reivindicatório\nPessoal: Negociação Sindical e Acordo Coletivo\nPessoal: Nomeação/Exoneração de Cargo Comissionado e Designação/Dispensa de Substituto\nPessoal: Normatização Interna\nPessoal: Ocupação de Imóvel Funcional\nPessoal: Orientações e Diretrizes Gerais\nPessoal: Pagamento de Provento\nPessoal: Pagamento de Remuneração\nPessoal: Penalidade Advertência\nPessoal: Penalidade Cassação de Aposentadoria\nPessoal: Penalidade Demissão de Cargo Efetivo\nPessoal: Penalidade Destituição Cargo em Comissão\nPessoal: Penalidade Disponibilidade\nPessoal: Penalidade Suspensão\nPessoal: Pensão por Morte de Servidor\nPessoal: Planejamento da Força de Trabalho\nPessoal: Plano de Capacitação\nPessoal: Prêmios de Reconhecimento\nPessoal: Prevenção de Acidentes no Trabalho\nPessoal: Progressão e Promoção (Quadro Efetivo)\nPessoal: Progressão e Promoção (Quadro Específico)\nPessoal: Provimento - Nomeação para Cargo Efetivo\nPessoal: Provimento - Nomeação para Cargo em Comissão\nPessoal: Provimento - por Aproveitamento\nPessoal: Provimento - por Readaptação\nPessoal: Provimento - por Recondução\nPessoal: Provimento - por Reintegração\nPessoal: Provimento - por Reversão\nPessoal: Relação com Conselho Profissional\nPessoal: Remoção a Pedido - Concurso Interno\nPessoal: Remoção a Pedido com Mudança de Sede\nPessoal: Remoção a Pedido para Acompanhar Cônjuge\nPessoal: Remoção a Pedido por Motivo de Saúde\nPessoal: Remoção a Pedido sem Mudança de Sede\nPessoal: Remoção de Ofício com Mudança de Sede\nPessoal: Remoção de Ofício sem Mudança de Sede\nPessoal: Requisição de Servidor Externo\nPessoal: Requisição de Servidor Interno\nPessoal: Ressarcimento ao Erário\nPessoal: Restruturação de Cargos e Funções\nPessoal: Retribuição por Cargo em Comissão\nPessoal: Salário-Família\nPessoal: Saúde - Atestado de Comparecimento\nPessoal: Saúde - Auxílio-Saúde GEAP\nPessoal: Saúde - Cadastro de Dependente Estudante no Auxílio-Saúde\nPessoal: Saúde - Exclusão de Auxílio-Saúde\nPessoal: Saúde - Inspeção Periódica\nPessoal: Saúde - Lançamento Mensal do Auxílio-Saúde no SIAPE\nPessoal: Saúde - Pagamento de Auxílio-Saúde\nPessoal: Saúde - Pagamento de Retroativo\nPessoal: Saúde - Plano de Saúde\nPessoal: Saúde - Prontuário Médico\nPessoal: Saúde - Ressarcimento ao Erário\nPessoal: Saúde - Solicitação de Auxílio-Saúde\nPessoal: Saúde e Qualidade de Vida no Trabalho\nPessoal: Subsidiar Ação Judicial\nPessoal: Vacância - Posse em Cargo Inacumulável\nPlanejamento Estratégico: Acompanhamento do Plano Operacional\nPlanejamento Estratégico: Elaboração do Plano Estratégico\nPlanejamento Estratégico: Elaboração do Plano Operacional\nPlanejamento Estratégico: Gestão de Risco\nPlanejamento Estratégico: Gestão do Plano Estratégico\nPlanejamento Estratégico: Inteligência Estratégica\nProcesso de Eliminação\nProcesso de listagem de eliminação\nRelações Internacionais: Composição de Delegação - com ônus\nRelações Internacionais: Composição de Delegação - ônus limitado\nRelações Internacionais: Composição de Delegação - sem ônus\nRelações Internacionais: Cooperação Internacional\nSegurança Institucional: Automação e Controle Predial\nSegurança Institucional: Controle de Acesso/Garagem\nSegurança Institucional: Controle de Acesso/Portaria\nSegurança Institucional: Prevenção contra Incêndio\nSegurança Institucional: Projeto contra Incêndio\nSegurança Institucional: Serviço de Vigilância\nSuprimento de Fundos: Concessão e Prestação de Contas\nSuprimento de Fundos: Solicitação de Despesa\nViagem: Exterior - Prestação de Contas\nViagem: No País - Prestação de Contas\nViagem: Publicação de Boletim')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "cc0dbddd-d927-49f2-9364-44a617525e90",
+      "comment": "",
+      "command": "click",
+      "target": "id=sbmPesquisar",
+      "targets": [
+        ["id=sbmPesquisar", "id"],
+        ["css=#divInfraBarraComandosSuperior > #sbmPesquisar", "css:finder"],
+        ["xpath=//button[@id='sbmPesquisar']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraBarraComandosSuperior']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Pesquisar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "b0289191-c5be-4367-af0b-8b091c123607",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "id=imgInfraCheck",
+      "targets": [],
+      "value": "30000"
+    }, {
+      "id": "e225c798-bbb6-4ce7-a006-03b7162962ce",
+      "comment": "",
+      "command": "click",
+      "target": "id=imgInfraCheck",
+      "targets": [
+        ["id=imgInfraCheck", "id"],
+        ["css=#imgInfraCheck", "css:finder"],
+        ["xpath=//img[@alt='Selecionar Tudo']", "xpath:img"],
+        ["xpath=//img[@id='imgInfraCheck']", "xpath:attributes"],
+        ["xpath=//a[@id='lnkInfraCheck']/img", "xpath:idRelative"],
+        ["xpath=//th/a/img", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "2a280c0b-6274-4025-a505-69dc3a07933f",
+      "comment": "",
+      "command": "click",
+      "target": "id=sbmArquivar",
+      "targets": [
+        ["id=sbmArquivar", "id"],
+        ["css=#divInfraBarraComandosSuperior > #sbmArquivar", "css:finder"],
+        ["xpath=//button[@id='sbmArquivar']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraBarraComandosSuperior']/button[3]", "xpath:idRelative"],
+        ["xpath=//button[3]", "xpath:position"],
+        ["xpath=//button[contains(.,'Arquivar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "1dc8e791-042c-4773-96cb-92b386362daa",
+      "comment": "",
+      "command": "select",
+      "target": "id=selJustificativa",
+      "targets": [],
+      "value": "label=Justificativa de Arquivamento 01"
+    }, {
+      "id": "e0e4c042-091e-47cb-9ee2-637ed643ae9b",
+      "comment": "",
+      "command": "click",
+      "target": "id=selJustificativa",
+      "targets": [
+        ["id=selJustificativa", "id"],
+        ["name=selJustificativa", "name"],
+        ["css=#selJustificativa", "css:finder"],
+        ["xpath=//select[@id='selJustificativa']", "xpath:attributes"],
+        ["xpath=//div[@id='divJustificativa']/select", "xpath:idRelative"],
+        ["xpath=//div[2]/select", "xpath:position"],
+        ["xpath=//select[contains(.,'Just Dup\nJustificativa de Arquivamento 01\nJustificativa de Arquivamento 02')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "0a1b47ca-3f27-46ba-af55-7282d24e16cf",
+      "comment": "",
+      "command": "click",
+      "target": "id=chkSinLegado",
+      "targets": [
+        ["id=chkSinLegado", "id"],
+        ["name=chkSinLegado", "name"],
+        ["css=#chkSinLegado", "css:finder"],
+        ["xpath=//input[@id='chkSinLegado']", "xpath:attributes"],
+        ["xpath=//div[@id='divSinLegado']/input", "xpath:idRelative"],
+        ["xpath=//div[3]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "738b9463-c036-4c8e-afec-3f163ff739ba",
+      "comment": "",
+      "command": "click",
+      "target": "id=txtDataArquivamento",
+      "targets": [
+        ["id=txtDataArquivamento", "id"],
+        ["name=txtDataArquivamento", "name"],
+        ["css=#txtDataArquivamento", "css:finder"],
+        ["xpath=//input[@id='txtDataArquivamento']", "xpath:attributes"],
+        ["xpath=//div[@id='divDataArquivamento']/input", "xpath:idRelative"],
+        ["xpath=//div[4]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "2e314136-115c-44b5-9f99-75aa28712909",
+      "comment": "",
+      "command": "type",
+      "target": "id=txtDataArquivamento",
+      "targets": [
+        ["id=txtDataArquivamento", "id"],
+        ["name=txtDataArquivamento", "name"],
+        ["css=#txtDataArquivamento", "css:finder"],
+        ["xpath=//input[@id='txtDataArquivamento']", "xpath:attributes"],
+        ["xpath=//div[@id='divDataArquivamento']/input", "xpath:idRelative"],
+        ["xpath=//div[4]/input", "xpath:position"]
+      ],
+      "value": "${data}"
+    }, {
+      "id": "46421ca0-d50d-4e47-b039-889cb6bc3433",
+      "comment": "",
+      "command": "select",
+      "target": "id=selCargoFuncao",
+      "targets": [],
+      "value": "label=Ordenador de Despesa, Substituto(a)"
+    }, {
+      "id": "17a4c554-a565-48f7-ba52-0b04d41cd5a6",
+      "comment": "",
+      "command": "click",
+      "target": "id=selCargoFuncao",
+      "targets": [
+        ["id=selCargoFuncao", "id"],
+        ["name=selCargoFuncao", "name"],
+        ["css=#selCargoFuncao", "css:finder"],
+        ["xpath=//select[@id='selCargoFuncao']", "xpath:attributes"],
+        ["xpath=//div[@id='divCargoFuncao']/select", "xpath:idRelative"],
+        ["xpath=//div[3]/select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "4911c7f5-b2b4-4331-b88d-9953289304d8",
+      "comment": "",
+      "command": "click",
+      "target": "id=pwdSenha",
+      "targets": [
+        ["id=pwdSenha", "id"],
+        ["name=pwdSenha", "name"],
+        ["css=#pwdSenha", "css:finder"],
+        ["xpath=//input[@id='pwdSenha']", "xpath:attributes"],
+        ["xpath=//div[@id='divAutenticacao']/input", "xpath:idRelative"],
+        ["xpath=//fieldset[2]/div[4]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "85800fbe-6aa8-48d9-b4f1-a629eed272f4",
+      "comment": "",
+      "command": "type",
+      "target": "id=pwdSenha",
+      "targets": [
+        ["id=pwdSenha", "id"],
+        ["name=pwdSenha", "name"],
+        ["css=#pwdSenha", "css:finder"],
+        ["xpath=//input[@id='pwdSenha']", "xpath:attributes"],
+        ["xpath=//div[@id='divAutenticacao']/input", "xpath:idRelative"],
+        ["xpath=//fieldset[2]/div[4]/input", "xpath:position"]
+      ],
+      "value": "teste"
+    }, {
+      "id": "605a86ca-3a73-4520-ab96-2c0f040bf1cf",
+      "comment": "",
+      "command": "click",
+      "target": "id=sbmSalvar",
+      "targets": [
+        ["id=sbmSalvar", "id"],
+        ["name=sbmSalvar", "name"],
+        ["css=#sbmSalvar", "css:finder"],
+        ["xpath=//button[@id='sbmSalvar']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraBarraComandosSuperior']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Salvar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "e9342636-ecad-4ba6-8dab-5a3f189af47b",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "id=sbmPesquisar",
+      "targets": [],
+      "value": "60000"
+    }, {
+      "id": "256e936c-c0fa-4307-8a1a-071a66fbe61c",
+      "comment": "",
+      "command": "click",
+      "target": "id=sbmPesquisar",
+      "targets": [
+        ["id=sbmPesquisar", "id"],
+        ["css=#sbmPesquisar", "css:finder"],
+        ["xpath=//button[@id='sbmPesquisar']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraBarraComandosSuperior']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Pesquisar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "63e84ac4-a622-4c35-a4e2-4e200f8f77cb",
+      "comment": "",
+      "command": "click",
+      "target": "css=#divInfraAreaTabela > label",
+      "targets": [
+        ["css=#divInfraAreaTabela > label", "css:finder"],
+        ["xpath=//div[@id='divInfraAreaTabela']/label", "xpath:idRelative"],
+        ["xpath=//div[4]/label", "xpath:position"],
+        ["xpath=//label[contains(.,'Nenhum registro encontrado.')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "e7b8e7a8-9d23-49bc-91cb-aa289adc2a8c",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=#divInfraAreaTabela > label",
+      "targets": [
+        ["css=#divInfraAreaTabela > label", "css:finder"],
+        ["xpath=//div[@id='divInfraAreaTabela']/label", "xpath:idRelative"],
+        ["xpath=//div[4]/label", "xpath:position"],
+        ["xpath=//label[contains(.,'Nenhum registro encontrado.')]", "xpath:innerText"]
+      ],
+      "value": "Nenhum registro encontrado."
+    }, {
+      "id": "04e3b708-e3d5-4e19-a173-367104bef539",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "linkText=Arquivo da Unidade",
+      "targets": [],
+      "value": "30000"
+    }, {
+      "id": "d596ff64-23df-4ae1-8156-1972f0ea7081",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Arquivo da Unidade",
+      "targets": [
+        ["linkText=Arquivo da Unidade", "linkText"],
+        ["css=#main-menu > li:nth-child(24) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Arquivo da Unidade')]", "xpath:link"],
+        ["xpath=//ul[@id='main-menu']/li[24]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'controlador.php?acao=gd_arquivamento_listar&infra_sistema=100000100&infra_unidade_atual=110000002&infra_hash=7c8ebd3c250862365c69c785e09371522825a3d7655a73b662eb2fdfbb72eed3')]", "xpath:href"],
+        ["xpath=//div[2]/ul/li[24]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Arquivo da Unidade')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "24dd6c9e-ff51-4d9e-b022-e4a661b8fd70",
+      "comment": "",
+      "command": "pause",
+      "target": "4",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "23b33637-c38a-4b89-8c72-a9e89f4d7887",
+      "comment": "",
+      "command": "click",
+      "target": "id=sbmPesquisar",
+      "targets": [
+        ["id=sbmPesquisar", "id"],
+        ["css=#sbmPesquisar", "css:finder"],
+        ["xpath=//button[@id='sbmPesquisar']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraBarraComandosSuperior']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Pesquisar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "68d45ff1-fab4-47fc-a296-6ffd721479cc",
+      "comment": "",
+      "command": "pause",
+      "target": "4",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "676b6540-51bf-4b2b-8cde-3b03511cae33",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "id=selTipoProcedimento",
+      "targets": [],
+      "value": "30000"
+    }, {
+      "id": "8fe5afaa-fc77-4f8f-962b-d9fcbabcbe8e",
+      "comment": "",
+      "command": "select",
+      "target": "id=selTipoProcedimento",
+      "targets": [],
+      "value": "label=Todos"
+    }, {
+      "id": "84d2585f-ab74-4d6f-9f00-644bcbad2a32",
+      "comment": "",
+      "command": "click",
+      "target": "id=selTipoProcedimento",
+      "targets": [
+        ["id=selTipoProcedimento", "id"],
+        ["name=selTipoProcedimento", "name"],
+        ["css=#selTipoProcedimento", "css:finder"],
+        ["xpath=//select[@id='selTipoProcedimento']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/select[2]", "xpath:idRelative"],
+        ["xpath=//select[2]", "xpath:position"],
+        ["xpath=//select[contains(.,'Todos\nAcesso à Informação: Demanda do e-SIC\nAcompanhamento Legislativo: Câmara dos Deputados\nAcompanhamento Legislativo: Congresso Nacional\nAcompanhamento Legislativo: Estadual/Distrital\nAcompanhamento Legislativo: Municipal\nAcompanhamento Legislativo: Senado Federal\nArrecadação: Cobrança\nArrecadação: Cumprimento de Ação Judicial\nArrecadação: Encaminhamento para Dívida Ativa\nArrecadação: Normatização Interna\nArrecadação: Notificação/Comunicado\nArrecadação: Parcelamento Administrativo\nArrecadação: Receita\nArrecadação: Regularização de Indébitos\nArrecadação: Restituição/Compensação\nArrecadação: Subsidiar Ação Judicial\nComunicação: Evento Institucional Público Externo\nComunicação: Evento Institucional Público Interno\nComunicação: Pedido de Apoio Institucional\nComunicação: Publicidade Institucional\nComunicação: Publicidade Legal\nContabilidade: Análise Contábil\nContabilidade: Conformidade de Gestão\nContabilidade: Contratos e Garantias\nContabilidade: DIRF\nContabilidade: Encerramento do Exercício\nContabilidade: Fechamento Contábil - Estoque\nContabilidade: Fechamento Contábil Patrimonial\nContabilidade: Manuais\nContabilidade: Normatização Interna\nContabilidade: Prestação de Contas\nConvênios/Ajustes: Acompanhamento da Execução\nConvênios/Ajustes: Formalização/Alteração com Repasse\nConvênios/Ajustes: Formalização/Alteração sem Repasse\nCorregedoria: Análise Prescricional de Processo\nCorregedoria: Avaliação para Estabilidade\nCorregedoria: Correição\nCorregedoria: Investigação Preliminar\nCorregedoria: Procedimento Geral\nCorregedoria: Processo Administrativo Disciplinar\nCorregedoria: Sindicância Punitiva\nDemanda Externa: Cidadão (Pessoa Física)\nDemanda Externa: Deputado Estadual/Distrital\nDemanda Externa: Deputado Federal\nDemanda Externa: Judiciário\nDemanda Externa: Ministério Público Estadual\nDemanda Externa: Ministério Público Federal\nDemanda Externa: Orgãos Governamentais Estaduais\nDemanda Externa: Orgãos Governamentais Federais\nDemanda Externa: Orgãos Governamentais Municipais\nDemanda Externa: Outras Entidades Privadas\nDemanda Externa: Outros Orgãos Públicos\nDemanda Externa: Senador\nDemanda Externa: Vereador/Câmara Municipal\nÉtica: Análise de Conflito de Interesse\nÉtica: Processo de Apuração Ética\nFinanças: Execução Financeira\nFinanças: Normatização Interna\nFinanças: Reembolso/Ressarcimento\nGestão da Informação: Arrecadação\nGestão da Informação: Avaliação/Destinação de Documentos\nGestão da Informação: Cadastro de Usuário Externo no SEI\nGestão da Informação: Controle de Malote\nGestão da Informação: Credenciamento de Segurança\nGestão da Informação: Gestão Documental\nGestão da Informação: Normatização Interna\nGestão da Informação: Reconstituição Documental\nGestão da Informação: Rol Anual de Informações Classificadas\nGestão da Informação: Segurança da Informação e Comunicações\nGestão de Contrato: Acompanhamento da Execução\nGestão de Contrato: Acréscimo Contratual\nGestão de Contrato: Alterações Contratuais Conjuntas\nGestão de Contrato: Aplicação de Sanção Contratual\nGestão de Contrato: Consulta à Procuradoria/Conjur\nGestão de Contrato: Execução de Garantia\nGestão de Contrato: Outras Alterações Contratuais não Relacionadas\nGestão de Contrato: Pagamento Direto a Terceiros\nGestão de Contrato: Processo de Pagamento\nGestão de Contrato: Prorrogação Contratual\nGestão de Contrato: Reajuste ou Repactuação Contratual\nGestão de Contrato: Rescisão Contratual\nGestão de Contrato: Revisão Contratual\nGestão de Contrato: Supressão Contratual\nGestão de Processos: Mapeamento e Modelagem\nGestão de Projetos: Planejamento e Execução\nGestão de TI: CITI\nGestão e Controle: Coordenação - Demandas Externas\nGestão e Controle: Coordenação - Demandas Internas\nGestão e Controle: Demandas de Órgãos de Controle\nGestão e Controle: Executar Auditoria Interna\nInfraestrutura: Abastecimento de Água e Esgoto\nInfraestrutura: Apoio de Engenharia Civil\nInfraestrutura: Fornecimento de Energia Elétrica\nLicitação: Adesão a Ata de RP-Não Participante\nLicitação: Adesão a Ata de RP-Participante\nLicitação: Aplicação de Sanção decorrente de Procedimento Licitatório\nLicitação: Concorrência\nLicitação: Concorrência-Registro de Preço\nLicitação: Concurso\nLicitação: Consulta\nLicitação: Convite\nLicitação: Dispensa - Acima de R$ 8 mil\nLicitação: Dispensa - Até R$ 8 mil\nLicitação: Inexigibilidade\nLicitação: Leilão\nLicitação: Plano de Aquisições\nLicitação: Pregão Eletrônico\nLicitação: Pregão Eletrônico-Registro de Preço\nLicitação: Pregão Presencial\nLicitação: Regime Diferenciado de Contratação-RDC\nLicitação: Tomada de Preços\nMaterial: Desfazimento de Material de Consumo\nMaterial: Desfazimento de Material Permanente\nMaterial: Inventário de Material de Consumo\nMaterial: Inventário de Material Permanente\nMaterial: Movimentação de Material de Consumo\nMaterial: Movimentação de Material Permanente\nOrçamento: Acompanhamento de Despesa Mensal\nOrçamento: Contingenciamento\nOrçamento: Créditos Adicionais\nOrçamento: Descentralização de Créditos\nOrçamento: Manuais\nOrçamento: Programação Orçamentária\nOuvidoria: Agradecimento ao Órgão (Ouvidoria)\nOuvidoria: Crítica à atuação do Órgão (Ouvidoria)\nOuvidoria: Denúncia contra a atuação do Órgão (Ouvidoria)\nOuvidoria: Elogio à atuação do Órgão (Ouvidoria)\nOuvidoria: Pedido de Informação (Ouvidoria)\nOuvidoria: Reclamação à atuação do Órgão (Ouvidoria)\nPatrimônio: Cobrança de Acervo Bibliográfico\nPatrimônio: Gestão de Acervo Bibliográfico\nPatrimônio: Gestão de Bens Imóveis\nPessoal: Abono Permanência - Concessão\nPessoal: Abono Permanência - Revisão\nPessoal: Adicional de Férias (1/3 constitucional)\nPessoal: Adicional de Insalubridade\nPessoal: Adicional de Periculosidade\nPessoal: Adicional Noturno\nPessoal: Adicional por Atividade Penosa\nPessoal: Adicional por Serviço Extraordinário\nPessoal: Adicional por Tempo de Serviço\nPessoal: Afastamento para Atividade Desportiva\nPessoal: Afastamento para Curso de Formação\nPessoal: Afastamento para Depor\nPessoal: Afastamento para Exercer Mandato Eletivo\nPessoal: Afastamento para Pós-Graduação\nPessoal: Afastamento para Serviço Eleitoral (TRE)\nPessoal: Afastamento para Servir como Jurado\nPessoal: Afastamento para servir em Organismo Internacional\nPessoal: Ajuda de Custo com Mudança de Domicílio\nPessoal: Aposentadoria - Concessão\nPessoal: Aposentadoria - Contagem Tempo de Serviço\nPessoal: Aposentadoria - Pensão Temporária\nPessoal: Aposentadoria - Pensão Vitalícia\nPessoal: Aposentadoria - Revisão\nPessoal: Apresentação de Certificado de Curso\nPessoal: Assentamento Funcional do Servidor\nPessoal: Ausência em razão de Casamento\nPessoal: Ausência para Alistamento Eleitoral\nPessoal: Ausência para Doação de Sangue\nPessoal: Ausência por Falecimento de Familiar\nPessoal: Auxílio Acidente\nPessoal: Auxílio Alimentação/Refeição\nPessoal: Auxílio Assistência Pré-Escolar/Creche\nPessoal: Auxílio Doença\nPessoal: Auxílio Funeral\nPessoal: Auxílio Moradia\nPessoal: Auxílio Natalidade\nPessoal: Auxílio Reclusão\nPessoal: Auxílio-Transporte\nPessoal: Avaliação de Desempenho Individual\nPessoal: Avaliação de Desempenho Institucional\nPessoal: Avaliação de Estágio Probatório\nPessoal: Averbação de Tempo de Serviço\nPessoal: Bolsa de Estudo de Idioma Estrangeiro\nPessoal: Bolsa de Pós-Graduação\nPessoal: Cadastro de Dependente no Imposto de Renda\nPessoal: Cessão de Servidor para outro Órgão\nPessoal: CIPA\nPessoal: Coleta de Imagem de Assinatura\nPessoal: Concurso Público - Exames Admissionais\nPessoal: Concurso Público - Organização\nPessoal: Concurso Público - Provas e Títulos\nPessoal: Controle de Frequência/Abono de Falta\nPessoal: Controle de Frequência/Cumprir Hora Extra\nPessoal: Controle de Frequência/Folha de Ponto\nPessoal: Curso de Pós-Graduação\nPessoal: Curso no Exterior - com ônus\nPessoal: Curso no Exterior - ônus limitado\nPessoal: Curso no Exterior - sem ônus\nPessoal: Curso Promovido pela própria Instituição\nPessoal: Curso Promovido por outra Instituição\nPessoal: Delegação de Competência\nPessoal: Desconto da Contribuição para o INSS\nPessoal: Desconto de Contribuição Associativa\nPessoal: Desconto de Contribuição Sindical\nPessoal: Desconto de Empréstimo Consignado\nPessoal: Desconto de Pensão Alimentícia\nPessoal: Desconto do IRPF Retido na Fonte\nPessoal: Emissão de Certidões e Declarações\nPessoal: Emissão de Procuração\nPessoal: Encargo Patronal - Contribuição para INSS\nPessoal: Estágio - Dossiê do Estagiário\nPessoal: Estágio - Planejamento/Organização Geral\nPessoal: Estágio de Servidor no Brasil\nPessoal: Estágio de Servidor no Exterior\nPessoal: Exoneração de Cargo Efetivo\nPessoal: Falecimento de Servidor\nPessoal: Férias - Alteração\nPessoal: Férias - Interrupção\nPessoal: Férias - Solicitação\nPessoal: Ficha Financeira\nPessoal: Folha de Pagamento\nPessoal: Gratificação de Desempenho\nPessoal: Gratificação Natalina (Décimo Terceiro)\nPessoal: Gratificação por Encargo - Curso/Concurso\nPessoal: Horário de Expediente - Definição\nPessoal: Horário de Expediente - Escala de Plantão\nPessoal: Horário Especial - Familiar Deficiente\nPessoal: Horário Especial - Instrutor de Curso\nPessoal: Horário Especial - Servidor Deficiente\nPessoal: Horário Especial - Servidor Estudante\nPessoal: Indenização de Transporte (meio próprio)\nPessoal: Licença Adotante\nPessoal: Licença Gestante\nPessoal: Licença para Atividade Política\nPessoal: Licença para Capacitação\nPessoal: Licença para Mandato Classista\nPessoal: Licença para Serviço Militar\nPessoal: Licença para Tratamento da Própria Saúde\nPessoal: Licença para Tratar de Interesses Particulares\nPessoal: Licença Paternidade\nPessoal: Licença por Acidente em Serviço\nPessoal: Licença por Afastamento do Cônjuge\nPessoal: Licença por Doença em Pessoa da Família\nPessoal: Licença por Doença Profissional\nPessoal: Licença Prêmio por Assiduidade\nPessoal: Licenças por Aborto/Natimorto\nPessoal: Movimentação de Servidor\nPessoal: Movimento Reivindicatório\nPessoal: Negociação Sindical e Acordo Coletivo\nPessoal: Nomeação/Exoneração de Cargo Comissionado e Designação/Dispensa de Substituto\nPessoal: Normatização Interna\nPessoal: Ocupação de Imóvel Funcional\nPessoal: Orientações e Diretrizes Gerais\nPessoal: Pagamento de Provento\nPessoal: Pagamento de Remuneração\nPessoal: Penalidade Advertência\nPessoal: Penalidade Cassação de Aposentadoria\nPessoal: Penalidade Demissão de Cargo Efetivo\nPessoal: Penalidade Destituição Cargo em Comissão\nPessoal: Penalidade Disponibilidade\nPessoal: Penalidade Suspensão\nPessoal: Pensão por Morte de Servidor\nPessoal: Planejamento da Força de Trabalho\nPessoal: Plano de Capacitação\nPessoal: Prêmios de Reconhecimento\nPessoal: Prevenção de Acidentes no Trabalho\nPessoal: Progressão e Promoção (Quadro Efetivo)\nPessoal: Progressão e Promoção (Quadro Específico)\nPessoal: Provimento - Nomeação para Cargo Efetivo\nPessoal: Provimento - Nomeação para Cargo em Comissão\nPessoal: Provimento - por Aproveitamento\nPessoal: Provimento - por Readaptação\nPessoal: Provimento - por Recondução\nPessoal: Provimento - por Reintegração\nPessoal: Provimento - por Reversão\nPessoal: Relação com Conselho Profissional\nPessoal: Remoção a Pedido - Concurso Interno\nPessoal: Remoção a Pedido com Mudança de Sede\nPessoal: Remoção a Pedido para Acompanhar Cônjuge\nPessoal: Remoção a Pedido por Motivo de Saúde\nPessoal: Remoção a Pedido sem Mudança de Sede\nPessoal: Remoção de Ofício com Mudança de Sede\nPessoal: Remoção de Ofício sem Mudança de Sede\nPessoal: Requisição de Servidor Externo\nPessoal: Requisição de Servidor Interno\nPessoal: Ressarcimento ao Erário\nPessoal: Restruturação de Cargos e Funções\nPessoal: Retribuição por Cargo em Comissão\nPessoal: Salário-Família\nPessoal: Saúde - Atestado de Comparecimento\nPessoal: Saúde - Auxílio-Saúde GEAP\nPessoal: Saúde - Cadastro de Dependente Estudante no Auxílio-Saúde\nPessoal: Saúde - Exclusão de Auxílio-Saúde\nPessoal: Saúde - Inspeção Periódica\nPessoal: Saúde - Lançamento Mensal do Auxílio-Saúde no SIAPE\nPessoal: Saúde - Pagamento de Auxílio-Saúde\nPessoal: Saúde - Pagamento de Retroativo\nPessoal: Saúde - Plano de Saúde\nPessoal: Saúde - Prontuário Médico\nPessoal: Saúde - Ressarcimento ao Erário\nPessoal: Saúde - Solicitação de Auxílio-Saúde\nPessoal: Saúde e Qualidade de Vida no Trabalho\nPessoal: Subsidiar Ação Judicial\nPessoal: Vacância - Posse em Cargo Inacumulável\nPlanejamento Estratégico: Acompanhamento do Plano Operacional\nPlanejamento Estratégico: Elaboração do Plano Estratégico\nPlanejamento Estratégico: Elaboração do Plano Operacional\nPlanejamento Estratégico: Gestão de Risco\nPlanejamento Estratégico: Gestão do Plano Estratégico\nPlanejamento Estratégico: Inteligência Estratégica\nProcesso de Eliminação\nProcesso de listagem de eliminação\nRelações Internacionais: Composição de Delegação - com ônus\nRelações Internacionais: Composição de Delegação - ônus limitado\nRelações Internacionais: Composição de Delegação - sem ônus\nRelações Internacionais: Cooperação Internacional\nSegurança Institucional: Automação e Controle Predial\nSegurança Institucional: Controle de Acesso/Garagem\nSegurança Institucional: Controle de Acesso/Portaria\nSegurança Institucional: Prevenção contra Incêndio\nSegurança Institucional: Projeto contra Incêndio\nSegurança Institucional: Serviço de Vigilância\nSuprimento de Fundos: Concessão e Prestação de Contas\nSuprimento de Fundos: Solicitação de Despesa\nViagem: Exterior - Prestação de Contas\nViagem: No País - Prestação de Contas\nViagem: Publicação de Boletim')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "35bc8dfa-cd4c-494c-91a3-4ebd259a6bee",
+      "comment": "",
+      "command": "pause",
+      "target": "4",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "bd7b1a75-7c28-4d3a-86f8-7b70a569f458",
+      "comment": "",
+      "command": "click",
+      "target": "id=sbmPesquisar",
+      "targets": [
+        ["id=sbmPesquisar", "id"],
+        ["css=#sbmPesquisar", "css:finder"],
+        ["xpath=//button[@id='sbmPesquisar']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraBarraComandosSuperior']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Pesquisar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "9f3a2d32-325a-4e2b-bb5d-0e67a806a877",
+      "comment": "",
+      "command": "pause",
+      "target": "4",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d062a381-f204-4ce6-bb1f-ab67e674fd00",
+      "comment": "",
+      "command": "//verifyElementNotPresent",
+      "target": "css=.infraCaption",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d8b3adad-f7da-442f-b74a-b94934fab821",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "css=.infraCaption",
+      "targets": [],
+      "value": "30000"
+    }, {
+      "id": "c79ffacd-458d-4b3f-b5e0-ec4aa974fea6",
+      "comment": "",
+      "command": "click",
+      "target": "css=.infraCaption",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c3faa219-7965-41d9-83fe-9282842aeacc",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=.infraCaption",
+      "targets": [],
+      "value": "Lista de Processos Arquivados (48 registros):"
+    }]
+  }, {
+    "id": "1a256609-574c-4c6d-abcf-f16af3937a12",
+    "name": "02-Legado",
+    "commands": [{
+      "id": "89b525be-88e8-4ec6-9e85-7c42f1ae4424",
+      "comment": "",
+      "command": "open",
+      "target": "/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "68200ee5-6c87-4f53-9e0a-90299565495b",
+      "comment": "",
+      "command": "click",
+      "target": "id=divUsuario",
+      "targets": [
+        ["id=divUsuario", "id"],
+        ["css=#divUsuario", "css:finder"],
+        ["xpath=//div[@id='divUsuario']", "xpath:attributes"],
+        ["xpath=//div[@id='divAreaRestrita']/div[2]", "xpath:idRelative"],
+        ["xpath=//form/div/div[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "5ceda358-a89c-4359-9199-9c0150fb0a19",
+      "comment": "",
+      "command": "click",
+      "target": "id=txtUsuario",
+      "targets": [
+        ["id=txtUsuario", "id"],
+        ["name=txtUsuario", "name"],
+        ["css=#txtUsuario", "css:finder"],
+        ["xpath=//input[@id='txtUsuario']", "xpath:attributes"],
+        ["xpath=//div[@id='divUsuario']/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f22ae43f-ebc3-4ca3-8ad2-3fd8a418bf13",
+      "comment": "",
+      "command": "type",
+      "target": "id=txtUsuario",
+      "targets": [
+        ["id=txtUsuario", "id"],
+        ["name=txtUsuario", "name"],
+        ["css=#txtUsuario", "css:finder"],
+        ["xpath=//input[@id='txtUsuario']", "xpath:attributes"],
+        ["xpath=//div[@id='divUsuario']/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "teste"
+    }, {
+      "id": "1a534bae-cbff-4825-b01b-221b41c328f7",
+      "comment": "",
+      "command": "click",
+      "target": "id=pwdSenha",
+      "targets": [
+        ["id=pwdSenha", "id"],
+        ["name=pwdSenha", "name"],
+        ["css=#pwdSenha", "css:finder"],
+        ["xpath=//input[@id='pwdSenha']", "xpath:attributes"],
+        ["xpath=//div[@id='divUsuario']/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "70adbaca-c026-49cd-a78f-39d9593e5e29",
+      "comment": "",
+      "command": "type",
+      "target": "id=pwdSenha",
+      "targets": [
+        ["id=pwdSenha", "id"],
+        ["name=pwdSenha", "name"],
+        ["css=#pwdSenha", "css:finder"],
+        ["xpath=//input[@id='pwdSenha']", "xpath:attributes"],
+        ["xpath=//div[@id='divUsuario']/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "teste"
+    }, {
+      "id": "2f98b087-4ea3-4129-b343-e2286895211b",
+      "comment": "",
+      "command": "click",
+      "target": "id=sbmLogin",
+      "targets": [
+        ["id=sbmLogin", "id"],
+        ["name=sbmLogin", "name"],
+        ["css=#sbmLogin", "css:finder"],
+        ["xpath=//button[@id='sbmLogin']", "xpath:attributes"],
+        ["xpath=//div[@id='divBotoes']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Acessar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "eb42f626-0fc8-4749-8374-f8273ae0f1e0",
+      "comment": "",
+      "command": "select",
+      "target": "id=selInfraUnidades",
+      "targets": [],
+      "value": "label=TESTE_1_1"
+    }, {
+      "id": "52e56363-5bb7-4105-a675-69d6c92cadfb",
+      "comment": "",
+      "command": "click",
+      "target": "id=selInfraUnidades",
+      "targets": [
+        ["id=selInfraUnidades", "id"],
+        ["name=selInfraUnidades", "name"],
+        ["css=#selInfraUnidades", "css:finder"],
+        ["xpath=//select[@id='selInfraUnidades']", "xpath:attributes"],
+        ["xpath=//form[@id='frmInfraSelecionarUnidade']/select", "xpath:idRelative"],
+        ["xpath=//select", "xpath:position"],
+        ["xpath=//select[contains(.,'Arquivo01\nArquivoGeral\nArquivoGeral02\nTESTE\nTESTE_1_1\nTESTE_1_2')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "eede8dec-39c9-41ca-aeb8-93da7b231f2b",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Pendências de Arquivamento",
+      "targets": [
+        ["linkText=Pendências de Arquivamento", "linkText"],
+        ["css=#main-menu > li:nth-child(23) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Pendências de Arquivamento')]", "xpath:link"],
+        ["xpath=//ul[@id='main-menu']/li[23]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'controlador.php?acao=gd_pendencias_arquivamento&infra_sistema=100000100&infra_unidade_atual=110000002&infra_hash=d76725d060adee942b79f51cd5e8e95010d800398b43a7ff2bf6de40d37aaabf')]", "xpath:href"],
+        ["xpath=//div[2]/ul/li[23]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Pendências de Arquivamento')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "3866a359-49f7-4268-a8e9-e1f92aa3a250",
+      "comment": "",
+      "command": "click",
+      "target": "css=.infraCaption",
+      "targets": [
+        ["css=.infraCaption", "css:finder"],
+        ["xpath=//div[@id='divInfraAreaTabela']/table/caption", "xpath:idRelative"],
+        ["xpath=//caption", "xpath:position"],
+        ["xpath=//caption[contains(.,'Lista de Pendências de Arquivamento (5 registros):')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "dc8eede2-089e-47d4-bdd1-ec63610b2864",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=.infraCaption",
+      "targets": [
+        ["css=.infraCaption", "css:finder"],
+        ["xpath=//div[@id='divInfraAreaTabela']/table/caption", "xpath:idRelative"],
+        ["xpath=//caption", "xpath:position"],
+        ["xpath=//caption[contains(.,'Lista de Pendências de Arquivamento (5 registros):')]", "xpath:innerText"]
+      ],
+      "value": "Lista de Pendências de Arquivamento (5 registros):"
+    }, {
+      "id": "53157db4-b8e8-45a7-ac6d-a737aa3e5b95",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Arquivo da Unidade",
+      "targets": [
+        ["linkText=Arquivo da Unidade", "linkText"],
+        ["css=#main-menu > li:nth-child(24) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Arquivo da Unidade')]", "xpath:link"],
+        ["xpath=//ul[@id='main-menu']/li[24]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'controlador.php?acao=gd_arquivamento_listar&infra_sistema=100000100&infra_unidade_atual=110000002&infra_hash=f7120b0efa4e234af8260dae636940f353e92901502480512ffddf26c5819290')]", "xpath:href"],
+        ["xpath=//div[2]/ul/li[24]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Arquivo da Unidade')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "536e8104-78f7-4194-8b4a-a50e0ac38a07",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "id=selTipoProcedimento",
+      "targets": [],
+      "value": "30000"
+    }, {
+      "id": "0a39d956-aeea-43a0-b216-650005550aaf",
+      "comment": "",
+      "command": "select",
+      "target": "id=selTipoProcedimento",
+      "targets": [],
+      "value": "label=Comunicação: Evento Institucional Público Externo"
+    }, {
+      "id": "ae7146ff-8c24-44bf-be35-f0e42d122932",
+      "comment": "",
+      "command": "click",
+      "target": "id=selTipoProcedimento",
+      "targets": [
+        ["id=selTipoProcedimento", "id"],
+        ["name=selTipoProcedimento", "name"],
+        ["css=#selTipoProcedimento", "css:finder"],
+        ["xpath=//select[@id='selTipoProcedimento']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/select[2]", "xpath:idRelative"],
+        ["xpath=//select[2]", "xpath:position"],
+        ["xpath=//select[contains(.,'Todos\nAcesso à Informação: Demanda do e-SIC\nAcompanhamento Legislativo: Câmara dos Deputados\nAcompanhamento Legislativo: Congresso Nacional\nAcompanhamento Legislativo: Estadual/Distrital\nAcompanhamento Legislativo: Municipal\nAcompanhamento Legislativo: Senado Federal\nArrecadação: Cobrança\nArrecadação: Cumprimento de Ação Judicial\nArrecadação: Encaminhamento para Dívida Ativa\nArrecadação: Normatização Interna\nArrecadação: Notificação/Comunicado\nArrecadação: Parcelamento Administrativo\nArrecadação: Receita\nArrecadação: Regularização de Indébitos\nArrecadação: Restituição/Compensação\nArrecadação: Subsidiar Ação Judicial\nComunicação: Evento Institucional Público Externo\nComunicação: Evento Institucional Público Interno\nComunicação: Pedido de Apoio Institucional\nComunicação: Publicidade Institucional\nComunicação: Publicidade Legal\nContabilidade: Análise Contábil\nContabilidade: Conformidade de Gestão\nContabilidade: Contratos e Garantias\nContabilidade: DIRF\nContabilidade: Encerramento do Exercício\nContabilidade: Fechamento Contábil - Estoque\nContabilidade: Fechamento Contábil Patrimonial\nContabilidade: Manuais\nContabilidade: Normatização Interna\nContabilidade: Prestação de Contas\nConvênios/Ajustes: Acompanhamento da Execução\nConvênios/Ajustes: Formalização/Alteração com Repasse\nConvênios/Ajustes: Formalização/Alteração sem Repasse\nCorregedoria: Análise Prescricional de Processo\nCorregedoria: Avaliação para Estabilidade\nCorregedoria: Correição\nCorregedoria: Investigação Preliminar\nCorregedoria: Procedimento Geral\nCorregedoria: Processo Administrativo Disciplinar\nCorregedoria: Sindicância Punitiva\nDemanda Externa: Cidadão (Pessoa Física)\nDemanda Externa: Deputado Estadual/Distrital\nDemanda Externa: Deputado Federal\nDemanda Externa: Judiciário\nDemanda Externa: Ministério Público Estadual\nDemanda Externa: Ministério Público Federal\nDemanda Externa: Orgãos Governamentais Estaduais\nDemanda Externa: Orgãos Governamentais Federais\nDemanda Externa: Orgãos Governamentais Municipais\nDemanda Externa: Outras Entidades Privadas\nDemanda Externa: Outros Orgãos Públicos\nDemanda Externa: Senador\nDemanda Externa: Vereador/Câmara Municipal\nÉtica: Análise de Conflito de Interesse\nÉtica: Processo de Apuração Ética\nFinanças: Execução Financeira\nFinanças: Normatização Interna\nFinanças: Reembolso/Ressarcimento\nGestão da Informação: Arrecadação\nGestão da Informação: Avaliação/Destinação de Documentos\nGestão da Informação: Cadastro de Usuário Externo no SEI\nGestão da Informação: Controle de Malote\nGestão da Informação: Credenciamento de Segurança\nGestão da Informação: Gestão Documental\nGestão da Informação: Normatização Interna\nGestão da Informação: Reconstituição Documental\nGestão da Informação: Rol Anual de Informações Classificadas\nGestão da Informação: Segurança da Informação e Comunicações\nGestão de Contrato: Acompanhamento da Execução\nGestão de Contrato: Acréscimo Contratual\nGestão de Contrato: Alterações Contratuais Conjuntas\nGestão de Contrato: Aplicação de Sanção Contratual\nGestão de Contrato: Consulta à Procuradoria/Conjur\nGestão de Contrato: Execução de Garantia\nGestão de Contrato: Outras Alterações Contratuais não Relacionadas\nGestão de Contrato: Pagamento Direto a Terceiros\nGestão de Contrato: Processo de Pagamento\nGestão de Contrato: Prorrogação Contratual\nGestão de Contrato: Reajuste ou Repactuação Contratual\nGestão de Contrato: Rescisão Contratual\nGestão de Contrato: Revisão Contratual\nGestão de Contrato: Supressão Contratual\nGestão de Processos: Mapeamento e Modelagem\nGestão de Projetos: Planejamento e Execução\nGestão de TI: CITI\nGestão e Controle: Coordenação - Demandas Externas\nGestão e Controle: Coordenação - Demandas Internas\nGestão e Controle: Demandas de Órgãos de Controle\nGestão e Controle: Executar Auditoria Interna\nInfraestrutura: Abastecimento de Água e Esgoto\nInfraestrutura: Apoio de Engenharia Civil\nInfraestrutura: Fornecimento de Energia Elétrica\nLicitação: Adesão a Ata de RP-Não Participante\nLicitação: Adesão a Ata de RP-Participante\nLicitação: Aplicação de Sanção decorrente de Procedimento Licitatório\nLicitação: Concorrência\nLicitação: Concorrência-Registro de Preço\nLicitação: Concurso\nLicitação: Consulta\nLicitação: Convite\nLicitação: Dispensa - Acima de R$ 8 mil\nLicitação: Dispensa - Até R$ 8 mil\nLicitação: Inexigibilidade\nLicitação: Leilão\nLicitação: Plano de Aquisições\nLicitação: Pregão Eletrônico\nLicitação: Pregão Eletrônico-Registro de Preço\nLicitação: Pregão Presencial\nLicitação: Regime Diferenciado de Contratação-RDC\nLicitação: Tomada de Preços\nMaterial: Desfazimento de Material de Consumo\nMaterial: Desfazimento de Material Permanente\nMaterial: Inventário de Material de Consumo\nMaterial: Inventário de Material Permanente\nMaterial: Movimentação de Material de Consumo\nMaterial: Movimentação de Material Permanente\nOrçamento: Acompanhamento de Despesa Mensal\nOrçamento: Contingenciamento\nOrçamento: Créditos Adicionais\nOrçamento: Descentralização de Créditos\nOrçamento: Manuais\nOrçamento: Programação Orçamentária\nOuvidoria: Agradecimento ao Órgão (Ouvidoria)\nOuvidoria: Crítica à atuação do Órgão (Ouvidoria)\nOuvidoria: Denúncia contra a atuação do Órgão (Ouvidoria)\nOuvidoria: Elogio à atuação do Órgão (Ouvidoria)\nOuvidoria: Pedido de Informação (Ouvidoria)\nOuvidoria: Reclamação à atuação do Órgão (Ouvidoria)\nPatrimônio: Cobrança de Acervo Bibliográfico\nPatrimônio: Gestão de Acervo Bibliográfico\nPatrimônio: Gestão de Bens Imóveis\nPessoal: Abono Permanência - Concessão\nPessoal: Abono Permanência - Revisão\nPessoal: Adicional de Férias (1/3 constitucional)\nPessoal: Adicional de Insalubridade\nPessoal: Adicional de Periculosidade\nPessoal: Adicional Noturno\nPessoal: Adicional por Atividade Penosa\nPessoal: Adicional por Serviço Extraordinário\nPessoal: Adicional por Tempo de Serviço\nPessoal: Afastamento para Atividade Desportiva\nPessoal: Afastamento para Curso de Formação\nPessoal: Afastamento para Depor\nPessoal: Afastamento para Exercer Mandato Eletivo\nPessoal: Afastamento para Pós-Graduação\nPessoal: Afastamento para Serviço Eleitoral (TRE)\nPessoal: Afastamento para Servir como Jurado\nPessoal: Afastamento para servir em Organismo Internacional\nPessoal: Ajuda de Custo com Mudança de Domicílio\nPessoal: Aposentadoria - Concessão\nPessoal: Aposentadoria - Contagem Tempo de Serviço\nPessoal: Aposentadoria - Pensão Temporária\nPessoal: Aposentadoria - Pensão Vitalícia\nPessoal: Aposentadoria - Revisão\nPessoal: Apresentação de Certificado de Curso\nPessoal: Assentamento Funcional do Servidor\nPessoal: Ausência em razão de Casamento\nPessoal: Ausência para Alistamento Eleitoral\nPessoal: Ausência para Doação de Sangue\nPessoal: Ausência por Falecimento de Familiar\nPessoal: Auxílio Acidente\nPessoal: Auxílio Alimentação/Refeição\nPessoal: Auxílio Assistência Pré-Escolar/Creche\nPessoal: Auxílio Doença\nPessoal: Auxílio Funeral\nPessoal: Auxílio Moradia\nPessoal: Auxílio Natalidade\nPessoal: Auxílio Reclusão\nPessoal: Auxílio-Transporte\nPessoal: Avaliação de Desempenho Individual\nPessoal: Avaliação de Desempenho Institucional\nPessoal: Avaliação de Estágio Probatório\nPessoal: Averbação de Tempo de Serviço\nPessoal: Bolsa de Estudo de Idioma Estrangeiro\nPessoal: Bolsa de Pós-Graduação\nPessoal: Cadastro de Dependente no Imposto de Renda\nPessoal: Cessão de Servidor para outro Órgão\nPessoal: CIPA\nPessoal: Coleta de Imagem de Assinatura\nPessoal: Concurso Público - Exames Admissionais\nPessoal: Concurso Público - Organização\nPessoal: Concurso Público - Provas e Títulos\nPessoal: Controle de Frequência/Abono de Falta\nPessoal: Controle de Frequência/Cumprir Hora Extra\nPessoal: Controle de Frequência/Folha de Ponto\nPessoal: Curso de Pós-Graduação\nPessoal: Curso no Exterior - com ônus\nPessoal: Curso no Exterior - ônus limitado\nPessoal: Curso no Exterior - sem ônus\nPessoal: Curso Promovido pela própria Instituição\nPessoal: Curso Promovido por outra Instituição\nPessoal: Delegação de Competência\nPessoal: Desconto da Contribuição para o INSS\nPessoal: Desconto de Contribuição Associativa\nPessoal: Desconto de Contribuição Sindical\nPessoal: Desconto de Empréstimo Consignado\nPessoal: Desconto de Pensão Alimentícia\nPessoal: Desconto do IRPF Retido na Fonte\nPessoal: Emissão de Certidões e Declarações\nPessoal: Emissão de Procuração\nPessoal: Encargo Patronal - Contribuição para INSS\nPessoal: Estágio - Dossiê do Estagiário\nPessoal: Estágio - Planejamento/Organização Geral\nPessoal: Estágio de Servidor no Brasil\nPessoal: Estágio de Servidor no Exterior\nPessoal: Exoneração de Cargo Efetivo\nPessoal: Falecimento de Servidor\nPessoal: Férias - Alteração\nPessoal: Férias - Interrupção\nPessoal: Férias - Solicitação\nPessoal: Ficha Financeira\nPessoal: Folha de Pagamento\nPessoal: Gratificação de Desempenho\nPessoal: Gratificação Natalina (Décimo Terceiro)\nPessoal: Gratificação por Encargo - Curso/Concurso\nPessoal: Horário de Expediente - Definição\nPessoal: Horário de Expediente - Escala de Plantão\nPessoal: Horário Especial - Familiar Deficiente\nPessoal: Horário Especial - Instrutor de Curso\nPessoal: Horário Especial - Servidor Deficiente\nPessoal: Horário Especial - Servidor Estudante\nPessoal: Indenização de Transporte (meio próprio)\nPessoal: Licença Adotante\nPessoal: Licença Gestante\nPessoal: Licença para Atividade Política\nPessoal: Licença para Capacitação\nPessoal: Licença para Mandato Classista\nPessoal: Licença para Serviço Militar\nPessoal: Licença para Tratamento da Própria Saúde\nPessoal: Licença para Tratar de Interesses Particulares\nPessoal: Licença Paternidade\nPessoal: Licença por Acidente em Serviço\nPessoal: Licença por Afastamento do Cônjuge\nPessoal: Licença por Doença em Pessoa da Família\nPessoal: Licença por Doença Profissional\nPessoal: Licença Prêmio por Assiduidade\nPessoal: Licenças por Aborto/Natimorto\nPessoal: Movimentação de Servidor\nPessoal: Movimento Reivindicatório\nPessoal: Negociação Sindical e Acordo Coletivo\nPessoal: Nomeação/Exoneração de Cargo Comissionado e Designação/Dispensa de Substituto\nPessoal: Normatização Interna\nPessoal: Ocupação de Imóvel Funcional\nPessoal: Orientações e Diretrizes Gerais\nPessoal: Pagamento de Provento\nPessoal: Pagamento de Remuneração\nPessoal: Penalidade Advertência\nPessoal: Penalidade Cassação de Aposentadoria\nPessoal: Penalidade Demissão de Cargo Efetivo\nPessoal: Penalidade Destituição Cargo em Comissão\nPessoal: Penalidade Disponibilidade\nPessoal: Penalidade Suspensão\nPessoal: Pensão por Morte de Servidor\nPessoal: Planejamento da Força de Trabalho\nPessoal: Plano de Capacitação\nPessoal: Prêmios de Reconhecimento\nPessoal: Prevenção de Acidentes no Trabalho\nPessoal: Progressão e Promoção (Quadro Efetivo)\nPessoal: Progressão e Promoção (Quadro Específico)\nPessoal: Provimento - Nomeação para Cargo Efetivo\nPessoal: Provimento - Nomeação para Cargo em Comissão\nPessoal: Provimento - por Aproveitamento\nPessoal: Provimento - por Readaptação\nPessoal: Provimento - por Recondução\nPessoal: Provimento - por Reintegração\nPessoal: Provimento - por Reversão\nPessoal: Relação com Conselho Profissional\nPessoal: Remoção a Pedido - Concurso Interno\nPessoal: Remoção a Pedido com Mudança de Sede\nPessoal: Remoção a Pedido para Acompanhar Cônjuge\nPessoal: Remoção a Pedido por Motivo de Saúde\nPessoal: Remoção a Pedido sem Mudança de Sede\nPessoal: Remoção de Ofício com Mudança de Sede\nPessoal: Remoção de Ofício sem Mudança de Sede\nPessoal: Requisição de Servidor Externo\nPessoal: Requisição de Servidor Interno\nPessoal: Ressarcimento ao Erário\nPessoal: Restruturação de Cargos e Funções\nPessoal: Retribuição por Cargo em Comissão\nPessoal: Salário-Família\nPessoal: Saúde - Atestado de Comparecimento\nPessoal: Saúde - Auxílio-Saúde GEAP\nPessoal: Saúde - Cadastro de Dependente Estudante no Auxílio-Saúde\nPessoal: Saúde - Exclusão de Auxílio-Saúde\nPessoal: Saúde - Inspeção Periódica\nPessoal: Saúde - Lançamento Mensal do Auxílio-Saúde no SIAPE\nPessoal: Saúde - Pagamento de Auxílio-Saúde\nPessoal: Saúde - Pagamento de Retroativo\nPessoal: Saúde - Plano de Saúde\nPessoal: Saúde - Prontuário Médico\nPessoal: Saúde - Ressarcimento ao Erário\nPessoal: Saúde - Solicitação de Auxílio-Saúde\nPessoal: Saúde e Qualidade de Vida no Trabalho\nPessoal: Subsidiar Ação Judicial\nPessoal: Vacância - Posse em Cargo Inacumulável\nPlanejamento Estratégico: Acompanhamento do Plano Operacional\nPlanejamento Estratégico: Elaboração do Plano Estratégico\nPlanejamento Estratégico: Elaboração do Plano Operacional\nPlanejamento Estratégico: Gestão de Risco\nPlanejamento Estratégico: Gestão do Plano Estratégico\nPlanejamento Estratégico: Inteligência Estratégica\nProcesso de Eliminação\nProcesso de listagem de eliminação\nRelações Internacionais: Composição de Delegação - com ônus\nRelações Internacionais: Composição de Delegação - ônus limitado\nRelações Internacionais: Composição de Delegação - sem ônus\nRelações Internacionais: Cooperação Internacional\nSegurança Institucional: Automação e Controle Predial\nSegurança Institucional: Controle de Acesso/Garagem\nSegurança Institucional: Controle de Acesso/Portaria\nSegurança Institucional: Prevenção contra Incêndio\nSegurança Institucional: Projeto contra Incêndio\nSegurança Institucional: Serviço de Vigilância\nSuprimento de Fundos: Concessão e Prestação de Contas\nSuprimento de Fundos: Solicitação de Despesa\nViagem: Exterior - Prestação de Contas\nViagem: No País - Prestação de Contas\nViagem: Publicação de Boletim')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "27fcba9f-e8c4-4829-b8fa-e8e43120331e",
+      "comment": "",
+      "command": "pause",
+      "target": "4",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "82399d7c-b3ef-47da-a10f-350cd9c948ab",
+      "comment": "",
+      "command": "click",
+      "target": "id=sbmPesquisar",
+      "targets": [
+        ["id=sbmPesquisar", "id"],
+        ["css=#divInfraBarraComandosSuperior > #sbmPesquisar", "css:finder"],
+        ["xpath=//button[@id='sbmPesquisar']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraBarraComandosSuperior']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Pesquisar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "575eeeb2-6eb6-4ba1-8929-81f6356f6c9b",
+      "comment": "",
+      "command": "pause",
+      "target": "4",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8f6538a0-6576-4944-bcd3-5b8bc52fa9c2",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "css=.infraCaption",
+      "targets": [],
+      "value": "30000"
+    }, {
+      "id": "d2872c62-0b38-4766-96c7-cf676eab4b41",
+      "comment": "",
+      "command": "click",
+      "target": "css=.infraCaption",
+      "targets": [
+        ["css=.infraCaption", "css:finder"],
+        ["xpath=//div[@id='divInfraAreaTabela']/table/caption", "xpath:idRelative"],
+        ["xpath=//caption", "xpath:position"],
+        ["xpath=//caption[contains(.,'Lista de Processos Arquivados (48 registros):')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "58e26983-ea71-4f4f-9352-c6f070e067db",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=.infraCaption",
+      "targets": [
+        ["css=.infraCaption", "css:finder"],
+        ["xpath=//div[@id='divInfraAreaTabela']/table/caption", "xpath:idRelative"],
+        ["xpath=//caption", "xpath:position"],
+        ["xpath=//caption[contains(.,'Lista de Processos Arquivados (48 registros):')]", "xpath:innerText"]
+      ],
+      "value": "Lista de Processos Arquivados (48 registros):"
+    }, {
+      "id": "a29dec05-b756-4e46-81e8-2061daf765c6",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[2]/td[8]",
+      "targets": [
+        ["css=.infraTrSelecionada > td:nth-child(8)", "css:finder"],
+        ["xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[2]/td[8]", "xpath:idRelative"],
+        ["xpath=//td[8]", "xpath:position"],
+        ["xpath=//td[contains(.,'1 ano, 9 meses e 25 dias.')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "53dc8421-ec0c-4a3a-802c-4ddfd216c489",
+      "comment": "",
+      "command": "verifyElementPresent",
+      "target": "xpath=//td[contains(.,'1 ano, 9 meses')]",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2df3be33-c201-418b-ab36-4d696db2aa75",
+      "comment": "",
+      "command": "//verifyText",
+      "target": "xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[2]/td[8]",
+      "targets": [],
+      "value": "1 ano, 9 meses e 26 dias."
+    }, {
+      "id": "367fd4b8-1591-4edc-8ac6-8df640c7690f",
+      "comment": "",
+      "command": "select",
+      "target": "id=selTipoProcedimento",
+      "targets": [],
+      "value": "label=Acesso à Informação: Demanda do e-SIC"
+    }, {
+      "id": "53e7b9f9-20c9-420a-b0c9-10882f378a4d",
+      "comment": "",
+      "command": "click",
+      "target": "id=selTipoProcedimento",
+      "targets": [
+        ["id=selTipoProcedimento", "id"],
+        ["name=selTipoProcedimento", "name"],
+        ["css=#selTipoProcedimento", "css:finder"],
+        ["xpath=//select[@id='selTipoProcedimento']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/select[2]", "xpath:idRelative"],
+        ["xpath=//select[2]", "xpath:position"],
+        ["xpath=//select[contains(.,'Todos\nAcesso à Informação: Demanda do e-SIC\nAcompanhamento Legislativo: Câmara dos Deputados\nAcompanhamento Legislativo: Congresso Nacional\nAcompanhamento Legislativo: Estadual/Distrital\nAcompanhamento Legislativo: Municipal\nAcompanhamento Legislativo: Senado Federal\nArrecadação: Cobrança\nArrecadação: Cumprimento de Ação Judicial\nArrecadação: Encaminhamento para Dívida Ativa\nArrecadação: Normatização Interna\nArrecadação: Notificação/Comunicado\nArrecadação: Parcelamento Administrativo\nArrecadação: Receita\nArrecadação: Regularização de Indébitos\nArrecadação: Restituição/Compensação\nArrecadação: Subsidiar Ação Judicial\nComunicação: Evento Institucional Público Externo\nComunicação: Evento Institucional Público Interno\nComunicação: Pedido de Apoio Institucional\nComunicação: Publicidade Institucional\nComunicação: Publicidade Legal\nContabilidade: Análise Contábil\nContabilidade: Conformidade de Gestão\nContabilidade: Contratos e Garantias\nContabilidade: DIRF\nContabilidade: Encerramento do Exercício\nContabilidade: Fechamento Contábil - Estoque\nContabilidade: Fechamento Contábil Patrimonial\nContabilidade: Manuais\nContabilidade: Normatização Interna\nContabilidade: Prestação de Contas\nConvênios/Ajustes: Acompanhamento da Execução\nConvênios/Ajustes: Formalização/Alteração com Repasse\nConvênios/Ajustes: Formalização/Alteração sem Repasse\nCorregedoria: Análise Prescricional de Processo\nCorregedoria: Avaliação para Estabilidade\nCorregedoria: Correição\nCorregedoria: Investigação Preliminar\nCorregedoria: Procedimento Geral\nCorregedoria: Processo Administrativo Disciplinar\nCorregedoria: Sindicância Punitiva\nDemanda Externa: Cidadão (Pessoa Física)\nDemanda Externa: Deputado Estadual/Distrital\nDemanda Externa: Deputado Federal\nDemanda Externa: Judiciário\nDemanda Externa: Ministério Público Estadual\nDemanda Externa: Ministério Público Federal\nDemanda Externa: Orgãos Governamentais Estaduais\nDemanda Externa: Orgãos Governamentais Federais\nDemanda Externa: Orgãos Governamentais Municipais\nDemanda Externa: Outras Entidades Privadas\nDemanda Externa: Outros Orgãos Públicos\nDemanda Externa: Senador\nDemanda Externa: Vereador/Câmara Municipal\nÉtica: Análise de Conflito de Interesse\nÉtica: Processo de Apuração Ética\nFinanças: Execução Financeira\nFinanças: Normatização Interna\nFinanças: Reembolso/Ressarcimento\nGestão da Informação: Arrecadação\nGestão da Informação: Avaliação/Destinação de Documentos\nGestão da Informação: Cadastro de Usuário Externo no SEI\nGestão da Informação: Controle de Malote\nGestão da Informação: Credenciamento de Segurança\nGestão da Informação: Gestão Documental\nGestão da Informação: Normatização Interna\nGestão da Informação: Reconstituição Documental\nGestão da Informação: Rol Anual de Informações Classificadas\nGestão da Informação: Segurança da Informação e Comunicações\nGestão de Contrato: Acompanhamento da Execução\nGestão de Contrato: Acréscimo Contratual\nGestão de Contrato: Alterações Contratuais Conjuntas\nGestão de Contrato: Aplicação de Sanção Contratual\nGestão de Contrato: Consulta à Procuradoria/Conjur\nGestão de Contrato: Execução de Garantia\nGestão de Contrato: Outras Alterações Contratuais não Relacionadas\nGestão de Contrato: Pagamento Direto a Terceiros\nGestão de Contrato: Processo de Pagamento\nGestão de Contrato: Prorrogação Contratual\nGestão de Contrato: Reajuste ou Repactuação Contratual\nGestão de Contrato: Rescisão Contratual\nGestão de Contrato: Revisão Contratual\nGestão de Contrato: Supressão Contratual\nGestão de Processos: Mapeamento e Modelagem\nGestão de Projetos: Planejamento e Execução\nGestão de TI: CITI\nGestão e Controle: Coordenação - Demandas Externas\nGestão e Controle: Coordenação - Demandas Internas\nGestão e Controle: Demandas de Órgãos de Controle\nGestão e Controle: Executar Auditoria Interna\nInfraestrutura: Abastecimento de Água e Esgoto\nInfraestrutura: Apoio de Engenharia Civil\nInfraestrutura: Fornecimento de Energia Elétrica\nLicitação: Adesão a Ata de RP-Não Participante\nLicitação: Adesão a Ata de RP-Participante\nLicitação: Aplicação de Sanção decorrente de Procedimento Licitatório\nLicitação: Concorrência\nLicitação: Concorrência-Registro de Preço\nLicitação: Concurso\nLicitação: Consulta\nLicitação: Convite\nLicitação: Dispensa - Acima de R$ 8 mil\nLicitação: Dispensa - Até R$ 8 mil\nLicitação: Inexigibilidade\nLicitação: Leilão\nLicitação: Plano de Aquisições\nLicitação: Pregão Eletrônico\nLicitação: Pregão Eletrônico-Registro de Preço\nLicitação: Pregão Presencial\nLicitação: Regime Diferenciado de Contratação-RDC\nLicitação: Tomada de Preços\nMaterial: Desfazimento de Material de Consumo\nMaterial: Desfazimento de Material Permanente\nMaterial: Inventário de Material de Consumo\nMaterial: Inventário de Material Permanente\nMaterial: Movimentação de Material de Consumo\nMaterial: Movimentação de Material Permanente\nOrçamento: Acompanhamento de Despesa Mensal\nOrçamento: Contingenciamento\nOrçamento: Créditos Adicionais\nOrçamento: Descentralização de Créditos\nOrçamento: Manuais\nOrçamento: Programação Orçamentária\nOuvidoria: Agradecimento ao Órgão (Ouvidoria)\nOuvidoria: Crítica à atuação do Órgão (Ouvidoria)\nOuvidoria: Denúncia contra a atuação do Órgão (Ouvidoria)\nOuvidoria: Elogio à atuação do Órgão (Ouvidoria)\nOuvidoria: Pedido de Informação (Ouvidoria)\nOuvidoria: Reclamação à atuação do Órgão (Ouvidoria)\nPatrimônio: Cobrança de Acervo Bibliográfico\nPatrimônio: Gestão de Acervo Bibliográfico\nPatrimônio: Gestão de Bens Imóveis\nPessoal: Abono Permanência - Concessão\nPessoal: Abono Permanência - Revisão\nPessoal: Adicional de Férias (1/3 constitucional)\nPessoal: Adicional de Insalubridade\nPessoal: Adicional de Periculosidade\nPessoal: Adicional Noturno\nPessoal: Adicional por Atividade Penosa\nPessoal: Adicional por Serviço Extraordinário\nPessoal: Adicional por Tempo de Serviço\nPessoal: Afastamento para Atividade Desportiva\nPessoal: Afastamento para Curso de Formação\nPessoal: Afastamento para Depor\nPessoal: Afastamento para Exercer Mandato Eletivo\nPessoal: Afastamento para Pós-Graduação\nPessoal: Afastamento para Serviço Eleitoral (TRE)\nPessoal: Afastamento para Servir como Jurado\nPessoal: Afastamento para servir em Organismo Internacional\nPessoal: Ajuda de Custo com Mudança de Domicílio\nPessoal: Aposentadoria - Concessão\nPessoal: Aposentadoria - Contagem Tempo de Serviço\nPessoal: Aposentadoria - Pensão Temporária\nPessoal: Aposentadoria - Pensão Vitalícia\nPessoal: Aposentadoria - Revisão\nPessoal: Apresentação de Certificado de Curso\nPessoal: Assentamento Funcional do Servidor\nPessoal: Ausência em razão de Casamento\nPessoal: Ausência para Alistamento Eleitoral\nPessoal: Ausência para Doação de Sangue\nPessoal: Ausência por Falecimento de Familiar\nPessoal: Auxílio Acidente\nPessoal: Auxílio Alimentação/Refeição\nPessoal: Auxílio Assistência Pré-Escolar/Creche\nPessoal: Auxílio Doença\nPessoal: Auxílio Funeral\nPessoal: Auxílio Moradia\nPessoal: Auxílio Natalidade\nPessoal: Auxílio Reclusão\nPessoal: Auxílio-Transporte\nPessoal: Avaliação de Desempenho Individual\nPessoal: Avaliação de Desempenho Institucional\nPessoal: Avaliação de Estágio Probatório\nPessoal: Averbação de Tempo de Serviço\nPessoal: Bolsa de Estudo de Idioma Estrangeiro\nPessoal: Bolsa de Pós-Graduação\nPessoal: Cadastro de Dependente no Imposto de Renda\nPessoal: Cessão de Servidor para outro Órgão\nPessoal: CIPA\nPessoal: Coleta de Imagem de Assinatura\nPessoal: Concurso Público - Exames Admissionais\nPessoal: Concurso Público - Organização\nPessoal: Concurso Público - Provas e Títulos\nPessoal: Controle de Frequência/Abono de Falta\nPessoal: Controle de Frequência/Cumprir Hora Extra\nPessoal: Controle de Frequência/Folha de Ponto\nPessoal: Curso de Pós-Graduação\nPessoal: Curso no Exterior - com ônus\nPessoal: Curso no Exterior - ônus limitado\nPessoal: Curso no Exterior - sem ônus\nPessoal: Curso Promovido pela própria Instituição\nPessoal: Curso Promovido por outra Instituição\nPessoal: Delegação de Competência\nPessoal: Desconto da Contribuição para o INSS\nPessoal: Desconto de Contribuição Associativa\nPessoal: Desconto de Contribuição Sindical\nPessoal: Desconto de Empréstimo Consignado\nPessoal: Desconto de Pensão Alimentícia\nPessoal: Desconto do IRPF Retido na Fonte\nPessoal: Emissão de Certidões e Declarações\nPessoal: Emissão de Procuração\nPessoal: Encargo Patronal - Contribuição para INSS\nPessoal: Estágio - Dossiê do Estagiário\nPessoal: Estágio - Planejamento/Organização Geral\nPessoal: Estágio de Servidor no Brasil\nPessoal: Estágio de Servidor no Exterior\nPessoal: Exoneração de Cargo Efetivo\nPessoal: Falecimento de Servidor\nPessoal: Férias - Alteração\nPessoal: Férias - Interrupção\nPessoal: Férias - Solicitação\nPessoal: Ficha Financeira\nPessoal: Folha de Pagamento\nPessoal: Gratificação de Desempenho\nPessoal: Gratificação Natalina (Décimo Terceiro)\nPessoal: Gratificação por Encargo - Curso/Concurso\nPessoal: Horário de Expediente - Definição\nPessoal: Horário de Expediente - Escala de Plantão\nPessoal: Horário Especial - Familiar Deficiente\nPessoal: Horário Especial - Instrutor de Curso\nPessoal: Horário Especial - Servidor Deficiente\nPessoal: Horário Especial - Servidor Estudante\nPessoal: Indenização de Transporte (meio próprio)\nPessoal: Licença Adotante\nPessoal: Licença Gestante\nPessoal: Licença para Atividade Política\nPessoal: Licença para Capacitação\nPessoal: Licença para Mandato Classista\nPessoal: Licença para Serviço Militar\nPessoal: Licença para Tratamento da Própria Saúde\nPessoal: Licença para Tratar de Interesses Particulares\nPessoal: Licença Paternidade\nPessoal: Licença por Acidente em Serviço\nPessoal: Licença por Afastamento do Cônjuge\nPessoal: Licença por Doença em Pessoa da Família\nPessoal: Licença por Doença Profissional\nPessoal: Licença Prêmio por Assiduidade\nPessoal: Licenças por Aborto/Natimorto\nPessoal: Movimentação de Servidor\nPessoal: Movimento Reivindicatório\nPessoal: Negociação Sindical e Acordo Coletivo\nPessoal: Nomeação/Exoneração de Cargo Comissionado e Designação/Dispensa de Substituto\nPessoal: Normatização Interna\nPessoal: Ocupação de Imóvel Funcional\nPessoal: Orientações e Diretrizes Gerais\nPessoal: Pagamento de Provento\nPessoal: Pagamento de Remuneração\nPessoal: Penalidade Advertência\nPessoal: Penalidade Cassação de Aposentadoria\nPessoal: Penalidade Demissão de Cargo Efetivo\nPessoal: Penalidade Destituição Cargo em Comissão\nPessoal: Penalidade Disponibilidade\nPessoal: Penalidade Suspensão\nPessoal: Pensão por Morte de Servidor\nPessoal: Planejamento da Força de Trabalho\nPessoal: Plano de Capacitação\nPessoal: Prêmios de Reconhecimento\nPessoal: Prevenção de Acidentes no Trabalho\nPessoal: Progressão e Promoção (Quadro Efetivo)\nPessoal: Progressão e Promoção (Quadro Específico)\nPessoal: Provimento - Nomeação para Cargo Efetivo\nPessoal: Provimento - Nomeação para Cargo em Comissão\nPessoal: Provimento - por Aproveitamento\nPessoal: Provimento - por Readaptação\nPessoal: Provimento - por Recondução\nPessoal: Provimento - por Reintegração\nPessoal: Provimento - por Reversão\nPessoal: Relação com Conselho Profissional\nPessoal: Remoção a Pedido - Concurso Interno\nPessoal: Remoção a Pedido com Mudança de Sede\nPessoal: Remoção a Pedido para Acompanhar Cônjuge\nPessoal: Remoção a Pedido por Motivo de Saúde\nPessoal: Remoção a Pedido sem Mudança de Sede\nPessoal: Remoção de Ofício com Mudança de Sede\nPessoal: Remoção de Ofício sem Mudança de Sede\nPessoal: Requisição de Servidor Externo\nPessoal: Requisição de Servidor Interno\nPessoal: Ressarcimento ao Erário\nPessoal: Restruturação de Cargos e Funções\nPessoal: Retribuição por Cargo em Comissão\nPessoal: Salário-Família\nPessoal: Saúde - Atestado de Comparecimento\nPessoal: Saúde - Auxílio-Saúde GEAP\nPessoal: Saúde - Cadastro de Dependente Estudante no Auxílio-Saúde\nPessoal: Saúde - Exclusão de Auxílio-Saúde\nPessoal: Saúde - Inspeção Periódica\nPessoal: Saúde - Lançamento Mensal do Auxílio-Saúde no SIAPE\nPessoal: Saúde - Pagamento de Auxílio-Saúde\nPessoal: Saúde - Pagamento de Retroativo\nPessoal: Saúde - Plano de Saúde\nPessoal: Saúde - Prontuário Médico\nPessoal: Saúde - Ressarcimento ao Erário\nPessoal: Saúde - Solicitação de Auxílio-Saúde\nPessoal: Saúde e Qualidade de Vida no Trabalho\nPessoal: Subsidiar Ação Judicial\nPessoal: Vacância - Posse em Cargo Inacumulável\nPlanejamento Estratégico: Acompanhamento do Plano Operacional\nPlanejamento Estratégico: Elaboração do Plano Estratégico\nPlanejamento Estratégico: Elaboração do Plano Operacional\nPlanejamento Estratégico: Gestão de Risco\nPlanejamento Estratégico: Gestão do Plano Estratégico\nPlanejamento Estratégico: Inteligência Estratégica\nProcesso de Eliminação\nProcesso de listagem de eliminação\nRelações Internacionais: Composição de Delegação - com ônus\nRelações Internacionais: Composição de Delegação - ônus limitado\nRelações Internacionais: Composição de Delegação - sem ônus\nRelações Internacionais: Cooperação Internacional\nSegurança Institucional: Automação e Controle Predial\nSegurança Institucional: Controle de Acesso/Garagem\nSegurança Institucional: Controle de Acesso/Portaria\nSegurança Institucional: Prevenção contra Incêndio\nSegurança Institucional: Projeto contra Incêndio\nSegurança Institucional: Serviço de Vigilância\nSuprimento de Fundos: Concessão e Prestação de Contas\nSuprimento de Fundos: Solicitação de Despesa\nViagem: Exterior - Prestação de Contas\nViagem: No País - Prestação de Contas\nViagem: Publicação de Boletim')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "eda585d0-9283-4daf-b8ee-5c4c1b14a244",
+      "comment": "",
+      "command": "pause",
+      "target": "4",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "01747c36-d9b0-4556-8fa6-6729d3ac9fb5",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "css=#sbmPesquisar > .infraTeclaAtalho",
+      "targets": [],
+      "value": "30000"
+    }, {
+      "id": "7b131233-b27a-471f-b007-9444dd77544f",
+      "comment": "",
+      "command": "click",
+      "target": "css=#sbmPesquisar > .infraTeclaAtalho",
+      "targets": [
+        ["css=#sbmPesquisar > .infraTeclaAtalho", "css:finder"],
+        ["xpath=//button[@id='sbmPesquisar']/span", "xpath:idRelative"],
+        ["xpath=//button/span", "xpath:position"],
+        ["xpath=//span[contains(.,'P')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "cf0cef4a-eabc-462f-b0f0-d1b8e9b2ca57",
+      "comment": "",
+      "command": "pause",
+      "target": "4",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "71e6cfb4-dcf7-4fbe-8f20-d0ee6945b852",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "css=#divInfraAreaTabela > label",
+      "targets": [],
+      "value": "30000"
+    }, {
+      "id": "181324de-cf2b-4951-8692-3f7afdcc2b83",
+      "comment": "",
+      "command": "click",
+      "target": "css=#divInfraAreaTabela > label",
+      "targets": [
+        ["css=#divInfraAreaTabela > label", "css:finder"],
+        ["xpath=//div[@id='divInfraAreaTabela']/label", "xpath:idRelative"],
+        ["xpath=//div[4]/label", "xpath:position"],
+        ["xpath=//label[contains(.,'Nenhum registro encontrado.')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "b951b8b3-26f0-427b-99ea-21fc25fc26da",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=#divInfraAreaTabela > label",
+      "targets": [
+        ["css=#divInfraAreaTabela > label", "css:finder"],
+        ["xpath=//div[@id='divInfraAreaTabela']/label", "xpath:idRelative"],
+        ["xpath=//div[4]/label", "xpath:position"],
+        ["xpath=//label[contains(.,'Nenhum registro encontrado.')]", "xpath:innerText"]
+      ],
+      "value": "Nenhum registro encontrado."
+    }, {
+      "id": "ee31fe84-9b59-4b1f-b14b-54000940908a",
+      "comment": "",
+      "command": "select",
+      "target": "id=selInfraUnidades",
+      "targets": [],
+      "value": "label=ArquivoGeral02"
+    }, {
+      "id": "73ff61ac-a05c-4900-906a-65d07ddae9f8",
+      "comment": "",
+      "command": "click",
+      "target": "id=selInfraUnidades",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "691ae4b7-d2f8-48cd-9909-2bd7d5cc9ea2",
+      "comment": "",
+      "command": "pause",
+      "target": "4",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a1ec5740-f751-467c-957b-201f7001f131",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//*[@id=\"main-menu\"]/li[10]/a",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1e4a14b9-91e6-4b9c-954b-3244abb3cc16",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "linkText=Avaliação de Processos",
+      "targets": [],
+      "value": "30000"
+    }, {
+      "id": "90fc0896-a463-4bda-bde9-ae35e629abfa",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Avaliação de Processos",
+      "targets": [
+        ["linkText=Avaliação de Processos", "linkText"],
+        ["css=.sm-nowrap > li:nth-child(1) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Avaliação de Processos')]", "xpath:link"],
+        ["xpath=//ul[@id='main-menu']/li[10]/ul/li/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, 'controlador.php?acao=gd_avaliacao_processos_listar&infra_sistema=100000100&infra_unidade_atual=110000006&infra_hash=0335267c40c614a8a9eebba3fc641adcb2620ab7d34915e304cca6d76893cf0f')]", "xpath:href"],
+        ["xpath=//li[10]/ul/li/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Avaliação de Processos')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "75dbbc40-13b2-44e1-88e3-54afd6e67d02",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "id=selTipoProcedimento",
+      "targets": [],
+      "value": "30000"
+    }, {
+      "id": "92a8eaf0-f3ec-4500-aef2-91cdd98971fe",
+      "comment": "",
+      "command": "select",
+      "target": "id=selTipoProcedimento",
+      "targets": [],
+      "value": "label=Todos"
+    }, {
+      "id": "ea84ca04-100e-466e-aa57-65fcc1277525",
+      "comment": "",
+      "command": "click",
+      "target": "id=selTipoProcedimento",
+      "targets": [
+        ["id=selTipoProcedimento", "id"],
+        ["name=selTipoProcedimento", "name"],
+        ["css=#selTipoProcedimento", "css:finder"],
+        ["xpath=//select[@id='selTipoProcedimento']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraAreaDados']/select[3]", "xpath:idRelative"],
+        ["xpath=//select[3]", "xpath:position"],
+        ["xpath=//select[contains(.,'Todos\nAcesso à Informação: Demanda do e-SIC\nAcompanhamento Legislativo: Câmara dos Deputados\nAcompanhamento Legislativo: Congresso Nacional\nAcompanhamento Legislativo: Estadual/Distrital\nAcompanhamento Legislativo: Municipal\nAcompanhamento Legislativo: Senado Federal\nArrecadação: Cobrança\nArrecadação: Cumprimento de Ação Judicial\nArrecadação: Encaminhamento para Dívida Ativa\nArrecadação: Normatização Interna\nArrecadação: Notificação/Comunicado\nArrecadação: Parcelamento Administrativo\nArrecadação: Receita\nArrecadação: Regularização de Indébitos\nArrecadação: Restituição/Compensação\nArrecadação: Subsidiar Ação Judicial\nComunicação: Evento Institucional Público Externo\nComunicação: Evento Institucional Público Interno\nComunicação: Pedido de Apoio Institucional\nComunicação: Publicidade Institucional\nComunicação: Publicidade Legal\nContabilidade: Análise Contábil\nContabilidade: Conformidade de Gestão\nContabilidade: Contratos e Garantias\nContabilidade: DIRF\nContabilidade: Encerramento do Exercício\nContabilidade: Fechamento Contábil - Estoque\nContabilidade: Fechamento Contábil Patrimonial\nContabilidade: Manuais\nContabilidade: Normatização Interna\nContabilidade: Prestação de Contas\nConvênios/Ajustes: Acompanhamento da Execução\nConvênios/Ajustes: Formalização/Alteração com Repasse\nConvênios/Ajustes: Formalização/Alteração sem Repasse\nCorregedoria: Análise Prescricional de Processo\nCorregedoria: Avaliação para Estabilidade\nCorregedoria: Correição\nCorregedoria: Investigação Preliminar\nCorregedoria: Procedimento Geral\nCorregedoria: Processo Administrativo Disciplinar\nCorregedoria: Sindicância Punitiva\nDemanda Externa: Cidadão (Pessoa Física)\nDemanda Externa: Deputado Estadual/Distrital\nDemanda Externa: Deputado Federal\nDemanda Externa: Judiciário\nDemanda Externa: Ministério Público Estadual\nDemanda Externa: Ministério Público Federal\nDemanda Externa: Orgãos Governamentais Estaduais\nDemanda Externa: Orgãos Governamentais Federais\nDemanda Externa: Orgãos Governamentais Municipais\nDemanda Externa: Outras Entidades Privadas\nDemanda Externa: Outros Orgãos Públicos\nDemanda Externa: Senador\nDemanda Externa: Vereador/Câmara Municipal\nÉtica: Análise de Conflito de Interesse\nÉtica: Processo de Apuração Ética\nFinanças: Execução Financeira\nFinanças: Normatização Interna\nFinanças: Reembolso/Ressarcimento\nGestão da Informação: Arrecadação\nGestão da Informação: Avaliação/Destinação de Documentos\nGestão da Informação: Cadastro de Usuário Externo no SEI\nGestão da Informação: Controle de Malote\nGestão da Informação: Credenciamento de Segurança\nGestão da Informação: Gestão Documental\nGestão da Informação: Normatização Interna\nGestão da Informação: Reconstituição Documental\nGestão da Informação: Rol Anual de Informações Classificadas\nGestão da Informação: Segurança da Informação e Comunicações\nGestão de Contrato: Acompanhamento da Execução\nGestão de Contrato: Acréscimo Contratual\nGestão de Contrato: Alterações Contratuais Conjuntas\nGestão de Contrato: Aplicação de Sanção Contratual\nGestão de Contrato: Consulta à Procuradoria/Conjur\nGestão de Contrato: Execução de Garantia\nGestão de Contrato: Outras Alterações Contratuais não Relacionadas\nGestão de Contrato: Pagamento Direto a Terceiros\nGestão de Contrato: Processo de Pagamento\nGestão de Contrato: Prorrogação Contratual\nGestão de Contrato: Reajuste ou Repactuação Contratual\nGestão de Contrato: Rescisão Contratual\nGestão de Contrato: Revisão Contratual\nGestão de Contrato: Supressão Contratual\nGestão de Processos: Mapeamento e Modelagem\nGestão de Projetos: Planejamento e Execução\nGestão de TI: CITI\nGestão e Controle: Coordenação - Demandas Externas\nGestão e Controle: Coordenação - Demandas Internas\nGestão e Controle: Demandas de Órgãos de Controle\nGestão e Controle: Executar Auditoria Interna\nInfraestrutura: Abastecimento de Água e Esgoto\nInfraestrutura: Apoio de Engenharia Civil\nInfraestrutura: Fornecimento de Energia Elétrica\nLicitação: Adesão a Ata de RP-Não Participante\nLicitação: Adesão a Ata de RP-Participante\nLicitação: Aplicação de Sanção decorrente de Procedimento Licitatório\nLicitação: Concorrência\nLicitação: Concorrência-Registro de Preço\nLicitação: Concurso\nLicitação: Consulta\nLicitação: Convite\nLicitação: Dispensa - Acima de R$ 8 mil\nLicitação: Dispensa - Até R$ 8 mil\nLicitação: Inexigibilidade\nLicitação: Leilão\nLicitação: Plano de Aquisições\nLicitação: Pregão Eletrônico\nLicitação: Pregão Eletrônico-Registro de Preço\nLicitação: Pregão Presencial\nLicitação: Regime Diferenciado de Contratação-RDC\nLicitação: Tomada de Preços\nMaterial: Desfazimento de Material de Consumo\nMaterial: Desfazimento de Material Permanente\nMaterial: Inventário de Material de Consumo\nMaterial: Inventário de Material Permanente\nMaterial: Movimentação de Material de Consumo\nMaterial: Movimentação de Material Permanente\nOrçamento: Acompanhamento de Despesa Mensal\nOrçamento: Contingenciamento\nOrçamento: Créditos Adicionais\nOrçamento: Descentralização de Créditos\nOrçamento: Manuais\nOrçamento: Programação Orçamentária\nOuvidoria: Agradecimento ao Órgão (Ouvidoria)\nOuvidoria: Crítica à atuação do Órgão (Ouvidoria)\nOuvidoria: Denúncia contra a atuação do Órgão (Ouvidoria)\nOuvidoria: Elogio à atuação do Órgão (Ouvidoria)\nOuvidoria: Pedido de Informação (Ouvidoria)\nOuvidoria: Reclamação à atuação do Órgão (Ouvidoria)\nPatrimônio: Cobrança de Acervo Bibliográfico\nPatrimônio: Gestão de Acervo Bibliográfico\nPatrimônio: Gestão de Bens Imóveis\nPessoal: Abono Permanência - Concessão\nPessoal: Abono Permanência - Revisão\nPessoal: Adicional de Férias (1/3 constitucional)\nPessoal: Adicional de Insalubridade\nPessoal: Adicional de Periculosidade\nPessoal: Adicional Noturno\nPessoal: Adicional por Atividade Penosa\nPessoal: Adicional por Serviço Extraordinário\nPessoal: Adicional por Tempo de Serviço\nPessoal: Afastamento para Atividade Desportiva\nPessoal: Afastamento para Curso de Formação\nPessoal: Afastamento para Depor\nPessoal: Afastamento para Exercer Mandato Eletivo\nPessoal: Afastamento para Pós-Graduação\nPessoal: Afastamento para Serviço Eleitoral (TRE)\nPessoal: Afastamento para Servir como Jurado\nPessoal: Afastamento para servir em Organismo Internacional\nPessoal: Ajuda de Custo com Mudança de Domicílio\nPessoal: Aposentadoria - Concessão\nPessoal: Aposentadoria - Contagem Tempo de Serviço\nPessoal: Aposentadoria - Pensão Temporária\nPessoal: Aposentadoria - Pensão Vitalícia\nPessoal: Aposentadoria - Revisão\nPessoal: Apresentação de Certificado de Curso\nPessoal: Assentamento Funcional do Servidor\nPessoal: Ausência em razão de Casamento\nPessoal: Ausência para Alistamento Eleitoral\nPessoal: Ausência para Doação de Sangue\nPessoal: Ausência por Falecimento de Familiar\nPessoal: Auxílio Acidente\nPessoal: Auxílio Alimentação/Refeição\nPessoal: Auxílio Assistência Pré-Escolar/Creche\nPessoal: Auxílio Doença\nPessoal: Auxílio Funeral\nPessoal: Auxílio Moradia\nPessoal: Auxílio Natalidade\nPessoal: Auxílio Reclusão\nPessoal: Auxílio-Transporte\nPessoal: Avaliação de Desempenho Individual\nPessoal: Avaliação de Desempenho Institucional\nPessoal: Avaliação de Estágio Probatório\nPessoal: Averbação de Tempo de Serviço\nPessoal: Bolsa de Estudo de Idioma Estrangeiro\nPessoal: Bolsa de Pós-Graduação\nPessoal: Cadastro de Dependente no Imposto de Renda\nPessoal: Cessão de Servidor para outro Órgão\nPessoal: CIPA\nPessoal: Coleta de Imagem de Assinatura\nPessoal: Concurso Público - Exames Admissionais\nPessoal: Concurso Público - Organização\nPessoal: Concurso Público - Provas e Títulos\nPessoal: Controle de Frequência/Abono de Falta\nPessoal: Controle de Frequência/Cumprir Hora Extra\nPessoal: Controle de Frequência/Folha de Ponto\nPessoal: Curso de Pós-Graduação\nPessoal: Curso no Exterior - com ônus\nPessoal: Curso no Exterior - ônus limitado\nPessoal: Curso no Exterior - sem ônus\nPessoal: Curso Promovido pela própria Instituição\nPessoal: Curso Promovido por outra Instituição\nPessoal: Delegação de Competência\nPessoal: Desconto da Contribuição para o INSS\nPessoal: Desconto de Contribuição Associativa\nPessoal: Desconto de Contribuição Sindical\nPessoal: Desconto de Empréstimo Consignado\nPessoal: Desconto de Pensão Alimentícia\nPessoal: Desconto do IRPF Retido na Fonte\nPessoal: Emissão de Certidões e Declarações\nPessoal: Emissão de Procuração\nPessoal: Encargo Patronal - Contribuição para INSS\nPessoal: Estágio - Dossiê do Estagiário\nPessoal: Estágio - Planejamento/Organização Geral\nPessoal: Estágio de Servidor no Brasil\nPessoal: Estágio de Servidor no Exterior\nPessoal: Exoneração de Cargo Efetivo\nPessoal: Falecimento de Servidor\nPessoal: Férias - Alteração\nPessoal: Férias - Interrupção\nPessoal: Férias - Solicitação\nPessoal: Ficha Financeira\nPessoal: Folha de Pagamento\nPessoal: Gratificação de Desempenho\nPessoal: Gratificação Natalina (Décimo Terceiro)\nPessoal: Gratificação por Encargo - Curso/Concurso\nPessoal: Horário de Expediente - Definição\nPessoal: Horário de Expediente - Escala de Plantão\nPessoal: Horário Especial - Familiar Deficiente\nPessoal: Horário Especial - Instrutor de Curso\nPessoal: Horário Especial - Servidor Deficiente\nPessoal: Horário Especial - Servidor Estudante\nPessoal: Indenização de Transporte (meio próprio)\nPessoal: Licença Adotante\nPessoal: Licença Gestante\nPessoal: Licença para Atividade Política\nPessoal: Licença para Capacitação\nPessoal: Licença para Mandato Classista\nPessoal: Licença para Serviço Militar\nPessoal: Licença para Tratamento da Própria Saúde\nPessoal: Licença para Tratar de Interesses Particulares\nPessoal: Licença Paternidade\nPessoal: Licença por Acidente em Serviço\nPessoal: Licença por Afastamento do Cônjuge\nPessoal: Licença por Doença em Pessoa da Família\nPessoal: Licença por Doença Profissional\nPessoal: Licença Prêmio por Assiduidade\nPessoal: Licenças por Aborto/Natimorto\nPessoal: Movimentação de Servidor\nPessoal: Movimento Reivindicatório\nPessoal: Negociação Sindical e Acordo Coletivo\nPessoal: Nomeação/Exoneração de Cargo Comissionado e Designação/Dispensa de Substituto\nPessoal: Normatização Interna\nPessoal: Ocupação de Imóvel Funcional\nPessoal: Orientações e Diretrizes Gerais\nPessoal: Pagamento de Provento\nPessoal: Pagamento de Remuneração\nPessoal: Penalidade Advertência\nPessoal: Penalidade Cassação de Aposentadoria\nPessoal: Penalidade Demissão de Cargo Efetivo\nPessoal: Penalidade Destituição Cargo em Comissão\nPessoal: Penalidade Disponibilidade\nPessoal: Penalidade Suspensão\nPessoal: Pensão por Morte de Servidor\nPessoal: Planejamento da Força de Trabalho\nPessoal: Plano de Capacitação\nPessoal: Prêmios de Reconhecimento\nPessoal: Prevenção de Acidentes no Trabalho\nPessoal: Progressão e Promoção (Quadro Efetivo)\nPessoal: Progressão e Promoção (Quadro Específico)\nPessoal: Provimento - Nomeação para Cargo Efetivo\nPessoal: Provimento - Nomeação para Cargo em Comissão\nPessoal: Provimento - por Aproveitamento\nPessoal: Provimento - por Readaptação\nPessoal: Provimento - por Recondução\nPessoal: Provimento - por Reintegração\nPessoal: Provimento - por Reversão\nPessoal: Relação com Conselho Profissional\nPessoal: Remoção a Pedido - Concurso Interno\nPessoal: Remoção a Pedido com Mudança de Sede\nPessoal: Remoção a Pedido para Acompanhar Cônjuge\nPessoal: Remoção a Pedido por Motivo de Saúde\nPessoal: Remoção a Pedido sem Mudança de Sede\nPessoal: Remoção de Ofício com Mudança de Sede\nPessoal: Remoção de Ofício sem Mudança de Sede\nPessoal: Requisição de Servidor Externo\nPessoal: Requisição de Servidor Interno\nPessoal: Ressarcimento ao Erário\nPessoal: Restruturação de Cargos e Funções\nPessoal: Retribuição por Cargo em Comissão\nPessoal: Salário-Família\nPessoal: Saúde - Atestado de Comparecimento\nPessoal: Saúde - Auxílio-Saúde GEAP\nPessoal: Saúde - Cadastro de Dependente Estudante no Auxílio-Saúde\nPessoal: Saúde - Exclusão de Auxílio-Saúde\nPessoal: Saúde - Inspeção Periódica\nPessoal: Saúde - Lançamento Mensal do Auxílio-Saúde no SIAPE\nPessoal: Saúde - Pagamento de Auxílio-Saúde\nPessoal: Saúde - Pagamento de Retroativo\nPessoal: Saúde - Plano de Saúde\nPessoal: Saúde - Prontuário Médico\nPessoal: Saúde - Ressarcimento ao Erário\nPessoal: Saúde - Solicitação de Auxílio-Saúde\nPessoal: Saúde e Qualidade de Vida no Trabalho\nPessoal: Subsidiar Ação Judicial\nPessoal: Vacância - Posse em Cargo Inacumulável\nPlanejamento Estratégico: Acompanhamento do Plano Operacional\nPlanejamento Estratégico: Elaboração do Plano Estratégico\nPlanejamento Estratégico: Elaboração do Plano Operacional\nPlanejamento Estratégico: Gestão de Risco\nPlanejamento Estratégico: Gestão do Plano Estratégico\nPlanejamento Estratégico: Inteligência Estratégica\nProcesso de Eliminação\nProcesso de listagem de eliminação\nRelações Internacionais: Composição de Delegação - com ônus\nRelações Internacionais: Composição de Delegação - ônus limitado\nRelações Internacionais: Composição de Delegação - sem ônus\nRelações Internacionais: Cooperação Internacional\nSegurança Institucional: Automação e Controle Predial\nSegurança Institucional: Controle de Acesso/Garagem\nSegurança Institucional: Controle de Acesso/Portaria\nSegurança Institucional: Prevenção contra Incêndio\nSegurança Institucional: Projeto contra Incêndio\nSegurança Institucional: Serviço de Vigilância\nSuprimento de Fundos: Concessão e Prestação de Contas\nSuprimento de Fundos: Solicitação de Despesa\nViagem: Exterior - Prestação de Contas\nViagem: No País - Prestação de Contas\nViagem: Publicação de Boletim')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "bf908784-e92e-41c6-9774-8ada48184397",
+      "comment": "",
+      "command": "pause",
+      "target": "4",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a3418261-c30b-4ba3-89ee-a60d324644c5",
+      "comment": "",
+      "command": "click",
+      "target": "id=sbmPesquisar",
+      "targets": [
+        ["id=sbmPesquisar", "id"],
+        ["css=#divInfraBarraComandosSuperior > #sbmPesquisar", "css:finder"],
+        ["xpath=//button[@id='sbmPesquisar']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraBarraComandosSuperior']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Pesquisar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "6dae65a8-36b7-496c-910e-b0fe65093edc",
+      "comment": "",
+      "command": "pause",
+      "target": "4",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "30089abe-d5af-4bf9-9a26-17266a0ee474",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "css=.infraCaption",
+      "targets": [],
+      "value": "30000"
+    }, {
+      "id": "fe3d81de-876c-41f1-991c-be4796ad4b72",
+      "comment": "",
+      "command": "click",
+      "target": "css=.infraCaption",
+      "targets": [
+        ["css=.infraCaption", "css:finder"],
+        ["xpath=//div[@id='divInfraAreaTabela']/table/caption", "xpath:idRelative"],
+        ["xpath=//caption", "xpath:position"],
+        ["xpath=//caption[contains(.,'Lista de Processos Arquivados (47 registros):')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d37538de-d299-4607-992d-31eb0c68e3b7",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=.infraCaption",
+      "targets": [
+        ["css=.infraCaption", "css:finder"],
+        ["xpath=//div[@id='divInfraAreaTabela']/table/caption", "xpath:idRelative"],
+        ["xpath=//caption", "xpath:position"],
+        ["xpath=//caption[contains(.,'Lista de Processos Arquivados (47 registros):')]", "xpath:innerText"]
+      ],
+      "value": "Lista de Processos Arquivados (47 registros):"
+    }, {
+      "id": "7297b62f-1980-4eb3-864d-bb5c7dc65768",
+      "comment": "",
+      "command": "select",
+      "target": "id=selTipoProcedimento",
+      "targets": [],
+      "value": "label=Comunicação: Evento Institucional Público Externo"
+    }, {
+      "id": "8e058bc1-5f05-4bf3-894b-b385cf947327",
+      "comment": "",
+      "command": "//click",
+      "target": "id=selTipoProcedimento",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ba0caedf-6781-4f14-bd6d-04251fe6a143",
+      "comment": "",
+      "command": "pause",
+      "target": "4",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7de7fd81-00dc-4c1a-9cc0-ffe3d3917403",
+      "comment": "",
+      "command": "click",
+      "target": "id=sbmPesquisar",
+      "targets": [
+        ["id=sbmPesquisar", "id"],
+        ["css=#sbmPesquisar", "css:finder"],
+        ["xpath=//button[@id='sbmPesquisar']", "xpath:attributes"],
+        ["xpath=//div[@id='divInfraBarraComandosSuperior']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Pesquisar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "25b89ba9-1c8f-49f8-8760-6a4645b9dc73",
+      "comment": "",
+      "command": "pause",
+      "target": "4",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "17e379bc-276d-4d15-a68e-d84e07ee24f8",
+      "comment": "",
+      "command": "waitForElementVisible",
+      "target": "css=#divInfraAreaTabela > label",
+      "targets": [],
+      "value": "30000"
+    }, {
+      "id": "31d10803-1ee2-42f6-ab75-f604284295e6",
+      "comment": "",
+      "command": "click",
+      "target": "css=#divInfraAreaTabela > label",
+      "targets": [
+        ["css=#divInfraAreaTabela > label", "css:finder"],
+        ["xpath=//div[@id='divInfraAreaTabela']/label", "xpath:idRelative"],
+        ["xpath=//div[4]/label", "xpath:position"],
+        ["xpath=//label[contains(.,'Nenhum registro encontrado.')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "a7c4f6dc-429b-40f1-ad7b-c52f36835b70",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=#divInfraAreaTabela > label",
+      "targets": [
+        ["css=#divInfraAreaTabela > label", "css:finder"],
+        ["xpath=//div[@id='divInfraAreaTabela']/label", "xpath:idRelative"],
+        ["xpath=//div[4]/label", "xpath:position"],
+        ["xpath=//label[contains(.,'Nenhum registro encontrado.')]", "xpath:innerText"]
+      ],
+      "value": "Nenhum registro encontrado."
+    }]
+  }, {
+    "id": "95738015-4ee7-4588-a8e6-94d25eea9a93",
+    "name": "tmp",
+    "commands": [{
+      "id": "36a36f1e-f76c-4c5e-a868-d7ce54ba58d7",
+      "comment": "",
+      "command": "executeScript",
+      "target": "var d= new Date(); var m=((d.getMonth()+1)<10)?'0'+(d.getMonth()+1):(d.getMonth()+1); return d.getDate()+\"/\"+m+\"/\"+(d.getFullYear()-2);",
+      "targets": [],
+      "value": "v"
+    }, {
+      "id": "2fa498ff-298e-4cb8-af82-06c5c3f5ae4f",
+      "comment": "",
+      "command": "echo",
+      "target": "${v}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "57d43269-cde9-4ade-8766-2bd100f36c50",
+      "comment": "",
+      "command": "executeScript",
+      "target": "var d= new Date(); var m=((d.getMonth()+1)<10)?'0'+(d.getMonth()+1):(d.getMonth()+1); return d.getDate()+\"/\"+m+\"/\"+d.getFullYear()-2;",
+      "targets": [],
+      "value": "v"
+    }, {
+      "id": "87b0da5e-de22-402a-8e55-f4a657a09bef",
+      "comment": "",
+      "command": "echo",
+      "target": "${v}",
+      "targets": [],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "a6936c4e-871c-42fa-9c4c-e2efd3bd3848",
+    "name": "13.00-ArquivamentoLegado",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["8e9baf2a-bdda-4d40-ab63-15741729ea68", "1a256609-574c-4c6d-abcf-f16af3937a12"]
+  }],
+  "urls": ["http://seigd.nuvem.gov.br/", "http://sei.gd.nuvem.gov.br/"],
+  "plugins": []
+}
