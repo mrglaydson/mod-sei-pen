@@ -355,7 +355,7 @@ class MdGdListaEliminacaoRN extends InfraRN {
 
         // Calcula o tamanho dos anexos
         $objAnexoDTO = new AnexoDTO();
-        $objAnexoDTO->setNumIdAnexo($arrIdDocumentos, InfraDTO::$OPER_IN);
+        $objAnexoDTO->setDblIdProtocolo($arrIdDocumentos, InfraDTO::$OPER_IN);
         $objAnexoDTO->retNumTamanho();
 
         $objAnexoRN = new AnexoRN();
@@ -370,12 +370,37 @@ class MdGdListaEliminacaoRN extends InfraRN {
         $objDocumentoConteudoDTO = new DocumentoConteudoDTO();
         $objDocumentoConteudoDTO->setDblIdDocumento($arrIdDocumentos, InfraDTO::$OPER_IN);
         $objDocumentoConteudoDTO->retStrConteudo();
+        $objDocumentoConteudoDTO->retDblIdDocumento();
 
         $objDocumentoConteudoRN = new DocumentoConteudoBD($this->getObjInfraIBanco());
         $arrObjDocumentoConteudoDTO = $objDocumentoConteudoRN->listar($objDocumentoConteudoDTO);
 
         foreach($arrObjDocumentoConteudoDTO as $objDocumentoConteudoDTO){
-            $numTamanho += strlen($objDocumentoConteudoDTO->getStrConteudo()) / 8000;
+            // $numTamanho += strlen($objDocumentoConteudoDTO->getStrConteudo()) / 8000;
+
+            $objAnexoRN = new AnexoRN();
+            
+            $objEditorDTO = new EditorDTO();
+            $objEditorDTO->setDblIdDocumento($objDocumentoConteudoDTO->getDblIdDocumento());
+            $objEditorDTO->setNumIdBaseConhecimento(null);
+            $objEditorDTO->setStrSinCabecalho('S');
+            $objEditorDTO->setStrSinRodape('S');
+            $objEditorDTO->setStrSinCarimboPublicacao('S');
+            $objEditorDTO->setStrSinIdentificacaoVersao('N');
+
+            $objEditorRN = new EditorRN();
+            $strResultado = $objEditorRN->consultarHtmlVersao($objEditorDTO);
+
+            $strArquivoHtmlTemp = DIR_SEI_TEMP.'/'.$objAnexoRN->gerarNomeArquivoTemporario('.html');
+
+            if (file_put_contents($strArquivoHtmlTemp,$strResultado) === false){
+                throw new InfraException('Erro criando arquivo html temporário para criação de pdf.');
+            }
+              
+            $numTamanho +=  filesize($strArquivoHtmlTemp);
+
+            unlink($strArquivoHtmlTemp);
+            
         }
         $arrVariaveisModelo['@folha@'] = $numTamanho;
 

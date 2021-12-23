@@ -162,7 +162,7 @@ try {
             }
             
             if ($bolAcaoEditarListagem && $arrObjMdGdListaRecolhimentoDTO[$i]->getStrSituacao() == MdGdListaRecolhimentoRN::$ST_GERADA) {
-                $strResultado .= '<a href="#ID-' . $arrObjMdGdListaRecolhimentoDTO[$i]->getNumIdListaRecolhimento() . '" onclick="acaoEditarListagemRecolhimento(\'' . $arrObjMdGdListaRecolhimentoDTO[$i]->getNumIdListaRecolhimento() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="modulos/sei-mod-gestao-documental/imagens/editar_listagem.gif" title="Editar Listagem de Recolhimento" title="Editar Listagem de Recolhimento" class="infraImg" /></a>';
+                $strResultado .= '<a href="#ID-' . $arrObjMdGdListaRecolhimentoDTO[$i]->getNumIdListaRecolhimento() . '" onclick="acaoEditarListagemRecolhimento(\'' . $arrObjMdGdListaRecolhimentoDTO[$i]->getNumIdListaRecolhimento() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="' . MdGestaoDocumentalIntegracao::getDiretorio() . '/imagens/editar_listagem.gif" title="Editar Listagem de Recolhimento" title="Editar Listagem de Recolhimento" class="infraImg" /></a>';
             }
 
             if ($bolAcaoRecolher && $arrObjMdGdListaRecolhimentoDTO[$i]->getStrSituacao() == MdGdListaRecolhimentoRN::$ST_GERADA) {
@@ -177,16 +177,16 @@ try {
 
             if ($bolAcaoAdicionarProcessosListagem && $arrObjMdGdListaRecolhimentoDTO[$i]->getStrSituacao() == MdGdListaRecolhimentoRN::$ST_EDICAO) {
                 $strLinkAdicionarProcessosListagem = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_lista_recolhimento_procedimento_adicionar&id_listagem_recolhimento=' . $arrObjMdGdListaRecolhimentoDTO[$i]->getNumIdListaRecolhimento() . '&acao_origem=' . $_GET['acao']);
-                $strResultado .= '<a href="' . $strLinkAdicionarProcessosListagem . '" ><img src="modulos/sei-mod-gestao-documental/imagens/adicionar_processo_listagem.gif" title="Adicionar Processos" title="Adicionar Processos" class="infraImg" /></a>&nbsp;';
+                $strResultado .= '<a href="' . $strLinkAdicionarProcessosListagem . '" ><img src="' . MdGestaoDocumentalIntegracao::getDiretorio() . '/imagens/adicionar_processo_listagem.gif" title="Adicionar Processos" title="Adicionar Processos" class="infraImg" /></a>&nbsp;';
             }
             
             if ($bolAcaoRemoverProcessosListagem && $arrObjMdGdListaRecolhimentoDTO[$i]->getStrSituacao() == MdGdListaRecolhimentoRN::$ST_EDICAO) {
                 $strLinkRemoverProcessosListagem = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_lista_recolhimento_procedimento_remover&id_listagem_recolhimento=' . $arrObjMdGdListaRecolhimentoDTO[$i]->getNumIdListaRecolhimento() . '&acao_origem=' . $_GET['acao']);
-                $strResultado .= '<a href="' . $strLinkRemoverProcessosListagem . '" ><img src="modulos/sei-mod-gestao-documental/imagens/remover_processo_listagem.gif" title="Remover Processos" title="Remover Processos" class="infraImg" /></a>&nbsp;';
+                $strResultado .= '<a href="' . $strLinkRemoverProcessosListagem . '" ><img src="' . MdGestaoDocumentalIntegracao::getDiretorio() . '/imagens/remover_processo_listagem.gif" title="Remover Processos" title="Remover Processos" class="infraImg" /></a>&nbsp;';
             }
 
             if ($bolAcaoConcluirEdicaoListagem && $arrObjMdGdListaRecolhimentoDTO[$i]->getStrSituacao() == MdGdListaRecolhimentoRN::$ST_EDICAO) {
-                $strResultado .= '<a href="#ID-' . $arrObjMdGdListaRecolhimentoDTO[$i]->getNumIdListaRecolhimento() . '" onclick="acaoConcluirEdicaoListagemRecolhimento(\'' . $arrObjMdGdListaRecolhimentoDTO[$i]->getNumIdListaRecolhimento() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="modulos/sei-mod-gestao-documental/imagens/concluir_edicao_listagem.gif" title="Concluir edição da listagem" title="Concluir edição da listagem" class="infraImg" /></a>';
+                $strResultado .= '<a href="#ID-' . $arrObjMdGdListaRecolhimentoDTO[$i]->getNumIdListaRecolhimento() . '" onclick="acaoConcluirEdicaoListagemRecolhimento(\'' . $arrObjMdGdListaRecolhimentoDTO[$i]->getNumIdListaRecolhimento() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="' . MdGestaoDocumentalIntegracao::getDiretorio() . '/imagens/concluir_edicao_listagem.gif" title="Concluir edição da listagem" title="Concluir edição da listagem" class="infraImg" /></a>';
             }
 
             $strResultado .= '</td></tr>' . "\n";

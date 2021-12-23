@@ -184,7 +184,7 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
           ?>
 
     <label id="lbl<?= $strNomeDespachoArquivamento ?>" for="sel<?= $strNomeDespachoArquivamento ?>" accesskey="p"
-           class="infraLabelObrigatorio"><span class="infraTeclaAtalho">D</span>ocumento de Arquivamento:</label>
+           class="infraLabelObrigatorio"><span class="infraTeclaAtalho">T</span>ipo de Documento de Arquivamento:</label>
     <select name="sel<?= $strNomeDespachoArquivamento ?>" id="sel<?= $strNomeDespachoArquivamento ?>"
             class="infraSelect"
             tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
@@ -193,7 +193,7 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
 
     <label id="lbl<?= $strNomeDespachoDesarquivamento ?>" for="sel<?= $strNomeDespachoDesarquivamento ?>"
            accesskey="p"
-           class="infraLabelObrigatorio"><span class="infraTeclaAtalho">D</span>ocumento de Desarquivamento:</label>
+           class="infraLabelObrigatorio"><span class="infraTeclaAtalho">T</span>ipo de Documento de Desarquivamento:</label>
     <select name="sel<?= $strNomeDespachoDesarquivamento ?>" id="sel<?= $strNomeDespachoDesarquivamento ?>"
             class="infraSelect"
             tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
@@ -202,7 +202,7 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
 
     <label id="lbl<?= $strNomeTipoProcedimentoListagemEliminacao ?>" for="sel<?= $strNomeTipoProcedimentoListagemEliminacao ?>" accesskey="p"
            class="infraLabelObrigatorio"><span
-            class="infraTeclaAtalho">T</span>ipo de processo da listagem de eliminação:</label>
+            class="infraTeclaAtalho">T</span>ipo de Processo de Eliminação:</label>
     <select name="sel<?= $strNomeTipoProcedimentoListagemEliminacao ?>" id="sel<?= $strNomeTipoProcedimentoListagemEliminacao ?>"
             class="infraSelect"
             tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
@@ -211,7 +211,7 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
 
     <label id="lbl<?= $strNomeTipoDocumentoListagemEliminacao ?>" for="sel<?= $strNomeTipoDocumentoListagemEliminacao ?>" accesskey="p"
            class="infraLabelObrigatorio"><span
-            class="infraTeclaAtalho">T</span>ipo de documento da listagem de eliminação:</label>
+            class="infraTeclaAtalho">T</span>ipo de Documento da Listagem de Eliminação:</label>
     <select name="sel<?= $strNomeTipoDocumentoListagemEliminacao ?>" id="sel<?= $strNomeTipoDocumentoListagemEliminacao ?>"
             class="infraSelect"
             tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
@@ -220,7 +220,7 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
 
     <label id="lbl<?= $strNomeTipoDocumentoEliminacao ?>" for="sel<?= $strNomeTipoDocumentoEliminacao ?>" accesskey="p"
            class="infraLabelObrigatorio"><span
-            class="infraTeclaAtalho">T</span>ipo de documento da eliminação:</label>
+            class="infraTeclaAtalho">T</span>ipo de Documento da Eliminação:</label>
     <select name="sel<?= $strNomeTipoDocumentoEliminacao ?>" id="sel<?= $strNomeTipoDocumentoEliminacao ?>"
             class="infraSelect"
             tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
@@ -229,7 +229,7 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
 
     <label id="lbl<?= $strNomeTipoProcedimentoListagemRecolhimento ?>" for="sel<?= $strNomeTipoProcedimentoListagemRecolhimento ?>" accesskey="p"
            class="infraLabelObrigatorio"><span
-            class="infraTeclaAtalho">T</span>ipo de processo da listagem de recolhimento:</label>
+            class="infraTeclaAtalho">T</span>ipo de Processo de Recolhimento:</label>
     <select name="sel<?= $strNomeTipoProcedimentoListagemRecolhimento ?>" id="sel<?= $strNomeTipoProcedimentoListagemRecolhimento ?>"
             class="infraSelect"
             tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
@@ -238,7 +238,7 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
 
     <label id="lbl<?= $strNomeTipoDocumentoListagemRecolhimento ?>" for="sel<?= $strNomeTipoDocumentoListagemRecolhimento ?>" accesskey="p"
            class="infraLabelObrigatorio"><span
-            class="infraTeclaAtalho">T</span>ipo de documento da listagem de recolhimento:</label>
+            class="infraTeclaAtalho">T</span>ipo de Documento da Listagem de Recolhimento:</label>
     <select name="sel<?= $strNomeTipoDocumentoListagemRecolhimento ?>" id="sel<?= $strNomeTipoDocumentoListagemRecolhimento ?>"
             class="infraSelect"
             tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
@@ -247,7 +247,7 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
 
     <label id="lbl<?= $strNomeTipoDocumentoRecolhimento ?>" for="sel<?= $strNomeTipoDocumentoRecolhimento ?>" accesskey="p"
            class="infraLabelObrigatorio"><span
-            class="infraTeclaAtalho">T</span>ipo de documento da recolhimento:</label>
+            class="infraTeclaAtalho">T</span>ipo de Documento da Recolhimento:</label>
     <select name="sel<?= $strNomeTipoDocumentoRecolhimento ?>" id="sel<?= $strNomeTipoDocumentoRecolhimento ?>"
             class="infraSelect"
             tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">

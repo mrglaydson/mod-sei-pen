@@ -296,7 +296,7 @@ try {
 
     
     //Cria o item de menu de modelos de documento
-    $id_menu_modelos_documento_alterar = $fnItemMenu($id_menu, $id_menu_gestao_documental, $id_sistema, $id_recurso_modelos_documento_alterar, 'Modelos de Documento', 'N', 'S', 3);
+    $id_menu_modelos_documento_alterar = $fnItemMenu($id_menu, $id_menu_gestao_documental, $id_sistema, $id_recurso_modelos_documento_alterar, 'Modelos de Documentos', 'N', 'S', 3);
 
     //Cria os itens os itens de menu de unidades de arquivamento
     $id_menu_unidades_arquivamento = $fnItemMenu($id_menu, $id_menu_gestao_documental, $id_sistema, null, 'Unidades de Arquivamento', 'N', 'S', 2);

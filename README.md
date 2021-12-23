@@ -1,50 +1,50 @@
 
-# Manual de Instalação do Módulo de Gestão Documental do SEI
+# Manual de Instalaï¿½ï¿½o do Mï¿½dulo de Gestï¿½o Documental do SEI
 
-Esse manual tem como objetivo orientar a instalação e configuração inicial do módulo de gestão documental do SEI para sua utilização nas versões do SEI suportadas.  
+Esse manual tem como objetivo orientar a instalaï¿½ï¿½o e configuraï¿½ï¿½o inicial do mï¿½dulo de gestï¿½o documental do SEI para sua utilizaï¿½ï¿½o nas versï¿½es do SEI suportadas.  
 
-Este manual está estruturado nas seguintes seções:
+Este manual estï¿½ estruturado nas seguintes seï¿½ï¿½es:
 
- 1. **Instalação**
-Procedimentos de instalação do módulo nos servidores de aplicação e atualização do banco de dados.
+ 1. **Instalaï¿½ï¿½o**
+Procedimentos de instalaï¿½ï¿½o do mï¿½dulo nos servidores de aplicaï¿½ï¿½o e atualizaï¿½ï¿½o do banco de dados.
  
-## Instalação
+## Instalaï¿½ï¿½o
 
-### Pré-requisitos
- - **SEI versão 3.0.11 ou superior instalada.**
- - Usuário de acesso ao banco de dados do SEI e SIP com  permissões para criar novas estruturas no banco de dados.
+### Prï¿½-requisitos
+ - **SEI versï¿½o 3.0.11 ou superior instalada.**
+ - Usuï¿½rio de acesso ao banco de dados do SEI e SIP com  permissï¿½es para criar novas estruturas no banco de dados.
   
 ### Procedimentos
 
-1. Fazer backup dos banco de dados do SEI e SIP e dos arquivos de configuração do sistema.
+1. Fazer backup dos banco de dados do SEI e SIP e dos arquivos de configuraï¿½ï¿½o do sistema.
 
-2.  Configurar módulo de gestão documental no arquivo de configuração do SEI
+2.  Configurar mï¿½dulo de gestï¿½o documental no arquivo de configuraï¿½ï¿½o do SEI
 
-    Editar o arquivo **sei/config/ConfiguracaoSEI.php**, tomando o cuidado de usar editor que não altere o charset ISO 5589-1 do arquivo, para adicionar a referência ao módulo PEN na chave **[Modulos]** abaixo da chave **[SEI]**:    
+    Editar o arquivo **sei/config/ConfiguracaoSEI.php**, tomando o cuidado de usar editor que nï¿½o altere o charset ISO 5589-1 do arquivo, para adicionar a referï¿½ncia ao mï¿½dulo PEN na chave **[Modulos]** abaixo da chave **[SEI]**:    
 
         'SEI' => array(
             'URL' => 'http://[servidor sei]/sei',
             'Producao' => true,
             'RepositorioArquivos' => '/var/sei/arquivos',
-            'Modulos' => array('MdGestaoDocumentalIntegracao' => 'sei-mod-gestao-documental'),
+            'Modulos' => array('MdGestaoDocumentalIntegracao' => 'mod-gestao-documental'),
             ),
 
-    Adicionar a referência ao módulo PEN na array da chave 'Modulos' indicada acima:
+    Adicionar a referï¿½ncia ao mï¿½dulo PEN na array da chave 'Modulos' indicada acima:
             
-        'Modulos' => array('MdGestaoDocumentalIntegracao' => 'sei-mod-gestao-documental')
+        'Modulos' => array('MdGestaoDocumentalIntegracao' => 'mod-gestao-documental')
 
-3.  Mover o diretório de arquivos do módulo "mod-sei-gestao-documental" para o diretório sei/web/modulos/
+3.  Mover o diretï¿½rio de arquivos do mï¿½dulo "mod-sei-gestao-documental" para o diretï¿½rio sei/web/modulos/
 
-3. Mover o arquivo de instalação do módulo no SEI **scripts/sei/sei-gestao-documental-atualizar.php** para a pasta **sei/scripts**. Lembre-se de mover, e não copiar, por questões de segurança e padronização.
+3. Mover o arquivo de instalaï¿½ï¿½o do mï¿½dulo no SEI **scripts/sei/sei-gestao-documental-atualizar.php** para a pasta **sei/scripts**. Lembre-se de mover, e nï¿½o copiar, por questï¿½es de seguranï¿½a e padronizaï¿½ï¿½o.
 
-4. Mover o arquivo de instalação do módulo no SEI **scripts/sip/sip-gestao-documental-atualizar.php** para a pasta **sip/scripts**. Lembre-se de mover, e não copiar, por questões de segurança e padronização.
+4. Mover o arquivo de instalaï¿½ï¿½o do mï¿½dulo no SEI **scripts/sip/sip-gestao-documental-atualizar.php** para a pasta **sip/scripts**. Lembre-se de mover, e nï¿½o copiar, por questï¿½es de seguranï¿½a e padronizaï¿½ï¿½o.
 
-5 Executar o script **sip-gestao-documental-atualizar.php** para atualizar o banco de dados do SIP para o funcionamento do módulo:
+5 Executar o script **sip-gestao-documental-atualizar.php** para atualizar o banco de dados do SIP para o funcionamento do mï¿½dulo:
 
-        # php -c /etc/php.ini [DIRETORIO_RAIZ_INSTALAÇÃO]/sip/scripts/sip-gestao-documental-atualizar.php.php
+        # php -c /etc/php.ini [DIRETORIO_RAIZ_INSTALAï¿½ï¿½O]/sip/scripts/sip-gestao-documental-atualizar.php.php
 
-6. Executar o script **sei-gestao-documental-atualizar.php** para inserção de dados no banco do SEI referente ao módulo.
+6. Executar o script **sei-gestao-documental-atualizar.php** para inserï¿½ï¿½o de dados no banco do SEI referente ao mï¿½dulo.
 
-        # php -c /etc/php.ini [DIRETORIO_RAIZ_INSTALAÇÃO]/sei/scripts/sei-gestao-documental-atualizar.php
+        # php -c /etc/php.ini [DIRETORIO_RAIZ_INSTALAï¿½ï¿½O]/sei/scripts/sei-gestao-documental-atualizar.php
 
-7. Após a instalação do módulo, o usuário de manutenção deverá ser alterado para outro contendo apenas as permissões de leitura e escrita no banco de dados.
+7. Apï¿½s a instalaï¿½ï¿½o do mï¿½dulo, o usuï¿½rio de manutenï¿½ï¿½o deverï¿½ ser alterado para outro contendo apenas as permissï¿½es de leitura e escrita no banco de dados.

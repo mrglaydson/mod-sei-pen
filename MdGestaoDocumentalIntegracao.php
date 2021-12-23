@@ -22,6 +22,13 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
         
     }
 
+    public static function getDiretorio()
+    {
+        $arrConfig = ConfiguracaoSEI::getInstance()->getValor('SEI', 'Modulos');
+        $strModulo = $arrConfig['MdGestaoDocumentalIntegracao'];
+        return "modulos/".$strModulo;
+    }
+
     public function montarBotaoControleProcessos() {
 
         $arrBotoes = array();
@@ -36,7 +43,7 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
         $arrObjAtividadeDTO = $objAtividadeRN->listarRN0036($objAtividadeDTO);
 
         if($arrObjAtividadeDTO){
-            $arrBotoes[] = '<a  href="#" onclick="acaoControleProcessos(\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_procedimento_arquivar&acao_origem=procedimento_controlar&acao_retorno=procedimento_controlar'). '\')" tabindex="" class="botaoSEI"><img class="infraCorBarraSistema" src="modulos/sei-mod-gestao-documental/imagens/arquivamento.png" alt="Concluir e Arquivar Processo" title="Concluir e Arquivar Processo" /></a>';
+            $arrBotoes[] = '<a  href="#" onclick="acaoControleProcessos(\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_procedimento_arquivar&acao_origem=procedimento_controlar&acao_retorno=procedimento_controlar'). '\')" tabindex="" class="botaoSEI"><img class="infraCorBarraSistema" src="' . MdGestaoDocumentalIntegracao::getDiretorio() . '/imagens/arquivamento.png" alt="Concluir e Arquivar Processo" title="Concluir e Arquivar Processo" /></a>';
         }
 
         return $arrBotoes;
@@ -73,7 +80,7 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
             $objArvoreAcaoItemAPI->setId('MD_GD_PROCESSO_' . $dblIdProcedimento);
             $objArvoreAcaoItemAPI->setIdPai($dblIdProcedimento);
             $objArvoreAcaoItemAPI->setTitle('Processo Arquivado');
-            $objArvoreAcaoItemAPI->setIcone('modulos/sei-mod-gestao-documental/imagens/arquivado.gif');
+            $objArvoreAcaoItemAPI->setIcone( MdGestaoDocumentalIntegracao::getDiretorio() . '/imagens/arquivado.gif');
             $objArvoreAcaoItemAPI->setTarget(null);
             $objArvoreAcaoItemAPI->setHref('javascript:alert(\'Processo Arquivado\');');
             $objArvoreAcaoItemAPI->setSinHabilitado('S');
@@ -89,7 +96,7 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
                 $objArvoreAcaoItemAPI2->setId('MD_GD_PROCESSO_' . $dblIdProcedimento);
                 $objArvoreAcaoItemAPI2->setIdPai($dblIdProcedimento);
                 $objArvoreAcaoItemAPI2->setTitle('Processo em Edição');
-                $objArvoreAcaoItemAPI2->setIcone('modulos/sei-mod-gestao-documental/imagens/processo_editado.gif');
+                $objArvoreAcaoItemAPI2->setIcone(MdGestaoDocumentalIntegracao::getDiretorio() . '/imagens/processo_editado.gif');
                 $objArvoreAcaoItemAPI2->setTarget(null);
                 $objArvoreAcaoItemAPI2->setHref('javascript:alert(\'Processo em Edição\');');
                 $objArvoreAcaoItemAPI2->setSinHabilitado('S');
@@ -139,6 +146,19 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
         $objAtividadeDTO->setDthConclusao(null);
         $objAtividadeDTO->retNumIdUnidade();
 
+        $objProtocoloDTO = new ProtocoloDTO();
+        $objProtocoloDTO->setDblIdProtocolo($objProcedimentoAPI->getIdProcedimento());
+        $objProtocoloDTO->retStrStaEstado();
+
+        $objProtocoloRN = new ProtocoloRN();
+        $objProtocoloDTO=$objProtocoloRN->consultarRN0186($objProtocoloDTO);
+        $statusProtocolo=$objProtocoloDTO->getStrStaEstado();
+        $bolProcessoSobrestado=false;
+        
+        if($statusProtocolo == ProtocoloRN::$TE_PROCEDIMENTO_SOBRESTADO){
+            $bolProcessoSobrestado=true;
+        }
+
         $objAtividadeRN = new AtividadeRN();
         $arrObjAtividadeDTO = $objAtividadeRN->listarRN0036($objAtividadeDTO);
 
@@ -155,17 +175,17 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
         
         // Botão de histórico de arquivamento
         if ($bolAcaoHistoricoArquivamento && $objMdGdArquivamentoRN->contar($objMdGdArquivamentoDTO) > 0) {
-            $arrBotoes[] = '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_arquivamento_historico_listar&acao_origem=arvore_visualizar&acao_retorno=arvore_visualizar&id_procedimento=' . $objProcedimentoAPI->getIdProcedimento() . '&arvore=1') . '" tabindex="" class="botaoSEI"><img class="infraCorBarraSistema" src="modulos/sei-mod-gestao-documental/imagens/historico_arquivamento.gif" alt="Consultar Histórico de Arquivamento do Processo" title="Consultar Histórico de Arquivamento do Processo" /></a>';
+            $arrBotoes[] = '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_arquivamento_historico_listar&acao_origem=arvore_visualizar&acao_retorno=arvore_visualizar&id_procedimento=' . $objProcedimentoAPI->getIdProcedimento() . '&arvore=1') . '" tabindex="" class="botaoSEI"><img class="infraCorBarraSistema" src="' . MdGestaoDocumentalIntegracao::getDiretorio() . '/imagens/arquivo.svg" alt="Consultar Histórico de Arquivamento do Processo" title="Consultar Histórico de Arquivamento do Processo" /></a>';
         }
         
         // Botão de arquivamento
-        if ($bolAcaoArquivamento && !$bolArquivado && count($arrObjAtividadeDTO) == 1 && $arrObjAtividadeDTO[0]->getNumIdUnidade() == SessaoSEI::getInstance()->getNumIdUnidadeAtual()  && $bolUnidadeArquivamento && $objProcedimentoAPI->getNivelAcesso() != ProtocoloRN::$NA_SIGILOSO) {
-            $arrBotoes[] = '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_procedimento_arquivar&acao_origem=arvore_visualizar&acao_retorno=arvore_visualizar&id_procedimento=' . $objProcedimentoAPI->getIdProcedimento() . '&arvore=1') . '" tabindex="" class="botaoSEI"><img class="infraCorBarraSistema" src="modulos/sei-mod-gestao-documental/imagens/arquivamento.png" alt="Concluir e Arquivar Processo" title="Concluir e Arquivar Processo" /></a>';
+        if (!$bolProcessoSobrestado && $bolAcaoArquivamento && !$bolArquivado && count($arrObjAtividadeDTO) == 1 && $arrObjAtividadeDTO[0]->getNumIdUnidade() == SessaoSEI::getInstance()->getNumIdUnidadeAtual()  && $bolUnidadeArquivamento && $objProcedimentoAPI->getNivelAcesso() != ProtocoloRN::$NA_SIGILOSO) {
+            $arrBotoes[] = '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_procedimento_arquivar&acao_origem=arvore_visualizar&acao_retorno=arvore_visualizar&id_procedimento=' . $objProcedimentoAPI->getIdProcedimento() . '&arvore=1') . '" tabindex="" class="botaoSEI"><img class="infraCorBarraSistema" src="' . MdGestaoDocumentalIntegracao::getDiretorio() . '/imagens/arquivamento.png" alt="Concluir e Arquivar Processo" title="Concluir e Arquivar Processo" /></a>';
         }
 
         // Botão de desarquivamento
         if ($bolAcaoDesarquivamento && $bolArquivado) {
-            $arrBotoes[] = '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_procedimento_desarquivar&acao_origem=arvore_visualizar&acao_retorno=arvore_visualizar&id_procedimento=' . $objProcedimentoAPI->getIdProcedimento() . '&arvore=1') . '" tabindex="" class="botaoSEI"><img class="infraCorBarraSistema" src="modulos/sei-mod-gestao-documental/imagens/desarquivamento.png" alt="Desarquivar Processo" title="Desarquivar Processo" /></a>';
+            $arrBotoes[] = '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_procedimento_desarquivar&acao_origem=arvore_visualizar&acao_retorno=arvore_visualizar&id_procedimento=' . $objProcedimentoAPI->getIdProcedimento() . '&arvore=1') . '" tabindex="" class="botaoSEI"><img class="infraCorBarraSistema" src="' . MdGestaoDocumentalIntegracao::getDiretorio() . '/imagens/desarquivamento.png" alt="Desarquivar Processo" title="Desarquivar Processo" /></a>';
         }
 
         
@@ -209,12 +229,12 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
 
         // Botão de arquivamento do processo
         if ($bolAcaoArquivamento && !$bolArquivado && count($arrObjAtividadeDTO) == 1 && $arrObjAtividadeDTO[0]->getNumIdUnidade() == SessaoSEI::getInstance()->getNumIdUnidadeAtual()) {
-            $arrBotoes[] = '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_procedimento_arquivar&acao_origem=arvore_visualizar&acao_retorno=arvore_visualizar&id_procedimento=' . $objProcedimentoAPI->getIdProcedimento() . '&arvore=1') . '" tabindex="" class="botaoSEI"><img class="infraCorBarraSistema" src="modulos/sei-mod-gestao-documental/imagens/arquivamento.png" alt="Arquivar Processo" title="Concluir e Arquivar Processo" /></a>';
+            $arrBotoes[] = '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_procedimento_arquivar&acao_origem=arvore_visualizar&acao_retorno=arvore_visualizar&id_procedimento=' . $objProcedimentoAPI->getIdProcedimento() . '&arvore=1') . '" tabindex="" class="botaoSEI"><img class="infraCorBarraSistema" src="' . MdGestaoDocumentalIntegracao::getDiretorio() . '/imagens/arquivamento.png" alt="Arquivar Processo" title="Concluir e Arquivar Processo" /></a>';
         }
 
         // Botão de desarquivamento do processo
         if ($bolAcaoDesarquivamento && $bolArquivado) {
-            $arrBotoes[] = '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_procedimento_desarquivar&acao_origem=arvore_visualizar&acao_retorno=arvore_visualizar&id_procedimento=' . $objProcedimentoAPI->getIdProcedimento() . '&arvore=1') . '" tabindex="" class="botaoSEI"><img class="infraCorBarraSistema" src="modulos/sei-mod-gestao-documental/imagens/desarquivamento.png" alt="Desarquivar Processo" title="Desarquivar Processo" /></a>';
+            $arrBotoes[] = '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_procedimento_desarquivar&acao_origem=arvore_visualizar&acao_retorno=arvore_visualizar&id_procedimento=' . $objProcedimentoAPI->getIdProcedimento() . '&arvore=1') . '" tabindex="" class="botaoSEI"><img class="infraCorBarraSistema" src="' . MdGestaoDocumentalIntegracao::getDiretorio() . '/imagens/desarquivamento.png" alt="Desarquivar Processo" title="Desarquivar Processo" /></a>';
         }
 
         if ($arrBotoes) {

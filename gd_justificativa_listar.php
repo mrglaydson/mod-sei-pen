@@ -125,7 +125,7 @@ try {
         $strResultado .= '<th class="infraTh" width="1%">' . PaginaSEI::getInstance()->getThCheck() . '</th>' . "\n";
         $strResultado .= '<th class="infraTh" width="29%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdJustificativaDTO, 'Nome', 'Nome', $arrMdGdJustificativaDTO) . '</th>' . "\n";
         $strResultado .= '<th class="infraTh" width="15%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdJustificativaDTO, 'Tipo', 'StaTipo', $arrMdGdJustificativaDTO) . '</th>' . "\n";
-        $strResultado .= '<th class="infraTh" width="40%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdJustificativaDTO, 'Descrição', 'Descricao', $arrMdGdJustificativaDTO) . '</th>' . "\n";
+        $strResultado .= '<th class="infraTh" width="40%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdJustificativaDTO, 'Base Legal', 'Descricao', $arrMdGdJustificativaDTO) . '</th>' . "\n";
         $strResultado .= '<th class="infraTh" width="15%">Ações</th>' . "\n";
         $strResultado .= '</tr>' . "\n";
         $strCssTr = '';
@@ -234,7 +234,7 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
 
 
         <label id="lblDescricaoJustificativaPesquisa" for="txtDescricaoJustificativaPesquisa" accesskey=""
-               class="infraLabelOpcional">Descrição:</label>
+               class="infraLabelOpcional">Base Legal:</label>
         <input type="text" id="txtDescricaoJustificativaPesquisa" name="txtDescricaoJustificativaPesquisa"
                value="<?= $strDescricao ?>"
                class="infraText" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>"/>

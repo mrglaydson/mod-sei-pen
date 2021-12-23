@@ -145,12 +145,12 @@ try {
             }
 
             if ($bolAcaoEditarListagem && $arrObjMdGdListaEliminacaoDTO[$i]->getStrSituacao() == MdGdListaEliminacaoRN::$ST_GERADA) {
-                $strResultado .= '<a href="#ID-' . $arrObjMdGdListaEliminacaoDTO[$i]->getNumIdListaEliminacao() . '" onclick="acaoEditarListagemEliminacao(\'' . $arrObjMdGdListaEliminacaoDTO[$i]->getNumIdListaEliminacao() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="modulos/sei-mod-gestao-documental/imagens/editar_listagem.gif" title="Editar Listagem de Eliminação" title="Editar Listagem de Eliminação" class="infraImg" /></a>';
+                $strResultado .= '<a href="#ID-' . $arrObjMdGdListaEliminacaoDTO[$i]->getNumIdListaEliminacao() . '" onclick="acaoEditarListagemEliminacao(\'' . $arrObjMdGdListaEliminacaoDTO[$i]->getNumIdListaEliminacao() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="' . MdGestaoDocumentalIntegracao::getDiretorio() . '/imagens/editar_listagem.gif" title="Editar Listagem de Eliminação" title="Editar Listagem de Eliminação" class="infraImg" /></a>';
             }
 
             if ($bolAcaoEliminar && $arrObjMdGdListaEliminacaoDTO[$i]->getStrSituacao() == MdGdListaEliminacaoRN::$ST_GERADA) {
                 $strLinkEliminar = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_lista_eliminacao_eliminar&acao_origem=' . $_GET['acao'] . '&id_listagem_eliminacao=' . $arrObjMdGdListaEliminacaoDTO[$i]->getNumIdListaEliminacao());
-                $strResultado .= '<a href="#" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '" onclick="acaoEliminar(\'' . $strLinkEliminar . '\')"><img src="modulos/sei-mod-gestao-documental/imagens/eliminar.png" title="Eliminar Processos" alt="Eliminar Processos" class="infraImg" /></a>&nbsp;';
+                $strResultado .= '<a href="#" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '" onclick="acaoEliminar(\'' . $strLinkEliminar . '\')"><img src="' . MdGestaoDocumentalIntegracao::getDiretorio() . '/imagens/eliminar.png" title="Eliminar Processos" alt="Eliminar Processos" class="infraImg" /></a>&nbsp;';
             }
 
             if ($bolAcaoEliminarDocumentoFisico && $arrObjMdGdListaEliminacaoDTO[$i]->getStrSituacao() == MdGdListaEliminacaoRN::$ST_GERADA && $arrObjMdGdListaEliminacaoDTO[$i]->getStrSinDocumentosFisicos() == 'S') {
@@ -160,16 +160,16 @@ try {
 
             if ($bolAcaoAdicionarProcessosListagem && $arrObjMdGdListaEliminacaoDTO[$i]->getStrSituacao() == MdGdListaEliminacaoRN::$ST_EDICAO) {
                 $strLinkAdicionarProcessosListagem = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_lista_eliminacao_procedimento_adicionar&id_listagem_eliminacao=' . $arrObjMdGdListaEliminacaoDTO[$i]->getNumIdListaEliminacao() . '&acao_origem=' . $_GET['acao']);
-                $strResultado .= '<a href="' . $strLinkAdicionarProcessosListagem . '" ><img src="modulos/sei-mod-gestao-documental/imagens/adicionar_processo_listagem.gif" title="Adicionar Processos" title="Adicionar Processos" class="infraImg" /></a>&nbsp;';
+                $strResultado .= '<a href="' . $strLinkAdicionarProcessosListagem . '" ><img src="' . MdGestaoDocumentalIntegracao::getDiretorio() . '/imagens/adicionar_processo_listagem.gif" title="Adicionar Processos" title="Adicionar Processos" class="infraImg" /></a>&nbsp;';
             }
             
             if ($bolAcaoRemoverProcessosListagem && $arrObjMdGdListaEliminacaoDTO[$i]->getStrSituacao() == MdGdListaEliminacaoRN::$ST_EDICAO) {
                 $strLinkRemoverProcessosListagem = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_lista_eliminacao_procedimento_remover&id_listagem_eliminacao=' . $arrObjMdGdListaEliminacaoDTO[$i]->getNumIdListaEliminacao() . '&acao_origem=' . $_GET['acao']);
-                $strResultado .= '<a href="' . $strLinkRemoverProcessosListagem . '" ><img src="modulos/sei-mod-gestao-documental/imagens/remover_processo_listagem.gif" title="Remover Processos" title="Remover Processos" class="infraImg" /></a>&nbsp;';
+                $strResultado .= '<a href="' . $strLinkRemoverProcessosListagem . '" ><img src="' . MdGestaoDocumentalIntegracao::getDiretorio() . '/imagens/remover_processo_listagem.gif" title="Remover Processos" title="Remover Processos" class="infraImg" /></a>&nbsp;';
             }
 
             if ($bolAcaoConcluirEdicaoListagem && $arrObjMdGdListaEliminacaoDTO[$i]->getStrSituacao() == MdGdListaEliminacaoRN::$ST_EDICAO) {
-                $strResultado .= '<a href="#ID-' . $arrObjMdGdListaEliminacaoDTO[$i]->getNumIdListaEliminacao() . '" onclick="acaoConcluirEdicaoListagemEliminacao(\'' . $arrObjMdGdListaEliminacaoDTO[$i]->getNumIdListaEliminacao() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="modulos/sei-mod-gestao-documental/imagens/concluir_edicao_listagem.gif" title="Concluir edição da listagem" title="Concluir edição da listagem" class="infraImg" /></a>';
+                $strResultado .= '<a href="#ID-' . $arrObjMdGdListaEliminacaoDTO[$i]->getNumIdListaEliminacao() . '" onclick="acaoConcluirEdicaoListagemEliminacao(\'' . $arrObjMdGdListaEliminacaoDTO[$i]->getNumIdListaEliminacao() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="' . MdGestaoDocumentalIntegracao::getDiretorio() . '/imagens/concluir_edicao_listagem.gif" title="Concluir edição da listagem" title="Concluir edição da listagem" class="infraImg" /></a>';
             }
 
             $strResultado .= '</td></tr>' . "\n";

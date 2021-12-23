@@ -244,15 +244,15 @@ try {
             
             $strAcoes = '';
             if($bolAcaoEditarArquivamento && $arrObjMdGdArquivamentoDTO[$i]->getStrSituacao() == MdGdArquivamentoRN::$ST_DEVOLVIDO){
-                $strAcoes .= '<a href="#ID-' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '" onclick="acaoEditarArquivamento(\'' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="modulos/sei-mod-gestao-documental/imagens/alterar_metadados.gif" title="Editar Processo" title="Editar Processo" class="infraImg" /></a>';
+                $strAcoes .= '<a href="#ID-' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '" onclick="acaoEditarArquivamento(\'' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="' . MdGestaoDocumentalIntegracao::getDiretorio() . '/imagens/alterar_metadados.gif" title="Editar Processo" title="Editar Processo" class="infraImg" /></a>';
             }
 
             if($bolAcaoDesarquivar && $arrObjMdGdArquivamentoDTO[$i]->getStrSituacao() == MdGdArquivamentoRN::$ST_FASE_CORRENTE){
-                $strAcoes .= '<a href="#" onclick="acaoDesarquivar('.$arrObjMdGdArquivamentoDTO[$i]->getDblIdProcedimento().');"><img src="modulos/sei-mod-gestao-documental/imagens/desarquivamento.png" title="Desarquivar Processo" alt="Desarquivar Processo" class="infraImg" style="width: 22px; height: 22px;"/></a>&nbsp;';
+                $strAcoes .= '<a href="#" onclick="acaoDesarquivar('.$arrObjMdGdArquivamentoDTO[$i]->getDblIdProcedimento().');"><img src="' . MdGestaoDocumentalIntegracao::getDiretorio() . '/imagens/desarquivamento.png" title="Desarquivar Processo" alt="Desarquivar Processo" class="infraImg" style="width: 22px; height: 22px;"/></a>&nbsp;';
             }
 
             if($bolAcaoConcluirEdicaoArquivamento && $arrObjMdGdArquivamentoDTO[$i]->getStrSituacao() == MdGdArquivamentoRN::$ST_FASE_EDICAO){
-                $strAcoes .= '<a href="#ID-' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '" onclick="acaoConcluirEdicaoArquivamento(\'' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="modulos/sei-mod-gestao-documental/imagens/concluir_edicao.gif" title="Concluir Edição" title="Concluir Edição" class="infraImg" /></a>';
+                $strAcoes .= '<a href="#ID-' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '" onclick="acaoConcluirEdicaoArquivamento(\'' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="' . MdGestaoDocumentalIntegracao::getDiretorio() . '/imagens/concluir_edicao.gif" title="Concluir Edição" title="Concluir Edição" class="infraImg" /></a>';
             }
             
             $strResultado .= $strAcoes.'</td></tr>' . "\n";
