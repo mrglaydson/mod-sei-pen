@@ -505,7 +505,7 @@ class MdGdAtualizarSeiRN extends InfraRN {
                 </tr>
                 <tr>
                     <td style="width: 105px;">
-                    <p class="Tabela_Texto_Centralizado"><strong>DATAS-LIMITE</strong></p>
+                    <p class="Tabela_Texto_Centralizado"><strong>DATAS-LIMITES</strong></p>
         
                     <p class="Tabela_Texto_Centralizado"><strong>GERAIS</strong></p>
                     </td>
@@ -517,7 +517,7 @@ class MdGdAtualizarSeiRN extends InfraRN {
         
                     <p class="Tabela_Texto_Centralizado"><strong>QUANTIFICA&Ccedil;&Atilde;O</strong></p>
                     </td>
-                    <td style="width: 329px;">@folha@</td>
+                    <td style="width: 329px;">@folha@ bytes</td>
                 </tr>
             </tbody>
         </table>
@@ -633,7 +633,7 @@ class MdGdAtualizarSeiRN extends InfraRN {
                 </tr>
                 <tr>
                     <td style="width: 105px;">
-                    <p class="Tabela_Texto_Centralizado"><strong>DATAS-LIMITE</strong></p>
+                    <p class="Tabela_Texto_Centralizado"><strong>DATAS-LIMITES</strong></p>
         
                     <p class="Tabela_Texto_Centralizado"><strong>GERAIS</strong></p>
                     </td>
@@ -645,7 +645,7 @@ class MdGdAtualizarSeiRN extends InfraRN {
         
                     <p class="Tabela_Texto_Centralizado"><strong>QUANTIFICA&Ccedil;&Atilde;O</strong></p>
                     </td>
-                    <td style="width: 722px;">@folha@</td>
+                    <td style="width: 722px;">@folha@ bytes</td>
                 </tr>
             </tbody>
         </table>

@@ -156,7 +156,7 @@ try {
             $strResultado .= '<th class="infraTh" width="1%">Seq.</th>' . "\n";
             $strResultado .= '<th class="infraTh" width="19%">Processo</th>' . "\n";
             $strResultado .= '<th class="infraTh" width="10%">Especificação</th>' . "\n";
-            $strResultado .= '<th class="infraTh" width="15%">Data</th>' . "\n";
+            $strResultado .= '<th class="infraTh" width="15%">Data de Conclusão</th>' . "\n";
             $strResultado .= '<th class="infraTh" width="10%">Tipo</th>' . "\n";
             $strResultado .= '<th class="infraTh" width="15%">Assunto</th>' . "\n";
             $strResultado .= '<th class="infraTh" width="15%">Anotações</th>' . "\n";

@@ -609,6 +609,34 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
             
             if($objMdGdArquivamentoDTO && $objMdGdArquivamentoDTO->getStrSituacao() == MdGdArquivamentoRN::$ST_FASE_EDICAO){
                 $strMsg = 'Processo arquivado em fase de correção. A ação deve ser concluída no Arquivo da Unidade '.$objMdGdArquivamentoDTO->getStrSiglaUnidadeCorrente().'.';
+                
+                echo "<script>               
+                let ifr=window.parent.document.querySelector('#ifrVisualizacao');
+                ifr.addEventListener('load',()=>{                        
+                       let btn= ifr.contentWindow.document.querySelector('#divArvoreAcoes a[href*=\"documento_escolher_tipo\"]');
+                       btn.remove();
+                       btn= ifr.contentWindow.document.querySelector('#divArvoreAcoes a[href*=\"procedimento_enviar\"]');
+                       btn.remove();
+                       btn= ifr.contentWindow.document.querySelector('#divArvoreAcoes a[href*=\"procedimento_sobrestar\"]');
+                       btn.remove();
+                       btn= ifr.contentWindow.document.querySelector('#divArvoreAcoes a[href*=\"procedimento_anexar\"]');
+                       btn.remove();
+                       btn= ifr.contentWindow.document.querySelector('#divArvoreAcoes a[href*=\"arvore_ordenar\"]');
+                       btn.remove();
+                       btn= ifr.contentWindow.document.querySelector('#divArvoreAcoes a[onclick*=\"enviarEmailProcedimento\"]');
+                       btn.remove();
+                       btn= ifr.contentWindow.document.querySelector('#divArvoreAcoes a[onclick*=\"concluirProcesso\"]');
+                       btn.remove();
+                       btn= ifr.contentWindow.document.querySelector('#divArvoreAcoes a[onclick*=\"incluirEmBloco\"]');
+                       btn.remove();
+                       
+
+
+                });
+                </script>";
+
+                
+            
             }
 
         }
