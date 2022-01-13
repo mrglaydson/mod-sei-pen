@@ -234,7 +234,7 @@ class Test01ConfigSEI():
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.XPATH, "//*[@id=\"main-menu\"]/li[1]/a")))
     self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[1]/a").click()
     self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[1]/ul/li[25]/a").click()
-    self.driver.find_element(By.LINK_TEXT, "Modelos de Documento").click()
+    self.driver.find_element(By.LINK_TEXT, "Modelos de Documentos").click()
     self.driver.find_element(By.ID, "selModeloDocumento").click()
     dropdown = self.driver.find_element(By.ID, "selModeloDocumento")
     dropdown.find_element(By.CSS_SELECTOR, "*[value='MODELO_DESPACHO_ARQUIVAMENTO']").click()
