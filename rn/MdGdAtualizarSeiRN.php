@@ -364,6 +364,44 @@ class MdGdAtualizarSeiRN extends InfraRN {
     
             $objAtividadeBD = new  AgendamentoBD(BancoSEI::getInstance());
             $objAtividadeBD->cadastrar($objInfraAgendamentoDTO);
+
+
+        //----------------------------------------------------------------------
+        // Tarefas
+        //----------------------------------------------------------------------
+        $objDTO = new TarefaDTO();
+        $objBD = new TarefaBD(BancoSEI::getInstance());
+
+        $fnCadastrar = function($strNome='', $strHistoricoResumido='N', $strHistoricoCompleto='N', $strFecharAndamentosAbertos='N', $strLancarAndamentoFechado='N', $strPermiteProcessoFechado='N', $strIdTarefaModulo='') use($objDTO, $objBD) {
+
+            $objDTO->unSetTodos();
+            $objDTO->setStrIdTarefaModulo($strIdTarefaModulo);
+
+            if ($objBD->contar($objDTO) == 0) {
+
+                $objUltimaTarefaDTO = new TarefaDTO();
+                $objUltimaTarefaDTO->retNumIdTarefa();
+                $objUltimaTarefaDTO->setNumMaxRegistrosRetorno(1);
+                $objUltimaTarefaDTO->setOrd('IdTarefa', InfraDTO::$TIPO_ORDENACAO_DESC);
+                $objUltimaTarefaDTO = $objBD->consultar($objUltimaTarefaDTO);
+
+                $objDTO->setNumIdTarefa($objUltimaTarefaDTO->getNumIdTarefa() + 1);
+                $objDTO->setStrNome($strNome);
+                $objDTO->setStrSinHistoricoResumido($strHistoricoResumido);
+                $objDTO->setStrSinHistoricoCompleto($strHistoricoCompleto);
+                $objDTO->setStrSinFecharAndamentosAbertos($strFecharAndamentosAbertos);
+                $objDTO->setStrSinLancarAndamentoFechado($strLancarAndamentoFechado);
+                $objDTO->setStrSinPermiteProcessoFechado($strPermiteProcessoFechado);
+                $objDTO->setStrIdTarefaModulo($strIdTarefaModulo);
+                $objBD->cadastrar($objDTO);
+            }
+        };
+
+  
+        $fnCadastrar('O processo teve os assuntos atualizados de @ASSUNTOS_ANTIGOS@ para @ASSUNTOS_NOVOS@', 'S', 'S', 'N', 'N', 'S', 'MOD_GESTAO_ATUALIZAR_ASSUNTO');
+
+
+
             
         } catch (Exception $ex) {
             throw new InfraException('Erro ao atualizar a versão 1.0.0 do mdulo de gestão documental', $ex);

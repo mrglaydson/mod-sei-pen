@@ -28,6 +28,34 @@ try {
                 // Muda a situação do arquivamento para editado
                 $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
                 $objMdGdArquivamentoRN->devolverArquivamento($objMdGdArquivamentoDTO);
+                
+                //reabir processo
+                                
+                $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
+                $objMdGdArquivamentoRN->editarArquivamento($objMdGdArquivamentoDTO);
+                
+                // try {
+
+                //     $objMdGdArquivamentoDTO=$objMdGdArquivamentoRN->consultar($objMdGdArquivamentoDTO);
+                    
+                //     SessaoSEI::getInstance()->validarPermissao('procedimento_reabrir');
+    
+                //     $idProcedimento = $objMdGdArquivamentoDTO->getDblIdProcedimento();
+                    
+                //     $objReabrirProcedimentoDTO = new ReabrirProcessoDTO();
+                //     $objReabrirProcedimentoDTO->setDblIdProcedimento($idProcedimento);
+                //     $objReabrirProcedimentoDTO->setNumIdUnidade(SessaoSEI::getInstance()->getNumIdUnidadeAtual());
+                //     $objReabrirProcedimentoDTO->setNumIdUsuario(SessaoSEI::getInstance()->getNumIdUsuario());
+
+                //     $objProcedimentoRN = new ProcedimentoRN();
+                //     $objProcedimentoRN->reabrirRN0966($objReabrirProcedimentoDTO);
+            
+                // } catch (Exception $e) {
+                //     throw new InfraException("Erro ao reabrir processo");
+                // }
+
+
+
             }
             break;
 

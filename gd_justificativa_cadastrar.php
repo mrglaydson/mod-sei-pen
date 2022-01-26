@@ -194,7 +194,7 @@ PaginaSEI::getInstance()->abrirBody($strTitulo,'onload="inicializar();"');
             <option value="<?= MdGdJustificativaRN::$STA_TIPO_DESARQUIVAMENTO ?>" <?= $objMdGdJustificativaDTO->getStrStaTipo() == MdGdJustificativaRN::$STA_TIPO_DESARQUIVAMENTO ? 'selected' : '' ?>>Desarquivamento</option>
         </select>
 
-        <label id="lblDescricao" for="txaDescricao" accesskey="d" class="infraLabelObrigatorio"><span class="infraTeclaAtalho">D</span>escrição:</label>
+        <label id="lblDescricao" for="txaDescricao" accesskey="d" class="infraLabelObrigatorio"><span class="infraTeclaAtalho">B</span>ase Legal:</label>
         <textarea id="txaDescricao" name="txaDescricao" rows="3"  class="infraTextarea"  tabindex="<?=PaginaSEI::getInstance()->getProxTabDados()?>"><?= $objMdGdJustificativaDTO->getStrDescricao(); ?></textarea>
 
         <input type="hidden" id="hdnIdJustificativa" name="hdnIdJustificativa" value="<?=$objMdGdJustificativaDTO->getNumIdJustificativa();?>" />

@@ -84,8 +84,8 @@ PaginaSEI::getInstance()->abrirStyle();
 #lbl<?= $strNomeDespachoArquivamento; ?> {position:absolute;left:0%;top:0%;width:50%;}
 #sel<?= $strNomeDespachoArquivamento; ?> {position:absolute;left:0%;top:5%;width:50%;}
 
-#lbl<?= $strNomeDespachoDesarquivamento; ?> {position:absolute;left:0%;top:12%;width:20%;}
-#sel<?= $strNomeDespachoDesarquivamento; ?> {position:absolute;left:0%;top:17%;width:20%;}
+#lbl<?= $strNomeDespachoDesarquivamento; ?> {position:absolute;left:0%;top:12%;width:30%;}
+#sel<?= $strNomeDespachoDesarquivamento; ?> {position:absolute;left:0%;top:17%;width:40%;}
 
 #lbl<?= $strNomeTipoProcedimentoListagemEliminacao; ?> {position:absolute;left:0%;top:24%;width:30%;}
 #sel<?= $strNomeTipoProcedimentoListagemEliminacao; ?> {position:absolute;left:0%;top:29%;width:40%;}
@@ -220,7 +220,7 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
 
     <label id="lbl<?= $strNomeTipoDocumentoEliminacao ?>" for="sel<?= $strNomeTipoDocumentoEliminacao ?>" accesskey="p"
            class="infraLabelObrigatorio"><span
-            class="infraTeclaAtalho">T</span>ipo de Documento da Eliminação:</label>
+            class="infraTeclaAtalho">T</span>ipo de Documento de Eliminação:</label>
     <select name="sel<?= $strNomeTipoDocumentoEliminacao ?>" id="sel<?= $strNomeTipoDocumentoEliminacao ?>"
             class="infraSelect"
             tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
@@ -247,7 +247,7 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
 
     <label id="lbl<?= $strNomeTipoDocumentoRecolhimento ?>" for="sel<?= $strNomeTipoDocumentoRecolhimento ?>" accesskey="p"
            class="infraLabelObrigatorio"><span
-            class="infraTeclaAtalho">T</span>ipo de Documento da Recolhimento:</label>
+            class="infraTeclaAtalho">T</span>ipo de Documento de Recolhimento:</label>
     <select name="sel<?= $strNomeTipoDocumentoRecolhimento ?>" id="sel<?= $strNomeTipoDocumentoRecolhimento ?>"
             class="infraSelect"
             tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">

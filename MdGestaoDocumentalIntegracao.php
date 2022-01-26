@@ -29,6 +29,22 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
         return "modulos/".$strModulo;
     }
 
+    public static function obterIdTarefaModulo($strIdTarefaModulo)
+    {
+        $objTarefaDTO = new TarefaDTO();
+        $objTarefaDTO->retNumIdTarefa();
+        $objTarefaDTO->setStrIdTarefaModulo($strIdTarefaModulo);
+
+        $objTarefaRN = new TarefaRN();
+        $objTarefaDTO = $objTarefaRN->consultar($objTarefaDTO);
+
+        if($objTarefaDTO){
+            return $objTarefaDTO->getNumIdTarefa();
+        }else{
+            return false;
+        }
+    }
+
     public function montarBotaoControleProcessos() {
 
         $arrBotoes = array();
@@ -52,6 +68,21 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
     public function montarIconeControleProcessos($arrObjProcedimentoAPI) {
 
         $arrIcones = array();
+        foreach($arrObjProcedimentoAPI as $objProcedimentoAPI) {
+
+            $objMdGdArquivamentoDTO=new MdGdArquivamentoDTO();
+            $objMdGdArquivamentoDTO->retStrSituacao();
+            $objMdGdArquivamentoDTO->setDblIdProcedimento($objProcedimentoAPI->getIdProcedimento());
+
+            $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
+            $objMdGdArquivamentoDTO=$objMdGdArquivamentoRN->consultar($objMdGdArquivamentoDTO);
+
+            if($objMdGdArquivamentoDTO && $objMdGdArquivamentoDTO->getStrSituacao() == MdGdArquivamentoRN::$ST_FASE_EDICAO){
+                $arrIcones[$objProcedimentoAPI->getIdProcedimento()][] = '<a href="javascript:void(0);"
+                '.PaginaSEI::montarTitleTooltip('Processo Retornado para Correção','Módulo Gestão Documental').'><img
+                src="modulos/mod-gestao-documental/imagens/concluir_edicao.gif" class="imagemStatus" /></a>';
+            }    
+        }
         return $arrIcones;
     }
 
@@ -197,6 +228,68 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
 
         $arrIcones = array();
         return $arrIcones;
+    }
+
+    public function atualizarAssuntoProcesso(ProcedimentoAPI $objProcedimentoAPI) {
+
+        //avaliar como o modPEN faz
+        //esta no script de instalacao, copiar para esse modulo e criar tarefas
+
+        try{
+
+            if($objProcedimentoAPI->getAssuntosAntigos()!=null ){
+
+                $objAssuntoRN=new AssuntoRN();
+                $idTarefaModuloGestao=$this->obterIdTarefaModulo('MOD_GESTAO_ATUALIZAR_ASSUNTO');
+                
+                foreach ($objProcedimentoAPI->getAssuntos() as $assunto) {
+                    $objAssuntoDTO=new AssuntoDTO();
+                    $objAssuntoDTO->retStrCodigoEstruturado();
+                    $objAssuntoDTO->setNumIdAssunto($assunto->getNumIdAssunto());
+                    $objAssuntoDTO= $objAssuntoRN->consultarRN0256($objAssuntoDTO);
+                    $arrayAssuntosId .= $objAssuntoDTO->getStrCodigoEstruturado() . ",";
+                }
+                $arrayAssuntosId = substr($arrayAssuntosId ,0,-1);
+
+                foreach ($objProcedimentoAPI->getAssuntosAntigos() as $assunto) {
+                    $objAssuntoDTO=new AssuntoDTO();
+                    $objAssuntoDTO->retStrCodigoEstruturado();
+                    $objAssuntoDTO->setNumIdAssunto($assunto->getNumIdAssunto());
+                    $objAssuntoDTO= $objAssuntoRN->consultarRN0256($objAssuntoDTO);
+                    $arrayAssuntosAntigosId .= $objAssuntoDTO->getStrCodigoEstruturado() . ",";
+                }
+                $arrayAssuntosAntigosId = substr($arrayAssuntosAntigosId ,0,-1);
+
+                $arrObjAtributoAndamentoDTO = array();
+
+                $objAtributoAndamentoDTO = new AtributoAndamentoDTO();
+                $objAtributoAndamentoDTO->setStrNome('ASSUNTOS_ANTIGOS');
+                $objAtributoAndamentoDTO->setStrValor($arrayAssuntosAntigosId);
+                $objAtributoAndamentoDTO->setStrIdOrigem($objProcedimentoAPI->getNumeroProtocolo());
+                $arrObjAtributoAndamentoDTO[] = $objAtributoAndamentoDTO;
+
+                $objAtributoAndamentoDTO = new AtributoAndamentoDTO();
+                $objAtributoAndamentoDTO->setStrNome('ASSUNTOS_NOVOS');
+                $objAtributoAndamentoDTO->setStrValor($arrayAssuntosId);
+                $objAtributoAndamentoDTO->setStrIdOrigem($objProcedimentoAPI->getNumeroProtocolo());
+                
+                $arrObjAtributoAndamentoDTO[] = $objAtributoAndamentoDTO;
+
+                $objAtividadeDTO = new AtividadeDTO();
+                $objAtividadeDTO->setNumIdUnidade(SessaoSEI::getInstance()->getNumIdUnidadeAtual());
+                $objAtividadeDTO->setDblIdProtocolo($objProcedimentoAPI->getNumeroProtocolo());
+                $objAtividadeDTO->setNumIdTarefa($idTarefaModuloGestao);
+
+                $objAtividadeDTO->setArrObjAtributoAndamentoDTO($arrObjAtributoAndamentoDTO);
+
+                $objAtividadeRN = new AtividadeRN();
+                $objAtividadeRN->gerarInternaRN0727($objAtividadeDTO);
+            }
+
+        }catch(Exception $e){
+            throw new InfraException('Erro alterando historico do modulo gestão documental',$e);
+        }
+
     }
 
     public function montarBotaoDocumento(ProcedimentoAPI $objProcedimentoAPI, $arrObjDocumentoAPI) {
@@ -588,6 +681,7 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
         $objMdGdArquivamentoDTO->retDblIdProcedimento();
         $objMdGdArquivamentoDTO->retStrSiglaUnidadeCorrente();
         $objMdGdArquivamentoDTO->retStrSituacao();
+        $objMdGdArquivamentoDTO->retStrObservacaoDevolucao();
         
         $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
 
@@ -608,7 +702,7 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
             }
             
             if($objMdGdArquivamentoDTO && $objMdGdArquivamentoDTO->getStrSituacao() == MdGdArquivamentoRN::$ST_FASE_EDICAO){
-                $strMsg = 'Processo arquivado em fase de correção. A ação deve ser concluída no Arquivo da Unidade '.$objMdGdArquivamentoDTO->getStrSiglaUnidadeCorrente().'.';
+                $strMsg = 'Processo arquivado em fase de correção. A ação deve ser concluída no Arquivo da Unidade '.$objMdGdArquivamentoDTO->getStrSiglaUnidadeCorrente().'. </br></br> <span style="font-weight:bold">Causa da devolução:</span> ' . $objMdGdArquivamentoDTO->getStrObservacaoDevolucao()  ;
                 
                 echo "<script>               
                 let ifr=window.parent.document.querySelector('#ifrVisualizacao');

@@ -324,7 +324,8 @@ class MdGdListaEliminacaoRN extends InfraRN {
             $strHtmlTabela .= '<tr>';
             $strHtmlTabela .= '<td>' . $strCodigoClassificacao . '</td>';
             $strHtmlTabela .= '<td>' . $strDescritorCodigo . '</td>';
-            $strHtmlTabela .= '<td>' . $numAnoLimiteInicial.'-'.$numAnoLimiteFinal.'</td>';
+            // $strHtmlTabela .= '<td>' . $numAnoLimiteInicial.'-'.$numAnoLimiteFinal.'</td>';
+            $strHtmlTabela .= '<td>' . $numAnoLimiteInicial.'</td>';
             $strHtmlTabela .= '<td>' . $objMdGdArquivamentoDTO->getStrProtocoloFormatado().'</td>';
             $strHtmlTabela .= '<td>' . $objMdGdArquivamentoDTO->getStrObservacaoEliminacao() . '</td>';
             $strHtmlTabela .= '</tr>';
