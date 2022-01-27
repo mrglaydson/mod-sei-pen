@@ -873,6 +873,7 @@ class MdGdAtualizarSeiRN extends InfraRN {
         $objSerieDTO->setStrSinDestinatario('N');
         $objSerieDTO->setStrSinInterno('N');
         $objSerieDTO->setStrSinAtivo('S');
+        $objSerieDTO->setStrSinUsuarioExterno('N');
         $objSerieDTO->setArrObjRelSerieAssuntoDTO(array());
         $objSerieDTO->setArrObjSerieRestricaoDTO(array());
         $objSerieDTO->setArrObjRelSerieVeiculoPublicacaoDTO(array());

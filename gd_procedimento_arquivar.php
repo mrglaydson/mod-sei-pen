@@ -81,7 +81,7 @@ try {
                     $objAssinaturaDTO->setStrStaFormaAutenticacao(AssinaturaRN::$TA_SENHA);
                     $objAssinaturaDTO->setNumIdOrgaoUsuario($_POST['selOrgao']);
                     $objAssinaturaDTO->setNumIdUsuario(SessaoSEI::getInstance()->getNumIdUsuario());
-                    $objAssinaturaDTO->setNumIdContextoUsuario(SessaoSEI::getInstance()->getNumIdContextoUsuario());
+                    $objAssinaturaDTO->setNumIdContatoUsuario(SessaoSEI::getInstance()->getNumIdContextoUsuario());
                     $objAssinaturaDTO->setStrSenhaUsuario($_POST['pwdSenha']);
                     $objAssinaturaDTO->setStrCargoFuncao($_POST['selCargoFuncao']);
                     
