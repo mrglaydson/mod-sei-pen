@@ -150,7 +150,7 @@ try {
 
             if ($bolAcaoEliminar && $arrObjMdGdListaEliminacaoDTO[$i]->getStrSituacao() == MdGdListaEliminacaoRN::$ST_GERADA) {
                 $strLinkEliminar = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_lista_eliminacao_eliminar&acao_origem=' . $_GET['acao'] . '&id_listagem_eliminacao=' . $arrObjMdGdListaEliminacaoDTO[$i]->getNumIdListaEliminacao());
-                $strResultado .= '<a href="#" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '" onclick="acaoEliminar(\'' . $strLinkEliminar . '\')"><img src="' . MdGestaoDocumentalIntegracao::getDiretorio() . '/imagens/eliminar.png" title="Eliminar Processos" alt="Eliminar Processos" class="infraImg" /></a>&nbsp;';
+                //$strResultado .= '<a href="#" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '" onclick="acaoEliminar(\'' . $strLinkEliminar . '\')"><img src="' . MdGestaoDocumentalIntegracao::getDiretorio() . '/imagens/eliminar.png" title="Eliminar Processos" alt="Eliminar Processos" class="infraImg" /></a>&nbsp;';
             }
 
             if ($bolAcaoEliminarDocumentoFisico && $arrObjMdGdListaEliminacaoDTO[$i]->getStrSituacao() == MdGdListaEliminacaoRN::$ST_GERADA && $arrObjMdGdListaEliminacaoDTO[$i]->getStrSinDocumentosFisicos() == 'S') {
