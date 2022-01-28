@@ -73,7 +73,7 @@ try {
                     
                     PaginaSEI::getInstance()->prepararBarraProgresso2($strTitulo);
                     $prb = InfraBarraProgresso2::newInstance('ArquivarProcessos', array('cor_fundo'=>'#5c9ccc','cor_borda'=>'#4297d7'));
-                    $prb->setStrRotulo('Arquivar Processos');
+                    $prb->setStrRotulo('Aguarde o Arquivamento dos Processos');
                     $prb->setNumMin(0);
                     $prb->setNumMax(count($arrProtocolosOrigem));
                     
@@ -182,13 +182,13 @@ try {
             }
             
             // Remove os processos que possuem anexos e/ou estão abertos em mais de uma unidade
-            foreach($arrProtocolosAnexos as $k => $protocoloAnexo){
+            // foreach($arrProtocolosAnexos as $k => $protocoloAnexo){
                 foreach($arrProtocolosOrigem as $x => $protocoloOrigem){
                     if($protocoloOrigem == $k){
                         unset($arrProtocolosOrigem[$x]);
                     }
                 }
-            }
+            // }
 
 
             foreach($arrProtocolosAndamentosAbertos as $k => $protocoloAndamento){
@@ -315,9 +315,9 @@ PaginaSEI::getInstance()->abrirJavaScript();
     var processosAnexos = '<?php echo $strProtocolosAnexos; ?>';
     var processosAndamentosAbertos = '<?php echo $strProtocolosAndamentosAbertos; ?>';
 
-    if(processosAnexos) {
-        alert('Os processos ' + processosAnexos + ' estão anexados ou possuem anexos, portanto não podem ser arquivados.');
-    }
+    // if(processosAnexos) {
+    //     alert('Os processos ' + processosAnexos + ' estão anexados ou possuem anexos, portanto não podem ser arquivados.');
+    // }
 
     if(processosAndamentosAbertos) {
         alert('Os processos ' + processosAndamentosAbertos + ' estão com andamentos abertos.');
