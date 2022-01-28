@@ -153,7 +153,7 @@ try {
             $strResultado .= '<caption class="infraCaption">' . PaginaSEI::getInstance()->gerarCaptionTabela($strCaptionTabela, $numRegistros) . '</caption>';
             $strResultado .= '<tr>';
             $strResultado .= '<th class="infraTh" width="1%">' . PaginaSEI::getInstance()->getThCheck() . '</th>' . "\n";
-            $strResultado .= '<th class="infraTh" width="1%">Seq.</th>' . "\n";
+            $strResultado .= '<th class="infraTh" width="1%">Item</th>' . "\n";
             $strResultado .= '<th class="infraTh" width="19%">Processo</th>' . "\n";
             $strResultado .= '<th class="infraTh" width="10%">Especificação</th>' . "\n";
             $strResultado .= '<th class="infraTh" width="15%">Data de Conclusão</th>' . "\n";
@@ -337,7 +337,7 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
         <?= $strItensSelAssunto; ?>
     </select>
     
-    <label id="lblPeriodoDe" for="txtPeriodoDe" accesskey="" class="infraLabelOpcional">Datas Limite de:</label>
+    <label id="lblPeriodoDe" for="txtPeriodoDe" accesskey="" class="infraLabelOpcional">Data de Conclusão de:</label>
     <input type="text" id="txtPeriodoDe" value="<?= $txtPeriodoDe ?>" name="txtPeriodoDe" class="infraText" value="<?= PaginaSEI::tratarHTML($dtaPeriodoDe) ?>" onkeypress="return infraMascaraData(this, event)" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />
     <img id="imgCalPeriodoD" title="Selecionar Data Inicial" alt="Selecionar Data Inicial" src="<?= PaginaSEI::getInstance()->getDiretorioImagensGlobal() ?>/calendario.gif" class="infraImg" onclick="infraCalendario('txtPeriodoDe', this);" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />    
 

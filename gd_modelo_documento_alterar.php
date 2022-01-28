@@ -101,22 +101,22 @@ $objPagina->montarJavaScript();
         <select id="selModeloDocumento" name="selModeloDocumento" onchange="this.form.submit();"  class="infraSelect" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" value="<?= $_POST['selModeloDocumento'] ?>">
             <option value=""></option>
             <option value="<?= MdGdModeloDocumentoRN::MODELO_DESPACHO_ARQUIVAMENTO ?>" <?= $_POST['selModeloDocumento'] == MdGdModeloDocumentoRN::MODELO_DESPACHO_ARQUIVAMENTO ? 'selected' : '' ?>>
-                Despacho de arquivamento
+                Documento de Arquivamento
             </option>
             <option value="<?= MdGdModeloDocumentoRN::MODELO_DESPACHO_DESARQUIVAMENTO ?>" <?= $_POST['selModeloDocumento'] == MdGdModeloDocumentoRN::MODELO_DESPACHO_DESARQUIVAMENTO ? 'selected' : '' ?>>
-                Despacho de desarquivamento
+                Documento de Desarquivamento
             </option>
             <option value="<?= MdGdModeloDocumentoRN::MODELO_LISTAGEM_ELIMINACAO ?>" <?= $_POST['selModeloDocumento'] == MdGdModeloDocumentoRN::MODELO_LISTAGEM_ELIMINACAO ? 'selected' : '' ?>>
-                Listagem de eliminação
+                Listagem de Eliminação
             </option>
             <option value="<?= MdGdModeloDocumentoRN::MODELO_DOCUMENTO_ELIMINACAO ?>" <?= $_POST['selModeloDocumento'] == MdGdModeloDocumentoRN::MODELO_DOCUMENTO_ELIMINACAO ? 'selected' : '' ?>>
-                Documento de eliminação
+                Documento de Eliminação
             </option>
             <option value="<?= MdGdModeloDocumentoRN::MODELO_LISTAGEM_RECOLHIMENTO ?>" <?= $_POST['selModeloDocumento'] == MdGdModeloDocumentoRN::MODELO_LISTAGEM_RECOLHIMENTO ? 'selected' : '' ?>>
-                Listagem de recolhimento
+                Listagem de Recolhimento
             </option>
             <option value="<?= MdGdModeloDocumentoRN::MODELO_DOCUMENTO_RECOLHIMENTO ?>" <?= $_POST['selModeloDocumento'] == MdGdModeloDocumentoRN::MODELO_DOCUMENTO_RECOLHIMENTO ? 'selected' : '' ?>>
-                Documento de recolhimento
+                Documento de Recolhimento
             </option>
         </select><br>
         <? if (isset($_POST['selModeloDocumento']) && !empty($_POST['selModeloDocumento'])): ?>
