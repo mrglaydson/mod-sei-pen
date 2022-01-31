@@ -9,19 +9,16 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-from selenium.webdriver.chrome.options import Options
 
 class Test01ConfigSEI():
   def setup_method(self, method):
-    options = Options()
-    options.add_argument("window-size=2400,1600")
-    self.driver = webdriver.Chrome(chrome_options=options, executable_path="/home/seges/projetos/sei/chromedriver")
+    self.driver = webdriver.Chrome()
     self.driver.maximize_window()
-    self.driver.implicitly_wait(15)
+    self.driver.implicitly_wait(10)
     self.vars = {}
   
   def teardown_method(self, method):
-    self.vars = {}
+    self.driver.quit()
   
   def wait_for_window(self, timeout = 2):
     time.sleep(round(timeout / 1000))

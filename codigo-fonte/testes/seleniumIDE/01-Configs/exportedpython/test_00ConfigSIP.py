@@ -13,13 +13,12 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 class Test00ConfigSIP():
   def setup_method(self, method):
-    self.driver = webdriver.Chrome(executable_path="/home/seges/projetos/sei/chromedriver")
-    self.driver.implicitly_wait(5)
+    self.driver = webdriver.Chrome()
+    self.driver.implicitly_wait(10)
     self.vars = {}
     
   def teardown_method(self, method):
-    self.vars = {}
-    #self.driver.quit()
+    self.driver.quit()
   
   def test_sIPPermissaoAdmin(self):
     self.driver.get("http://org1-http:8000/sip/")
