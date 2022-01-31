@@ -25,7 +25,7 @@ class Test02ConfigSEILocalizadores():
     self.driver.find_element(By.ID, "txtUsuario").send_keys("teste")
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("teste")
-    self.driver.find_element(By.ID, "sbmLogin").click()
+    self.driver.find_element(By.ID, "Acessar").click()
     self.driver.find_element(By.XPATH, "//*[text()=\"Localizadores\"]").click()
     self.driver.find_element(By.XPATH, "//*[text()=\"Lugares\"]").click()
     self.driver.find_element(By.XPATH, "//*[contains(@link,\'lugar_localizador_listar\')]").click()
