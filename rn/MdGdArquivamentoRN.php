@@ -107,32 +107,18 @@ class MdGdArquivamentoRN extends InfraRN {
             $objRelProtocoloAssuntoDTO = new RelProtocoloAssuntoDTO();
             $objRelProtocoloAssuntoDTO->setDblIdProtocolo($objMdGdArquivamentoDTO->getDblIdProcedimento());
             $objRelProtocoloAssuntoDTO->retNumIdAssunto();
+            $objRelProtocoloAssuntoDTO->retStrDescricaoAssunto();
+            $objRelProtocoloAssuntoDTO->retStrCodigoEstruturadoAssunto();
 
             $objRelProtocoloAssuntoRN = new RelProtocoloAssuntoRN();
             $arrObjRelProtocoloAssuntoDTO = $objRelProtocoloAssuntoRN->listarRN0188($objRelProtocoloAssuntoDTO);
+            
+            $maiorPrazoGuarda=$this->calcularMaiorPrazoGuarda($arrObjRelProtocoloAssuntoDTO);
 
-            $objAssuntoRN = new AssuntoRN();
-            $numTempoGuardaCorrente = 0;
-            $numTempoGuardaIntermediaria = 0;
+            $guardaTotal = abs($maiorPrazoGuarda['soma']);
+            $numTempoGuardaCorrente = $maiorPrazoGuarda['corrente'];
+            $numTempoGuardaIntermediaria = $maiorPrazoGuarda['intermediario'];
 
-            foreach ($arrObjRelProtocoloAssuntoDTO as $objRelProtocoloAssuntoDTO) {
-                $objAssuntoDTO = new AssuntoDTO();
-                $objAssuntoDTO->setNumIdAssunto($objRelProtocoloAssuntoDTO->getNumIdAssunto());
-                $objAssuntoDTO->retNumPrazoCorrente();
-                $objAssuntoDTO->retNumPrazoIntermediario();
-
-                $objAssuntoDTO = $objAssuntoRN->consultarRN0256($objAssuntoDTO);
-
-                if ($numTempoGuardaCorrente < $objAssuntoDTO->getNumPrazoCorrente()) {
-                    $numTempoGuardaCorrente = $objAssuntoDTO->getNumPrazoCorrente();
-                }
-
-                if ($numTempoGuardaIntermediaria < $objAssuntoDTO->getNumPrazoIntermediario()) {
-                    $numTempoGuardaIntermediaria = $objAssuntoDTO->getNumPrazoIntermediario();
-                }
-            }
-
-            $guardaTotal = $numTempoGuardaCorrente + $numTempoGuardaIntermediaria;
             
             $dtaGuardaCorrente = date('d/m/Y H:i:s', strtotime("+{$numTempoGuardaCorrente} years", strtotime($dtaDataArquivamentoUs)));
             $dtaGuardaIntermediaria = date('d/m/Y H:i:s', strtotime("+{$guardaTotal} years", strtotime($dtaDataArquivamentoUs)));
@@ -193,6 +179,49 @@ class MdGdArquivamentoRN extends InfraRN {
             LogSEI::getInstance()->gravar($e->getMessage(),InfraLog::$ERRO);
             throw new InfraException('Erro ao arquivar processo.', $e);
         }
+    }
+
+    public function calcularMaiorPrazoGuarda($arrObjRelProtocoloAssuntoDTO){
+
+        $objAssuntoRN = new AssuntoRN();
+        $somaPrazos=[];
+
+        foreach ($arrObjRelProtocoloAssuntoDTO as $objRelProtocoloAssuntoDTO) {
+            $objAssuntoDTO = new AssuntoDTO();
+            $objAssuntoDTO->setNumIdAssunto($objRelProtocoloAssuntoDTO->getNumIdAssunto());
+            $objAssuntoDTO->retNumPrazoCorrente();
+            $objAssuntoDTO->retNumPrazoIntermediario();
+            $objAssuntoDTO->retStrStaDestinacao();
+
+            $objAssuntoDTO = $objAssuntoRN->consultarRN0256($objAssuntoDTO);
+
+            $somaPrazos[]= [
+                "soma" => ($objAssuntoDTO->getStrStaDestinacao()==AssuntoRN::$TD_GUARDA_PERMANENTE?1:-1) * ($objAssuntoDTO->getNumPrazoCorrente()+$objAssuntoDTO->getNumPrazoIntermediario()),
+                "corrente" => $objAssuntoDTO->getNumPrazoCorrente(),
+                "intermediario" => $objAssuntoDTO->getNumPrazoIntermediario(),
+                "assuntoId" => $objRelProtocoloAssuntoDTO->getNumIdAssunto(),
+                "descricao" => $objRelProtocoloAssuntoDTO->getStrDescricaoAssunto(),
+                "codigo" => $objRelProtocoloAssuntoDTO->getStrCodigoEstruturadoAssunto(),
+
+            ];
+            
+        }
+
+        uasort($somaPrazos, function($a, $b){
+            return $b['soma'] - $a['soma'];
+        });
+
+
+        if($somaPrazos[0]['soma']<0){
+            $ultimoElemento=count($somaPrazos)-1;
+            return $somaPrazos[$ultimoElemento];
+
+        }else{
+            return $somaPrazos[0];
+        }
+
+        
+
     }
 
     /**
@@ -1122,30 +1151,17 @@ class MdGdArquivamentoRN extends InfraRN {
             $objRelProtocoloAssuntoDTO = new RelProtocoloAssuntoDTO();
             $objRelProtocoloAssuntoDTO->setDblIdProtocolo($objMdGdArquivamentoDTO->getDblIdProcedimento());
             $objRelProtocoloAssuntoDTO->retNumIdAssunto();
+            $objRelProtocoloAssuntoDTO->retStrDescricaoAssunto();
+            $objRelProtocoloAssuntoDTO->retStrCodigoEstruturadoAssunto();
 
             $objRelProtocoloAssuntoRN = new RelProtocoloAssuntoRN();
             $arrObjRelProtocoloAssuntoDTO = $objRelProtocoloAssuntoRN->listarRN0188($objRelProtocoloAssuntoDTO);
 
-            $objAssuntoRN = new AssuntoRN();
-            $numTempoGuardaCorrente = 0;
-            $numTempoGuardaIntermediaria = 0;
+            $maiorPrazoGuarda=$this->calcularMaiorPrazoGuarda($arrObjRelProtocoloAssuntoDTO);
 
-            foreach ($arrObjRelProtocoloAssuntoDTO as $objRelProtocoloAssuntoDTO) {
-                $objAssuntoDTO = new AssuntoDTO();
-                $objAssuntoDTO->setNumIdAssunto($objRelProtocoloAssuntoDTO->getNumIdAssunto());
-                $objAssuntoDTO->retNumPrazoCorrente();
-                $objAssuntoDTO->retNumPrazoIntermediario();
-
-                $objAssuntoDTO = $objAssuntoRN->consultarRN0256($objAssuntoDTO);
-
-                if ($numTempoGuardaCorrente < $objAssuntoDTO->getNumPrazoCorrente()) {
-                    $numTempoGuardaCorrente = $objAssuntoDTO->getNumPrazoCorrente();
-                }
-
-                if ($numTempoGuardaIntermediaria < $objAssuntoDTO->getNumPrazoIntermediario()) {
-                    $numTempoGuardaIntermediaria = $objAssuntoDTO->getNumPrazoIntermediario();
-                }
-            }
+            $guardaTotal = abs($maiorPrazoGuarda['soma']);
+            $numTempoGuardaCorrente = $maiorPrazoGuarda['corrente'];
+            $numTempoGuardaIntermediaria = $maiorPrazoGuarda['intermediario'];
  
             $guardaTotal = $numTempoGuardaCorrente + $numTempoGuardaIntermediaria;
             
