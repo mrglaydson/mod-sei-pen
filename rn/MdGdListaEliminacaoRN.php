@@ -261,6 +261,12 @@ class MdGdListaEliminacaoRN extends InfraRN {
 
         $numAnoLimiteInicial = $dthPrimeiroAndamento[2];
 
+        $objUnidadeDTO=new UnidadeDTO();
+        $objUnidadeDTO->setNumIdUnidade($objSessaoSEI->getNumIdUnidadeAtual());
+        $objUnidadeDTO->retStrDescricao();
+        $objUnidadeRN=new UnidadeRN();
+        $objUnidadeDTO=$objUnidadeRN->consultarRN0125($objUnidadeDTO);
+
         $arrVariaveisModelo = [
             '@orgao@' => $objSessaoSEI->getStrDescricaoOrgaoUsuario(),
             '@unidade@' => $objSessaoSEI->getStrSiglaUnidadeAtual() . ' - ' . $objSessaoSEI->getStrSiglaUnidadeAtual(),
@@ -268,19 +274,32 @@ class MdGdListaEliminacaoRN extends InfraRN {
             '@folha@' => '1/1', // Verificar depois
             '@tabela@' => '',
             '@mensuracao_total@' => count($arrObjMdGdArquivamentoDTO) . ' processos',
-            '@datas_limites_gerais@' => $numAnoLimiteInicial.'-'.$numAnoLimiteFinal
+            '@datas_limites_gerais@' => $numAnoLimiteInicial.'-'.$numAnoLimiteFinal,
+            '@descricao_orgao_maiusculas@ ' => strtoupper($objSessaoSEI->getStrDescricaoOrgaoUnidadeAtual()),
+            '@sigla_orgao_origem@ ' => strtoupper($objSessaoSEI->getStrSiglaOrgaoSistema()),
+            '@descricao_unidade_maiusculas@ ' => strtoupper($objUnidadeDTO->getStrDescricao()),
+            '@sigla_unidade@ ' => strtoupper($objSessaoSEI->getStrSiglaUnidadeAtual()),
+            '@logo@ ' => '',
+
         ];
 
-        $strHtmlTabela = '<table border="1" cellpadding="1" cellspacing="1" style="margin-left:auto;margin-right:auto; width: 873px;">';
+        $strHtmlTabela = '<table border="1" cellpadding="1" cellspacing="1" style="margin-left:auto;margin-right:auto; width: 918px;">';
         $strHtmlTabela .= '<thead><tr>';
-        $strHtmlTabela .= '<th>CÓDIGO DE CLASSIFICAÇÃO</th>';
-        $strHtmlTabela .= '<th>DESCRITOR DO CÓDIGO</th>';
-        $strHtmlTabela .= '<th>DATAS-LIMITE</th>';
-        $strHtmlTabela .= '<th>PROCESSO Nº</th>';
-        $strHtmlTabela .= '<th>OBSERVAÇÕES E/OU JUSTIFICATIVAS</th>';
+        $strHtmlTabela .= '<th rowspan="2" >CÓDIGO REFERENTE A CLASSIFICAÇÃO</th>';
+        $strHtmlTabela .= '<th rowspan="2" >DESCRITOR DO CÓDIGO</th>';
+        $strHtmlTabela .= '<th rowspan="2" >DATAS-LIMITE</th>';
+        $strHtmlTabela .= '<th colspan="2" rowspan="1" >UNIDADE DE ARQUIVAMENTO</th>';
+        $strHtmlTabela .= '<th rowspan="2" >OBSERVAÇÕES E/OU JUSTIFICATIVAS</th>';
+        $strHtmlTabela .= '</tr><tr><th>Quantificação</th>';
+        $strHtmlTabela .= '<th>Especificação</th>';
+
         $strHtmlTabela .= '</thead></tr>';
 
         $strHtmlTabela .= '<tbody>';
+
+
+        $arrCodigoClassificacao = [];
+        $tamanhoTotal=0;
 
         foreach ($arrObjMdGdArquivamentoDTO as $objMdGdArquivamentoDTO) {
             // Obtem os dados do assunto
@@ -290,21 +309,9 @@ class MdGdListaEliminacaoRN extends InfraRN {
             $objRelProtocoloAssuntoDTO->setDblIdProtocolo($objMdGdArquivamentoDTO->getDblIdProtocoloProcedimento());
             $objRelProtocoloAssuntoDTO->retStrCodigoEstruturadoAssunto();
             $objRelProtocoloAssuntoDTO->retStrDescricaoAssunto();
+            $objRelProtocoloAssuntoDTO->retNumIdAssunto();
 
             $arrObjRelProtocoloAssuntoDTO = $objRelProtocoloAssuntoRN->listarRN0188($objRelProtocoloAssuntoDTO);
-
-            $strCodigoClassificacao = '';
-            $strDescritorCodigo = '';
-
-            foreach ($arrObjRelProtocoloAssuntoDTO as $key => $objRelProtocoloAssuntoDTO) {
-                if ($key + 1 == count($arrObjRelProtocoloAssuntoDTO)) {
-                    $strCodigoClassificacao .= $objRelProtocoloAssuntoDTO->getStrCodigoEstruturadoAssunto();
-                    $strDescritorCodigo .= $objRelProtocoloAssuntoDTO->getStrDescricaoAssunto();
-                } else {
-                    $strCodigoClassificacao .= $objRelProtocoloAssuntoDTO->getStrCodigoEstruturadoAssunto() . "  <br><br>  ";
-                    $strDescritorCodigo .= $objRelProtocoloAssuntoDTO->getStrDescricaoAssunto() . "  <br><br>  ";
-                }
-            }
 
             $objAtividadeDTO = new AtividadeDTO();
             $objAtividadeDTO->setDblIdProtocolo($objMdGdArquivamentoDTO->getDblIdProtocoloProcedimento());
@@ -321,29 +328,97 @@ class MdGdListaEliminacaoRN extends InfraRN {
             $numAnoLimiteInicial = $dthPrimeiroAndamento[2];
             $numAnoLimiteFinal = (int) substr($objMdGdArquivamentoDTO->getDthDataArquivamento(), 6, 4);
 
+            //obtem o código de maior temporalidade
+            $objMdGdArquivamentoRN=new MdGdArquivamentoRN();
+
+            $maiorPrazoGuarda=$objMdGdArquivamentoRN->calcularMaiorPrazoGuarda($arrObjRelProtocoloAssuntoDTO);
+
+            $tamanhoProcesso= $this->calcularTamanhoProcesso($objMdGdArquivamentoDTO);
+
+            $codigo=$maiorPrazoGuarda['codigo'];
+
+            if(!array_key_exists($codigo, $arrCodigoClassificacao)){
+
+                $arrCodigoClassificacao[$codigo]=array(
+                    "descricao" => $maiorPrazoGuarda['descricao'],
+                    "menorAno" => $numAnoLimiteInicial,
+                    "maiorAno" => $numAnoLimiteFinal,
+                    "quantidade" => 1,
+                    "tamanho" => $tamanhoProcesso,
+                    // "observacao" => $objMdGdArquivamentoDTO->getStrObservacaoEliminacao(),
+                    
+                );
+            }else{
+
+                $arrCodigoClassificacao[$codigo]['quantidade']+=1;
+                if($numAnoLimiteInicial < $arrCodigoClassificacao[$codigo]['menorAno'] ){
+                    $arrCodigoClassificacao[$codigo]['menorAno']=$numAnoLimiteInicial;
+                }
+                if($numAnoLimiteFinal > $arrCodigoClassificacao[$codigo]['maiorAno'] ){
+                    $arrCodigoClassificacao[$codigo]['maiorAno']=$numAnoLimiteFinal;
+                }
+
+                $arrCodigoClassificacao[$codigo]['tamanho'] += $tamanhoProcesso;
+
+                // $arrCodigoClassificacao[$codigo]['observacao'].= ' - ' . $objMdGdArquivamentoDTO->getStrObservacaoEliminacao();
+
+
+            }
+
+            $tamanhoTotal += $tamanhoProcesso;
+
+        }
+
+        
+        
+        foreach ($arrCodigoClassificacao as $key => $assunto) {
+
+            $unidadeTamanho = $this->formataTamanho($assunto['tamanho']);
+
             $strHtmlTabela .= '<tr>';
-            $strHtmlTabela .= '<td>' . $strCodigoClassificacao . '</td>';
-            $strHtmlTabela .= '<td>' . $strDescritorCodigo . '</td>';
-            // $strHtmlTabela .= '<td>' . $numAnoLimiteInicial.'-'.$numAnoLimiteFinal.'</td>';
-            $strHtmlTabela .= '<td>' . $numAnoLimiteInicial.'</td>';
-            $strHtmlTabela .= '<td>' . $objMdGdArquivamentoDTO->getStrProtocoloFormatado().'</td>';
-            $strHtmlTabela .= '<td>' . $objMdGdArquivamentoDTO->getStrObservacaoEliminacao() . '</td>';
+            $strHtmlTabela .= '<td style="text-align: center;">' . $key . '</td>';
+            $strHtmlTabela .= '<td style="text-align: center;">' . $assunto['descricao'] . '</td>';
+            $strHtmlTabela .= '<td style="text-align: center;">' . $assunto['menorAno'] .'-'. $assunto['maiorAno'] .'</td>';
+            $strHtmlTabela .= '<td style="text-align: center;">' . $assunto['quantidade'] .' Processos (' . number_format($unidadeTamanho['valor'],0,",",".") . ' ' . $unidadeTamanho['unidade'] .')</td>';
+            $strHtmlTabela .= '<td style="text-align: center;">' . $unidadeTamanho['unidade'] .'</td>';
+            $strHtmlTabela .= '<td style="text-align: center;">' . '</td>';
             $strHtmlTabela .= '</tr>';
         }
+
+        
+                
 
         $strHtmlTabela .= '</tbody>';
         $strHtmlTabela .= '</table>';
 
         $arrVariaveisModelo['@tabela@'] = $strHtmlTabela;
+        $imagem_logo=file_get_contents(MdGestaoDocumentalIntegracao::getDiretorio() . "/imagens/logo_brasil.png" );
+        $imagem_logo=base64_encode($imagem_logo);
+        $arrVariaveisModelo['@logo@'] = '<img src="data:image/png;base64,' . $imagem_logo . '" style="width: 130px; height: 73px;" /></a>&nbsp;';
+
+
+        $unidadeTamanho = $this->formataTamanho($tamanhoTotal);
+
+        $arrVariaveisModelo['@tamanho_total@'] = number_format($unidadeTamanho['valor'],0,",",".") . ' ' . $unidadeTamanho['unidade'];
+       
+
+        $objMdGdModeloDocumentoDTO = new MdGdModeloDocumentoDTO();
+        $objMdGdModeloDocumentoDTO->setStrNome(MdGdModeloDocumentoRN::MODELO_LISTAGEM_ELIMINACAO);
+        $objMdGdModeloDocumentoDTO->retTodos();
+
+        $objMdGdModeloDocumentoRN = new MdGdModeloDocumentoRN();
+        $objMdGdModeloDocumentoDTO = $objMdGdModeloDocumentoRN->consultar($objMdGdModeloDocumentoDTO);
+
+        $str = $objMdGdModeloDocumentoDTO->getStrValor();
+        $str = strtr($str, $arrVariaveisModelo);
+        return $str;
+    }
+
+    public function calcularTamanhoProcesso($objMdGdArquivamentoDTO){
 
         // Calcula o tamanho
-        $arrIdProcedimentos = [];
-        foreach($arrObjMdGdArquivamentoDTO as $objMdGdArquivamentoDTO){
-            $arrIdProcedimentos[] = $objMdGdArquivamentoDTO->getDblIdProcedimento();
-        }
-
         $objDocumentoDTO = new DocumentoDTO();
-        $objDocumentoDTO->setDblIdProcedimento($arrIdProcedimentos, InfraDTO::$OPER_IN);
+        $objDocumentoDTO->setDblIdProcedimento($objMdGdArquivamentoDTO->getDblIdProcedimento());
         $objDocumentoDTO->retDblIdDocumento();
 
         $objDocumentoRN = new DocumentoRN();
@@ -397,24 +472,53 @@ class MdGdListaEliminacaoRN extends InfraRN {
             if (file_put_contents($strArquivoHtmlTemp,$strResultado) === false){
                 throw new InfraException('Erro criando arquivo html temporário para criação de pdf.');
             }
-              
+                
             $numTamanho +=  filesize($strArquivoHtmlTemp);
 
             unlink($strArquivoHtmlTemp);
             
         }
-        $arrVariaveisModelo['@folha@'] = $numTamanho;
 
-        $objMdGdModeloDocumentoDTO = new MdGdModeloDocumentoDTO();
-        $objMdGdModeloDocumentoDTO->setStrNome(MdGdModeloDocumentoRN::MODELO_LISTAGEM_ELIMINACAO);
-        $objMdGdModeloDocumentoDTO->retTodos();
+        return $numTamanho;
+    }
 
-        $objMdGdModeloDocumentoRN = new MdGdModeloDocumentoRN();
-        $objMdGdModeloDocumentoDTO = $objMdGdModeloDocumentoRN->consultar($objMdGdModeloDocumentoDTO);
+    public function formataTamanho($tamanho){
 
-        $str = $objMdGdModeloDocumentoDTO->getStrValor();
-        $str = strtr($str, $arrVariaveisModelo);
-        return $str;
+        switch (true) {
+
+            case $tamanho<1000:
+                return [
+                    "valor" => $tamanho,
+                    "unidade" => 'bytes',
+                ];
+                break;
+
+            case $tamanho>1000 && $tamanho<1000000:
+                return [
+                    "valor" => $tamanho/1000,
+                    "unidade" => 'Kb',
+                ];
+                break;
+
+            case $tamanho>1000000 && $tamanho<1000000000:
+                return [
+                    "valor" => $tamanho/1000000,
+                    "unidade" => 'Mb',
+                ];
+                break;
+
+            case $tamanho>1000000000:
+                return [
+                    "valor" => $tamanho/1000000000,
+                    "unidade" => 'Gb',
+                ];
+                break;
+            
+            default:
+
+                break;
+        }
+
     }
 
     public function gerarPdfConectado($numIdListagem) {
