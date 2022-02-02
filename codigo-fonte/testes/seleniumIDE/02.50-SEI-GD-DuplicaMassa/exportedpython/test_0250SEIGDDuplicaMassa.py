@@ -12,33 +12,34 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 class Test0250SEIGDDuplicaMassa():
   def setup_method(self, method):
-    self.driver = webdriver.Remote(command_executor='http://seleniumhub:4444/wd/hub', desired_capabilities=DesiredCapabilities.CHROME)
+    self.driver = webdriver.Chrome()
+    self.driver.maximize_window()
+    self.driver.implicitly_wait(5)
     self.vars = {}
   
   def teardown_method(self, method):
     self.driver.quit()
   
   def test_01CadastrarProcessosFlood1(self):
-    self.driver.get("http://sei.gd.nuvem.gov.br/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.get("http://org1-http:8000/sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SEI&infra_url=L3NlaS8=")
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "txtUsuario")))
     self.driver.find_element(By.ID, "txtUsuario").click()
     self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivista01")
-    self.driver.find_element(By.ID, "lblUsuario").click()
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "pwdSenha")))
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
-    self.driver.find_element(By.ID, "sbmLogin").click()
+    self.driver.find_element(By.ID, "Acessar").click()
     for i in range(0, 5):
       WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//a[contains(text(),\'9999\')][1]")))
       self.driver.find_element(By.XPATH, "//a[contains(text(),\'9999\')][1]").click()
-      WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.ID, "ifrVisualizacao")))
+      #WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.ID, "ifrVisualizacao")))
       self.driver.switch_to.frame(0)
       WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//span[contains(text(),\'9999\')][1]")))
       self.vars["protocolo"] = self.driver.find_element(By.XPATH, "//span[contains(text(),\'9999\')][1]").text
       self.driver.switch_to.default_content()
       self.driver.switch_to.frame(1)
-      WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".botaoSEI:nth-child(9) > .infraCorBarraSistema")))
-      self.driver.find_element(By.CSS_SELECTOR, ".botaoSEI:nth-child(9) > .infraCorBarraSistema").click()
+      WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//img[contains(@title,'Duplicar Processo')]")))
+      self.driver.find_element(By.XPATH, "//img[contains(@title,'Duplicar Processo')]").click()
       WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.ID, "btnDuplicarProcesso")))
       self.driver.find_element(By.ID, "btnDuplicarProcesso").click()
       WebDriverWait(self.driver, 30).until(expected_conditions.invisibility_of_element_located((By.XPATH, "//span[contains(text(),'" + self.vars["protocolo"] + "')][1]")))
@@ -48,6 +49,5 @@ class Test0250SEIGDDuplicaMassa():
       WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//span[contains(text(),\'9999\')][1]")))
       self.driver.switch_to.default_content()
       self.driver.find_element(By.CSS_SELECTOR, "#lnkControleProcessos > .infraImg").click()
-    print(str("fim"))
-    print(str("fim2"))
+
   
