@@ -12,7 +12,9 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 class Test0210SEIGDCadProcEventoInst():
   def setup_method(self, method):
-    self.driver = webdriver.Remote(command_executor='http://seleniumhub:4444/wd/hub', desired_capabilities=DesiredCapabilities.CHROME)
+    self.driver = webdriver.Chrome()
+    self.driver.maximize_window()
+    self.driver.implicitly_wait(5)
     self.vars = {}
   
   def teardown_method(self, method):
@@ -26,14 +28,14 @@ class Test0210SEIGDCadProcEventoInst():
       return set(wh_now).difference(set(wh_then)).pop()
   
   def test_cadastrarProcessosFlood5(self):
-    self.driver.get("http://sei.gd.nuvem.gov.br/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.get("http://org1-http:8000/sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SEI&infra_url=L3NlaS8=")
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "txtUsuario")))
     self.driver.find_element(By.ID, "txtUsuario").click()
     self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivista01")
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "pwdSenha")))
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
-    self.driver.find_element(By.ID, "sbmLogin").click()
+    self.driver.find_element(By.ID, "Acessar").click()
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.LINK_TEXT, "Iniciar Processo")))
     self.driver.find_element(By.LINK_TEXT, "Iniciar Processo").click()
     self.vars["error"] = len(self.driver.find_elements(By.XPATH, "//a[contains(text(), \'Comunicação: Evento Institucional Público Externo\')]"))
@@ -42,7 +44,7 @@ class Test0210SEIGDCadProcEventoInst():
     self.driver.find_element(By.LINK_TEXT, "Comunicação: Evento Institucional Público Externo").click()
     WebDriverWait(self.driver, 30000).until(expected_conditions.element_to_be_clickable((By.ID, "txtDescricao")))
     self.driver.find_element(By.ID, "txtDescricao").send_keys("teste arquivo")
-    self.driver.find_element(By.ID, "optPublico").click()
+    self.driver.find_element(By.ID, "lblPublico").click()
     self.driver.find_element(By.CSS_SELECTOR, "#divInfraBarraComandosInferior > #btnSalvar > .infraTeclaAtalho").click()
     self.driver.switch_to.frame(0)
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.XPATH, "//a[contains(., \"9999\")]")))
@@ -50,12 +52,12 @@ class Test0210SEIGDCadProcEventoInst():
     time.sleep(2)
     self.driver.switch_to.default_content()
     self.driver.switch_to.frame(1)
-    WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".botaoSEI:nth-child(1) > .infraCorBarraSistema")))
-    self.driver.find_element(By.CSS_SELECTOR, ".botaoSEI:nth-child(1) > .infraCorBarraSistema").click()
+    WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.XPATH, "//*[contains(@title,\'Incluir Documento\')]")))
+    self.driver.find_element(By.XPATH, "//*[contains(@title,\'Incluir Documento\')]").click()
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.LINK_TEXT, "Despacho")))
     self.driver.find_element(By.LINK_TEXT, "Despacho").click()
-    WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "optPublico")))
-    self.driver.find_element(By.ID, "optPublico").click()
+    WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "lblPublico")))
+    self.driver.find_element(By.ID, "lblPublico").click()
     self.vars["window_handles"] = self.driver.window_handles
     self.driver.find_element(By.ID, "btnSalvar").click()
     self.vars["win3408"] = self.wait_for_window(2000)
