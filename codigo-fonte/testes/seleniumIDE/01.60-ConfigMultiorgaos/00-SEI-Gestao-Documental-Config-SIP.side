@@ -2,7 +2,7 @@
   "id": "565c3481-f0b6-42f6-a947-d7514d57929f",
   "version": "2.0",
   "name": "00-SEI-Gestao-Documental-Config-SIP",
-  "url": "http://sei.gd.nuvem.gov.br/",
+  "url": "http://org1-http:8000/",
   "tests": [{
     "id": "35f98682-f3ae-496d-8cc0-3168c83c7399",
     "name": "SIP-Permissao Admin",
@@ -256,7 +256,7 @@
       "id": "dc6223ae-fc12-419f-a981-16424b4c2b0f",
       "comment": "",
       "command": "open",
-      "target": "/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SIP",
+      "target": "/sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SIP",
       "targets": [],
       "value": ""
     }, {
@@ -322,12 +322,12 @@
       "command": "select",
       "target": "id=selOrgao",
       "targets": [],
-      "value": "label=ME"
+      "value": "label=ABC"
     }, {
       "id": "54ae23d7-b2b4-43d6-ad8b-82925787c346",
       "comment": "",
       "command": "click",
-      "target": "id=sbmLogin",
+      "target": "id=Acessar",
       "targets": [
         ["id=sbmLogin", "id"],
         ["name=sbmLogin", "name"],
@@ -342,7 +342,7 @@
       "id": "8b018944-5842-4870-a94f-b4d0d47bca99",
       "comment": "",
       "command": "click",
-      "target": "xpath=//ul[@id='main-menu']/li[8]/a",
+      "target": "xpath=//ul[@id='infraMenu']/li/a/span[contains(.,'Unidades')]",
       "targets": [
         ["css=.highlighted", "css:finder"],
         ["xpath=//ul[@id='main-menu']/li[11]/a", "xpath:idRelative"],
@@ -467,7 +467,7 @@
       "id": "44fe8b4e-5c62-40e4-881b-0b894813e4f1",
       "comment": "",
       "command": "click",
-      "target": "xpath=//ul[@id='main-menu']/li[8]/a",
+      "target": "xpath=//ul[@id='infraMenu']/li/a/span[contains(.,'Unidades')]",
       "targets": [
         ["css=.highlighted", "css:finder"],
         ["xpath=//ul[@id='main-menu']/li[11]/a", "xpath:idRelative"],
@@ -592,7 +592,7 @@
       "id": "2b71adfb-477a-4698-9626-2131e355c61c",
       "comment": "",
       "command": "click",
-      "target": "xpath=//ul[@id='main-menu']/li[7]/a",
+      "target": "xpath=//ul[@id='infraMenu']/li/a/span[contains(.,'Hierarquias')]",
       "targets": [
         ["css=.highlighted", "css:finder"],
         ["xpath=//ul[@id='main-menu']/li[11]/a", "xpath:idRelative"],
@@ -727,17 +727,14 @@
       ],
       "value": ""
     }, {
-      "id": "3695bd57-9282-480a-8534-5f25dbbf0016",
+      "id": "ebd76745-398f-403c-a3e6-e6a987be4f5d",
       "comment": "",
       "command": "click",
-      "target": "id=chkRaiz",
+      "target": "xpath=//div[@id='divRaiz']/div/label",
       "targets": [
-        ["id=chkRaiz", "id"],
-        ["name=chkRaiz", "name"],
-        ["css=#chkRaiz", "css:finder"],
-        ["xpath=//input[@id='chkRaiz']", "xpath:attributes"],
-        ["xpath=//div[@id='divRaiz']/input", "xpath:idRelative"],
-        ["xpath=//div[2]/div/input", "xpath:position"]
+        ["css=.infraCheckboxLabel", "css:finder"],
+        ["xpath=//div[@id='divRaiz']/div/label", "xpath:idRelative"],
+        ["xpath=//div/div/label", "xpath:position"]
       ],
       "value": ""
     }, {
@@ -831,13 +828,7 @@
       "comment": "",
       "command": "click",
       "target": "name=sbmCadastrarHierarquiaUnidade",
-      "targets": [
-        ["name=sbmCadastrarHierarquiaUnidade", "name"],
-        ["css=.infraButton:nth-child(1)", "css:finder"],
-        ["xpath=//input[@name='sbmCadastrarHierarquiaUnidade']", "xpath:attributes"],
-        ["xpath=//div[@id='divInfraBarraComandosSuperior']/input", "xpath:idRelative"],
-        ["xpath=//div/input", "xpath:position"]
-      ],
+      "targets": [],
       "value": ""
     }]
   }, {
@@ -1370,7 +1361,7 @@
       "id": "b756750d-315c-4f18-94d2-79e32167ffea",
       "comment": "",
       "command": "open",
-      "target": "/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SIP",
+      "target": "/sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SIP",
       "targets": [],
       "value": ""
     }, {
@@ -1436,12 +1427,12 @@
       "command": "select",
       "target": "id=selOrgao",
       "targets": [],
-      "value": "label=ME"
+      "value": "label=ABC"
     }, {
       "id": "657e74b3-14d2-4d00-8bac-878785e1b37f",
       "comment": "",
       "command": "click",
-      "target": "id=sbmLogin",
+      "target": "id=Acessar",
       "targets": [
         ["id=sbmLogin", "id"],
         ["name=sbmLogin", "name"],
@@ -1456,7 +1447,7 @@
       "id": "222f0df0-95a6-4108-887a-f00f4b0feb89",
       "comment": "",
       "command": "click",
-      "target": "xpath=//ul[@id='main-menu']/li[6]/a",
+      "target": "xpath=//ul[@id='infraMenu']/li/a/span[contains(.,'Usuários')]",
       "targets": [
         ["css=.highlighted", "css:finder"],
         ["xpath=//ul[@id='main-menu']/li[11]/a", "xpath:idRelative"],
@@ -1947,7 +1938,7 @@
       "id": "7ad8cae1-f5a4-4bf7-b991-b17d50e4ff06",
       "comment": "",
       "command": "open",
-      "target": "/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SIP",
+      "target": "/sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SIP",
       "targets": [],
       "value": ""
     }, {
@@ -1996,7 +1987,7 @@
       "id": "39ea8469-6283-4e97-aca5-2bd47eaf5708",
       "comment": "",
       "command": "click",
-      "target": "id=sbmLogin",
+      "target": "id=Acessar",
       "targets": [
         ["id=sbmLogin", "id"],
         ["name=sbmLogin", "name"],
@@ -2008,16 +1999,11 @@
       ],
       "value": ""
     }, {
-      "id": "dadc9dfe-d204-462e-b090-1d620abc683e",
+      "id": "6261d596-c457-474b-a902-97e92a2cec80",
       "comment": "",
       "command": "click",
-      "target": "xpath=//ul[@id='main-menu']/li[2]/a",
-      "targets": [
-        ["css=.highlighted", "css:finder"],
-        ["xpath=//ul[@id='main-menu']/li[11]/a", "xpath:idRelative"],
-        ["xpath=(//a[contains(@href, '#')])[12]", "xpath:href"],
-        ["xpath=//li[11]/a", "xpath:position"]
-      ],
+      "target": "xpath=//ul[@id='infraMenu']/li/a/span[contains(.,'Órgãos')]",
+      "targets": [],
       "value": ""
     }, {
       "id": "f7f5e8fe-3615-4374-a0b8-f077f028e0e3",
@@ -2127,7 +2113,7 @@
     }, {
       "id": "d429bae4-54fc-4771-92ad-2bd841064692",
       "comment": "",
-      "command": "chooseOkOnNextConfirmation",
+      "command": "//chooseOkOnNextConfirmation",
       "target": "",
       "targets": [],
       "value": ""
@@ -2137,11 +2123,10 @@
       "command": "click",
       "target": "name=sbmCadastrarOrgao",
       "targets": [
-        ["name=sbmCadastrarOrgao", "name"],
-        ["css=.infraButton:nth-child(1)", "css:finder"],
-        ["xpath=//input[@name='sbmCadastrarOrgao']", "xpath:attributes"],
-        ["xpath=//div[@id='divInfraBarraComandosSuperior']/input", "xpath:idRelative"],
-        ["xpath=//div/input", "xpath:position"]
+        ["css=li:nth-child(6) > .infraAnchorMenu > span", "css:finder"],
+        ["xpath=//ul[@id='infraMenu']/li[6]/a/span", "xpath:idRelative"],
+        ["xpath=//li[6]/a/span", "xpath:position"],
+        ["xpath=//span[contains(.,'Órgãos')]", "xpath:innerText"]
       ],
       "value": ""
     }, {
@@ -2206,7 +2191,7 @@
       "id": "f35d6c14-3ea1-425a-abd6-2ea238504fa6",
       "comment": "",
       "command": "open",
-      "target": "/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SIP",
+      "target": "/sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SIP",
       "targets": [],
       "value": ""
     }, {
@@ -2272,12 +2257,12 @@
       "command": "select",
       "target": "id=selOrgao",
       "targets": [],
-      "value": "label=ME"
+      "value": "label=ABC"
     }, {
       "id": "740a959a-3e32-4e9f-82c7-15cf22938589",
       "comment": "",
       "command": "click",
-      "target": "id=sbmLogin",
+      "target": "id=Acessar",
       "targets": [
         ["id=sbmLogin", "id"],
         ["name=sbmLogin", "name"],
@@ -2292,7 +2277,7 @@
       "id": "9d97a3eb-c9e6-40cc-a75c-df0f518f677a",
       "comment": "",
       "command": "click",
-      "target": "xpath=//ul[@id='main-menu']/li[1]/a",
+      "target": "xpath=//ul[@id='infraMenu']/li/a/span[contains(.,'Permissões')]",
       "targets": [
         ["css=.highlighted", "css:finder"],
         ["xpath=//ul[@id='main-menu']/li[11]/a", "xpath:idRelative"],
@@ -2336,7 +2321,7 @@
       "command": "select",
       "target": "id=selOrgaoSistema",
       "targets": [],
-      "value": "label=ME"
+      "value": "label=ABC"
     }, {
       "id": "1810a831-3e53-4983-b577-c4f2076188f6",
       "comment": "",
@@ -2449,7 +2434,7 @@
       "command": "select",
       "target": "id=selUnidade",
       "targets": [],
-      "value": "value=110000008"
+      "value": "ArquivoOrg2"
     }, {
       "id": "690c12fd-a2b5-4c6e-b51d-dca1d4ddfe0e",
       "comment": "",
@@ -2484,7 +2469,7 @@
       "command": "select",
       "target": "id=selOrgaoUsuario",
       "targets": [],
-      "value": "value=1"
+      "value": "Org2"
     }, {
       "id": "48930c49-d012-448e-9410-b36b6b7ca84c",
       "comment": "",
@@ -2576,14 +2561,9 @@
     }, {
       "id": "9c19b542-98ca-4f1c-82ac-b6f69ac3449b",
       "comment": "",
-      "command": "mouseDown",
+      "command": "click",
       "target": "css=b:nth-child(1)",
-      "targets": [
-        ["css=b:nth-child(1)", "css:finder"],
-        ["xpath=//div[@id='divInfraAjaxtxtUsuario']/ul/li/a/b", "xpath:idRelative"],
-        ["xpath=//b", "xpath:position"],
-        ["xpath=//b[contains(.,'arquivista01')]", "xpath:innerText"]
-      ],
+      "targets": [],
       "value": ""
     }, {
       "id": "3a1e5d53-2323-40d6-a5e7-e611bda2f69a",
@@ -2666,6 +2646,6 @@
     "timeout": 300,
     "tests": ["f5ec8aaf-7f68-46c8-a24f-f64784126f7b", "47c38ddc-84bc-46e4-95cb-9e7ee60d3d8c", "0d2ee38e-2acd-4ab3-9df6-0d85d10c711b", "7ffcbf37-1e2f-47d8-9d0b-3c76cc0b3c22"]
   }],
-  "urls": ["http://seigd.nuvem.gov.br/", "http://sei.gd.nuvem.gov.br/"],
+  "urls": ["http://seigd.nuvem.gov.br/", "http://sei.gd.nuvem.gov.br/", "http://org1-http:8000/"],
   "plugins": []
 }
