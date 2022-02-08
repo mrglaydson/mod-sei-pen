@@ -12,24 +12,25 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 class Test0260SEIGDConcluirMassa():
   def setup_method(self, method):
-    self.driver = webdriver.Remote(command_executor='http://seleniumhub:4444/wd/hub', desired_capabilities=DesiredCapabilities.CHROME)
+    self.driver = webdriver.Chrome()
+    self.driver.implicitly_wait(5)
     self.vars = {}
   
   def teardown_method(self, method):
     self.driver.quit()
   
   def test_02Concluir(self):
-    self.driver.get("http://sei.gd.nuvem.gov.br/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.get("http://org1-http:8000/sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SEI&infra_url=L3NlaS8=")
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "txtUsuario")))
     self.driver.find_element(By.ID, "txtUsuario").click()
     self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivista01")
-    self.driver.find_element(By.ID, "lblUsuario").click()
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "pwdSenha")))
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
-    self.driver.find_element(By.ID, "sbmLogin").click()
+    self.driver.find_element(By.ID, "Acessar").click()
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "imgGeradosCheck")))
     self.driver.find_element(By.ID, "imgGeradosCheck").click()
+    #Concluir Processo nesta Unidade
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.XPATH, "//*[@id=\"divComandos\"]/a[6]")))
     self.driver.find_element(By.XPATH, "//*[@id=\"divComandos\"]/a[6]").click()
     time.sleep(2)
