@@ -13,13 +13,13 @@ from selenium.webdriver.support import expected_conditions as EC
 
 class Test0200SEIGDCadArquivaProc():
   def setup_method(self, method):
-    self.driver = webdriver.Chrome(executable_path="/home/seges/projetos/sei/chromedriver")
+    self.driver = webdriver.Chrome()
     self.driver.maximize_window()
     self.driver.implicitly_wait(5)
     self.vars = {}
   
   def teardown_method(self, method):
-    self.vars = {}
+    self.driver.close()
   
   def wait_for_window(self, timeout = 2):
     time.sleep(round(timeout / 1000))
