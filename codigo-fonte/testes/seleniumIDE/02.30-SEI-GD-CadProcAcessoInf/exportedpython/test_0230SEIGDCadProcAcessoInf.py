@@ -18,7 +18,7 @@ class Test0230SEIGDCadProcAcessoInf():
     self.vars = {}
   
   def teardown_method(self, method):
-    self.driver.quit()
+    self.vars = {}
   
   def wait_for_window(self, timeout = 2):
     time.sleep(round(timeout / 1000))
@@ -47,15 +47,16 @@ class Test0230SEIGDCadProcAcessoInf():
     self.driver.find_element(By.ID, "txtDescricao").send_keys("teste arquivo")
     self.driver.find_element(By.CSS_SELECTOR, "#divOptPublico .infraRadioLabel").click()
     self.driver.find_element(By.CSS_SELECTOR, "#divInfraBarraComandosInferior > #btnSalvar > .infraTeclaAtalho").click()
+    self.driver.switch_to.default_content()
     self.driver.switch_to.frame(0)
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//a[contains(., \"9999\")]")))
     self.driver.find_element(By.XPATH, "//a[contains(., \"9999\")]").click()
     time.sleep(0.002)
     self.driver.switch_to.default_content()
     self.driver.switch_to.frame(1)
-    # WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//img[@alt=\'Incluir Documento\']")))
+    WebDriverWait(self.driver, 3000).until(expected_conditions.visibility_of_element_located((By.XPATH, "//img[@alt=\'Incluir Documento\']")))
     self.driver.find_element(By.XPATH, "//img[@alt=\'Incluir Documento\']").click()
-    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.LINK_TEXT, "Despacho")))
+    WebDriverWait(self.driver, 3000).until(expected_conditions.visibility_of_element_located((By.LINK_TEXT, "Despacho")))
     self.driver.find_element(By.LINK_TEXT, "Despacho").click()
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, "#divOptPublico .infraRadioLabel")))
     self.driver.find_element(By.CSS_SELECTOR, "#divOptPublico .infraRadioLabel").click()
