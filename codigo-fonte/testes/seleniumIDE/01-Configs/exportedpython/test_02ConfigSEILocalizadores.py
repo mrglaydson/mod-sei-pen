@@ -20,7 +20,7 @@ class Test02ConfigSEILocalizadores():
     self.driver.quit()
   
   def test_0101LocalizadoresLugares(self):
-    self.driver.get("http://sei.gd.nuvem.gov.br/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.get("http://org1-http:8000/sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SEI")
     WebDriverWait(self.driver, 30).until(expected_conditions.element_to_be_clickable((By.ID, "txtUsuario")))
     self.driver.find_element(By.ID, "txtUsuario").send_keys("teste")
     self.driver.find_element(By.ID, "pwdSenha").click()
