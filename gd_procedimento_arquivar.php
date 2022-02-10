@@ -488,15 +488,16 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
             <div id="divDataArquivamento" class="infraAreaDados" style="height:4em; display:none;">
                 <label id="lblDataArquivamento" for="txtDataArquivamento" accesskey="e">Data do arquivamento:</label>
                 <input type="text" id="txtDataArquivamento" name="txtDataArquivamento" class="infraText" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" onkeypress="return infraMascara(this, event,'##/##/####')" disabled />
-                <img id="imgCalDataArquivamento" title="Selecionar Data de Arquivamento" alt="Selecionar Data de Arquivamento" src="<?= PaginaSEI::getInstance()->getDiretorioImagensGlobal() ?>/calendario.gif" class="infraImg" onclick="infraCalendario('txtDataArquivamento', this);" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />    
+                <img id="imgCalDataArquivamento" title="Selecionar Data de Arquivamento" alt="Selecionar Data de Arquivamento" src="/infra_css/svg/calendario.svg" class="infraImg" onclick="infraCalendario('txtDataArquivamento', this);" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />    
             </div>
 
             <input type="hidden" id="hdnTotalCondicionantes" name="hdnTotalCondicionantes" value="<?= $numTotalCondicionantes ?>"/>
         </fieldset>
 
 
-        <fieldset class="infraFieldset" id="fieldsetDadosAssinatura">
+        <fieldset class="infraFieldset" id="fieldsetDadosAssinatura" style="height:25em;">
             <legend class="infraLegend">Dados da Assinatura</legend>
+            <div style="padding: 1em;"
             <p>Dados para assinatura do despacho de arquivamento</p>
             <div id="divOrgao" class="infraAreaDados" style="height:4.5em;">
                 <label id="lblOrgao" for="selOrgao" accesskey="r" class="infraLabelObrigatorio">Ó<span class="infraTeclaAtalho">r</span>gão do Assinante:</label>
@@ -507,7 +508,7 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
 
             <div id="divUsuario" class="infraAreaDados" style="height:4.5em;">
                 <label id="lblUsuario" for="txtUsuario" accesskey="e" class="infraLabelObrigatorio">Assinant<span class="infraTeclaAtalho">e</span>:</label>
-                <input type="text" id="txtUsuario" name="txtUsuario" class="infraText" value="<?= SessaoSEI::getInstance()->getStrNomeUsuario() ?>" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" disabled />
+                <input type="text" style="margin-left: 0.5em;" id="txtUsuario" name="txtUsuario" class="infraText" value="<?= SessaoSEI::getInstance()->getStrNomeUsuario() ?>" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" disabled />
             </div>  
 
             <div id="divCargoFuncao" class="infraAreaDados" style="height:4.5em;">
@@ -521,6 +522,7 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
                 <label id="lblSenha" for="pwdSenha" accesskey="S" class="infraLabelRadio infraLabelObrigatorio" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>"><span class="infraTeclaAtalho">S</span>enha</label>&nbsp;&nbsp;
                 <input type="password" id="pwdSenha" name="pwdSenha" autocomplete="off" class="infraText"  value="" onchange="validarSenhaConfiguracao()" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />&nbsp;&nbsp;&nbsp;&nbsp;
             </div>
+        </div>
         </fieldset>
 
 

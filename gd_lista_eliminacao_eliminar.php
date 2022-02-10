@@ -254,7 +254,7 @@ $strItensSelOrgaos = OrgaoINT::montarSelectSiglaRI1358('null', '&nbsp;', SessaoS
 
         <label id="lblData" for="txtData" accesskey="A" class="infraLabelObrigatorio"><span class="infraTeclaAtalho">D</span>ata:</label>
         <input type="text" id="txtData" name="txtData" class="infraText" value="" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" onkeypress="return infraMascaraData(this, event)" />
-        <img id="imgData" title="Selecionar Data" alt="Selecionar Data" src="<?= PaginaSEI::getInstance()->getDiretorioImagensGlobal() ?>/calendario.gif" class="infraImg" onclick="infraCalendario('txtData', this);" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />    
+        <img id="imgData" title="Selecionar Data" alt="Selecionar Data" src="/infra_css/svg/calendario.svg" class="infraImg" onclick="infraCalendario('txtData', this);" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />    
 
     </fieldset>
 

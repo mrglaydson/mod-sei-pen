@@ -122,15 +122,15 @@ try {
             $strResultado .= '<td align="center">';
 
             if ($bolAcaoConsultar) {
-                $strResultado .= '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_unidade_arquivamento_visualizar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao'] . '&id_unidade_arquivamento=' . $arrMdGdUnidadeArquivamentoDTO[$i]->getNumIdUnidadeArquivamento()) . '" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="imagens/consultar.gif" title="Consultar Unidade de Arquivamento" alt="Consultar Unidade de Arquivamento" class="infraImg" /></a>&nbsp;';
+                $strResultado .= '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_unidade_arquivamento_visualizar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao'] . '&id_unidade_arquivamento=' . $arrMdGdUnidadeArquivamentoDTO[$i]->getNumIdUnidadeArquivamento()) . '" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="/infra_css/svg/consultar.svg" title="Consultar Unidade de Arquivamento" alt="Consultar Unidade de Arquivamento" class="infraImg" /></a>&nbsp;';
             }
 
             if ($bolAcaoAlterar) {
-                $strResultado .= '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_unidade_arquivamento_alterar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao'] . '&id_unidade_arquivamento=' . $arrMdGdUnidadeArquivamentoDTO[$i]->getNumIdUnidadeArquivamento()) . '" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="imagens/alterar.gif" title="Alterar Unidade de Arquivamento" alt="Alterar Unidade de Arquivamento" class="infraImg" /></a>&nbsp;';
+                $strResultado .= '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_unidade_arquivamento_alterar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao'] . '&id_unidade_arquivamento=' . $arrMdGdUnidadeArquivamentoDTO[$i]->getNumIdUnidadeArquivamento()) . '" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="/infra_css/svg/alterar.svg" title="Alterar Unidade de Arquivamento" alt="Alterar Unidade de Arquivamento" class="infraImg" /></a>&nbsp;';
             }
 
             if ($bolAcaoExcluir) {
-                $strResultado .= '<a href="#ID-' . $arrMdGdUnidadeArquivamentoDTO[$i]->getNumIdUnidadeArquivamento() . '" onclick="acaoExcluir(\'' . $arrMdGdUnidadeArquivamentoDTO[$i]->getNumIdUnidadeArquivamento() . '\',\'' . $arrMdGdUnidadeArquivamentoDTO[$i]->getStrSiglaUnidadeOrigem() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="imagens/excluir.gif" title="Excluir Unidade de Arquivamento" alt="Excluir Unidade de Arquivamento" class="infraImg" /></a>&nbsp;';
+                $strResultado .= '<a href="#ID-' . $arrMdGdUnidadeArquivamentoDTO[$i]->getNumIdUnidadeArquivamento() . '" onclick="acaoExcluir(\'' . $arrMdGdUnidadeArquivamentoDTO[$i]->getNumIdUnidadeArquivamento() . '\',\'' . $arrMdGdUnidadeArquivamentoDTO[$i]->getStrSiglaUnidadeOrigem() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="/infra_css/svg/excluir.svg" title="Excluir Unidade de Arquivamento" alt="Excluir Unidade de Arquivamento" class="infraImg" /></a>&nbsp;';
             }
 
             $strResultado .= '</td></tr>' . "\n";

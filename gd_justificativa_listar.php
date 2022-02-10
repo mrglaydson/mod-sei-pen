@@ -141,15 +141,15 @@ try {
             $strResultado .= '<td align="center">';
 
             if ($bolAcaoConsultar) {
-                $strResultado .= '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_justificativa_consultar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao'] . '&id_justificativa=' . $arrMdGdJustificativaDTO[$i]->getNumIdJustificativa()) . '" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="imagens/consultar.gif" title="Consultar Justificativa" alt="Consultar Justificativa" class="infraImg" /></a>&nbsp;';
+                $strResultado .= '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_justificativa_consultar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao'] . '&id_justificativa=' . $arrMdGdJustificativaDTO[$i]->getNumIdJustificativa()) . '" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="/infra_css/svg/consultar.svg" title="Consultar Justificativa" alt="Consultar Justificativa" class="infraImg" /></a>&nbsp;';
             }
 
             if ($bolAcaoAlterar) {
-                $strResultado .= '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_justificativa_alterar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao'] . '&id_justificativa=' . $arrMdGdJustificativaDTO[$i]->getNumIdJustificativa()) . '" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="imagens/alterar.gif" title="Alterar Justificativa" alt="Alterar Justificativa" class="infraImg" /></a>&nbsp;';
+                $strResultado .= '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_justificativa_alterar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao'] . '&id_justificativa=' . $arrMdGdJustificativaDTO[$i]->getNumIdJustificativa()) . '" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="/infra_css/svg/alterar.svg" title="Alterar Justificativa" alt="Alterar Justificativa" class="infraImg" /></a>&nbsp;';
             }
 
             if ($bolAcaoExcluir) {
-                $strResultado .= '<a href="#ID-' . $arrMdGdJustificativaDTO[$i]->getNumIdJustificativa() . '" onclick="acaoExcluir(\'' . $arrMdGdJustificativaDTO[$i]->getNumIdJustificativa() . '\',\'' . $arrMdGdJustificativaDTO[$i]->getStrNome() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="imagens/excluir.gif" title="Excluir Justificativa" alt="Excluir Justificativa" class="infraImg" /></a>&nbsp;';
+                $strResultado .= '<a href="#ID-' . $arrMdGdJustificativaDTO[$i]->getNumIdJustificativa() . '" onclick="acaoExcluir(\'' . $arrMdGdJustificativaDTO[$i]->getNumIdJustificativa() . '\',\'' . $arrMdGdJustificativaDTO[$i]->getStrNome() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="/infra_css/svg/excluir.svg" title="Excluir Justificativa" alt="Excluir Justificativa" class="infraImg" /></a>&nbsp;';
             }
 
             $strResultado .= '</td></tr>' . "\n";

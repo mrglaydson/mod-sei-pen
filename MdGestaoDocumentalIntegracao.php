@@ -80,7 +80,7 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
             if($objMdGdArquivamentoDTO && $objMdGdArquivamentoDTO->getStrSituacao() == MdGdArquivamentoRN::$ST_FASE_EDICAO){
                 $arrIcones[$objProcedimentoAPI->getIdProcedimento()][] = '<a href="javascript:void(0);"
                 '.PaginaSEI::montarTitleTooltip('Processo Retornado para Correção','Módulo Gestão Documental').'><img
-                src="modulos/mod-gestao-documental/imagens/concluir_edicao.gif" class="imagemStatus" /></a>';
+                src="modulos/mod-gestao-documental/imagens/arquivamento.png" class="imagemStatus" height="22px" width="24px" /></a>';
             }    
         }
         return $arrIcones;
