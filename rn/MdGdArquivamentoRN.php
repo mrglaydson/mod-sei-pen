@@ -195,10 +195,13 @@ class MdGdArquivamentoRN extends InfraRN {
 
             $objAssuntoDTO = $objAssuntoRN->consultarRN0256($objAssuntoDTO);
 
+            $prazoCorrente=is_null($objAssuntoDTO->getNumPrazoCorrente())?0:$objAssuntoDTO->getNumPrazoCorrente();
+            $prazoIntermediario=is_null($objAssuntoDTO->getNumPrazoIntermediario())?0:$objAssuntoDTO->getNumPrazoIntermediario();
+
             $somaPrazos[]= [
-                "soma" => ($objAssuntoDTO->getStrStaDestinacao()==AssuntoRN::$TD_GUARDA_PERMANENTE?1:-1) * ($objAssuntoDTO->getNumPrazoCorrente()+$objAssuntoDTO->getNumPrazoIntermediario()),
-                "corrente" => $objAssuntoDTO->getNumPrazoCorrente(),
-                "intermediario" => $objAssuntoDTO->getNumPrazoIntermediario(),
+                "soma" => ($objAssuntoDTO->getStrStaDestinacao()==AssuntoRN::$TD_GUARDA_PERMANENTE?1:-1) * ($prazoCorrente+$prazoIntermediario),
+                "corrente" => $prazoCorrente,
+                "intermediario" => $prazoIntermediario,
                 "assuntoId" => $objRelProtocoloAssuntoDTO->getNumIdAssunto(),
                 "descricao" => $objRelProtocoloAssuntoDTO->getStrDescricaoAssunto(),
                 "codigo" => $objRelProtocoloAssuntoDTO->getStrCodigoEstruturadoAssunto(),
