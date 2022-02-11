@@ -18,7 +18,7 @@ class Test0230SEIGDCadProcAcessoInf():
     self.vars = {}
   
   def teardown_method(self, method):
-    self.vars = {}
+    self.driver.quit()
   
   def wait_for_window(self, timeout = 2):
     time.sleep(round(timeout / 1000))
@@ -28,7 +28,6 @@ class Test0230SEIGDCadProcAcessoInf():
       return set(wh_now).difference(set(wh_then)).pop()
   
   def test_cadastrarProcessosFlood5(self):
-    self.driver.set_window_size(1200, 1000)
     self.driver.get("http://org1-http:8000/sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SEI&infra_url=L3NlaS8=")
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.ID, "txtUsuario")))
     self.driver.find_element(By.ID, "txtUsuario").click()
@@ -51,12 +50,12 @@ class Test0230SEIGDCadProcAcessoInf():
     self.driver.switch_to.frame(0)
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//a[contains(., \"9999\")]")))
     self.driver.find_element(By.XPATH, "//a[contains(., \"9999\")]").click()
-    time.sleep(0.002)
+    time.sleep(2)
     self.driver.switch_to.default_content()
     self.driver.switch_to.frame(1)
-    WebDriverWait(self.driver, 3000).until(expected_conditions.visibility_of_element_located((By.XPATH, "//img[@alt=\'Incluir Documento\']")))
-    self.driver.find_element(By.XPATH, "//img[@alt=\'Incluir Documento\']").click()
-    WebDriverWait(self.driver, 3000).until(expected_conditions.visibility_of_element_located((By.LINK_TEXT, "Despacho")))
+    WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.XPATH, "//*[@id='divArvoreAcoes']/a[1]")))
+    self.driver.find_element(By.XPATH, "//*[@id='divArvoreAcoes']/a[1]").click()
+    WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.LINK_TEXT, "Despacho")))
     self.driver.find_element(By.LINK_TEXT, "Despacho").click()
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, "#divOptPublico .infraRadioLabel")))
     self.driver.find_element(By.CSS_SELECTOR, "#divOptPublico .infraRadioLabel").click()
