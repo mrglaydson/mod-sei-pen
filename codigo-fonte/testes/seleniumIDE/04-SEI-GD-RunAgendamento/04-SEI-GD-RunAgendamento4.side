@@ -135,12 +135,12 @@
       "id": "abf32dc4-b48c-4c38-aa11-6d77e67f91eb",
       "comment": "",
       "command": "click",
-      "target": "xpath=(//img[@alt='Executar Agendamento'])[8]",
+      "target": "xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[contains(.,'MdGdAgendamentoRN :: verificarTempoGuarda')]//td[7]/a[2]",
       "targets": [
-        ["css=.infraTrSelecionada a:nth-child(2) > .infraImg", "css:finder"],
-        ["xpath=(//img[@alt='Executar Agendamento'])[8]", "xpath:img"],
-        ["xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[9]/td[7]/a/img", "xpath:idRelative"],
-        ["xpath=//tr[9]/td[7]/a/img", "xpath:position"]
+        ["css=.infraTrSelecionada > td:nth-child(2)", "css:finder"],
+        ["xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[10]/td[2]", "xpath:idRelative"],
+        ["xpath=//tr[10]/td[2]", "xpath:position"],
+        ["xpath=//td[contains(.,'MdGdAgendamentoRN :: verificarTempoGuarda')]", "xpath:innerText"]
       ],
       "value": ""
     }, {
@@ -154,7 +154,7 @@
       "id": "82a9f710-f363-4a18-992d-180572c38bfd",
       "comment": "",
       "command": "waitForElementVisible",
-      "target": "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[9]/td[6]",
+      "target": "xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[contains(.,'MdGdAgendamentoRN :: verificarTempoGuarda')]//td[6][text()=\"Sucesso\"]",
       "targets": [],
       "value": "30000"
     }]

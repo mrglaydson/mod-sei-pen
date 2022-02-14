@@ -40,10 +40,10 @@ class Test04SEIGDRunAgendamento():
     self.driver.find_element(By.XPATH, "//a[contains(.,\'Infra\')]").click()
     # 9 | click | linkText=Agendamentos | 
     self.driver.find_element(By.LINK_TEXT, "Agendamentos").click()
-    # 11 | click | xpath=(//img[@alt='Executar Agendamento'])[8] | 
-    self.driver.find_element(By.XPATH, "(//img[@alt=\'Executar Agendamento\'])[8]").click()
+    # 11 | click | xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[contains(.,'MdGdAgendamentoRN :: verificarTempoGuarda')]//td[7]/a[2] | 
+    self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[contains(.,\'MdGdAgendamentoRN :: verificarTempoGuarda\')]//td[7]/a[2]").click()
     # 12 | webdriverChooseOkOnVisibleConfirmation |  | 
     self.driver.switch_to.alert.accept()
-    # 13 | waitForElementVisible | //*[@id="divInfraAreaTabela"]/table/tbody/tr[9]/td[6] | 30000
-    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[9]/td[6]")))
+    # 13 | waitForElementVisible | xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[contains(.,'MdGdAgendamentoRN :: verificarTempoGuarda')]//td[6][text()="Sucesso"] | 30000
+    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[contains(.,\'MdGdAgendamentoRN :: verificarTempoGuarda\')]//td[6][text()=\"Sucesso\"]")))
   
