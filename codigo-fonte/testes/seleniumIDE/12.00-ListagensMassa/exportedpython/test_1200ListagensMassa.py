@@ -30,7 +30,7 @@ class Test1200ListagensMassa():
     self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[10]/ul/li[2]/a").click()
     self.driver.find_element(By.LINK_TEXT, "Preparação da Listagem").click()
     self.driver.find_element(By.ID, "imgInfraCheck").click()
-    time.sleep(2)
+    time.sleep(0.002)
     self.driver.find_element(By.ID, "chkInfraItem0").click()
     self.driver.find_element(By.ID, "btnGerarListagem").click()
     self.driver.find_element(By.ID, "divInfraAreaTabela").click()
@@ -43,7 +43,7 @@ class Test1200ListagensMassa():
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Listagens de Eliminacao (3 registros):"
     self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[2]/td[3]").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraTrSelecionada > td:nth-child(3)").text == "99994.000001/2037-76"
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraTrSelecionada > td:nth-child(3)").text == "99994.000001/2038-57"
     self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[7]/a[1]").click()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos (29 registros):"
@@ -61,7 +61,7 @@ class Test1200ListagensMassa():
     self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[10]/ul/li[3]/a").click()
     self.driver.find_element(By.LINK_TEXT, "Preparação da Listagem").click()
     self.driver.find_element(By.ID, "imgInfraCheck").click()
-    time.sleep(2)
+    time.sleep(0.002)
     self.driver.find_element(By.ID, "chkInfraItem0").click()
     self.driver.find_element(By.ID, "btnGerarListagem").click()
     self.driver.find_element(By.ID, "divInfraAreaTabela").click()
