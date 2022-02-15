@@ -12,22 +12,25 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 class Test06SEIGDListasEliminacaoGestao():
   def setup_method(self, method):
-    self.driver = webdriver.Remote(command_executor='http://seleniumhub:4444/wd/hub', desired_capabilities=DesiredCapabilities.CHROME)
+    self.driver = webdriver.Chrome(executable_path="/home/seges/projetos/sei/chromedriver")
+    self.driver.implicitly_wait(5)
+    self.driver.maximize_window()
     self.vars = {}
   
   def teardown_method(self, method):
     self.driver.quit()
   
   def test_0610GerarListagem(self):
-    self.driver.get("http://sei.gd.nuvem.gov.br//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.get("http://org1-http:8000//sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SEI&infra_url=L3NlaS8=")
     self.driver.find_element(By.ID, "divUsuario").click()
     self.driver.find_element(By.ID, "txtUsuario").click()
     self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivista02")
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista02")
-    self.driver.find_element(By.ID, "sbmLogin").click()
-    self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[10]/a").click()
-    self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[10]/ul/li[2]/a").click()
+    self.driver.find_element(By.ID, "Acessar").click()
+    #self.driver.find_element(By.XPATH, "//span[contains(text(),'Gestão Documental')]/..").click()
+    self.driver.find_element(By.XPATH, "//*[@id='infraMenu']/li[21]/a").click()
+    self.driver.find_element(By.XPATH, "//span[contains(text(),'Listagens de Eliminação')]/..").click()
     self.driver.find_element(By.LINK_TEXT, "Preparação da Listagem").click()
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "chkInfraItem0")))
     self.driver.find_element(By.ID, "chkInfraItem0").click()
@@ -35,9 +38,9 @@ class Test06SEIGDListasEliminacaoGestao():
     time.sleep(2)
     self.driver.find_element(By.ID, "imgInfraCheck").click()
     self.driver.find_element(By.ID, "btnGerarListagem").click()
-    self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[10]/a").click()
-    self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[10]/ul/li[2]/a").click()
-    self.driver.find_element(By.LINK_TEXT, "Gestão das Listagens").click()
+    self.driver.find_element(By.XPATH, "//*[@id='infraMenu']/li[21]/a").click()
+    self.driver.find_element(By.XPATH, "//span[contains(text(),'Listagens de Eliminação')]").click()
+    self.driver.find_element(By.XPATH, "Gestão das Listagens").click()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Listagens de Eliminacao (2 registros):"
     self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[3]/td[3]").click()
@@ -51,14 +54,14 @@ class Test06SEIGDListasEliminacaoGestao():
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos (4 registros):"
     time.sleep(10)
     self.driver.find_element(By.CSS_SELECTOR, "#lnkSairSistema > .infraImg").click()
-    self.driver.get("http://sei.gd.nuvem.gov.br//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.get("http://org1-http:8000//sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SEI&infra_url=L3NlaS8=")
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "pwdSenha")))
     self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivista02")
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista02")
-    self.driver.find_element(By.ID, "sbmLogin").click()
-    self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[10]/a").click()
-    self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[10]/ul/li[2]/a").click()
+    self.driver.find_element(By.ID, "Acessar").click()
+    self.driver.find_element(By.XPATH, "//*[@id='infraMenu']/li[21]/a").click()
+    self.driver.find_element(By.XPATH, "//span[contains(text(),'Listagens de Eliminação')]/..").click()
     self.driver.find_element(By.LINK_TEXT, "Gestão das Listagens").click()
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[3]/td[7]/a[1]/img")))
     self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[3]/td[7]/a[1]/img").click()
@@ -67,15 +70,15 @@ class Test06SEIGDListasEliminacaoGestao():
     self.driver.find_element(By.ID, "btnCancelar").click()
   
   def test_0620AlterarListagem(self):
-    self.driver.get("http://sei.gd.nuvem.gov.br//sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.get("http://org1-http:8000//sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SEI&infra_url=L3NlaS8=")
     self.driver.find_element(By.ID, "divUsuario").click()
     self.driver.find_element(By.ID, "txtUsuario").click()
     self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivista02")
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista02")
-    self.driver.find_element(By.ID, "sbmLogin").click()
-    self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[10]/a").click()
-    self.driver.find_element(By.XPATH, "//*[@id=\"main-menu\"]/li[10]/ul/li[2]/a").click()
+    self.driver.find_element(By.ID, "Acessar").click()
+    self.driver.find_element(By.XPATH, "//*[@id='infraMenu']/li[21]/a").click()
+    self.driver.find_element(By.XPATH, "//span[contains(text(),'Listagens de Eliminação')]").click()
     self.driver.find_element(By.LINK_TEXT, "Gestão das Listagens").click()
     self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[7]/a[2]").click()
     self.driver.switch_to.alert.accept()
