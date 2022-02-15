@@ -12,7 +12,7 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 class Test0610SEIGDListagemEliminacao():
   def setup_method(self, method):
-    self.driver = webdriver.Chrome(executable_path="/home/seges/projetos/sei/chromedriver")
+    self.driver = webdriver.Chrome()
     self.driver.implicitly_wait(5)
     self.vars = {}
   
