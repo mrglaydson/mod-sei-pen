@@ -24,7 +24,7 @@ class Test0280SEIGDConcluirMassa2():
     self.driver.quit()
   
   def test_02Concluir(self):
-    self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SIP")
+    self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SIP")
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.ID, "txtUsuario")))
     self.driver.find_element(By.ID, "txtUsuario").click()
     self.driver.find_element(By.ID, "txtUsuario").send_keys("teste")

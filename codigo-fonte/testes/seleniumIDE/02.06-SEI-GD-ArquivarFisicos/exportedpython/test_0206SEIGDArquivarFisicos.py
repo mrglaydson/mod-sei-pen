@@ -23,7 +23,7 @@ class Test0206SEIGDArquivarFisicos():
     self.driver.quit()
   
   def test_arquivar1a15(self):
-    self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI&infra_url=L3NlaS8=")
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.ID, "txtUsuario")))
     self.driver.find_element(By.ID, "txtUsuario").click()
     self.driver.find_element(By.ID, "txtUsuario").send_keys("teste")
@@ -67,7 +67,7 @@ class Test0206SEIGDArquivarFisicos():
     self.driver.find_element(By.ID, "sbmAtualizar").click()
   
   def test_arquivar32a62(self):
-    self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI&infra_url=L3NlaS8=")
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.ID, "txtUsuario")))
     self.driver.find_element(By.ID, "txtUsuario").click()
     self.driver.find_element(By.ID, "txtUsuario").send_keys("teste")

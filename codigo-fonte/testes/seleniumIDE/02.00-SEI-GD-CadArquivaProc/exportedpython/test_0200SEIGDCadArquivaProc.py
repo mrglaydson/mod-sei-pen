@@ -33,7 +33,7 @@ class Test0200SEIGDCadArquivaProc():
       return set(wh_now).difference(set(wh_then)).pop()
   
   def test_cadastrarProcessos(self):
-    self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI&infra_url=L3NlaS8=")
     self.driver.find_element(By.ID, "txtUsuario").click()
     self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivista01")
     self.driver.find_element(By.ID, "pwdSenha").click()

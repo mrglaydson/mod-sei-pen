@@ -25,7 +25,7 @@ class Test0270SEIGDDuplicaMassa2():
     self.driver.quit()
   
   def test_01CadastrarProcessosFlood1(self):
-    self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI&infra_url=L3NlaS8=")
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.ID, "txtUsuario")))
     self.driver.find_element(By.ID, "txtUsuario").click()
     self.driver.find_element(By.ID, "txtUsuario").send_keys("teste")

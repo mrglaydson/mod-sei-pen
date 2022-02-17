@@ -33,8 +33,8 @@ class Test01ConfigSEI():
   def test_unidadesArquivamento(self):
     # Test name: UnidadesArquivamento
     # Step # | name | target | value
-    # 1 | open | sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SEI&infra_url=L3NlaS8= | 
-    self.driver.get(os.environ["base_url"]+"//sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    # 1 | open | sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI&infra_url=L3NlaS8= | 
+    self.driver.get(os.environ["base_url"]+"//sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI&infra_url=L3NlaS8=")
     # 2 | waitForElementEditable | id=txtUsuario | 30000
     WebDriverWait(self.driver, 30).until(expected_conditions.element_to_be_clickable((By.ID, "txtUsuario")))
     # 3 | type | id=txtUsuario | teste
@@ -82,8 +82,8 @@ class Test01ConfigSEI():
   def test_enderecoUnidades(self):
     # Test name: EnderecoUnidades
     # Step # | name | target | value
-    # 1 | open | sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SEI&infra_url=L3NlaS8= | 
-    self.driver.get(os.environ["base_url"]+"//sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    # 1 | open | sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI&infra_url=L3NlaS8= | 
+    self.driver.get(os.environ["base_url"]+"//sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI&infra_url=L3NlaS8=")
     # 2 | waitForElementEditable | id=txtUsuario | 30000
     WebDriverWait(self.driver, 30).until(expected_conditions.element_to_be_clickable((By.ID, "txtUsuario")))
     # 3 | type | id=txtUsuario | teste

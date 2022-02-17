@@ -26,7 +26,7 @@ class Test0220SEIGDCadProcEventoInstAut():
     self.driver.quit()
   
   def test_cadastrarProcessosFlood(self):
-    self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SEI")
+    self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI")
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.ID, "txtUsuario")))
     self.driver.find_element(By.ID, "txtUsuario").click()
     self.driver.find_element(By.ID, "txtUsuario").send_keys("teste")

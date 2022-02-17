@@ -33,8 +33,8 @@ class Test05SEIGDAvaliacao():
   def test_0510Avaliacao(self):
     # Test name: 05.10-Avaliacao
     # Step # | name | target | value
-    # 1 | open | /sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SEI&infra_url=L3NlaS8= | 
-    self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    # 1 | open | /sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI&infra_url=L3NlaS8= | 
+    self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI&infra_url=L3NlaS8=")
     # 2 | click | id=divUsuario | 
     self.driver.find_element(By.ID, "divUsuario").click()
     # 3 | click | id=txtUsuario | 
@@ -85,8 +85,8 @@ class Test05SEIGDAvaliacao():
   def test_0520VerificaVolta(self):
     # Test name: 05.20-VerificaVolta
     # Step # | name | target | value
-    # 1 | open | /sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SEI&infra_url=L3NlaS8= | 
-    self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    # 1 | open | /sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI&infra_url=L3NlaS8= | 
+    self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI&infra_url=L3NlaS8=")
     # 2 | click | id=divUsuario | 
     self.driver.find_element(By.ID, "divUsuario").click()
     # 3 | click | id=txtUsuario | 
@@ -155,8 +155,8 @@ class Test05SEIGDAvaliacao():
   def test_0530VerificarRetorno(self):
     # Test name: 05.30-VerificarRetorno
     # Step # | name | target | value
-    # 1 | open | /sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SEI&infra_url=L3NlaS8= | 
-    self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    # 1 | open | /sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI&infra_url=L3NlaS8= | 
+    self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI&infra_url=L3NlaS8=")
     # 2 | click | id=divUsuario | 
     self.driver.find_element(By.ID, "divUsuario").click()
     # 3 | click | id=txtUsuario | 
@@ -181,8 +181,8 @@ class Test05SEIGDAvaliacao():
   def test_0540MandaListagemEliminacao(self):
     # Test name: 05.40-MandaListagemEliminacao
     # Step # | name | target | value
-    # 1 | open | /sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SEI&infra_url=L3NlaS8= | 
-    self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    # 1 | open | /sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI&infra_url=L3NlaS8= | 
+    self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI&infra_url=L3NlaS8=")
     # 2 | click | id=divUsuario | 
     self.driver.find_element(By.ID, "divUsuario").click()
     # 3 | click | id=txtUsuario | 
@@ -217,8 +217,8 @@ class Test05SEIGDAvaliacao():
   def test_0550MandaListagemEliminacao(self):
     # Test name: 05.50-MandaListagemEliminacao
     # Step # | name | target | value
-    # 1 | open | /sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SEI&infra_url=L3NlaS8= | 
-    self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    # 1 | open | /sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI&infra_url=L3NlaS8= | 
+    self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI&infra_url=L3NlaS8=")
     # 2 | click | id=divUsuario | 
     self.driver.find_element(By.ID, "divUsuario").click()
     # 3 | click | id=txtUsuario | 
@@ -295,8 +295,8 @@ class Test05SEIGDAvaliacao():
   def test_0560AlteraObservacao1(self):
     # Test name: 05.60-AlteraObservacao1
     # Step # | name | target | value
-    # 1 | open | /sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SEI&infra_url=L3NlaS8= | 
-    self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    # 1 | open | /sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI&infra_url=L3NlaS8= | 
+    self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI&infra_url=L3NlaS8=")
     # 2 | click | id=divUsuario | 
     self.driver.find_element(By.ID, "divUsuario").click()
     # 3 | click | id=txtUsuario | 
@@ -335,8 +335,8 @@ class Test05SEIGDAvaliacao():
   def test_0565AlteraObservacao2(self):
     # Test name: 05.65-AlteraObservacao2
     # Step # | name | target | value
-    # 1 | open | /sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SEI&infra_url=L3NlaS8= | 
-    self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    # 1 | open | /sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI&infra_url=L3NlaS8= | 
+    self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI&infra_url=L3NlaS8=")
     # 2 | click | id=divUsuario | 
     self.driver.find_element(By.ID, "divUsuario").click()
     # 3 | click | id=txtUsuario | 
@@ -373,8 +373,8 @@ class Test05SEIGDAvaliacao():
   def test_0570AlteraObservacao3(self):
     # Test name: 05.70-AlteraObservacao3
     # Step # | name | target | value
-    # 1 | open | /sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SEI&infra_url=L3NlaS8= | 
-    self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    # 1 | open | /sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI&infra_url=L3NlaS8= | 
+    self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI&infra_url=L3NlaS8=")
     # 2 | click | id=divUsuario | 
     self.driver.find_element(By.ID, "divUsuario").click()
     # 3 | click | id=txtUsuario | 
@@ -411,8 +411,8 @@ class Test05SEIGDAvaliacao():
   def test_0575AlteraObservacao3Conserta(self):
     # Test name: 05.75-AlteraObservacao3Conserta
     # Step # | name | target | value
-    # 1 | open | /sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SEI&infra_url=L3NlaS8= | 
-    self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    # 1 | open | /sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI&infra_url=L3NlaS8= | 
+    self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI&infra_url=L3NlaS8=")
     # 2 | click | id=divUsuario | 
     self.driver.find_element(By.ID, "divUsuario").click()
     # 3 | click | id=txtUsuario | 

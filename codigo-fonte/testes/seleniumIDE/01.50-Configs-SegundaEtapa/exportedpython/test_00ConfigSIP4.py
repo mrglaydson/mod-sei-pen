@@ -26,8 +26,8 @@ class Test00ConfigSIP():
   def test_sIPCriarMontarUnidades(self):
     # Test name: SIP-CriarMontarUnidades
     # Step # | name | target | value
-    # 1 | open | /sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SIP | 
-    self.driver.get(os.environ["base_url"]+"//sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SIP")
+    # 1 | open | /sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SIP | 
+    self.driver.get(os.environ["base_url"]+"//sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SIP")
     # 2 | store | ABC | orgaoSistema
     self.vars["orgaoSistema"] = "ABC"
     # 3 | type | id=txtUsuario | teste
