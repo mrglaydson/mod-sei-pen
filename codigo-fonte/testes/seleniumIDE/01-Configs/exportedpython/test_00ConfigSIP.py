@@ -91,7 +91,7 @@ class Test00ConfigSIP():
     self.driver.find_element(By.NAME, "sbmMontarPerfil").click()
   
   def test_sIPCriarMontarUnidades(self):
-    self.driver.get(os.environ["base_url"]+"//sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SIP")
+    self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SIP")
     self.driver.find_element(By.ID, "txtUsuario").send_keys("teste")
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("teste")
@@ -134,7 +134,7 @@ class Test00ConfigSIP():
     self.driver.find_element(By.NAME, "sbmCadastrarHierarquiaUnidade").click()
   
   def test_sIPCriarMontarUsers(self):
-    self.driver.get(os.environ["base_url"]+"//sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SIP")
+    self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SIP")
     self.driver.find_element(By.ID, "txtUsuario").send_keys("teste")
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("teste")
@@ -202,7 +202,7 @@ class Test00ConfigSIP():
     self.driver.find_element(By.NAME, "sbmCadastrarPermissao").click()
   
   def test_sIPCriarMontarUsers2(self):
-    self.driver.get(os.environ["base_url"]+"//sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SIP")
+    self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SIP")
     self.driver.find_element(By.ID, "txtUsuario").send_keys("teste")
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("teste")

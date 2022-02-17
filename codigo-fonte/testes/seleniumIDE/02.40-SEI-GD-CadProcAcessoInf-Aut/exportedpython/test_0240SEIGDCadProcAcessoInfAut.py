@@ -66,8 +66,6 @@ class Test0240SEIGDCadProcAcessoInfAut():
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".infraTd:nth-child(2)")))
     self.driver.find_element(By.CSS_SELECTOR, ".infraTd:nth-child(2)").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraTd:nth-child(2) > div").text == "teste.pdf"
-    self.driver.find_element(By.CSS_SELECTOR, "#divInfraBarraComandosInferior > #btnSalvar").click()
-    #WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.XPATH, "//img[@alt=\'Acompanhamento Especial\']")))
-    print(str("fim"))
-    print(str("fim2"))
-  
+    self.driver.find_element(By.XPATH, "//button[@id='btnSalvar']").click()
+    WebDriverWait(self.driver, 30).until(expected_conditions.presence_of_element_located((By.XPATH, "//iframe[@id='ifrArvore']")))
+    WebDriverWait(self.driver, 30).until(expected_conditions.presence_of_element_located((By.XPATH, "//iframe[@id='ifrVisualizacao']")))
