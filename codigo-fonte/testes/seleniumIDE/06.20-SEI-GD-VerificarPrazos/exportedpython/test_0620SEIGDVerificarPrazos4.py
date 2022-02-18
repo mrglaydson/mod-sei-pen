@@ -26,8 +26,8 @@ class Test0620SEIGDVerificarPrazos():
   def test_0620VerificarPrazosUnidadeTeste(self):
     # Test name: 06-20-VerificarPrazos-UnidadeTeste
     # Step # | name | target | value
-    # 1 | open | /sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SEI&infra_url=L3NlaS8= | 
-    self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    # 1 | open | /sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI&infra_url=L3NlaS8= | 
+    self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI&infra_url=L3NlaS8=")
     # 2 | type | id=txtUsuario | teste
     self.driver.find_element(By.ID, "txtUsuario").send_keys("teste")
     # 3 | type | id=pwdSenha | teste
@@ -63,8 +63,8 @@ class Test0620SEIGDVerificarPrazos():
   def test_0630VerificarPrazosUnidadeArquivo(self):
     # Test name: 06-30-VerificarPrazos-UnidadeArquivo
     # Step # | name | target | value
-    # 1 | open | /sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SEI&infra_url=L3NlaS8= | 
-    self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema=ABC&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    # 1 | open | /sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI&infra_url=L3NlaS8= | 
+    self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI&infra_url=L3NlaS8=")
     # 2 | type | id=txtUsuario | arquivista01
     self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivista01")
     # 3 | type | id=pwdSenha | arquivista01
