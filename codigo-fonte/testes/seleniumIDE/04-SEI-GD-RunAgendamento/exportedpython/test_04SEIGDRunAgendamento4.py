@@ -27,7 +27,7 @@ class Test04SEIGDRunAgendamento():
     # Test name: RunAgendamento
     # Step # | name | target | value
     # 1 | open | /sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI&infra_url=L3NlaS8= | 
-    self.driver.get(os.environ["base_url"]+"//sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI&infra_url=L3NlaS8=")
     # 2 | click | id=divUsuario | 
     self.driver.find_element(By.ID, "divUsuario").click()
     # 3 | click | id=txtUsuario | 

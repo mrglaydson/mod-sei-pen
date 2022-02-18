@@ -48,7 +48,7 @@ class Test05SEIGDAvaliacao():
     # 7 | click | id=Acessar | 
     self.driver.find_element(By.ID, "Acessar").click()
     # 8 | click | xpath=//ul[@id='main-menu']/li/a[text()="Gestão Documental"] | 
-    self.driver.find_element(By.XPATH, "//ul[@id=\'main-menu\']/li/a[text()=\"Gestão Documental\"]").click()
+    self.driver.find_element(By.XPATH, "//span[text()='Avaliação de Processos']/../../../../a").click()
     # 9 | click | linkText=Avaliação de Processos | 
     self.driver.find_element(By.LINK_TEXT, "Avaliação de Processos").click()
     # 10 | click | css=.infraCaption | 

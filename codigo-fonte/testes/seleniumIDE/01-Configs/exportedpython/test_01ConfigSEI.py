@@ -233,6 +233,10 @@ class Test01ConfigSEI():
     assert self.driver.find_element(By.XPATH, "//td[contains(.,\'desarq 02\')]").text == "desarq 02"
   
   def test_modelos(self):
+    #nao vamos matar os modelos por enquanto
+    return None
+
+
     self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI&infra_url=L3NlaS8=")
     WebDriverWait(self.driver, 30000).until(expected_conditions.element_to_be_clickable((By.ID, "txtUsuario")))
     self.driver.find_element(By.ID, "txtUsuario").send_keys("teste")
