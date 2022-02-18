@@ -22,7 +22,7 @@ class Test00ConfigSIP():
     self.vars = {}
   
   def teardown_method(self, method):
-    self.driver.quit()
+    self.vars = {}
   
   def test_sIPCriarMontarOrgao(self):
     self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SIP")
@@ -51,7 +51,7 @@ class Test00ConfigSIP():
     self.driver.find_element(By.ID, "pwdSenha").send_keys("teste")
     self.driver.find_element(By.ID, "selOrgao").click()
     dropdown = self.driver.find_element(By.ID, "selOrgao")
-    dropdown.find_element(By.XPATH, "//option[. = 'ABC']").click()
+    dropdown.find_element(By.XPATH, "//option[. = '"+os.environ["selOrgao"]+"']").click()
     self.driver.find_element(By.ID, "Acessar").click()
     self.driver.find_element(By.XPATH, "//ul[@id=\'infraMenu\']/li/a/span[contains(.,\'Unidades\')]").click()
     self.driver.find_element(By.LINK_TEXT, "Nova").click()
@@ -108,7 +108,7 @@ class Test00ConfigSIP():
     self.driver.find_element(By.ID, "pwdSenha").send_keys("teste")
     self.driver.find_element(By.ID, "selOrgao").click()
     dropdown = self.driver.find_element(By.ID, "selOrgao")
-    dropdown.find_element(By.XPATH, "//option[. = 'ABC']").click()
+    dropdown.find_element(By.XPATH, "//option[. = '"+os.environ["selOrgao"]+"']").click()
     self.driver.find_element(By.ID, "Acessar").click()
     self.driver.find_element(By.XPATH, "//ul[@id=\'infraMenu\']/li/a/span[contains(.,\'Usuários\')]").click()
     self.driver.find_element(By.LINK_TEXT, "Novo").click()
@@ -129,13 +129,13 @@ class Test00ConfigSIP():
     self.driver.find_element(By.ID, "pwdSenha").send_keys("teste")
     self.driver.find_element(By.ID, "selOrgao").click()
     dropdown = self.driver.find_element(By.ID, "selOrgao")
-    dropdown.find_element(By.XPATH, "//option[. = 'ABC']").click()
+    dropdown.find_element(By.XPATH, "//option[. = '"+os.environ["selOrgao"]+"']").click()
     self.driver.find_element(By.ID, "Acessar").click()
     self.driver.find_element(By.XPATH, "//ul[@id=\'infraMenu\']/li/a/span[contains(.,\'Permissões\')]").click()
     self.driver.find_element(By.LINK_TEXT, "Nova").click()
     self.driver.find_element(By.ID, "selOrgaoSistema").click()
     dropdown = self.driver.find_element(By.ID, "selOrgaoSistema")
-    dropdown.find_element(By.XPATH, "//option[. = 'ABC']").click()
+    dropdown.find_element(By.XPATH, "//option[. = '"+os.environ["selOrgao"]+"']").click()
     self.driver.find_element(By.ID, "selOrgaoSistema").click()
     dropdown = self.driver.find_element(By.ID, "selSistema")
     dropdown.find_element(By.XPATH, "//option[. = 'SEI']").click()
