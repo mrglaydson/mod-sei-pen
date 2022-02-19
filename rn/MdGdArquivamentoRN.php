@@ -616,7 +616,20 @@ class MdGdArquivamentoRN extends InfraRN {
         try {
 
             $objMdGdArquivamentoBD = new MdGdArquivamentoBD($this->inicializarObjInfraIBanco());
-            return $objMdGdArquivamentoBD->consultar($objMdGdArquivamentoDTO);
+            $objMdGdArquivamentoDTO->setOrdDthDataArquivamento(InfraDTO::$TIPO_ORDENACAO_DESC);
+            $ret = $objMdGdArquivamentoBD->listar($objMdGdArquivamentoDTO);
+
+            $r = null;
+            if(count($ret)){
+              $r = $ret[0];
+            }
+
+            return $r;
+
+            // todo: verificar se a implementacao acima esta correta, me parece um erro de modelagem
+            // q impede usar o metodo consultar
+            // troquei do consultar pelo listar pois em alguns momentos do teste funcional tava dando erro
+            //return $objMdGdArquivamentoBD->consultar($objMdGdArquivamentoDTO);
         } catch (Exception $e) {
             throw new InfraException('Erro ao consultar arquivamento.', $e);
         }

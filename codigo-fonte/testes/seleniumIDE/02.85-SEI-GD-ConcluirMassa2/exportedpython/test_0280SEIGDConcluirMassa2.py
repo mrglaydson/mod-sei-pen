@@ -24,7 +24,7 @@ class Test0280SEIGDConcluirMassa2():
     self.driver.quit()
   
   def test_02Concluir(self):
-    self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SIP")
+    self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI")
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.ID, "txtUsuario")))
     self.driver.find_element(By.ID, "txtUsuario").click()
     self.driver.find_element(By.ID, "txtUsuario").send_keys("teste")
@@ -39,8 +39,8 @@ class Test0280SEIGDConcluirMassa2():
     self.driver.find_element(By.XPATH, "//td[contains(.,\'Unidade de Testes 1.1\')]").click()
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.ID, "imgGeradosCheck")))
     self.driver.find_element(By.ID, "imgGeradosCheck").click()
-    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//*[@id=\"divComandos\"]/a[6]")))
-    self.driver.find_element(By.XPATH, "//*[@id=\"divComandos\"]/a[6]").click()
-    time.sleep(0.002)
+    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//*[@alt='Concluir Processo nesta Unidade']/..")))
+    self.driver.find_element(By.XPATH, "//*[@alt='Concluir Processo nesta Unidade']/..").click()
+    time.sleep(2)
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//*[@id=\"divInfraBarraLocalizacao\"]")))
   

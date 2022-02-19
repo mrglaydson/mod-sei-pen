@@ -27,7 +27,7 @@ class Test00ConfigSIP():
     # Test name: SIP-CriarMontarUnidades
     # Step # | name | target | value
     # 1 | open | /sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SIP | 
-    self.driver.get(os.environ["base_url"]+"//sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SIP")
+    self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SIP")
     # 2 | store | ABC | orgaoSistema
     self.vars["orgaoSistema"] = "ABC"
     # 3 | type | id=txtUsuario | teste
@@ -44,7 +44,7 @@ class Test00ConfigSIP():
     self.driver.find_element(By.LINK_TEXT, "Nova").click()
     # 9 | select | id=selOrgao | label=${orgaoSistema}
     dropdown = self.driver.find_element(By.ID, "selOrgao")
-    dropdown.find_element(By.XPATH, "//option[. = '{}']".format(self.vars["orgaoSistema"])).click()
+    dropdown.find_element(By.XPATH, "//option[. = '"+os.environ["selOrgao"]+"']").click()
     # 10 | click | id=selOrgao | 
     self.driver.find_element(By.ID, "selOrgao").click()
     # 11 | waitForElementEditable | id=txtSigla | 30000

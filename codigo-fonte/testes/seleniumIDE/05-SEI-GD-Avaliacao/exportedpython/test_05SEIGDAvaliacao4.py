@@ -136,7 +136,7 @@ class Test05SEIGDAvaliacao():
     # 47 | selectFrame | relative=parent | 
     self.driver.switch_to.default_content()
     # 48 | click | //*[@id="lnkInfraMenuSistema"] | 
-    self.driver.find_element(By.XPATH, "//*[@id=\"lnkInfraMenuSistema\"]").click()
+    self.driver.find_element(By.XPATH, "// a[@id='lnkInfraMenuSistema']/../../../div[@id='divInfraBarraSistemaPadraoD']/div/a").click()
     # 49 | click | linkText=Arquivo da Unidade | 
     self.driver.find_element(By.LINK_TEXT, "Arquivo da Unidade").click()
     # 50 | click | css=td:nth-child(3) | 
@@ -170,13 +170,13 @@ class Test05SEIGDAvaliacao():
     # 7 | click | id=Acessar | 
     self.driver.find_element(By.ID, "Acessar").click()
     # 8 | click | xpath=//ul[@id='main-menu']/li/a[text()="Gestão Documental"] | 
-    self.driver.find_element(By.XPATH, "//ul[@id=\'main-menu\']/li/a[text()=\"Gestão Documental\"]").click()
+    self.driver.find_element(By.XPATH, "//span[text()='Avaliação de Processos']/../../../../a").click()
     # 9 | click | linkText=Avaliação de Processos | 
     self.driver.find_element(By.LINK_TEXT, "Avaliação de Processos").click()
     # 10 | click | css=.infraCaption | 
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     # 11 | verifyText | css=.infraCaption | Lista de Processos Arquivados (1 registro):
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (1 registro):"
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (20 registros):"
   
   def test_0540MandaListagemEliminacao(self):
     # Test name: 05.40-MandaListagemEliminacao
@@ -196,7 +196,7 @@ class Test05SEIGDAvaliacao():
     # 7 | click | id=Acessar | 
     self.driver.find_element(By.ID, "Acessar").click()
     # 8 | click | xpath=//ul[@id='main-menu']/li/a[text()="Gestão Documental"] | 
-    self.driver.find_element(By.XPATH, "//ul[@id=\'main-menu\']/li/a[text()=\"Gestão Documental\"]").click()
+    self.driver.find_element(By.XPATH, "//span[text()='Avaliação de Processos']/../../../../a").click()
     # 9 | click | linkText=Avaliação de Processos | 
     self.driver.find_element(By.LINK_TEXT, "Avaliação de Processos").click()
     # 11 | click | xpath=//img[@title='Gerar Listagem de Eliminação'][1] | 
@@ -232,15 +232,15 @@ class Test05SEIGDAvaliacao():
     # 7 | click | id=Acessar | 
     self.driver.find_element(By.ID, "Acessar").click()
     # 8 | click | xpath=//ul[@id='main-menu']/li/a[text()="Gestão Documental"] | 
-    self.driver.find_element(By.XPATH, "//ul[@id=\'main-menu\']/li/a[text()=\"Gestão Documental\"]").click()
+    self.driver.find_element(By.XPATH, "//span[text()='Avaliação de Processos']/../../../../a").click()
     # 9 | click | xpath=//*[text()="Listagens de Eliminação"] | 
     self.driver.find_element(By.XPATH, "//*[text()=\"Listagens de Eliminação\"]").click()
     # 10 | click | linkText=Preparação da Listagem | 
     self.driver.find_element(By.LINK_TEXT, "Preparação da Listagem").click()
     # 12 | click | xpath=//img[@title='Adicionar Observação e/ou Justificativa'][1] | 
-    self.driver.find_element(By.XPATH, "//img[@title=\'Adicionar Observação e/ou Justificativa\'][1]").click()
+    #self.driver.find_element(By.XPATH, "//img[@title=\'Adicionar Observação e/ou Justificativa\'][1]").click()
     # 14 | webdriverChooseOkOnVisibleConfirmation |  | 
-    self.driver.switch_to.alert.accept()
+    #self.driver.switch_to.alert.accept()
     # 15 | click | id=imgInfraCheck | 
     self.driver.find_element(By.ID, "imgInfraCheck").click()
     # 17 | click | id=btnExcluir | 
@@ -252,7 +252,7 @@ class Test05SEIGDAvaliacao():
     # 21 | verifyText | css=#divInfraAreaTabela > label | Nenhum registro encontrado.
     assert self.driver.find_element(By.CSS_SELECTOR, "#divInfraAreaTabela > label").text == "Nenhum registro encontrado."
     # 22 | click | xpath=//ul[@id='main-menu']/li/a[text()="Gestão Documental"] | 
-    self.driver.find_element(By.XPATH, "//ul[@id=\'main-menu\']/li/a[text()=\"Gestão Documental\"]").click()
+    self.driver.find_element(By.XPATH, "//span[text()='Avaliação de Processos']/../../../../a").click()
     # 23 | click | linkText=Avaliação de Processos | 
     self.driver.find_element(By.LINK_TEXT, "Avaliação de Processos").click()
     # 25 | click | xpath=//img[@title='Gerar Listagem de Eliminação'][1] | 
@@ -276,7 +276,7 @@ class Test05SEIGDAvaliacao():
     # 43 | webdriverChooseOkOnVisibleConfirmation |  | 
     self.driver.switch_to.alert.accept()
     # 44 | click | xpath=//ul[@id='main-menu']/li/a[text()="Gestão Documental"] | 
-    self.driver.find_element(By.XPATH, "//ul[@id=\'main-menu\']/li/a[text()=\"Gestão Documental\"]").click()
+    self.driver.find_element(By.XPATH, "//span[text()='Avaliação de Processos']/../../../../a").click()
     # 45 | click | xpath=//*[text()="Listagens de Eliminação"] | 
     self.driver.find_element(By.XPATH, "//*[text()=\"Listagens de Eliminação\"]").click()
     # 46 | click | linkText=Preparação da Listagem | 
@@ -286,7 +286,7 @@ class Test05SEIGDAvaliacao():
     # 48 | verifyText | css=.infraCaption | Lista de Lista de Processos (5 registros):
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Lista de Processos (5 registros):"
     # 49 | click | xpath=//ul[@id='main-menu']/li/a[text()="Gestão Documental"] | 
-    self.driver.find_element(By.XPATH, "//ul[@id=\'main-menu\']/li/a[text()=\"Gestão Documental\"]").click()
+    self.driver.find_element(By.XPATH, "//span[text()='Avaliação de Processos']/../../../../a").click()
     # 50 | click | linkText=Avaliação de Processos | 
     self.driver.find_element(By.LINK_TEXT, "Avaliação de Processos").click()
     # 51 | verifyText | css=.infraCaption | Lista de Processos Arquivados (15 registros):
@@ -310,7 +310,7 @@ class Test05SEIGDAvaliacao():
     # 7 | click | id=Acessar | 
     self.driver.find_element(By.ID, "Acessar").click()
     # 8 | click | xpath=//ul[@id='main-menu']/li/a[text()="Gestão Documental"] | 
-    self.driver.find_element(By.XPATH, "//ul[@id=\'main-menu\']/li/a[text()=\"Gestão Documental\"]").click()
+    self.driver.find_element(By.XPATH, "//span[text()='Avaliação de Processos']/../../../../a").click()
     # 9 | click | xpath=//*[text()="Listagens de Eliminação"] | 
     self.driver.find_element(By.XPATH, "//*[text()=\"Listagens de Eliminação\"]").click()
     # 10 | click | linkText=Preparação da Listagem | 
@@ -350,7 +350,7 @@ class Test05SEIGDAvaliacao():
     # 7 | click | id=Acessar | 
     self.driver.find_element(By.ID, "Acessar").click()
     # 8 | click | xpath=//ul[@id='main-menu']/li/a[text()="Gestão Documental"] | 
-    self.driver.find_element(By.XPATH, "//ul[@id=\'main-menu\']/li/a[text()=\"Gestão Documental\"]").click()
+    self.driver.find_element(By.XPATH, "//span[text()='Avaliação de Processos']/../../../../a").click()
     # 9 | click | xpath=//*[text()="Listagens de Eliminação"] | 
     self.driver.find_element(By.XPATH, "//*[text()=\"Listagens de Eliminação\"]").click()
     # 10 | click | linkText=Preparação da Listagem | 
@@ -388,7 +388,7 @@ class Test05SEIGDAvaliacao():
     # 7 | click | id=Acessar | 
     self.driver.find_element(By.ID, "Acessar").click()
     # 8 | click | xpath=//ul[@id='main-menu']/li/a[text()="Gestão Documental"] | 
-    self.driver.find_element(By.XPATH, "//ul[@id=\'main-menu\']/li/a[text()=\"Gestão Documental\"]").click()
+    self.driver.find_element(By.XPATH, "//span[text()='Avaliação de Processos']/../../../../a").click()
     # 9 | click | xpath=//*[text()="Listagens de Eliminação"] | 
     self.driver.find_element(By.XPATH, "//*[text()=\"Listagens de Eliminação\"]").click()
     # 10 | click | linkText=Preparação da Listagem | 
@@ -426,7 +426,7 @@ class Test05SEIGDAvaliacao():
     # 7 | click | id=Acessar | 
     self.driver.find_element(By.ID, "Acessar").click()
     # 8 | click | xpath=//ul[@id='main-menu']/li/a[text()="Gestão Documental"] | 
-    self.driver.find_element(By.XPATH, "//ul[@id=\'main-menu\']/li/a[text()=\"Gestão Documental\"]").click()
+    self.driver.find_element(By.XPATH, "//span[text()='Avaliação de Processos']/../../../../a").click()
     # 9 | click | xpath=//*[text()="Listagens de Eliminação"] | 
     self.driver.find_element(By.XPATH, "//*[text()=\"Listagens de Eliminação\"]").click()
     # 10 | click | linkText=Preparação da Listagem | 

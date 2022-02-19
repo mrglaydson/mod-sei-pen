@@ -34,7 +34,7 @@ class Test01ConfigSEI():
     # Test name: UnidadesArquivamento
     # Step # | name | target | value
     # 1 | open | sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI&infra_url=L3NlaS8= | 
-    self.driver.get(os.environ["base_url"]+"//sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI&infra_url=L3NlaS8=")
     # 2 | waitForElementEditable | id=txtUsuario | 30000
     WebDriverWait(self.driver, 30).until(expected_conditions.element_to_be_clickable((By.ID, "txtUsuario")))
     # 3 | type | id=txtUsuario | teste
@@ -83,7 +83,7 @@ class Test01ConfigSEI():
     # Test name: EnderecoUnidades
     # Step # | name | target | value
     # 1 | open | sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI&infra_url=L3NlaS8= | 
-    self.driver.get(os.environ["base_url"]+"//sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI&infra_url=L3NlaS8=")
     # 2 | waitForElementEditable | id=txtUsuario | 30000
     WebDriverWait(self.driver, 30).until(expected_conditions.element_to_be_clickable((By.ID, "txtUsuario")))
     # 3 | type | id=txtUsuario | teste
@@ -116,45 +116,30 @@ class Test01ConfigSEI():
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "(//img[@alt=\'Alterar Unidade\'])[3]")))
     # 17 | click | xpath=(//img[@alt='Alterar Unidade'])[3] | 
     self.driver.find_element(By.XPATH, "(//img[@alt=\'Alterar Unidade\'])[3]").click()
-    # 18 | click | id=imgAlterarContato | 
+
     self.vars["window_handles"] = self.driver.window_handles
-    # 19 | storeWindowHandle | root | 
     self.driver.find_element(By.ID, "imgAlterarContato").click()
-    # 20 | selectWindow | handle=${win4521} | 
-    self.vars["win4521"] = self.wait_for_window(2000)
-    # 21 | waitForElementEditable | id=txtEndereco | 30000
-    self.vars["root"] = self.driver.current_window_handle
-    # 22 | click | id=txtEndereco | 
-    self.driver.switch_to.window(self.vars["win4521"])
-    # 23 | type | id=txtEndereco | Endereco01
-    WebDriverWait(self.driver, 30).until(expected_conditions.element_to_be_clickable((By.ID, "txtEndereco")))
-    # 24 | select | id=selPais | label=Brasil
+    #self.vars["win4521"] = self.wait_for_window(2000)
+    #self.vars["root"] = self.driver.current_window_handle
+    #self.driver.switch_to.window(self.vars["win4521"])
+    self.driver.switch_to.frame(0)
+    WebDriverWait(self.driver, 30000).until(expected_conditions.element_to_be_clickable((By.ID, "txtEndereco")))
     self.driver.find_element(By.ID, "txtEndereco").click()
-    # 25 | click | id=selPais | 
     self.driver.find_element(By.ID, "txtEndereco").send_keys("Endereco01")
-    # 26 | select | id=selUf | label=DF
     dropdown = self.driver.find_element(By.ID, "selPais")
     dropdown.find_element(By.XPATH, "//option[. = 'Brasil']").click()
-    # 27 | click | id=selUf | 
     self.driver.find_element(By.ID, "selPais").click()
-    # 28 | select | id=selCidade | label=Brasília
     dropdown = self.driver.find_element(By.ID, "selUf")
     dropdown.find_element(By.XPATH, "//option[. = 'DF']").click()
-    # 29 | click | id=selCidade | 
     self.driver.find_element(By.ID, "selUf").click()
-    # 30 | click | id=txtCep | 
     dropdown = self.driver.find_element(By.ID, "selCidade")
     dropdown.find_element(By.XPATH, "//option[. = 'Brasília']").click()
-    # 31 | type | id=txtCep | 00000-000
     self.driver.find_element(By.ID, "selCidade").click()
-    # 32 | click | name=sbmAlterarContato | 
     self.driver.find_element(By.ID, "txtCep").click()
-    # 33 | pause | 2 | 
     self.driver.find_element(By.ID, "txtCep").send_keys("00000-000")
-    # 34 | selectWindow | handle=${root} | 
     self.driver.find_element(By.NAME, "sbmAlterarContato").click()
-    # 35 | pause | 2 | 
-    time.sleep(0.002)
-    self.driver.switch_to.window(self.vars["root"])
-    time.sleep(0.002)
+    time.sleep(2)
+    #self.driver.switch_to.window(self.vars["root"])
+    self.driver.switch_to.default_content()
+    time.sleep(2)
   
