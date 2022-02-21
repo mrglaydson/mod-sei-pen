@@ -10,6 +10,16 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
+###############################################################################################
+#
+# Conforme reunião com Fabio e Cadu em 21/02/2022 esse teste somente será executado
+# na segunda versão do módulo conforme venha a ser avaliado pela equipe do projeto.
+# Fabio informou que em conversas anteriores ficou acertado de não haver eleminação de processos
+# nesse momento, devendo a habilitação desta funcionalidade ser melhor avaliada posteriormente. 
+# Evanilto em 21/02/2022
+#
+#################################################################################################
+
 class Test09SEIGDEliminarProcsDocs():
   def setup_method(self, method):
     self.driver = webdriver.Remote(command_executor='http://seleniumhub:4444/wd/hub', desired_capabilities=DesiredCapabilities.CHROME)

@@ -7,6 +7,41 @@
     "id": "8e9baf2a-bdda-4d40-ab63-15741729ea68",
     "name": "09.10-EliminarProc",
     "commands": [{
+      "id": "03e61568-c849-4dd9-9435-955dbb7eb57a",
+      "comment": "",
+      "command": "",
+      "target": "INFORMAÇÃO IMPORTANTE:",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7e5b883d-a3ba-4fe2-8eb8-c028efed952b",
+      "comment": "",
+      "command": "",
+      "target": "Conforme reunião com Fabio e Cadu em 21/02/2022 esse teste somente será executado na segunda versão do módulo conforme venha a ser avaliado pela equipe do projeto.",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8517ebf2-ec10-47a3-be58-a7642f786224",
+      "comment": "",
+      "command": "",
+      "target": "Fabio informou que em conversas anteriores ficou acertado de não haver eleminação de processos nesse momento, devendo a habilitação desta funcionalidade ser melhor avaliada posteriormente. ",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "9be122bb-7272-440c-9e4f-a299f59b99ef",
+      "comment": "",
+      "command": "",
+      "target": "Evanilto em 21/02/2022",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1e84c30b-ac6e-4baa-8a9e-46c34a2aca0f",
+      "comment": "",
+      "command": "",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "278b88a4-e671-40cd-98f6-f22f009d3f0c",
       "comment": "",
       "command": "open",
