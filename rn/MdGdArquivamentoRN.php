@@ -214,13 +214,14 @@ class MdGdArquivamentoRN extends InfraRN {
             return $b['soma'] - $a['soma'];
         });
 
-
-        if($somaPrazos[0]['soma']<0){
-            $ultimoElemento=count($somaPrazos)-1;
-            return $somaPrazos[$ultimoElemento];
-
+        # Os que tem destinação ELIMINAÇÃO tem soma negativa e portanto se o primeiro item após uasort 
+        # é negativo todos são ELIMINAÇÃO e temos que devolver o menor valor negativo da soma.
+        # caso o primeiro valor seja positivo há alguma GUARDA PERMANENTE e é essa GUARDA PERMANENTE
+        # da maior soma que devemos devolver.
+        if($somaPrazos[array_key_first($somaPrazos)]['soma'] > 0){
+            return $somaPrazos[array_key_first($somaPrazos)];
         }else{
-            return $somaPrazos[0];
+            return $somaPrazos[array_key_last($somaPrazos)];
         }
 
         
