@@ -72,6 +72,7 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
 
             $objMdGdArquivamentoDTO=new MdGdArquivamentoDTO();
             $objMdGdArquivamentoDTO->retStrSituacao();
+            $objMdGdArquivamentoDTO->setStrSinAtivo('S');
             $objMdGdArquivamentoDTO->setDblIdProcedimento($objProcedimentoAPI->getIdProcedimento());
 
             $objMdGdArquivamentoRN = new MdGdArquivamentoRN();

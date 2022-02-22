@@ -123,7 +123,7 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
 ?>
     <div id="divGeral" class="infraAreaDados" style="height:60em;">
         <?
-        PaginaSEI::getInstance()->montarBarraComandosSuperior($arrComandos);
+        //PaginaSEI::getInstance()->montarBarraComandosSuperior($arrComandos);
         PaginaSEI::getInstance()->montarAreaTabela($strResultado, $numRegistros);
         PaginaSEI::getInstance()->montarAreaDebug();
         ?>
