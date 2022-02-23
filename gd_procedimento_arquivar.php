@@ -164,7 +164,7 @@ try {
                 $objRelProtocoloProtocoloRN = new RelProtocoloProtocoloRN();
                 $arrObjRelProtocoloProtocoloDTO = $objRelProtocoloProtocoloRN->listarRN0187($objRelProtocoloProtocoloDTO);
                 
-                if($arrObjAtividadeDTO) {
+                // if($arrObjAtividadeDTO) {
                     foreach($arrObjRelProtocoloProtocoloDTO as $objRelProtocoloProtocoloDTO) {
                         if($protocoloValidacao == $objRelProtocoloProtocoloDTO->getDblIdProtocolo1()) {
                             $arrProtocolosAnexos[$objRelProtocoloProtocoloDTO->getDblIdProtocolo1()] = $objRelProtocoloProtocoloDTO->getStrProtocoloFormatadoProtocolo1();
@@ -174,20 +174,19 @@ try {
                             $arrProtocolosAnexos[$objRelProtocoloProtocoloDTO->getDblIdProtocolo2()] = $objRelProtocoloProtocoloDTO->getStrProtocoloFormatadoProtocolo2();
                         }
                     }
-                }
+                // }
             }
 
             if($arrProtocolosAnexos) {
                 $strProtocolosAnexos = implode(', ', $arrProtocolosAnexos);
             }
-            
             // Remove os processos que possuem anexos e/ou estão abertos em mais de uma unidade
             // foreach($arrProtocolosAnexos as $k => $protocoloAnexo){
-                foreach($arrProtocolosOrigem as $x => $protocoloOrigem){
-                    if($protocoloOrigem == $k){
-                        unset($arrProtocolosOrigem[$x]);
-                    }
-                }
+            //     foreach($arrProtocolosOrigem as $x => $protocoloOrigem){
+            //         if($protocoloOrigem == $k){
+            //             unset($arrProtocolosOrigem[$x]);
+            //         }
+            //     }
             // }
 
 
