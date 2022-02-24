@@ -13,6 +13,7 @@ paralelizar(){
       
       pytest -x --tb=short seleniumIDE/$p/exportedpython/ &
       pids[$i]=$!
+      sleep 5
       
       i=$(($i+1))
   done
@@ -88,7 +89,7 @@ b=$(echo -n $a | tail -c 8)
 sudo date -s "2022-12-24 ${b}"
 sleep 5
 
-pytest -x --tb=short seleniumIDE/04-SEI-GD-RunAgendamento/exportedpython/test_04SEIGDRunAgendamento4.py
+pytest -x --tb=short seleniumIDE/04-SEI-GD-RunAgendamento/exportedpython
 
 pytest -x --tb=short seleniumIDE/03.10-SEI-GD-PendenciasArq/exportedpython
 
@@ -97,13 +98,12 @@ b=$(echo -n $a | tail -c 8)
 sudo date -s "2024-03-01  ${b}"
 sleep 5
 
-pytest -x --tb=short seleniumIDE/04-SEI-GD-RunAgendamento/exportedpython/test_04SEIGDRunAgendamento4.py
+pytest -x --tb=short seleniumIDE/04-SEI-GD-RunAgendamento/exportedpython/
 
 
-pytest -x --tb=short seleniumIDE/05-SEI-GD-Avaliacao/exportedpython/test_05SEIGDAvaliacao4.py
+pytest -x --tb=short seleniumIDE/05-SEI-GD-Avaliacao/exportedpython
 
-pytest -x --tb=short seleniumIDE/01.50-Configs-SegundaEtapa/exportedpython/test_00ConfigSIP4.py
-pytest -x --tb=short seleniumIDE/01.50-Configs-SegundaEtapa/exportedpython/test_01ConfigSEI4.py
+pytest -x --tb=short seleniumIDE/01.50-Configs-SegundaEtapa/exportedpython/
 
 pytest -x --tb=short seleniumIDE/06-SEI-GD-ListagemEliminacao/exportedpython
 
@@ -120,16 +120,16 @@ b=$(echo -n $a | tail -c 8)
 sudo date -s "2025-03-06 ${b}"
 sleep 5
 
-pytest -x --tb=short seleniumIDE/06.20-SEI-GD-VerificarPrazos/exportedpython/test_0620SEIGDVerificarPrazos4.py
+pytest -x --tb=short seleniumIDE/06.20-SEI-GD-VerificarPrazos/exportedpython/
 
 a=$(date | sed "s| -03||g")
 b=$(echo -n $a | tail -c 8)
 sudo date -s "2026-03-11 ${b}"
 sleep 5
 
-pytest -x --tb=short seleniumIDE/04-SEI-GD-RunAgendamento/exportedpython/test_04SEIGDRunAgendamento4.py
+pytest -x --tb=short seleniumIDE/04-SEI-GD-RunAgendamento/exportedpython/
 
-pytest -x --tb=short seleniumIDE/06.30-SEI-GD-VerificarPrazos/exportedpython/test_0630SEIGDVerificarPrazos4.py
+pytest -x --tb=short seleniumIDE/06.30-SEI-GD-VerificarPrazos/exportedpython/
 
 
 a=$(date | sed "s| -03||g")
@@ -137,7 +137,7 @@ b=$(echo -n $a | tail -c 8)
 sudo date -s "2036-12-22 ${b}"
 sleep 5
 
-pytest -x --tb=short seleniumIDE/04-SEI-GD-RunAgendamento/exportedpython/test_04SEIGDRunAgendamento4.py
+pytest -x --tb=short seleniumIDE/04-SEI-GD-RunAgendamento/exportedpython/
 
 
 pytest -x --tb=short seleniumIDE/07-SEI-GD-Avaliacao-Recolhimento/exportedpython/
@@ -157,7 +157,7 @@ b=$(echo -n $a | tail -c 8)
 sudo date -s "2037-12-22 ${b}"
 sleep 5
 
-pytest -x --tb=short seleniumIDE/04-SEI-GD-RunAgendamento/exportedpython/test_04SEIGDRunAgendamento4.py
+pytest -x --tb=short seleniumIDE/04-SEI-GD-RunAgendamento/exportedpython/
 
 pytest -x --tb=short seleniumIDE/11.01-SEI-GD-AvaliacaoMassa2/exportedpython/
 
@@ -173,7 +173,7 @@ pytest -x --tb=short seleniumIDE/01.60-ConfigMultiorgaos/exportedpython
 
 docker exec -it docker-compose_db_1 bash -c "mysql -proot -e \"update sip.orgao set sin_autenticar='N';\""
 
-pytest -x --tb=short seleniumIDE/17.00-Multiorgaos/exportedpython/test_1700Multiorgaos4.py
+pytest -x --tb=short seleniumIDE/17.00-Multiorgaos/exportedpython/
 
 pytest -x --tb=short seleniumIDE/18.00-Anexado/exportedpython
 
