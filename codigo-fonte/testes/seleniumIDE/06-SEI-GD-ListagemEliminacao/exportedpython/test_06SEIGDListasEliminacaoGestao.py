@@ -43,6 +43,7 @@ class Test06SEIGDListasEliminacaoGestao():
     self.driver.find_element(By.ID, "btnGerarListagem").click()
     self.driver.find_element(By.XPATH, "//span[contains(text(),'Listagens de Eliminação')]/../../../../a").click()
     self.driver.find_element(By.XPATH, "//span[contains(text(),'Listagens de Eliminação')]").click()
+    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.LINK_TEXT, "Gestão das Listagens")))
     self.driver.find_element(By.LINK_TEXT, "Gestão das Listagens").click()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Listagens de Eliminacao (2 registros):"

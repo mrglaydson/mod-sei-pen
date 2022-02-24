@@ -56,13 +56,16 @@ class Test1300ArquivamentoLegado():
     self.driver.find_element(By.ID, "selJustificativa").click()
     self.driver.find_element(By.XPATH, "//input[@id='chkSinLegado']/..").click()
     #self.vars["data"] = self.driver.execute_script("var d= new Date(); var m=((d.getMonth()+1)<10)?\'0\'+(d.getMonth()+1):(d.getMonth()+1); var di=(d.getDate()<10)?\'0\'+(d.getDate()):(d.getDate());  return di+\'/\'+m+\'/\'+(d.getFullYear());")
-    if ("LOCAL" == os.environ["local_do_teste"]):
-        d  = datetime.date.today() + datetime.timedelta(days=-800)
-    else:
-        d = datetime.date.today()
-    d = d.strftime("%d/%m/%Y")
-    self.vars["data"] = d
+    #if ("LOCAL" == os.environ["local_do_teste"]):
+    #    d  = datetime.date.today() + datetime.timedelta(days=-800)
+    #else:
+    #    d = datetime.date.today()
+    #d = d.strftime("%d/%m/%Y")
+    #self.vars["data"] = d
 
+    # por conta do bug do mysql que nao vai alem de 2037, temos q iniciar o teste numa data fixa e nao mais na data atual
+    self.vars["data"] = "22/12/2021"
+    
     self.driver.find_element(By.ID, "txtDataArquivamento").click()
     self.driver.find_element(By.ID, "txtDataArquivamento").send_keys(self.vars["data"])
 

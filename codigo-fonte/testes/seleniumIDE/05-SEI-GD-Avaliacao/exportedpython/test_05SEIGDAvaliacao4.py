@@ -104,7 +104,7 @@ class Test05SEIGDAvaliacao():
     # 10 | verifyText | css=b | Devolvido para correção
     assert self.driver.find_element(By.CSS_SELECTOR, "b").text == "Devolvido para correção"
     # 12 | verifyText | linkText=99993.000001/2022-08 | 99993.000001/2022-08
-    assert self.driver.find_element(By.LINK_TEXT, "99993.000001/2022-08").text == "99993.000001/2022-08"
+    assert self.driver.find_element(By.XPATH, "//a[contains(., '99993.000001' )]").text.find("99993.000001") > -1 
     # 14 | click | xpath=//img[@title='Editar Processo'] | 
     self.driver.find_element(By.XPATH, "//img[@title=\'Editar Processo\']").click()
     # 17 | webdriverChooseOkOnVisibleConfirmation |  | 
@@ -112,11 +112,11 @@ class Test05SEIGDAvaliacao():
     # 18 | click | linkText=Controle de Processos | 
     self.driver.find_element(By.LINK_TEXT, "Controle de Processos").click()
     # 19 | mouseOver | linkText=99993.000001/2022-08 | 
-    element = self.driver.find_element(By.LINK_TEXT, "99993.000001/2022-08")
+    element = self.driver.find_element(By.XPATH, "//a[contains(., '99993.000001' )]")
     actions = ActionChains(self.driver)
     actions.move_to_element(element).perform()
     # 20 | click | linkText=99993.000001/2022-08 | 
-    self.driver.find_element(By.LINK_TEXT, "99993.000001/2022-08").click()
+    self.driver.find_element(By.XPATH, "//a[contains(., '99993.000001' )]").click()
     # 21 | selectFrame | index=1 | 
     self.driver.switch_to.frame(1)
     # 22 | waitForElementVisible | xpath=//img[@alt='Consultar/Alterar Processo'] | 30000
@@ -174,6 +174,11 @@ class Test05SEIGDAvaliacao():
     # 9 | click | linkText=Avaliação de Processos | 
     self.driver.find_element(By.LINK_TEXT, "Avaliação de Processos").click()
     # 10 | click | css=.infraCaption | 
+    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//button[@id='sbmPesquisar']")))
+    self.driver.find_element(By.XPATH, "//button[@id='sbmPesquisar']").click()
+    
+    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".infraCaption")))
+    
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     # 11 | verifyText | css=.infraCaption | Lista de Processos Arquivados (1 registro):
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (20 registros):"
@@ -280,7 +285,8 @@ class Test05SEIGDAvaliacao():
     # 45 | click | xpath=//*[text()="Listagens de Eliminação"] | 
     self.driver.find_element(By.XPATH, "//*[text()=\"Listagens de Eliminação\"]").click()
     # 46 | click | linkText=Preparação da Listagem | 
-    self.driver.find_element(By.LINK_TEXT, "Preparação da Listagem").click()
+    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//span[. = 'Preparação da Listagem']")))    
+    self.driver.find_element(By.XPATH, "//span[. = 'Preparação da Listagem' ]").click()
     # 47 | click | css=.infraCaption | 
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     # 48 | verifyText | css=.infraCaption | Lista de Lista de Processos (5 registros):
@@ -290,6 +296,9 @@ class Test05SEIGDAvaliacao():
     # 50 | click | linkText=Avaliação de Processos | 
     self.driver.find_element(By.LINK_TEXT, "Avaliação de Processos").click()
     # 51 | verifyText | css=.infraCaption | Lista de Processos Arquivados (15 registros):
+    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//button[@id='sbmPesquisar']")))
+    self.driver.find_element(By.XPATH, "//button[@id='sbmPesquisar']").click()
+    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".infraCaption")))
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (15 registros):"
   
   def test_0560AlteraObservacao1(self):

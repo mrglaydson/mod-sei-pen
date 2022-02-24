@@ -17,12 +17,12 @@ class Test00ConfigSIP():
         self.driver = webdriver.Chrome()
     else:
         self.driver = webdriver.Remote(command_executor='http://seleniumhub:4444/wd/hub', desired_capabilities=DesiredCapabilities.CHROME)
-    self.driver.maximize_window()
+    #self.driver.maximize_window()
     self.driver.implicitly_wait(10)
     self.vars = {}
   
   def teardown_method(self, method):
-    self.vars = {}
+    self.driver.quit()
   
   def test_sIPCriarMontarOrgao(self):
     self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SIP")
@@ -120,7 +120,7 @@ class Test00ConfigSIP():
     self.driver.find_element(By.ID, "txtNome").click()
     self.driver.find_element(By.ID, "txtNome").send_keys("ArquivistaOrg2")
     self.driver.find_element(By.NAME, "sbmCadastrarUsuario").click()
-    time.sleep(0.005)
+    time.sleep(2)
   
   def test_sIPCriarMontarUsers2(self):
     self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SIP")
@@ -135,7 +135,7 @@ class Test00ConfigSIP():
     self.driver.find_element(By.LINK_TEXT, "Nova").click()
     self.driver.find_element(By.ID, "selOrgaoSistema").click()
     dropdown = self.driver.find_element(By.ID, "selOrgaoSistema")
-    dropdown.find_element(By.XPATH, "//option[. = '"+os.environ["selOrgao"]+"']").click()
+    dropdown.find_element(By.XPATH, "//option[. = 'ME']").click()
     self.driver.find_element(By.ID, "selOrgaoSistema").click()
     dropdown = self.driver.find_element(By.ID, "selSistema")
     dropdown.find_element(By.XPATH, "//option[. = 'SEI']").click()
@@ -145,12 +145,12 @@ class Test00ConfigSIP():
     dropdown = self.driver.find_element(By.ID, "selOrgaoUnidade")
     dropdown.find_element(By.XPATH, "//option[. = 'Org2']").click()
     self.driver.find_element(By.ID, "selOrgaoUnidade").click()
-    print("un")
+    
     WebDriverWait(self.driver, 30).until(expected_conditions.element_to_be_clickable((By.ID, "selUnidade")))
     self.driver.find_element(By.ID, "selUnidade").click()
     dropdown = self.driver.find_element(By.ID, "selUnidade")
     dropdown.find_element(By.XPATH, "//option[. = 'ArquivoOrg2']").click()
-    print("un2")
+    
     self.driver.find_element(By.ID, "selOrgaoUsuario").click()
     dropdown = self.driver.find_element(By.ID, "selOrgaoUsuario")
     dropdown.find_element(By.CSS_SELECTOR, "*[value='1']").click()
@@ -173,5 +173,5 @@ class Test00ConfigSIP():
     dropdown.find_element(By.XPATH, "//option[. = 'PerfilArquivistaBasico']").click()
     print("un4")
     self.driver.find_element(By.NAME, "sbmCadastrarPermissao").click()
-    time.sleep(0.005)
+    time.sleep(2)
   

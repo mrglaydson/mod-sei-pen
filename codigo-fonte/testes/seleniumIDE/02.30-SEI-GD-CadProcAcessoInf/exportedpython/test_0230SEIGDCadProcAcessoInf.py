@@ -17,7 +17,7 @@ class Test0230SEIGDCadProcAcessoInf():
         self.driver = webdriver.Chrome()
     else:
         self.driver = webdriver.Remote(command_executor='http://seleniumhub:4444/wd/hub', desired_capabilities=DesiredCapabilities.CHROME)
-    self.driver.maximize_window()
+    #self.driver.maximize_window()
     self.driver.implicitly_wait(10)    
     self.vars = {}
   
@@ -25,7 +25,7 @@ class Test0230SEIGDCadProcAcessoInf():
     self.driver.quit()
   
   def wait_for_window(self, timeout = 2):
-    time.sleep(round(timeout / 1000))
+    #time.sleep(round(timeout / 1000))
     wh_now = self.driver.window_handles
     wh_then = self.vars["window_handles"]
     if len(wh_now) > len(wh_then):
@@ -57,15 +57,15 @@ class Test0230SEIGDCadProcAcessoInf():
     time.sleep(2)
     self.driver.switch_to.default_content()
     self.driver.switch_to.frame(1)
-    WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.XPATH, "//*[@id='divArvoreAcoes']/a[1]")))
+    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//*[@id='divArvoreAcoes']/a[1]")))
     self.driver.find_element(By.XPATH, "//*[@id='divArvoreAcoes']/a[1]").click()
-    WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.LINK_TEXT, "Despacho")))
+    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.LINK_TEXT, "Despacho")))
     self.driver.find_element(By.LINK_TEXT, "Despacho").click()
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, "#divOptPublico .infraRadioLabel")))
     self.driver.find_element(By.CSS_SELECTOR, "#divOptPublico .infraRadioLabel").click()
     self.vars["window_handles"] = self.driver.window_handles
     self.driver.find_element(By.ID, "btnSalvar").click()
-    self.vars["win7338"] = self.wait_for_window(2000)
+    self.vars["win7338"] = self.wait_for_window(2)
     self.vars["root"] = self.driver.current_window_handle
     self.driver.switch_to.window(self.vars["win7338"])
     self.driver.close()

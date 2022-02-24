@@ -34,22 +34,27 @@ class Test0620SEIGDVerificarPrazos():
     self.driver.find_element(By.ID, "pwdSenha").send_keys("teste")
     # 4 | click | id=Acessar | 
     self.driver.find_element(By.ID, "Acessar").click()
+    
+    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".d-none #lnkInfraUnidade")))
+    self.driver.find_element(By.CSS_SELECTOR, ".d-none #lnkInfraUnidade").click()
+    self.driver.find_element(By.XPATH, "//td[text()='Unidade de Teste 1']").click()
+    
     # 5 | click | linkText=TESTE | 
-    self.driver.find_element(By.LINK_TEXT, "TESTE").click()
+    #self.driver.find_element(By.LINK_TEXT, "TESTE").click()
     # 6 | waitForElementVisible | //*[@id="divInfraAreaTabela"]/table | 30000
-    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table")))
+    #WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table")))
     # 7 | click | id=txtInfraSiglaUnidade | 
-    self.driver.find_element(By.ID, "txtInfraSiglaUnidade").click()
+    #self.driver.find_element(By.ID, "txtInfraSiglaUnidade").click()
     # 8 | type | id=txtInfraSiglaUnidade | TESTE
-    self.driver.find_element(By.ID, "txtInfraSiglaUnidade").send_keys("TESTE")
+    #self.driver.find_element(By.ID, "txtInfraSiglaUnidade").send_keys("TESTE")
     # 9 | click | id=sbmPesquisar | 
-    self.driver.find_element(By.ID, "sbmPesquisar").click()
+    #self.driver.find_element(By.ID, "sbmPesquisar").click()
     # 10 | waitForElementVisible | //*[@id="divInfraAreaTabela"]/table | 30000
-    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table")))
+    #WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table")))
     # 11 | click | xpath=//tr[2]/td/div/label | 
-    self.driver.find_element(By.XPATH, "//tr[2]/td/div/label").click()
+    #self.driver.find_element(By.XPATH, "//tr[2]/td/div/label").click()
     # 12 | click | linkText=TESTE | 
-    self.driver.find_element(By.LINK_TEXT, "TESTE").click()
+    #self.driver.find_element(By.LINK_TEXT, "TESTE").click()
     # 13 | click | linkText=Arquivo da Unidade | 
     self.driver.find_element(By.LINK_TEXT, "Arquivo da Unidade").click()
     # 14 | waitForElementVisible | //td[contains(.,'Prazo expirado!')] | 30000

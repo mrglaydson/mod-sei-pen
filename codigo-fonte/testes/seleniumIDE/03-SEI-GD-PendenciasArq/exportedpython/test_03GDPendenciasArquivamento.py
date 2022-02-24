@@ -17,7 +17,7 @@ class Test03GDPendenciasArquivamento():
         self.driver = webdriver.Chrome()
     else:
         self.driver = webdriver.Remote(command_executor='http://seleniumhub:4444/wd/hub', desired_capabilities=DesiredCapabilities.CHROME)
-    self.driver.maximize_window()
+    #self.driver.maximize_window()
     self.driver.implicitly_wait(5)
     self.vars = {}
   
@@ -239,7 +239,7 @@ class Test03GDPendenciasArquivamento():
     WebDriverWait(self.driver, 180000).until(expected_conditions.presence_of_element_located((By.CSS_SELECTOR, ".infraCaption")))
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Pendências de Arquivamento (13 registros):"
-  
+
   def test_090PendenciasArquivamentoArquivarUnico(self):
     self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI&infra_url=L3NlaS8=")
     self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivista01")

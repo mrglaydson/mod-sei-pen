@@ -17,12 +17,12 @@ class Test01ConfigSEI():
         self.driver = webdriver.Chrome()
     else:
         self.driver = webdriver.Remote(command_executor='http://seleniumhub:4444/wd/hub', desired_capabilities=DesiredCapabilities.CHROME)
-    self.driver.maximize_window()
+    #self.driver.maximize_window()
     self.driver.implicitly_wait(10)
     self.vars = {}
   
   def teardown_method(self, method):
-    self.vars = {}
+    self.driver.quit()
   
   def test_orgaos(self):
     self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI")
@@ -37,6 +37,8 @@ class Test01ConfigSEI():
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".d-none #lnkInfraUnidade")))
     self.driver.find_element(By.CSS_SELECTOR, ".d-none #lnkInfraUnidade").click()
     self.driver.find_element(By.XPATH, "//td[contains(.,\'Unidade de Testes 1.2\')]").click()
+    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//span[text()='Controle de Processos']/..")))
+    self.driver.find_element(By.XPATH, "//span[text()='Controle de Processos']/..").click()    
     self.driver.find_element(By.CSS_SELECTOR, ".d-none #lnkInfraUnidade").click()
     self.driver.find_element(By.XPATH, "//td[contains(.,\'Unidade de Teste 1\')]").click()
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.LINK_TEXT, "Administração")))
@@ -112,7 +114,12 @@ class Test01ConfigSEI():
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.LINK_TEXT, "Administração")))
     self.driver.find_element(By.LINK_TEXT, "Administração").click()
     self.driver.find_element(By.LINK_TEXT, "Assinaturas das Unidades").click()
-    self.driver.find_element(By.XPATH, "(//img[@alt=\'Alterar Assinatura\'])[4]").click()
+    
+    self.driver.find_element(By.XPATH, "//button[@id='btnAdicionar']").click()
+    self.driver.find_element(By.XPATH, "//input[@id='txtCargoFuncao']").send_keys("Assessor(a)")
+    dropdown = self.driver.find_element(By.ID, "selOrgao")
+    dropdown.find_element(By.XPATH, "//option[. = 'Org2']").click()
+    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//input[@id='txtUnidade']")))
     self.driver.find_element(By.ID, "txtUnidade").click()
     self.driver.find_element(By.ID, "txtUnidade").send_keys("ArquivoOrg2")
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, "#divInfraAjaxtxtUnidade li:nth-child(1) > a")))
@@ -123,7 +130,9 @@ class Test01ConfigSEI():
     actions = ActionChains(self.driver)
     actions.move_to_element(element).release().perform()
     self.driver.find_element(By.CSS_SELECTOR, "body").click()
-    self.driver.find_element(By.NAME, "sbmAlterarAssinante").click()
+    time.sleep(1)
+    self.driver.find_element(By.NAME, "sbmCadastrarAssinante").click()
+
   
   def test_unidadesArquivamento(self):
     self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI")

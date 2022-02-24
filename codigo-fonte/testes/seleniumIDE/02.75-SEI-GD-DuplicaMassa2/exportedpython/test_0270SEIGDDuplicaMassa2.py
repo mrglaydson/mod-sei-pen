@@ -17,7 +17,7 @@ class Test0270SEIGDDuplicaMassa2():
         self.driver = webdriver.Chrome()
     else:
         self.driver = webdriver.Remote(command_executor='http://seleniumhub:4444/wd/hub', desired_capabilities=DesiredCapabilities.CHROME)
-    self.driver.maximize_window()
+    #self.driver.maximize_window()
     self.driver.implicitly_wait(5)
     self.vars = {}
   
@@ -33,12 +33,18 @@ class Test0270SEIGDDuplicaMassa2():
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("teste")
     self.driver.find_element(By.ID, "Acessar").click()
+    
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".d-none #lnkInfraUnidade")))
-    self.driver.find_element(By.CSS_SELECTOR, ".d-none #lnkInfraUnidade").click()
-    self.driver.find_element(By.XPATH, "//td[contains(.,\'Unidade de Testes 1.2\')]").click()
-    time.sleep(1)
-    self.driver.find_element(By.CSS_SELECTOR, ".d-none #lnkInfraUnidade").click()
-    self.driver.find_element(By.XPATH, "//td[contains(.,\'Unidade de Testes 1.1\')]").click()
+    
+    e = self.driver.find_element(By.XPATH, "//div[@id='divInfraBarraSistemaPadraoD']/div/div/a[@title='Unidade de Testes 1.1']")
+    
+    if( e is None ):
+        self.driver.find_element(By.CSS_SELECTOR, ".d-none #lnkInfraUnidade").click()
+        self.driver.find_element(By.XPATH, "//td[contains(.,\'Unidade de Testes 1.2\')]").click()
+        time.sleep(1)
+        self.driver.find_element(By.CSS_SELECTOR, ".d-none #lnkInfraUnidade").click()
+        self.driver.find_element(By.XPATH, "//td[contains(.,\'Unidade de Testes 1.1\')]").click()
+    
     WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.XPATH, "//a[contains(text(),\'9999\')][1]")))
     self.driver.find_element(By.XPATH, "//a[contains(text(),\'9999\')][1]").click()
     for i in range(0, 5):

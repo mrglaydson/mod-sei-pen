@@ -41,7 +41,7 @@ class Test1101SEIGDAvaliacaoMassa2():
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (32 registros):"
     for i in range(0, 15):
       self.driver.find_element(By.ID, "divInfraAreaDados").click()
-      self.driver.find_element(By.XPATH, "//img[@title=\'Enviar para Recolhimento\']").click()
+      self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[9]/a[1]").click()
       self.driver.switch_to.alert.accept()
       WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//*[@id=\"divInfraBarraLocalizacao\"]")))
       assert self.driver.find_element(By.ID, "divInfraBarraLocalizacao").text == "Avaliação de Processos"

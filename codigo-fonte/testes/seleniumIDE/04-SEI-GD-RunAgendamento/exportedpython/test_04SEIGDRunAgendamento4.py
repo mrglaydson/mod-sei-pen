@@ -44,6 +44,7 @@ class Test04SEIGDRunAgendamento():
     self.driver.find_element(By.XPATH, "//a[contains(.,\'Infra\')]").click()
     # 9 | click | linkText=Agendamentos | 
     self.driver.find_element(By.LINK_TEXT, "Agendamentos").click()
+    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[contains(.,\'MdGdAgendamentoRN :: verificarTempoGuarda\')]//td[7]/a[2]")))
     # 11 | click | xpath=//div[@id='divInfraAreaTabela']/table/tbody/tr[contains(.,'MdGdAgendamentoRN :: verificarTempoGuarda')]//td[7]/a[2] | 
     self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[contains(.,\'MdGdAgendamentoRN :: verificarTempoGuarda\')]//td[7]/a[2]").click()
     # 12 | webdriverChooseOkOnVisibleConfirmation |  | 

@@ -18,7 +18,7 @@ class Test0240SEIGDCadProcAcessoInfAut():
         self.driver = webdriver.Chrome()
     else:
         self.driver = webdriver.Remote(command_executor='http://seleniumhub:4444/wd/hub', desired_capabilities=DesiredCapabilities.CHROME)
-    self.driver.maximize_window()
+    #self.driver.maximize_window()
     self.driver.implicitly_wait(10)
     self.vars = {}
   
@@ -68,5 +68,8 @@ class Test0240SEIGDCadProcAcessoInfAut():
     self.driver.find_element(By.CSS_SELECTOR, ".infraTd:nth-child(2)").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraTd:nth-child(2) > div").text == "teste.pdf"
     self.driver.find_element(By.XPATH, "//button[@id='btnSalvar']").click()
+    time.sleep(2)
+    self.driver.switch_to.frame(0)
+    self.driver.switch_to.default_content()
     WebDriverWait(self.driver, 30).until(expected_conditions.presence_of_element_located((By.XPATH, "//iframe[@id='ifrArvore']")))
     WebDriverWait(self.driver, 30).until(expected_conditions.presence_of_element_located((By.XPATH, "//iframe[@id='ifrVisualizacao']")))

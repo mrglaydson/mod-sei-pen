@@ -31,7 +31,7 @@ class Test1100SEIGDAvaliacaoMassa():
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista02")
     self.driver.find_element(By.ID, "Acessar").click()
-    self.driver.find_element(By.LINK_TEXT, "Gestão Documental").click()
+    self.driver.find_element(By.XPATH, "//span[text()='Avaliação de Processos']/../../../../a").click()
     self.driver.find_element(By.LINK_TEXT, "Avaliação de Processos").click()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (91 registros - 1 a 50):"
@@ -100,7 +100,7 @@ class Test1100SEIGDAvaliacaoMassa():
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (91 registros - 1 a 50):"
     dropdown = self.driver.find_element(By.ID, "selAssunto")
-    dropdown.find_element(By.XPATH, "//option[. = '019.113 - ELABORAÇÃO DE CAMPANHAS PUBLICITÁRIAS (campanhas institucionais, filmes, propagandas e à produção de material ...']").click()
+    dropdown.find_element(By.XPATH, "//option[. = '012.3 - CAMPANHAS INSTITUCIONAIS. PUBLICIDADE (inclusive Cartazes, Folhetos, Anúncios, Folders e outros documentos de ca...']").click()
     self.driver.find_element(By.ID, "selAssunto").click()
     self.driver.find_element(By.ID, "sbmPesquisar").click()
     WebDriverWait(self.driver, 30).until(expected_conditions.presence_of_element_located((By.CSS_SELECTOR, ".infraCaption")))
@@ -118,7 +118,7 @@ class Test1100SEIGDAvaliacaoMassa():
     self.driver.find_element(By.LINK_TEXT, "Gestão Documental").click()
     self.driver.find_element(By.LINK_TEXT, "Avaliação de Processos").click()
     dropdown = self.driver.find_element(By.ID, "selAssunto")
-    dropdown.find_element(By.XPATH, "//option[. = '019.113 - ELABORAÇÃO DE CAMPANHAS PUBLICITÁRIAS (campanhas institucionais, filmes, propagandas e à produção de material ...']").click()
+    dropdown.find_element(By.XPATH, "//option[. = '012.3 - CAMPANHAS INSTITUCIONAIS. PUBLICIDADE (inclusive Cartazes, Folhetos, Anúncios, Folders e outros documentos de ca...']").click()
     self.driver.find_element(By.ID, "selAssunto").click()
     self.driver.find_element(By.ID, "sbmPesquisar").click()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
@@ -143,8 +143,9 @@ class Test1100SEIGDAvaliacaoMassa():
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (34 registros):"
     for i in range(0, 30):
-      self.driver.find_element(By.ID, "divInfraAreaDados").click()
-      self.driver.find_element(By.ID, "sbmEliminacao").click()
+      self.driver.find_element(By.ID, "divInfraAreaDados").click
+      self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[9]/a[1]").click()
+      #self.driver.find_element(By.ID, "sbmEliminacao").click()
       self.driver.switch_to.alert.accept()
       WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//*[@id=\"divInfraBarraLocalizacao\"]")))
       assert self.driver.find_element(By.ID, "divInfraBarraLocalizacao").text == "Avaliação de Processos"
@@ -167,7 +168,8 @@ class Test1100SEIGDAvaliacaoMassa():
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (57 registros - 1 a 50):"
     for i in range(0, 25):
       self.driver.find_element(By.ID, "divInfraAreaDados").click()
-      self.driver.find_element(By.ID, "sbmEliminacao").click()
+      self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[9]/a[1]").click()
+      #self.driver.find_element(By.ID, "sbmEliminacao").click()
       self.driver.switch_to.alert.accept()
       WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//*[@id=\"divInfraBarraLocalizacao\"]")))
       assert self.driver.find_element(By.ID, "divInfraBarraLocalizacao").text == "Avaliação de Processos"

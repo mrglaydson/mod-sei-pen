@@ -18,7 +18,7 @@ class Test0200SEIGDCadArquivaProc():
         self.driver = webdriver.Chrome()
     else:
         self.driver = webdriver.Remote(command_executor='http://seleniumhub:4444/wd/hub', desired_capabilities=DesiredCapabilities.CHROME)
-    self.driver.maximize_window()
+    #self.driver.maximize_window()
     self.driver.implicitly_wait(5)
     self.vars = {}
   
@@ -104,4 +104,6 @@ class Test0200SEIGDCadArquivaProc():
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
     self.driver.find_element(By.ID, "sbmSalvar").click()
+    # vai abrir uma tela popup que processa um 
+    time.sleep(5)
   

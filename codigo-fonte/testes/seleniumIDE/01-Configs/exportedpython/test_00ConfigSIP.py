@@ -160,7 +160,7 @@ class Test00ConfigSIP():
     self.driver.find_element(By.ID, "txtNome").send_keys("Arquivista02")
     self.driver.find_element(By.NAME, "sbmCadastrarUsuario").click()
     #self.driver.find_element(By.XPATH, "//*[starts-with(@title, 'Permiss')]").click()
-    self.driver.find_element(By.XPATH, "//*[@id='infraMenu']/li[8]/a").click()
+    self.driver.find_element(By.XPATH, "//span[. = 'Permissões' ]/..").click()
     
     self.driver.find_element(By.LINK_TEXT, "Nova").click()
     self.driver.find_element(By.ID, "selOrgaoSistema").click()
@@ -208,7 +208,7 @@ class Test00ConfigSIP():
     self.driver.find_element(By.ID, "pwdSenha").send_keys("teste")
     self.driver.find_element(By.ID, "Acessar").click()
     #self.driver.find_element(By.XPATH, "//*[starts-with(@title, 'Permiss')]").click()
-    self.driver.find_element(By.XPATH, "//*[@id='infraMenu']/li[8]/a").click()
+    self.driver.find_element(By.XPATH, "//span[. = 'Permissões' ]/..").click()
     print(str("un6"))
     self.driver.find_element(By.LINK_TEXT, "Nova").click()
     self.driver.find_element(By.ID, "selOrgaoSistema").click()
