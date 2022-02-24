@@ -76,7 +76,7 @@ class Test0220SEIGDCadProcEventoInstAut():
     #self.driver.find_element(By.ID, "selTipoConferencia").click()
     self.driver.find_element(By.XPATH, "//div[@id='divSinArquivamento']/div/label").click()
     self.driver.find_element(By.ID, "lblPublico").click()
-    self.driver.find_element(By.ID, "filArquivo").send_keys(os.getcwd()+"/codigo-fonte/testes/seleniumIDE/02.20-SEI-GD-CadProcEventoInst-Aut/exportedpython/teste.pdf")
+    self.driver.find_element(By.ID, "filArquivo").send_keys(os.getcwd()+"/seleniumIDE/02.20-SEI-GD-CadProcEventoInst-Aut/exportedpython/teste.pdf")
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".infraTd:nth-child(2)")))
     self.driver.find_element(By.CSS_SELECTOR, ".infraTd:nth-child(2)").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraTd:nth-child(2) > div").text == "teste.pdf"
