@@ -2,8 +2,11 @@
 
 ## Orientações
 
-- Os testes foram escritos tendo como base o ambiente sei-docker - https://github.com/spbgovbr/sei-docker, mas vc pode usar qualquer ambiente que use a base inicial de referencia do poder executivo. Caso use ambiente com módulos instalados poderá haver alguma incompatibilidade no teste na hora de clicar em menus
-A base que vc for usar tem q ter sido criada antes de 2021-12-22 7AM
+- Os testes foram escritos tendo como base o ambiente sei-docker - https://github.com/spbgovbr/sei-docker, mas vc pode usar qualquer ambiente que use a base inicial de referencia do poder executivo. 
+
+   Caso use ambiente com módulos instalados poderá haver alguma incompatibilidade no teste na hora de clicar em menus. 
+   
+  A base que vc for usar tem q ter sido criada antes de 2021-12-22 7AM
 
 - para o sei3 foi usado o SeleniumIDE, para o sei4 apenas adaptado os codigos em python, portanto desconsiderar os arquivos .side e considerar apenas os arquivos nas respectivas pastas exportedpython (\<cenario\>/exportedpython/)
 
@@ -13,7 +16,7 @@ A base que vc for usar tem q ter sido criada antes de 2021-12-22 7AM
 
 - As datas do teste precisam ser manipuladas, portanto vc vai precisar iniciar o teste com uma data e ir adiantando o relógio após determinados cenários
 
-- consulte o script cargacompleto.sh para ver o andamento correto dos cenários bem como os momentos para adiantar a data - esse é o fluxo que deve ser seguido
+- consulte o script [cargacompleta.sh](cargacompleta.sh) para ver o andamento correto dos cenários bem como os momentos para adiantar a data - esse é o fluxo que deve ser seguido
 
 - o script é apenas uma sugestão de execução e para mostrar a ordem do fluxo, dependendo do seu ambiente terá que fazer adaptações
 
