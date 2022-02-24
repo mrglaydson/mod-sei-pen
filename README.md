@@ -48,3 +48,7 @@ Procedimentos de instalação do módulo nos servidores de aplicação e atualiz
         # php -c /etc/php.ini [DIRETORIO_RAIZ_INSTALAÇÃO]/sei/scripts/sei-gestao-documental-atualizar.php
 
 7. Após a instalação do módulo, o usuário de manutenção deverá ser alterado para outro contendo apenas as permissões de leitura e escrita no banco de dados.
+
+### Testes para o Desenvolvedor
+
+[Clique aqui](codigo-fonte/testes/README.md) para ler o README dos testes
