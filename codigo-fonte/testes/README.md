@@ -18,6 +18,8 @@
 
 - consulte o script [cargacompleta.sh](cargacompleta.sh) para ver o andamento correto dos cenários bem como os momentos para adiantar a data - esse é o fluxo que deve ser seguido
 
+- script vai adiantando a data automaticamente para ubuntu 20, caso seu sistema esteja habilitado para isso e com permissao
+
 - o script é apenas uma sugestão de execução e para mostrar a ordem do fluxo, dependendo do seu ambiente terá que fazer adaptações
 
 - o ideal nas primeiras vezes enquanto vc não entender todo o cenário, é rodar um por um na sequência
@@ -49,7 +51,7 @@ update sip.orgao set sin_autenticar='N'
 
 - Caso opte pelo sei-docker basta seguir as orientações abaixo além das descritas no restante desse documento
 
-- O ambiente deve ser criado na data inicial caso contrario haverá erros inesperados
+- O ambiente deve ser criado na data inicial sugerida acima caso contrario haverá erros inesperados
 
 - Altere o envlocal.env, setando as variaveis respectivas, para:
     - desligar o JOD (coloque false)

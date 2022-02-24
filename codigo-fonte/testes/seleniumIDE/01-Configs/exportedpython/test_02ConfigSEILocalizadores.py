@@ -32,6 +32,7 @@ class Test02ConfigSEILocalizadores():
     self.driver.find_element(By.ID, "Acessar").click()
     self.driver.find_element(By.XPATH, "//*[text()=\"Localizadores\"]").click()
     self.driver.find_element(By.XPATH, "//*[text()=\"Lugares\"]").click()
+    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//*[contains(@link,\'lugar_localizador_listar\')]")))
     self.driver.find_element(By.XPATH, "//*[contains(@link,\'lugar_localizador_listar\')]").click()
     self.driver.find_element(By.ID, "btnNovo").click()
     self.driver.find_element(By.ID, "txtNome").send_keys("Lugar 01")
