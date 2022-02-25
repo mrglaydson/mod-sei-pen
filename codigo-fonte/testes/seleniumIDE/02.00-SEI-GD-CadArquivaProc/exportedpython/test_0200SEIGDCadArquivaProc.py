@@ -23,6 +23,7 @@ class Test0200SEIGDCadArquivaProc():
     self.vars = {}
   
   def teardown_method(self, method):
+    
     self.driver.close()
   
   def wait_for_window(self, timeout = 2):
@@ -81,6 +82,7 @@ class Test0200SEIGDCadArquivaProc():
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
     self.driver.find_element(By.ID, "sbmSalvar").click()
+    time.sleep(5)
     self.driver.switch_to.window(self.vars["root"])
     self.driver.switch_to.default_content()
     self.driver.switch_to.frame(0)
