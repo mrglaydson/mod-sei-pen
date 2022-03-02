@@ -135,7 +135,7 @@ class Test00ConfigSIP():
     self.driver.find_element(By.LINK_TEXT, "Nova").click()
     self.driver.find_element(By.ID, "selOrgaoSistema").click()
     dropdown = self.driver.find_element(By.ID, "selOrgaoSistema")
-    dropdown.find_element(By.XPATH, "//option[. = 'ME']").click()
+    dropdown.find_element(By.XPATH, "//option[. = '"+os.environ["selOrgao"]+"']").click()
     self.driver.find_element(By.ID, "selOrgaoSistema").click()
     dropdown = self.driver.find_element(By.ID, "selSistema")
     dropdown.find_element(By.XPATH, "//option[. = 'SEI']").click()
