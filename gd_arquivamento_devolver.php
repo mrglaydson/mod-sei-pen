@@ -30,7 +30,10 @@ try {
                 $objMdGdArquivamentoRN->devolverArquivamento($objMdGdArquivamentoDTO);
                 
                 //reabir processo
-                                
+                
+                // vamos desabilitar a busca por esse campo, caso contrario da erro no Oracle
+                $objMdGdArquivamentoDTO->unSetStrObservacaoDevolucao();
+                
                 $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
                 $objMdGdArquivamentoRN->editarArquivamento($objMdGdArquivamentoDTO);
                 
