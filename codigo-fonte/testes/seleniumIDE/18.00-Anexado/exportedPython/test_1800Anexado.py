@@ -17,7 +17,10 @@ class Test1800Anexado():
         self.driver = webdriver.Chrome()
     else:
         self.driver = webdriver.Remote(command_executor='http://seleniumhub:4444/wd/hub', desired_capabilities=DesiredCapabilities.CHROME)
-    #self.driver.maximize_window()
+
+    if ((not 'maximizar_screen' in os.environ) or os.environ['maximizar_screen'] == 'true'):
+        self.driver.maximize_window()
+
     self.driver.implicitly_wait(5)
     self.vars = {}
   
@@ -33,7 +36,7 @@ class Test1800Anexado():
   
   def test_cadastrarProcessosarrecadacao(self):
     
-    self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema=ME&sigla_sistema=SEI&infra_url=L3NlaS8=")
+    self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI&infra_url=L3NlaS8=")
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.ID, "txtUsuario")))
     self.driver.find_element(By.ID, "txtUsuario").click()
     self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivistaorg2")

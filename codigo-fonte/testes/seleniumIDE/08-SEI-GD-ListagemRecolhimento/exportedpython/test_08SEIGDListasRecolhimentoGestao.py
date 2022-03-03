@@ -39,8 +39,8 @@ class Test08SEIGDListasRecolhimentoGestao():
     time.sleep(2)
     self.driver.find_element(By.ID, "imgInfraCheck").click()
     self.driver.find_element(By.ID, "btnGerarListagem").click()
-    self.driver.find_element(By.XPATH, "//span[text()='Avaliação de Processos']/../../../../a").click()
-    self.driver.find_element(By.XPATH, "//span[.='Listagens de Recolhimento']/..").click()
+    #self.driver.find_element(By.XPATH, "//span[text()='Avaliação de Processos']/../../../../a").click()
+    #self.driver.find_element(By.XPATH, "//span[.='Listagens de Recolhimento']/..").click()
     self.driver.find_element(By.LINK_TEXT, "Gestão das Listagens").click()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Listagens de Recolhimento (2 registros):"

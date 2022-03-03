@@ -17,6 +17,10 @@ class Test05SEIGDAvaliacao():
         self.driver = webdriver.Chrome()
     else:
         self.driver = webdriver.Remote(command_executor='http://seleniumhub:4444/wd/hub', desired_capabilities=DesiredCapabilities.CHROME)
+
+    if ((not 'maximizar_screen' in os.environ) or os.environ['maximizar_screen'] == 'true'):
+        self.driver.maximize_window()
+
     self.driver.implicitly_wait(5)
     self.vars = {}
   
@@ -292,7 +296,7 @@ class Test05SEIGDAvaliacao():
     # 48 | verifyText | css=.infraCaption | Lista de Lista de Processos (5 registros):
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Lista de Processos (5 registros):"
     # 49 | click | xpath=//ul[@id='main-menu']/li/a[text()="Gestão Documental"] | 
-    self.driver.find_element(By.XPATH, "//span[text()='Avaliação de Processos']/../../../../a").click()
+    #self.driver.find_element(By.XPATH, "//span[text()='Avaliação de Processos']/../../../../a").click()
     # 50 | click | linkText=Avaliação de Processos | 
     self.driver.find_element(By.LINK_TEXT, "Avaliação de Processos").click()
     # 51 | verifyText | css=.infraCaption | Lista de Processos Arquivados (15 registros):

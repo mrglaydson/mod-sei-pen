@@ -17,7 +17,10 @@ class Test1700Multiorgaos():
         self.driver = webdriver.Chrome()
     else:
         self.driver = webdriver.Remote(command_executor='http://seleniumhub:4444/wd/hub', desired_capabilities=DesiredCapabilities.CHROME)
-    #self.driver.maximize_window()
+
+    if ((not 'maximizar_screen' in os.environ) or os.environ['maximizar_screen'] == 'true'):
+        self.driver.maximize_window()
+
     self.driver.implicitly_wait(5)
     self.vars = {}
   
@@ -55,6 +58,7 @@ class Test1700Multiorgaos():
     self.driver.find_element(By.ID, "txtDescricao").send_keys("teste arquivo")
     self.driver.find_element(By.CSS_SELECTOR, "#divOptPublico .infraRadioLabel").click()
     self.driver.find_element(By.CSS_SELECTOR, "#divInfraBarraComandosInferior > #btnSalvar > .infraTeclaAtalho").click()
+    time.sleep(2)
     self.driver.switch_to.frame(1)
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//img[@alt=\'Incluir Documento\']")))
     self.driver.find_element(By.XPATH, "//img[@alt=\'Incluir Documento\']").click()

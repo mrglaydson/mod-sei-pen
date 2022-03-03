@@ -18,7 +18,10 @@ class Test0220SEIGDCadProcEventoInstAut():
         self.driver = webdriver.Chrome()
     else:
         self.driver = webdriver.Remote(command_executor='http://seleniumhub:4444/wd/hub', desired_capabilities=DesiredCapabilities.CHROME)
-    #self.driver.maximize_window()
+
+    if ((not 'maximizar_screen' in os.environ) or os.environ['maximizar_screen'] == 'true'):
+        self.driver.maximize_window()
+
     self.driver.implicitly_wait(10)
     self.vars = {}
   

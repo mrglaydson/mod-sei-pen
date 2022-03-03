@@ -22,8 +22,7 @@ class Test1300ArquivamentoLegado():
     self.vars = {}
   
   def teardown_method(self, method):
-    # self.driver.quit()
-    self.vars = {}
+    self.driver.quit()
   
   def test_01Legado(self):
     self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI")

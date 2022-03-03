@@ -29,7 +29,6 @@ class Test00ConfigSIP():
     # 1 | open | /sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SIP | 
     self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SIP")
     # 2 | store | ABC | orgaoSistema
-    self.vars["orgaoSistema"] = "ABC"
     # 3 | type | id=txtUsuario | teste
     self.driver.find_element(By.ID, "txtUsuario").send_keys("teste")
     # 4 | click | id=pwdSenha | 

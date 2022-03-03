@@ -17,6 +17,10 @@ class Test06SEIGDListasEliminacaoGestao():
         self.driver = webdriver.Chrome()
     else:
         self.driver = webdriver.Remote(command_executor='http://seleniumhub:4444/wd/hub', desired_capabilities=DesiredCapabilities.CHROME)
+
+    if ((not 'maximizar_screen' in os.environ) or os.environ['maximizar_screen'] == 'true'):
+        self.driver.maximize_window()
+
     self.driver.implicitly_wait(5)
     self.vars = {}
   
@@ -42,8 +46,8 @@ class Test06SEIGDListasEliminacaoGestao():
     self.driver.find_element(By.ID, "imgInfraCheck").click()
     self.driver.find_element(By.ID, "btnGerarListagem").click()
     self.driver.find_element(By.XPATH, "//span[contains(text(),'Listagens de Eliminação')]/../../../../a").click()
-    self.driver.find_element(By.XPATH, "//span[contains(text(),'Listagens de Eliminação')]").click()
-    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.LINK_TEXT, "Gestão das Listagens")))
+    #self.driver.find_element(By.XPATH, "//span[contains(text(),'Listagens de Eliminação')]").click()
+    WebDriverWait(self.driver, 30).until(expected_conditions.presence_of_element_located((By.LINK_TEXT, "Gestão das Listagens")))
     self.driver.find_element(By.LINK_TEXT, "Gestão das Listagens").click()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Listagens de Eliminacao (2 registros):"
@@ -56,7 +60,6 @@ class Test06SEIGDListasEliminacaoGestao():
     self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[7]/a[1]").click()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos (4 registros):"
-    time.sleep(10)
     self.driver.find_element(By.CSS_SELECTOR, "#lnkSairSistema > .infraImg").click()
     self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI&infra_url=L3NlaS8=")
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.ID, "pwdSenha")))

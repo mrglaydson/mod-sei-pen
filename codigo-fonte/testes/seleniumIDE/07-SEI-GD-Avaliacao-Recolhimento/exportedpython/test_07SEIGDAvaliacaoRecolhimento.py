@@ -67,7 +67,7 @@ class Test07SEIGDAvaliacaoRecolhimento():
     self.driver.find_element(By.ID, "sbmPesquisar").click()
     self.driver.find_element(By.ID, "divInfraAreaTabela").click()
     assert self.driver.find_element(By.CSS_SELECTOR, "#divInfraAreaTabela > label").text == "Nenhum registro encontrado."
-    self.driver.find_element(By.XPATH, "//span[text()='Avaliação de Processos']/../../../../a").click()
+    #self.driver.find_element(By.XPATH, "//span[text()='Avaliação de Processos']/../../../../a").click()
     self.driver.find_element(By.LINK_TEXT, "Avaliação de Processos").click()
     self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[2]/td[9]/a/img").click()
     self.driver.switch_to.alert.accept()
@@ -86,7 +86,7 @@ class Test07SEIGDAvaliacaoRecolhimento():
     self.driver.find_element(By.XPATH, "//button[@id='sbmPesquisar']").click()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Lista de Processos (5 registros):"
-    self.driver.find_element(By.XPATH, "//span[text()='Avaliação de Processos']/../../../../a").click()
+    #self.driver.find_element(By.XPATH, "//span[text()='Avaliação de Processos']/../../../../a").click()
     self.driver.find_element(By.LINK_TEXT, "Avaliação de Processos").click()
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//button[@id='sbmPesquisar']")))
     self.driver.find_element(By.XPATH, "//button[@id='sbmPesquisar']").click()

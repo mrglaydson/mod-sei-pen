@@ -18,7 +18,10 @@ class Test0200SEIGDCadArquivaProc():
         self.driver = webdriver.Chrome()
     else:
         self.driver = webdriver.Remote(command_executor='http://seleniumhub:4444/wd/hub', desired_capabilities=DesiredCapabilities.CHROME)
-    #self.driver.maximize_window()
+
+    if ((not 'maximizar_screen' in os.environ) or os.environ['maximizar_screen'] == 'true'):
+        self.driver.maximize_window()
+
     self.driver.implicitly_wait(5)
     self.vars = {}
   
@@ -27,7 +30,7 @@ class Test0200SEIGDCadArquivaProc():
     self.driver.close()
   
   def wait_for_window(self, timeout = 2):
-    time.sleep(round(timeout / 1000))
+    #time.sleep(round(timeout / 1000))
     wh_now = self.driver.window_handles
     wh_then = self.vars["window_handles"]
     if len(wh_now) > len(wh_then):
@@ -51,7 +54,7 @@ class Test0200SEIGDCadArquivaProc():
     self.driver.find_element(By.ID, "lblPublico").click()
     self.vars["window_handles"] = self.driver.window_handles
     self.driver.find_element(By.ID, "btnSalvar").click()
-    self.vars["win3408"] = self.wait_for_window(10000)
+    self.vars["win3408"] = self.wait_for_window(10)
     self.vars["root"] = self.driver.current_window_handle
     self.driver.switch_to.window(self.vars["win3408"])
     self.driver.close()

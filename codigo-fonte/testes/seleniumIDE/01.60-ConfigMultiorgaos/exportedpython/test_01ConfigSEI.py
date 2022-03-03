@@ -17,7 +17,10 @@ class Test01ConfigSEI():
         self.driver = webdriver.Chrome()
     else:
         self.driver = webdriver.Remote(command_executor='http://seleniumhub:4444/wd/hub', desired_capabilities=DesiredCapabilities.CHROME)
-    #self.driver.maximize_window()
+
+    if ((not 'maximizar_screen' in os.environ) or os.environ['maximizar_screen'] == 'true'):
+        self.driver.maximize_window()
+
     self.driver.implicitly_wait(10)
     self.vars = {}
   
@@ -44,8 +47,8 @@ class Test01ConfigSEI():
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.LINK_TEXT, "Administração")))
     self.driver.find_element(By.LINK_TEXT, "Administração").click()
     self.driver.find_element(By.LINK_TEXT, "Órgãos").click()
-    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//img[@alt=\'Alterar Órgão\']")))
-    self.driver.find_element(By.XPATH, "(//img[@alt=\'Alterar Órgão\'])[2]").click()
+    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//td[. ='Org2']/../td[5]/a[2]")))
+    self.driver.find_element(By.XPATH, "//td[. ='Org2']/../td[5]/a[2]").click()
     self.driver.find_element(By.ID, "txtCodigoSei").click()
     self.driver.find_element(By.ID, "txtCodigoSei").send_keys("998")
     self.driver.find_element(By.ID, "txtNumeracao").click()
