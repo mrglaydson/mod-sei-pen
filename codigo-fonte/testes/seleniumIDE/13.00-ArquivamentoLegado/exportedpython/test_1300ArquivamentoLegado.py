@@ -74,7 +74,7 @@ class Test1300ArquivamentoLegado():
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("teste")
     self.driver.find_element(By.ID, "sbmSalvar").click()
-    WebDriverWait(self.driver, 120).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".infraCaption")))
+    WebDriverWait(self.driver, 300).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".infraCaption")))
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Pendências de Arquivamento (5 registros):"
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.ID, "selTipoProcedimento")))
     dropdown = self.driver.find_element(By.ID, "selTipoProcedimento")
@@ -96,7 +96,7 @@ class Test1300ArquivamentoLegado():
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("teste")
     self.driver.find_element(By.ID, "sbmSalvar").click()
-    WebDriverWait(self.driver, 120).until(expected_conditions.visibility_of_element_located((By.ID, "sbmPesquisar")))
+    WebDriverWait(self.driver, 300).until(expected_conditions.visibility_of_element_located((By.ID, "sbmPesquisar")))
     self.driver.find_element(By.ID, "sbmPesquisar").click()
     self.driver.find_element(By.CSS_SELECTOR, "#divInfraAreaTabela > label").click()
     assert self.driver.find_element(By.CSS_SELECTOR, "#divInfraAreaTabela > label").text == "Nenhum registro encontrado."

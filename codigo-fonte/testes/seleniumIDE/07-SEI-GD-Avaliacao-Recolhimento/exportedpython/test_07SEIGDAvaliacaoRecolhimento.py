@@ -24,7 +24,7 @@ class Test07SEIGDAvaliacaoRecolhimento():
     self.driver.quit()
   
   def wait_for_window(self, timeout = 2):
-    time.sleep(round(timeout / 1000))
+    #time.sleep(round(timeout / 1000))
     wh_now = self.driver.window_handles
     wh_then = self.vars["window_handles"]
     if len(wh_now) > len(wh_then):
@@ -46,7 +46,7 @@ class Test07SEIGDAvaliacaoRecolhimento():
     self.driver.switch_to.alert.accept()
     self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[2]/td[9]/a/img").click()
     self.driver.switch_to.alert.accept()
-    WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.XPATH, "//*[@id=\"divInfraBarraLocalizacao\"]")))
+    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//*[@id=\"divInfraBarraLocalizacao\"]")))
   
   def test_0750MandaListagemRecolhimento(self):
     self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI&infra_url=L3NlaS8=")
@@ -105,10 +105,10 @@ class Test07SEIGDAvaliacaoRecolhimento():
     self.driver.find_element(By.LINK_TEXT, "Preparação da Listagem").click()
     self.vars["window_handles"] = self.driver.window_handles
     self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[2]/td[9]/a/img").click()
-    self.vars["win644"] = self.wait_for_window(2000)
+    self.vars["win644"] = self.wait_for_window(4)
     self.vars["root"] = self.driver.current_window_handle
     self.driver.switch_to.window(self.vars["win644"])
-    WebDriverWait(self.driver, 30000).until(expected_conditions.element_to_be_clickable((By.ID, "txaObservacao")))
+    WebDriverWait(self.driver, 30).until(expected_conditions.element_to_be_clickable((By.ID, "txaObservacao")))
     self.driver.find_element(By.ID, "txaObservacao").click()
     self.driver.find_element(By.ID, "txaObservacao").send_keys("observacao1")
     self.driver.find_element(By.NAME, "sbmObservar").click()
@@ -126,9 +126,9 @@ class Test07SEIGDAvaliacaoRecolhimento():
     self.driver.find_element(By.LINK_TEXT, "Preparação da Listagem").click()
     self.vars["window_handles"] = self.driver.window_handles
     self.driver.find_element(By.XPATH, "(//img[@title=\'Adicionar Observação e/ou Justificativa\'])[2]").click()
-    self.vars["win3874"] = self.wait_for_window(2000)
+    self.vars["win3874"] = self.wait_for_window(4)
     self.driver.switch_to.window(self.vars["win3874"])
-    WebDriverWait(self.driver, 30000).until(expected_conditions.element_to_be_clickable((By.ID, "txaObservacao")))
+    WebDriverWait(self.driver, 30).until(expected_conditions.element_to_be_clickable((By.ID, "txaObservacao")))
     self.driver.find_element(By.ID, "txaObservacao").click()
     self.driver.find_element(By.ID, "txaObservacao").send_keys("observacao 2")
     self.driver.find_element(By.NAME, "sbmObservar").click()
@@ -146,9 +146,9 @@ class Test07SEIGDAvaliacaoRecolhimento():
     self.driver.find_element(By.LINK_TEXT, "Preparação da Listagem").click()
     self.vars["window_handles"] = self.driver.window_handles
     self.driver.find_element(By.XPATH, "(//img[@title=\'Adicionar Observação e/ou Justificativa\'])[3]").click()
-    self.vars["win3874"] = self.wait_for_window(2000)
+    self.vars["win3874"] = self.wait_for_window(4)
     self.driver.switch_to.window(self.vars["win3874"])
-    WebDriverWait(self.driver, 30000).until(expected_conditions.element_to_be_clickable((By.ID, "txaObservacao")))
+    WebDriverWait(self.driver, 30).until(expected_conditions.element_to_be_clickable((By.ID, "txaObservacao")))
     self.driver.find_element(By.ID, "txaObservacao").click()
     self.driver.find_element(By.ID, "txaObservacao").send_keys("observacao 4")
     self.driver.find_element(By.NAME, "sbmObservar").click()
@@ -164,12 +164,12 @@ class Test07SEIGDAvaliacaoRecolhimento():
     self.driver.find_element(By.XPATH, "//span[text()='Avaliação de Processos']/../../../../a").click()
     self.driver.find_element(By.XPATH, "//span[.='Listagens de Recolhimento']/..").click()
     self.driver.find_element(By.LINK_TEXT, "Preparação da Listagem").click()
-    WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.XPATH, "(//img[@title=\'Adicionar Observação e/ou Justificativa\'])[3]")))
+    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "(//img[@title=\'Adicionar Observação e/ou Justificativa\'])[3]")))
     self.vars["window_handles"] = self.driver.window_handles
     self.driver.find_element(By.XPATH, "(//img[@title=\'Adicionar Observação e/ou Justificativa\'])[3]").click()
-    self.vars["win3874"] = self.wait_for_window(2000)
+    self.vars["win3874"] = self.wait_for_window(4)
     self.driver.switch_to.window(self.vars["win3874"])
-    WebDriverWait(self.driver, 30000).until(expected_conditions.element_to_be_clickable((By.ID, "txaObservacao")))
+    WebDriverWait(self.driver, 30).until(expected_conditions.element_to_be_clickable((By.ID, "txaObservacao")))
     self.driver.find_element(By.ID, "txaObservacao").click()
     self.driver.find_element(By.ID, "txaObservacao").send_keys("observacao 3")
     self.driver.find_element(By.NAME, "sbmObservar").click()

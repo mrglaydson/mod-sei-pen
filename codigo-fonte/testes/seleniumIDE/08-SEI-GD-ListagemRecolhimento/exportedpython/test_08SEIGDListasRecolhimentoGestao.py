@@ -98,7 +98,7 @@ class Test08SEIGDListasRecolhimentoGestao():
     self.driver.find_element(By.ID, "btnFechar").click()
     self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[7]/a[4]").click()
     self.driver.switch_to.alert.accept()
-    WebDriverWait(self.driver, 30000).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".infraCaption")))
+    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".infraCaption")))
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Listagens de Recolhimento (2 registros):"
   
