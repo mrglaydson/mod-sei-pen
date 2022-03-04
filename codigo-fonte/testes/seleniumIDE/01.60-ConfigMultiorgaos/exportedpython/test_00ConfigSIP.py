@@ -119,9 +119,9 @@ class Test00ConfigSIP():
     dropdown.find_element(By.XPATH, "//option[. = 'Org2']").click()
     self.driver.find_element(By.ID, "selOrgao").click()
     self.driver.find_element(By.ID, "txtSigla").click()
-    self.driver.find_element(By.ID, "txtSigla").send_keys("arquivistaOrg2")
+    self.driver.find_element(By.ID, "txtSigla").send_keys("arquivistaorg2")
     self.driver.find_element(By.ID, "txtNome").click()
-    self.driver.find_element(By.ID, "txtNome").send_keys("ArquivistaOrg2")
+    self.driver.find_element(By.ID, "txtNome").send_keys("arquivistaorg2")
     self.driver.find_element(By.NAME, "sbmCadastrarUsuario").click()
     time.sleep(2)
   
@@ -162,7 +162,7 @@ class Test00ConfigSIP():
     self.driver.find_element(By.ID, "divInfraAreaTelaD").click()
     assert self.driver.find_element(By.ID, "divInfraBarraLocalizacao").text == "Nova Permissão"
     self.driver.find_element(By.ID, "txtUsuario").click()
-    self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivistaOrg2")
+    self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivistaorg2")
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, "b:nth-child(1)")))
     element = self.driver.find_element(By.CSS_SELECTOR, "b:nth-child(1)")
     actions = ActionChains(self.driver)
