@@ -1,0 +1,13 @@
+dist/
+html/
+vendor/
+
+.vscode
+
+.modulo.env
+.env
+*.cache
+*.lock
+*.log
+*.out
+*.swp

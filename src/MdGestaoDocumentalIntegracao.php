@@ -1,32 +1,36 @@
 <?
 
-class MdGestaoDocumentalIntegracao extends SeiIntegracao {
+class MdGestaoDocumentalIntegracao extends SeiIntegracao
+{
+    const VERSAO_MODULO = "0.1.1";
 
-    public function __construct() {
-        
-    }
-
-    public function getNome() {
+    public function getNome()
+    {
         return 'Módulo de Gestão Documental';
     }
 
-    public function getVersao() {
-        return '1.0.0';
+    public function getVersao()
+    {
+        return self::VERSAO_MODULO;
     }
 
-    public function getInstituicao() {
-        return 'Ministério do Planejamento, Desenvolvimento e Gestão';
+    public function getInstituicao()
+    {
+        return 'Ministério da Economia';
     }
 
-    public function inicializar($strVersaoSEI) {
-        
+    public function inicializar($strVersaoSEI)
+    {
+        $strDirModulo = basename(dirname(__FILE__));
+        define('DIR_SEI_WEB', realpath(DIR_SEI_CONFIG . '/../web'));
+        $this->verificarArquivoConfiguracao();
     }
 
     public static function getDiretorio()
     {
         $arrConfig = ConfiguracaoSEI::getInstance()->getValor('SEI', 'Modulos');
         $strModulo = $arrConfig['MdGestaoDocumentalIntegracao'];
-        return "modulos/".$strModulo;
+        return "modulos/" . $strModulo;
     }
 
     public static function obterIdTarefaModulo($strIdTarefaModulo)
@@ -38,14 +42,15 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
         $objTarefaRN = new TarefaRN();
         $objTarefaDTO = $objTarefaRN->consultar($objTarefaDTO);
 
-        if($objTarefaDTO){
+        if ($objTarefaDTO) {
             return $objTarefaDTO->getNumIdTarefa();
-        }else{
+        } else {
             return false;
         }
     }
 
-    public function montarBotaoControleProcessos() {
+    public function montarBotaoControleProcessos()
+    {
 
         $arrBotoes = array();
 
@@ -58,42 +63,45 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
         $objAtividadeRN = new AtividadeRN();
         $arrObjAtividadeDTO = $objAtividadeRN->listarRN0036($objAtividadeDTO);
 
-        if($arrObjAtividadeDTO){
-            $arrBotoes[] = '<a  href="#" onclick="acaoControleProcessos(\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_procedimento_arquivar&acao_origem=procedimento_controlar&acao_retorno=procedimento_controlar'). '\')" tabindex="" class="botaoSEI"><img class="infraCorBarraSistema" src="' . MdGestaoDocumentalIntegracao::getDiretorio() . '/imagens/arquivamento.png" alt="Concluir e Arquivar Processo" title="Concluir e Arquivar Processo" /></a>';
+        if ($arrObjAtividadeDTO) {
+            $arrBotoes[] = '<a  href="#" onclick="acaoControleProcessos(\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_procedimento_arquivar&acao_origem=procedimento_controlar&acao_retorno=procedimento_controlar') . '\')" tabindex="" class="botaoSEI"><img class="infraCorBarraSistema" src="' . MdGestaoDocumentalIntegracao::getDiretorio() . '/imagens/arquivamento.png" alt="Concluir e Arquivar Processo" title="Concluir e Arquivar Processo" /></a>';
         }
 
         return $arrBotoes;
     }
 
-    public function montarIconeControleProcessos($arrObjProcedimentoAPI) {
+    public function montarIconeControleProcessos($arrObjProcedimentoAPI)
+    {
 
         $arrIcones = array();
-        foreach($arrObjProcedimentoAPI as $objProcedimentoAPI) {
+        foreach ($arrObjProcedimentoAPI as $objProcedimentoAPI) {
 
-            $objMdGdArquivamentoDTO=new MdGdArquivamentoDTO();
+            $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
             $objMdGdArquivamentoDTO->retStrSituacao();
             $objMdGdArquivamentoDTO->setStrSinAtivo('S');
             $objMdGdArquivamentoDTO->setDblIdProcedimento($objProcedimentoAPI->getIdProcedimento());
 
             $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
-            $objMdGdArquivamentoDTO=$objMdGdArquivamentoRN->consultar($objMdGdArquivamentoDTO);
+            $objMdGdArquivamentoDTO = $objMdGdArquivamentoRN->consultar($objMdGdArquivamentoDTO);
 
-            if($objMdGdArquivamentoDTO && $objMdGdArquivamentoDTO->getStrSituacao() == MdGdArquivamentoRN::$ST_FASE_EDICAO){
+            if ($objMdGdArquivamentoDTO && $objMdGdArquivamentoDTO->getStrSituacao() == MdGdArquivamentoRN::$ST_FASE_EDICAO) {
                 $arrIcones[$objProcedimentoAPI->getIdProcedimento()][] = '<a href="javascript:void(0);"
-                '.PaginaSEI::montarTitleTooltip('Processo Retornado para Correção','Módulo Gestão Documental').'><img
+                ' . PaginaSEI::montarTitleTooltip('Processo Retornado para Correção', 'Módulo Gestão Documental') . '><img
                 src="modulos/mod-gestao-documental/imagens/arquivamento.png" class="imagemStatus" height="22px" width="24px" /></a>';
-            }    
+            }
         }
         return $arrIcones;
     }
 
-    public function montarIconeAcompanhamentoEspecial($arrObjProcedimentoAPI) {
+    public function montarIconeAcompanhamentoEspecial($arrObjProcedimentoAPI)
+    {
 
         $arrIcones = array();
         return $arrIcones;
     }
 
-    public function montarIconeProcesso(ProcedimentoAPI $objProcedimentoAPI) {
+    public function montarIconeProcesso(ProcedimentoAPI $objProcedimentoAPI)
+    {
 
         $arrObjArvoreAcaoItemAPI = array();
         $dblIdProcedimento = $objProcedimentoAPI->getIdProcedimento();
@@ -112,7 +120,7 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
             $objArvoreAcaoItemAPI->setId('MD_GD_PROCESSO_' . $dblIdProcedimento);
             $objArvoreAcaoItemAPI->setIdPai($dblIdProcedimento);
             $objArvoreAcaoItemAPI->setTitle('Processo Arquivado');
-            $objArvoreAcaoItemAPI->setIcone( MdGestaoDocumentalIntegracao::getDiretorio() . '/imagens/arquivado.gif');
+            $objArvoreAcaoItemAPI->setIcone(MdGestaoDocumentalIntegracao::getDiretorio() . '/imagens/arquivado.gif');
             $objArvoreAcaoItemAPI->setTarget(null);
             $objArvoreAcaoItemAPI->setHref('javascript:alert(\'Processo Arquivado\');');
             $objArvoreAcaoItemAPI->setSinHabilitado('S');
@@ -122,7 +130,7 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
             $objMdGdArquivamentoDTO = $objMdGdArquivamentoRN->consultar($objMdGdArquivamentoDTO);
 
             // Verifica se o arquivamento está com a situação em edição
-            if($objMdGdArquivamentoDTO->getStrSituacao() == MdGdArquivamentoRN::$ST_FASE_EDICAO){
+            if ($objMdGdArquivamentoDTO->getStrSituacao() == MdGdArquivamentoRN::$ST_FASE_EDICAO) {
                 $objArvoreAcaoItemAPI2 = new ArvoreAcaoItemAPI();
                 $objArvoreAcaoItemAPI2->setTipo('MD_GD_PROCESSO');
                 $objArvoreAcaoItemAPI2->setId('MD_GD_PROCESSO_' . $dblIdProcedimento);
@@ -133,13 +141,14 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
                 $objArvoreAcaoItemAPI2->setHref('javascript:alert(\'Processo em Edição\');');
                 $objArvoreAcaoItemAPI2->setSinHabilitado('S');
                 $arrObjArvoreAcaoItemAPI[] = $objArvoreAcaoItemAPI2;
-            }            
+            }
         }
 
         return $arrObjArvoreAcaoItemAPI;
     }
 
-    public function montarBotaoProcesso(ProcedimentoAPI $objProcedimentoAPI) {
+    public function montarBotaoProcesso(ProcedimentoAPI $objProcedimentoAPI)
+    {
         $arrBotoes = array();
         $bolArquivado = false;
 
@@ -147,7 +156,7 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
         $bolAcaoArquivamento = SessaoSEI::getInstance()->verificarPermissao('gd_procedimento_arquivar');
         $bolAcaoDesarquivamento = SessaoSEI::getInstance()->verificarPermissao('gd_procedimento_desarquivar');
         $bolAcaoHistoricoArquivamento = SessaoSEI::getInstance()->verificarPermissao('gd_arquivamento_historico_listar');
-    
+
         // Verifica se o processo se encontra arquivado
         $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
         $objMdGdArquivamentoDTO->setDblIdProcedimento($objProcedimentoAPI->getIdProcedimento());
@@ -156,24 +165,24 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
         $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
         $bolArquivado = $objMdGdArquivamentoRN->contar($objMdGdArquivamentoDTO);
 
-        if($bolArquivado){
+        if ($bolArquivado) {
             $objMdGdArquivamentoDTO->retStrSituacao();
             $objMdGdArquivamentoDTO = $objMdGdArquivamentoRN->consultar($objMdGdArquivamentoDTO);
 
-            if($objMdGdArquivamentoDTO->getStrSituacao() != MdGdArquivamentoRN::$ST_FASE_CORRENTE &&
-               $objMdGdArquivamentoDTO->getStrSituacao() != MdGdArquivamentoRN::$ST_FASE_INTERMEDIARIA &&
-               $objMdGdArquivamentoDTO->getStrSituacao() != MdGdArquivamentoRN::$ST_PREPARACAO_ELIMINACAO &&
-               $objMdGdArquivamentoDTO->getStrSituacao() != MdGdArquivamentoRN::$ST_PREPARACAO_RECOLHIMENTO
-            ){
+            if (
+                $objMdGdArquivamentoDTO->getStrSituacao() != MdGdArquivamentoRN::$ST_FASE_CORRENTE &&
+                $objMdGdArquivamentoDTO->getStrSituacao() != MdGdArquivamentoRN::$ST_FASE_INTERMEDIARIA &&
+                $objMdGdArquivamentoDTO->getStrSituacao() != MdGdArquivamentoRN::$ST_PREPARACAO_ELIMINACAO &&
+                $objMdGdArquivamentoDTO->getStrSituacao() != MdGdArquivamentoRN::$ST_PREPARACAO_RECOLHIMENTO
+            ) {
                 $bolAcaoDesarquivamento = false;
             }
-
         }
 
         // Verifica se o processo encontra-se aberto em mais de uma unidade
         $objAtividadeDTO = new AtividadeDTO();
         $objAtividadeDTO->setDistinct(true);
-       // $objAtividadeDTO->setOrdStrSiglaUnidade(InfraDTO::$TIPO_ORDENACAO_ASC);
+        // $objAtividadeDTO->setOrdStrSiglaUnidade(InfraDTO::$TIPO_ORDENACAO_ASC);
         $objAtividadeDTO->setDblIdProtocolo($objProcedimentoAPI->getIdProcedimento());
         $objAtividadeDTO->setDthConclusao(null);
         $objAtividadeDTO->retNumIdUnidade();
@@ -183,12 +192,12 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
         $objProtocoloDTO->retStrStaEstado();
 
         $objProtocoloRN = new ProtocoloRN();
-        $objProtocoloDTO=$objProtocoloRN->consultarRN0186($objProtocoloDTO);
-        $statusProtocolo=$objProtocoloDTO->getStrStaEstado();
-        $bolProcessoSobrestado=false;
-        
-        if($statusProtocolo == ProtocoloRN::$TE_PROCEDIMENTO_SOBRESTADO){
-            $bolProcessoSobrestado=true;
+        $objProtocoloDTO = $objProtocoloRN->consultarRN0186($objProtocoloDTO);
+        $statusProtocolo = $objProtocoloDTO->getStrStaEstado();
+        $bolProcessoSobrestado = false;
+
+        if ($statusProtocolo == ProtocoloRN::$TE_PROCEDIMENTO_SOBRESTADO) {
+            $bolProcessoSobrestado = true;
         }
 
         $objAtividadeRN = new AtividadeRN();
@@ -204,12 +213,12 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
         $objMdGdArquivamentoDTO->retNumIdArquivamento();
 
         $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
-        
+
         // Botão de histórico de arquivamento
         if ($bolAcaoHistoricoArquivamento && $objMdGdArquivamentoRN->contar($objMdGdArquivamentoDTO) > 0) {
             $arrBotoes[] = '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_arquivamento_historico_listar&acao_origem=arvore_visualizar&acao_retorno=arvore_visualizar&id_procedimento=' . $objProcedimentoAPI->getIdProcedimento() . '&arvore=1') . '" tabindex="" class="botaoSEI"><img class="infraCorBarraSistema" src="' . MdGestaoDocumentalIntegracao::getDiretorio() . '/imagens/arquivo.svg" alt="Consultar Histórico de Arquivamento do Processo" title="Consultar Histórico de Arquivamento do Processo" /></a>';
         }
-        
+
         // Botão de arquivamento
         if (!$bolProcessoSobrestado && $bolAcaoArquivamento && !$bolArquivado && count($arrObjAtividadeDTO) == 1 && $arrObjAtividadeDTO[0]->getNumIdUnidade() == SessaoSEI::getInstance()->getNumIdUnidadeAtual()  && $bolUnidadeArquivamento && $objProcedimentoAPI->getNivelAcesso() != ProtocoloRN::$NA_SIGILOSO) {
             $arrBotoes[] = '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_procedimento_arquivar&acao_origem=arvore_visualizar&acao_retorno=arvore_visualizar&id_procedimento=' . $objProcedimentoAPI->getIdProcedimento() . '&arvore=1') . '" tabindex="" class="botaoSEI"><img class="infraCorBarraSistema" src="' . MdGestaoDocumentalIntegracao::getDiretorio() . '/imagens/arquivamento.png" alt="Concluir e Arquivar Processo" title="Concluir e Arquivar Processo" /></a>';
@@ -220,46 +229,48 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
             $arrBotoes[] = '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_procedimento_desarquivar&acao_origem=arvore_visualizar&acao_retorno=arvore_visualizar&id_procedimento=' . $objProcedimentoAPI->getIdProcedimento() . '&arvore=1') . '" tabindex="" class="botaoSEI"><img class="infraCorBarraSistema" src="' . MdGestaoDocumentalIntegracao::getDiretorio() . '/imagens/desarquivamento.png" alt="Desarquivar Processo" title="Desarquivar Processo" /></a>';
         }
 
-        
+
 
         return $arrBotoes;
     }
 
-    public function montarIconeDocumento(ProcedimentoAPI $objProcedimentoAPI, $arrObjDocumentoAPI) {
+    public function montarIconeDocumento(ProcedimentoAPI $objProcedimentoAPI, $arrObjDocumentoAPI)
+    {
 
         $arrIcones = array();
         return $arrIcones;
     }
 
-    public function atualizarAssuntoProcesso(ProcedimentoAPI $objProcedimentoAPI) {
+    public function atualizarAssuntoProcesso(ProcedimentoAPI $objProcedimentoAPI)
+    {
 
         //avaliar como o modPEN faz
         //esta no script de instalacao, copiar para esse modulo e criar tarefas
 
-        try{
+        try {
 
-            if($objProcedimentoAPI->getAssuntosAntigos()!=null ){
+            if ($objProcedimentoAPI->getAssuntosAntigos() != null) {
 
-                $objAssuntoRN=new AssuntoRN();
-                $idTarefaModuloGestao=$this->obterIdTarefaModulo('MOD_GESTAO_ATUALIZAR_ASSUNTO');
-                
+                $objAssuntoRN = new AssuntoRN();
+                $idTarefaModuloGestao = $this->obterIdTarefaModulo('MOD_GESTAO_ATUALIZAR_ASSUNTO');
+
                 foreach ($objProcedimentoAPI->getAssuntos() as $assunto) {
-                    $objAssuntoDTO=new AssuntoDTO();
+                    $objAssuntoDTO = new AssuntoDTO();
                     $objAssuntoDTO->retStrCodigoEstruturado();
                     $objAssuntoDTO->setNumIdAssunto($assunto->getNumIdAssunto());
-                    $objAssuntoDTO= $objAssuntoRN->consultarRN0256($objAssuntoDTO);
+                    $objAssuntoDTO = $objAssuntoRN->consultarRN0256($objAssuntoDTO);
                     $arrayAssuntosId .= $objAssuntoDTO->getStrCodigoEstruturado() . ",";
                 }
-                $arrayAssuntosId = substr($arrayAssuntosId ,0,-1);
+                $arrayAssuntosId = substr($arrayAssuntosId, 0, -1);
 
                 foreach ($objProcedimentoAPI->getAssuntosAntigos() as $assunto) {
-                    $objAssuntoDTO=new AssuntoDTO();
+                    $objAssuntoDTO = new AssuntoDTO();
                     $objAssuntoDTO->retStrCodigoEstruturado();
                     $objAssuntoDTO->setNumIdAssunto($assunto->getNumIdAssunto());
-                    $objAssuntoDTO= $objAssuntoRN->consultarRN0256($objAssuntoDTO);
+                    $objAssuntoDTO = $objAssuntoRN->consultarRN0256($objAssuntoDTO);
                     $arrayAssuntosAntigosId .= $objAssuntoDTO->getStrCodigoEstruturado() . ",";
                 }
-                $arrayAssuntosAntigosId = substr($arrayAssuntosAntigosId ,0,-1);
+                $arrayAssuntosAntigosId = substr($arrayAssuntosAntigosId, 0, -1);
 
                 $arrObjAtributoAndamentoDTO = array();
 
@@ -273,7 +284,7 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
                 $objAtributoAndamentoDTO->setStrNome('ASSUNTOS_NOVOS');
                 $objAtributoAndamentoDTO->setStrValor($arrayAssuntosId);
                 $objAtributoAndamentoDTO->setStrIdOrigem($objProcedimentoAPI->getNumeroProtocolo());
-                
+
                 $arrObjAtributoAndamentoDTO[] = $objAtributoAndamentoDTO;
 
                 $objAtividadeDTO = new AtividadeDTO();
@@ -286,14 +297,13 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
                 $objAtividadeRN = new AtividadeRN();
                 $objAtividadeRN->gerarInternaRN0727($objAtividadeDTO);
             }
-
-        }catch(Exception $e){
-            throw new InfraException('Erro alterando historico do modulo gestão documental',$e);
+        } catch (Exception $e) {
+            throw new InfraException('Erro alterando historico do modulo gestão documental', $e);
         }
-
     }
 
-    public function montarBotaoDocumento(ProcedimentoAPI $objProcedimentoAPI, $arrObjDocumentoAPI) {
+    public function montarBotaoDocumento(ProcedimentoAPI $objProcedimentoAPI, $arrObjDocumentoAPI)
+    {
 
         $arrBotoes = array();
         $bolArquivado = false;
@@ -313,7 +323,7 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
         // Verifica se o processo encontra-se aberto em mais de uma unidade
         $objAtividadeDTO = new AtividadeDTO();
         $objAtividadeDTO->setDistinct(true);
-       // $objAtividadeDTO->setOrdStrSiglaUnidade(InfraDTO::$TIPO_ORDENACAO_ASC);
+        // $objAtividadeDTO->setOrdStrSiglaUnidade(InfraDTO::$TIPO_ORDENACAO_ASC);
         $objAtividadeDTO->setDblIdProtocolo($objProcedimentoAPI->getIdProcedimento());
         $objAtividadeDTO->setDthConclusao(null);
         $objAtividadeDTO->retNumIdUnidade();
@@ -341,64 +351,74 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
         return $arrBotoesDocumento;
     }
 
-    public function alterarIconeArvoreDocumento(ProcedimentoAPI $objProcedimentoAPI, $arrObjDocumentoAPI) {
+    public function alterarIconeArvoreDocumento(ProcedimentoAPI $objProcedimentoAPI, $arrObjDocumentoAPI)
+    {
         $arrIcones = array();
         return $arrIcones;
     }
 
-    public function adicionarElementoMenu() {
+    public function adicionarElementoMenu()
+    {
         return '';
     }
 
-    public function montarMenuPublicacoes() {
+    public function montarMenuPublicacoes()
+    {
         $arrMenu = array();
         return $arrMenu;
     }
 
-    public function montarMenuUsuarioExterno() {
+    public function montarMenuUsuarioExterno()
+    {
 
         $arrMenu = array();
         return $arrMenu;
     }
 
-    public function montarAcaoControleAcessoExterno($arrObjAcessoExternoAPI) {
+    public function montarAcaoControleAcessoExterno($arrObjAcessoExternoAPI)
+    {
 
         $arrIcones = array();
         return $arrIcones;
     }
 
-    public function montarAcaoDocumentoAcessoExternoAutorizado($arrObjDocumentoAPI) {
+    public function montarAcaoDocumentoAcessoExternoAutorizado($arrObjDocumentoAPI)
+    {
         $arrIcones = array();
         return $arrIcones;
     }
 
-    public function montarAcaoProcessoAnexadoAcessoExternoAutorizado($arrObjProcedimentoAPI) {
+    public function montarAcaoProcessoAnexadoAcessoExternoAutorizado($arrObjProcedimentoAPI)
+    {
         $arrIcones = array();
         return $arrIcones;
     }
 
-    public function montarBotaoAcessoExternoAutorizado(ProcedimentoAPI $objProcedimentoAPI) {
+    public function montarBotaoAcessoExternoAutorizado(ProcedimentoAPI $objProcedimentoAPI)
+    {
         $arrBotoes = array();
         return $arrBotoes;
     }
 
-    public function montarBotaoControleAcessoExterno() {
+    public function montarBotaoControleAcessoExterno()
+    {
         $arrBotoes = array();
         return $arrBotoes;
     }
 
-    public function processarControlador($strAcao) {
+    public function processarControlador($strAcao)
+    {
         switch ($strAcao) {
 
-            // Parâmetros de configuiração do módulo de arquivamento
+                // Parâmetros de configuiração do módulo de arquivamento
             case 'gd_parametro_alterar':
                 require_once dirname(__FILE__) . '/gd_parametro_alterar.php';
                 return true;
 
-            // Modelos de documento do módulo
+                // Modelos de documento do módulo
             case 'gd_modelo_documento_alterar':
-                    require_once dirname(__FILE__) . '/gd_modelo_documento_alterar.php';
-                    return true;
+                require_once dirname(__FILE__) . '/gd_modelo_documento_alterar.php';
+                return true;
 
             case 'gd_ajuda_variaveis_modelo_arquivamento':
             case 'gd_ajuda_variaveis_modelo_desarquivamento':
@@ -407,9 +427,9 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
             case 'gd_ajuda_variaveis_modelo_listagem_recolhimento':
             case 'gd_ajuda_variaveis_modelo_documento_recolhimento':
                 require_once dirname(__FILE__) . '/gd_ajuda_variaveis_modelo.php';
-                return true;    
-    
-            // Justificativas de arquivamento
+                return true;
+
+                // Justificativas de arquivamento
             case 'gd_justificativa_listar':
             case 'gd_justificativa_excluir':
                 require_once dirname(__FILE__) . '/gd_justificativa_listar.php';
@@ -421,32 +441,32 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
                 require_once dirname(__FILE__) . '/gd_justificativa_cadastrar.php';
                 return true;
             case 'gd_unidade_arquivamento_selecionar':
-                    require_once dirname(__FILE__) . '/gd_unidade_arquivamento_selecionar.php';
-                    return true;
+                require_once dirname(__FILE__) . '/gd_unidade_arquivamento_selecionar.php';
+                return true;
 
-            // Unidades de arquivamento
+                // Unidades de arquivamento
             case 'gd_unidade_arquivamento_listar':
             case 'gd_unidade_arquivamento_excluir':
                 require_once dirname(__FILE__) . '/gd_unidade_arquivamento_listar.php';
                 return true;
-                
+
             case 'gd_unidade_arquivamento_cadastrar':
             case 'gd_unidade_arquivamento_alterar':
             case 'gd_unidade_arquivamento_visualizar':
                 require_once dirname(__FILE__) . '/gd_unidade_arquivamento_cadastrar.php';
                 return true;
-            
-            // Arquivar procedimento    
+
+                // Arquivar procedimento    
             case 'gd_procedimento_arquivar':
                 require_once dirname(__FILE__) . '/gd_procedimento_arquivar.php';
                 return true;
-            
-            // Desarquivar procedimento
+
+                // Desarquivar procedimento
             case 'gd_procedimento_desarquivar':
                 require_once dirname(__FILE__) . '/gd_procedimento_desarquivar.php';
                 return true;
-            
-            // Pendências de arquivamento
+
+                // Pendências de arquivamento
             case 'gd_pendencia_arquivamento_listar':
             case 'gd_procedimento_reabrir':
                 require_once dirname(__FILE__) . '/gd_pendencia_arquivamento_listar.php';
@@ -455,32 +475,32 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
             case 'gd_pendencia_arquivamento_anotar':
                 require_once dirname(__FILE__) . '/gd_pendencia_arquivamento_anotar.php';
                 return true;
-            
-            // Listar arquivamentos
+
+                // Listar arquivamentos
             case 'gd_arquivamento_listar':
             case 'gd_arquivamento_editar':
             case 'gd_arquivamento_edicao_concluir':
                 require_once dirname(__FILE__) . '/gd_arquivamento_listar.php';
                 return true;
-            
-            // Listar histórico de arquivamento
+
+                // Listar histórico de arquivamento
             case 'gd_arquivamento_historico_listar':
                 require_once dirname(__FILE__) . '/gd_arquivamento_historico_listar.php';
                 return true;
 
-            // Avaliação de processos
+                // Avaliação de processos
             case 'gd_arquivamento_avaliar':
             case 'gd_arquivamento_eliminacao_enviar':
             case 'gd_arquivamento_recolhimento_enviar':
                 require_once dirname(__FILE__) . '/gd_arquivamento_avaliar.php';
                 return true;
 
-            // Devolução de um arquivamento
+                // Devolução de um arquivamento
             case 'gd_arquivamento_devolver':
                 require_once dirname(__FILE__) . '/gd_arquivamento_devolver.php';
                 return true;
-                
-            // Preparação da lista de eliminação
+
+                // Preparação da lista de eliminação
             case 'gd_lista_eliminacao_preparacao_listar':
             case 'gd_lista_eliminacao_preparacao_gerar':
             case 'gd_lista_eliminacao_preparacao_excluir':
@@ -491,7 +511,7 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
                 require_once dirname(__FILE__) . '/gd_lista_eliminacao_preparacao_observar.php';
                 return true;
 
-            // Gestão das listagens de eliminação
+                // Gestão das listagens de eliminação
             case 'gd_lista_eliminacao_listar':
             case 'gd_lista_eliminacao_editar':
             case 'gd_lista_eliminacao_edicao_concluir':
@@ -502,8 +522,8 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
             case 'gd_lista_eliminacao_pdf_gerar':
                 require_once dirname(__FILE__) . '/gd_lista_eliminacao_visualizar.php';
                 return true;
-        
-            // Edição da listagem de eliminação
+
+                // Edição da listagem de eliminação
             case 'gd_lista_eliminacao_procedimento_adicionar':
                 require_once dirname(__FILE__) . '/gd_lista_eliminacao_procedimento_adicionar.php';
                 return true;
@@ -511,13 +531,13 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
             case 'gd_lista_eliminacao_procedimento_remover':
                 require_once dirname(__FILE__) . '/gd_lista_eliminacao_procedimento_remover.php';
                 return true;
-            
-            // Eliminação de processos
+
+                // Eliminação de processos
             case 'gd_lista_eliminacao_eliminar':
                 require_once dirname(__FILE__) . '/gd_lista_eliminacao_eliminar.php';
                 return true;
 
-            // Preparação da lista de recolhimento
+                // Preparação da lista de recolhimento
             case 'gd_lista_recolhimento_preparacao_listar':
             case 'gd_lista_recolhimento_preparacao_gerar':
             case 'gd_lista_recolhimento_preparacao_excluir':
@@ -527,8 +547,8 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
             case 'gd_lista_recolhimento_preparacao_observar':
                 require_once dirname(__FILE__) . '/gd_lista_recolhimento_preparacao_observar.php';
                 return true;
-    
-            // Edição da listagem de recolhimento
+
+                // Edição da listagem de recolhimento
             case 'gd_lista_recolhimento_procedimento_adicionar':
                 require_once dirname(__FILE__) . '/gd_lista_recolhimento_procedimento_adicionar.php';
                 return true;
@@ -537,7 +557,7 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
                 require_once dirname(__FILE__) . '/gd_lista_recolhimento_procedimento_remover.php';
                 return true;
 
-            // Gestão das listagens de recolhimento
+                // Gestão das listagens de recolhimento
             case 'gd_lista_recolhimento_listar':
             case 'gd_lista_recolhimento_editar':
             case 'gd_lista_recolhimento_edicao_concluir':
@@ -550,7 +570,7 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
                 require_once dirname(__FILE__) . '/gd_lista_recolhimento_visualizar.php';
                 return true;
 
-            // Recolher documento fisico
+                // Recolher documento fisico
             case 'gd_lista_recolhimento_documentos_fisicos_listar':
                 require_once dirname(__FILE__) . '/gd_lista_recolhimento_documento_fisico_listar.php';
                 return true;
@@ -559,7 +579,7 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
                 require_once dirname(__FILE__) . '/gd_lista_recolhimento_documento_fisico_recolher.php';
                 return true;
 
-            // Eliminar documento fisico
+                // Eliminar documento fisico
             case 'gd_lista_eliminacao_documentos_fisicos_listar':
                 require_once dirname(__FILE__) . '/gd_lista_eliminacao_documento_fisico_listar.php';
                 return true;
@@ -567,8 +587,8 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
             case 'gd_lista_eliminacao_documentos_fisicos_eliminar':
                 require_once dirname(__FILE__) . '/gd_lista_eliminacao_documento_fisico_eliminar.php';
                 return true;
-            
-            // Relatório
+
+                // Relatório
             case 'gd_relatorio':
                 require_once dirname(__FILE__) . '/gd_relatorio.php';
                 return true;
@@ -577,7 +597,8 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
         return false;
     }
 
-    public function processarControladorAjax($strAcao) {
+    public function processarControladorAjax($strAcao)
+    {
 
         $xml = null;
 
@@ -597,47 +618,50 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
                 $objUsuarioDTOPesquisa->retStrSenha();
                 $objUsuarioDTOPesquisa->retNumIdContato();
                 $objUsuarioDTOPesquisa->setNumIdUsuario(SessaoSEI::getInstance()->getNumIdUsuario());
-          
+
                 $objUsuarioRN = new UsuarioRN();
                 $objUsuarioDTO = $objUsuarioRN->consultarRN0489($objUsuarioDTOPesquisa);
                 $bolSenha = 'S';
 
-                if ($objUsuarioDTO->getStrStaTipo()==UsuarioRN::$TU_SIP){
+                if ($objUsuarioDTO->getStrStaTipo() == UsuarioRN::$TU_SIP) {
 
                     $objInfraSip = new InfraSip(SessaoSEI::getInstance());
-                    $objInfraSip->autenticar($_REQUEST['orgao'],
+                    $objInfraSip->autenticar(
+                        $_REQUEST['orgao'],
                         SessaoSEI::getInstance()->getNumIdContextoUsuario(),
                         $objUsuarioDTO->getStrSigla(),
-                        $_REQUEST['senha']);          
-                  }else{
-          
+                        $_REQUEST['senha']
+                    );
+                } else {
+
                     $bcrypt = new InfraBcrypt();
                     if (!$bcrypt->verificar(md5($_REQUEST['senha']), $objUsuarioDTO->getStrSenha())) {
-                      $bolSenha = 'N';
+                        $bolSenha = 'N';
                     }
-                  }
-     
-                $xml = InfraAjax::gerarXMLComplementosArray(array('SinValida'=> $bolSenha));
+                }
+
+                $xml = InfraAjax::gerarXMLComplementosArray(array('SinValida' => $bolSenha));
                 break;
             case 'gd_arquivamento_validar_configuracao':
                 // Validar configuração do módulo
                 $objMdGdParametroRN = new MdGdParametroRN();
-                if(!$objMdGdParametroRN->obterParametro(MdGdParametroRN::$PAR_DESPACHO_ARQUIVAMENTO)){
+                if (!$objMdGdParametroRN->obterParametro(MdGdParametroRN::$PAR_DESPACHO_ARQUIVAMENTO)) {
                     throw new InfraException('Não foi configurado o tipo de documento para arquivamento!');
                 }
 
                 // Validar unidade de arquivamento
                 $objMdGdUnidadeArquivamentoRN = new MdGdUnidadeArquivamentoRN();
-                if(!$objMdGdUnidadeArquivamentoRN->getNumIdUnidadeArquivamentoAtual()){
+                if (!$objMdGdUnidadeArquivamentoRN->getNumIdUnidadeArquivamentoAtual()) {
                     throw new InfraException('A unidade atual não possui unidade de arquivamento configurada');
                 }
-                $xml = InfraAjax::gerarXMLComplementosArray(array('SinValida'=> 'S'));
+                $xml = InfraAjax::gerarXMLComplementosArray(array('SinValida' => 'S'));
         }
-                
+
         return $xml;
     }
 
-    public function processarControladorPublicacoes($strAcao) {
+    public function processarControladorPublicacoes($strAcao)
+    {
 
         switch ($strAcao) {
 
@@ -649,7 +673,8 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
         return false;
     }
 
-    public function processarControladorExterno($strAcao) {
+    public function processarControladorExterno($strAcao)
+    {
 
         switch ($strAcao) {
 
@@ -661,19 +686,22 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
         return false;
     }
 
-    public function verificarAcessoProtocolo($arrObjProcedimentoAPI, $arrObjDocumentoAPI) {
+    public function verificarAcessoProtocolo($arrObjProcedimentoAPI, $arrObjDocumentoAPI)
+    {
 
         $ret = null;
         return $ret;
     }
 
-    public function verificarAcessoProtocoloExterno($arrObjProcedimentoAPI, $arrObjDocumentoAPI) {
+    public function verificarAcessoProtocoloExterno($arrObjProcedimentoAPI, $arrObjDocumentoAPI)
+    {
 
         $ret = null;
         return $ret;
     }
 
-    public function montarMensagemProcesso(ProcedimentoAPI $objProcedimentoAPI) {
+    public function montarMensagemProcesso(ProcedimentoAPI $objProcedimentoAPI)
+    {
         $strMsg = '';
 
         $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
@@ -683,28 +711,28 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
         $objMdGdArquivamentoDTO->retStrSiglaUnidadeCorrente();
         $objMdGdArquivamentoDTO->retStrSituacao();
         $objMdGdArquivamentoDTO->retStrObservacaoDevolucao();
-        
+
         $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
 
-        if($objMdGdArquivamentoRN->contar($objMdGdArquivamentoDTO) == 1){
+        if ($objMdGdArquivamentoRN->contar($objMdGdArquivamentoDTO) == 1) {
             $objMdGdArquivamentoDTO = $objMdGdArquivamentoRN->consultar($objMdGdArquivamentoDTO);
-            
+
             $strMsg = '';
-            if($objMdGdArquivamentoDTO->getStrSituacao() == MdGdArquivamentoRN::$ST_ENVIADO_RECOLHIMENTO){
+            if ($objMdGdArquivamentoDTO->getStrSituacao() == MdGdArquivamentoRN::$ST_ENVIADO_RECOLHIMENTO) {
                 $strMsg .= 'Processo incluído em listagem de recolhimento.';
-            }else if($objMdGdArquivamentoDTO->getStrSituacao() == MdGdArquivamentoRN::$ST_ENVIADO_ELIMINACAO){
+            } else if ($objMdGdArquivamentoDTO->getStrSituacao() == MdGdArquivamentoRN::$ST_ENVIADO_ELIMINACAO) {
                 $strMsg .= 'Processo incluído em listagem de eliminação.';
-            }else if($objMdGdArquivamentoDTO->getStrSituacao() == MdGdArquivamentoRN::$ST_ELIMINADO){
+            } else if ($objMdGdArquivamentoDTO->getStrSituacao() == MdGdArquivamentoRN::$ST_ELIMINADO) {
                 $strMsg .= 'Processo eliminado.';
-            }else if($objMdGdArquivamentoDTO->getStrSituacao() == MdGdArquivamentoRN::$ST_RECOLHIDO){
+            } else if ($objMdGdArquivamentoDTO->getStrSituacao() == MdGdArquivamentoRN::$ST_RECOLHIDO) {
                 $strMsg .= 'Processo recolhido.';
-            }else{
+            } else {
                 $strMsg .= 'Processo arquivado.';
             }
-            
-            if($objMdGdArquivamentoDTO && $objMdGdArquivamentoDTO->getStrSituacao() == MdGdArquivamentoRN::$ST_FASE_EDICAO){
-                $strMsg = 'Processo arquivado em fase de correção. A ação deve ser concluída no Arquivo da Unidade '.$objMdGdArquivamentoDTO->getStrSiglaUnidadeCorrente().'. </br></br> <span style="font-weight:bold">Causa da devolução:</span> ' . $objMdGdArquivamentoDTO->getStrObservacaoDevolucao()  ;
-                
+
+            if ($objMdGdArquivamentoDTO && $objMdGdArquivamentoDTO->getStrSituacao() == MdGdArquivamentoRN::$ST_FASE_EDICAO) {
+                $strMsg = 'Processo arquivado em fase de correção. A ação deve ser concluída no Arquivo da Unidade ' . $objMdGdArquivamentoDTO->getStrSiglaUnidadeCorrente() . '. </br></br> <span style="font-weight:bold">Causa da devolução:</span> ' . $objMdGdArquivamentoDTO->getStrObservacaoDevolucao();
+
                 echo "<script>               
                 let ifr=window.parent.document.querySelector('#ifrVisualizacao');
                 ifr.addEventListener('load',()=>{                        
@@ -729,19 +757,16 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
 
                 });
                 </script>";
-
-                
-            
             }
-
         }
 
 
         return $strMsg;
     }
 
-    public function reabrirProcesso(ProcedimentoAPI $objProcedimentoAPI){
-        
+    public function reabrirProcesso(ProcedimentoAPI $objProcedimentoAPI)
+    {
+
         $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
         $objMdGdArquivamentoDTO->setDblIdProcedimento($objProcedimentoAPI->getIdProcedimento());
         $objMdGdArquivamentoDTO->setStrSinAtivo('S');
@@ -749,8 +774,8 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
         $objMdGdArquivamentoDTO->retDblIdProcedimento();
 
         $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
-        
-        if($objMdGdArquivamentoRN->contar($objMdGdArquivamentoDTO) != 0){
+
+        if ($objMdGdArquivamentoRN->contar($objMdGdArquivamentoDTO) != 0) {
             $objInfraException = new InfraException();
             $objInfraException->lancarValidacao('O processo não pode ser reaberto pois encontra-se arquivado!');
             return false;
@@ -759,7 +784,8 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
         return null;
     }
 
-    public function excluirDocumento(DocumentoAPI $objDocumentoAPI){
+    public function excluirDocumento(DocumentoAPI $objDocumentoAPI)
+    {
         $objInfraException = new InfraException();
 
         // Valida se o documento não está vinculado a uma lista de eliminação
@@ -769,7 +795,7 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
 
         $objMdGdListaEliminacaoRN = new MdGdListaEliminacaoRN();
 
-        if($objMdGdListaEliminacaoRN->contar($objMdGdListaEliminacaoDTO) > 0){
+        if ($objMdGdListaEliminacaoRN->contar($objMdGdListaEliminacaoDTO) > 0) {
             $objInfraException->lancarValidacao('O documento não pode ser excluído!');
             return false;
         }
@@ -781,7 +807,7 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
 
         $objMdGdListaRecolhimentoRN = new MdGdListaRecolhimentoRN();
 
-        if($objMdGdListaRecolhimentoRN->contar($objMdGdListaRecolhimentoDTO) > 0){
+        if ($objMdGdListaRecolhimentoRN->contar($objMdGdListaRecolhimentoDTO) > 0) {
             $objInfraException->lancarValidacao('O documento não pode ser excluído!');
             return false;
         }
@@ -789,9 +815,10 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
         return null;
     }
 
-    public function concluirProcesso($arrObjProcedimentoAPI) {
+    public function concluirProcesso($arrObjProcedimentoAPI)
+    {
 
-        foreach($arrObjProcedimentoAPI as $objProcedimentoAPI) {
+        foreach ($arrObjProcedimentoAPI as $objProcedimentoAPI) {
             $objProcedimentoDTO = new ProcedimentoDTO();
             $objProcedimentoDTO->setDblIdProcedimento($objProcedimentoAPI->getIdProcedimento());
             $objProcedimentoDTO->retStrStaEstadoProtocolo();
@@ -799,7 +826,7 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
 
             $objProcedimentoRN = new ProcedimentoRN();
             $objProcedimentoDTO = $objProcedimentoRN->consultarRN0201($objProcedimentoDTO);
-            
+
             // Bloqueia o processo
             if ($objProcedimentoDTO->getStrStaEstadoProtocolo() != ProtocoloRN::$TE_PROCEDIMENTO_BLOQUEADO) {
                 $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
@@ -807,26 +834,25 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
                 $objMdGdArquivamentoDTO->setStrSinAtivo('S');
                 $objMdGdArquivamentoDTO->retStrSituacao();
                 $objMdGdArquivamentoDTO->retDblIdProcedimento();
-        
+
                 $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
                 $objMdGdArquivamentoDTO = $objMdGdArquivamentoRN->consultar($objMdGdArquivamentoDTO);
 
-                if($objMdGdArquivamentoDTO) {
-                    if($objMdGdArquivamentoDTO->getStrSituacao() == MdGdArquivamentoRN::$ST_FASE_EDICAO){
+                if ($objMdGdArquivamentoDTO) {
+                    if ($objMdGdArquivamentoDTO->getStrSituacao() == MdGdArquivamentoRN::$ST_FASE_EDICAO) {
                         $objInfraException = new InfraException();
                         $objInfraException->lancarValidacao('O processo não pode ser concluído.');
                         return false;
                     }
                 }
-
             }
-
         }
 
         return null;
     }
 
-    public function gerarDocumento(DocumentoAPI $objDocumentoAPI){
+    public function gerarDocumento(DocumentoAPI $objDocumentoAPI)
+    {
         $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
         $objMdGdArquivamentoDTO->setDblIdProcedimento($objDocumentoAPI->getIdProcedimento());
         $objMdGdArquivamentoDTO->setStrSinAtivo('S');
@@ -837,10 +863,10 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
         $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
         $objMdGdArquivamentoDTO = $objMdGdArquivamentoRN->consultar($objMdGdArquivamentoDTO);
 
-        if($objMdGdArquivamentoDTO) {
-            if($objMdGdArquivamentoDTO->getStrSituacao() == MdGdArquivamentoRN::$ST_FASE_EDICAO){
+        if ($objMdGdArquivamentoDTO) {
+            if ($objMdGdArquivamentoDTO->getStrSituacao() == MdGdArquivamentoRN::$ST_FASE_EDICAO) {
                 $objInfraException = new InfraException();
-                $objInfraException->lancarValidacao('O documento não pode ser incluído pois o processo encontra-se em correção no arquivo da unidade '.$objMdGdArquivamentoDTO->getStrSiglaUnidadeCorrente().'.');
+                $objInfraException->lancarValidacao('O documento não pode ser incluído pois o processo encontra-se em correção no arquivo da unidade ' . $objMdGdArquivamentoDTO->getStrSiglaUnidadeCorrente() . '.');
                 return false;
             }
         }
@@ -848,7 +874,8 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
         return null;
     }
 
-    public function anexarProcesso(ProcedimentoAPI $objProcedimentoAPIPrincipal, ProcedimentoAPI $objProcedimentoAPIAnexado){
+    public function anexarProcesso(ProcedimentoAPI $objProcedimentoAPIPrincipal, ProcedimentoAPI $objProcedimentoAPIAnexado)
+    {
         $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
         $objMdGdArquivamentoDTO->setDblIdProcedimento([$objProcedimentoAPIPrincipal->getIdProcedimento(), $objProcedimentoAPIAnexado->getIdProcedimento()], InfraDTO::$OPER_IN);
         $objMdGdArquivamentoDTO->setStrSituacao(MdGdArquivamentoRN::$ST_FASE_EDICAO);
@@ -856,7 +883,7 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
 
         $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
 
-        if($objMdGdArquivamentoRN->contar($objMdGdArquivamentoDTO) != 0){
+        if ($objMdGdArquivamentoRN->contar($objMdGdArquivamentoDTO) != 0) {
             $objInfraException = new InfraException();
             $objInfraException->lancarValidacao('O processo não pode ser anexado pois encontra-se arquivado!');
             return false;
@@ -865,6 +892,50 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
         return null;
     }
 
-}
+    /**
+     * Verifica a correta definição de todos os parâmetros de configuração do módulo
+     *
+     * @return bool
+     */
+    private function verificarArquivoConfiguracao()
+    {
+        // Valida se arquivo de configuração está presente na instalação do sistema
+        $strArquivoConfiguracao = DIR_SEI_CONFIG . '/mod-gestao-documental/ConfiguracaoMdGestaoDocumental.php';
+        if (!file_exists($strArquivoConfiguracao) || !is_readable($strArquivoConfiguracao)) {
+            $strMensagem = "Arquivo de configuração do módulo de Gestão Documental (mod-sei-gestao-documental) não pode ser localizado";
+            $strDetalhes = "As configurações do módulo mod-sei-gestao-documental não foram encontradas em $strArquivoConfiguracao \n";
+            $strDetalhes .= "Verifique se a instalação foi feita corretamente seguindo os procedimentos do manual de instalação.";
+            throw new InfraException($strMensagem, null, $strDetalhes);
+        }
 
-?>
+        require_once DIR_SEI_CONFIG . '/mod-gestao-documental/ConfiguracaoMdGestaoDocumental.php';
+
+        // Valida se arquivo de configuração está íntegro e se a classe de configuração está presente
+        if (!class_exists("ConfiguracaoMdGestaoDocumental")) {
+            $strMensagem = "Definição de configurações do módulo de Gestão Documental (mod-sei-gestao-documental) não pode ser localizada";
+            $strDetalhes = "Verifique se o arquivo de configuração localizado em $strArquivoConfiguracao encontra-se íntegro.";
+            throw new InfraException($strMensagem, null, $strDetalhes);
+        }
+
+        // Valida se todos os parâmetros de configuração estão presentes no arquivo de configuração
+        $arrStrChavesConfiguracao = ConfiguracaoMdGestaoDocumental::getInstance()->getArrConfiguracoes();
+        if (!array_key_exists("GestaoDocumental", $arrStrChavesConfiguracao)) {
+            $strMensagem = "Grupo de parametrização 'GestaoDocumental' não pode ser localizado no arquivo de configuração do módulo de Gestão Documental (mod-sei-gestao-documental)";
+            $strDetalhes = "Verifique se o arquivo de configuração localizado em $strArquivoConfiguracao encontra-se íntegro.";
+            throw new InfraException($strMensagem, null, $strDetalhes);
+        }
+
+        // Valida se todas as chaves de configuração obrigatórias foram atribuídas
+        $arrStrChavesConfiguracao = $arrStrChavesConfiguracao["GestaoDocumental"];
+        $arrStrParametrosExperados = array(/* COLOQUE AQUI OS PARÂMETROS OBRIGATÓRIOS */);
+        foreach ($arrStrParametrosExperados as $strChaveConfiguracao) {
+            if (!array_key_exists($strChaveConfiguracao, $arrStrChavesConfiguracao)) {
+                $strMensagem = "Parâmetro 'GestaoDocumental > $strChaveConfiguracao' não pode ser localizado no arquivo de configuração do módulo de Gestão Documental (mod-sei-gestao-documental)";
+                $strDetalhes = "Verifique se o arquivo de configuração localizado em $strArquivoConfiguracao encontra-se íntegro.";
+                throw new InfraException($strMensagem, null, $strDetalhes);
+            }
+        }
+
+        return true;
+    }
+}
