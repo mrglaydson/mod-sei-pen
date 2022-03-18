@@ -926,7 +926,7 @@ class VersaoSeiRN extends InfraScriptVersao
         }
     }
 
-    public function versao_0_5_5($strVersaoAtual)
+    public function versao_0_5_1($strVersaoAtual)
     {
     }
 }
