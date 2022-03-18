@@ -1,50 +1,50 @@
+# Manual de Instala√ß√£o do M√≥dulo de Gest√£o Documental do SEI
 
-# Manual de InstalaÁ„o do MÛdulo de Gest„o Documental do SEI
+O m√≥dulo **mod-gestao-documental** √© o respons√°vel adicionar novas funcionalidades ao SEI para realizar o gerenciamento do ciclo de vida dos documentos p√∫blicos segunda regras de gest√£o documental.
 
-Esse manual tem como objetivo orientar a instalaÁ„o e configuraÁ„o inicial do mÛdulo de gest„o documental do SEI para sua utilizaÁ„o nas versıes do SEI suportadas.  
+## O REPOSIT√ìRIO
 
-Este manual est· estruturado nas seguintes seÁıes:
+Este reposit√≥rio no GitHub √© o local oficial onde ser√° mantido todo o desenvolvimento do m√≥dulo de Gest√£o Documental. Al√©m do c√≥digo-fonte, tamb√©m pode ser encontrado o pacote de distribui√ß√£o para instala√ß√£o no SEI, quest√µes ou problema em aberto e planejamento de novas vers√µes.
 
- 1. **InstalaÁ„o**
-Procedimentos de instalaÁ„o do mÛdulo nos servidores de aplicaÁ„o e atualizaÁ„o do banco de dados.
- 
-## InstalaÁ„o
+## DOWNLOAD
 
-### PrÈ-requisitos
- - **SEI vers„o 3.0.11 ou superior instalada.**
- - Usu·rio de acesso ao banco de dados do SEI e SIP com  permissıes para criar novas estruturas no banco de dados.
-  
-### Procedimentos
+O download do pacote de instala√ß√£o/atualiza√ß√£o do mod-gestao-documental pode ser encontrado na se√ß√£o Releases deste projeto no GitHub.
+Acesse o link https://github.com/spbgovbr/mod-gestao-documental/releases
 
-1. Fazer backup dos banco de dados do SEI e SIP e dos arquivos de configuraÁ„o do sistema.
+**[DOWNLOAD PACOTE DE INSTALA√á√ÉO MOD-GESTAO-DOCUMENTAL](https://github.com/spbgovbr/mod-gestao-documental/releases)**
 
-2.  Configurar mÛdulo de gest„o documental no arquivo de configuraÁ„o do SEI
+## DOCUMENTA√á√ÉO
 
-    Editar o arquivo **sei/config/ConfiguracaoSEI.php**, tomando o cuidado de usar editor que n„o altere o charset ISO 5589-1 do arquivo, para adicionar a referÍncia ao mÛdulo PEN na chave **[Modulos]** abaixo da chave **[SEI]**:    
+As instru√ß√µes de instala√ß√£o e atualiza√ß√£o do m√≥dulo, assim com o manual de utiliza√ß√£o do usu√°rio, podem ser encontradas na pasta `docs/`.
 
-        'SEI' => array(
-            'URL' => 'http://[servidor sei]/sei',
-            'Producao' => true,
-            'RepositorioArquivos' => '/var/sei/arquivos',
-            'Modulos' => array('MdGestaoDocumentalIntegracao' => 'sei-mod-gestao-documental'),
-            ),
+- **[MANUAL DE INSTALA√á√ÉO](docs/INSTALL.md)**
+- **[MANUAL DE ATUALIZA√á√ÉO](docs/UPGRADE.md)**
+- **[MANUAL DE UTILIZA√á√ÉO](docs/USAGE.md)**
 
-    Adicionar a referÍncia ao mÛdulo PEN na array da chave 'Modulos' indicada acima:
-            
-        'Modulos' => array('MdGestaoDocumentalIntegracao' => 'sei-mod-gestao-documental')
+### Funcionalidades do M√≥dulo Gest√£o Documental
 
-3.  Mover o diretÛrio de arquivos do mÛdulo "mod-sei-gestao-documental" para o diretÛrio sei/web/modulos/
+#### Funcionalidade 01
 
-3. Mover o arquivo de instalaÁ„o do mÛdulo no SEI **scripts/sei/sei-gestao-documental-atualizar.php** para a pasta **sei/scripts**. Lembre-se de mover, e n„o copiar, por questıes de seguranÁa e padronizaÁ„o.
+#### Funcionalidade 02
 
-4. Mover o arquivo de instalaÁ„o do mÛdulo no SEI **scripts/sip/sip-gestao-documental-atualizar.php** para a pasta **sip/scripts**. Lembre-se de mover, e n„o copiar, por questıes de seguranÁa e padronizaÁ„o.
 
-5 Executar o script **sip-gestao-documental-atualizar.php** para atualizar o banco de dados do SIP para o funcionamento do mÛdulo:
+## PROJETOS RELACIONADOS
 
-        # php -c /etc/php.ini [DIRETORIO_RAIZ_INSTALA«√O]/sip/scripts/sip-gestao-documental-atualizar.php.php
+Para maiores informa√ß√µes sobre a Assinatura Eletr√¥nica do Gov.Br, acesse o endere√ßo https://www.gov.br/governodigital/pt-br/assinatura-eletronica
 
-6. Executar o script **sei-gestao-documental-atualizar.php** para inserÁ„o de dados no banco do SEI referente ao mÛdulo.
+## CONTRIBUI√á√ÉO
 
-        # php -c /etc/php.ini [DIRETORIO_RAIZ_INSTALA«√O]/sei/scripts/sei-gestao-documental-atualizar.php
+Existem diversas formas de colaborar neste projeto:
 
-7. ApÛs a instalaÁ„o do mÛdulo, o usu·rio de manutenÁ„o dever· ser alterado para outro contendo apenas as permissıes de leitura e escrita no banco de dados.
+- Enviar registros de erros ou solicita√ß√£o de melhorias ([Issues](https://github.com/spbgovbr/mod-gestao-documental/issues))
+- Revisar a documenta√ß√£o do projeto e enviar qualquer tipo de contribui√ß√£o via [Pull Request](https://github.com/spbgovbr/mod-gestao-documental/pulls)
+- Ajudar na corre√ß√£o de erros ou melhoria da base de c√≥digo. Para isto, fa√ßa um fork do projeto no GitHub e posteriormente nos envie um [Pull Request](https://github.com/spbgovbr/mod-gestao-documental/pulls)
+
+## SUPORTE
+
+Em caso de d√∫vidas ou problemas durante o procedimento de atualiza√ß√£o, favor entrar em conta pelos canais de atendimento disponibilizados na Central de Atendimento do Processo Eletr√¥nico Nacional, que conta com uma equipe para avaliar e responder esta quest√£o de forma mais r√°pida poss√≠vel.
+
+Para mais informa√ß√µes, contate a equipe respons√°vel por meio dos seguintes canais:
+
+- [Portal de Atendimento (PEN): Canal de Atendimento](https://portaldeservicos.economia.gov.br) - M√≥dulo do Barramento
+- Telefone: 0800 978 9005
