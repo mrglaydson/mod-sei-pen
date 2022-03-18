@@ -32,7 +32,11 @@ class VersaoSipRN extends InfraScriptVersao
     {
     }
 
-    public function versao_0_1_0($strVersaoAtual)
+    public function versao_0_4_0($strVersaoAtual)
+    {
+    }
+
+    public function versao_0_5_0($strVersaoAtual)
     {
         session_start();
 
@@ -347,7 +351,7 @@ class VersaoSipRN extends InfraScriptVersao
         $id_menu_relatorio = $fnItemMenu($id_menu, $id_menu_gestao_documental, $id_sistema, $id_recurso_relatorio, 'Relatórios', 'N', 'S', 4);
     }
 
-    public function versao_0_1_1($strVersaoAtual)
+    public function versao_0_5_1($strVersaoAtual)
     {
     }
 }
@@ -365,8 +369,9 @@ try {
     $objVersaoSipRN->setArrVersoes(
         array(
             '0.0.0' => 'versao_0_0_0',
-            '0.1.0' => 'versao_0_1_0',
-            '0.1.1' => 'versao_0_1_1',
+            '0.4.0' => 'versao_0_4_0',
+            '0.5.0' => 'versao_0_5_0',
+            '0.5.1' => 'versao_0_5_1',
         )
     );
 

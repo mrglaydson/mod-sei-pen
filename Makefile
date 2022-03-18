@@ -35,7 +35,6 @@ build:
 	@mkdir -p $(SEI_CONFIG_DIR)
 	@mkdir -p $(SEI_MODULO_DIR)
 	@mkdir -p $(SIP_SCRIPTS_DIR)
-	@composer install
 	@cp -Rf src/* $(SEI_MODULO_DIR)/
 	@cp docs/INSTALL.md dist/INSTALACAO.md
 	@cp docs/UPGRADE.md dist/ATUALIZACAO.md
