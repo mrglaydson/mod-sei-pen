@@ -33,7 +33,7 @@ Procedimentos de instalação do módulo nos servidores de aplicação e atualiz
             
         'Modulos' => array('MdGestaoDocumentalIntegracao' => 'sei-mod-gestao-documental')
 
-3.  Mover o diretório de arquivos do módulo "mod-sei-gestao-documental" para o diretório sei/web/modulos/
+3.  Mover o diretório de arquivos do módulo "mod-gestao-documental" para o diretório sei/web/modulos/
 
 3. Mover o arquivo de instalação do módulo no SEI **scripts/sei/sei-gestao-documental-atualizar.php** para a pasta **sei/scripts**. Lembre-se de mover, e não copiar, por questões de segurança e padronização.
 

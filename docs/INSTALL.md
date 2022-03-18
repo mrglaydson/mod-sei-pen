@@ -1,10 +1,10 @@
 # Manual de Instalação do Módulo de Gestão Documental
 
-O objetivo deste documento é descrever os procedimentos para realização da INSTALAÇÃO INICIAL do Módulo de Gestão Documental (**mod-sei-gestao-documental**) no Sistema Eletrônico de Informações (SEI).
+O objetivo deste documento é descrever os procedimentos para realização da INSTALAÇÃO INICIAL do Módulo de Gestão Documental (**mod-gestao-documental**) no Sistema Eletrônico de Informações (SEI).
 
 **ATENÇÃO: Caso o módulo já se encontre instalado em uma versão anterior, siga as instruções detalhadas de atualização no documento ATUALIZACAO.md presente no arquivo de distribuição do módulo (mod-gestao-documental-VERSAO.zip)**
 
-O módulo **mod-sei-gestao-documental** é o responsável adicionar novas funcionalidades ao SEI para realizar o gerenciamento do ciclo de vida dos documentos públicos segunda regras de gestão documental.
+O módulo **mod-gestao-documental** é o responsável adicionar novas funcionalidades ao SEI para realizar o gerenciamento do ciclo de vida dos documentos públicos segunda regras de gestão documental.
 
 Este documento está estruturado nas seguintes seções:
 

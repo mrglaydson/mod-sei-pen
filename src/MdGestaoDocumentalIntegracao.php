@@ -902,8 +902,8 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao
         // Valida se arquivo de configuração está presente na instalação do sistema
         $strArquivoConfiguracao = DIR_SEI_CONFIG . '/mod-gestao-documental/ConfiguracaoMdGestaoDocumental.php';
         if (!file_exists($strArquivoConfiguracao) || !is_readable($strArquivoConfiguracao)) {
-            $strMensagem = "Arquivo de configuração do módulo de Gestão Documental (mod-sei-gestao-documental) não pode ser localizado";
-            $strDetalhes = "As configurações do módulo mod-sei-gestao-documental não foram encontradas em $strArquivoConfiguracao \n";
+            $strMensagem = "Arquivo de configuração do módulo de Gestão Documental (mod-gestao-documental) não pode ser localizado";
+            $strDetalhes = "As configurações do módulo mod-gestao-documental não foram encontradas em $strArquivoConfiguracao \n";
             $strDetalhes .= "Verifique se a instalação foi feita corretamente seguindo os procedimentos do manual de instalação.";
             throw new InfraException($strMensagem, null, $strDetalhes);
         }
@@ -912,7 +912,7 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao
 
         // Valida se arquivo de configuração está íntegro e se a classe de configuração está presente
         if (!class_exists("ConfiguracaoMdGestaoDocumental")) {
-            $strMensagem = "Definição de configurações do módulo de Gestão Documental (mod-sei-gestao-documental) não pode ser localizada";
+            $strMensagem = "Definição de configurações do módulo de Gestão Documental (mod-gestao-documental) não pode ser localizada";
             $strDetalhes = "Verifique se o arquivo de configuração localizado em $strArquivoConfiguracao encontra-se íntegro.";
             throw new InfraException($strMensagem, null, $strDetalhes);
         }
@@ -920,7 +920,7 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao
         // Valida se todos os parâmetros de configuração estão presentes no arquivo de configuração
         $arrStrChavesConfiguracao = ConfiguracaoMdGestaoDocumental::getInstance()->getArrConfiguracoes();
         if (!array_key_exists("GestaoDocumental", $arrStrChavesConfiguracao)) {
-            $strMensagem = "Grupo de parametrização 'GestaoDocumental' não pode ser localizado no arquivo de configuração do módulo de Gestão Documental (mod-sei-gestao-documental)";
+            $strMensagem = "Grupo de parametrização 'GestaoDocumental' não pode ser localizado no arquivo de configuração do módulo de Gestão Documental (mod-gestao-documental)";
             $strDetalhes = "Verifique se o arquivo de configuração localizado em $strArquivoConfiguracao encontra-se íntegro.";
             throw new InfraException($strMensagem, null, $strDetalhes);
         }
@@ -930,7 +930,7 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao
         $arrStrParametrosExperados = array(/* COLOQUE AQUI OS PARÂMETROS OBRIGATÓRIOS */);
         foreach ($arrStrParametrosExperados as $strChaveConfiguracao) {
             if (!array_key_exists($strChaveConfiguracao, $arrStrChavesConfiguracao)) {
-                $strMensagem = "Parâmetro 'GestaoDocumental > $strChaveConfiguracao' não pode ser localizado no arquivo de configuração do módulo de Gestão Documental (mod-sei-gestao-documental)";
+                $strMensagem = "Parâmetro 'GestaoDocumental > $strChaveConfiguracao' não pode ser localizado no arquivo de configuração do módulo de Gestão Documental (mod-gestao-documental)";
                 $strDetalhes = "Verifique se o arquivo de configuração localizado em $strArquivoConfiguracao encontra-se íntegro.";
                 throw new InfraException($strMensagem, null, $strDetalhes);
             }
