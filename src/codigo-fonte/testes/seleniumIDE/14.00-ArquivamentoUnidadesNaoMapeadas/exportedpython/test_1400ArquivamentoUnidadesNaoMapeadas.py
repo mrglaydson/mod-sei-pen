@@ -87,7 +87,7 @@ class Test1400ArquivamentoUnidadesNaoMapeadas():
     self.driver.find_element(By.XPATH, "//img[@alt=\'Concluir Processo\']").click()
     time.sleep(2)
     self.driver.switch_to.default_content()
-    self.driver.find_element(By.XPATH, "//div[@id='divInfraBarraSistemaPadraoD' ]/div/a[@id='lnkInfraMenuSistema']").click()
+    self.driver.find_element(By.XPATH, "//div[@id='divInfraBarraSistemaPadraoD' ]/div/a[@id='lnkInfraMenuSistema']|//div[@id='divInfraBarraSistemaPadrao']/div/div/button").click()
     self.driver.find_element(By.LINK_TEXT, "Pendências de Arquivamento").click()
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".infraCaption")))
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()

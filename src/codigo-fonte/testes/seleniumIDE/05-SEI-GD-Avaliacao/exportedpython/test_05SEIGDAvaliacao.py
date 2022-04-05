@@ -140,7 +140,7 @@ class Test05SEIGDAvaliacao():
     # 47 | selectFrame | relative=parent | 
     self.driver.switch_to.default_content()
     # 48 | click | //*[@id="lnkInfraMenuSistema"] | 
-    self.driver.find_element(By.XPATH, "// a[@id='lnkInfraMenuSistema']/../../../div[@id='divInfraBarraSistemaPadraoD']/div/a").click()
+    self.driver.find_element(By.XPATH, "//a[@id='lnkInfraMenuSistema']/../../../div[@id='divInfraBarraSistemaPadraoD']/div/a|//div[@id='divInfraBarraSistemaPadrao']/div/div/button").click()
     # 49 | click | linkText=Arquivo da Unidade | 
     self.driver.find_element(By.LINK_TEXT, "Arquivo da Unidade").click()
     # 50 | click | css=td:nth-child(3) | 

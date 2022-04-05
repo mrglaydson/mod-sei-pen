@@ -79,8 +79,8 @@ class Test0230SEIGDCadProcAcessoInf():
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//img[@alt=\'Concluir Processo\']")))
     #self.driver.find_element(By.XPATH, "//img[@alt=\'Concluir Processo\']").click()
     self.driver.switch_to.default_content()
-    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.LINK_TEXT, "Menu")))
-    self.driver.find_element(By.LINK_TEXT, "Menu").click()
+    #WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.LINK_TEXT, "Menu")))
+    #self.driver.find_element(By.LINK_TEXT, "Menu").click()
     print("fim")
     print("fim2")
   

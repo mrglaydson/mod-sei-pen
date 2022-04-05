@@ -60,7 +60,7 @@ class Test06SEIGDListasEliminacaoGestao():
     self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[7]/a[1]").click()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos (4 registros):"
-    self.driver.find_element(By.CSS_SELECTOR, "#lnkSairSistema > .infraImg").click()
+    self.driver.find_element(By.XPATH, "//a[@id='lnkSairSistema']").click()
     self.driver.get(os.environ["base_url"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["selOrgao"]+"&sigla_sistema=SEI&infra_url=L3NlaS8=")
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.ID, "pwdSenha")))
     self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivista02")

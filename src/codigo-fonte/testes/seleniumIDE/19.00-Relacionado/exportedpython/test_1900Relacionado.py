@@ -203,7 +203,7 @@ class Test1900Relacionado():
     self.driver.find_element(By.ID, "sbmSalvar").click()
     self.vars["win1700"] = self.wait_for_window(5)
     self.driver.switch_to.window(self.vars["root"])
-
+    time.sleep(2)
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//div[@id='divInfraBarraSistemaPadrao']//div//div/a[@id='lnkInfraUnidade']")))
     self.driver.find_element(By.XPATH, "//div[@id='divInfraBarraSistemaPadrao']//div//div/a[@id='lnkInfraUnidade']").click()
     self.driver.find_element(By.LINK_TEXT, "Arquivo da Unidade").click()
