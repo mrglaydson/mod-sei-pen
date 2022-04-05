@@ -73,6 +73,7 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao
     public function montarIconeControleProcessos($arrObjProcedimentoAPI)
     {
 
+        $strPasta = MdGestaoDocumentalIntegracao::getDiretorio();
         $arrIcones = array();
         foreach ($arrObjProcedimentoAPI as $objProcedimentoAPI) {
 
@@ -84,10 +85,10 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao
             $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
             $objMdGdArquivamentoDTO = $objMdGdArquivamentoRN->consultar($objMdGdArquivamentoDTO);
 
-            if ($objMdGdArquivamentoDTO && $objMdGdArquivamentoDTO->getStrSituacao() == MdGdArquivamentoRN::$ST_FASE_EDICAO) {
+            if ($objMdGdArquivamentoDTO && $objMdGdArquivamentoDTO->getStrSituacao() == MdGdArquivamentoRN::$ST_FASE_EDICAO){
                 $arrIcones[$objProcedimentoAPI->getIdProcedimento()][] = '<a href="javascript:void(0);"
-                ' . PaginaSEI::montarTitleTooltip('Processo Retornado para Correção', 'Módulo Gestão Documental') . '><img
-                src="modulos/mod-gestao-documental/imagens/arquivamento.png" class="imagemStatus" height="22px" width="24px" /></a>';
+                '.PaginaSEI::montarTitleTooltip('Processo Retornado para Correção','Módulo Gestão Documental').'><img
+                src="'.$strPasta.'/imagens/arquivamento.png" class="imagemStatus" height="22px" width="24px" /></a>';
             }
         }
         return $arrIcones;
