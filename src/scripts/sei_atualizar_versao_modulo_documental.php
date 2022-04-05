@@ -929,6 +929,10 @@ class VersaoSeiRN extends InfraScriptVersao
     public function versao_0_5_1($strVersaoAtual)
     {
     }
+
+    public function versao_0_5_2($strVersaoAtual)
+    {
+    }
 }
 
 try {
@@ -948,6 +952,7 @@ try {
             '0.4.0' => 'versao_0_4_0',
             '0.5.0' => 'versao_0_5_0',
             '0.5.1' => 'versao_0_5_1',
+            '0.5.2' => 'versao_0_5_2',
         )
     );
 
