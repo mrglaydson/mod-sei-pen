@@ -105,8 +105,8 @@ try {
         $strResultado .= '<caption class="infraCaption">' . PaginaSEI::getInstance()->gerarCaptionTabela($strCaptionTabela, $numRegistros) . '</caption>';
         $strResultado .= '<tr>';
         $strResultado .= '<th class="infraTh" width="1%">' . PaginaSEI::getInstance()->getThCheck() . '</th>' . "\n";
-        $strResultado .= '<th class="infraTh" width="40%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdUnidadeArquivamentoDTO, 'Unidade de Origem', 'DescricaoUnidadeOrigem', $arrMdGdUnidadeArquivamentoDTO) . '</th>' . "\n";
-        $strResultado .= '<th class="infraTh" width="40%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdUnidadeArquivamentoDTO, 'Unidade de Arquivo', 'DescricaoUnidadeDestino', $arrMdGdUnidadeArquivamentoDTO) . '</th>' . "\n";
+        $strResultado .= '<th class="infraTh" width="40%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdUnidadeArquivamentoDTO, 'Unidade de Arquivamento', 'DescricaoUnidadeOrigem', $arrMdGdUnidadeArquivamentoDTO) . '</th>' . "\n";
+        $strResultado .= '<th class="infraTh" width="40%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdUnidadeArquivamentoDTO, 'Unidade de Avaliação', 'DescricaoUnidadeDestino', $arrMdGdUnidadeArquivamentoDTO) . '</th>' . "\n";
         $strResultado .= '<th class="infraTh" width="15%">Ações</th>' . "\n";
         $strResultado .= '</tr>' . "\n";
         $strCssTr = '';
@@ -206,12 +206,12 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
           PaginaSEI::getInstance()->montarBarraComandosSuperior($arrComandos);
           PaginaSEI::getInstance()->abrirAreaDados('4.5em');
           ?>
-    <label id="lblUnidadeOrigem" for="selUnidadeOrigem" accesskey="" class="infraLabelOpcional">Unidade de Origem:</label>
+    <label id="lblUnidadeOrigem" for="selUnidadeOrigem" accesskey="" class="infraLabelOpcional">Unidade de Arquivamento:</label>
     <select id="selUnidadeOrigem" name="selUnidadeOrigem" onchange="this.form.submit();" class="infraSelect" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" >
         <?= $strItensSelUnidadesOrigem ?>
     </select>
 
-    <label id="lblUnidadeDestino" for="selUnidadeDestino" accesskey="" class="infraLabelOpcional">Unidade de Arquivo:</label>
+    <label id="lblUnidadeDestino" for="selUnidadeDestino" accesskey="" class="infraLabelOpcional">Unidade de Avaliação:</label>
     <select id="selUnidadeDestino" name="selUnidadeDestino" onchange="this.form.submit();" class="infraSelect" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" >
         <?= $strItensSelUnidadesDestino ?>
     </select>

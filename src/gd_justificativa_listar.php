@@ -141,7 +141,7 @@ try {
             $strResultado .= '<td align="center">';
 
             if ($bolAcaoConsultar) {
-                $strResultado .= '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_justificativa_consultar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao'] . '&id_justificativa=' . $arrMdGdJustificativaDTO[$i]->getNumIdJustificativa()) . '" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="/infra_css/svg/consultar.svg" title="Consultar Justificativa" alt="Consultar Justificativa" class="infraImg" /></a>&nbsp;';
+                $strResultado .= '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_justificativa_visualizar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao'] . '&id_justificativa=' . $arrMdGdJustificativaDTO[$i]->getNumIdJustificativa()) . '" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="/infra_css/svg/consultar.svg" title="Consultar Justificativa" alt="Consultar Justificativa" class="infraImg" /></a>&nbsp;';
             }
 
             if ($bolAcaoAlterar) {

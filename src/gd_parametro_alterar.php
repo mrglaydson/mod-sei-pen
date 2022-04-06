@@ -81,28 +81,28 @@ PaginaSEI::getInstance()->montarStyle();
 PaginaSEI::getInstance()->abrirStyle();
 ?>
 
-#lbl<?= $strNomeDespachoArquivamento; ?> {position:absolute;left:0%;top:0%;width:50%;}
+#lbl<?= $strNomeDespachoArquivamento; ?> {position:absolute;left:0%;top:0%;width:100%;}
 #sel<?= $strNomeDespachoArquivamento; ?> {position:absolute;left:0%;top:5%;width:50%;}
 
-#lbl<?= $strNomeDespachoDesarquivamento; ?> {position:absolute;left:0%;top:12%;width:30%;}
+#lbl<?= $strNomeDespachoDesarquivamento; ?> {position:absolute;left:0%;top:12%;width:100%;}
 #sel<?= $strNomeDespachoDesarquivamento; ?> {position:absolute;left:0%;top:17%;width:40%;}
 
-#lbl<?= $strNomeTipoProcedimentoListagemEliminacao; ?> {position:absolute;left:0%;top:24%;width:30%;}
+#lbl<?= $strNomeTipoProcedimentoListagemEliminacao; ?> {position:absolute;left:0%;top:24%;width:100%;}
 #sel<?= $strNomeTipoProcedimentoListagemEliminacao; ?> {position:absolute;left:0%;top:29%;width:40%;}
 
-#lbl<?= $strNomeTipoDocumentoListagemEliminacao; ?> {position:absolute;left:0%;top:36%;width:30%;}
+#lbl<?= $strNomeTipoDocumentoListagemEliminacao; ?> {position:absolute;left:0%;top:36%;width:100%;}
 #sel<?= $strNomeTipoDocumentoListagemEliminacao; ?> {position:absolute;left:0%;top:41%;width:40%;}
 
-#lbl<?= $strNomeTipoDocumentoEliminacao; ?> {position:absolute;left:0%;top:48%;width:30%;}
+#lbl<?= $strNomeTipoDocumentoEliminacao; ?> {position:absolute;left:0%;top:48%;width:100%;}
 #sel<?= $strNomeTipoDocumentoEliminacao; ?> {position:absolute;left:0%;top:53%;width:40%;}
 
-#lbl<?= $strNomeTipoProcedimentoListagemRecolhimento; ?> {position:absolute;left:0%;top:61%;width:30%;}
+#lbl<?= $strNomeTipoProcedimentoListagemRecolhimento; ?> {position:absolute;left:0%;top:61%;width:100%;}
 #sel<?= $strNomeTipoProcedimentoListagemRecolhimento; ?> {position:absolute;left:0%;top:66%;width:40%;}
 
-#lbl<?= $strNomeTipoDocumentoListagemRecolhimento; ?> {position:absolute;left:0%;top:73%;width:30%;}
+#lbl<?= $strNomeTipoDocumentoListagemRecolhimento; ?> {position:absolute;left:0%;top:73%;width:100%;}
 #sel<?= $strNomeTipoDocumentoListagemRecolhimento; ?> {position:absolute;left:0%;top:78%;width:40%;}
 
-#lbl<?= $strNomeTipoDocumentoRecolhimento; ?> {position:absolute;left:0%;top:85%;width:30%;}
+#lbl<?= $strNomeTipoDocumentoRecolhimento; ?> {position:absolute;left:0%;top:85%;width:100%;}
 #sel<?= $strNomeTipoDocumentoRecolhimento; ?> {position:absolute;left:0%;top:90%;width:40%;}
 <?
 PaginaSEI::getInstance()->fecharStyle();

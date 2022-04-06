@@ -615,11 +615,12 @@ class MdGdListaEliminacaoRN extends InfraRN {
 
         $strCaminhoArquivoHtml = DIR_SEI_TEMP . '/gerar-pdf-listagem-eliminacao-' . date('YmdHis') . '.html';
         $strCaminhoArquivoPdf = DIR_SEI_TEMP . '/gerar-pdf-listagem-eliminacao-' . date('YmdHis') . '.pdf';
+        $strCaminhoArquivoPdfRelativo = 'gerar-pdf-listagem-eliminacao-' . date('YmdHis') . '.pdf';
         file_put_contents($strCaminhoArquivoHtml, $strResultado);
 
-        $strComandoGerarPdf = DIR_SEI_BIN . '/wkhtmltopdf-amd64 --quiet --orientation \'landscape\' --title md_gd_pdf_listagem_eliminacao-' . InfraUtil::retirarFormatacao('1123123', false) . ' ' . $strCaminhoArquivoHtml . '  ' . $strCaminhoArquivoPdf . ' 2>&1';
+        $strComandoGerarPdf = 'wkhtmltopdf --quiet --orientation \'landscape\' --title md_gd_pdf_listagem_eliminacao-' . InfraUtil::retirarFormatacao('1123123', false) . ' ' . $strCaminhoArquivoHtml . '  ' . $strCaminhoArquivoPdf . ' 2>&1';
         shell_exec($strComandoGerarPdf);
-        SeiINT::download(null, $strCaminhoArquivoPdf, 'listagem_eliminacao.pdf', 'attachment', true);
+        SeiINT::download(null, null, $strCaminhoArquivoPdfRelativo, null,'attachment');
     }
 
     

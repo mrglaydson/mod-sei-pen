@@ -89,7 +89,7 @@ try {
             }
             break;
 
-        case 'gd_justificativa_consultar':
+        case 'gd_justificativa_visualizar':
             $strTitulo = 'Consultar Justificativa de Arquivamento e Desarquivamento';
             $arrComandos[] = '<button type="button" accesskey="F" name="btnFechar" value="Fechar" onclick="location.href=\''.SessaoSEI::getInstance()->assinarLink('controlador.php?acao='.PaginaSEI::getInstance()->getAcaoRetorno().'&acao_origem='.$_GET['acao'].PaginaSEI::getInstance()->montarAncora($_GET['id_justificativa'])).'\';" class="infraButton"><span class="infraTeclaAtalho">F</span>echar</button>';
             $objMdGdJustificativaDTO->setNumIdJustificativa($_GET['id_justificativa']);
@@ -138,7 +138,7 @@ PaginaSEI::getInstance()->abrirJavaScript();
         if ('<?=$_GET['acao']?>'=='gd_justificativa_cadastrar'){
             document.getElementById('txtNome').focus();
 
-        } else if ('<?=$_GET['acao']?>'=='gd_justificativa_consultar'){
+        } else if ('<?=$_GET['acao']?>'=='gd_justificativa_visualizar'){
             infraDesabilitarCamposAreaDados();
 
         }else{

@@ -24,6 +24,7 @@ try {
                 $objMdGdArquivamentoDTO->setNumIdArquivamento((int) $_REQUEST['id_arquivamento']);
                 $objMdGdArquivamentoDTO->setStrObservacaoDevolucao($_REQUEST['txtObservacaoDevolucao']);
                 $objMdGdArquivamentoDTO->retDblIdProcedimento();
+                $objMdGdArquivamentoDTO->retNumIdUnidadeCorrente();
                 
                 // Muda a situação do arquivamento para editado
                 $objMdGdArquivamentoRN = new MdGdArquivamentoRN();

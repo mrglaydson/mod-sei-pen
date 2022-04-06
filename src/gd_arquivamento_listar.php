@@ -24,6 +24,7 @@ try {
 
             $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
             $objMdGdArquivamentoDTO->setNumIdArquivamento($numIdArquivamento);
+            $objMdGdArquivamentoDTO->retNumIdUnidadeCorrente();
             
             // Muda a situação do arquivamento para editado
             $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
@@ -244,7 +245,7 @@ try {
             
             $strAcoes = '';
             if($bolAcaoEditarArquivamento && $arrObjMdGdArquivamentoDTO[$i]->getStrSituacao() == MdGdArquivamentoRN::$ST_DEVOLVIDO){
-                $strAcoes .= '<a href="#ID-' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '" onclick="acaoEditarArquivamento(\'' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="' . MdGestaoDocumentalIntegracao::getDiretorio() . '/imagens/alterar_metadados.gif" title="Editar Processo" title="Editar Processo" class="infraImg" /></a>';
+                $strAcoes .= '<a href="#ID-' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '" onclick="acaoEditarArquivamento(\'' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="/infra_css/svg/alterar.svg" title="Editar Processo" title="Editar Processo" class="infraImg" /></a>';
             }
 
             if($bolAcaoDesarquivar && $arrObjMdGdArquivamentoDTO[$i]->getStrSituacao() == MdGdArquivamentoRN::$ST_FASE_CORRENTE){
@@ -252,7 +253,7 @@ try {
             }
 
             if($bolAcaoConcluirEdicaoArquivamento && $arrObjMdGdArquivamentoDTO[$i]->getStrSituacao() == MdGdArquivamentoRN::$ST_FASE_EDICAO){
-                $strAcoes .= '<a href="#ID-' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '" onclick="acaoConcluirEdicaoArquivamento(\'' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="' . MdGestaoDocumentalIntegracao::getDiretorio() . '/imagens/concluir_edicao.gif" title="Concluir Edição" title="Concluir Edição" class="infraImg" /></a>';
+                $strAcoes .= '<a href="#ID-' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '" onclick="acaoConcluirEdicaoArquivamento(\'' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="modulos/mod-gestao-documental/imagens/transicao.png" title="Concluir Edição" title="Concluir Edição" class="infraImg" /></a>';
             }
             
             $strResultado .= $strAcoes.'</td></tr>' . "\n";
@@ -279,25 +280,22 @@ PaginaSEI::getInstance()->montarStyle();
 PaginaSEI::getInstance()->abrirStyle();
 ?>
 
-#lblCondicionante {position:absolute;left:0%;top:0%;width:20%;}
-#selCondicionante {position:absolute;left:0%;top:20%;width:20%;}
+#lblTiposProcedimento  {position:absolute;left:0%;top:0%;width:20%;}
+#selTipoProcedimento {position:absolute;left:0%;top:20%;width:20%;}
 
-#lblSelAssunto {position:absolute;left:0%;top:41%;width:20%;}
-#selAssunto {position:absolute;left:0%;top:57%;width:38%;}
+#lblSelAssunto {position:absolute;left:0%;top:50%;width:20%;}
+#selAssunto {position:absolute;left:0%;top:70%;width:38%;}
 
-#lblTiposProcedimento {position:absolute;left:21%;top:0%;width:20%;}
-#selTipoProcedimento {position:absolute;left:21%;top:20%;width:20%;}
+#lblDestinacaoFinal {position:absolute;left:21%;top:0%;width:20%;}
+#selDestinacaoFinal {position:absolute;left:21%;top:20%;width:20%;}
 
-#lblDestinacaoFinal {position:absolute;left:42%;top:0%;width:20%;}
-#selDestinacaoFinal {position:absolute;left:42%;top:20%;width:20%;}
+#lblPeriodoDe {position:absolute;left:42%;top:0%;width:10%;}
+#txtPeriodoDe {position:absolute;left:42%;top:20%;width:10%;}
+#imgCalPeriodoD {position:absolute;left:53%;top:20%;}
 
-#lblPeriodoDe {position:absolute;left:63%;top:0%;width:10%;}
-#txtPeriodoDe {position:absolute;left:63%;top:20%;width:10%;}
-#imgCalPeriodoD {position:absolute;left:74%;top:20%;}
-
-#lblPeriodoA {position:absolute;left:77%;top:0%;width:10%;}
-#txtPeriodoA {position:absolute;left:77%;top:20%;width:10%;}
-#imgCalPeriodoA {position:absolute;left:88%;top:20%;}
+#lblPeriodoA {position:absolute;left:56%;top:0%;width:10%;}
+#txtPeriodoA {position:absolute;left:56%;top:20%;width:10%;}
+#imgCalPeriodoA {position:absolute;left:67%;top:20%;}
 
 <?
 PaginaSEI::getInstance()->fecharStyle();
@@ -360,11 +358,6 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
           PaginaSEI::getInstance()->montarBarraComandosSuperior($arrComandos);
           PaginaSEI::getInstance()->abrirAreaDados('9.5em');
           ?>
-
-    <label id="lblCondicionante" for="selCondicionante" accesskey="" class="infraLabelOpcional">Processos com Condicionantes:</label>
-    <select id="selCondicionante" name="selCondicionante" onchange="this.form.submit();" class="infraSelect" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" >
-        <?= MdGdArquivamentoINT::montarSelectCondicionantesArquivamento($selCondicionante); ?>
-    </select>
 
     <label id="lblTiposProcedimento" for="selTipoProcedimento" accesskey="" class="infraLabelOpcional">Tipo de Processo:</label>
     <select id="selTipoProcedimento" name="selTipoProcedimento" onchange="this.form.submit();" class="infraSelect" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" >

@@ -143,8 +143,13 @@ PaginaSEI::getInstance()->abrirStyle();
 #lblProcedimentos {position:absolute;left:1%;top:12%;}
 #selProcedimentos {position:absolute;left:1%;top:24%;width:96%;}
 
-#lblJustificativa {position:absolute;left:1%;top:72%;}
-#selJustificativa {position:absolute;left:1%;top:83%;width:96%;}
+#lblJustificativa {position:absolute;left:1%;top:60%;}
+#selJustificativa {position:absolute;left:1%;top:74%;width:96%;}
+
+#divOrgao {position:relative;left:1%;}
+#divUsuario {position:relative;left:1%;}
+#divCargoFuncao {position:relative;left:1%;}
+#divAutenticacao {position:relative;left:1%;}
 
 #fieldsetDadosArquivamento {position: absolute; left: 0%; top: 6%; height: 30%; width: 97%;} 
 #fieldsetDadosAssinatura   {position: absolute; left: 0%; top: 42%; height: 46%; width: 97%;}
@@ -283,7 +288,7 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
 
         <fieldset class="infraFieldset" id="fieldsetDadosAssinatura">
             <legend class="infraLegend">Dados da Assinatura</legend>
-            <p>Dados para assinatura do despacho de arquivamento</p>
+            <p style="margin-left:1em" >Dados para assinatura do despacho de arquivamento</p>
             <div id="divOrgao" class="infraAreaDados" style="height:4.5em;">
                 <label id="lblOrgao" for="selOrgao" accesskey="r" class="infraLabelObrigatorio">Ó<span class="infraTeclaAtalho">r</span>gão do Assinante:</label>
                 <select id="selOrgao" name="selOrgao" class="infraSelect" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">

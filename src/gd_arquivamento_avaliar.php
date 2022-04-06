@@ -161,11 +161,11 @@ try {
 
 
     if($bolAcaoProcedimentoEliminacaoEnviar){
-        $arrComandos[] = '<button type="button" accesskey="E" id="sbmEliminacao" value="Eliminar" class="infraButton" onclick="acaoEnviarEliminacaoMultiplo()"><span class="infraTeclaAtalho">E</span>nviar para eliminação</button>';
+        $arrComandos[] = '<button type="button" accesskey="E" id="sbmEliminacao" value="Eliminar" class="infraButton" onclick="acaoEnviarEliminacaoMultiplo()">Preparar Listagem de <span class="infraTeclaAtalho">E</span>liminação</button>';
     }
 
     if($bolAcaoProcedimentoRecolhimentoEnviar){
-        $arrComandos[] = '<button type="button" accesskey="R" id="sbmRecolhimento" value="Recolher" class="infraButton"  onclick="acaoEnviarRecolhimentoMultiplo()"><span class="infraTeclaAtalho">E</span>nviar para recolhimento</button>';
+        $arrComandos[] = '<button type="button" accesskey="R" id="sbmRecolhimento" value="Recolher" class="infraButton"  onclick="acaoEnviarRecolhimentoMultiplo()">Preparar Listagem de <span class="infraTeclaAtalho">R</span>ecolhimento</button>';
     }
 
     $arrComandos[] = '<button type="button" accesskey="I" id="btnImprimir" value="Imprimir" onclick="infraImprimirTabela();" class="infraButton"><span class="infraTeclaAtalho">I</span>mprimir</button>';
@@ -348,8 +348,7 @@ PaginaSEI::getInstance()->abrirStyle();
 #lblAnoDestinacao {position:absolute;left:0%;top:66%;width:20%;}
 #txtAnoDestinacao {position:absolute;left:0%;top:80%;width:20%;}
 
-#lblCondicionante {position:absolute;left:21%;top:66%;width:20%;}
-#selCondicionante {position:absolute;left:21%;top:80%;width:20%;}
+
 
 <?
 PaginaSEI::getInstance()->fecharStyle();
@@ -483,12 +482,7 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
     <label id="lblAnoDestinacao" for="txtAnoDestinacao" accesskey="" class="infraLabelOpcional">Ano de Destinação:</label>
     <input type="text" id="txtAnoDestinacao" value="<?= $txtAnoDestinacao ?>" name="txtAnoDestinacao" class="infraText" value="<?= PaginaSEI::tratarHTML($txtAnoDestinacao) ?>" onkeypress="return infraMascaraNumero(this, event)" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" maxlength="4" />
 
-    <label id="lblCondicionante" for="selCondicionante" accesskey="" class="infraLabelOpcional">Condicionante:</label>
-    <select id="selCondicionante" name="selCondicionante" onchange="this.form.submit();" class="infraSelect" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" >
-        <option value="null"></option>
-        <option value="S">Sim</option>
-        <option value="N">Não</option>
-    </select>
+    
 
     <?
     PaginaSEI::getInstance()->fecharAreaDados();

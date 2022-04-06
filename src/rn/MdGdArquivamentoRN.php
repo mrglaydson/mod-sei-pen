@@ -1108,21 +1108,21 @@ class MdGdArquivamentoRN extends InfraRN {
             // Reabre o procedimento
             $objReabrirProcedimentoDTO = new ReabrirProcessoDTO();
             $objReabrirProcedimentoDTO->setDblIdProcedimento($objMdGdArquivamentoDTO->getDblIdProcedimento());
-            $objReabrirProcedimentoDTO->setNumIdUnidade(SessaoSEI::getInstance()->getNumIdUnidadeAtual());
+            $objReabrirProcedimentoDTO->setNumIdUnidade($objMdGdArquivamentoDTO->getNumIdUnidadeCorrente());
             $objReabrirProcedimentoDTO->setNumIdUsuario(SessaoSEI::getInstance()->getNumIdUsuario());
 
             $objProcedimentoRN = new ProcedimentoRN();
             $objProcedimentoRN->reabrirRN0966($objReabrirProcedimentoDTO);
 
             // Desbloqueia o processo
-            $objProcedimentoDTO = new ProcedimentoDTO();
-            $objProcedimentoDTO->setDblIdProcedimento($objMdGdArquivamentoDTO->getDblIdProcedimento());
-            $objProcedimentoDTO->retStrStaEstadoProtocolo();
-            $objProcedimentoDTO->retDblIdProcedimento();
+            // $objProcedimentoDTO = new ProcedimentoDTO();
+            // $objProcedimentoDTO->setDblIdProcedimento($objMdGdArquivamentoDTO->getDblIdProcedimento());
+            // $objProcedimentoDTO->retStrStaEstadoProtocolo();
+            // $objProcedimentoDTO->retDblIdProcedimento();
 
-            $objProcedimentoRN = new ProcedimentoRN();
-            $objProcedimentoDTO = $objProcedimentoRN->consultarRN0201($objProcedimentoDTO);
-            $objProcedimentoRN->desbloquear([$objProcedimentoDTO]);
+            // $objProcedimentoRN = new ProcedimentoRN();
+            // $objProcedimentoDTO = $objProcedimentoRN->consultarRN0201($objProcedimentoDTO);
+            // $objProcedimentoRN->desbloquear([$objProcedimentoDTO]);
             
             // Atualiza a situação do arquivamento
             $objMdGdArquivamentoDTO->setStrSituacao(self::$ST_FASE_EDICAO);

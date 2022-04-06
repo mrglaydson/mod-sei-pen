@@ -234,13 +234,13 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
     PaginaSEI::getInstance()->abrirAreaDados('30em');
     ?>
 
-    <label id="lblUnidadeDestino" for="selUnidadeDestino" accesskey="" class="infraLabelObrigatorio">Unidade de Arquivo:</label>
+    <label id="lblUnidadeDestino" for="selUnidadeDestino" accesskey="" class="infraLabelObrigatorio">Unidade de Avaliação:</label>
     <select id="selUnidadeDestino" name="selUnidadeDestino" class="infraSelect" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" >
         <?= $strItensSelUnidadesDestino ?>
     </select>
 
     <? if ($_GET['acao'] == 'gd_unidade_arquivamento_cadastrar') { ?>
-        <label id="lblUnidadesOrigem" for="selUnidadesOrigem" class="infraLabelObrigatorio">Unidades de Origem:</label>
+        <label id="lblUnidadesOrigem" for="selUnidadesOrigem" class="infraLabelObrigatorio">Unidade de Arquivamento:</label>
         <input type="text" id="txtUnidadeOrigem" name="txtUnidadeOrigem" class="infraText" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />
         <?= $strLinkUnidadesTramitacao ?>
         <input type="hidden" id="hdnIdUnidadeOrigem" name="hdnIdUnidadeOrigem" class="infraText" value="" />
