@@ -27,6 +27,9 @@ As instruções de instalação e atualização do módulo, assim com o manual d
 
 #### Funcionalidade 02
 
+## TESTES
+
+Para rotinas de testes do módulo rode ``` make tests-functional-loop ```, mas antes confira **[aqui as orientações iniciais](tests/functional/README.md)**
 
 ## PROJETOS RELACIONADOS
 

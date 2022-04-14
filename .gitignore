@@ -3,11 +3,14 @@ html/
 vendor/
 
 .vscode
+.DS_Store
 
 .modulo.env
 .env
+.testselenium.env
 *.cache
 *.lock
 *.log
 *.out
 *.swp
+**/__pycache__
