@@ -151,7 +151,8 @@ atualizar_base_login_multiorgao(){
 
     docker cp utils/alterar_orgao_login.php httpd:/
 
-    docker-compose exec -T httpd bash -c "php /alterar_orgao_login.php"
+    docker exec -t httpd bash -c "php /alterar_orgao_login.php"
+
 
 }
 

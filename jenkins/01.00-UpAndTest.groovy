@@ -1,3 +1,12 @@
+/*
+
+Pipeline Jenkins que automatiza checkout, up e roda os testes 1x apenas
+No seu cluster selenium vc precisa de um agente com a label SUPERGD e o user do agente precisa ter permissao de sudo, 
+alem do docker e docker-compose
+Nao recomendado rodar no jenkins master pois o Makefile precisa alterar a data da vm durante a execucao
+
+*/
+
 pipeline {
     agent {
       node {
@@ -20,17 +29,13 @@ pipeline {
             description: "Jenkins Credencial do git onde se encontra o módulo")
 	      string(
 	          name: 'branchGit',
-	          defaultValue:"Reconciliacao",
+	          defaultValue:"master",
 	          description: "Branch/Versao do git onde se encontra módulo")
 	      string(
 	          name: 'sourceSuperLocation',
 	          defaultValue:"~/sei/FontesSEIcopia",
 	          description: "Localizacao do fonte do Super no servidor onde vai rodar o job")
-	      string(
-	          name: 'qtdTentativas',
-	          defaultValue:"5",
-	          description: "Quantidade de tentativas caso o teste falhe")
-          
+	      
     }
     
     stages {
@@ -43,9 +48,7 @@ pipeline {
                     GITURL = params.urlGit
 					          GITCRED = params.credentialGit
 					          GITBRANCH = params.branchGit
-                    VMCRED = params.credentialVm
                     SUPERLOCATION = params.sourceSuperLocation
-                    QTDTENTATIVAS = params.qtdTentativas
                     
                     if ( env.BUILD_NUMBER == '1' ){
                         currentBuild.result = 'ABORTED'
@@ -56,6 +59,9 @@ pipeline {
 
                 sh """
                 echo ${WORKSPACE}
+                ls -lha
+                
+                make destroy || true
                 
                 """
             }
@@ -66,7 +72,8 @@ pipeline {
             steps {
                 
               sh """
-              git config http.sslVerify false
+              
+              git config --global http.sslVerify false
               """
                 
                 git branch: GITBRANCH,
@@ -94,12 +101,12 @@ pipeline {
                 make base="${DATABASE}" config
                 make .testselenium.env
                 
-                sed -i "s|export SELENIUMTEST_RETRYTESTS=5|export SELENIUMTEST_RETRYTESTS=${QTDTENTATIVAS}|" .testselenium.env             
+                sed -i "s|export SELENIUMTEST_RETRYTESTS=5|export SELENIUMTEST_RETRYTESTS=1|" .testselenium.env             
                 sed -i "s|SEI_PATH=../../../../|SEI_PATH=${SUPERLOCATION}|" .env
                 
                 if [ "${DATABASE}" == "oracle" ]; then
                     
-                    sed -i "s|export SELENIUMTEST_BACKUP=false|export SELENIUMTEST_BACKUP=true|" .testselenium.env      
+                    sed -i "s|export SELENIUMTEST_RESTART_DB=false|export SELENIUMTEST_RESTART_DB=true|" .testselenium.env      
                     
                 fi
                 

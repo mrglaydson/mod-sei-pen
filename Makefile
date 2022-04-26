@@ -102,20 +102,20 @@ clean:
 	fi
 
 
-verificar-super-codes:
+check-super-path:
 	@if [ ! -f $(SEI_PATH)/sei/web/SEI.php ]; then \
 	echo "$(MENSAGEM_AVISO_FONTES)\n" ; \
 	exit 1 ; \
 	fi
 
 
-verificar-modulo-config:
+check-module-config:
 	@docker cp utils/verificar_modulo.php httpd:/
 	@docker-compose exec -T httpd bash -c "php /verificar_modulo.php" ; ret=$$?; echo "$$ret"; if [ ! $$ret -eq 0 ]; then echo "$(MENSAGEM_AVISO_MODULO)\n"; exit 1; fi
 
 
 # acessa o super e verifica se esta respondendo a tela de login
-verificar-super-noar:
+check-super-isalive:
 	@echo ""
 	@echo "Vamos tentar acessar a pagina de login do SUPER, vamos aguardar por 45 segs."
 	@for number in 1 2 3 4 5 6 7 8 9 ; do \
@@ -130,10 +130,10 @@ verificar-super-noar:
 	done
 
 
-prerequisites-up: .env .modulo.env verificar-super-codes
+prerequisites-up: .env .modulo.env check-super-path
 
 
-prerequisites-modulo-instalar: verificar-super-codes verificar-modulo-config verificar-super-noar
+prerequisites-modulo-instalar: check-super-path check-module-config check-super-isalive
 
 
 install: prerequisites-modulo-instalar
@@ -146,7 +146,7 @@ install: prerequisites-modulo-instalar
 
 up: prerequisites-up
 	docker-compose up -d
-	make verificar-super-noar
+	make check-super-isalive
 
 
 config:
@@ -186,7 +186,7 @@ tests-functional-prerequisites: .testselenium.env tests-functional-validar
 
 
 # roda apenas os testes, o ajuste de data inicial e a criacao do ambiente ja devem ter sido realizados
-tests-functional: tests-functional-prerequisites verificar-super-noar
+tests-functional: tests-functional-prerequisites check-super-isalive
 	@echo "Vamos iniciar a execucao dos testes..."
 	@cd tests/functional && HOST_URL=$(HOST_URL) ./testes.sh
 

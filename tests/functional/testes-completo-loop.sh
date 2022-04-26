@@ -71,7 +71,7 @@ do
     
 done
 
-if [ $COUNT -gt $SELENIUMTEST_RETRYTESTS  ];then
+if [ $COUNT -gt $SELENIUMTEST_RETRYTESTS ] && [ ! "$RET2" == "0" ] ;then
   echo "Atingiu a quantidade de tentativas definidas. "
   echo "Abandonando..."
   exit 1

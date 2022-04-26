@@ -21,11 +21,6 @@ As instruções de instalação e atualização do módulo, assim com o manual d
 - **[MANUAL DE ATUALIZAÇÃO](docs/UPGRADE.md)**
 - **[MANUAL DE UTILIZAÇÃO](docs/USAGE.md)**
 
-### Funcionalidades do Módulo Gestão Documental
-
-#### Funcionalidade 01
-
-#### Funcionalidade 02
 
 ## TESTES
 
