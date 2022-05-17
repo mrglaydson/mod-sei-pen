@@ -39,7 +39,7 @@ try {
 
 
         case 'gd_justificativa_listar':
-            $strTitulo = 'Justificativas de Arquivamento e Desarquivamento';
+            $strTitulo = 'Justificativas de Arquivamento / Desarquivamento';
             if ($_GET['acao_origem'] == 'gd_justificativa_cadastrar') {
                 if (isset($_GET['id_justificativa'])) {
                     PaginaSEI::getInstance()->adicionarSelecionado($_GET['id_justificativa']);
@@ -117,7 +117,7 @@ try {
         $strResultado = '';
 
         $strSumarioTabela = 'Tabela de Justificativas.';
-        $strCaptionTabela = 'Justificativas de Arquivamento e Desarquivamento';
+        $strCaptionTabela = 'Justificativas de Arquivamento / Desarquivamento';
 
         $strResultado .= '<table width="99%" class="infraTable" summary="' . $strSumarioTabela . '">' . "\n";
         $strResultado .= '<caption class="infraCaption">' . PaginaSEI::getInstance()->gerarCaptionTabela($strCaptionTabela, $numRegistros) . '</caption>';

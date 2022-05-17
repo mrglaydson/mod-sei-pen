@@ -97,40 +97,90 @@ class VersaoSeiRN extends InfraScriptVersao
      */
     public function cadastrarModelos()
     {
-        $strModeloDespachoArquivamento = '<table summary="Tabela de Variáveis Disponíveis" width="99%">
-                <tbody>
-                    <tr>
-                        <td>@motivo@</td>
-                        <td>Motivo do arquivamento</td>
-                    </tr>
-                    <tr>
-                        <td>@data_arquivamento@</td>
-                        <td>Data do arquivamento</td>
-                    </tr>
-                    <tr>
-                        <td>@responsavel_arquivamento@</td>
-                        <td>Respons&aacute;vel pelo arquivamento</td>
-                    </tr>
-                </tbody>
-            </table>
+        $strModeloDespachoArquivamento = '<p class="Texto_Alinhado_Esquerda">&nbsp;</p>
+        <p class="Texto_Justificado">O processo n&ordm; @processo@ foi arquivado eletronicamente conforme as informa&ccedil;&otilde;es abaixo descritas:</p>
+        
+        <p class="Texto_Alinhado_Esquerda">&nbsp;</p>
+        
+        <table summary="Tabela de Variáveis Disponíveis">
+            <tbody>
+                <tr>
+                    <td>
+                    <p class="Tabela_Texto_Alinhado_Esquerda">Local</p>
+                    </td>
+                    <td>
+                    <p class="Tabela_Texto_Alinhado_Esquerda">@cidade_unidade@, @sigla_uf_unidade@</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    <p class="Tabela_Texto_Alinhado_Esquerda">Data</p>
+                    </td>
+                    <td>
+                    <p class="Tabela_Texto_Alinhado_Esquerda">@data_arquivamento@</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    <p class="Tabela_Texto_Alinhado_Esquerda">Usu&aacute;rio</p>
+                    </td>
+                    <td>
+                    <p class="Tabela_Texto_Alinhado_Esquerda">@responsavel_arquivamento@</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    <p class="Tabela_Texto_Alinhado_Esquerda">Justificativa</p>
+                    </td>
+                    <td>
+                    <p class="Tabela_Texto_Alinhado_Esquerda">@motivo@</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
         ';
 
-        $strModeloDespachoDesarquivamento = '<table summary="Tabela de Variveis Disponveis" width="99%">
-                <tbody>
-                    <tr>
-                        <td>@motivo@</td>
-                        <td>Motivo do desarquivamento</td>
-                    </tr>
-                    <tr>
-                        <td>@data_desarquivamento@</td>
-                        <td>Data do desarquivamento</td>
-                    </tr>
-                    <tr>
-                        <td>@responsavel_desarquivamento@</td>
-                        <td>Respons&aacute;vel pelo desarquivamento</td>
-                    </tr>
-                </tbody>
-            </table>
+        $strModeloDespachoDesarquivamento = '<p class="Texto_Alinhado_Esquerda">&nbsp;</p>
+        <p class="Texto_Alinhado_Esquerda">O processo n&ordm; @processo@ foi desarquivado eletronicamente conforme as informa&ccedil;&otilde;es abaixo descritas:</p>
+        
+        <p class="Texto_Alinhado_Esquerda">&nbsp;</p>
+        
+        <table summary="Tabela de Variáveis Disponíveis">
+            <tbody>
+                <tr>
+                    <td>
+                    <p class="Tabela_Texto_Alinhado_Esquerda">Local</p>
+                    </td>
+                    <td>
+                    <p class="Tabela_Texto_Alinhado_Esquerda">@cidade_unidade@, @sigla_uf_unidade@</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    <p class="Tabela_Texto_Alinhado_Esquerda">Data</p>
+                    </td>
+                    <td>
+                    <p class="Tabela_Texto_Alinhado_Esquerda">@data_desarquivamento@</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    <p class="Tabela_Texto_Alinhado_Esquerda">Usu&aacute;rio</p>
+                    </td>
+                    <td>
+                    <p class="Tabela_Texto_Alinhado_Esquerda">@responsavel_desarquivamento@</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    <p class="Tabela_Texto_Alinhado_Esquerda">Justificativa</p>
+                    </td>
+                    <td>
+                    <p class="Tabela_Texto_Alinhado_Esquerda">@motivo@</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
         ';
 
         $strModeloListagemEliminacao = '<meta http-equiv="Pragma" content="no-cache" /><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">

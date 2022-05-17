@@ -90,7 +90,7 @@ class Test07SEIGDAvaliacaoRecolhimento():
     self.driver.find_element(By.LINK_TEXT, "Avaliação de Processos").click()
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//button[@id='sbmPesquisar']")))
     self.driver.find_element(By.XPATH, "//button[@id='sbmPesquisar']").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (91 registros - 1 a 50):"
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos para Avaliação (91 registros - 1 a 50):"
   
   def test_0760AlteraObservacao1(self):
     self.driver.get(os.environ["SELENIUMTEST_SISTEMA_URL"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["SELENIUMTEST_SISTEMA_ORGAO"]+"&sigla_sistema=SEI&infra_url=L3NlaS8=")

@@ -92,7 +92,7 @@ class Test1400ArquivamentoUnidadesNaoMapeadas():
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".infraCaption")))
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Pendências de Arquivamento (1 registro):"
-    self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[2]/td[9]/a[2]/img").click()
+    self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[2]/td[8]/a[2]/img").click()
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.ID, "selJustificativa")))
     dropdown = self.driver.find_element(By.ID, "selJustificativa")
     dropdown.find_element(By.XPATH, "//option[. = 'Justificativa de Arquivamento 01']").click()

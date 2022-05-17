@@ -212,8 +212,8 @@ try {
 
         $strResultado = '';
 
-        $strSumarioTabela = 'Processos Arquivados';
-        $strCaptionTabela = 'Processos Arquivados';
+        $strSumarioTabela = 'Processos para Avaliação';
+        $strCaptionTabela = 'Processos para Avaliação';
 
         $strResultado .= '<table width="99%" class="infraTable" summary="' . $strSumarioTabela . '">' . "\n";
         $strResultado .= '<caption class="infraCaption">' . PaginaSEI::getInstance()->gerarCaptionTabela($strCaptionTabela, $numRegistros) . '</caption>';
@@ -226,7 +226,7 @@ try {
         $strResultado .= '<th class="infraTh" width="15%">Assunto</th>' . "\n";
         $strResultado .= '<th class="infraTh" width="5%">Destinação Final</th>' . "\n";
         $strResultado .= '<th class="infraTh" width="10%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdArquivamentoDTO, 'Data de Arquivamento', 'DataArquivamento', $arrObjMdGdArquivamentoDTO) . '</th>' . "\n";
-        $strResultado .= '<th class="infraTh" width="10%">Observações</th>' . "\n";
+        $strResultado .= '<th class="infraTh" width="10%">Observação do Assunto</th>' . "\n";
         $strResultado .= '<th class="infraTh" width="10%">Ações</th>' . "\n";
         $strResultado .= '</tr>' . "\n";
         $strCssTr = '';
@@ -257,7 +257,7 @@ try {
             if (InfraData::compararDatas($arrObjMdGdArquivamentoDTO[$i]->getDthDataGuardaIntermediaria(), date('d/m/Y H:i:s')) >= 0) {
                 $strResultado .= '<td valign="top">' . PaginaSEI::getInstance()->getTrCheck($i, $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento(), $arrObjMdGdArquivamentoDTO[$i]->getStrProtocoloFormatado()) . '</td>';
             }else{
-                $strResultado .= '<td valign="top"></td>';
+                $strResultado .= '<td valign="top">&nbsp;</td>';
             }
 
 
@@ -334,19 +334,19 @@ PaginaSEI::getInstance()->abrirStyle();
 #lblDestinacaoFinal {position:absolute;left:63%;top:0%;width:20%;}
 #selDestinacaoFinal {position:absolute;left:63%;top:16%;width:20%;}
 
-#lblPeriodoDe {position:absolute;left:0%;top:33%;width:20%;}
-#txtPeriodoDe {position:absolute;left:0%;top:48%;width:17%;}
+#lblPeriodoDe {position:absolute;left:0%;top:35%;width:20%;}
+#txtPeriodoDe {position:absolute;left:0%;top:50%;width:17%;}
 #imgCalPeriodoD {position:absolute;left:18%;top:49%;}
 
-#lblPeriodoA {position:absolute;left:21%;top:33%;width:20%;}
-#txtPeriodoA {position:absolute;left:21%;top:48%;width:17%;}
+#lblPeriodoA {position:absolute;left:21%;top:35%;width:20%;}
+#txtPeriodoA {position:absolute;left:21%;top:50%;width:17%;}
 #imgCalPeriodoA {position:absolute;left:39%;top:49%;}
 
-#lblSelAssunto {position:absolute;left:42%;top:33%;width:20%;}
-#selAssunto {position:absolute;left:42%;top:48%;width:41%;}
+#lblSelAssunto {position:absolute;left:42%;top:35%;width:20%;}
+#selAssunto {position:absolute;left:42%;top:50%;width:41%;}
 
-#lblAnoDestinacao {position:absolute;left:0%;top:66%;width:20%;}
-#txtAnoDestinacao {position:absolute;left:0%;top:80%;width:20%;}
+#lblAnoDestinacao {position:absolute;left:0%;top:68%;width:20%;}
+#txtAnoDestinacao {position:absolute;left:0%;top:82%;width:20%;}
 
 
 
@@ -466,11 +466,11 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
         <?= MdGdArquivamentoINT::montarSelectDestinacoesFinalArquivamento($selDestinacaoFinal); ?>
     </select>
 
-    <label id="lblPeriodoDe" for="txtPeriodoDe" accesskey="" class="infraLabelOpcional">De:</label>
+    <label id="lblPeriodoDe" for="txtPeriodoDe" accesskey="" class="infraLabelOpcional">Data de Destinação de:</label>
     <input type="text" id="txtPeriodoDe" value="<?= $txtPeriodoDe ?>" name="txtPeriodoDe" class="infraText" value="<?= PaginaSEI::tratarHTML($dtaPeriodoDe) ?>" onkeypress="return infraMascaraData(this, event)" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />
     <img id="imgCalPeriodoD" title="Selecionar Data Inicial" alt="Selecionar Data Inicial" onkeypress="return infraMascaraData(this, event)" src="/infra_css/svg/calendario.svg" class="infraImg" onclick="infraCalendario('txtPeriodoDe', this);" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />    
 
-    <label id="lblPeriodoA" for="txtPeriodoA" accesskey="" class="infraLabelOpcional">Até:</label>
+    <label id="lblPeriodoA" for="txtPeriodoA" accesskey="" class="infraLabelOpcional">Data de Destinação até:</label>
     <input type="text" id="txtPeriodoA" value="<?= $txtPeriodoA ?>" name="txtPeriodoA" class="infraText" value="<?= PaginaSEI::tratarHTML($dtaPeriodoA) ?>" onkeypress="return infraMascaraData(this, event)" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />
     <img id="imgCalPeriodoA" title="Selecionar Data Final" alt="Selecionar Data Final" src="/infra_css/svg/calendario.svg" class="infraImg" onclick="infraCalendario('txtPeriodoA', this);" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />    
 

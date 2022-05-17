@@ -101,6 +101,9 @@ try {
 
     $arrDthConclusaoProcedimento = $arrObjProcedimentoDTO[1];
 
+    $arrSiglaUsuarios = $arrObjProcedimentoDTO[2];
+
+    $arrNomeUsuarios = $arrObjProcedimentoDTO[3];
 
     if ($objProcedimentoDTO) {
     
@@ -153,13 +156,12 @@ try {
             $strResultado .= '<caption class="infraCaption">' . PaginaSEI::getInstance()->gerarCaptionTabela($strCaptionTabela, $numRegistros) . '</caption>';
             $strResultado .= '<tr>';
             $strResultado .= '<th class="infraTh" width="1%">' . PaginaSEI::getInstance()->getThCheck() . '</th>' . "\n";
-            $strResultado .= '<th class="infraTh" width="1%">Item</th>' . "\n";
-            $strResultado .= '<th class="infraTh" width="19%">Processo</th>' . "\n";
-            $strResultado .= '<th class="infraTh" width="10%">Especificação</th>' . "\n";
-            $strResultado .= '<th class="infraTh" width="15%">Data de Conclusão</th>' . "\n";
-            $strResultado .= '<th class="infraTh" width="10%">Tipo</th>' . "\n";
-            $strResultado .= '<th class="infraTh" width="15%">Assunto</th>' . "\n";
-            $strResultado .= '<th class="infraTh" width="15%">Anotações</th>' . "\n";
+            $strResultado .= '<th class="infraTh" width="13%">Processo</th>' . "\n";
+            $strResultado .= '<th class="infraTh" width="23%">Especificação</th>' . "\n";
+            $strResultado .= '<th class="infraTh" width="23%">Assunto</th>' . "\n";
+            $strResultado .= '<th class="infraTh" width="7%">Tipo</th>' . "\n";
+            $strResultado .= '<th class="infraTh" width="8%">Usuário</th>' . "\n";
+            $strResultado .= '<th class="infraTh" width="10%">Data de Conclusão</th>' . "\n";
             $strResultado .= '<th class="infraTh" width="15%">Ações</th>' . "\n";
             $strResultado .= '</tr>' . "\n";
             $strCssTr = '';
@@ -183,10 +185,9 @@ try {
                 $strCssTr = ($strCssTr == '<tr class="infraTrClara">') ? '<tr class="infraTrEscura">' : '<tr class="infraTrClara">';
                 $strResultado .= $strCssTr;
 
-                $strResultado .= '<td valign="top">' . PaginaSEI::getInstance()->getTrCheck($i, $arrObjProcedimentoDTO[$i]->getDblIdProcedimento(), $arrObjProcedimentoDTO[$i]->getStrProtocoloProcedimentoFormatado()) . '</td>';
-                $strResultado .= '<td>' . $c . '</td>';
+                $strResultado .= '<td>' . PaginaSEI::getInstance()->getTrCheck($i, $arrObjProcedimentoDTO[$i]->getDblIdProcedimento(), $arrObjProcedimentoDTO[$i]->getStrProtocoloProcedimentoFormatado()) . '</td>';
                 
-                $strResultado .= '<td>';
+                $strResultado .= '<td align="center">';
                 $strResultado .= '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=procedimento_trabalhar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao'] . '&id_procedimento=' . $arrObjProcedimentoDTO[$i]->getDblIdProcedimento()) . '" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . ' " target="_blank">' . $arrObjProcedimentoDTO[$i]->getStrProtocoloProcedimentoFormatado() . '</a>';
                 
                 if($arrObjProcedimentoDTO[$i]->getStrStaNivelAcessoGlobalProtocolo() == ProtocoloRN::$NA_RESTRITO){
@@ -198,11 +199,11 @@ try {
                 }
                 $strResultado .= '</td>';
 
-                $strResultado .= '<td>'. $arrObjProcedimentoDTO[$i]->getStrDescricaoProtocolo().'</td>';
-                $strResultado .= '<td>' . $arrDthConclusaoProcedimento[$arrObjProcedimentoDTO[$i]->getDblIdProcedimento()] . '</td>';
-                $strResultado .= '<td>' . $arrObjProcedimentoDTO[$i]->getStrNomeTipoProcedimento() . '</td>';
+                $strResultado .= '<td align="center">'. $arrObjProcedimentoDTO[$i]->getStrDescricaoProtocolo().'</td>';
                 $strResultado .= '<td>' . $strAssuntosProcedimento. '</td>';
-                $strResultado .= '<td>'.  $strAnotacao.'</td>';
+                $strResultado .= '<td>' . $arrObjProcedimentoDTO[$i]->getStrNomeTipoProcedimento() . '</td>';
+                $strResultado .= '<td align="center"> <a alt="'.PaginaSEI::tratarHTML($arrNomeUsuarios[$arrObjProcedimentoDTO[$i]->getDblIdProcedimento()]).'" title="'.PaginaSEI::tratarHTML($arrNomeUsuarios[$arrObjProcedimentoDTO[$i]->getDblIdProcedimento()]).'" class="ancoraSigla">'.PaginaSEI::tratarHTML($arrSiglaUsuarios[$arrObjProcedimentoDTO[$i]->getDblIdProcedimento()]).'</a> </td>';
+                $strResultado .= '<td align="center">' . $arrDthConclusaoProcedimento[$arrObjProcedimentoDTO[$i]->getDblIdProcedimento()] . '</td>';
                 $strResultado .= '<td align="center">';
 
                 $strId = $arrObjProcedimentoDTO[$i]->getDblIdProcedimento();
@@ -214,11 +215,6 @@ try {
 
                 if($bolAcaoArquivar){
                     $strResultado .= '<a href="' . PaginaSEI::getInstance()->montarAncora($strId) . '" onclick="acaoArquivar(\'' . $strId . '\',\'' . $strProtocoloProcedimentoFormatado . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="' . MdGestaoDocumentalIntegracao::getDiretorio() . '/imagens/arquivamento.png" title="Arquivar Processo" alt="Arquivar Processo" class="infraImg" style="width: 22px; height: 22px; padding-bottom: 3px;"/></a>&nbsp;';
-                }
-
-                if($bolAcaoAnotacao){
-                    $strLinkAnotar = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_pendencia_arquivamento_anotar&acao_origem=' . $_GET['acao'] . '&id_procedimento=' . $arrObjProcedimentoDTO[$i]->getDblIdProcedimento());
-                    $strResultado .= '<a href="#" onclick="exibirJanelaAnotacao(\'' . $strLinkAnotar . '\');"><img src="' . MdGestaoDocumentalIntegracao::getDiretorio() . '/imagens/anotacoes.gif" title="Realizar Anotação" alt="Realizar Anotação" class="infraImg" style="width: 18px; height: 18px;padding-bottom: 5px;"/></a>&nbsp;';
                 }
         
 
@@ -243,18 +239,18 @@ PaginaSEI::getInstance()->abrirStyle();
 ?>
 
 #lblTiposProcedimento {position:absolute;left:42%;top:0%;width:20%;}
-#selTipoProcedimento {position:absolute;left:42%;top:17%;width:40%;}
+#selTipoProcedimento {position:absolute;left:42%;top:20%;width:40%;}
 
-#lblSelAssunto {position:absolute;left:0%;top:41%;width:20%;}
-#selAssunto {position:absolute;left:0%;top:57%;width:38%;}
+#lblSelAssunto {position:absolute;left:0%;top:45%;width:20%;}
+#selAssunto {position:absolute;left:0%;top:65%;width:38%;}
 
 #lblPeriodoDe {position:absolute;left:0%;top:0%;width:20%;}
-#txtPeriodoDe {position:absolute;left:0%;top:17%;width:17%;}
-#imgCalPeriodoD {position:absolute;left:18%;top:17%;}
+#txtPeriodoDe {position:absolute;left:0%;top:20%;width:17%;}
+#imgCalPeriodoD {position:absolute;left:18%;top:20%;}
 
 #lblPeriodoA {position:absolute;left:21%;top:0%;width:20%;}
-#txtPeriodoA {position:absolute;left:21%;top:17%;width:17%;}
-#imgCalPeriodoA {position:absolute;left:39%;top:17%;}
+#txtPeriodoA {position:absolute;left:21%;top:20%;width:17%;}
+#imgCalPeriodoA {position:absolute;left:39%;top:20%;}
 
 <?
 PaginaSEI::getInstance()->fecharStyle();
@@ -341,7 +337,7 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
     <input type="text" id="txtPeriodoDe" value="<?= $txtPeriodoDe ?>" name="txtPeriodoDe" class="infraText" value="<?= PaginaSEI::tratarHTML($dtaPeriodoDe) ?>" onkeypress="return infraMascaraData(this, event)" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />
     <img id="imgCalPeriodoD" title="Selecionar Data Inicial" alt="Selecionar Data Inicial" src="/infra_css/svg/calendario.svg" class="infraImg" onclick="infraCalendario('txtPeriodoDe', this);" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />    
 
-    <label id="lblPeriodoA" for="txtPeriodoA" accesskey="" class="infraLabelOpcional">Até</label>
+    <label id="lblPeriodoA" for="txtPeriodoA" accesskey="" class="infraLabelOpcional">Até:</label>
     <input type="text" id="txtPeriodoA" value="<?= $txtPeriodoA ?>" name="txtPeriodoA" class="infraText" value="<?= PaginaSEI::tratarHTML($dtaPeriodoA) ?>" onkeypress="return infraMascaraData(this, event)" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />
     <img id="imgCalPeriodoA" title="Selecionar Data Final" alt="Selecionar Data Final" src="/infra_css/svg/calendario.svg" class="infraImg" onclick="infraCalendario('txtPeriodoA', this);" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />    
 

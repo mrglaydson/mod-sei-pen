@@ -44,7 +44,9 @@ class Test1300ArquivamentoLegado():
     self.driver.find_element(By.ID, "sbmPesquisar").click()
     time.sleep(4)
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.ID, "imgInfraCheck")))
+    time.sleep(4)
     self.driver.find_element(By.ID, "imgInfraCheck").click()
+    time.sleep(4)
     self.driver.find_element(By.XPATH, "//label[@for=\'chkInfraItem0\']").click()
     self.driver.find_element(By.XPATH, "//label[@for=\'chkInfraItem1\']").click()
     self.driver.find_element(By.XPATH, "//label[@for=\'chkInfraItem2\']").click()
@@ -174,7 +176,7 @@ class Test1300ArquivamentoLegado():
     time.sleep(1)
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".infraCaption")))
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (47 registros):"
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos para Avaliação (47 registros):"
     dropdown = self.driver.find_element(By.ID, "selTipoProcedimento")
     dropdown.find_element(By.XPATH, "//option[. = 'Comunicação: Evento Institucional Público Externo']").click()
     time.sleep(1)

@@ -289,13 +289,13 @@ PaginaSEI::getInstance()->abrirStyle();
 #lblDestinacaoFinal {position:absolute;left:21%;top:0%;width:20%;}
 #selDestinacaoFinal {position:absolute;left:21%;top:20%;width:20%;}
 
-#lblPeriodoDe {position:absolute;left:42%;top:0%;width:10%;}
-#txtPeriodoDe {position:absolute;left:42%;top:20%;width:10%;}
-#imgCalPeriodoD {position:absolute;left:53%;top:20%;}
+#lblPeriodoDe {position:absolute;left:22%;top:0%;width:18%;}
+#txtPeriodoDe {position:absolute;left:22%;top:20%;width:18%;}
+#imgCalPeriodoD {position:absolute;left:41%;top:20%;}
 
-#lblPeriodoA {position:absolute;left:56%;top:0%;width:10%;}
-#txtPeriodoA {position:absolute;left:56%;top:20%;width:10%;}
-#imgCalPeriodoA {position:absolute;left:67%;top:20%;}
+#lblPeriodoA {position:absolute;left:46%;top:0%;width:18%;}
+#txtPeriodoA {position:absolute;left:46%;top:20%;width:18%;}
+#imgCalPeriodoA {position:absolute;left:65%;top:20%;}
 
 <?
 PaginaSEI::getInstance()->fecharStyle();
@@ -371,14 +371,13 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
 
     <label id="lblDestinacaoFinal" for="selDestinacaoFinal" accesskey="" class="infraLabelOpcional">Destinação Final:</label>
     <select id="selDestinacaoFinal" name="selDestinacaoFinal" onchange="this.form.submit();" class="infraSelect" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" >
-        <?= MdGdArquivamentoINT::montarSelectDestinacoesFinalArquivamento($selDestinacaoFinal); ?>
     </select>
 
-    <label id="lblPeriodoDe" for="txtPeriodoDe" accesskey="" class="infraLabelOpcional">De:</label>
+    <label id="lblPeriodoDe" for="txtPeriodoDe" accesskey="" class="infraLabelOpcional">Data de Arquivamento de:</label>
     <input type="text" id="txtPeriodoDe" value="<?= $txtPeriodoDe ?>" name="txtPeriodoDe" class="infraText" value="<?= PaginaSEI::tratarHTML($dtaPeriodoDe) ?>" onkeypress="return infraMascaraData(this, event)" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />
     <img id="imgCalPeriodoD" title="Selecionar Data Inicial" alt="Selecionar Data Inicial" src="/infra_css/svg/calendario.svg" class="infraImg" onclick="infraCalendario('txtPeriodoDe', this);" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />    
 
-    <label id="lblPeriodoA" for="txtPeriodoA" accesskey="" class="infraLabelOpcional">Até</label>
+    <label id="lblPeriodoA" for="txtPeriodoA" accesskey="" class="infraLabelOpcional">Data de Arquivamento até:</label>
     <input type="text" id="txtPeriodoA" value="<?= $txtPeriodoA ?>" name="txtPeriodoA" class="infraText" value="<?= PaginaSEI::tratarHTML($dtaPeriodoA) ?>" onkeypress="return infraMascaraData(this, event)" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />
     <img id="imgCalPeriodoA" title="Selecionar Data Final" alt="Selecionar Data Final" src="/infra_css/svg/calendario.svg" class="infraImg" onclick="infraCalendario('txtPeriodoA', this);" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />    
 

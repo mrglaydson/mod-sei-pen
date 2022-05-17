@@ -140,28 +140,31 @@ PaginaSEI::getInstance()->montarStyle();
 PaginaSEI::getInstance()->abrirStyle();
 ?>
 
-#lblProcedimentos {position:absolute;left:1%;top:12%;}
-#selProcedimentos {position:absolute;left:1%;top:24%;width:96%;}
+#lblProcedimentos {position:absolute;left:1%;top:11%;}
+#selProcedimentos {position:absolute;left:1%;top:30%;width:96%; height:55%}
 
-#lblJustificativa {position:absolute;left:1%;top:60%;}
-#selJustificativa {position:absolute;left:1%;top:74%;width:96%;}
+#lblJustificativa {position:absolute;left:1%;top:0%;}
+#selJustificativa {position:absolute;left:1%;top:45%;width:96%;}
 
 #divOrgao {position:relative;left:1%;}
 #divUsuario {position:relative;left:1%;}
 #divCargoFuncao {position:relative;left:1%;}
 #divAutenticacao {position:relative;left:1%;}
 
-#fieldsetDadosArquivamento {position: absolute; left: 0%; top: 6%; height: 30%; width: 97%;} 
-#fieldsetDadosAssinatura   {position: absolute; left: 0%; top: 42%; height: 46%; width: 97%;}
+#fieldsetDadosArquivamento {position: absolute; left: 0%; top: 12%; height: 45%; width: 97%;} 
+#fieldsetDadosAssinatura   {position: absolute; left: 0%; top: 60%; height: 37%; width: 97%;}
 
-#lblOrgao {position: absolute; top: 7%; left: 0%;}
-#selOrgao {position: absolute; top: 50%; width: 50%;}
+#lblOrgao {position: absolute; top: 13%;}
+#selOrgao {position: absolute; top: 57%; width: 50%;}
 
-#lblUsuario {position: absolute; top: 29%;}
-#txtUsuario {position: absolute; left: 8%; top: 29%; width: 41%;}
+#lblUsuario {position: absolute;}
+#txtUsuario {position: absolute; top: 50%; width: 41%;}
 
 #lblCargoFuncao {position: absolute;}
-#selCargoFuncao {position: absolute; top: 46%; width: 50%;}
+#selCargoFuncao {position: absolute; top: 51%; width: 50%;}
+
+#lblSenha {position: absolute;}
+#pwdSenha {position: absolute; top: 70%;}
 
 <?
 PaginaSEI::getInstance()->fecharStyle();
@@ -268,27 +271,31 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
 
         <fieldset class="infraFieldset" id="fieldsetDadosArquivamento">
             <legend class="infraLegend">Dados do Arquivamento</legend>
-            <label id="lblProcedimentos" for="selProcedimentos" class="infraLabelObrigatorio">Processos:</label>
-            <select id="selProcedimentos" name="selProcedimentos" size="4" class="infraSelect"
-                    tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
-                        <?= $strItensSelProcedimentos ?>
-            </select>
 
-            <label id="lblJustificativa" for="selJustificativa" class="infraLabelObrigatorio">Motivo:</label>
-            <select id="selJustificativa" name="selJustificativa"
-                    class="infraSelect"
-                    tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
-                        <?= $strItensSelJustificativas ?>
+            <div id="divProcedimentos" class="infraAreaDados" style="height:10em;">
+                <label id="lblProcedimentos" for="selProcedimentos" class="infraLabelObrigatorio">Processos:</label>
+                <select id="selProcedimentos" name="selProcedimentos" size="4" class="infraSelect"
+                        tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
+                            <?= $strItensSelProcedimentos ?>
+                </select>
+            </div>
+
+            <div id="divJustificativa" class="infraAreaDados" style="height:4.5em;">
+                <label id="lblJustificativa" for="selJustificativa" class="infraLabelObrigatorio">Motivo:</label>
+                <select id="selJustificativa" name="selJustificativa"
+                        class="infraSelect"
+                        tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
+                            <?= $strItensSelJustificativas ?>
 
 
-            </select>
-            <input type="hidden" id="hdnTotalCondicionantes" name="hdnTotalCondicionantes"
-                   value="<?= $numTotalCondicionantes ?>"/>
+                </select>
+                <input type="hidden" id="hdnTotalCondicionantes" name="hdnTotalCondicionantes"
+                    value="<?= $numTotalCondicionantes ?>"/>
+            </div>
         </fieldset>
 
-        <fieldset class="infraFieldset" id="fieldsetDadosAssinatura">
+        <fieldset class="infraFieldset" id="fieldsetDadosAssinatura" style="height:28em;">
             <legend class="infraLegend">Dados da Assinatura</legend>
-            <p style="margin-left:1em" >Dados para assinatura do despacho de arquivamento</p>
             <div id="divOrgao" class="infraAreaDados" style="height:4.5em;">
                 <label id="lblOrgao" for="selOrgao" accesskey="r" class="infraLabelObrigatorio">Ó<span class="infraTeclaAtalho">r</span>gão do Assinante:</label>
                 <select id="selOrgao" name="selOrgao" class="infraSelect" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
@@ -296,21 +303,21 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
                 </select>
             </div>
 
-            <div id="divUsuario" class="infraAreaDados" style="height:4.5em;">
+            <div id="divUsuario" class="infraAreaDados" style="height:4.5em; top:10%">
                 <label id="lblUsuario" for="txtUsuario" accesskey="e" class="infraLabelObrigatorio">Assinant<span class="infraTeclaAtalho">e</span>:</label>
                 <input type="text" id="txtUsuario" name="txtUsuario" class="infraText" value="<?= SessaoSEI::getInstance()->getStrNomeUsuario() ?>" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" disabled />
             </div>  
 
-            <div id="divCargoFuncao" class="infraAreaDados" style="height:4.5em;">
+            <div id="divCargoFuncao" class="infraAreaDados" style="height:4.5em; top:15%">
                 <label id="lblCargoFuncao" for="selCargoFuncao" accesskey="F" class="infraLabelObrigatorio">Cargo / <span class="infraTeclaAtalho">F</span>unção:</label>
                 <select id="selCargoFuncao" name="selCargoFuncao" class="infraSelect" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
                     <?= $strItensSelCargoFuncao ?>
                 </select>
             </div>
             <br />
-            <div id="divAutenticacao" class="infraAreaDados" style="height:2.5em;">
-                <label id="lblSenha" for="pwdSenha" accesskey="S" class="infraLabelRadio infraLabelObrigatorio" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>"><span class="infraTeclaAtalho">S</span>enha</label>&nbsp;&nbsp;
-                <input type="password" id="pwdSenha" name="pwdSenha" autocomplete="off" class="infraText"  value="" onchange="validarSenhaConfiguracao()" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />&nbsp;&nbsp;&nbsp;&nbsp;
+            <div id="divAutenticacao" class="infraAreaDados" style="height:3.5em; top:15%">
+                <label id="lblSenha" for="pwdSenha" accesskey="S" class="infraLabelRadio infraLabelObrigatorio" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>"><span class="infraTeclaAtalho">S</span>enha:</label>
+                <input type="password" id="pwdSenha" name="pwdSenha" autocomplete="off" class="infraText"  value="" onchange="validarSenhaConfiguracao()" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />
             </div>
         </fieldset>
 
