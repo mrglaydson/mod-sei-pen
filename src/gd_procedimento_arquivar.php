@@ -280,7 +280,7 @@ PaginaSEI::getInstance()->abrirStyle();
 ?>
 
 #lblProcedimentos {position:absolute;left:1%;top:11%;}
-#selProcedimentos {position:absolute;left:1%;top:30%;width:96%;}
+#selProcedimentos {position:absolute;left:1%;top:30%;width:96%; height:55%}
 
 #lblJustificativa {position:absolute;left:1%;top:0%;}
 #selJustificativa {position:absolute;left:1%;top:45%;width:96%;}
@@ -291,17 +291,20 @@ PaginaSEI::getInstance()->abrirStyle();
 #txtDataArquivamento { position:absolute;left:1%;top:40%;width: 17%; } 
 #imgCalDataArquivamento { position: absolute; left: 18.5%; top: 42%; }
 
-#fieldsetDadosArquivamento {position: absolute; left: 0%; top: 12%; height: 38%; width: 97%;} 
-#fieldsetDadosAssinatura   {position: absolute; left: 0%; top: 57%; height: 37%; width: 97%;}
+#fieldsetDadosArquivamento {position: absolute; left: 0%; top: 12%; height: 45%; width: 97%;} 
+#fieldsetDadosAssinatura   {position: absolute; left: 0%; top: 60%; height: 37%; width: 97%;}
 
-#lblOrgao {position: absolute; top: 13%; left: 0%;}
+#lblOrgao {position: absolute; top: 13%; left: 1%;}
 #selOrgao {position: absolute; top: 57%; width: 50%;}
 
-#lblUsuario {position: absolute; top: 36%;}
-#txtUsuario {position: absolute; left: 8%; top: 35%; width: 41%;}
+#lblUsuario {position: absolute; left: 1%;}
+#txtUsuario {position: absolute; top: 50%; width: 41%; left: 1%;}
 
-#lblCargoFuncao {position: absolute;}
-#selCargoFuncao {position: absolute; top: 51%; width: 50%;}
+#lblCargoFuncao {position: absolute; left: 1%;}
+#selCargoFuncao {position: absolute; top: 51%; width: 50%; left: 1%;}
+
+#lblSenha {position: absolute; left: 1%;}
+#pwdSenha {position: absolute; top: 70%; left: 1%;}
 <?
 PaginaSEI::getInstance()->fecharStyle();
 PaginaSEI::getInstance()->montarJavaScript();
@@ -319,7 +322,8 @@ PaginaSEI::getInstance()->abrirJavaScript();
     // }
 
     if(processosAndamentosAbertos) {
-        alert('Os processos ' + processosAndamentosAbertos + ' estão com andamentos abertos.');
+        alert('O(s) processo(s) ' + processosAndamentosAbertos + ' está(ão) aberto(s) em outra(s) unidade(s).');
+        window.location.href = '<?=SessaoSEI::getInstance()->assinarLink('controlador.php?acao=procedimento_controlar&acao_origem' . $_GET['acao'] . $strParametros)?>';
     }
 
     function inicializar() {
@@ -360,13 +364,15 @@ PaginaSEI::getInstance()->abrirJavaScript();
 
     function validarConcluirArquivar() {
         if (document.getElementById('selJustificativa').value == 'null' || document.getElementById('selJustificativa').value == '') {
-            alert('Informe um motivo.');
+            alert('Informe uma justificativa.');
+            document.getElementById('selJustificativa').focus();
             return false;
         }
 
         if(document.getElementById('chkSinLegado').checked){
             if (document.getElementById('txtDataArquivamento').value == '') {
                 alert('Informe a data do arquivamento.');
+                document.getElementById('txtDataArquivamento').focus();
                 return false;
             }
 
@@ -398,22 +404,26 @@ PaginaSEI::getInstance()->abrirJavaScript();
 
         if (document.getElementById('selOrgao').value == 'null' || document.getElementById('selOrgao').value == '') {
             alert('Informe o órgão do assinante.');
+            document.getElementById('selOrgao').focus();
             return false;
         }
 
         if (document.getElementById('selCargoFuncao').value == 'null' || document.getElementById('selCargoFuncao').value == '') {
             alert('Informe o cargo e função.');
+            document.getElementById('selCargoFuncao').focus();
             return false;
         }
 
         if (document.getElementById('pwdSenha').value == '') {
             alert('Informe a senha.');
+            document.getElementById('pwdSenha').focus();
             return false;
         }
 
         // Valida a senha e configuração do módulo
         if(!validSenha){
             alert('Senha incorreta!');
+            document.getElementById('pwdSenha').focus();
             return false;
         }
 
@@ -463,7 +473,7 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
             <legend class="infraLegend">Dados do Arquivamento</legend>
 
             <div id="divProcedimentos" class="infraAreaDados" style="height:10em;">
-                <label id="lblProcedimentos" for="selProcedimentos" class="infraLabelObrigatorio">Processos:</label>
+                <label id="lblProcedimentos" for="selProcedimentos" class="infraLabelObrigatorio">Processo:</label>
                 <select id="selProcedimentos" name="selProcedimentos" size="4" class="infraSelect"
                         tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
                             <?= $strItensSelProcedimentos ?>
@@ -471,7 +481,7 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
             </div>
 
             <div id="divJustificativa" class="infraAreaDados" style="height:4.5em;">
-                <label id="lblJustificativa" for="selJustificativa" class="infraLabelObrigatorio">Motivo:</label>
+                <label id="lblJustificativa" for="selJustificativa" class="infraLabelObrigatorio">Justificativa:</label>
                 <select id="selJustificativa" name="selJustificativa"
                         class="infraSelect"
                         tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
@@ -479,12 +489,12 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
                 </select>
             </div>
 
-            <div id="divSinLegado" class="infraAreaDados" style="height:2.5em; padding-left: 0.6em">
+            <div id="divSinLegado" class="infraAreaDados" style="height:2.5em; padding-left: 0.6em; top:10%">
                 <input type="checkbox" id="chkSinLegado" name="chkSinLegado" class="infraCheckbox" tabindex="<?=PaginaSEI::getInstance()->getProxTabDados()?>" onclick="ativarLegado()"/>
                 <label id="lblSinLegado" for="chkSinLegado" class="infraLabelCheckbox">Arquivamento legado?</label>
             </div>
 
-            <div id="divDataArquivamento" class="infraAreaDados" style="height:4em; display:none;">
+            <div id="divDataArquivamento" class="infraAreaDados" style="height:4em; display:none; top:10%">
                 <label id="lblDataArquivamento" for="txtDataArquivamento" accesskey="e">Data do arquivamento:</label>
                 <input type="text" id="txtDataArquivamento" name="txtDataArquivamento" class="infraText" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" onkeypress="return infraMascara(this, event,'##/##/####')" disabled />
                 <img id="imgCalDataArquivamento" title="Selecionar Data de Arquivamento" alt="Selecionar Data de Arquivamento" src="/infra_css/svg/calendario.svg" class="infraImg" onclick="infraCalendario('txtDataArquivamento', this);" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />    
@@ -494,32 +504,31 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
         </fieldset>
 
 
-        <fieldset class="infraFieldset" id="fieldsetDadosAssinatura" style="height:25em;">
+        <fieldset class="infraFieldset" id="fieldsetDadosAssinatura" style="height:28em;">
             <legend class="infraLegend">Dados da Assinatura</legend>
-            <div style="padding: 1em;"
-            <p>Dados para assinatura do despacho de arquivamento</p>
-            <div id="divOrgao" class="infraAreaDados" style="height:4.5em;">
+
+            <div id="divOrgao" class="infraAreaDados" style="height:4.5em; padding: 1em;">
                 <label id="lblOrgao" for="selOrgao" accesskey="r" class="infraLabelObrigatorio">Ó<span class="infraTeclaAtalho">r</span>gão do Assinante:</label>
                 <select id="selOrgao" name="selOrgao" class="infraSelect" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
                     <?= $strItensSelOrgaos ?>
                 </select>
             </div>
 
-            <div id="divUsuario" class="infraAreaDados" style="height:4.5em;">
+            <div id="divUsuario" class="infraAreaDados" style="height:4.5em; top:10%">
                 <label id="lblUsuario" for="txtUsuario" accesskey="e" class="infraLabelObrigatorio">Assinant<span class="infraTeclaAtalho">e</span>:</label>
-                <input type="text" style="margin-left: 0.5em;" id="txtUsuario" name="txtUsuario" class="infraText" value="<?= SessaoSEI::getInstance()->getStrNomeUsuario() ?>" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" disabled />
+                <input type="text" id="txtUsuario" name="txtUsuario" class="infraText" value="<?= SessaoSEI::getInstance()->getStrNomeUsuario() ?>" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" disabled />
             </div>  
 
-            <div id="divCargoFuncao" class="infraAreaDados" style="height:4.5em;">
+            <div id="divCargoFuncao" class="infraAreaDados" style="height:4.5em; top:15%">
                 <label id="lblCargoFuncao" for="selCargoFuncao" accesskey="F" class="infraLabelObrigatorio">Cargo / <span class="infraTeclaAtalho">F</span>unção:</label>
                 <select id="selCargoFuncao" name="selCargoFuncao" class="infraSelect" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
                     <?= $strItensSelCargoFuncao ?>
                 </select>
             </div>
             <br />
-            <div id="divAutenticacao" class="infraAreaDados" style="height:2.5em;">
-                <label id="lblSenha" for="pwdSenha" accesskey="S" class="infraLabelRadio infraLabelObrigatorio" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>"><span class="infraTeclaAtalho">S</span>enha</label>&nbsp;&nbsp;
-                <input type="password" id="pwdSenha" name="pwdSenha" autocomplete="off" class="infraText"  value="" onchange="validarSenhaConfiguracao()" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />&nbsp;&nbsp;&nbsp;&nbsp;
+            <div id="divAutenticacao" class="infraAreaDados" style="height:3.5em; top:15%">
+                <label id="lblSenha" for="pwdSenha" accesskey="S" class="infraLabelRadio infraLabelObrigatorio" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>"><span class="infraTeclaAtalho">S</span>enha:</label>
+                <input type="password" id="pwdSenha" name="pwdSenha" autocomplete="off" class="infraText"  value="" onchange="validarSenhaConfiguracao()" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />
             </div>
         </div>
         </fieldset>

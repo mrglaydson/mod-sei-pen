@@ -36,7 +36,7 @@ try {
             $objMdGdUnidadeArquivamentoDTO->setNumIdUnidadeDestino(null);
             $objMdGdUnidadeArquivamentoDTO->setNumIdUnidadeArquivamento(null);
 
-            $strTitulo = 'Nova Unidade de Arquivo';
+            $strTitulo = 'Nova Unidade de Arquivamento';
             $arrComandos[] = '<button type="submit" accesskey="S" name="sbmCadastrarUnidadeArquivamento" value="Salvar" class="infraButton"><span class="infraTeclaAtalho">S</span>alvar</button>';
             $arrComandos[] = '<button type="button" accesskey="C" name="btnCancelar" id="btnCancelar" value="Cancelar" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . PaginaSEI::getInstance()->getAcaoRetorno() . '&acao_origem=' . $_GET['acao']) . '\';" class="infraButton"><span class="infraTeclaAtalho">C</span>ancelar</button>';
 
@@ -67,7 +67,7 @@ try {
         case 'gd_unidade_arquivamento_alterar':
             SessaoSEI::getInstance()->validarPermissao('gd_unidade_arquivamento_alterar');
 
-            $strTitulo = 'Alterar Unidade de Arquivo';
+            $strTitulo = 'Alterar Unidade de Arquivamento';
             $arrComandos[] = '<button type="submit" accesskey="S" name="sbmAlterarJustificativa" value="Salvar" class="infraButton"><span class="infraTeclaAtalho">S</span>alvar</button>';
             $strDesabilitar = 'disabled="disabled"';
 
@@ -104,7 +104,7 @@ try {
         case 'gd_unidade_arquivamento_visualizar':
             SessaoSEI::getInstance()->validarPermissao('gd_unidade_arquivamento_visualizar');
 
-            $strTitulo = 'Consultar Unidade de Arquivo';
+            $strTitulo = 'Consultar Unidade de Arquivamento';
             $arrComandos[] = '<button type="button" accesskey="F" name="btnFechar" value="Fechar" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . PaginaSEI::getInstance()->getAcaoRetorno() . '&acao_origem=' . $_GET['acao'] . PaginaSEI::getInstance()->montarAncora($_GET['id_justificativa'])) . '\';" class="infraButton"><span class="infraTeclaAtalho">F</span>echar</button>';
             $objMdGdUnidadeArquivamentoDTO->setNumIdUnidadeArquivamento($_GET['id_unidade_arquivamento']);
             $objMdGdUnidadeArquivamentoDTO->retTodos();

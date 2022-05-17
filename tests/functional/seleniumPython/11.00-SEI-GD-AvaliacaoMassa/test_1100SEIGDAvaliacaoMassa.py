@@ -34,25 +34,25 @@ class Test1100SEIGDAvaliacaoMassa():
     self.driver.find_element(By.XPATH, "//span[text()='Avaliação de Processos']/../../../../a").click()
     self.driver.find_element(By.LINK_TEXT, "Avaliação de Processos").click()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (91 registros - 1 a 50):"
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos para Avaliação (91 registros - 1 a 50):"
     dropdown = self.driver.find_element(By.ID, "selUnidade")
     dropdown.find_element(By.XPATH, "//option[. = 'Arquivo01 - Arquivo01']").click()
     self.driver.find_element(By.ID, "selUnidade").click()
     self.driver.find_element(By.ID, "sbmPesquisar").click()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (41 registros):"
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos para Avaliação (41 registros):"
     dropdown = self.driver.find_element(By.ID, "selUnidade")
     dropdown.find_element(By.XPATH, "//option[. = 'TESTE - Unidade de Teste 1']").click()
     self.driver.find_element(By.ID, "selUnidade").click()
     self.driver.find_element(By.ID, "sbmPesquisar").click()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (50 registros):"
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos para Avaliação (50 registros):"
     dropdown = self.driver.find_element(By.ID, "selDestinacaoFinal")
     dropdown.find_element(By.XPATH, "//option[. = 'Eliminação']").click()
     self.driver.find_element(By.ID, "selDestinacaoFinal").click()
     self.driver.find_element(By.ID, "sbmPesquisar").click()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (19 registros):"
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos para Avaliação (19 registros):"
     dropdown = self.driver.find_element(By.ID, "selDestinacaoFinal")
     dropdown.find_element(By.XPATH, "//option[. = 'Recolhimento']").click()
     self.driver.find_element(By.ID, "selDestinacaoFinal").click()
@@ -63,7 +63,7 @@ class Test1100SEIGDAvaliacaoMassa():
     dropdown.find_element(By.XPATH, "//option[. = 'Recolhimento']").click()
     self.driver.find_element(By.ID, "selDestinacaoFinal").click()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (26 registros):"
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos para Avaliação (26 registros):"
     dropdown = self.driver.find_element(By.ID, "selUnidade")
     dropdown.find_element(By.XPATH, "//option[. = 'TESTE - Unidade de Teste 1']").click()
     self.driver.find_element(By.ID, "selUnidade").click()
@@ -90,7 +90,7 @@ class Test1100SEIGDAvaliacaoMassa():
     self.driver.find_element(By.LINK_TEXT, "Avaliação de Processos").click()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (91 registros - 1 a 50):"
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos para Avaliação (91 registros - 1 a 50):"
     self.driver.find_element(By.ID, "txtPeriodoDe").click()
     self.driver.find_element(By.ID, "txtPeriodoDe").send_keys("05/05/2000")
     self.driver.find_element(By.ID, "txtPeriodoA").click()
@@ -98,14 +98,14 @@ class Test1100SEIGDAvaliacaoMassa():
     self.driver.find_element(By.ID, "sbmPesquisar").click()
     WebDriverWait(self.driver, 30).until(expected_conditions.presence_of_element_located((By.CSS_SELECTOR, ".infraCaption")))
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (91 registros - 1 a 50):"
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos para Avaliação (91 registros - 1 a 50):"
     dropdown = self.driver.find_element(By.ID, "selAssunto")
     dropdown.find_element(By.XPATH, "//option[. = '012.3 - CAMPANHAS INSTITUCIONAIS. PUBLICIDADE (inclusive Cartazes, Folhetos, Anúncios, Folders e outros documentos de ca...']").click()
     self.driver.find_element(By.ID, "selAssunto").click()
     self.driver.find_element(By.ID, "sbmPesquisar").click()
     WebDriverWait(self.driver, 30).until(expected_conditions.presence_of_element_located((By.CSS_SELECTOR, ".infraCaption")))
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (57 registros - 1 a 50):"
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos para Avaliação (57 registros - 1 a 50):"
   
   def test_1110VerificafiltrosRecolhimentoSemExpirarInterm(self):
     self.driver.get(os.environ["SELENIUMTEST_SISTEMA_URL"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["SELENIUMTEST_SISTEMA_ORGAO"]+"&sigla_sistema=SEI")
@@ -122,7 +122,7 @@ class Test1100SEIGDAvaliacaoMassa():
     self.driver.find_element(By.ID, "selAssunto").click()
     self.driver.find_element(By.ID, "sbmPesquisar").click()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (57 registros - 1 a 50):"
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos para Avaliação (57 registros - 1 a 50):"
     elements = self.driver.find_elements(By.XPATH, "//a[contains(.,\'99990.000001\')]/../../td[11]/a[2]")
     assert len(elements) == 0
   
@@ -141,7 +141,7 @@ class Test1100SEIGDAvaliacaoMassa():
     self.driver.find_element(By.ID, "selDestinacaoFinal").click()
     self.driver.find_element(By.ID, "sbmPesquisar").click()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (34 registros):"
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos para Avaliação (34 registros):"
     for i in range(0, 30):
       self.driver.find_element(By.ID, "divInfraAreaDados").click
       self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[9]/a[1]").click()
@@ -165,7 +165,7 @@ class Test1100SEIGDAvaliacaoMassa():
     self.driver.find_element(By.ID, "selDestinacaoFinal").click()
     self.driver.find_element(By.ID, "sbmPesquisar").click()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (57 registros - 1 a 50):"
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos para Avaliação (57 registros - 1 a 50):"
     for i in range(0, 25):
       self.driver.find_element(By.ID, "divInfraAreaDados").click()
       self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[9]/a[1]").click()

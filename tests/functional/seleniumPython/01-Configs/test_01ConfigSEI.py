@@ -163,7 +163,7 @@ class Test01ConfigSEI():
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//span[contains(.,'Administração')]/..")))
     self.driver.find_element(By.XPATH, "//span[contains(.,'Administração')]/..").click()
     self.driver.find_element(By.XPATH, "//span[.='Gestão Documental']/..").click()
-    self.driver.find_element(By.XPATH, "//span[.='Justificativas de Arquivamento e Desarquivamento']/..").click()
+    self.driver.find_element(By.XPATH, "//span[.='Justificativas de Arquivamento / Desarquivamento']/..").click()
     self.driver.find_element(By.LINK_TEXT, "Listar").click()
     self.driver.find_element(By.XPATH, "//*[@id=\"btnNova\"]").click()
     self.driver.find_element(By.ID, "txtNome").send_keys("Justificativa de Arquivamento xx")

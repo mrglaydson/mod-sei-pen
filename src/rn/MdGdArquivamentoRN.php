@@ -829,9 +829,11 @@ class MdGdArquivamentoRN extends InfraRN {
 
         $sql = '
                 SELECT  
-                    atv.id_protocolo, atv.dth_abertura 
+                    atv.id_protocolo, atv.dth_abertura, usr.sigla, usr.nome
                 FROM 
-                    atividade atv 
+                    atividade atv
+                INNER JOIN
+                    usuario usr on usr.id_usuario = atv.id_usuario_conclusao
                 WHERE 
                     atv.id_atividade IN ('.implode(',', $ids).')
                 AND 
@@ -845,6 +847,8 @@ class MdGdArquivamentoRN extends InfraRN {
         $arrProcedimentos = $this->getObjInfraIBanco()->consultarSql($sql);        
         $arrIdProcedimentos = [];
         $arrIdProcedimentoDth = [];
+        $arrSiglaUsuarios = [];
+        $arrNomeUsuarios = [];
 
         foreach($arrProcedimentos as $idProcedimento){
             $arrIdProcedimentos[] = $idProcedimento['id_protocolo'];
@@ -856,6 +860,10 @@ class MdGdArquivamentoRN extends InfraRN {
             }else{
                 $arrIdProcedimentoDth[$idProcedimento['id_protocolo']] = $idProcedimento['dth_abertura'][0];
             }
+
+            $arrSiglaUsuarios[$idProcedimento['id_protocolo']] = $idProcedimento['sigla'];
+
+            $arrNomeUsuarios[$idProcedimento['id_protocolo']] = $idProcedimento['nome'];
         }
         
         if($arrIdProcedimentos){  
@@ -918,7 +926,7 @@ class MdGdArquivamentoRN extends InfraRN {
             }
         }
 
-        return [$objProcedimentoDTO, $arrIdProcedimentoDth];
+        return [$objProcedimentoDTO, $arrIdProcedimentoDth, $arrSiglaUsuarios, $arrNomeUsuarios];
 
     }
     #############MÉTODOS DE TRAMITAÇÃO DO ARQUIVAMENTO DO PROCESSO################

@@ -62,7 +62,7 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
         $arrObjAtividadeDTO = $objAtividadeRN->listarRN0036($objAtividadeDTO);
 
         if($arrObjAtividadeDTO){
-            $arrBotoes[] = '<a  href="#" onclick="acaoControleProcessos(\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_procedimento_arquivar&acao_origem=procedimento_controlar&acao_retorno=procedimento_controlar'). '\')" tabindex="" class="botaoSEI"><img class="infraCorBarraSistema" src="' . MdGestaoDocumentalIntegracao::getDiretorio() . '/imagens/arquivamento.png" alt="Concluir e Arquivar Processo" title="Concluir e Arquivar Processo" /></a>';
+            $arrBotoes[] = '<a  href="#" onclick="acaoControleProcessos(\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_procedimento_arquivar&acao_origem=procedimento_controlar&acao_retorno=procedimento_controlar'). '\', true, false)" tabindex="" class="botaoSEI"><img class="infraCorBarraSistema" src="' . MdGestaoDocumentalIntegracao::getDiretorio() . '/imagens/arquivamento.png" alt="Concluir e Arquivar Processo" title="Concluir e Arquivar Processo" /></a>';
         }
 
         return $arrBotoes;
@@ -221,6 +221,13 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
         // Botão de desarquivamento
         if ($bolAcaoDesarquivamento && $bolArquivado) {
             $arrBotoes[] = '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_procedimento_desarquivar&acao_origem=arvore_visualizar&acao_retorno=arvore_visualizar&id_procedimento=' . $objProcedimentoAPI->getIdProcedimento() . '&arvore=1') . '" tabindex="" class="botaoSEI"><img class="infraCorBarraSistema" src="' . MdGestaoDocumentalIntegracao::getDiretorio() . '/imagens/desarquivamento.png" alt="Desarquivar Processo" title="Desarquivar Processo" /></a>';
+            echo "<script>
+            let ifr=window.parent.document.querySelector('#ifrVisualizacao');
+            ifr.addEventListener('load',()=>{                        
+                   btn= ifr.contentWindow.document.querySelector('#divArvoreAcoes a[onclick*=\"reabrirProcesso\"]');
+                   btn.remove();                   
+            });
+            </script>";
         }
 
         

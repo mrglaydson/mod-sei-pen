@@ -45,7 +45,7 @@ class Test05SEIGDAvaliacao():
     self.driver.find_element(By.XPATH, "//span[text()='Avaliação de Processos']/../../../../a").click()
     self.driver.find_element(By.LINK_TEXT, "Avaliação de Processos").click()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (20 registros):"
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos para Avaliação (20 registros):"
     self.vars["root"] = self.driver.current_window_handle
     self.vars["window_handles"] = self.driver.window_handles
     self.driver.find_element(By.XPATH, "//img[@title=\'Enviar para Correção\']").click()
@@ -59,7 +59,7 @@ class Test05SEIGDAvaliacao():
     time.sleep(3)
     self.driver.switch_to.window(self.vars["root"])
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (19 registros):"
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos para Avaliação (19 registros):"
   
   def test_0520VerificaVolta(self):
     self.driver.get(os.environ["SELENIUMTEST_SISTEMA_URL"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["SELENIUMTEST_SISTEMA_ORGAO"]+"&sigla_sistema=SEI&infra_url=L3NlaS8=")
@@ -114,7 +114,7 @@ class Test05SEIGDAvaliacao():
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".infraCaption")))
     
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (20 registros):"
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos para Avaliação (20 registros):"
   
   def test_0540MandaListagemEliminacao(self):
     self.driver.get(os.environ["SELENIUMTEST_SISTEMA_URL"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["SELENIUMTEST_SISTEMA_ORGAO"]+"&sigla_sistema=SEI&infra_url=L3NlaS8=")
@@ -175,7 +175,7 @@ class Test05SEIGDAvaliacao():
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//button[@id='sbmPesquisar']")))
     self.driver.find_element(By.XPATH, "//button[@id='sbmPesquisar']").click()
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".infraCaption")))
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (15 registros):"
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos para Avaliação (15 registros):"
   
   def test_0560AlteraObservacao1(self):
     self.driver.get(os.environ["SELENIUMTEST_SISTEMA_URL"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["SELENIUMTEST_SISTEMA_ORGAO"]+"&sigla_sistema=SEI&infra_url=L3NlaS8=")
