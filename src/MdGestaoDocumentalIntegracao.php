@@ -2,7 +2,7 @@
 
 class MdGestaoDocumentalIntegracao extends SeiIntegracao {
 
-    const VERSAO_MODULO = "1.1.0";
+    const VERSAO_MODULO = "1.1.1";
 
 
     public function __construct() {
