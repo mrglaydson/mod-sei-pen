@@ -852,7 +852,13 @@ class MdGdArquivamentoRN extends InfraRN {
 
         foreach($arrProcedimentos as $idProcedimento){
             $arrIdProcedimentos[] = $idProcedimento['id_protocolo'];
-            $idProcedimento['dth_abertura'] = explode(' ', $idProcedimento['dth_abertura']);
+
+            if (is_object($idProcedimento['dth_abertura'])){
+                $idProcedimento['dth_abertura'] = explode(' ', $idProcedimento['dth_abertura']->date);
+            }else{
+                $idProcedimento['dth_abertura'] = explode(' ', $idProcedimento['dth_abertura']);
+            }
+            
             $idProcedimento['dth_abertura'] = explode('-', $idProcedimento['dth_abertura'][0]);
 
             if(count($idProcedimento['dth_abertura']) > 1){
