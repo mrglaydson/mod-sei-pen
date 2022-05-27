@@ -1,96 +1,127 @@
 /*
 
 Pipeline Jenkins que automatiza o job 01.00
-Em caso de erro ele faz nova tentativa de execucao limitada a quantidade de tentativas informada 
+Em caso de erro ele faz nova tentativa de execucao limitada a quantidade de tentativas informada
 na execucao
 Util para rodar de forma assincrona pois os testes eventualmente possuem falso positivo
-No seu cluster selenium vc precisa de um agente com a label SUPERGD e o user do agente precisa ter permissao de sudo, 
+No seu cluster selenium vc precisa de um agente com a label SUPERGD e o user do agente precisa ter permissao de sudo,
 alem do docker e docker-compose
-
+Vc tb pode encadear varias versoes do Super e modulo para q rodem na sequencia
 */
 
+
 pipeline {
-    agent {
-        node {
-            label 'SUPERGD'
-        }
-    }
-    
-    parameters { 
-        choice(
-            name: 'database',
-            choices: "mysql\noracle\nsqlserver",                
-            description: 'Qual o banco de dados' )
+
+    agent any
+
+    parameters {
+        string(
+            name: 'generalParams',
+            defaultValue: 'VAR_SUPER_VERSAO=4.0.3.3,VAR_GD_VERSAO=master,database=mysql;VAR_GD_VERSAO=4.0.3.3,VAR_GD_VERSAO=master,database=sqlserver;VAR_SUPER_VERSAO=4.0.3.3,VAR_GD_VERSAO=master,database=oracle;VAR_SUPER_VERSAO=4.0.3.2,VAR_GD_VERSAO=master,database=mysql;VAR_GD_VERSAO=4.0.3.2,VAR_GD_VERSAO=master,database=sqlserver;VAR_SUPER_VERSAO=4.0.3.2,VAR_GD_VERSAO=master,database=oracle;',
+            description: 'Informe como no exemplo todas as versoes q deseja testar (separeted by ",", splited by ";")')
+    	  string(
+    	      name: 'urlGitSuper',
+    	      defaultValue:"github.com:supergovbr/super.git",
+    	      description: "Url do git onde encontra-se o Super")
+        string(
+            name: 'credentialGitSuper',
+            defaultValue:"gitcredsuper",
+            description: "Jenkins Credencial do git onde encontra-se o Super")
         string(
             name: 'urlGit',
-            defaultValue:"https://github.com/spbgovbr/mod-gestao-documental.git",
+            defaultValue:"github.com:spbgovbr/mod-gestao-documental.git",
             description: "Url do git onde se encontra o módulo")
         string(
             name: 'credentialGit',
-            defaultValue:"githubcred",
-            description: "Jenkins Credencial do git onde se encontra o módulo")
+            defaultValue:"gitcredmodulo",
+            description: "Jenkins Credencial do git onde encontra-se o módulo")
 	      string(
 	          name: 'branchGit',
 	          defaultValue:"master",
-	          description: "Branch/Versao do git onde se encontra módulo")
-	      string(
-	          name: 'sourceSuperLocation',
-	          defaultValue:"~/sei/FontesSEIcopia",
-	          description: "Localizacao do fonte do Super no servidor onde vai rodar o job")
+	          description: "Branch/Versao do git onde encontra-se módulo")
 	      string(
 	          name: 'qtdTentativas',
 	          defaultValue:"5",
 	          description: "Quantidade de tentativas caso o teste falhe")
-          
     }
-    
+
     stages {
 
         stage('Inicializar Job'){
             steps {
-                
-                script{                    
-                    DATABASE = params.database
-                    GITURL = params.urlGit
-					          GITCRED = params.credentialGit
-					          GITBRANCH = params.branchGit
-                    SUPERLOCATION = params.sourceSuperLocation
-                    QTDTENTATIVAS = params.qtdTentativas
+                script{
                     
                     if ( env.BUILD_NUMBER == '1' ){
                         currentBuild.result = 'ABORTED'
                         warning('Informe os valores de parametro iniciais. Caso eles n tenham aparecido faça login novamente')
                     }
-
+                    
+                    GENERALPARAMS = params.generalParams
+                    GITURL = params.urlGit
+					          GITCRED = params.credentialGit
+					          GITBRANCH = params.branchGit
+                    GITURLSUPER = params.urlGitSuper
+					          GITCREDSUPER = params.credentialGitSuper
+                    QTDTENTATIVAS = params.qtdTentativas
+                    
+                    arrGeneral = GENERALPARAMS.split(';')
+                    
                 }
 
                 sh """
                 echo ${WORKSPACE}
-                 
+
                 """
             }
         }
 
-        stage('Build Env - Run Tests'){
-        
-            steps {    
+        stage('Call BuildEnvironment Job'){
+            steps {
+                script {
+                    
+                    def paramValue
+                    def super_versao
+                    def mod_resposta_versao
+                    def bd
+                    
+                    for (int i = 0; i < arrGeneral.length; i++) {
+                        paramValue = arrGeneral[i].split(',')
+                        super_versao = paramValue[0].split('=')[1]
+                        mod_resposta_versao = paramValue[1].split('=')[1]
+                        bd = paramValue[2].split('=')[1]
 
-                retry(QTDTENTATIVAS){
-  
-                    build job: '01.00-UpAndTest.groovy', 
-                        parameters: 
-                            [
-                                string(name: 'database', value: DATABASE),
-                                string(name: 'urlGit', value: GITURL),
-                                string(name: 'credentialGit', value: GITCRED),
-                                string(name: 'branchGit', value: GITBRANCH),
-                                string(name: 'sourceSuperLocation', value: SUPERLOCATION)
-                            ], wait: true
+                        stage("Montando Ambiente Rodando Testes ${paramValue[0]} / ${paramValue[1]} / ${paramValue[2]}" ) {
+
+                            warnError('Erro no build!'){
+
+                                retry(QTDTENTATIVAS){
+
+                                    build job: '01.00-UpAndTest.groovy',
+                                        parameters:
+                                            [
+                                                string(name: 'database', value: bd),
+                                                string(name: 'urlGit', value: GITURL),
+                                                string(name: 'credentialGit', value: GITCRED),
+                                                string(name: 'branchGit', value: mod_resposta_versao),
+                                                string(name: 'urlGitSuper', value: GITURLSUPER),
+                                                string(name: 'credentialGitSuper', value: GITCREDSUPER),
+                                                string(name: 'branchGitSuper', value: super_versao),
+                                                string(name: 'branchGit', value: mod_resposta_versao),
+                                            ], wait: true
+                                }
+
+                            }
+                            
+                        }
+
+
+                    }
+
                 }
-
             }
- 
+
         }
-        
+
     }
+
 }

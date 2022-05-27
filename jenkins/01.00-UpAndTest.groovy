@@ -19,23 +19,31 @@ pipeline {
             name: 'database',
             choices: "mysql\noracle\nsqlserver",                
             description: 'Qual o banco de dados' )
+    	  string(
+    	      name: 'urlGitSuper',
+    	      defaultValue:"github.com:supergovbr/super.git",
+    	      description: "Url do git onde encontra-se o Super")
+        string(
+            name: 'credentialGitSuper',
+            defaultValue:"gitcredsuper",
+            description: "Jenkins Credencial do git onde encontra-se o Super")
+	      string(
+	          name: 'branchGitSuper',
+	          defaultValue:"main",
+	          description: "Branch/Tag do git onde encontra-se o Super")
         string(
             name: 'urlGit',
-            defaultValue:"https://github.com/spbgovbr/mod-gestao-documental.git",
-            description: "Url do git onde se encontra o módulo")
+            defaultValue:"github.com:spbgovbr/mod-gestao-documental.git",
+            description: "Url do git onde encontra-se o módulo")
         string(
             name: 'credentialGit',
-            defaultValue:"githubcred",
-            description: "Jenkins Credencial do git onde se encontra o módulo")
+            defaultValue:"gitcredmodulo",
+            description: "Jenkins Credencial do git onde encontra-se o módulo")
 	      string(
 	          name: 'branchGit',
 	          defaultValue:"master",
-	          description: "Branch/Versao do git onde se encontra módulo")
-	      string(
-	          name: 'sourceSuperLocation',
-	          defaultValue:"~/sei/FontesSEIcopia",
-	          description: "Localizacao do fonte do Super no servidor onde vai rodar o job")
-	      
+	          description: "Branch/Versao do git onde encontra-se módulo")
+
     }
     
     stages {
@@ -48,7 +56,10 @@ pipeline {
                     GITURL = params.urlGit
 					          GITCRED = params.credentialGit
 					          GITBRANCH = params.branchGit
-                    SUPERLOCATION = params.sourceSuperLocation
+                    GITURLSUPER = params.urlGitSuper
+					          GITCREDSUPER = params.credentialGitSuper
+					          GITBRANCHSUPER = params.branchGitSuper
+                    SUPERLOCATION = "${WORKSPACE}/super"
                     
                     if ( env.BUILD_NUMBER == '1' ){
                         currentBuild.result = 'ABORTED'
@@ -58,65 +69,130 @@ pipeline {
                 }
 
                 sh """
+                sudo rm -rf * .* || true
+                
                 echo ${WORKSPACE}
                 ls -lha
-                
-                make destroy || true
                 
                 """
             }
         }
         
-        stage('Checkout'){
+        stage('Checkout-Modulo'){
             
             steps {
-                
-              sh """
-              
-              git config --global http.sslVerify false
-              """
-                
-                git branch: GITBRANCH,
+        dir('modulo'){
+                sh """
+                git config --global http.sslVerify false
+                """
+
+                git branch: 'master',
                     credentialsId: GITCRED,
                     url: GITURL
-                
+
                 sh """
-                
+                git checkout ${GITBRANCH}
                 ls -l
-				
+                
+                make destroy
                 """
+
+            }
+          }
+        }
+        
+        stage('Checkout-Super'){
+            
+            steps {
+
+                dir('super'){
+
+                    sh """
+                    git config --global http.sslVerify false
+                    """
+
+                    git branch: 'main',
+                        credentialsId: GITCREDSUPER,
+                        url: GITURLSUPER
+                
+                    sh """
+                    git checkout ${GITBRANCHSUPER}
+                    ls -l
+                    """
+                    
+                    script {
+                        if (fileExists("src")){
+                          println "Achei"
+                            SUPERLOCATION = "${WORKSPACE}/super/src"
+                        }else{println "nachei"}
+                    }
+
+                }
+                
             }
         }
         
         stage('Build Env - Run Tests'){
-        
+
             steps {
+                dir('modulo'){
+                    sh """
+                    ls
+                    cd ${SUPERLOCATION}
+                    git checkout ${GITBRANCHSUPER}
+                    cd -
+                    sed -i "s|SEI_PATH=../../../../|SEI_PATH=${SUPERLOCATION}|" .env
                 
+                    # subir e parar o super para construir o arquivo de config
+                    # necessario 2x pois no Vagrant antigo ele persiste o ConfiguracaoSEI.php e na segunda o ConfiguracaoSEI.php~
+                    # so depois q tiver os 2 arquivos posso alterar sem q o entrypoint o altere automaticamente
                 
-                sh """
-                ls
-                rm -rf .env
-                rm -rf .testselenium.env
+                    make up
+                    make destroy
+                    make up
+                    make destroy
                 
-                make base="${DATABASE}" config
-                make .testselenium.env
+                    # habilitar o modulo no config
                 
-                sed -i "s|export SELENIUMTEST_RETRYTESTS=5|export SELENIUMTEST_RETRYTESTS=1|" .testselenium.env             
-                sed -i "s|SEI_PATH=../../../../|SEI_PATH=${SUPERLOCATION}|" .env
-                
-                if [ "${DATABASE}" == "oracle" ]; then
+                    sed -i "s|'Modulos' => array(|'Modulos' => array( 'MdGestaoDocumentalIntegracao' => 'gestao-documental',|g" ${SUPERLOCATION}/sei/config/ConfiguracaoSEI.php
                     
-                    sed -i "s|export SELENIUMTEST_RESTART_DB=false|export SELENIUMTEST_RESTART_DB=true|" .testselenium.env      
+                    ls -l ${SUPERLOCATION}/sei/config/
+                    cat ${SUPERLOCATION}/sei/config/ConfiguracaoSEI.php
                     
-                fi
+                    rm -rf .env
+                    rm -rf .testselenium.env
                 
-                make MSGORIENTACAO=n tests-functional-loop
+                    make base="${DATABASE}" config
+                    make .testselenium.env
                 
+                    sed -i "s|export SELENIUMTEST_RETRYTESTS=5|export SELENIUMTEST_RETRYTESTS=1|" .testselenium.env             
+                    sed -i "s|SEI_PATH=../../../../|SEI_PATH=${SUPERLOCATION}|" .env
                 
-                
-                """  
+                    if [ "${DATABASE}" == "oracle" ]; then
+                    
+                        sed -i "s|export SELENIUMTEST_RESTART_DB=false|export SELENIUMTEST_RESTART_DB=true|" .testselenium.env      
+                    
+                    fi
+
+                    make MSGORIENTACAO=n tests-functional-loop
+
+                    """  
+                }
+            }
+        }
+    }
+    post {
+        always {
+            dir('modulo'){
+              sh """
+              docker stop seleniumchrome || true
+              make destroy || true
               
-            }        
+              dateFromServer=\$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //') || true
+              dateFromServer=\$(date +"%Y-%m-%d %H:%M:%S" -d "\$dateFromServer") || true
+              sudo date -s "\$dateFromServer" || true
+              """
+            }
         }
     }
 }
