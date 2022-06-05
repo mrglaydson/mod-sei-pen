@@ -68,7 +68,7 @@ class Test09SEIGDEliminarProcsDocs():
     self.driver.switch_to.window(self.vars["root"])
     time.sleep(5)
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.ID, "divInfraBarraLocalizacao")))
-    assert self.driver.find_element(By.ID, "divInfraBarraLocalizacao").text == "Gestão da Listagem de Eliminação"
+    assert self.driver.find_element(By.ID, "divInfraBarraLocalizacao").text == "Gestão das Listagens de Eliminação"
     self.driver.find_element(By.ID, "txtPesquisaRapida").click()
     self.driver.find_element(By.ID, "txtPesquisaRapida").send_keys("99993.000033/2021-14")
     self.driver.find_element(By.ID, "txtPesquisaRapida").send_keys(Keys.ENTER)

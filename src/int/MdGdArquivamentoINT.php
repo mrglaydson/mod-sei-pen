@@ -158,5 +158,22 @@ class MdGdArquivamentoINT extends InfraINT {
         return parent::montarSelectArray($strPrimeiroItemValor, $strPrimeiroItemDescricao, $strValorItemSelecionado, $arrAssuntos);
       }
       
+      public static function montarSelectJustificativas($strPrimeiroItemValor, $strPrimeiroItemDescricao, $strValorItemSelecionado){
+        // Busca as justificativas
+        $objMdGdJustificativaDTO = new MdGdJustificativaDTO();
+        $objMdGdJustificativaDTO->setStrStaTipo(MdGdJustificativaRN::$STA_TIPO_ARQUIVAMENTO);
+        $objMdGdJustificativaDTO->retNumIdJustificativa();
+        $objMdGdJustificativaDTO->retStrNome();
+
+        $objMdGdJustificativaRN = new MdGdJustificativaRN();
+        $arrMdGdJustificativaDTO = $objMdGdJustificativaRN->listar($objMdGdJustificativaDTO);
+
+        $$arrJustificativas = array();
+        foreach($arrMdGdJustificativaDTO as $objMdGdJustificativaDTO){
+            $arrJustificativas[$objMdGdJustificativaDTO->getNumIdJustificativa()] = $objMdGdJustificativaDTO->getStrNome();
+        }
+
+        return parent::montarSelectArray($strPrimeiroItemValor, $strPrimeiroItemDescricao, $strValorItemSelecionado, $arrJustificativas);
+      }
 
 }

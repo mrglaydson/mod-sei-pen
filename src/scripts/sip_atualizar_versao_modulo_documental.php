@@ -358,6 +358,49 @@ class VersaoSipRN extends InfraScriptVersao
     public function versao_0_5_2($strVersaoAtual)
     {
     }
+
+    public function versao_1_2_0($strVersaoAtual)
+    {
+        session_start();
+
+        SessaoSip::getInstance(false);
+
+        $id_sistema = '';
+
+        //Consulta do Sistema
+        $sistemaDTO = new SistemaDTO();
+        $sistemaDTO->setStrSigla('SEI');
+        $sistemaDTO->setNumRegistrosPaginaAtual(1);
+        $sistemaDTO->retNumIdSistema();
+
+        $sistemaRN = new SistemaRN();
+        $sistemaDTO = $sistemaRN->consultar($sistemaDTO);
+
+        if (!empty($sistemaDTO)) {
+            $id_sistema = $sistemaDTO->getNumIdSistema();
+        }
+
+        //Cria função genérica de cadastro de recursos
+        $fnCadastrarRecurso = function ($id_sistema, $nome, $descricao, $caminho, $ativo) {
+            $recursoDTO = new RecursoDTO();
+            $recursoDTO->setNumIdSistema($id_sistema);
+            $recursoDTO->setStrNome($nome);
+            $recursoDTO->setStrDescricao($descricao);
+            $recursoDTO->setStrCaminho($caminho);
+            $recursoDTO->setStrSinAtivo($ativo);
+
+            $recurtoRN = new RecursoRN();
+            $recursoDTO = $recurtoRN->cadastrar($recursoDTO);
+
+            return $recursoDTO->getNumIdRecurso();
+        };
+
+        # PREPARAÇÃO DA LISTA DE RECOLHIMENTO
+
+        //Cadasta o recurso da preparação de listagem de recolhimento
+        $id_recurso_listagem_recolhimento_anotacao = $fnCadastrarRecurso($id_sistema, 'gd_listar_recolhimento_anotar', 'Anotações da listagem de recolhimento', 'controlador.php?acao=gd_listar_recolhimento_anotar', 'S');
+        
+    }
 }
 
 try {
@@ -377,6 +420,7 @@ try {
             '0.5.0' => 'versao_0_5_0',
             '0.5.1' => 'versao_0_5_1',
             '0.5.2' => 'versao_0_5_2',
+            '1.2.0' => 'versao_1_2_0',
         )
     );
 

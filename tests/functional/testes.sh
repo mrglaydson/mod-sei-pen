@@ -123,7 +123,8 @@ rodar_teste 01.50-Configs-SegundaEtapa/
 
 rodar_teste 06-SEI-GD-ListagemEliminacao
 
-rodar_teste 06.10-SEI-GD-ListagemEliminacao
+# pular
+# rodar_teste 06.10-SEI-GD-ListagemEliminacao
 
 rodar_teste 02.85-SEI-GD-ConcluirMassa2
 
@@ -139,7 +140,8 @@ standalone_destruir
 
 db_restart
 
-rodar_teste 06.20-SEI-GD-VerificarPrazos/
+# pular
+# rodar_teste 06.20-SEI-GD-VerificarPrazos/
 
 data_alterar "2026-03-11 12:00:00"
 
@@ -149,7 +151,8 @@ db_restart
 
 rodar_teste 04-SEI-GD-RunAgendamento/
 
-rodar_teste 06.30-SEI-GD-VerificarPrazos/
+# pular
+# rodar_teste 06.30-SEI-GD-VerificarPrazos/
 
 
 data_alterar "2036-12-22 13:00:00"

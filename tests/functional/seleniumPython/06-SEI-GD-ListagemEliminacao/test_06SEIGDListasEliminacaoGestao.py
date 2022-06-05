@@ -50,14 +50,14 @@ class Test06SEIGDListasEliminacaoGestao():
     WebDriverWait(self.driver, 30).until(expected_conditions.presence_of_element_located((By.LINK_TEXT, "Gestão das Listagens")))
     self.driver.find_element(By.LINK_TEXT, "Gestão das Listagens").click()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Listagens de Eliminacao (2 registros):"
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos de Eliminação (2 registros):"
     #self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[3]/td[3]").click()
     elements = self.driver.find_elements(By.XPATH, "//td[starts-with(.,\'99994.000001\')]")
     assert len(elements) > 0
     #self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[2]/td[3]").click()
     elements = self.driver.find_elements(By.XPATH, "//td[starts-with(.,\'99994.000002\')]")
     assert len(elements) > 0
-    self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[7]/a[1]").click()
+    self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[9]/a[1]").click()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos (4 registros):"
     self.driver.find_element(By.XPATH, "//a[@id='lnkSairSistema']").click()
@@ -70,8 +70,8 @@ class Test06SEIGDListasEliminacaoGestao():
     self.driver.find_element(By.XPATH, "//span[contains(text(),'Listagens de Eliminação')]/../../../../a").click()
     self.driver.find_element(By.XPATH, "//span[contains(text(),'Listagens de Eliminação')]/..").click()
     self.driver.find_element(By.LINK_TEXT, "Gestão das Listagens").click()
-    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[3]/td[7]/a[1]/img")))
-    self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[3]/td[7]/a[1]/img").click()
+    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[3]/td[9]/a[1]/img")))
+    self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[3]/td[9]/a[1]/img").click()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos (1 registro):"
     self.driver.find_element(By.ID, "btnCancelar").click()
@@ -87,33 +87,33 @@ class Test06SEIGDListasEliminacaoGestao():
     self.driver.find_element(By.XPATH, "//span[contains(text(),'Listagens de Eliminação')]/../../../../a").click()
     self.driver.find_element(By.XPATH, "//span[contains(text(),'Listagens de Eliminação')]").click()
     self.driver.find_element(By.LINK_TEXT, "Gestão das Listagens").click()
-    self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[7]/a[2]").click()
+    self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[9]/a/img[contains(@title,'Editar Listagem de Eliminação')]").click()
     self.driver.switch_to.alert.accept()
-    time.sleep(5)
-    self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[7]/a[3]").click()
+    time.sleep(10)
+    self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[9]/a/img[contains(@title,'Remover Processos')]").click()
     self.driver.find_element(By.XPATH, "//input[@id='chkInfraItem0']/..").click()
-    self.driver.find_element(By.ID, "btnExcluirListagem").click()
+    self.driver.find_element(By.XPATH, "//*[@id='btnExcluirListagem']").click()
     self.driver.switch_to.alert.accept()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Lista de Processos (3 registros):"
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos (3 registros):"
     self.driver.find_element(By.ID, "imgInfraCheck").click()
-    self.driver.find_element(By.ID, "btnExcluirListagem").click()
+    self.driver.find_element(By.XPATH, "//*[@id='btnExcluirListagem']").click()
     self.driver.switch_to.alert.accept()
     self.driver.find_element(By.ID, "divInfraAreaTelaD").click()
     self.driver.find_element(By.ID, "frmPrepararListagemEliminacao").click()
     self.driver.find_element(By.CSS_SELECTOR, "#divInfraAreaTabela > label").click()
     assert self.driver.find_element(By.CSS_SELECTOR, "#divInfraAreaTabela > label").text == "Nenhum registro encontrado."
     self.driver.find_element(By.XPATH, "//*[@id=\"btnFechar\"]").click()
-    self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[7]/a[2]").click()
+    self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[9]/a/img[contains(@title,'Adicionar Processos')]").click()
     self.driver.find_element(By.XPATH, "//input[@id='chkInfraItem0']/..").click()
     self.driver.find_element(By.ID, "btnAdicionarListagem").click()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Lista de Processos (3 registros):"
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos (3 registros):"
     self.driver.find_element(By.ID, "imgInfraCheck").click()
     self.driver.find_element(By.ID, "btnAdicionarListagem").click()
     self.driver.find_element(By.ID, "btnFechar").click()
-    self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[7]/a[4]").click()
+    self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[9]/a/img[contains(@title,'Concluir edição da listagem')]").click()
     self.driver.switch_to.alert.accept()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Listagens de Eliminacao (2 registros):"
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos de Eliminação (2 registros):"
   

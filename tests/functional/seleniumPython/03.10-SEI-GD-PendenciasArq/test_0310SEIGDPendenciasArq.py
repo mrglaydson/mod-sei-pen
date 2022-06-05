@@ -17,6 +17,7 @@ class Test0310SEIGDPendenciasArq():
         self.driver = webdriver.Chrome()
     else:
         self.driver = webdriver.Remote(command_executor=os.environ["SELENIUMTEST_SELENIUMHOST_URL"], desired_capabilities=DesiredCapabilities.CHROME)
+    self.driver.implicitly_wait(10)
     self.vars = {}
   
   def teardown_method(self, method):
@@ -57,28 +58,26 @@ class Test0310SEIGDPendenciasArq():
     WebDriverWait(self.driver, 180).until(expected_conditions.visibility_of_element_located((By.ID, "divInfraBarraLocalizacao")))
     assert self.driver.find_element(By.ID, "divInfraBarraLocalizacao").text == "Pendências de Arquivamento"
   
-  def test_0320VerificarPrazosUnidadeTeste(self):
-    self.driver.get(os.environ["SELENIUMTEST_SISTEMA_URL"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["SELENIUMTEST_SISTEMA_ORGAO"]+"&sigla_sistema=SEI&infra_url=L3NlaS8=")
-    self.driver.find_element(By.ID, "txtUsuario").send_keys("teste")
-    self.driver.find_element(By.ID, "pwdSenha").send_keys("teste")
-    self.driver.find_element(By.ID, "Acessar").click()
-    self.driver.find_element(By.LINK_TEXT, "Arquivo da Unidade").click()
-    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//td[contains(.,\'2 anos, 0 meses\')]")))
-    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//td[contains(.,\'4 anos, 0 meses\')]")))
-    #assert self.driver.find_element(By.XPATH, "//td[contains(.,\'2 anos, 0 meses\')]").text == "2 anos, 0 meses e 0 dias."
-    #assert self.driver.find_element(By.XPATH, "//td[contains(.,\'4 anos\')]").text == "4 anos, 0 meses e 0 dias."
+  # def test_0320VerificarPrazosUnidadeTeste(self):
+  #   self.driver.get(os.environ["SELENIUMTEST_SISTEMA_URL"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["SELENIUMTEST_SISTEMA_ORGAO"]+"&sigla_sistema=SEI&infra_url=L3NlaS8=")
+  #   self.driver.find_element(By.ID, "txtUsuario").send_keys("teste")
+  #   self.driver.find_element(By.ID, "pwdSenha").send_keys("teste")
+  #   self.driver.find_element(By.ID, "Acessar").click()
+  #   self.driver.find_element(By.LINK_TEXT, "Arquivo da Unidade").click()
+  #   WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//td[contains(.,\'2 anos, 0 meses\')]")))
+  #   WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//td[contains(.,\'4 anos, 0 meses\')]")))
   
-  def test_0330VerificarPrazosUnidadeArquivo(self):
-    self.driver.get(os.environ["SELENIUMTEST_SISTEMA_URL"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["SELENIUMTEST_SISTEMA_ORGAO"]+"&sigla_sistema=SEI&infra_url=L3NlaS8=")
-    self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivista01")
-    self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
-    self.driver.find_element(By.ID, "Acessar").click()
-    self.driver.find_element(By.LINK_TEXT, "Arquivo da Unidade").click()
-    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//td[contains(.,\'2 anos\')]")))
-    elements = self.driver.find_elements(By.XPATH, "//td[contains(.,\'0 anos, 11 meses\')]")
-    assert len(elements) > 0
-    elements = self.driver.find_elements(By.XPATH, "//td[contains(.,\'2 anos, 11 meses\')]")
-    assert len(elements) > 0
-    elements = self.driver.find_elements(By.XPATH, "//td[contains(.,\'10 anos\')]")
-    assert len(elements) > 0
+  # def test_0330VerificarPrazosUnidadeArquivo(self):
+  #   self.driver.get(os.environ["SELENIUMTEST_SISTEMA_URL"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["SELENIUMTEST_SISTEMA_ORGAO"]+"&sigla_sistema=SEI&infra_url=L3NlaS8=")
+  #   self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivista01")
+  #   self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
+  #   self.driver.find_element(By.ID, "Acessar").click()
+  #   self.driver.find_element(By.LINK_TEXT, "Arquivo da Unidade").click()
+  #   WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//td[contains(.,\'2 anos\')]")))
+  #   elements = self.driver.find_elements(By.XPATH, "//td[contains(.,\'0 anos, 11 meses\')]")
+  #   assert len(elements) > 0
+  #   elements = self.driver.find_elements(By.XPATH, "//td[contains(.,\'2 anos, 11 meses\')]")
+  #   assert len(elements) > 0
+  #   elements = self.driver.find_elements(By.XPATH, "//td[contains(.,\'10 anos\')]")
+  #   assert len(elements) > 0
   

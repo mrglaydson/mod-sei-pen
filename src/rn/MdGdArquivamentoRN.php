@@ -393,19 +393,6 @@ class MdGdArquivamentoRN extends InfraRN {
             $objProcedimentoRN = new ProcedimentoRN();
             $objProcedimentoRN->reabrirRN0966($objReabrirProcessoDTO);
 
-            // Desbloqueia o processo
-            $objProcedimentoDTO = new ProcedimentoDTO();
-            $objProcedimentoDTO->setDblIdProcedimento($objMdGdDesarquivamentoDTO->getDblIdProcedimento());
-            $objProcedimentoDTO->retStrStaEstadoProtocolo();
-            $objProcedimentoDTO->retDblIdProcedimento();
-
-            $objProcedimentoRN = new ProcedimentoRN();
-            $objProcedimentoDTO = $objProcedimentoRN->consultarRN0201($objProcedimentoDTO);
-
-            if ($objProcedimentoDTO->getStrStaEstadoProtocolo() == ProtocoloRN::$TE_PROCEDIMENTO_BLOQUEADO) {
-                $objProcedimentoRN->desbloquear([$objProcedimentoDTO]);
-            }
-
             // Realiza o andamento do processo
             $objAtividadeRN = new AtividadeRN();
             $objPesquisaPendenciaDTO = new PesquisaPendenciaDTO();
@@ -579,12 +566,6 @@ class MdGdArquivamentoRN extends InfraRN {
 
         $objProcedimentoRN = new ProcedimentoRN();
         $objProcedimentoDTO = $objProcedimentoRN->consultarRN0201($objProcedimentoDTO);
-
-        // Bloqueia o processo
-        if ($objProcedimentoDTO->getStrStaEstadoProtocolo() != ProtocoloRN::$TE_PROCEDIMENTO_BLOQUEADO) {
-            
-            $objProcedimentoRN->bloquear([$objProcedimentoDTO]);
-        }
         
         // Conclui o processo
         $objProcedimentoRN->concluir([$objProcedimentoDTO]);
@@ -1058,6 +1039,8 @@ class MdGdArquivamentoRN extends InfraRN {
             // Valida a permissão
             SessaoSEI::getInstance()->validarAuditarPermissao('gd_arquivamento_devolver', __METHOD__, $objMdGdArquivamentoDTO);
 
+            $objMdGdEditarArquivamentoDTO = clone $objMdGdArquivamentoDTO;
+
             // Valida se o id do arquivamento foi informado
             if (!$objMdGdArquivamentoDTO->isSetNumIdArquivamento()) {
                 throw new InfraException('Informe o número do arquivamento');
@@ -1083,7 +1066,13 @@ class MdGdArquivamentoRN extends InfraRN {
             // Atualiza a situação do arquivamento
             $objMdGdArquivamentoDTO->setStrSituacao(self::$ST_DEVOLVIDO);
             $objMdGdArquivamentoDTO->setStrObservacaoDevolucao($strObservacao);
-            return $this->alterar($objMdGdArquivamentoDTO);
+            $this->alterar($objMdGdArquivamentoDTO);
+
+            // vamos desabilitar a busca por esse campo, caso contrario da erro no Oracle
+            $objMdGdEditarArquivamentoDTO->unSetStrObservacaoDevolucao();
+            //reabir processo
+            return $this->editarArquivamento($objMdGdEditarArquivamentoDTO);
+            
         } catch (Exception $e) {
             throw new InfraException('Erro ao editar arquivamento.', $e);
         }
@@ -1112,6 +1101,7 @@ class MdGdArquivamentoRN extends InfraRN {
             $objMdGdArquivamentoDTO->retNumIdArquivamento();
             $objMdGdArquivamentoDTO->retDblIdProcedimento();
             $objMdGdArquivamentoDTO->retStrSituacao();
+            $objMdGdArquivamentoDTO->retNumIdUsuario();
             $objMdGdArquivamentoDTO = $this->consultarConectado($objMdGdArquivamentoDTO);
             
             // Valida se o arquivamento está em fase intermediária para ser editado
@@ -1119,28 +1109,19 @@ class MdGdArquivamentoRN extends InfraRN {
                 throw new InfraException('Alteração do processo só pode ser feita quando o arquivamento estiver em fase intermediária e em avaliação.');
             }
 
-            // Reabre o procedimento
-            $objReabrirProcedimentoDTO = new ReabrirProcessoDTO();
-            $objReabrirProcedimentoDTO->setDblIdProcedimento($objMdGdArquivamentoDTO->getDblIdProcedimento());
-            $objReabrirProcedimentoDTO->setNumIdUnidade($objMdGdArquivamentoDTO->getNumIdUnidadeCorrente());
-            $objReabrirProcedimentoDTO->setNumIdUsuario(SessaoSEI::getInstance()->getNumIdUsuario());
-
-            $objProcedimentoRN = new ProcedimentoRN();
-            $objProcedimentoRN->reabrirRN0966($objReabrirProcedimentoDTO);
-
-            // Desbloqueia o processo
-            // $objProcedimentoDTO = new ProcedimentoDTO();
-            // $objProcedimentoDTO->setDblIdProcedimento($objMdGdArquivamentoDTO->getDblIdProcedimento());
-            // $objProcedimentoDTO->retStrStaEstadoProtocolo();
-            // $objProcedimentoDTO->retDblIdProcedimento();
-
-            // $objProcedimentoRN = new ProcedimentoRN();
-            // $objProcedimentoDTO = $objProcedimentoRN->consultarRN0201($objProcedimentoDTO);
-            // $objProcedimentoRN->desbloquear([$objProcedimentoDTO]);
+            // Reabri processo
+            // $objReabrirProcessoDTO = new ReabrirProcessoDTO();
+            // $objReabrirProcessoDTO->setDblIdProcedimento($objMdGdArquivamentoDTO->getDblIdProcedimento());
+            // $objReabrirProcessoDTO->setNumIdUnidade($objMdGdArquivamentoDTO->getNumIdUnidadeCorrente());
+            // $objReabrirProcessoDTO->setNumIdUsuario(SessaoSEI::getInstance()->getNumIdUsuario());
+            
+            // $objProcedimentoRN =  new ProcedimentoRN();
+            // $objProcedimentoRN->reabrirRN0966($objReabrirProcessoDTO);
             
             // Atualiza a situação do arquivamento
             $objMdGdArquivamentoDTO->setStrSituacao(self::$ST_FASE_EDICAO);
-            return $this->alterar($objMdGdArquivamentoDTO);
+            $this->alterar($objMdGdArquivamentoDTO);
+            return $objMdGdArquivamentoDTO->getDblIdProcedimento();
         } catch (Exception $e) {
             throw new InfraException('Erro ao editar arquivamento.', $e);
         }
@@ -1236,7 +1217,7 @@ class MdGdArquivamentoRN extends InfraRN {
             }
 
             // Fecha o procedimento
-            $this->fecharProcedimentoArquivamentoControlado($objMdGdArquivamentoDTO);
+            //$this->fecharProcedimentoArquivamentoControlado($objMdGdArquivamentoDTO);
             
             // Atualiza a situação do arquivamento
             return $this->alterarConectado($objMdGdArquivamentoDTO);

@@ -206,11 +206,11 @@ class Test1900Relacionado():
     time.sleep(2)
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//div[@id='divInfraBarraSistemaPadrao']//div//div/a[@id='lnkInfraUnidade']")))
     self.driver.find_element(By.XPATH, "//div[@id='divInfraBarraSistemaPadrao']//div//div/a[@id='lnkInfraUnidade']").click()
-    self.driver.find_element(By.LINK_TEXT, "Arquivo da Unidade").click()
-    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//button[@id='sbmPesquisar' ]")))
-    self.driver.find_element(By.XPATH, "//button[@id='sbmPesquisar' ]").click()
-    WebDriverWait(self.driver, 30).until(expected_conditions.presence_of_element_located((By.XPATH, "//a[. = '99897.000006/2037-05']/../../td[. = '2 anos, 0 meses e 0 dias.']")))
-    elements = self.driver.find_elements(By.XPATH, "//a[. = '99897.000006/2037-05']/../../td[. = '2 anos, 0 meses e 0 dias.']")
-    assert len(elements) > 0
+    # self.driver.find_element(By.LINK_TEXT, "Arquivo da Unidade").click()
+    # WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//button[@id='sbmPesquisar' ]")))
+    # self.driver.find_element(By.XPATH, "//button[@id='sbmPesquisar' ]").click()
+    # WebDriverWait(self.driver, 30).until(expected_conditions.presence_of_element_located((By.XPATH, "//a[. = '99897.000006/2037-05']/../../td[. = '2 anos, 0 meses e 0 dias.']")))
+    # elements = self.driver.find_elements(By.XPATH, "//a[. = '99897.000006/2037-05']/../../td[. = '2 anos, 0 meses e 0 dias.']")
+    # assert len(elements) > 0
 
   

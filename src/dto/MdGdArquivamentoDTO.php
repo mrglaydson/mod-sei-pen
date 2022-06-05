@@ -106,7 +106,13 @@ class MdGdArquivamentoDTO extends InfraDTO
                                               'NomeUsuario',
                                               'u.nome',
                                               'usuario u');
-        
+
+         $this->adicionarAtributoTabelaRelacionada(InfraDTO::$PREFIXO_STR,
+                                              'SiglaUsuario',
+                                              'u.sigla',
+                                              'usuario u');                              
+                                            
+                                              
         $this->adicionarAtributoTabelaRelacionada(InfraDTO::$PREFIXO_STR,
                                               'SiglaUnidadeCorrente',
                                               'unc.sigla',
@@ -147,6 +153,16 @@ class MdGdArquivamentoDTO extends InfraDTO
                                               'NomeTipoProcedimento',
                                               't.nome',
                                               'tipo_procedimento t');
+
+        $this->adicionarAtributoTabelaRelacionada(InfraDTO::$PREFIXO_STR,
+                                              'NomeJustificativa',
+                                              'j.nome',
+                                              'md_gd_justificativa j');
+
+        $this->adicionarAtributoTabelaRelacionada(InfraDTO::$PREFIXO_STR,
+                                              'DescricaoJustificativa',
+                                              'j.descricao',
+                                              'md_gd_justificativa j');
              
          # Assinatura do despacho de arquivamento
         $this->adicionarAtributo(InfraDTO::$PREFIXO_OBJ,'AssinaturaDTO');
@@ -162,7 +178,7 @@ class MdGdArquivamentoDTO extends InfraDTO
         $this->configurarFK('IdListaRecolhimento', 'md_gd_lista_eliminacao lr', 'lr.id_lista_recolhimento');
 
         $this->configurarFK('IdDespachoArquivamento', 'documento d', 'd.id_documento');
-        $this->configurarFK('IdJustificativa', 'justificativa j', 'j.id_justificativa');
+        $this->configurarFK('IdJustificativa', 'md_gd_justificativa j', 'j.id_justificativa');
     }
 
 }

@@ -25,6 +25,10 @@ class MdGdListaRecolhimentoDTO extends InfraDTO
             'IdDocumentoRecolhimento',
             'id_documento_recolhimento');
 
+        $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_NUM,
+            'IdUsuario',
+            'id_usuario');
+
         $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_STR,
             'Numero',
             'numero');
@@ -53,6 +57,10 @@ class MdGdListaRecolhimentoDTO extends InfraDTO
         $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_STR,
             'Situacao',
             'situacao');
+
+        $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_STR,
+            'Anotacao',
+            'anotacao');
                        
         $this->adicionarAtributo(InfraDTO::$PREFIXO_ARR,'ObjMdGdArquivamentoDTO');
 
@@ -66,12 +74,23 @@ class MdGdListaRecolhimentoDTO extends InfraDTO
                                               'ProtocoloProcedimentoRecolhimentoFormatado',
                                               'pro.protocolo_formatado',
                                               'protocolo pro');
+                                              
+        $this->adicionarAtributoTabelaRelacionada(InfraDTO::$PREFIXO_STR,
+                                              'SiglaUsuario',
+                                              'sigla',
+                                              'usuario');
+
+        $this->adicionarAtributoTabelaRelacionada(InfraDTO::$PREFIXO_STR,
+                                              'NomeUsuario',
+                                              'nome',
+                                              'usuario');
 
         $this->configurarPK('IdListaRecolhimento', InfraDTO::$TIPO_PK_SEQUENCIAL);
         $this->configurarFK('IdProcedimentoRecolhimento', 'procedimento p', 'p.id_procedimento');
         $this->configurarFK('IdDocumentoRecolhimento', 'documento d', 'd.id_documento');
 
         $this->configurarFK('IdProtocoloProcedimentoRecolhimento', 'protocolo pro', 'pro.id_protocolo');
+        $this->configurarFK('IdUsuario', 'usuario', 'id_usuario');
 
     }
 
