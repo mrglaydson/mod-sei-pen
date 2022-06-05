@@ -13,7 +13,7 @@ try {
     SessaoSEI::getInstance()->validarLink();
     SessaoSEI::getInstance()->validarPermissao($_GET['acao']);
 
-    $strTitulo = 'Gestão da Listagem de Recolhimento';
+    $strTitulo = 'Gestão das Listagens de Recolhimento';
 
     switch ($_GET['acao']) {
 
@@ -88,6 +88,8 @@ try {
     $objMdGdListaRecolhimentoDTO->retStrSituacao();
     $objMdGdListaRecolhimentoDTO->retStrProtocoloProcedimentoRecolhimentoFormatado();
     $objMdGdListaRecolhimentoDTO->retDblIdProcedimentoRecolhimento();
+    $objMdGdListaRecolhimentoDTO->retStrNomeUsuario();
+    $objMdGdListaRecolhimentoDTO->retStrSiglaUsuario();
     $objMdGdListaRecolhimentoDTO->retTodos();
 
 
@@ -125,18 +127,20 @@ try {
         $strResultado = '';
 
         $strSumarioTabela = 'Listagens de Recolhimento';
-        $strCaptionTabela = 'Listagens de Recolhimento';
+        $strCaptionTabela = 'Processos de Recolhimento';
 
         $strResultado .= '<table width="99%" class="infraTable" summary="' . $strSumarioTabela . '">' . "\n";
         $strResultado .= '<caption class="infraCaption">' . PaginaSEI::getInstance()->gerarCaptionTabela($strCaptionTabela, $numRegistros) . '</caption>';
         $strResultado .= '<tr>';
         $strResultado .= '<th class="infraTh" width="1%">' . PaginaSEI::getInstance()->getThCheck() . '</th>' . "\n";
-        $strResultado .= '<th class="infraTh" width="19%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdListaRecolhimentoDTO, 'Nº da Listagem', 'Numero', $arrObjMdGdListaRecolhimentoDTO) . '</th>' . "\n";
-        $strResultado .= '<th class="infraTh" width="10%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdListaEliminacaoDTO, 'Nº do Processo', 'ProtocoloProcedimentoEliminacaoFormatado', $arrObjMdGdListaEliminacaoDTO) . '</th>' . "\n";
-        $strResultado .= '<th class="infraTh" width="20%">Data Limite</th>' . "\n";
-        $strResultado .= '<th class="infraTh" width="25%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdListaRecolhimentoDTO, 'Data de Emissão da Listagem', 'EmissaoListagem', $arrObjMdGdListaRecolhimentoDTO) . '</th>' . "\n";
+        $strResultado .= '<th class="infraTh" width="10%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdListaRecolhimentoDTO, 'Nº da Listagem', 'Numero', $arrObjMdGdListaRecolhimentoDTO) . '</th>' . "\n";
+        $strResultado .= '<th class="infraTh" width="15%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdListaRecolhimentoDTO, 'Nº do Processo', 'ProtocoloProcedimentoEliminacaoFormatado', $arrObjMdGdListaRecolhimentoDTO) . '</th>' . "\n";
+        $strResultado .= '<th class="infraTh" width="10%">Datas-Limite</th>' . "\n";
+        $strResultado .= '<th class="infraTh" width="15%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdListaRecolhimentoDTO, 'Data de Emissão', 'EmissaoListagem', $arrObjMdGdListaRecolhimentoDTO) . '</th>' . "\n";
+        $strResultado .= '<th class="infraTh" width="15%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdListaRecolhimentoDTO, 'Usuário', 'NomeUsuario', $arrObjMdGdListaRecolhimentoDTO) . '</th>' . "\n";
         $strResultado .= '<th class="infraTh" width="10%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdListaRecolhimentoDTO, 'Quantidade de Processos', 'QtdProcessos', $arrObjMdGdListaRecolhimentoDTO) . '</th>' . "\n";
-        $strResultado .= '<th class="infraTh" width="15%">Ações</th>' . "\n";
+        $strResultado .= '<th class="infraTh" width="12%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdListaRecolhimentoDTO, 'Anotação', 'Anotacao', $arrObjMdGdListaRecolhimentoDTO) . '</th>' . "\n";
+        $strResultado .= '<th class="infraTh" width="12%">Ações</th>' . "\n";
         $strResultado .= '</tr>' . "\n";
         $strCssTr = '';
 
@@ -146,23 +150,25 @@ try {
             $strCssTr = ($strCssTr == '<tr class="infraTrClara">') ? '<tr class="infraTrEscura">' : '<tr class="infraTrClara">';
             $strResultado .= $strCssTr;
 
-            $strResultado .= '<td valign="top">' . PaginaSEI::getInstance()->getTrCheck($i, $arrObjMdGdListaRecolhimentoDTO[$i]->getNumIdListaRecolhimento(), $arrObjMdGdListaRecolhimentoDTO[$i]->getStrNumero()) . '</td>';
+            $strResultado .= '<td valign="top" align="center">' . PaginaSEI::getInstance()->getTrCheck($i, $arrObjMdGdListaRecolhimentoDTO[$i]->getNumIdListaRecolhimento(), $arrObjMdGdListaRecolhimentoDTO[$i]->getStrNumero()) . '</td>';
             $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdListaRecolhimentoDTO[$i]->getStrNumero()) . '</td>';
-            $strResultado .= '<td><a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=procedimento_trabalhar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao'] . '&id_procedimento=' . $arrObjMdGdListaRecolhimentoDTO[$i]->getDblIdProcedimentoRecolhimento()) . '" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . ' " target="_blank">' . $arrObjMdGdListaRecolhimentoDTO[$i]->getStrProtocoloProcedimentoRecolhimentoFormatado() . '</a></td>';
-            $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdListaRecolhimentoDTO[$i]->getNumAnoLimiteInicio() . '-' . $arrObjMdGdListaRecolhimentoDTO[$i]->getNumAnoLimiteFim()) . '</td>';
-            $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdListaRecolhimentoDTO[$i]->getDthEmissaoListagem()) . '</td>';
-            $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdListaRecolhimentoDTO[$i]->getNumQtdProcessos()) . '</td>';
+            $strResultado .= '<td nowrap="nowrap"><a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=procedimento_trabalhar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao'] . '&id_procedimento=' . $arrObjMdGdListaRecolhimentoDTO[$i]->getDblIdProcedimentoRecolhimento()) . '" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . ' " target="_blank">' . $arrObjMdGdListaRecolhimentoDTO[$i]->getStrProtocoloProcedimentoRecolhimentoFormatado() . '</a></td>';
+            $strResultado .= '<td align="center">' . PaginaSEI::tratarHTML($arrObjMdGdListaRecolhimentoDTO[$i]->getNumAnoLimiteInicio() . '-' . $arrObjMdGdListaRecolhimentoDTO[$i]->getNumAnoLimiteFim()) . '</td>';
+            $strResultado .= '<td align="center">' . PaginaSEI::tratarHTML($arrObjMdGdListaRecolhimentoDTO[$i]->getDthEmissaoListagem()) . '</td>';
+            $strResultado .= '<td align="center"> <a alt="'.PaginaSEI::tratarHTML($arrObjMdGdListaRecolhimentoDTO[$i]->getStrNomeUsuario()).'" title="'.PaginaSEI::tratarHTML($arrObjMdGdListaRecolhimentoDTO[$i]->getStrNomeUsuario()).'" class="ancoraSigla">'.PaginaSEI::tratarHTML($arrObjMdGdListaRecolhimentoDTO[$i]->getStrSiglaUsuario()).'</a> </td>';
+            $strResultado .= '<td align="center">' . PaginaSEI::tratarHTML($arrObjMdGdListaRecolhimentoDTO[$i]->getNumQtdProcessos()) . '</td>';
+            $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdListaRecolhimentoDTO[$i]->getStrAnotacao()) . '</td>';
             $strResultado .= '<td align="center">';
 
 
             if ($bolAcaoVisualizar) {
                 // gd_lista_eliminacao_visualizar
                 $strLinkVisualizar = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_lista_recolhimento_visualizar&acao_origem=' . $_GET['acao'] . '&id_listagem_recolhimento=' . $arrObjMdGdListaRecolhimentoDTO[$i]->getNumIdListaRecolhimento());
-                $strResultado .= '<a href="' . $strLinkVisualizar . '" ><img src="/infra_css/svg/consultar.svg" title="Visualizar Listagem de Recolhimento" title="Visualizar Listagem de Recolhimento" class="infraImg" /></a>&nbsp;';
+                $strResultado .= '<a href="' . $strLinkVisualizar . '" ><img src="/infra_css/svg/consultar.svg" title="Visualizar Listagem de Recolhimento" alt="Visualizar Listagem de Recolhimento" class="infraImg" /></a>&nbsp;';
             }
             
             if ($bolAcaoEditarListagem && $arrObjMdGdListaRecolhimentoDTO[$i]->getStrSituacao() == MdGdListaRecolhimentoRN::$ST_GERADA) {
-                $strResultado .= '<a href="#ID-' . $arrObjMdGdListaRecolhimentoDTO[$i]->getNumIdListaRecolhimento() . '" onclick="acaoEditarListagemRecolhimento(\'' . $arrObjMdGdListaRecolhimentoDTO[$i]->getNumIdListaRecolhimento() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="/infra_css/svg/alterar.svg" title="Editar Listagem de Recolhimento" title="Editar Listagem de Recolhimento" class="infraImg" /></a>';
+                $strResultado .= '<a href="#ID-' . $arrObjMdGdListaRecolhimentoDTO[$i]->getNumIdListaRecolhimento() . '" onclick="acaoEditarListagemRecolhimento(\'' . $arrObjMdGdListaRecolhimentoDTO[$i]->getNumIdListaRecolhimento() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="/infra_css/svg/alterar.svg" title="Editar Listagem de Recolhimento" alt="Editar Listagem de Recolhimento" class="infraImg" /></a>';
             }
 
             if ($bolAcaoRecolher && $arrObjMdGdListaRecolhimentoDTO[$i]->getStrSituacao() == MdGdListaRecolhimentoRN::$ST_GERADA) {
@@ -172,22 +178,25 @@ try {
 
             if ($bolAcaoRecolherDocumentoFisico && $arrObjMdGdListaRecolhimentoDTO[$i]->getStrSituacao() == MdGdListaRecolhimentoRN::$ST_GERADA && $arrObjMdGdListaRecolhimentoDTO[$i]->getStrSinDocumentosFisicos() == 'S') {
                 $strLinkRecolherDocumentosFisicos = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_lista_recolhimento_documentos_fisicos_listar&id_listagem_recolhimento=' . $arrObjMdGdListaRecolhimentoDTO[$i]->getNumIdListaRecolhimento() . '&acao_origem=' . $_GET['acao']);
-                $strResultado .= '<a href="' . $strLinkRecolherDocumentosFisicos . '" ><img src="imagens/procedimento_desanexado.gif" title="Recolher Documentos Físicos" title="Recolher Documentos Físicos" class="infraImg" /></a>&nbsp;';
+                $strResultado .= '<a href="' . $strLinkRecolherDocumentosFisicos . '" ><img src="imagens/procedimento_desanexado.gif" title="Recolher Documentos Físicos" alt="Recolher Documentos Físicos" class="infraImg" /></a>&nbsp;';
             }
 
             if ($bolAcaoAdicionarProcessosListagem && $arrObjMdGdListaRecolhimentoDTO[$i]->getStrSituacao() == MdGdListaRecolhimentoRN::$ST_EDICAO) {
                 $strLinkAdicionarProcessosListagem = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_lista_recolhimento_procedimento_adicionar&id_listagem_recolhimento=' . $arrObjMdGdListaRecolhimentoDTO[$i]->getNumIdListaRecolhimento() . '&acao_origem=' . $_GET['acao']);
-                $strResultado .= '<a href="' . $strLinkAdicionarProcessosListagem . '" ><img src="' . MdGestaoDocumentalIntegracao::getDiretorio() . '/imagens/adicionar_processo_listagem.gif" title="Adicionar Processos" title="Adicionar Processos" class="infraImg" /></a>&nbsp;';
+                $strResultado .= '<a href="' . $strLinkAdicionarProcessosListagem . '" ><img src="' .PaginaSEI::getInstance()->getIconeMais(). '" title="Adicionar Processos" alt="Adicionar Processos" class="infraImg" /></a>&nbsp;';
             }
             
             if ($bolAcaoRemoverProcessosListagem && $arrObjMdGdListaRecolhimentoDTO[$i]->getStrSituacao() == MdGdListaRecolhimentoRN::$ST_EDICAO) {
                 $strLinkRemoverProcessosListagem = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_lista_recolhimento_procedimento_remover&id_listagem_recolhimento=' . $arrObjMdGdListaRecolhimentoDTO[$i]->getNumIdListaRecolhimento() . '&acao_origem=' . $_GET['acao']);
-                $strResultado .= '<a href="' . $strLinkRemoverProcessosListagem . '" ><img src="' . MdGestaoDocumentalIntegracao::getDiretorio() . '/imagens/remover_processo_listagem.gif" title="Remover Processos" title="Remover Processos" class="infraImg" /></a>&nbsp;';
+                $strResultado .= '<a href="' . $strLinkRemoverProcessosListagem . '" ><img src="' . PaginaSEI::getInstance()->getIconeMenos(). '" title="Remover Processos" alt="Remover Processos" class="infraImg" /></a>&nbsp;';
             }
 
             if ($bolAcaoConcluirEdicaoListagem && $arrObjMdGdListaRecolhimentoDTO[$i]->getStrSituacao() == MdGdListaRecolhimentoRN::$ST_EDICAO) {
-                $strResultado .= '<a href="#ID-' . $arrObjMdGdListaRecolhimentoDTO[$i]->getNumIdListaRecolhimento() . '" onclick="acaoConcluirEdicaoListagemRecolhimento(\'' . $arrObjMdGdListaRecolhimentoDTO[$i]->getNumIdListaRecolhimento() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="' . MdGestaoDocumentalIntegracao::getDiretorio() . '/imagens/concluir_edicao_listagem.gif" title="Concluir edição da listagem" title="Concluir edição da listagem" class="infraImg" /></a>';
+                $strResultado .= '<a href="#ID-' . $arrObjMdGdListaRecolhimentoDTO[$i]->getNumIdListaRecolhimento() . '" onclick="acaoConcluirEdicaoListagemRecolhimento(\'' . $arrObjMdGdListaRecolhimentoDTO[$i]->getNumIdListaRecolhimento() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="' . Icone::PUBLICACAO_RELACIONADAS . '" title="Concluir edição da listagem" alt="Concluir edição da listagem" class="infraImg" /></a> ';
             }
+
+            $strLinkAnotar = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_listar_recolhimento_anotar&acao_origem=' . $_GET['acao'] . '&id_lista_recolhimento=' . $arrObjMdGdListaRecolhimentoDTO[$i]->getNumIdListaRecolhimento());
+            $strResultado .= '<a href="#" onclick="exibirJanelaAnotacao(\'' . $strLinkAnotar . '\');"><img src="' . Icone::ANOTACAO_CADASTRO . '" title="Realizar Anotação" alt="Realizar Anotação" class="infraImg"/></a>&nbsp;';
 
             $strResultado .= '</td></tr>' . "\n";
             $strResultado .= '</tr>' . "\n";
@@ -214,19 +223,19 @@ PaginaSEI::getInstance()->abrirStyle();
 ?>
 
 
-#lblAnoLimiteDe {position:absolute;left:0%;top:55%;width:20%;}
-#txtAnoLimiteDe {position:absolute;left:0%;top:70%;width:17%;}
+#lblAnoLimiteDe {position:absolute;left:0%;top:0%;width:20%;}
+#txtAnoLimiteDe {position:absolute;left:0%;top:22%;width:17%;}
 
-#lblAnoLimiteAte {position:absolute;left:19%;top:55%;width:20%;}
-#txtAnoLimiteAte {position:absolute;left:19%;top:70%;width:17%;}
+#lblAnoLimiteAte {position:absolute;left:19%;top:0%;width:20%;}
+#txtAnoLimiteAte {position:absolute;left:19%;top:22%;width:17%;}
 
-#lblPeriodoEmissaoDe {position:absolute;left:38%;top:55%;width:20%;}
-#txtPeriodoEmissaoDe {position:absolute;left:38%;top:70%;width:17%;}
-#imgCalPeriodoEmissaoDe {position:absolute;left:56%;top:72%;}
+#lblPeriodoEmissaoDe {position:absolute;left:38%;top:0%;width:20%;}
+#txtPeriodoEmissaoDe {position:absolute;left:38%;top:22%;width:17%;}
+#imgCalPeriodoEmissaoDe {position:absolute;left:56%;top:22%;}
 
-#lblPeriodoEmissaoAte {position:absolute;left:59%;top:55%;width:20%;}
-#txtPeriodoEmissaoAte {position:absolute;left:59%;top:70%;width:17%;}
-#imgCalPeriodoEmissaoAte {position:absolute;left:77%;top:72%;}
+#lblPeriodoEmissaoAte {position:absolute;left:59%;top:0%;width:20%;}
+#txtPeriodoEmissaoAte {position:absolute;left:59%;top:22%;width:17%;}
+#imgCalPeriodoEmissaoAte {position:absolute;left:77%;top:22%;}
 
 
 <?
@@ -235,6 +244,10 @@ PaginaSEI::getInstance()->montarJavaScript();
 PaginaSEI::getInstance()->abrirJavaScript();
 ?>
 //<script>
+
+    function exibirJanelaAnotacao(link) {
+        infraAbrirJanela(link, 'janelaAnotacao', 720, 300, 'location=0,status=1,resizable=1,scrollbars=1', false);
+    }
 
     function inicializar() {
         infraEfeitoTabelas();
@@ -279,17 +292,17 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
           PaginaSEI::getInstance()->abrirAreaDados('9.5em');
           ?>
 
-    <label id="lblAnoLimiteDe" for="txtAnoLimiteDe" accesskey="" class="infraLabelOpcional">Datas-limites:</label>
+    <label id="lblAnoLimiteDe" for="txtAnoLimiteDe" accesskey="" class="infraLabelOpcional">Datas-limites de:</label>
     <input type="text" id="txtAnoLimiteDe" value="<?= $txtAnoLimiteDe ?>" name="txtAnoLimiteDe" class="infraText" value="<?= PaginaSEI::tratarHTML($dtaPeriodoEmissaoDe) ?>" onkeypress="return infraMascaraNumero(this, event)" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />
 
-    <label id="lblAnoLimiteAte" for="txtAnoLimiteAte" accesskey="" class="infraLabelOpcional">Até</label>
+    <label id="lblAnoLimiteAte" for="txtAnoLimiteAte" accesskey="" class="infraLabelOpcional">Até:</label>
     <input type="text" id="txtAnoLimiteAte" value="<?= $txtAnoLimiteAte ?>" name="txtAnoLimiteAte" class="infraText" value="<?= PaginaSEI::tratarHTML($dtaPeriodoEmissaoA) ?>" onkeypress="return infraMascaraNumero(this, event)" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />
 
-    <label id="lblPeriodoEmissaoDe" for="txtPeriodoEmissaoDe" accesskey="" class="infraLabelOpcional">Emissão da listagem de:</label>
+    <label id="lblPeriodoEmissaoDe" for="txtPeriodoEmissaoDe" accesskey="" class="infraLabelOpcional">Data de Emissão de:</label>
     <input type="text" id="txtPeriodoEmissaoDe" value="<?= $txtPeriodoEmissaoDe ?>" name="txtPeriodoEmissaoDe" class="infraText" value="<?= PaginaSEI::tratarHTML($dtaPeriodoEmissaoDe) ?>" onkeypress="return infraMascaraData(this, event)" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />
     <img id="imgCalPeriodoEmissaoDe" title="Selecionar Data Inicial" alt="Selecionar Data Inicial" src="/infra_css/svg/calendario.svg" class="infraImg" onclick="infraCalendario('txtPeriodoEmissaoDe', this);" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />    
 
-    <label id="lblPeriodoEmissaoAte" for="txtPeriodoEmissaoAte" accesskey="" class="infraLabelOpcional">Até</label>
+    <label id="lblPeriodoEmissaoAte" for="txtPeriodoEmissaoAte" accesskey="" class="infraLabelOpcional">Até:</label>
     <input type="text" id="txtPeriodoEmissaoAte" value="<?= $txtPeriodoEmissaoAte ?>" name="txtPeriodoEmissaoAte" class="infraText" value="<?= PaginaSEI::tratarHTML($dtaPeriodoEmissaoAte) ?>" onkeypress="return infraMascaraData(this, event)" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />
     <img id="imgCalPeriodoEmissaoAte" title="Selecionar Data Final" alt="Selecionar Data Final" src="/infra_css/svg/calendario.svg" class="infraImg" onclick="infraCalendario('txtPeriodoEmissaoAte', this);" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />    
 

@@ -23,26 +23,26 @@ class Test0610SEIGDListagemEliminacao():
   def teardown_method(self, method):
     self.driver.quit()
   
-  def test_0610VerificarPrazosUnidadeTeste(self):
-    self.driver.get(os.environ["SELENIUMTEST_SISTEMA_URL"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["SELENIUMTEST_SISTEMA_ORGAO"]+"&sigla_sistema=SEI&infra_url=L3NlaS8=")
-    self.driver.find_element(By.ID, "txtUsuario").send_keys("teste")
-    self.driver.find_element(By.ID, "pwdSenha").send_keys("teste")
-    self.driver.find_element(By.ID, "Acessar").click()
-    self.driver.find_element(By.LINK_TEXT, "Arquivo da Unidade").click()
-    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//td[contains(.,\'0 anos\')]")))
-    elements = self.driver.find_elements(By.XPATH, "//td[contains(.,\'0 anos, 9 meses\')]")
-    assert len(elements) > 0
-    elements = self.driver.find_elements(By.XPATH, "//td[contains(.,\'2 anos, 9 meses\')]")
-    assert len(elements) > 0
+  # def test_0610VerificarPrazosUnidadeTeste(self):
+  #   self.driver.get(os.environ["SELENIUMTEST_SISTEMA_URL"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["SELENIUMTEST_SISTEMA_ORGAO"]+"&sigla_sistema=SEI&infra_url=L3NlaS8=")
+  #   self.driver.find_element(By.ID, "txtUsuario").send_keys("teste")
+  #   self.driver.find_element(By.ID, "pwdSenha").send_keys("teste")
+  #   self.driver.find_element(By.ID, "Acessar").click()
+  #   self.driver.find_element(By.LINK_TEXT, "Arquivo da Unidade").click()
+  #   WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//td[contains(.,\'0 anos\')]")))
+  #   elements = self.driver.find_elements(By.XPATH, "//td[contains(.,\'0 anos, 9 meses\')]")
+  #   assert len(elements) > 0
+  #   elements = self.driver.find_elements(By.XPATH, "//td[contains(.,\'2 anos, 9 meses\')]")
+  #   assert len(elements) > 0
   
-  def test_0630VerificarPrazosUnidadeArquivo(self):
-    self.driver.get(os.environ["SELENIUMTEST_SISTEMA_URL"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["SELENIUMTEST_SISTEMA_ORGAO"]+"&sigla_sistema=SEI&infra_url=L3NlaS8=")
-    self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivista01")
-    self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
-    self.driver.find_element(By.ID, "Acessar").click()
-    self.driver.find_element(By.LINK_TEXT, "Arquivo da Unidade").click()
-    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//td[contains(.,\'1 ano\')]")))
-    elements = self.driver.find_elements(By.XPATH, "//td[contains(.,\'1 ano, 9 meses\')]")
-    assert len(elements) > 0
-    assert self.driver.find_element(By.XPATH, "//td[contains(.,\'10 anos\')]").text == "10 anos"
+  # def test_0630VerificarPrazosUnidadeArquivo(self):
+  #   self.driver.get(os.environ["SELENIUMTEST_SISTEMA_URL"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["SELENIUMTEST_SISTEMA_ORGAO"]+"&sigla_sistema=SEI&infra_url=L3NlaS8=")
+  #   self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivista01")
+  #   self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
+  #   self.driver.find_element(By.ID, "Acessar").click()
+  #   self.driver.find_element(By.LINK_TEXT, "Arquivo da Unidade").click()
+  #   WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//td[contains(.,\'1 ano\')]")))
+  #   elements = self.driver.find_elements(By.XPATH, "//td[contains(.,\'1 ano, 9 meses\')]")
+  #   assert len(elements) > 0
+  #   assert self.driver.find_element(By.XPATH, "//td[contains(.,\'10 anos\')]").text == "10 anos"
   

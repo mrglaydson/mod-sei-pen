@@ -107,7 +107,7 @@ try {
         $strResultado = '';
 
         $strSumarioTabela = 'Lista de Processos';
-        $strCaptionTabela = 'Lista de Processos';
+        $strCaptionTabela = 'Processos';
 
         $strResultado .= '<table width="99%" class="infraTable" summary="' . $strSumarioTabela . '">' . "\n";
         $strResultado .= '<caption class="infraCaption">' . PaginaSEI::getInstance()->gerarCaptionTabela($strCaptionTabela, $numRegistros) . '</caption>';

@@ -33,28 +33,20 @@ class Test0620SEIGDVerificarPrazos():
     self.driver.find_element(By.CSS_SELECTOR, ".d-none #lnkInfraUnidade").click()
     self.driver.find_element(By.XPATH, "//td[text()='Unidade de Teste 1']").click()
     
-    #self.driver.find_element(By.LINK_TEXT, "TESTE").click()
-    #WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table")))
-    #self.driver.find_element(By.ID, "txtInfraSiglaUnidade").click()
-    #self.driver.find_element(By.ID, "txtInfraSiglaUnidade").send_keys("TESTE")
-    #self.driver.find_element(By.ID, "sbmPesquisar").click()
-    #WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table")))
-    #self.driver.find_element(By.XPATH, "//tr[2]/td/div/label").click()
-    #self.driver.find_element(By.LINK_TEXT, "TESTE").click()
-    self.driver.find_element(By.LINK_TEXT, "Arquivo da Unidade").click()
-    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//td[contains(.,\'Prazo expirado!\')]")))
-    assert self.driver.find_element(By.XPATH, "//td[contains(.,\'Prazo expirado!\')]").text == "Prazo expirado!"
-    elements = self.driver.find_elements(By.XPATH, "//td[contains(.,\'1 ano, 9 meses\')]")
-    assert len(elements) > 0
+    # self.driver.find_element(By.LINK_TEXT, "Arquivo da Unidade").click()
+    # WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//td[contains(.,\'Prazo expirado!\')]")))
+    # assert self.driver.find_element(By.XPATH, "//td[contains(.,\'Prazo expirado!\')]").text == "Prazo expirado!"
+    # elements = self.driver.find_elements(By.XPATH, "//td[contains(.,\'1 ano, 9 meses\')]")
+    # assert len(elements) > 0
   
-  def test_0630VerificarPrazosUnidadeArquivo(self):
-    self.driver.get(os.environ["SELENIUMTEST_SISTEMA_URL"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["SELENIUMTEST_SISTEMA_ORGAO"]+"&sigla_sistema=SEI&infra_url=L3NlaS8=")
-    self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivista01")
-    self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
-    self.driver.find_element(By.ID, "Acessar").click()
-    self.driver.find_element(By.LINK_TEXT, "Arquivo da Unidade").click()
-    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//td[contains(.,\'0 ano\')]")))
-    elements = self.driver.find_elements(By.XPATH, "//td[contains(.,\'0 anos, 9 meses\')]")
-    assert len(elements) > 0
-    assert self.driver.find_element(By.XPATH, "//td[contains(.,\'10 anos\')]").text == "10 anos"
+  # def test_0630VerificarPrazosUnidadeArquivo(self):
+  #   self.driver.get(os.environ["SELENIUMTEST_SISTEMA_URL"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["SELENIUMTEST_SISTEMA_ORGAO"]+"&sigla_sistema=SEI&infra_url=L3NlaS8=")
+  #   self.driver.find_element(By.ID, "txtUsuario").send_keys("arquivista01")
+  #   self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
+  #   self.driver.find_element(By.ID, "Acessar").click()
+  #   self.driver.find_element(By.LINK_TEXT, "Arquivo da Unidade").click()
+  #   WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//td[contains(.,\'0 ano\')]")))
+  #   elements = self.driver.find_elements(By.XPATH, "//td[contains(.,\'0 anos, 9 meses\')]")
+  #   assert len(elements) > 0
+  #   assert self.driver.find_element(By.XPATH, "//td[contains(.,\'10 anos\')]").text == "10 anos"
   

@@ -16,20 +16,25 @@ try {
 
     switch ($_GET['acao']) {
 
-        case 'gd_arquivamento_devolver':
-            $strTitulo = 'Devolver Arquivamento';
+        case 'gd_listar_recolhimento_anotar':
+            $strTitulo = 'Realizar Anotação';
+            $objMdGdListaRecolhimentoDTO = new MdGdListaRecolhimentoDTO();
+            $objMdGdListaRecolhimentoDTO->setNumIdListaRecolhimento($_GET['id_lista_recolhimento']);
+            $objMdGdListaRecolhimentoDTO->retStrAnotacao();
+            
+            $objMdGdListaRecolhimentoRN = new MdGdListaRecolhimentoRN();
+            $objMdGdListaRecolhimentoDTO = $objMdGdListaRecolhimentoRN->consultar($objMdGdListaRecolhimentoDTO);
 
-            if($_POST['sbmDevolver']){
-                $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
-                $objMdGdArquivamentoDTO->setNumIdArquivamento((int) $_REQUEST['id_arquivamento']);
-                $objMdGdArquivamentoDTO->setStrObservacaoDevolucao($_REQUEST['txtObservacaoDevolucao']);
-                $objMdGdArquivamentoDTO->retDblIdProcedimento();
-                $objMdGdArquivamentoDTO->retNumIdUnidadeCorrente();
-                
-                // Muda a situação do arquivamento para editado
-                $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
-                $dlbIdProtocolo = $objMdGdArquivamentoRN->devolverArquivamento($objMdGdArquivamentoDTO);
+            $strAnotacao = '';
+            if($objMdGdListaRecolhimentoDTO){
+                $strAnotacao = $objMdGdListaRecolhimentoDTO->getStrAnotacao();
+            }
 
+            if ($_POST['sbmAnotar']) {
+                $objMdGdListaRecolhimentoDTO = new MdGdListaRecolhimentoDTO();
+                $objMdGdListaRecolhimentoDTO->setNumIdListaRecolhimento($_GET['id_lista_recolhimento']);
+                $objMdGdListaRecolhimentoDTO->setStrAnotacao($_POST['txaAnotacao']);
+                $objMdGdListaRecolhimentoRN->alterar($objMdGdListaRecolhimentoDTO);
             }
             break;
 
@@ -40,7 +45,7 @@ try {
     PaginaSEI::getInstance()->processarExcecao($e);
 }
 
-$arrComandos[] = '<button type="submit" accesskey="S" name="sbmDevolver" value="Salvar" class="infraButton"><span class="infraTeclaAtalho">S</span>alvar</button>';
+$arrComandos[] = '<button type="submit" accesskey="S" name="sbmAnotar" value="Salvar" class="infraButton"><span class="infraTeclaAtalho">S</span>alvar</button>';
 $arrComandos[] = '<button type="button" accesskey="C" name="btnCancelar" id="btnCancelar" value="Cancelar" onclick="window.opener.location.reload(); window.close();" class="infraButton"><span class="infraTeclaAtalho">C</span>ancelar</button>';
 
 
@@ -53,7 +58,7 @@ PaginaSEI::getInstance()->montarStyle();
 PaginaSEI::getInstance()->montarJavaScript(); 
 PaginaSEI::getInstance()->abrirJavaScript(); ?>
 
-<? if($_POST['sbmDevolver']){ ?>
+<? if($_POST['sbmAnotar']){ ?>
     window.opener.location.reload(); 
     window.close();
 <? } ?>
@@ -63,12 +68,12 @@ PaginaSEI::getInstance()->fecharJavaScript();
 PaginaSEI::getInstance()->fecharHead();
 PaginaSEI::getInstance()->abrirBody($strTitulo);
 ?>
-<form id="frmDevolver" method="post" action="<?= SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . $_GET['acao'] . '&acao_origem=' . $_GET['acao'] . '&id_arquivamento=' . $_GET['id_arquivamento']) ?>">
+<form id="frmObservar" method="post" action="<?= SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . $_GET['acao'] . '&acao_origem=' . $_GET['acao'] . '&id_lista_recolhimento=' . $_GET['id_lista_recolhimento']) ?>">
     <?
     PaginaSEI::getInstance()->montarBarraComandosSuperior($arrComandos);
     PaginaSEI::getInstance()->abrirAreaDados('20em');
     ?>
-    <textarea id="txtObservacaoDevolucao" style="width: 657px;" rows="10" name="txtObservacaoDevolucao" rows="<?= PaginaSEI::getInstance()->isBolNavegadorFirefox() ? '2' : '3' ?>" class="infraTextArea" onkeypress="return infraLimitarTexto(this, event, 500);" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>"></textarea>
+    <textarea id="txaAnotacao" style="width: 657px;" rows="10" name="txaAnotacao" rows="<?= PaginaSEI::getInstance()->isBolNavegadorFirefox() ? '2' : '3' ?>" class="infraTextArea" onkeypress="return infraLimitarTexto(this, event, 500);" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>"><?= PaginaSEI::tratarHTML($strAnotacao) ?></textarea>
     <?
     PaginaSEI::getInstance()->fecharAreaDados();
     ?>

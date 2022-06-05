@@ -282,19 +282,23 @@ try {
                 // Ação de envio para recolhimento / eliminação
                 if (InfraData::compararDatas($arrObjMdGdArquivamentoDTO[$i]->getDthDataGuardaIntermediaria(), date('d/m/Y H:i:s')) >= 0) {
                     if ($bolAcaoProcedimentoEliminacaoEnviar && $arrObjMdGdArquivamentoDTO[$i]->getStrStaDestinacaoFinal() == MdGdArquivamentoRN::$DF_ELIMINACAO) {
-                        $strAcoes .= '<a href="#ID-' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '" onclick="acaoEnviarEliminacao(\'' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '\', \'' . $arrObjMdGdArquivamentoDTO[$i]->getStrProtocoloFormatado() . '\');"   tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="' . MdGestaoDocumentalIntegracao::getDiretorio() . '/imagens/transicao.png" title="Gerar Listagem de Eliminação" title="Gerar Listagem de Eliminação" class="infraImg" /></a><br>';
+                        $strAcoes .= '<a href="#ID-' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '" onclick="acaoEnviarEliminacao(\'' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '\', \'' . $arrObjMdGdArquivamentoDTO[$i]->getStrProtocoloFormatado() . '\');"   tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="' . Icone::FEDERACAO_SOLICITAR_REGISTRO . '" title="Preparar Listagem de Eliminação" title="Preparar Listagem de Eliminação" class="infraImg" /></a>';
                     }
                     
                     if ($bolAcaoProcedimentoRecolhimentoEnviar && $arrObjMdGdArquivamentoDTO[$i]->getStrStaDestinacaoFinal() == MdGdArquivamentoRN::$DF_RECOLHIMENTO){
-                        $strAcoes .= '<a href="#ID-' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '" onclick="acaoEnviarRecolhimento(\'' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '\', \'' . $arrObjMdGdArquivamentoDTO[$i]->getStrProtocoloFormatado() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="' . MdGestaoDocumentalIntegracao::getDiretorio() . '/imagens/transicao.png" title="Gerar Listagem de Recolhimento" title="Gerar Listagem de Recolhimento" class="infraImg" /></a><br>';
+                        $strAcoes .= '<a href="#ID-' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '" onclick="acaoEnviarRecolhimento(\'' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '\', \'' . $arrObjMdGdArquivamentoDTO[$i]->getStrProtocoloFormatado() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="' . Icone::FEDERACAO_SOLICITAR_REGISTRO . '" title="Preparar Listagem de Recolhimento" title="Preparar Listagem de Recolhimento" class="infraImg" /></a>';
                     }
                 } 
 
                 // Ação de edição de metadados
                 if($bolAcaoDevolverArquivamento){
                     $strLinkDevolver = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_arquivamento_devolver&acao_origem=' . $_GET['acao'] . '&id_arquivamento=' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento());
-                    $strAcoes .= '<a href="#ID-' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '" onclick="acaoDevolver(\'' . $strLinkDevolver . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="' . MdGestaoDocumentalIntegracao::getDiretorio() . '/imagens/transicao.png" title="Enviar para Correção" title="Enviar para Correção" class="infraImg" style="transform: scaleX(-1);" /></a>';
+                    $strAcoes .= '<a style="position: relative; left: 10px;" href="#ID-' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '" onclick="acaoDevolver(\'' . $strLinkDevolver . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="' . Icone::BLOCO_NAVEGAR_SETA_ESQUERDA . '" title="Enviar para Correção" title="Enviar para Correção" class="infraImg" /></a>';
+
+                    $paginaAlterarProcesso = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=procedimento_alterar&acao_origem=gd_arquivamento_avaliar&acao_retorno=gd_arquivamento_avaliar&id_procedimento='.$arrObjMdGdArquivamentoDTO[$i]->getDblIdProcedimento().'&arvore=0');
+                    $strAcoes .= '<a style="position: relative; left: 25px;" href="'.$paginaAlterarProcesso.'" tabindex="'. PaginaSEI::getInstance()->getProxTabTabela() .'" ><img  src="'.Icone::PROCESSO_ALTERAR.'" alt="Consultar/Alterar Processo" title="Consultar/Alterar Processo"/></a>';
                 }
+
             }
             
             $strAcoes .= '</td></tr>';
@@ -334,19 +338,19 @@ PaginaSEI::getInstance()->abrirStyle();
 #lblDestinacaoFinal {position:absolute;left:63%;top:0%;width:20%;}
 #selDestinacaoFinal {position:absolute;left:63%;top:16%;width:20%;}
 
-#lblPeriodoDe {position:absolute;left:0%;top:35%;width:20%;}
-#txtPeriodoDe {position:absolute;left:0%;top:50%;width:17%;}
-#imgCalPeriodoD {position:absolute;left:18%;top:49%;}
+#lblPeriodoDe {position:absolute;left:0%;top:40%;width:20%;}
+#txtPeriodoDe {position:absolute;left:0%;top:55%;width:17%;}
+#imgCalPeriodoD {position:absolute;left:18%;top:55%;}
 
-#lblPeriodoA {position:absolute;left:21%;top:35%;width:20%;}
-#txtPeriodoA {position:absolute;left:21%;top:50%;width:17%;}
-#imgCalPeriodoA {position:absolute;left:39%;top:49%;}
+#lblPeriodoA {position:absolute;left:21%;top:40%;width:20%;}
+#txtPeriodoA {position:absolute;left:21%;top:55%;width:17%;}
+#imgCalPeriodoA {position:absolute;left:39%;top:55%;}
 
-#lblSelAssunto {position:absolute;left:42%;top:35%;width:20%;}
-#selAssunto {position:absolute;left:42%;top:50%;width:41%;}
+#lblSelAssunto {position:absolute;left:42%;top:40%;width:20%;}
+#selAssunto {position:absolute;left:42%;top:55%;width:41%;}
 
-#lblAnoDestinacao {position:absolute;left:0%;top:68%;width:20%;}
-#txtAnoDestinacao {position:absolute;left:0%;top:82%;width:20%;}
+#lblAnoDestinacao {position:absolute;left:0%;top:75%;width:20%;}
+#txtAnoDestinacao {position:absolute;left:0%;top:90%;width:20%;}
 
 
 

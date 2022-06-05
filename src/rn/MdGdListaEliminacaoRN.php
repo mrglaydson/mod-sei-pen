@@ -154,6 +154,7 @@ class MdGdListaEliminacaoRN extends InfraRN {
             $objMdGdListaEliminacaoDTO->setNumQtdProcessos(count($arrObjMdGdArquivamentoDTO));
             $objMdGdListaEliminacaoDTO->setStrSituacao(self::$ST_GERADA);
             $objMdGdListaEliminacaoDTO->setStrSinDocumentosFisicos($strSinDocumentosFisicos);
+            $objMdGdListaEliminacaoDTO->setNumIdUsuario(SessaoSEI::getInstance()->getNumIdUsuario());
 
             $objMdGdListaEliminacaoBD = new MdGdListaEliminacaoBD($this->getObjInfraIBanco());
             $objMdGdListaEliminacaoDTO = $objMdGdListaEliminacaoBD->cadastrar($objMdGdListaEliminacaoDTO);
@@ -559,7 +560,7 @@ class MdGdListaEliminacaoRN extends InfraRN {
             $strResultado = '';
 
             $strSumarioTabela = 'Lista de Processos';
-            $strCaptionTabela = 'Lista de Processos';
+            $strCaptionTabela = 'Processos';
 
             $strResultado .= '<table width="99%" class="infraTable" border="1">';
             $strResultado .= '<tr>';

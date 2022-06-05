@@ -151,6 +151,7 @@ class MdGdListaRecolhimentoRN extends InfraRN {
             $objMdGdListaRecolhimentoDTO->setStrSinDocumentosFisicos($strSinDocumentosFisicos);
             $objMdGdListaRecolhimentoDTO->setDblIdProcedimentoRecolhimento($objProcedimentoDTO->getDblIdProcedimento());
             $objMdGdListaRecolhimentoDTO->setDblIdDocumentoRecolhimento($objDocumentoDTO->getDblIdDocumento());
+            $objMdGdListaRecolhimentoDTO->setNumIdUsuario(SessaoSEI::getInstance()->getNumIdUsuario());
 
             $objMdGdListaRecolhimentoBD = new MdGdListaRecolhimentoBD($this->getObjInfraIBanco());
             $objMdGdListaRecolhimentoDTO = $objMdGdListaRecolhimentoBD->cadastrar($objMdGdListaRecolhimentoDTO);

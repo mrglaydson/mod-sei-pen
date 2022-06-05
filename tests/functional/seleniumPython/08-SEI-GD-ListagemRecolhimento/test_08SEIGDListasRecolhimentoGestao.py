@@ -43,10 +43,10 @@ class Test08SEIGDListasRecolhimentoGestao():
     #self.driver.find_element(By.XPATH, "//span[.='Listagens de Recolhimento']/..").click()
     self.driver.find_element(By.LINK_TEXT, "Gestão das Listagens").click()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Listagens de Recolhimento (2 registros):"
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos de Recolhimento (2 registros):"
     self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[3]/td[3]").click()
     self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[2]/td[3]").click()
-    self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[7]/a[1]").click()
+    self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[9]/a[1]").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos (4 registros):"
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.ID, "divInfraBarraLocalizacao")))
     self.driver.find_element(By.ID, "divInfraBarraLocalizacao").click()
@@ -72,14 +72,14 @@ class Test08SEIGDListasRecolhimentoGestao():
     self.driver.find_element(By.XPATH, "//span[text()='Avaliação de Processos']/../../../../a").click()
     self.driver.find_element(By.XPATH, "//span[.='Listagens de Recolhimento']/..").click()
     self.driver.find_element(By.LINK_TEXT, "Gestão das Listagens").click()
-    self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[7]/a[2]").click()
+    self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[9]/a/img[contains(@title,'Editar Listagem de Recolhimento')]").click()
     self.driver.switch_to.alert.accept()
-    self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[7]/a[3]").click()
+    self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[9]/a/img[contains(@title,'Remover Processos')]").click()
     self.driver.find_element(By.XPATH, "//input[@id='chkInfraItem0']/..").click()
     self.driver.find_element(By.ID, "btnExcluirListagem").click()
     self.driver.switch_to.alert.accept()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Lista de Processos (3 registros):"
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos (3 registros):"
     self.driver.find_element(By.ID, "imgInfraCheck").click()
     self.driver.find_element(By.ID, "btnExcluirListagem").click()
     self.driver.switch_to.alert.accept()
@@ -88,17 +88,17 @@ class Test08SEIGDListasRecolhimentoGestao():
     self.driver.find_element(By.CSS_SELECTOR, "#divInfraAreaTabela > label").click()
     assert self.driver.find_element(By.CSS_SELECTOR, "#divInfraAreaTabela > label").text == "Nenhum registro encontrado."
     self.driver.find_element(By.XPATH, "//*[@id=\"btnFechar\"]").click()
-    self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[7]/a[2]").click()
+    self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[9]/a/img[contains(@title,'Adicionar Processos')]").click()
     self.driver.find_element(By.XPATH, "//input[@id='chkInfraItem0']/..").click()
     self.driver.find_element(By.ID, "btnAdicionarListagem").click()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Lista de Processos (3 registros):"
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos (3 registros):"
     self.driver.find_element(By.ID, "imgInfraCheck").click()
     self.driver.find_element(By.ID, "btnAdicionarListagem").click()
     self.driver.find_element(By.ID, "btnFechar").click()
-    self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[7]/a[4]").click()
+    self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/tbody/tr[2]/td[9]/a/img[contains(@title,'Concluir edição da listagem')]").click()
     self.driver.switch_to.alert.accept()
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".infraCaption")))
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Listagens de Recolhimento (2 registros):"
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos de Recolhimento (2 registros):"
   

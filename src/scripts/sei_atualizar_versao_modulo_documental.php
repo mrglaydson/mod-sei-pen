@@ -983,6 +983,57 @@ class VersaoSeiRN extends InfraScriptVersao
     public function versao_0_5_2($strVersaoAtual)
     {
     }
+
+    public function versao_1_2_0($strVersaoAtual)
+    {
+        $this->objInfraBanco = BancoSEI::getInstance();
+        $this->objMetaBD = new InfraMetaBD($this->objInfraBanco);
+        $this->objInfraSequencia = new InfraSequencia($this->objInfraBanco);
+        $this->objInfraParametro = new InfraParametro($this->objInfraBanco);
+
+        try {
+            if (BancoSEI::getInstance() instanceof InfraSqlServer) {
+                // Alteração da tabela da listagem de recolhimento
+                $this->objInfraBanco->executarSql('ALTER TABLE md_gd_lista_recolhimento
+                ADD id_usuario ' . $this->objMetaBD->tipoNumero() . ' NOT NULL,
+                    anotacao ' . $this->objMetaBD->tipoTextoGrande() . ' NULL'
+
+                );
+
+                $this->objMetaBD->adicionarChaveEstrangeira('fk_md_gd_rec_usuario', 'md_gd_lista_recolhimento', array('id_usuario'), 'usuario', array('id_usuario'));
+
+                // Alteração da tabela da listagem de eliminação
+                $this->objInfraBanco->executarSql('ALTER TABLE md_gd_lista_eliminacao
+                    ADD id_usuario ' . $this->objMetaBD->tipoNumero() . ' NOT NULL,
+                        anotacao ' . $this->objMetaBD->tipoTextoGrande() . ' NULL'
+
+                );
+
+            }else{
+                // Alteração da tabela da listagem de recolhimento
+                $this->objInfraBanco->executarSql('ALTER TABLE md_gd_lista_recolhimento
+                    ADD (id_usuario ' . $this->objMetaBD->tipoNumero() . ' NOT NULL,
+                        anotacao ' . $this->objMetaBD->tipoTextoGrande() . ' NULL)'
+
+                );
+
+                $this->objMetaBD->adicionarChaveEstrangeira('fk_md_gd_rec_usuario', 'md_gd_lista_recolhimento', array('id_usuario'), 'usuario', array('id_usuario'));
+
+                // Alteração da tabela da listagem de eliminação
+                $this->objInfraBanco->executarSql('ALTER TABLE md_gd_lista_eliminacao
+                    ADD (id_usuario ' . $this->objMetaBD->tipoNumero() . ' NOT NULL,
+                        anotacao ' . $this->objMetaBD->tipoTextoGrande() . ' NULL)'
+
+                );
+            }
+
+            $this->objMetaBD->adicionarChaveEstrangeira('fk_md_gd_eli_usuario', 'md_gd_lista_eliminacao', array('id_usuario'), 'usuario', array('id_usuario'));
+
+
+        } catch (Exception $ex) {
+            throw new InfraException('Erro ao atualizar a versão 1.2.0 do mdulo de gestão documental', $ex);
+        }
+    }
 }
 
 try {
@@ -1003,6 +1054,7 @@ try {
             '0.5.0' => 'versao_0_5_0',
             '0.5.1' => 'versao_0_5_1',
             '0.5.2' => 'versao_0_5_2',
+            '1.2.0' => 'versao_1_2_0',
         )
     );
 

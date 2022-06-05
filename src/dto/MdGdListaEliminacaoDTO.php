@@ -24,6 +24,10 @@ class MdGdListaEliminacaoDTO extends InfraDTO
             'IdDocumentoEliminacao',
             'id_documento_eliminacao');
 
+        $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_NUM,
+            'IdUsuario',
+            'id_usuario');
+
         $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_STR,
             'Numero',
             'numero');
@@ -52,6 +56,10 @@ class MdGdListaEliminacaoDTO extends InfraDTO
         $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_STR,
             'SinDocumentosFisicos',
             'sin_documentos_fisicos');
+
+        $this->adicionarAtributoTabela(InfraDTO::$PREFIXO_STR,
+            'Anotacao',
+            'anotacao');
                 
         $this->adicionarAtributoTabelaRelacionada(InfraDTO::$PREFIXO_DBL,
                                               'IdProtocoloProcedimentoEliminacao',
@@ -62,6 +70,16 @@ class MdGdListaEliminacaoDTO extends InfraDTO
                                               'ProtocoloProcedimentoEliminacaoFormatado',
                                               'pro.protocolo_formatado',
                                               'protocolo pro');
+
+        $this->adicionarAtributoTabelaRelacionada(InfraDTO::$PREFIXO_STR,
+                                              'SiglaUsuario',
+                                              'sigla',
+                                              'usuario');
+
+        $this->adicionarAtributoTabelaRelacionada(InfraDTO::$PREFIXO_STR,
+                                              'NomeUsuario',
+                                              'nome',
+                                              'usuario');
         
         $this->adicionarAtributo(InfraDTO::$PREFIXO_ARR,'ObjMdGdArquivamentoDTO');
 
@@ -70,6 +88,7 @@ class MdGdListaEliminacaoDTO extends InfraDTO
         $this->configurarFK('IdDocumentoEliminacao', 'documento d', 'd.id_documento');
        
         $this->configurarFK('IdProtocoloProcedimentoEliminacao', 'protocolo pro', 'pro.id_protocolo');
+        $this->configurarFK('IdUsuario', 'usuario', 'id_usuario');
 
     }
 
