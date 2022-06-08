@@ -82,28 +82,28 @@ PaginaSEI::getInstance()->abrirStyle();
 ?>
 
 #lbl<?= $strNomeDespachoArquivamento; ?> {position:absolute;left:0%;top:0%;width:100%;}
-#sel<?= $strNomeDespachoArquivamento; ?> {position:absolute;left:0%;top:5%;width:50%;}
+#sel<?= $strNomeDespachoArquivamento; ?> {position:absolute;left:0%;top:38%;width:50%;}
 
-#lbl<?= $strNomeDespachoDesarquivamento; ?> {position:absolute;left:0%;top:12%;width:100%;}
-#sel<?= $strNomeDespachoDesarquivamento; ?> {position:absolute;left:0%;top:17%;width:40%;}
+#lbl<?= $strNomeDespachoDesarquivamento; ?> {position:absolute;left:0%;top:0%;width:100%;}
+#sel<?= $strNomeDespachoDesarquivamento; ?> {position:absolute;left:0%;top:38%;width:40%;}
 
-#lbl<?= $strNomeTipoProcedimentoListagemEliminacao; ?> {position:absolute;left:0%;top:24%;width:100%;}
-#sel<?= $strNomeTipoProcedimentoListagemEliminacao; ?> {position:absolute;left:0%;top:29%;width:40%;}
+#lbl<?= $strNomeTipoProcedimentoListagemEliminacao; ?> {position:absolute;left:0%;top:0%;width:100%;}
+#sel<?= $strNomeTipoProcedimentoListagemEliminacao; ?> {position:absolute;left:0%;top:38%;width:40%;}
 
-#lbl<?= $strNomeTipoDocumentoListagemEliminacao; ?> {position:absolute;left:0%;top:36%;width:100%;}
-#sel<?= $strNomeTipoDocumentoListagemEliminacao; ?> {position:absolute;left:0%;top:41%;width:40%;}
+#lbl<?= $strNomeTipoDocumentoListagemEliminacao; ?> {position:absolute;left:0%;top:0%;width:100%;}
+#sel<?= $strNomeTipoDocumentoListagemEliminacao; ?> {position:absolute;left:0%;top:38%;width:40%;}
 
-#lbl<?= $strNomeTipoDocumentoEliminacao; ?> {position:absolute;left:0%;top:48%;width:100%;}
-#sel<?= $strNomeTipoDocumentoEliminacao; ?> {position:absolute;left:0%;top:53%;width:40%;}
+#lbl<?= $strNomeTipoDocumentoEliminacao; ?> {position:absolute;left:0%;top:0%;width:100%;}
+#sel<?= $strNomeTipoDocumentoEliminacao; ?> {position:absolute;left:0%;top:38%;width:40%;}
 
-#lbl<?= $strNomeTipoProcedimentoListagemRecolhimento; ?> {position:absolute;left:0%;top:61%;width:100%;}
-#sel<?= $strNomeTipoProcedimentoListagemRecolhimento; ?> {position:absolute;left:0%;top:66%;width:40%;}
+#lbl<?= $strNomeTipoProcedimentoListagemRecolhimento; ?> {position:absolute;left:0%;top:0%;width:100%;}
+#sel<?= $strNomeTipoProcedimentoListagemRecolhimento; ?> {position:absolute;left:0%;top:38%;width:40%;}
 
-#lbl<?= $strNomeTipoDocumentoListagemRecolhimento; ?> {position:absolute;left:0%;top:73%;width:100%;}
-#sel<?= $strNomeTipoDocumentoListagemRecolhimento; ?> {position:absolute;left:0%;top:78%;width:40%;}
+#lbl<?= $strNomeTipoDocumentoListagemRecolhimento; ?> {position:absolute;left:0%;top:0%;width:100%;}
+#sel<?= $strNomeTipoDocumentoListagemRecolhimento; ?> {position:absolute;left:0%;top:38%;width:40%;}
 
-#lbl<?= $strNomeTipoDocumentoRecolhimento; ?> {position:absolute;left:0%;top:85%;width:100%;}
-#sel<?= $strNomeTipoDocumentoRecolhimento; ?> {position:absolute;left:0%;top:90%;width:40%;}
+#lbl<?= $strNomeTipoDocumentoRecolhimento; ?> {position:absolute;left:0%;top:0%;width:100%;}
+#sel<?= $strNomeTipoDocumentoRecolhimento; ?> {position:absolute;left:0%;top:38%;width:40%;}
 <?
 PaginaSEI::getInstance()->fecharStyle();
 PaginaSEI::getInstance()->montarJavaScript();
@@ -183,77 +183,92 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
           PaginaSEI::getInstance()->abrirAreaDados('40em');
           ?>
 
-    <label id="lbl<?= $strNomeDespachoArquivamento ?>" for="sel<?= $strNomeDespachoArquivamento ?>" accesskey="p"
-           class="infraLabelObrigatorio"><span class="infraTeclaAtalho">T</span>ipo de Documento de Arquivamento:</label>
-    <select name="sel<?= $strNomeDespachoArquivamento ?>" id="sel<?= $strNomeDespachoArquivamento ?>"
-            class="infraSelect"
-            tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
-                <?= $strSelSerieArquivamento; ?>
-    </select>
+    <div id="div<?= $strNomeDespachoArquivamento ?>" class="infraAreaDados" style="height:5em;">
+        <label id="lbl<?= $strNomeDespachoArquivamento ?>" for="sel<?= $strNomeDespachoArquivamento ?>" accesskey="p"
+            class="infraLabelObrigatorio"><span class="infraTeclaAtalho">T</span>ipo de Documento de Arquivamento:</label>
+        <select name="sel<?= $strNomeDespachoArquivamento ?>" id="sel<?= $strNomeDespachoArquivamento ?>"
+                class="infraSelect"
+                tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
+                    <?= $strSelSerieArquivamento; ?>
+        </select>
+    </div>
 
-    <label id="lbl<?= $strNomeDespachoDesarquivamento ?>" for="sel<?= $strNomeDespachoDesarquivamento ?>"
-           accesskey="p"
-           class="infraLabelObrigatorio"><span class="infraTeclaAtalho">T</span>ipo de Documento de Desarquivamento:</label>
-    <select name="sel<?= $strNomeDespachoDesarquivamento ?>" id="sel<?= $strNomeDespachoDesarquivamento ?>"
-            class="infraSelect"
-            tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
-                <?= $strSelSerieDesarquivamento; ?>
-    </select>
+    <div id="div<?= $strNomeDespachoDesarquivamento ?>" class="infraAreaDados" style="height:5em;">
+        <label id="lbl<?= $strNomeDespachoDesarquivamento ?>" for="sel<?= $strNomeDespachoDesarquivamento ?>"
+            accesskey="p"
+            class="infraLabelObrigatorio"><span class="infraTeclaAtalho">T</span>ipo de Documento de Desarquivamento:</label>
+        <select name="sel<?= $strNomeDespachoDesarquivamento ?>" id="sel<?= $strNomeDespachoDesarquivamento ?>"
+                class="infraSelect"
+                tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
+                    <?= $strSelSerieDesarquivamento; ?>
+        </select>
+    </div>
 
-    <label id="lbl<?= $strNomeTipoProcedimentoListagemEliminacao ?>" for="sel<?= $strNomeTipoProcedimentoListagemEliminacao ?>" accesskey="p"
-           class="infraLabelObrigatorio"><span
-            class="infraTeclaAtalho">T</span>ipo de Processo de Eliminação:</label>
-    <select name="sel<?= $strNomeTipoProcedimentoListagemEliminacao ?>" id="sel<?= $strNomeTipoProcedimentoListagemEliminacao ?>"
-            class="infraSelect"
-            tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
-                <?= $strSelTipoProcedimentoListagemEliminacao; ?>
-    </select>
+    <div id="div<?= $strNomeTipoProcedimentoListagemEliminacao ?>" class="infraAreaDados" style="height:5em;">
+        <label id="lbl<?= $strNomeTipoProcedimentoListagemEliminacao ?>" for="sel<?= $strNomeTipoProcedimentoListagemEliminacao ?>" accesskey="p"
+            class="infraLabelObrigatorio"><span
+                class="infraTeclaAtalho">T</span>ipo de Processo de Eliminação:</label>
+        <select name="sel<?= $strNomeTipoProcedimentoListagemEliminacao ?>" id="sel<?= $strNomeTipoProcedimentoListagemEliminacao ?>"
+                class="infraSelect"
+                tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
+                    <?= $strSelTipoProcedimentoListagemEliminacao; ?>
+        </select>
+    </div>
 
-    <label id="lbl<?= $strNomeTipoDocumentoListagemEliminacao ?>" for="sel<?= $strNomeTipoDocumentoListagemEliminacao ?>" accesskey="p"
-           class="infraLabelObrigatorio"><span
-            class="infraTeclaAtalho">T</span>ipo de Documento da Listagem de Eliminação:</label>
-    <select name="sel<?= $strNomeTipoDocumentoListagemEliminacao ?>" id="sel<?= $strNomeTipoDocumentoListagemEliminacao ?>"
-            class="infraSelect"
-            tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
-                <?= $strSelSerieListagemEliminacao; ?>
-    </select>
+    <div id="div<?= $strNomeTipoDocumentoListagemEliminacao ?>" class="infraAreaDados" style="height:5em;">
+        <label id="lbl<?= $strNomeTipoDocumentoListagemEliminacao ?>" for="sel<?= $strNomeTipoDocumentoListagemEliminacao ?>" accesskey="p"
+            class="infraLabelObrigatorio"><span
+                class="infraTeclaAtalho">T</span>ipo de Documento da Listagem de Eliminação:</label>
+        <select name="sel<?= $strNomeTipoDocumentoListagemEliminacao ?>" id="sel<?= $strNomeTipoDocumentoListagemEliminacao ?>"
+                class="infraSelect"
+                tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
+                    <?= $strSelSerieListagemEliminacao; ?>
+        </select>
+        </div>
 
-    <label id="lbl<?= $strNomeTipoDocumentoEliminacao ?>" for="sel<?= $strNomeTipoDocumentoEliminacao ?>" accesskey="p"
-           class="infraLabelObrigatorio"><span
-            class="infraTeclaAtalho">T</span>ipo de Documento de Eliminação:</label>
-    <select name="sel<?= $strNomeTipoDocumentoEliminacao ?>" id="sel<?= $strNomeTipoDocumentoEliminacao ?>"
-            class="infraSelect"
-            tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
-                <?= $strSelSerieDocumentoEliminacao; ?>
-    </select>
+    <div id="div<?= $strNomeTipoDocumentoEliminacao ?>" class="infraAreaDados" style="height:5em;">
+        <label id="lbl<?= $strNomeTipoDocumentoEliminacao ?>" for="sel<?= $strNomeTipoDocumentoEliminacao ?>" accesskey="p"
+            class="infraLabelObrigatorio"><span
+                class="infraTeclaAtalho">T</span>ipo de Documento de Eliminação:</label>
+        <select name="sel<?= $strNomeTipoDocumentoEliminacao ?>" id="sel<?= $strNomeTipoDocumentoEliminacao ?>"
+                class="infraSelect"
+                tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
+                    <?= $strSelSerieDocumentoEliminacao; ?>
+        </select>
+    </div>
 
-    <label id="lbl<?= $strNomeTipoProcedimentoListagemRecolhimento ?>" for="sel<?= $strNomeTipoProcedimentoListagemRecolhimento ?>" accesskey="p"
-           class="infraLabelObrigatorio"><span
-            class="infraTeclaAtalho">T</span>ipo de Processo de Recolhimento:</label>
-    <select name="sel<?= $strNomeTipoProcedimentoListagemRecolhimento ?>" id="sel<?= $strNomeTipoProcedimentoListagemRecolhimento ?>"
-            class="infraSelect"
-            tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
-                <?= $strSelTipoProcedimentoListagemRecolhimento; ?>
-    </select>
+    <div id="div<?= $strNomeTipoProcedimentoListagemRecolhimento ?>" class="infraAreaDados" style="height:5em;">
+        <label id="lbl<?= $strNomeTipoProcedimentoListagemRecolhimento ?>" for="sel<?= $strNomeTipoProcedimentoListagemRecolhimento ?>" accesskey="p"
+            class="infraLabelObrigatorio"><span
+                class="infraTeclaAtalho">T</span>ipo de Processo de Recolhimento:</label>
+        <select name="sel<?= $strNomeTipoProcedimentoListagemRecolhimento ?>" id="sel<?= $strNomeTipoProcedimentoListagemRecolhimento ?>"
+                class="infraSelect"
+                tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
+                    <?= $strSelTipoProcedimentoListagemRecolhimento; ?>
+        </select>
+    </div>
 
-    <label id="lbl<?= $strNomeTipoDocumentoListagemRecolhimento ?>" for="sel<?= $strNomeTipoDocumentoListagemRecolhimento ?>" accesskey="p"
-           class="infraLabelObrigatorio"><span
-            class="infraTeclaAtalho">T</span>ipo de Documento da Listagem de Recolhimento:</label>
-    <select name="sel<?= $strNomeTipoDocumentoListagemRecolhimento ?>" id="sel<?= $strNomeTipoDocumentoListagemRecolhimento ?>"
-            class="infraSelect"
-            tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
-                <?= $strSelSerieListagemRecolhimento; ?>
-    </select>
+    <div id="div<?= $strNomeTipoDocumentoListagemRecolhimento ?>" class="infraAreaDados" style="height:5em;">
+        <label id="lbl<?= $strNomeTipoDocumentoListagemRecolhimento ?>" for="sel<?= $strNomeTipoDocumentoListagemRecolhimento ?>" accesskey="p"
+            class="infraLabelObrigatorio"><span
+                class="infraTeclaAtalho">T</span>ipo de Documento da Listagem de Recolhimento:</label>
+        <select name="sel<?= $strNomeTipoDocumentoListagemRecolhimento ?>" id="sel<?= $strNomeTipoDocumentoListagemRecolhimento ?>"
+                class="infraSelect"
+                tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
+                    <?= $strSelSerieListagemRecolhimento; ?>
+        </select>
+    </div>
 
-    <label id="lbl<?= $strNomeTipoDocumentoRecolhimento ?>" for="sel<?= $strNomeTipoDocumentoRecolhimento ?>" accesskey="p"
-           class="infraLabelObrigatorio"><span
-            class="infraTeclaAtalho">T</span>ipo de Documento de Recolhimento:</label>
-    <select name="sel<?= $strNomeTipoDocumentoRecolhimento ?>" id="sel<?= $strNomeTipoDocumentoRecolhimento ?>"
-            class="infraSelect"
-            tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
-                <?= $strSelSerieDocumentoRecolhimento; ?>
-    </select>
-
+    <div id="div<?= $strNomeTipoDocumentoRecolhimento ?>" class="infraAreaDados" style="height:5em;">
+        <label id="lbl<?= $strNomeTipoDocumentoRecolhimento ?>" for="sel<?= $strNomeTipoDocumentoRecolhimento ?>" accesskey="p"
+            class="infraLabelObrigatorio"><span
+                class="infraTeclaAtalho">T</span>ipo de Documento de Recolhimento:</label>
+        <select name="sel<?= $strNomeTipoDocumentoRecolhimento ?>" id="sel<?= $strNomeTipoDocumentoRecolhimento ?>"
+                class="infraSelect"
+                tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
+                    <?= $strSelSerieDocumentoRecolhimento; ?>
+        </select>
+    </div>
 
     <?
     PaginaSEI::getInstance()->fecharAreaDados();
