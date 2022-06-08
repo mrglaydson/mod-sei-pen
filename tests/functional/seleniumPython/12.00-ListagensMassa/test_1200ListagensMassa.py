@@ -72,7 +72,7 @@ class Test1200ListagensMassa():
     self.driver.find_element(By.ID, "divInfraAreaTabela").click()
     self.driver.find_element(By.ID, "divInfraAreaDados").click()
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos (1 registro):"
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos para Recolhimento (1 registro):"
     #self.driver.find_element(By.XPATH, "//span[text()='Avaliação de Processos']/../../../../a").click()
     #self.driver.find_element(By.XPATH, "//span[.='Listagens de Recolhimento']/..").click()
     self.driver.find_element(By.LINK_TEXT, "Gestão das Listagens").click()
