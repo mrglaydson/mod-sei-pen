@@ -401,6 +401,10 @@ class VersaoSipRN extends InfraScriptVersao
         $id_recurso_listagem_recolhimento_anotacao = $fnCadastrarRecurso($id_sistema, 'gd_listar_recolhimento_anotar', 'Anotações da listagem de recolhimento', 'controlador.php?acao=gd_listar_recolhimento_anotar', 'S');
         
     }
+
+    public function versao_1_2_1($strVersaoAtual)
+    {
+    }
 }
 
 try {
@@ -421,6 +425,7 @@ try {
             '0.5.1' => 'versao_0_5_1',
             '0.5.2' => 'versao_0_5_2',
             '1.2.0' => 'versao_1_2_0',
+            '1.2.1' => 'versao_1_2_1',
         )
     );
 

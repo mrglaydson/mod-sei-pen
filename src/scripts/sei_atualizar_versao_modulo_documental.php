@@ -1034,6 +1034,10 @@ class VersaoSeiRN extends InfraScriptVersao
             throw new InfraException('Erro ao atualizar a versão 1.2.0 do mdulo de gestão documental', $ex);
         }
     }
+
+    public function versao_1_2_1($strVersaoAtual)
+    {
+    }
 }
 
 try {
@@ -1055,6 +1059,7 @@ try {
             '0.5.1' => 'versao_0_5_1',
             '0.5.2' => 'versao_0_5_2',
             '1.2.0' => 'versao_1_2_0',
+            '1.2.1' => 'versao_1_2_1',
         )
     );
 
