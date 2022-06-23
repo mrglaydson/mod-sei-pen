@@ -54,7 +54,8 @@ class Test0310SEIGDPendenciasArq():
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("teste")
     self.driver.find_element(By.ID, "sbmSalvar").click()
-    WebDriverWait(self.driver, 180).until(expected_conditions.visibility_of_element_located((By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/caption")))
+    time.sleep(10)
+    WebDriverWait(self.driver, 180000).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".infraCaption")))
     WebDriverWait(self.driver, 180).until(expected_conditions.visibility_of_element_located((By.ID, "divInfraBarraLocalizacao")))
     assert self.driver.find_element(By.ID, "divInfraBarraLocalizacao").text == "Pendências de Arquivamento"
   
