@@ -44,8 +44,8 @@ class Test03GDPendenciasArquivamento():
     self.driver.find_element(By.ID, "sbmReabrir").click()
     self.driver.switch_to.alert.accept()
     time.sleep(10)
-    WebDriverWait(self.driver, 30).until(expected_conditions.presence_of_element_located((By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/caption")))
-    assert self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/caption").text == "Lista de Pendências de Arquivamento (13 registros):"
+    WebDriverWait(self.driver, 180000).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".infraCaption")))
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Pendências de Arquivamento (13 registros):"
     self.driver.find_element(By.LINK_TEXT, "Controle de Processos").click()
     self.driver.find_element(By.ID, "imgGeradosCheck").click()
     self.driver.find_element(By.XPATH, "//img[@title='Concluir Processo nesta Unidade']").click()
@@ -82,8 +82,9 @@ class Test03GDPendenciasArquivamento():
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
     self.driver.find_element(By.ID, "sbmSalvar").click()
-    WebDriverWait(self.driver, 180000).until(expected_conditions.presence_of_element_located((By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/caption")))
-    assert self.driver.find_element(By.XPATH, "//*[@id=\"divInfraAreaTabela\"]/table/caption").text == "Lista de Pendências de Arquivamento (12 registros):"
+    time.sleep(10)
+    WebDriverWait(self.driver, 180000).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".infraCaption")))
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Pendências de Arquivamento (12 registros):"
   
   def test_050PendenciasArquivamentoArquivarUnico(self):
     self.driver.get(os.environ["SELENIUMTEST_SISTEMA_URL"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["SELENIUMTEST_SISTEMA_ORGAO"]+"&sigla_sistema=SEI&infra_url=L3NlaS8=")

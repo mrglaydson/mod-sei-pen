@@ -100,7 +100,7 @@ class Test1300ArquivamentoLegado():
     self.driver.find_element(By.ID, "sbmSalvar").click()
     WebDriverWait(self.driver, 300).until(expected_conditions.visibility_of_element_located((By.ID, "sbmPesquisar")))
     self.driver.find_element(By.ID, "sbmPesquisar").click()
-    self.driver.find_element(By.CSS_SELECTOR, "#divInfraAreaTabela > label").click()
+    WebDriverWait(self.driver, 300).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, "#divInfraAreaTabela > label")))
     assert self.driver.find_element(By.CSS_SELECTOR, "#divInfraAreaTabela > label").text == "Nenhum registro encontrado."
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.LINK_TEXT, "Arquivo da Unidade")))
     self.driver.find_element(By.LINK_TEXT, "Arquivo da Unidade").click()
@@ -154,8 +154,7 @@ class Test1300ArquivamentoLegado():
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, "#sbmPesquisar > .infraTeclaAtalho")))
     self.driver.find_element(By.CSS_SELECTOR, "#sbmPesquisar > .infraTeclaAtalho").click()
     time.sleep(1)
-    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, "#divInfraAreaTabela > label")))
-    self.driver.find_element(By.CSS_SELECTOR, "#divInfraAreaTabela > label").click()
+    WebDriverWait(self.driver, 300).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, "#divInfraAreaTabela > label")))
     assert self.driver.find_element(By.CSS_SELECTOR, "#divInfraAreaTabela > label").text == "Nenhum registro encontrado."
 
     self.driver.find_element(By.CSS_SELECTOR, ".d-none #lnkInfraUnidade").click()
@@ -182,7 +181,6 @@ class Test1300ArquivamentoLegado():
     time.sleep(1)
     self.driver.find_element(By.ID, "sbmPesquisar").click()
     time.sleep(1)
-    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, "#divInfraAreaTabela > label")))
-    self.driver.find_element(By.CSS_SELECTOR, "#divInfraAreaTabela > label").click()
+    WebDriverWait(self.driver, 300).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, "#divInfraAreaTabela > label")))
     assert self.driver.find_element(By.CSS_SELECTOR, "#divInfraAreaTabela > label").text == "Nenhum registro encontrado."
   

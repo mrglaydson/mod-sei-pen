@@ -405,6 +405,10 @@ class VersaoSipRN extends InfraScriptVersao
     public function versao_1_2_1($strVersaoAtual)
     {
     }
+
+    public function versao_1_2_2($strVersaoAtual)
+    {
+    }
 }
 
 try {
@@ -426,6 +430,7 @@ try {
             '0.5.2' => 'versao_0_5_2',
             '1.2.0' => 'versao_1_2_0',
             '1.2.1' => 'versao_1_2_1',
+            '1.2.2' => 'versao_1_2_2',
         )
     );
 
