@@ -18,7 +18,7 @@ class MdGestaoDocumentalIntegracao extends SeiIntegracao {
     }
 
     public function getInstituicao() {
-        return 'Ministério do Planejamento, Desenvolvimento e Gestão';
+        return 'Ministério da Economia';
     }
 
     public function inicializar($strVersaoSEI) {
