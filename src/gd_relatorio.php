@@ -245,17 +245,17 @@ PaginaSEI::getInstance()->abrirStyle();
 #selDestinacaoFinal {position:absolute;left:63%;top:20%;width:20%;}
 
 #lblFaseGestaoDocumental {position:absolute;left:0%;top:55%;width:20%;}
-#selFaseGestaoDocumental {position:absolute;left:0%;top:70%;width:20%;}
+#selFaseGestaoDocumental {position:absolute;left:0%;top:75%;width:20%;}
 
 #lblCondicionante {position:absolute;left:21%;top:55%;width:20%;}
-#selCondicionante {position:absolute;left:21%;top:70%;width:20%;}
+#selCondicionante {position:absolute;left:21%;top:75%;width:20%;}
 
 #lblPeriodoDe {position:absolute;left:42%;top:55%;width:20%;}
-#txtPeriodoDe {position:absolute;left:42%;top:70%;width:17%;}
+#txtPeriodoDe {position:absolute;left:42%;top:75%;width:17%;}
 #imgCalPeriodoD {position:absolute;left:60%;top:72%;}
 
 #lblPeriodoA {position:absolute;left:63%;top:55%;width:20%;}
-#txtPeriodoA {position:absolute;left:63%;top:70%;width:17%;}
+#txtPeriodoA {position:absolute;left:63%;top:75%;width:17%;}
 #imgCalPeriodoA {position:absolute;left:81%;top:72%;}
 
 <?
@@ -335,7 +335,7 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
         <option value="N">Sem Condicionante</option>
     </select>
 
-    <label id="lblPeriodoDe" for="txtPeriodoDe" accesskey="" class="infraLabelOpcional">Datas Limite de:</label>
+    <label id="lblPeriodoDe" for="txtPeriodoDe" accesskey="" class="infraLabelOpcional">Datas-limite de:</label>
     <input type="text" id="txtPeriodoDe" value="<?= $txtPeriodoDe ?>" name="txtPeriodoDe" class="infraText" value="<?= PaginaSEI::tratarHTML($dtaPeriodoDe) ?>" onkeypress="return infraMascaraData(this, event)" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />
     <img id="imgCalPeriodoD" title="Selecionar Data Inicial" alt="Selecionar Data Inicial" src="/infra_css/svg/calendario.svg" class="infraImg" onclick="infraCalendario('txtPeriodoDe', this);" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" />    
 

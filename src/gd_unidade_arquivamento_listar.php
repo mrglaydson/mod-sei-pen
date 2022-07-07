@@ -130,7 +130,7 @@ try {
             }
 
             if ($bolAcaoExcluir) {
-                $strResultado .= '<a href="#ID-' . $arrMdGdUnidadeArquivamentoDTO[$i]->getNumIdUnidadeArquivamento() . '" onclick="acaoExcluir(\'' . $arrMdGdUnidadeArquivamentoDTO[$i]->getNumIdUnidadeArquivamento() . '\',\'' . $arrMdGdUnidadeArquivamentoDTO[$i]->getStrSiglaUnidadeOrigem() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="/infra_css/svg/excluir.svg" title="Excluir Unidade de Arquivamento" alt="Excluir Unidade de Arquivamento" class="infraImg" /></a>&nbsp;';
+                $strResultado .= '<a href="#ID-' . $arrMdGdUnidadeArquivamentoDTO[$i]->getNumIdUnidadeArquivamento() . '" onclick="acaoExcluir(\'' . $arrMdGdUnidadeArquivamentoDTO[$i]->getNumIdUnidadeArquivamento() . '\',\'' . $arrMdGdUnidadeArquivamentoDTO[$i]->getStrSiglaUnidadeOrigem() . '\',\'' . $arrMdGdUnidadeArquivamentoDTO[$i]->getStrDescricaoUnidadeOrigem() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="/infra_css/svg/excluir.svg" title="Excluir Unidade de Arquivamento" alt="Excluir Unidade de Arquivamento" class="infraImg" /></a>&nbsp;';
             }
 
             $strResultado .= '</td></tr>' . "\n";
@@ -175,24 +175,24 @@ document.getElementById('btnFechar').focus();
 }
 
 <? if ($bolAcaoExcluir) { ?>
-    function acaoExcluir(id, unidade_origem, unidade_destino) {
-    if (confirm("Confirma exclusão da Unidade de Arquivo \"" + unidade_destino + "\" para a unidade \"" + unidade_origem + "\" ?")) {
-    document.getElementById('hdnInfraItemId').value = id;
-    document.getElementById('frmUnidadesArquivamentoLista').action = '<?= $strLinkExcluir ?>';
-    document.getElementById('frmUnidadesArquivamentoLista').submit();
-    }
+    function acaoExcluir(id, sigla_unidade_origem, descricao_unidade_destino) {
+        if (confirm("Confirma exclusão da Unidade de Arquivamento \"" + sigla_unidade_origem + " - " + descricao_unidade_destino + "\" ?")) {
+            document.getElementById('hdnInfraItemId').value = id;
+            document.getElementById('frmUnidadesArquivamentoLista').action = '<?= $strLinkExcluir ?>';
+            document.getElementById('frmUnidadesArquivamentoLista').submit();
+        }
     }
 
     function acaoExclusaoMultipla() {
-    if (document.getElementById('hdnInfraItensSelecionados').value == '') {
-    alert('Nenhuma Unidade selecionada.');
-    return;
-    }
-    if (confirm("Confirma exclusão das Unidades de Arquivo selecionadas?")) {
-    document.getElementById('hdnInfraItemId').value = '';
-    document.getElementById('frmUnidadesArquivamentoLista').action = '<?= $strLinkExcluir ?>';
-    document.getElementById('frmUnidadesArquivamentoLista').submit();
-    }
+        if (document.getElementById('hdnInfraItensSelecionados').value == '') {
+            alert('Nenhuma Unidade selecionada.');
+            return;
+        }
+        if (confirm("Confirma exclusão das Unidades de Arquivo selecionadas?")) {
+            document.getElementById('hdnInfraItemId').value = '';
+            document.getElementById('frmUnidadesArquivamentoLista').action = '<?= $strLinkExcluir ?>';
+            document.getElementById('frmUnidadesArquivamentoLista').submit();
+        }
     }
 <? } ?>
 <?

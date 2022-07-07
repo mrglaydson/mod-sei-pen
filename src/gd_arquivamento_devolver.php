@@ -17,7 +17,7 @@ try {
     switch ($_GET['acao']) {
 
         case 'gd_arquivamento_devolver':
-            $strTitulo = 'Devolver Arquivamento';
+            $strTitulo = 'Devolver para Correção';
 
             if($_POST['sbmDevolver']){
                 $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
@@ -40,7 +40,7 @@ try {
     PaginaSEI::getInstance()->processarExcecao($e);
 }
 
-$arrComandos[] = '<button type="submit" accesskey="S" name="sbmDevolver" value="Salvar" class="infraButton"><span class="infraTeclaAtalho">S</span>alvar</button>';
+$arrComandos[] = '<button type="submit" accesskey="D" name="sbmDevolver" id="sbmDevolver" value="Devolver" onclick="return acaoDevolver();" class="infraButton"><span class="infraTeclaAtalho">D</span>evolver</button>';
 $arrComandos[] = '<button type="button" accesskey="C" name="btnCancelar" id="btnCancelar" value="Cancelar" onclick="window.opener.location.reload(); window.close();" class="infraButton"><span class="infraTeclaAtalho">C</span>ancelar</button>';
 
 
@@ -58,17 +58,40 @@ PaginaSEI::getInstance()->abrirJavaScript(); ?>
     window.close();
 <? } ?>
 
+    function acaoDevolver(){
+        if (document.getElementById('txtObservacaoDevolucao').value.trim() == '') {
+            alert('Informe o motivo da devolução.');
+            document.getElementById('txtObservacaoDevolucao').focus();
+            return false;
+        }
+
+        if (confirm("Confirma a devolução do processo para correção?")) {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 <?
 PaginaSEI::getInstance()->fecharJavaScript(); 
 PaginaSEI::getInstance()->fecharHead();
 PaginaSEI::getInstance()->abrirBody($strTitulo);
+PaginaSEI::getInstance()->abrirStyle();
+?>
+
+#lblMotivoDevolucao {position:absolute;top:0%;width:30%;}
+#txtObservacaoDevolucao {position:absolute;top:12%;width: 657px;}
+
+<?
+PaginaSEI::getInstance()->fecharStyle();
 ?>
 <form id="frmDevolver" method="post" action="<?= SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . $_GET['acao'] . '&acao_origem=' . $_GET['acao'] . '&id_arquivamento=' . $_GET['id_arquivamento']) ?>">
     <?
     PaginaSEI::getInstance()->montarBarraComandosSuperior($arrComandos);
     PaginaSEI::getInstance()->abrirAreaDados('20em');
     ?>
-    <textarea id="txtObservacaoDevolucao" style="width: 657px;" rows="10" name="txtObservacaoDevolucao" rows="<?= PaginaSEI::getInstance()->isBolNavegadorFirefox() ? '2' : '3' ?>" class="infraTextArea" onkeypress="return infraLimitarTexto(this, event, 500);" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>"></textarea>
+    <label id="lblMotivoDevolucao" accesskey="" class="infraLabelOpcional">Motivo da Devolução:</label>
+    <textarea id="txtObservacaoDevolucao" rows="10" name="txtObservacaoDevolucao" rows="<?= PaginaSEI::getInstance()->isBolNavegadorFirefox() ? '2' : '3' ?>" class="infraTextArea" onkeypress="return infraLimitarTexto(this, event, 500);" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>"></textarea>
     <?
     PaginaSEI::getInstance()->fecharAreaDados();
     ?>
