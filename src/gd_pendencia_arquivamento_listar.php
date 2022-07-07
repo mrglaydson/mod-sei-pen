@@ -158,8 +158,8 @@ try {
             $strResultado .= '<th class="infraTh" width="1%">' . PaginaSEI::getInstance()->getThCheck() . '</th>' . "\n";
             $strResultado .= '<th class="infraTh" width="13%">Processo</th>' . "\n";
             $strResultado .= '<th class="infraTh" width="23%">Especificação</th>' . "\n";
-            $strResultado .= '<th class="infraTh" width="23%">Assunto</th>' . "\n";
-            $strResultado .= '<th class="infraTh" width="7%">Tipo</th>' . "\n";
+            $strResultado .= '<th class="infraTh" width="10%">Código de Classificação</th>' . "\n";
+            $strResultado .= '<th class="infraTh" width="20%">Tipo</th>' . "\n";
             $strResultado .= '<th class="infraTh" width="8%">Usuário</th>' . "\n";
             $strResultado .= '<th class="infraTh" width="10%">Data de Conclusão</th>' . "\n";
             $strResultado .= '<th class="infraTh" width="15%">Ações</th>' . "\n";
@@ -173,7 +173,7 @@ try {
                 $strAssuntosProcedimento = '';
 
                 foreach($arrObjRelProtocoloAssuntoDTOProcedimento as $k => $objRelProtocoloAssuntoDTO){
-                    $strAssuntosProcedimento .= $objRelProtocoloAssuntoDTO->getStrCodigoEstruturadoAssunto() .' - ' .$objRelProtocoloAssuntoDTO->getStrDescricaoAssunto();
+                    $strAssuntosProcedimento .= '<a alt="'.PaginaSEI::tratarHTML($objRelProtocoloAssuntoDTO->getStrDescricaoAssunto()).'" title="'.PaginaSEI::tratarHTML($objRelProtocoloAssuntoDTO->getStrDescricaoAssunto()).'" class="ancoraSigla">'.PaginaSEI::tratarHTML($objRelProtocoloAssuntoDTO->getStrCodigoEstruturadoAssunto()).'</a>';
                     if($k + 1 != count($arrObjRelProtocoloAssuntoDTOProcedimento)){
                         $strAssuntosProcedimento .= ' <br><br>  ';
                     }
@@ -200,7 +200,7 @@ try {
                 $strResultado .= '</td>';
 
                 $strResultado .= '<td align="center">'. $arrObjProcedimentoDTO[$i]->getStrDescricaoProtocolo().'</td>';
-                $strResultado .= '<td>' . $strAssuntosProcedimento. '</td>';
+                $strResultado .= '<td align="center">' . $strAssuntosProcedimento. '</td>';
                 $strResultado .= '<td>' . $arrObjProcedimentoDTO[$i]->getStrNomeTipoProcedimento() . '</td>';
                 $strResultado .= '<td align="center"> <a alt="'.PaginaSEI::tratarHTML($arrNomeUsuarios[$arrObjProcedimentoDTO[$i]->getDblIdProcedimento()]).'" title="'.PaginaSEI::tratarHTML($arrNomeUsuarios[$arrObjProcedimentoDTO[$i]->getDblIdProcedimento()]).'" class="ancoraSigla">'.PaginaSEI::tratarHTML($arrSiglaUsuarios[$arrObjProcedimentoDTO[$i]->getDblIdProcedimento()]).'</a> </td>';
                 $strResultado .= '<td align="center">' . $arrDthConclusaoProcedimento[$arrObjProcedimentoDTO[$i]->getDblIdProcedimento()] . '</td>';
