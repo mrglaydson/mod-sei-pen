@@ -44,18 +44,19 @@ class Test05SEIGDAvaliacao():
     self.driver.find_element(By.ID, "Acessar").click()
     self.driver.find_element(By.XPATH, "//span[text()='Avaliação de Processos']/../../../../a").click()
     self.driver.find_element(By.LINK_TEXT, "Avaliação de Processos").click()
+    WebDriverWait(self.driver, 30).until(expected_conditions.element_to_be_clickable((By.CSS_SELECTOR, ".infraCaption")))
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos para Avaliação (20 registros):"
     self.vars["root"] = self.driver.current_window_handle
     self.vars["window_handles"] = self.driver.window_handles
-    self.driver.find_element(By.XPATH, "//img[@title=\'Enviar para Correção\']").click()
+    self.driver.find_element(By.XPATH, "//img[@title=\'Devolver para Correção\']").click()
     self.vars["win7640"] = self.wait_for_window(2000)
-    self.driver.switch_to.alert.accept()
     self.driver.switch_to.window(self.vars["win7640"])
     WebDriverWait(self.driver, 30).until(expected_conditions.element_to_be_clickable((By.ID, "txtObservacaoDevolucao")))
     self.driver.find_element(By.ID, "txtObservacaoDevolucao").click()
     self.driver.find_element(By.ID, "txtObservacaoDevolucao").send_keys("teste")
     self.driver.find_element(By.NAME, "sbmDevolver").click()
+    self.driver.switch_to.alert.accept()
     time.sleep(3)
     self.driver.switch_to.window(self.vars["root"])
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
@@ -85,7 +86,11 @@ class Test05SEIGDAvaliacao():
     self.driver.find_element(By.CSS_SELECTOR, "td .infraImg").click()
     self.driver.switch_to.alert.accept()
     self.driver.find_element(By.ID, "divInfraAreaTelaD").click()
-    assert self.driver.find_element(By.CSS_SELECTOR, "#divInfraAreaTabela > label").text == "Nenhum registro encontrado."
+
+    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".infraCaption")))
+    
+    self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
+    assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos Arquivados (31 registros):"
   
   def test_0530VerificarRetorno(self):
     self.driver.get(os.environ["SELENIUMTEST_SISTEMA_URL"]+"/sip/login.php?sigla_orgao_sistema="+os.environ["SELENIUMTEST_SISTEMA_ORGAO"]+"&sigla_sistema=SEI&infra_url=L3NlaS8=")

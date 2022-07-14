@@ -83,8 +83,8 @@ class Test1700Multiorgaos():
     self.driver.find_element(By.XPATH, "//span").click()
     self.driver.switch_to.default_content()
     self.driver.switch_to.frame(1)
-    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//img[@alt=\'Concluir e Arquivar Processo\']"))) 
-    self.driver.find_element(By.XPATH, "//img[@alt=\'Concluir e Arquivar Processo\']").click()
+    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//img[@alt=\'Arquivar Processo\']"))) 
+    self.driver.find_element(By.XPATH, "//img[@alt=\'Arquivar Processo\']").click()
     self.driver.switch_to.window(self.vars["root"])
     self.driver.switch_to.frame(0)
     self.driver.switch_to.default_content()
@@ -170,8 +170,8 @@ class Test1700Multiorgaos():
     self.driver.find_element(By.XPATH, "//span").click()
     self.driver.switch_to.default_content()
     self.driver.switch_to.frame(1)
-    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//img[@alt=\'Concluir e Arquivar Processo\']")))
-    self.driver.find_element(By.XPATH, "//img[@alt=\'Concluir e Arquivar Processo\']").click()
+    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//img[@alt=\'Arquivar Processo\']")))
+    self.driver.find_element(By.XPATH, "//img[@alt=\'Arquivar Processo\']").click()
     self.driver.switch_to.window(self.vars["root"])
     self.driver.switch_to.frame(0)
     self.driver.switch_to.default_content()
@@ -195,6 +195,6 @@ class Test1700Multiorgaos():
     self.driver.switch_to.alert.accept()
     #elements = self.driver.find_elements(By.ID, "divInfraBarraLocalizacao")
     #assert len(elements) > 0
-    elements = self.driver.find_elements(By.XPATH, "//div[contains(.,\'Concluir e Arquivar Processo\')]")
+    elements = self.driver.find_elements(By.XPATH, "//div[contains(.,\'Arquivar Processo\')]")
     assert len(elements) > 0
   

@@ -190,8 +190,8 @@ class Test1800Anexado():
     self.driver.switch_to.default_content()
     self.driver.switch_to.frame(1)
 
-    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//img[@alt=\'Concluir e Arquivar Processo\']"))) 
-    self.driver.find_element(By.XPATH, "//img[@alt=\'Concluir e Arquivar Processo\']").click()
+    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.XPATH, "//img[@alt=\'Arquivar Processo\']"))) 
+    self.driver.find_element(By.XPATH, "//img[@alt=\'Arquivar Processo\']").click()
     self.driver.find_element(By.ID, "selJustificativa").click()
     dropdown = self.driver.find_element(By.ID, "selJustificativa")
     dropdown.find_element(By.XPATH, "//option[. = 'Justificativa de Arquivamento 01']").click()

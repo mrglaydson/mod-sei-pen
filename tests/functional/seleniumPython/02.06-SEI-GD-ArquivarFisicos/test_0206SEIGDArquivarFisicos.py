@@ -17,6 +17,11 @@ class Test0206SEIGDArquivarFisicos():
         self.driver = webdriver.Chrome()
     else:
         self.driver = webdriver.Remote(command_executor=os.environ["SELENIUMTEST_SELENIUMHOST_URL"], desired_capabilities=DesiredCapabilities.CHROME)
+    
+    if ((not 'maximizar_screen' in os.environ) or os.environ['maximizar_screen'] == 'true'):
+        self.driver.maximize_window()
+
+    self.driver.implicitly_wait(5)
     self.vars = {}
   
   def teardown_method(self, method):

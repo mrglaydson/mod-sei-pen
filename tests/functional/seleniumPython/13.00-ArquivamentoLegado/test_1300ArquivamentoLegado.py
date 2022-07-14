@@ -18,6 +18,10 @@ class Test1300ArquivamentoLegado():
       self.driver = webdriver.Chrome()
     else:
       self.driver = webdriver.Remote(command_executor=os.environ["SELENIUMTEST_SELENIUMHOST_URL"], desired_capabilities=DesiredCapabilities.CHROME)
+    
+    if ((not 'maximizar_screen' in os.environ) or os.environ['maximizar_screen'] == 'true'):
+        self.driver.maximize_window()
+    
     self.driver.implicitly_wait(10)
     self.vars = {}
   
@@ -107,10 +111,10 @@ class Test1300ArquivamentoLegado():
     time.sleep(4)
     self.driver.find_element(By.ID, "sbmPesquisar").click()
     time.sleep(4)
-    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.ID, "selTipoProcedimento")))
-    dropdown = self.driver.find_element(By.ID, "selTipoProcedimento")
+    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.ID, "selTipoProcesso")))
+    dropdown = self.driver.find_element(By.ID, "selTipoProcesso")
     dropdown.find_element(By.XPATH, "//option[. = 'Todos']").click()
-    self.driver.find_element(By.ID, "selTipoProcedimento").click()
+    self.driver.find_element(By.ID, "selTipoProcesso").click()
     time.sleep(4)
     self.driver.find_element(By.ID, "sbmPesquisar").click()
     time.sleep(4)
@@ -134,10 +138,10 @@ class Test1300ArquivamentoLegado():
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Pendências de Arquivamento (5 registros):"
     self.driver.find_element(By.LINK_TEXT, "Arquivo da Unidade").click()
-    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.ID, "selTipoProcedimento")))
-    dropdown = self.driver.find_element(By.ID, "selTipoProcedimento")
+    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.ID, "selTipoProcesso")))
+    dropdown = self.driver.find_element(By.ID, "selTipoProcesso")
     dropdown.find_element(By.XPATH, "//option[. = 'Comunicação: Evento Institucional Público Externo']").click()
-    self.driver.find_element(By.ID, "selTipoProcedimento").click()
+    self.driver.find_element(By.ID, "selTipoProcesso").click()
     time.sleep(1)
     self.driver.find_element(By.ID, "sbmPesquisar").click()
     time.sleep(1)
@@ -147,9 +151,9 @@ class Test1300ArquivamentoLegado():
     self.driver.find_element(By.XPATH, "//div[@id=\'divInfraAreaTabela\']/table/tbody/tr[2]/td[8]").click()
     # elements = self.driver.find_elements(By.XPATH, "//td[contains(.,\'1 ano, 9 meses\')]")
     # assert len(elements) > 0
-    dropdown = self.driver.find_element(By.ID, "selTipoProcedimento")
+    dropdown = self.driver.find_element(By.ID, "selTipoProcesso")
     dropdown.find_element(By.XPATH, "//option[. = 'Acesso à Informação: Demanda do e-SIC']").click()
-    self.driver.find_element(By.ID, "selTipoProcedimento").click()
+    self.driver.find_element(By.ID, "selTipoProcesso").click()
     time.sleep(1)
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, "#sbmPesquisar > .infraTeclaAtalho")))
     self.driver.find_element(By.CSS_SELECTOR, "#sbmPesquisar > .infraTeclaAtalho").click()
@@ -166,17 +170,17 @@ class Test1300ArquivamentoLegado():
     self.driver.find_element(By.XPATH, "//span[text()='Avaliação de Processos']/../../../../a").click()
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.LINK_TEXT, "Avaliação de Processos")))
     self.driver.find_element(By.LINK_TEXT, "Avaliação de Processos").click()
-    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.ID, "selTipoProcedimento")))
-    dropdown = self.driver.find_element(By.ID, "selTipoProcedimento")
+    WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.ID, "selTipoProcesso")))
+    dropdown = self.driver.find_element(By.ID, "selTipoProcesso")
     dropdown.find_element(By.XPATH, "//option[. = 'Todos']").click()
-    self.driver.find_element(By.ID, "selTipoProcedimento").click()
+    self.driver.find_element(By.ID, "selTipoProcesso").click()
     time.sleep(1)
     self.driver.find_element(By.ID, "sbmPesquisar").click()
     time.sleep(1)
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".infraCaption")))
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos para Avaliação (47 registros):"
-    dropdown = self.driver.find_element(By.ID, "selTipoProcedimento")
+    dropdown = self.driver.find_element(By.ID, "selTipoProcesso")
     dropdown.find_element(By.XPATH, "//option[. = 'Comunicação: Evento Institucional Público Externo']").click()
     time.sleep(1)
     self.driver.find_element(By.ID, "sbmPesquisar").click()

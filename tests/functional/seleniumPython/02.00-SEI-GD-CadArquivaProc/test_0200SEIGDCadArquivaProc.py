@@ -68,7 +68,7 @@ class Test0200SEIGDCadArquivaProc():
     self.driver.find_element(By.XPATH, "//span").click()
     self.driver.switch_to.default_content()
     self.driver.switch_to.frame(1)
-    self.driver.find_element(By.XPATH, "//*[contains(@title,'Concluir e Arquivar Processo')]").click()
+    self.driver.find_element(By.XPATH, "//*[contains(@title,'Arquivar Processo')]").click()
     self.driver.switch_to.window(self.vars["root"])
     self.driver.switch_to.frame(0)
     self.driver.switch_to.default_content()

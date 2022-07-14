@@ -112,5 +112,5 @@ class Test1400ArquivamentoUnidadesNaoMapeadas():
     time.sleep(2)
     self.driver.switch_to.alert.accept()
     self.driver.find_element(By.ID, "divInfraBarraLocalizacao").click()
-    assert self.driver.find_element(By.ID, "divInfraBarraLocalizacao").text == "Concluir e Arquivar Processo"
+    assert self.driver.find_element(By.ID, "divInfraBarraLocalizacao").text == "Arquivar Processo"
   

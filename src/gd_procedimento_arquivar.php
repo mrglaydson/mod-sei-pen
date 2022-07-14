@@ -40,7 +40,7 @@ try {
         die();
     }
 
-    $strTitulo = 'Concluir e Arquivar Processo';
+    $strTitulo = 'Arquivar Processo';
     $objMdArquivamentoRN = new MdGdArquivamentoRN();
 
     switch ($_GET['acao']) {
