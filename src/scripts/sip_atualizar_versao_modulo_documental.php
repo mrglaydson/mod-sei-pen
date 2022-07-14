@@ -645,6 +645,10 @@ class VersaoSipRN extends InfraScriptVersao
         //Atribui as permissões aos recursos e menus
         $this->atribuirPerfil($numIdSistema, $id_perfil_avaliacao);
     }
+
+    public function versao_1_2_4($strVersaoAtual)
+    {
+    }
 }
 
 try {
@@ -668,6 +672,7 @@ try {
             '1.2.1' => 'versao_1_2_1',
             '1.2.2' => 'versao_1_2_2',
             '1.2.3' => 'versao_1_2_3',
+            '1.2.4' => 'versao_1_2_4',
         )
     );
 
