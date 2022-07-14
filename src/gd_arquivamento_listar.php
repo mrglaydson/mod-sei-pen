@@ -12,7 +12,7 @@ try {
 
     SessaoSEI::getInstance()->validarLink();
     SessaoSEI::getInstance()->validarPermissao($_GET['acao']);
-    PaginaSEI::getInstance()->salvarCamposPost(array('hdnInfraItemId', 'selTipoProcedimento', 'selDestinacaoFinal', 'selCondicionante', 'txtPeriodoDe', 'txtPeriodoA', 'selAssunto', 'selJustificativa'));
+    PaginaSEI::getInstance()->salvarCamposPost(array('hdnInfraItemId', 'selTipoProcesso', 'selDestinacaoFinal', 'selCondicionante', 'txtPeriodoDe', 'txtPeriodoA', 'selAssunto', 'selJustificativa'));
 
     switch ($_GET['acao']) {
 
@@ -97,9 +97,9 @@ try {
     $objMdGdArquivamentoDTO->retStrNomeJustificativa();
     $objMdGdArquivamentoDTO->retStrDescricaoJustificativa();
 
-    $selTipoProcedimento = PaginaSEI::getInstance()->recuperarCampo('selTipoProcedimento');
-    if ($selTipoProcedimento && $selTipoProcedimento !== 'null') {
-        $objMdGdArquivamentoDTO->setNumIdTipoProcedimento($selTipoProcedimento);
+    $selTipoProcesso = PaginaSEI::getInstance()->recuperarCampo('selTipoProcesso');
+    if ($selTipoProcesso && $selTipoProcesso !== 'null') {
+        $objMdGdArquivamentoDTO->setNumIdTipoProcedimento($selTipoProcesso);
     }
 
     $selDestinacaoFinal = PaginaSEI::getInstance()->recuperarCampo('selDestinacaoFinal');
@@ -190,27 +190,6 @@ try {
         $strResultado .= '</tr>' . "\n";
         $strCssTr = '';
 
-        // $objReabrirProcedimentoDTO = new ReabrirProcessoDTO();
-        // $objReabrirProcedimentoDTO->setDblIdProcedimento(1);
-        // $objReabrirProcedimentoDTO->setNumIdUnidade(SessaoSEI::getInstance()->getNumIdUnidadeAtual());
-        // $objReabrirProcedimentoDTO->setNumIdUsuario(SessaoSEI::getInstance()->getNumIdUsuario());
-
-        // $objProcedimentoRN = new ProcedimentoRN();
-        // $objProcedimentoRN->reabrirRN0966($objReabrirProcedimentoDTO);
-
-        //             // Desbloqueia o processo
-        //     $objProcedimentoDTO = new ProcedimentoDTO();
-        //     $objProcedimentoDTO->setDblIdProcedimento(1);
-        //     $objProcedimentoDTO->retStrStaEstadoProtocolo();
-        //     $objProcedimentoDTO->retDblIdProcedimento();
-
-        //     $objProcedimentoRN = new ProcedimentoRN();
-        //     $objProcedimentoDTO = $objProcedimentoRN->consultarRN0201($objProcedimentoDTO);
-
-        //     if ($objProcedimentoDTO->getStrStaEstadoProtocolo() == ProtocoloRN::$TE_PROCEDIMENTO_BLOQUEADO) {
-        //         $objProcedimentoRN->desbloquear([$objProcedimentoDTO]);
-        //     }
-
         for ($i = 0; $i < $numRegistros; $i++) {
             // Isola os assuntos do processo
             $arrObjRelProtocoloAssuntoDTOProcedimento = $arrObjRelProtocoloAssuntoDTO[$arrObjMdGdArquivamentoDTO[$i]->getDblIdProcedimento()];
@@ -229,7 +208,8 @@ try {
             $strResultado .= '<td valign="top">' . PaginaSEI::getInstance()->getTrCheck($i, $arrObjMdGdArquivamentoDTO[$i]->getDblIdProcedimento(), $arrObjMdGdArquivamentoDTO[$i]->getStrProtocoloFormatado()) . '</td>';
             
             $strResultado .= '<td nowrap="nowrap">';
-            $strResultado .= '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=procedimento_trabalhar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao'] . '&id_procedimento=' . $arrObjMdGdArquivamentoDTO[$i]->getDblIdProcedimento()) . '" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . ' " target="_blank">' . $arrObjMdGdArquivamentoDTO[$i]->getStrProtocoloFormatado() . '</a>';
+            $destaque = ($bolAcaoConcluirEdicaoArquivamento && $arrObjMdGdArquivamentoDTO[$i]->getStrSituacao() == MdGdArquivamentoRN::$ST_FASE_EDICAO) ? ' style="color:red"' : '';
+            $strResultado .= '<a '.$destaque.' href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=procedimento_trabalhar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao'] . '&id_procedimento=' . $arrObjMdGdArquivamentoDTO[$i]->getDblIdProcedimento()) . '" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . ' " target="_blank">' . $arrObjMdGdArquivamentoDTO[$i]->getStrProtocoloFormatado() . '</a>';
             if($arrObjMdGdArquivamentoDTO[$i]->getStrStaNivelAcessoGlobal() == ProtocoloRN::$NA_RESTRITO){
                 $strResultado .= '<img src="imagens/sei_chave_restrito.gif" title="Processo Restrito" title="Processo Restrito" class="infraImg" />';
             }
@@ -267,6 +247,8 @@ try {
                 $strAcoes .= '<a href="'.$paginaAlterarProcesso.'" tabindex="'. PaginaSEI::getInstance()->getProxTabTabela() .'" ><img  src="'.Icone::PROCESSO_ALTERAR.'" alt="Consultar/Alterar Processo" title="Consultar/Alterar Processo"/></a>';
 
                 $strAcoes .= '&nbsp;&nbsp;<a href="#ID-' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '" onclick="acaoConcluirEdicaoArquivamento(\'' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="' . MdGestaoDocumentalIntegracao::getDiretorio() . '/imagens/concluir_edicao.gif" alt="Concluir Edição" title="Concluir Edição" class="infraImg" /></a>';
+
+                $strAcoes .= '&nbsp;<img style="padding-left: 5px;" src="'.Icone::EXCLAMACAO.'" alt="Processo devolvido para correção. &#013;Motivo da devolução: '.$arrObjMdGdArquivamentoDTO[$i]->getStrObservacaoDevolucao().'" title="Processo devolvido para correção. &#013;Motivo da devolução: '.$arrObjMdGdArquivamentoDTO[$i]->getStrObservacaoDevolucao().'"></a>';
             }
             
             $strResultado .= $strAcoes.'</td></tr>' . "\n";
@@ -276,7 +258,7 @@ try {
 
     // Busca uma lista de unidades
     $strItensSelUnidade = UnidadeINT::montarSelectSiglaDescricao('null', '&nbsp;', $selUnidade);
-    $strItensSelTipoProcedimento = TipoProcedimentoINT::montarSelectNome('null', 'Todos', $selTipoProcedimento);
+    $strItensselTipoProcesso = TipoProcedimentoINT::montarSelectNome('null', 'Todos', $selTipoProcesso);
     $strItensSelAssunto = MdGdArquivamentoINT::montarSelectAssuntos('null', 'Todos', $selAssunto);
     $strItensSelJustificativas = MdGdArquivamentoINT::montarSelectJustificativas('null', 'Todos', $selJustificativa);
 
@@ -295,7 +277,7 @@ PaginaSEI::getInstance()->abrirStyle();
 ?>
 
 #lblTiposProcedimento  {position:absolute;left:0%;top:0%;width:20%;}
-#selTipoProcedimento {position:absolute;left:0%;top:20%;width:20%;}
+#selTipoProcesso {position:absolute;left:0%;top:20%;width:20%;}
 
 #lblSelAssunto {position:absolute;left:0%;top:50%;width:20%;}
 #selAssunto {position:absolute;left:0%;top:70%;width:38%;}
@@ -383,9 +365,9 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
           PaginaSEI::getInstance()->abrirAreaDados('9.5em');
           ?>
 
-    <label id="lblTiposProcedimento" for="selTipoProcedimento" accesskey="" class="infraLabelOpcional">Tipo de Processo:</label>
-    <select id="selTipoProcedimento" name="selTipoProcedimento" onchange="this.form.submit();" class="infraSelect" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" >
-        <?= $strItensSelTipoProcedimento; ?>
+    <label id="lblTiposProcedimento" for="selTipoProcesso" accesskey="" class="infraLabelOpcional">Tipo de Processo:</label>
+    <select id="selTipoProcesso" name="selTipoProcesso" onchange="this.form.submit();" class="infraSelect" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" >
+        <?= $strItensselTipoProcesso; ?>
     </select>
 
     <label id="lblSelAssunto" for="selAssunto" accesskey="" class="infraLabelOpcional">Assunto:</label>

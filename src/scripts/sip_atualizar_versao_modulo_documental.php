@@ -7,6 +7,9 @@ class VersaoSipRN extends InfraScriptVersao
     const PARAMETRO_VERSAO_MODULO = 'VERSAO_MODULO_GESTAO_DOCUMENTAL';
     const NOME_MODULO = 'Módulo de Gestão Documental';
 
+    private $arrRecurso = array();
+    private $arrMenu = array();
+
     public function __construct()
     {
         parent::__construct();
@@ -351,6 +354,101 @@ class VersaoSipRN extends InfraScriptVersao
         $id_menu_relatorio = $fnItemMenu($id_menu, $id_menu_gestao_documental, $id_sistema, $id_recurso_relatorio, 'Relatórios', 'N', 'S', 4);
     }
 
+    public function addRecursosToPerfil($numIdPerfil, $numIdSistema) {
+
+        if (!empty($this->arrRecurso)) {
+
+            $objDTO = new RelPerfilRecursoDTO();
+            $objBD = new RelPerfilRecursoBD(BancoSip::getInstance());
+
+            foreach ($this->arrRecurso as $numIdRecurso) {
+
+                $objDTO->setNumIdSistema($numIdSistema);
+                $objDTO->setNumIdPerfil($numIdPerfil);
+                $objDTO->setNumIdRecurso($numIdRecurso);
+
+                if ($objBD->contar($objDTO) == 0) {
+                    $objBD->cadastrar($objDTO);
+                }
+            }
+        }
+    }
+
+    public function addMenusToPerfil($numIdPerfil, $numIdSistema) {
+
+        if (!empty($this->arrMenu)) {
+
+            $objDTO = new RelPerfilItemMenuDTO();
+            $objBD = new RelPerfilItemMenuBD(BancoSip::getInstance());
+
+            foreach ($this->arrMenu as $array) {
+
+                list($numIdItemMenu, $numIdMenu, $numIdRecurso) = $array;
+
+                $objDTO->setNumIdPerfil($numIdPerfil);
+                $objDTO->setNumIdSistema($numIdSistema);
+                $objDTO->setNumIdRecurso($numIdRecurso);
+                $objDTO->setNumIdMenu($numIdMenu);
+                $objDTO->setNumIdItemMenu($numIdItemMenu);
+
+                if ($objBD->contar($objDTO) == 0) {
+                    $objBD->cadastrar($objDTO);
+                }
+            }
+        }
+    }
+
+    protected function consultarRecurso($numIdSistema, $strNomeRecurso)
+    {
+        $objRecursoDTO = new RecursoDTO();
+        $objRecursoDTO->setBolExclusaoLogica(false);
+        $objRecursoDTO->setNumIdSistema($numIdSistema);
+        $objRecursoDTO->setStrNome($strNomeRecurso);
+        $objRecursoDTO->retNumIdRecurso();
+
+        $objRecursoRN = new RecursoRN();
+        $objRecursoDTO = $objRecursoRN->consultar($objRecursoDTO);
+
+        if ($objRecursoDTO == null){
+            throw new InfraException("Recurso com nome {$strNomeRecurso} não pode ser localizado.");
+        }
+
+        return $objRecursoDTO->getNumIdRecurso();
+    }
+
+    protected function consultarItemMenu($numIdSistema, $strNomeRecurso)
+    {
+        $numIdRecurso = $this->consultarRecurso($numIdSistema, $strNomeRecurso);
+
+        $objItemMenuDTO = new ItemMenuDTO();
+        $objItemMenuDTO->setBolExclusaoLogica(false);
+        $objItemMenuDTO->setNumIdSistema($numIdSistema);
+        $objItemMenuDTO->setNumIdRecurso($numIdRecurso);
+        $objItemMenuDTO->retNumIdMenu();
+        $objItemMenuDTO->retNumIdItemMenu();
+
+        $objItemMenuRN = new ItemMenuRN();
+        $objItemMenuDTO = $objItemMenuRN->consultar($objItemMenuDTO);
+
+        if ($objItemMenuDTO == null){
+            throw new InfraException("Item de menu não pode ser localizado.");
+        }
+
+        return array($objItemMenuDTO->getNumIdItemMenu(), $objItemMenuDTO->getNumIdMenu(), $numIdRecurso);
+    }
+
+    public function atribuirPerfil($numIdSistema, $numIdPerfil) {
+        $objRN = $this;
+
+        // Vincula a um perfil os recursos e menus adicionados
+        $fnCadastrar = function($numIdSistema, $numIdPerfil) use($objRN) {
+            $objRN->addRecursosToPerfil($numIdPerfil, $numIdSistema);
+            $objRN->addMenusToPerfil($numIdPerfil, $numIdSistema);
+        };
+
+        $fnCadastrar($numIdSistema, $numIdPerfil);
+    }
+
     public function versao_0_5_1($strVersaoAtual)
     {
     }
@@ -409,6 +507,144 @@ class VersaoSipRN extends InfraScriptVersao
     public function versao_1_2_2($strVersaoAtual)
     {
     }
+
+    public function versao_1_2_3($strVersaoAtual)
+    {
+        session_start();
+
+        SessaoSip::getInstance(false);
+
+        $numIdSistema = '';
+
+        //Consulta do Sistema
+        $sistemaDTO = new SistemaDTO();
+        $sistemaDTO->setStrSigla('SEI');
+        $sistemaDTO->setNumRegistrosPaginaAtual(1);
+        $sistemaDTO->retNumIdSistema();
+
+        $sistemaRN = new SistemaRN();
+        $sistemaDTO = $sistemaRN->consultar($sistemaDTO);
+
+        if (!empty($sistemaDTO)) {
+            $numIdSistema = $sistemaDTO->getNumIdSistema();
+        }
+
+        //Cria função genérica de cadastro de perfil
+        $fnCadastrarPerfil = function ($numIdSistema, $nome, $descricao, $coordenado, $ativo) {
+            $objPerfilDTO = new PerfilDTO();
+            $objPerfilDTO->setNumIdSistema($numIdSistema);
+            $objPerfilDTO->setStrNome($nome);
+            $objPerfilDTO->setStrDescricao($descricao);
+            $objPerfilDTO->setStrSinCoordenado($coordenado);
+            $objPerfilDTO->setStrSinAtivo($ativo);
+
+            $objPerfilRN = new PerfilRN();
+            $objPerfilDTO = $objPerfilRN->cadastrar($objPerfilDTO);
+
+            return $objPerfilDTO->getNumIdPerfil();
+        };
+
+        //Cadastrar os perfis
+        $id_perfil_arquivamento = $fnCadastrarPerfil($numIdSistema, 'GD Arquivamento', 'Acesso aos recursos básicos para qualquer usuário no SEI. Pode ser combinado com outros perfis, mas sempre tem que ser concedido para qualquer outro perfil funcionar corretamente.', 'N', 'S');
+        $id_perfil_avaliacao = $fnCadastrarPerfil($numIdSistema, 'GD Avaliação', 'Acesso aos recursos básicos para qualquer usuário no SEI. Pode ser combinado com outros perfis, mas sempre tem que ser concedido para qualquer outro perfil funcionar corretamente.', 'N', 'S');
+        
+        $this->arrRecurso = [];
+        $this->arrRecurso = array_merge($this->arrRecurso, array(
+            $this->consultarRecurso($numIdSistema, "gd_arquivamento_edicao_concluir"),
+            $this->consultarRecurso($numIdSistema, "gd_arquivamento_editar"),
+            $this->consultarRecurso($numIdSistema, "gd_arquivamento_historico_listar"),
+            $this->consultarRecurso($numIdSistema, "gd_arquivamento_listar"),
+            $this->consultarRecurso($numIdSistema, "gd_justificativa_listar"),
+            $this->consultarRecurso($numIdSistema, "gd_pendencia_arquivamento_anotar"),
+            $this->consultarRecurso($numIdSistema, "gd_pendencia_arquivamento_listar"),
+            $this->consultarRecurso($numIdSistema, "gd_procedimento_arquivar"),
+            $this->consultarRecurso($numIdSistema, "gd_procedimento_desarquivar"),
+            $this->consultarRecurso($numIdSistema, "gd_procedimento_reabrir"),
+            $this->consultarRecurso($numIdSistema, "gd_unidade_arquivamento_listar")
+            ));
+
+        $this->arrMenu = [];
+        $this->arrMenu = array_merge($this->arrMenu, array(
+            $this->consultarItemMenu($numIdSistema, "gd_arquivamento_listar"),
+            $this->consultarItemMenu($numIdSistema, "gd_justificativa_listar"),
+            $this->consultarItemMenu($numIdSistema, "gd_pendencia_arquivamento_listar"),
+            $this->consultarItemMenu($numIdSistema, "gd_unidade_arquivamento_listar")
+            ));
+
+        //Atribui as permissões aos recursos e menus
+        $this->atribuirPerfil($numIdSistema, $id_perfil_arquivamento);
+
+        $this->arrRecurso = [];
+        $this->arrRecurso = array_merge($this->arrRecurso, array(
+            $this->consultarRecurso($numIdSistema, "gd_arquivamento_avaliar"),
+            $this->consultarRecurso($numIdSistema, "gd_arquivamento_devolver"),
+            $this->consultarRecurso($numIdSistema, "gd_arquivamento_edicao_concluir"),
+            $this->consultarRecurso($numIdSistema, "gd_arquivamento_editar"),
+            $this->consultarRecurso($numIdSistema, "gd_arquivamento_eliminacao_enviar"),
+            $this->consultarRecurso($numIdSistema, "gd_arquivamento_historico_listar"),
+            $this->consultarRecurso($numIdSistema, "gd_arquivamento_recolhimento_enviar"),
+            $this->consultarRecurso($numIdSistema, "gd_justificativa_alterar"),
+            $this->consultarRecurso($numIdSistema, "gd_justificativa_cadastrar"),
+            $this->consultarRecurso($numIdSistema, "gd_justificativa_excluir"),
+            $this->consultarRecurso($numIdSistema, "gd_justificativa_listar"),
+            $this->consultarRecurso($numIdSistema, "gd_justificativa_visualizar"),
+            $this->consultarRecurso($numIdSistema, "gd_listar_recolhimento_anotar"),
+            $this->consultarRecurso($numIdSistema, "gd_lista_eliminacao_documentos_fisicos_eliminar"),
+            $this->consultarRecurso($numIdSistema, "gd_lista_eliminacao_documentos_fisicos_listar"),
+            $this->consultarRecurso($numIdSistema, "gd_lista_eliminacao_edicao_concluir"),
+            $this->consultarRecurso($numIdSistema, "gd_lista_eliminacao_editar"),
+            $this->consultarRecurso($numIdSistema, "gd_lista_eliminacao_eliminar"),
+            $this->consultarRecurso($numIdSistema, "gd_lista_eliminacao_listar"),
+            $this->consultarRecurso($numIdSistema, "gd_lista_eliminacao_pdf_gerar"),
+            $this->consultarRecurso($numIdSistema, "gd_lista_eliminacao_preparacao_excluir"),
+            $this->consultarRecurso($numIdSistema, "gd_lista_eliminacao_preparacao_gerar"),
+            $this->consultarRecurso($numIdSistema, "gd_lista_eliminacao_preparacao_listar"),
+            $this->consultarRecurso($numIdSistema, "gd_lista_eliminacao_preparacao_observar"),
+            $this->consultarRecurso($numIdSistema, "gd_lista_eliminacao_procedimento_remover"),
+            $this->consultarRecurso($numIdSistema, "gd_lista_eliminacao_visualizar"),
+            $this->consultarRecurso($numIdSistema, "gd_lista_recolhimento_documentos_fisicos_listar"),
+            $this->consultarRecurso($numIdSistema, "gd_lista_recolhimento_documentos_fisicos_recolher"),
+            $this->consultarRecurso($numIdSistema, "gd_lista_recolhimento_edicao_concluir"),
+            $this->consultarRecurso($numIdSistema, "gd_lista_recolhimento_editar"),
+            $this->consultarRecurso($numIdSistema, "gd_lista_recolhimento_listar"),
+            $this->consultarRecurso($numIdSistema, "gd_lista_recolhimento_pdf_gerar"),
+            $this->consultarRecurso($numIdSistema, "gd_lista_recolhimento_preparacao_excluir"),
+            $this->consultarRecurso($numIdSistema, "gd_lista_recolhimento_preparacao_gerar"),
+            $this->consultarRecurso($numIdSistema, "gd_lista_recolhimento_preparacao_listar"),
+            $this->consultarRecurso($numIdSistema, "gd_lista_recolhimento_preparacao_observar"),
+            $this->consultarRecurso($numIdSistema, "gd_lista_recolhimento_procedimento_adicionar"),
+            $this->consultarRecurso($numIdSistema, "gd_lista_recolhimento_procedimento_remover"),
+            $this->consultarRecurso($numIdSistema, "gd_lista_recolhimento_recolher"),
+            $this->consultarRecurso($numIdSistema, "gd_lista_recolhimento_visualizar"),
+            $this->consultarRecurso($numIdSistema, "gd_modelo_documento_alterar"),
+            $this->consultarRecurso($numIdSistema, "gd_parametro_alterar"),
+            $this->consultarRecurso($numIdSistema, "gd_relatorio"),
+            $this->consultarRecurso($numIdSistema, "gd_unidade_arquivamento_alterar"),
+            $this->consultarRecurso($numIdSistema, "gd_unidade_arquivamento_cadastrar"),
+            $this->consultarRecurso($numIdSistema, "gd_unidade_arquivamento_excluir"),
+            $this->consultarRecurso($numIdSistema, "gd_unidade_arquivamento_listar"),
+            $this->consultarRecurso($numIdSistema, "gd_unidade_arquivamento_visualizar")
+            ));
+
+        $this->arrMenu = [];
+        $this->arrMenu = array_merge($this->arrMenu, array(
+            $this->consultarItemMenu($numIdSistema, "gd_arquivamento_avaliar"),
+            $this->consultarItemMenu($numIdSistema, "gd_justificativa_cadastrar"),
+            $this->consultarItemMenu($numIdSistema, "gd_justificativa_listar"),
+            $this->consultarItemMenu($numIdSistema, "gd_lista_eliminacao_listar"),
+            $this->consultarItemMenu($numIdSistema, "gd_lista_eliminacao_preparacao_listar"),
+            $this->consultarItemMenu($numIdSistema, "gd_lista_recolhimento_listar"),
+            $this->consultarItemMenu($numIdSistema, "gd_lista_recolhimento_preparacao_listar"),
+            $this->consultarItemMenu($numIdSistema, "gd_modelo_documento_alterar"),
+            $this->consultarItemMenu($numIdSistema, "gd_parametro_alterar"),
+            $this->consultarItemMenu($numIdSistema, "gd_relatorio"),
+            $this->consultarItemMenu($numIdSistema, "gd_unidade_arquivamento_cadastrar"),
+            $this->consultarItemMenu($numIdSistema, "gd_unidade_arquivamento_listar")
+            ));
+
+        //Atribui as permissões aos recursos e menus
+        $this->atribuirPerfil($numIdSistema, $id_perfil_avaliacao);
+    }
 }
 
 try {
@@ -431,6 +667,7 @@ try {
             '1.2.0' => 'versao_1_2_0',
             '1.2.1' => 'versao_1_2_1',
             '1.2.2' => 'versao_1_2_2',
+            '1.2.3' => 'versao_1_2_3',
         )
     );
 

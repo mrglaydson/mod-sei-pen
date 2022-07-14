@@ -147,6 +147,7 @@ try {
             $arrVariaveis[] = array('@cnpj_pessoa_juridica_associada_interessado@','CNPJ da pessoa jurídica associada com o primeiro interessado');
             $arrVariaveis[] = array('@nome_usuario@','Nome do usuário logado');
             $arrVariaveis[] = array('@cargo_usuario@','Cargo do usuário logado');
+            $arrVariaveis[] = array('@base_legal@', 'base Legal do arquivamento');
             break;
         case 'gd_ajuda_variaveis_modelo_desarquivamento':
 
@@ -274,6 +275,7 @@ try {
             $arrVariaveis[] = array('@cnpj_pessoa_juridica_associada_interessado@','CNPJ da pessoa jurídica associada com o primeiro interessado');
             $arrVariaveis[] = array('@nome_usuario@','Nome do usuário logado');
             $arrVariaveis[] = array('@cargo_usuario@','Cargo do usuário logado');
+            $arrVariaveis[] = array('@base_legal@', 'base Legal do desarquivamento');
             break;
         case 'gd_ajuda_variaveis_modelo_listagem_eliminacao':
 

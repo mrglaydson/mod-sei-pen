@@ -20,6 +20,12 @@ try {
             $strTitulo = 'Devolver para Correção';
 
             if($_POST['sbmDevolver']){
+
+                if (trim($_REQUEST['txtObservacaoDevolucao']) == ""){
+                    $objInfraException = new InfraException();
+                    $objInfraException->lancarValidacao('Informe o motivo da devolução.');
+                }
+
                 $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
                 $objMdGdArquivamentoDTO->setNumIdArquivamento((int) $_REQUEST['id_arquivamento']);
                 $objMdGdArquivamentoDTO->setStrObservacaoDevolucao($_REQUEST['txtObservacaoDevolucao']);

@@ -136,9 +136,17 @@ class VersaoSeiRN extends InfraScriptVersao
                     <p class="Tabela_Texto_Alinhado_Esquerda">@motivo@</p>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                    <p class="Tabela_Texto_Alinhado_Esquerda">Base legal</p>
+                    </td>
+                    <td>
+                    <p class="Tabela_Texto_Alinhado_Esquerda">@base_legal@</p>
+                    </td>
+                </tr>
             </tbody>
         </table>
-        ';
+        <br/>';
 
         $strModeloDespachoDesarquivamento = '<p class="Texto_Alinhado_Esquerda">&nbsp;</p>
         <p class="Texto_Alinhado_Esquerda">O processo n&ordm; @processo@ foi desarquivado eletronicamente conforme as informa&ccedil;&otilde;es abaixo descritas:</p>
@@ -179,9 +187,17 @@ class VersaoSeiRN extends InfraScriptVersao
                     <p class="Tabela_Texto_Alinhado_Esquerda">@motivo@</p>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                    <p class="Tabela_Texto_Alinhado_Esquerda">Base legal</p>
+                    </td>
+                    <td>
+                    <p class="Tabela_Texto_Alinhado_Esquerda">@base_legal@</p>
+                    </td>
+                </tr>
             </tbody>
         </table>
-        ';
+        <br/>';
 
         $strModeloListagemEliminacao = '<meta http-equiv="Pragma" content="no-cache" /><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
         <style type="text/css">p.Citacao {font-size:10pt;font-family:Calibri;word-wrap:normal;margin:4pt 0 4pt 160px;text-align:justify;} p.Item_Alinea_Letra {font-size:12pt;font-family:Calibri;text-indent:0mm;text-align:justify;word-wrap:normal;margin:6pt 6pt 6pt 120px;counter-increment:letra_minuscula;} p.Item_Alinea_Letra:before {content:counter(letra_minuscula, lower-latin) ") ";display:inline-block;width:5mm;font-weight:normal;} p.Item_Inciso_Romano {font-size:12pt;font-family:Calibri;text-align:justify;word-wrap:normal;text-indent:0mm;margin:6pt 6pt 6pt 120px;counter-increment:romano_maiusculo;counter-reset:letra_minuscula;} p.Item_Inciso_Romano:before {content:counter(romano_maiusculo, upper-roman) " - ";display:inline-block;width:15mm;font-weight:normal;} p.Item_Nivel1 {text-transform:uppercase;font-weight:bold;background-color:#e6e6e6;font-size:12pt;font-family:Calibri;text-align:justify;word-wrap:normal;text-indent:0;margin:6pt;counter-increment:item-n1;counter-reset:item-n2 item-n3 item-n4 romano_maiusculo letra_minuscula;} p.Item_Nivel1:before {content:counter(item-n1) ".";display:inline-block;width:25mm;font-weight:normal;} p.Item_Nivel2 {font-size:12pt;font-family:Calibri;text-indent:0mm;text-align:justify;word-wrap:normal;margin:6pt;counter-increment:item-n2;counter-reset:item-n3 item-n4 romano_maiusculo letra_minuscula;} p.Item_Nivel2:before {content:counter(item-n1) "." counter(item-n2) ".";display:inline-block;width:25mm;font-weight:normal;} p.Item_Nivel3 {font-size:12pt;font-family:Calibri;text-indent:0mm;text-align:justify;word-wrap:normal;margin:6pt;counter-increment:item-n3;counter-reset:item-n4 romano_maiusculo letra_minuscula;} p.Item_Nivel3:before {content:counter(item-n1) "." counter(item-n2) "." counter(item-n3) ".";display:inline-block;width:25mm;font-weight:normal;} p.Item_Nivel4 {font-size:12pt;font-family:Calibri;text-indent:0mm;text-align:justify;word-wrap:normal;margin:6pt;counter-increment:item-n4;counter-reset:romano_maiusculo letra_minuscula;} p.Item_Nivel4:before {content:counter(item-n1) "." counter(item-n2) "." counter(item-n3) "."  counter(item-n4) ".";display:inline-block;width:25mm;font-weight:normal;} p.Paragrafo_Numerado_Nivel1 {font-size:12pt;font-family:Calibri;text-align:justify;word-wrap:normal;text-indent:0mm;margin:6pt;counter-increment:paragrafo-n1;counter-reset:paragrafo-n2 paragrafo-n3 paragrafo-n4 romano_maiusculo letra_minuscula;} p.Paragrafo_Numerado_Nivel1:before {content:counter(paragrafo-n1) ".";display:inline-block;width:25mm;font-weight:normal;} p.Paragrafo_Numerado_Nivel2 {font-size:12pt;font-family:Calibri;text-indent:0mm;text-align:justify;word-wrap:normal;margin:6pt;counter-increment:paragrafo-n2;counter-reset:paragrafo-n3 paragrafo-n4 romano_maiusculo letra_minuscula;} p.Paragrafo_Numerado_Nivel2:before {content:counter(paragrafo-n1) "." counter(paragrafo-n2) ".";display:inline-block;width:25mm;font-weight:normal;} p.Paragrafo_Numerado_Nivel3 {font-size:12pt;font-family:Calibri;text-indent:0mm;text-align:justify;word-wrap:normal;margin:6pt;counter-increment:paragrafo-n3;counter-reset:paragrafo-n4 romano_maiusculo letra_minuscula;} p.Paragrafo_Numerado_Nivel3:before {content:counter(paragrafo-n1) "." counter(paragrafo-n2) "." counter(paragrafo-n3) ".";display:inline-block;width:25mm;font-weight:normal;} p.Paragrafo_Numerado_Nivel4 {font-size:12pt;font-family:Calibri;text-indent:0mm;text-align:justify;word-wrap:normal;margin:6pt;counter-increment:paragrafo-n4;counter-reset:romano_maiusculo letra_minuscula;} p.Paragrafo_Numerado_Nivel4:before {content:counter(paragrafo-n1) "." counter(paragrafo-n2) "." counter(paragrafo-n3) "." counter(paragrafo-n4) ".";display:inline-block;width:25mm;font-weight:normal;} p.Tabela_Texto_8 {font-size:8pt;font-family:Calibri;text-align:left;word-wrap:normal;margin:0 3pt 0 3pt;} p.Tabela_Texto_Alinhado_Direita {font-size:11pt;font-family:Calibri;text-align:right;word-wrap:normal;margin:0 3pt 0 3pt;} p.Tabela_Texto_Alinhado_Esquerda {font-size:11pt;font-family:Calibri;text-align:left;word-wrap:normal;margin:0 3pt 0 3pt;} p.Tabela_Texto_Centralizado {font-size:11pt;font-family:Calibri;text-align:center;word-wrap:normal;margin:0 3pt 0;} p.Texto_Alinhado_Direita {font-size:12pt;font-family:Calibri;text-align:right;word-wrap:normal;margin:6pt;} p.Texto_Alinhado_Esquerda {font-size:12pt;font-family:Calibri;text-align:left;word-wrap:normal;margin:6pt;} p.Texto_Alinhado_Esquerda_Espacamento_Simples {font-size:12pt;font-family:Calibri;text-align:left;word-wrap:normal;margin:0;} p.Texto_Alinhado_Esquerda_Espacamento_Simples_Maiusc {font-size:12pt;font-family:Calibri;text-align:left;text-transform:uppercase;word-wrap:normal;margin:0;} p.Texto_Centralizado {font-size:12pt;font-family:Calibri;text-align:center;word-wrap:normal;margin:6pt;} p.Texto_Centralizado_Maiusculas {font-size:13pt;font-family:Calibri;text-align:center;text-transform:uppercase;word-wrap:normal;} p.Texto_Centralizado_Maiusculas_Negrito {font-weight:bold;font-size:13pt;font-family:Calibri;text-align:center;text-transform:uppercase;word-wrap:normal;} p.Texto_Espaco_Duplo_Recuo_Primeira_Linha {letter-spacing:0.2em;font-weight:bold;font-size:12pt;font-family:Calibri;text-indent:25mm;text-align:justify;word-wrap:normal;margin:6pt;} p.Texto_Fundo_Cinza_Maiusculas_Negrito {text-transform:uppercase;font-weight:bold;background-color:#e6e6e6;font-size:12pt;font-family:Calibri;text-align:justify;word-wrap:normal;text-indent:0;margin:6pt;} p.Texto_Fundo_Cinza_Negrito {font-weight:bold;background-color:#e6e6e6;font-size:12pt;font-family:Calibri;text-align:justify;word-wrap:normal;text-indent:0;margin:6pt;} p.Texto_Justificado {font-size:12pt;font-family:Calibri;text-align:justify;word-wrap:normal;text-indent:0;margin:6pt;} p.Texto_Justificado_Maiusculas {font-size:12pt;font-family:Calibri;text-align:justify;word-wrap:normal;text-indent:0;margin:6pt;text-transform:uppercase;} p.Texto_Justificado_Recuo_Primeira_Linha {font-size:12pt;font-family:Calibri;text-indent:25mm;text-align:justify;word-wrap:normal;margin:6pt;} p.Texto_Justificado_Recuo_Primeira_Linha_Esp_Simples {font-size:12pt;font-family:Calibri;text-indent:25mm;text-align:justify;word-wrap:normal;margin:0 0 0 6pt;}
@@ -631,6 +647,25 @@ class VersaoSeiRN extends InfraScriptVersao
         $objTipoProcedimentoDTO = $objTipoProcedimentoRN->cadastrarRN0265($objTipoProcedimentoDTO);
         return $objTipoProcedimentoDTO->getNumIdTipoProcedimento();
     }
+    
+    /**
+     * Cadastra um modelo de documento
+     *
+     * @param string $strNome
+     * @param string $strValor
+     * @return void
+     */
+    protected function cadastrarJustificativa($strNome, $strTipo, $strDescricao)
+    {
+        $objMdGdJustificativaDTO = new MdGdJustificativaDTO();
+        $objMdGdJustificativaDTO->setNumIdJustificativa(null);
+        $objMdGdJustificativaDTO->setStrNome($strNome);
+        $objMdGdJustificativaDTO->setStrStaTipo($strTipo);
+        $objMdGdJustificativaDTO->setStrDescricao($strDescricao);
+
+        $objMdGdJustificativaRN = new MdGdJustificativaRN();
+        $objMdGdJustificativaRN->cadastrar($objMdGdJustificativaDTO);
+    }
 
     public function versao_0_0_0($strVersaoAtual)
     {
@@ -1042,6 +1077,22 @@ class VersaoSeiRN extends InfraScriptVersao
     public function versao_1_2_2($strVersaoAtual)
     {
     }
+
+    public function versao_1_2_3($strVersaoAtual)
+    {
+
+        try {
+            $this->cadastrarJustificativa('Inobservância de prazo pelo interessado', 'A', 'Artigo 40, Lei nº 9784/99');
+            $this->cadastrarJustificativa('Deferimento do pleito ', 'A', 'Item 2.16 A, Portaria Interministerial nº 1677/2015');
+            $this->cadastrarJustificativa('Indeferimento do pleito', 'A', 'Item 2.16 A, Portaria Interministerial nº 1677/2015');
+            $this->cadastrarJustificativa('Desistência ou renúncia do interessado', 'A', 'Artigo 51, Lei nº 9784/99');
+            $this->cadastrarJustificativa('Decisão motivada de autoridade competente', 'A', 'Item 2.16 C, Portaria Interministerial nº 1677/2015 ');
+            $this->cadastrarJustificativa('Necessidade de continuidade de ação administrativa', 'D', 'Item 2.17, Portaria Interministerial nº 1677/2015 ');
+
+        } catch (Exception $ex) {
+            throw new InfraException('Erro ao atualizar a versão 1.2.3 do modulo de gestão documental', $ex);
+        }
+    }
 }
 
 try {
@@ -1065,6 +1116,7 @@ try {
             '1.2.0' => 'versao_1_2_0',
             '1.2.1' => 'versao_1_2_1',
             '1.2.2' => 'versao_1_2_2',
+            '1.2.3' => 'versao_1_2_3',
         )
     );
 

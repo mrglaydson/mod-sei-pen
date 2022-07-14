@@ -18,6 +18,10 @@ class Test00ConfigSIP():
         self.driver = webdriver.Chrome()
     else:
         self.driver = webdriver.Remote(command_executor=os.environ["SELENIUMTEST_SELENIUMHOST_URL"], desired_capabilities=DesiredCapabilities.CHROME)
+    
+    if ((not 'maximizar_screen' in os.environ) or os.environ['maximizar_screen'] == 'true'):
+        self.driver.maximize_window()
+    
     self.driver.implicitly_wait(10)
     self.vars = {}
     
@@ -74,7 +78,7 @@ class Test00ConfigSIP():
     dropdown = self.driver.find_element(By.ID, "selSistema")
     dropdown.find_element(By.XPATH, "//option[. = 'SEI']").click()
     self.driver.find_element(By.ID, "selSistema").click()
-    self.driver.find_element(By.XPATH, "(//img[@alt=\'Montar Perfil\'])[9]").click()
+    self.driver.find_element(By.XPATH, "(//img[@alt=\'Montar Perfil\'])[11]").click()
     self.driver.find_element(By.ID, "txtNomeRecurso").click()
     self.driver.find_element(By.ID, "txtNomeRecurso").send_keys("gd_")
     self.driver.find_element(By.ID, "btnPesquisar").click()
@@ -82,7 +86,7 @@ class Test00ConfigSIP():
     self.driver.find_element(By.ID, "imgInfraCheckMenus").click()
     self.driver.find_element(By.NAME, "sbmMontarPerfil").click()
     self.driver.find_element(By.NAME, "btnCancelar").click()
-    self.driver.find_element(By.XPATH, "(//img[@alt=\'Montar Perfil\'])[10]").click()
+    self.driver.find_element(By.XPATH, "(//img[@alt=\'Montar Perfil\'])[12]").click()
     self.driver.find_element(By.ID, "txtNomeRecurso").click()
     self.driver.find_element(By.ID, "txtNomeRecurso").send_keys("gd_")
     self.driver.find_element(By.ID, "btnPesquisar").click()

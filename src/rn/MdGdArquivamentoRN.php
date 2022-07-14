@@ -327,6 +327,7 @@ class MdGdArquivamentoRN extends InfraRN {
         $objMdGdJustificativaDTO = new MdGdJustificativaDTO();
         $objMdGdJustificativaDTO->setNumIdJustificativa($numIdJustificativa);
         $objMdGdJustificativaDTO->retStrNome();
+        $objMdGdJustificativaDTO->retStrDescricao();
 
         $objMdGdJustificativaRN = new MdGdJustificativaRN();
         $objMdGdJustificativaDTO = $objMdGdJustificativaRN->consultar($objMdGdJustificativaDTO);
@@ -334,7 +335,8 @@ class MdGdArquivamentoRN extends InfraRN {
         $arrVariaveisModelo = [
             '@motivo@' => $objMdGdJustificativaDTO->getStrNome(),
             '@data_arquivamento@' => $dthArquivamento,
-            '@responsavel_arquivamento@' => $strResponsavelArquivamento
+            '@responsavel_arquivamento@' => $strResponsavelArquivamento,
+            '@base_legal@' => $objMdGdJustificativaDTO->getStrDescricao()
         ];
 
         $objMdGdModeloDocumentoDTO = new MdGdModeloDocumentoDTO();
@@ -528,6 +530,7 @@ class MdGdArquivamentoRN extends InfraRN {
         $objMdGdJustificativaDTO = new MdGdJustificativaDTO();
         $objMdGdJustificativaDTO->setNumIdJustificativa($numIdJustificativa);
         $objMdGdJustificativaDTO->retStrNome();
+        $objMdGdJustificativaDTO->retStrDescricao();
 
         $objMdGdJustificativaRN = new MdGdJustificativaRN();
         $objMdGdJustificativaDTO = $objMdGdJustificativaRN->consultar($objMdGdJustificativaDTO);
@@ -535,7 +538,8 @@ class MdGdArquivamentoRN extends InfraRN {
         $arrVariaveisModelo = [
             '@motivo@' => $objMdGdJustificativaDTO->getStrNome(),
             '@data_desarquivamento@' => $dthArquivamento,
-            '@responsavel_desarquivamento@' => $strResponsavelArquivamento
+            '@responsavel_desarquivamento@' => $strResponsavelArquivamento,
+            '@base_legal@' => $objMdGdJustificativaDTO->getStrDescricao()
         ];
 
         $objMdGdModeloDocumentoDTO = new MdGdModeloDocumentoDTO();
