@@ -623,7 +623,8 @@ class VersaoSipRN extends InfraScriptVersao
             $this->consultarRecurso($numIdSistema, "gd_unidade_arquivamento_cadastrar"),
             $this->consultarRecurso($numIdSistema, "gd_unidade_arquivamento_excluir"),
             $this->consultarRecurso($numIdSistema, "gd_unidade_arquivamento_listar"),
-            $this->consultarRecurso($numIdSistema, "gd_unidade_arquivamento_visualizar")
+            $this->consultarRecurso($numIdSistema, "gd_unidade_arquivamento_visualizar"),
+            $this->consultarRecurso($numIdSistema, "gd_lista_eliminacao_procedimento_adicionar")
             ));
 
         $this->arrMenu = [];
