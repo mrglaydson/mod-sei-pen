@@ -497,6 +497,7 @@ class VersaoSipRN extends InfraScriptVersao
 
         //Cadasta o recurso da preparação de listagem de recolhimento
         $id_recurso_listagem_recolhimento_anotacao = $fnCadastrarRecurso($id_sistema, 'gd_listar_recolhimento_anotar', 'Anotações da listagem de recolhimento', 'controlador.php?acao=gd_listar_recolhimento_anotar', 'S');
+        $id_recurso_listagem_eliminacao_anotacao = $fnCadastrarRecurso($id_sistema, 'gd_listar_eliminacao_anotar', 'Anotações da listagem de eliminação', 'controlador.php?acao=gd_listar_eliminacao_anotar', 'S');
         
     }
 
@@ -545,8 +546,8 @@ class VersaoSipRN extends InfraScriptVersao
         };
 
         //Cadastrar os perfis
-        $id_perfil_arquivamento = $fnCadastrarPerfil($numIdSistema, 'GD Arquivamento', 'Acesso aos recursos básicos para qualquer usuário no SEI. Pode ser combinado com outros perfis, mas sempre tem que ser concedido para qualquer outro perfil funcionar corretamente.', 'N', 'S');
-        $id_perfil_avaliacao = $fnCadastrarPerfil($numIdSistema, 'GD Avaliação', 'Acesso aos recursos básicos para qualquer usuário no SEI. Pode ser combinado com outros perfis, mas sempre tem que ser concedido para qualquer outro perfil funcionar corretamente.', 'N', 'S');
+        $id_perfil_arquivamento = $fnCadastrarPerfil($numIdSistema, 'GD Arquivamento', 'Acesso aos recursos de arquivamento e desarquivamento de processos, Pendências de Arquivamento e Arquivo da Unidade. Também possibilita consultar a lista de Unidades de Arquivamento e as Justificativas de Arquivamento e Desarquivamento.', 'N', 'S');
+        $id_perfil_avaliacao = $fnCadastrarPerfil($numIdSistema, 'GD Avaliação', 'Acesso aos recursos de avaliação documental: devolução para correção, preparação e gestão das listagens de eliminação e recolhimento.', 'N', 'S');
         
         $this->arrRecurso = [];
         $this->arrRecurso = array_merge($this->arrRecurso, array(
@@ -589,6 +590,7 @@ class VersaoSipRN extends InfraScriptVersao
             $this->consultarRecurso($numIdSistema, "gd_justificativa_listar"),
             $this->consultarRecurso($numIdSistema, "gd_justificativa_visualizar"),
             $this->consultarRecurso($numIdSistema, "gd_listar_recolhimento_anotar"),
+            $this->consultarRecurso($numIdSistema, "gd_listar_eliminacao_anotar"),
             $this->consultarRecurso($numIdSistema, "gd_lista_eliminacao_documentos_fisicos_eliminar"),
             $this->consultarRecurso($numIdSistema, "gd_lista_eliminacao_documentos_fisicos_listar"),
             $this->consultarRecurso($numIdSistema, "gd_lista_eliminacao_edicao_concluir"),

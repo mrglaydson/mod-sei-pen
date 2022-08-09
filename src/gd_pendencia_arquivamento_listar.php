@@ -214,7 +214,7 @@ try {
                 } 
 
                 if($bolAcaoArquivar){
-                    $strResultado .= '<a href="' . PaginaSEI::getInstance()->montarAncora($strId) . '" onclick="acaoArquivar(\'' . $strId . '\',\'' . $strProtocoloProcedimentoFormatado . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="' . MdGestaoDocumentalIntegracao::getDiretorio() . '/imagens/arquivamento.png" title="Arquivar Processo" alt="Arquivar Processo" class="infraImg" style="width: 22px; height: 22px; padding-bottom: 3px;"/></a>&nbsp;';
+                    $strResultado .= '<a href="' . PaginaSEI::getInstance()->montarAncora($strId) . '" onclick="acaoArquivar(\'' . $strId . '\',\'' . $strProtocoloProcedimentoFormatado . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="' . MdGestaoDocumentalIntegracao::getDiretorio() . '/imagens/icone_arquivar_processo.png" title="Arquivar Processo" alt="Arquivar Processo" class="infraImg" style="width: 22px; height: 22px; padding-bottom: 3px;"/></a>&nbsp;';
                 }
         
 
