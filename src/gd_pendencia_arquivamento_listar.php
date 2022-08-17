@@ -159,7 +159,7 @@ try {
             $strResultado .= '<th class="infraTh" width="13%">Processo</th>' . "\n";
             $strResultado .= '<th class="infraTh" width="23%">Especificação</th>' . "\n";
             $strResultado .= '<th class="infraTh" width="10%">Código de Classificação</th>' . "\n";
-            $strResultado .= '<th class="infraTh" width="20%">Tipo</th>' . "\n";
+            $strResultado .= '<th class="infraTh" width="20%">Tipo de Processo</th>' . "\n";
             $strResultado .= '<th class="infraTh" width="8%">Usuário</th>' . "\n";
             $strResultado .= '<th class="infraTh" width="10%">Data de Conclusão</th>' . "\n";
             $strResultado .= '<th class="infraTh" width="15%">Ações</th>' . "\n";
@@ -210,11 +210,11 @@ try {
                 $strProtocoloProcedimentoFormatado = $arrObjProcedimentoDTO[$i]->getStrProtocoloProcedimentoFormatado();
 
                 if($bolAcaoReabrir){
-                    $strResultado .= '<a href="' . PaginaSEI::getInstance()->montarAncora($strId) . '" onclick="acaoReabrir(\'' . $strId . '\',\'' . $strProtocoloProcedimentoFormatado . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="imagens/sei_reabrir_processo.gif" title="Reabrir Processo" alt="Reabrir Processo" class="infraImg" style="width: 29px; height: 29px;" /></a>&nbsp;';
+                    $strResultado .= '<a href="' . PaginaSEI::getInstance()->montarAncora($strId) . '" onclick="acaoReabrir(\'' . $strId . '\',\'' . $strProtocoloProcedimentoFormatado . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="'.Icone::PROCESSO_REABRIR.'" title="Reabrir Processo" alt="Reabrir Processo" class="infraImg" style="width: 29px; height: 29px;" /></a>&nbsp;';
                 } 
 
                 if($bolAcaoArquivar){
-                    $strResultado .= '<a href="' . PaginaSEI::getInstance()->montarAncora($strId) . '" onclick="acaoArquivar(\'' . $strId . '\',\'' . $strProtocoloProcedimentoFormatado . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="' . MdGestaoDocumentalIntegracao::getDiretorio() . '/imagens/icone_arquivar_processo.png" title="Arquivar Processo" alt="Arquivar Processo" class="infraImg" style="width: 22px; height: 22px; padding-bottom: 3px;"/></a>&nbsp;';
+                    $strResultado .= '<a href="' . PaginaSEI::getInstance()->montarAncora($strId) . '" onclick="acaoArquivar(\'' . $strId . '\',\'' . $strProtocoloProcedimentoFormatado . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="' . MdGestaoDocumentalIntegracao::getDiretorio() . '/imagens/icone_arquivar_processo.png" title="Arquivar Processo" alt="Arquivar Processo" class="infraImg" style="width: 29px; height: 29px; padding-bottom: 3px;"/></a>&nbsp;';
                 }
         
 
