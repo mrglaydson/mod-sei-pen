@@ -58,8 +58,8 @@ class Test08SEIGDListasRecolhimentoGestao():
     time.sleep(5)
     #self.driver.save_screenshot("/tmp/screenshot.png")
     self.driver.find_element(By.ID, "btnCancelar").click()
-    WebDriverWait(self.driver, 30).until(expected_conditions.presence_of_element_located((By.XPATH, "(//img[@title=\'Visualizar Listagem de Recolhimento\'])[2]")))
-    self.driver.find_element(By.XPATH, "(//img[@title=\'Visualizar Listagem de Recolhimento\'])[2]").click()
+    WebDriverWait(self.driver, 30).until(expected_conditions.presence_of_element_located((By.XPATH, "(//img[@title=\'Visualizar Processos da Listagem de Recolhimento\'])[2]")))
+    self.driver.find_element(By.XPATH, "(//img[@title=\'Visualizar Processos da Listagem de Recolhimento\'])[2]").click()
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, ".infraCaption")))
     self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").click()
     assert self.driver.find_element(By.CSS_SELECTOR, ".infraCaption").text == "Lista de Processos (1 registro):"

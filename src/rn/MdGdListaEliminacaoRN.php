@@ -286,13 +286,13 @@ class MdGdListaEliminacaoRN extends InfraRN {
 
         $strHtmlTabela = '<table border="1" cellpadding="1" cellspacing="1" style="margin-left:auto;margin-right:auto; width: 918px;">';
         $strHtmlTabela .= '<thead><tr>';
-        $strHtmlTabela .= '<th rowspan="2" >CÓDIGO REFERENTE A CLASSIFICAÇÃO</th>';
-        $strHtmlTabela .= '<th rowspan="2" >DESCRITOR DO CÓDIGO</th>';
-        $strHtmlTabela .= '<th rowspan="2" >DATAS-LIMITE</th>';
-        $strHtmlTabela .= '<th colspan="2" rowspan="1" >UNIDADE DE ARQUIVAMENTO</th>';
-        $strHtmlTabela .= '<th rowspan="2" >OBSERVAÇÕES E/OU JUSTIFICATIVAS</th>';
-        $strHtmlTabela .= '</tr><tr><th>Quantificação</th>';
-        $strHtmlTabela .= '<th>Especificação</th>';
+        $strHtmlTabela .= '<th rowspan="2"><p class="Tabela_Texto_Centralizado">CÓDIGO REFERENTE A CLASSIFICAÇÃO</p></th>';
+        $strHtmlTabela .= '<th rowspan="2"><p class="Tabela_Texto_Centralizado">DESCRITOR DO CÓDIGO</p></th>';
+        $strHtmlTabela .= '<th rowspan="2"><p class="Tabela_Texto_Centralizado">DATAS-LIMITE</p></th>';
+        $strHtmlTabela .= '<th colspan="2 rowspan="1"><p class="Tabela_Texto_Centralizado">UNIDADE DE ARQUIVAMENTO</p></th>';
+        $strHtmlTabela .= '<th rowspan="2"><p class="Tabela_Texto_Centralizado">OBSERVAÇÕES E/OU JUSTIFICATIVAS</p></th>';
+        $strHtmlTabela .= '</tr><tr><th><p class="Tabela_Texto_Centralizado">Quantificação</p></th>';
+        $strHtmlTabela .= '<th><p class="Tabela_Texto_Centralizado">Especificação</p></th>';
 
         $strHtmlTabela .= '</thead></tr>';
 
@@ -377,12 +377,12 @@ class MdGdListaEliminacaoRN extends InfraRN {
             $unidadeTamanho = $this->formataTamanho($assunto['tamanho']);
 
             $strHtmlTabela .= '<tr>';
-            $strHtmlTabela .= '<td style="text-align: center;">' . $key . '</td>';
-            $strHtmlTabela .= '<td style="text-align: center;">' . $assunto['descricao'] . '</td>';
-            $strHtmlTabela .= '<td style="text-align: center;">' . $assunto['menorAno'] .'-'. $assunto['maiorAno'] .'</td>';
-            $strHtmlTabela .= '<td style="text-align: center;">' . $assunto['quantidade'] .' Processos (' . number_format($unidadeTamanho['valor'],0,",",".") . ' ' . $unidadeTamanho['unidade'] .')</td>';
-            $strHtmlTabela .= '<td style="text-align: center;">' . $unidadeTamanho['unidade'] .'</td>';
-            $strHtmlTabela .= '<td style="text-align: center;">' . '</td>';
+            $strHtmlTabela .= '<td style="text-align: center;"><p class="Tabela_Texto_Centralizado">' . $key . '</p></td>';
+            $strHtmlTabela .= '<td style="text-align: center;"><p class="Tabela_Texto_Centralizado">' . $assunto['descricao'] . '</p></td>';
+            $strHtmlTabela .= '<td style="text-align: center;"><p class="Tabela_Texto_Centralizado">' . $assunto['menorAno'] .'-'. $assunto['maiorAno'] .'</p></td>';
+            $strHtmlTabela .= '<td style="text-align: center;"><p class="Tabela_Texto_Centralizado">' . $assunto['quantidade'] .' Processos (' . number_format($unidadeTamanho['valor'],0,",",".") . ' ' . $unidadeTamanho['unidade'] .')</p></td>';
+            $strHtmlTabela .= '<td style="text-align: center;"><p class="Tabela_Texto_Centralizado">' . $unidadeTamanho['unidade'] .'</p></td>';
+            $strHtmlTabela .= '<td style="text-align: center;"><p class="Tabela_Texto_Centralizado">' . '</p></td>';
             $strHtmlTabela .= '</tr>';
         }
 

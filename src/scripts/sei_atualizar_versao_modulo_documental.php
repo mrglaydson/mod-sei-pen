@@ -261,7 +261,7 @@ class VersaoSeiRN extends InfraScriptVersao
         
         <p class="Texto_Justificado">&nbsp;</p>
         
-        <table border="1" cellpadding="1" cellspacing="1" style="margin-left:auto;margin-right:auto;width:870px;">
+        <table border="1" cellpadding="1" cellspacing="1" style="margin-left:auto;margin-right:auto;width:918.333px;">
             <tbody>
                 <tr>
                     <td style="width: 225px;">
@@ -290,7 +290,7 @@ class VersaoSeiRN extends InfraScriptVersao
         
         <p class="Texto_Justificado">&nbsp;</p>
         
-        <table border="1" cellpadding="1" cellspacing="1" style="margin-left: auto; margin-right: auto; width: 924.333px;">
+        <table border="1" cellpadding="1" cellspacing="1" style="margin-left: auto; margin-right: auto; width: 918.333px;">
             <tbody>
                 <tr>
                     <td style="width: 301px;">
@@ -360,7 +360,7 @@ class VersaoSeiRN extends InfraScriptVersao
         
         <p class="Texto_Justificado">&nbsp;</p>
         
-        <table border="1" cellpadding="1" cellspacing="1" style="margin-left: auto; margin-right: auto; width: 873px;">
+        <table border="1" cellpadding="1" cellspacing="1" style="margin-left: auto; margin-right: auto; width: 918.333px;">
             <tbody>
                 <tr>
                     <td colspan="2" rowspan="1">
@@ -381,7 +381,7 @@ class VersaoSeiRN extends InfraScriptVersao
         
         <p>&nbsp;</p>
         
-        <table border="1" cellpadding="1" cellspacing="1" style="margin-left: auto; margin-right: auto; width: 873px;">
+        <table border="1" cellpadding="1" cellspacing="1" style="margin-left: auto; margin-right: auto; width: 918.333px;">
             <tbody>
                 <tr>
                     <td style="width: 105px;">
@@ -414,7 +414,7 @@ class VersaoSeiRN extends InfraScriptVersao
         
         <p class="Texto_Justificado">&nbsp;</p>
         
-        <table border="1" cellpadding="1" cellspacing="1" style="margin-left:auto;margin-right:auto;width:870px;">
+        <table border="1" cellpadding="1" cellspacing="1" style="margin-left:auto;margin-right:auto;width:918.333px;">
             <tbody>
                 <tr>
                     <td>

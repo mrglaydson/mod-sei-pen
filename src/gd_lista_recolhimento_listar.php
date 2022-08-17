@@ -164,7 +164,7 @@ try {
             if ($bolAcaoVisualizar) {
                 // gd_lista_eliminacao_visualizar
                 $strLinkVisualizar = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_lista_recolhimento_visualizar&acao_origem=' . $_GET['acao'] . '&id_listagem_recolhimento=' . $arrObjMdGdListaRecolhimentoDTO[$i]->getNumIdListaRecolhimento());
-                $strResultado .= '<a href="' . $strLinkVisualizar . '" ><img src="/infra_css/svg/consultar.svg" title="Visualizar Listagem de Recolhimento" alt="Visualizar Listagem de Recolhimento" class="infraImg" /></a>&nbsp;';
+                $strResultado .= '<a href="' . $strLinkVisualizar . '" ><img src="/infra_css/svg/consultar.svg" title="Visualizar Processos da Listagem de Recolhimento" alt="Visualizar Processos da Listagem de Recolhimento" class="infraImg" /></a>&nbsp;';
             }
             
             if ($bolAcaoEditarListagem && $arrObjMdGdListaRecolhimentoDTO[$i]->getStrSituacao() == MdGdListaRecolhimentoRN::$ST_GERADA) {

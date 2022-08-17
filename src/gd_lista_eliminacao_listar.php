@@ -146,7 +146,7 @@ try {
 
             if ($bolAcaoVisualizar) {
                 $strLinkVisualizar = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_lista_eliminacao_visualizar&acao_origem=' . $_GET['acao'] . '&id_listagem_eliminacao=' . $arrObjMdGdListaEliminacaoDTO[$i]->getNumIdListaEliminacao());
-                $strResultado .= '<a href="' . $strLinkVisualizar . '" ><img src="/infra_css/svg/consultar.svg" title="Visualizar Listagem de Eliminação" alt="Visualizar Listagem de Eliminação" class="infraImg" /></a>&nbsp;';
+                $strResultado .= '<a href="' . $strLinkVisualizar . '" ><img src="/infra_css/svg/consultar.svg" title="Visualizar Processos da Listagem de Eliminação" alt="Visualizar Processos da Listagem de Eliminação" class="infraImg" /></a>&nbsp;';
             }
 
             if ($bolAcaoEditarListagem && $arrObjMdGdListaEliminacaoDTO[$i]->getStrSituacao() == MdGdListaEliminacaoRN::$ST_GERADA) {

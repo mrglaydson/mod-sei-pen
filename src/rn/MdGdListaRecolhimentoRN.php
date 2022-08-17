@@ -273,11 +273,11 @@ class MdGdListaRecolhimentoRN extends InfraRN {
 
         $strHtmlTabela = '<table border="1" cellpadding="1" cellspacing="1" style="margin-left:auto;margin-right:auto; width: 873px;">';
         $strHtmlTabela .= '<thead><tr>';
-        $strHtmlTabela .= '<th>CÓDIGO DE CLASSIFICAÇÃO</th>';
-        $strHtmlTabela .= '<th>DESCRITOR DO CÓDIGO</th>';
-        $strHtmlTabela .= '<th>DATAS-LIMITE</th>';
-        $strHtmlTabela .= '<th>PROCESSO Nº</th>';
-        $strHtmlTabela .= '<th>OBSERVAÇÕES E/OU JUSTIFICATIVAS</th>';
+        $strHtmlTabela .= '<th><p class="Tabela_Texto_Centralizado">CÓDIGO DE CLASSIFICAÇÃO</p></th>';
+        $strHtmlTabela .= '<th><p class="Tabela_Texto_Centralizado">DESCRITOR DO CÓDIGO</p></th>';
+        $strHtmlTabela .= '<th><p class="Tabela_Texto_Centralizado">DATAS-LIMITE</p></th>';
+        $strHtmlTabela .= '<th><p class="Tabela_Texto_Centralizado">PROCESSO Nº</p></th>';
+        $strHtmlTabela .= '<th><p class="Tabela_Texto_Centralizado">OBSERVAÇÕES E/OU JUSTIFICATIVAS</p></th>';
         $strHtmlTabela .= '</thead></tr>';
 
         $strHtmlTabela .= '<tbody>';
@@ -324,11 +324,11 @@ class MdGdListaRecolhimentoRN extends InfraRN {
     
 
             $strHtmlTabela .= '<tr>';
-            $strHtmlTabela .= '<td>' . $strCodigoClassificacao . '</td>';
-            $strHtmlTabela .= '<td>' . $strDescritorCodigo . '</td>';
-            $strHtmlTabela .= '<td>' . $numAnoLimiteInicial.'-'.$numAnoLimiteFinal.'</td>';
-            $strHtmlTabela .= '<td>' . $objMdGdArquivamentoDTO->getStrProtocoloFormatado().'</td>';
-            $strHtmlTabela .= '<td>' . $objMdGdArquivamentoDTO->getStrObservacaoRecolhimento() . '</td>';
+            $strHtmlTabela .= '<td><p class="Tabela_Texto_Centralizado">' . $strCodigoClassificacao . '</p></td>';
+            $strHtmlTabela .= '<td><p class="Tabela_Texto_Centralizado">' . $strDescritorCodigo . '</p></td>';
+            $strHtmlTabela .= '<td><p class="Tabela_Texto_Centralizado">' . $numAnoLimiteInicial.'-'.$numAnoLimiteFinal.'</p></td>';
+            $strHtmlTabela .= '<td><p class="Tabela_Texto_Centralizado">' . $objMdGdArquivamentoDTO->getStrProtocoloFormatado().'</p></td>';
+            $strHtmlTabela .= '<td><p class="Tabela_Texto_Centralizado">' . $objMdGdArquivamentoDTO->getStrObservacaoRecolhimento() . '</p></td>';
             $strHtmlTabela .= '</tr>';
         }
 
