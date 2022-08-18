@@ -76,7 +76,7 @@ class Test0206SEIGDArquivarFisicos():
     self.driver.find_element(By.ID, "selTipoLocalizador").click()
     self.driver.find_element(By.ID, "txtProtocolo").click()
     self.driver.find_element(By.ID, "txtProtocolo").send_keys(Keys.ENTER)
-    WebDriverWait(self.driver, 30).until(expected_conditions.presence_of_element_located((By.XPATH, "//th[text()='Processo']")))
+    WebDriverWait(self.driver, 30).until(expected_conditions.presence_of_element_located((By.XPATH, "//th[text()='Nº do Processo']")))
     WebDriverWait(self.driver, 30).until(expected_conditions.invisibility_of_element_located((By.XPATH, "//a[contains(., '999')][1]/../../td[1]/input")))
 
   
@@ -129,5 +129,5 @@ class Test0206SEIGDArquivarFisicos():
     self.driver.find_element(By.ID, "selTipoLocalizador").click()
     self.driver.find_element(By.ID, "txtProtocolo").click()
     self.driver.find_element(By.ID, "txtProtocolo").send_keys(Keys.ENTER)
-    WebDriverWait(self.driver, 30).until(expected_conditions.presence_of_element_located((By.XPATH, "//th[text()='Processo']")))
+    WebDriverWait(self.driver, 30).until(expected_conditions.presence_of_element_located((By.XPATH, "//th[text()='Nº do Processo']")))
     WebDriverWait(self.driver, 30).until(expected_conditions.invisibility_of_element_located((By.XPATH, "//a[contains(., '999')][1]/../../td[1]/input")))

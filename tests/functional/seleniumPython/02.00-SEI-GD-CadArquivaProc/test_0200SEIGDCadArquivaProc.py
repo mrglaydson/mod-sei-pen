@@ -83,7 +83,7 @@ class Test0200SEIGDCadArquivaProc():
     self.driver.find_element(By.ID, "selCargoFuncao").click()
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
-    self.driver.find_element(By.ID, "sbmSalvar").click()
+    self.driver.find_element(By.ID, "btnAssinar").click()
     time.sleep(5)
     self.driver.switch_to.window(self.vars["root"])
     self.driver.switch_to.default_content()
@@ -107,7 +107,7 @@ class Test0200SEIGDCadArquivaProc():
     self.driver.find_element(By.ID, "selCargoFuncao").click()
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivista01")
-    self.driver.find_element(By.ID, "sbmSalvar").click()
+    self.driver.find_element(By.ID, "btnAssinar").click()
     # vai abrir uma tela popup que processa um 
     time.sleep(5)
   

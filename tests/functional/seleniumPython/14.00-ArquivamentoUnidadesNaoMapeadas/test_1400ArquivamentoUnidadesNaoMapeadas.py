@@ -107,7 +107,7 @@ class Test1400ArquivamentoUnidadesNaoMapeadas():
     WebDriverWait(self.driver, 30).until(expected_conditions.visibility_of_element_located((By.ID, "pwdSenha")))
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("teste")
-    self.driver.find_element(By.ID, "sbmSalvar").click()
+    self.driver.find_element(By.ID, "btnAssinar").click()
     self.driver.switch_to.alert.accept()
     time.sleep(2)
     self.driver.switch_to.alert.accept()

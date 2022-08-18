@@ -12,7 +12,7 @@ try {
 
     SessaoSEI::getInstance()->validarLink();
     SessaoSEI::getInstance()->validarPermissao($_GET['acao']);
-    PaginaSEI::getInstance()->salvarCamposPost(array('hdnInfraItemId', 'selTipoProcesso', 'selDestinacaoFinal', 'selCondicionante', 'txtPeriodoDe', 'txtPeriodoA', 'selAssunto', 'selJustificativa'));
+    PaginaSEI::getInstance()->salvarCamposPost(array('hdnInfraItemId', 'selTipoProcesso', 'selCondicionante', 'txtPeriodoDe', 'txtPeriodoA', 'selAssunto', 'selJustificativa'));
 
     switch ($_GET['acao']) {
 
@@ -102,12 +102,6 @@ try {
         $objMdGdArquivamentoDTO->setNumIdTipoProcedimento($selTipoProcesso);
     }
 
-    $selDestinacaoFinal = PaginaSEI::getInstance()->recuperarCampo('selDestinacaoFinal');
-    if ($selDestinacaoFinal && $selDestinacaoFinal !== 'null') {
-        $objMdGdArquivamentoDTO->setStrStaDestinacaoFinal($selDestinacaoFinal);
-    }
-
-
     $selCondicionante = PaginaSEI::getInstance()->recuperarCampo('selCondicionante');
     if ($selCondicionante && $selCondicionante !== 'null') {
         $objMdGdArquivamentoDTO->setStrSinCondicionante($selCondicionante);
@@ -178,7 +172,7 @@ try {
         $strResultado .= '<caption class="infraCaption">' . PaginaSEI::getInstance()->gerarCaptionTabela($strCaptionTabela, $numRegistros) . '</caption>';
         $strResultado .= '<tr>';
         $strResultado .= '<th class="infraTh" width="1%">' . PaginaSEI::getInstance()->getThCheck() . '</th>' . "\n";
-        $strResultado .= '<th class="infraTh" width="5%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdArquivamentoDTO, 'Processo', 'ProtocoloFormatado', $arrObjMdGdArquivamentoDTO) . '</th>' . "\n";
+        $strResultado .= '<th class="infraTh" width="5%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdArquivamentoDTO, 'Nº do Processo', 'ProtocoloFormatado', $arrObjMdGdArquivamentoDTO) . '</th>' . "\n";
         $strResultado .= '<th class="infraTh" width="10%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdArquivamentoDTO, 'Especificação', 'Descricao', $arrObjMdGdArquivamentoDTO) . '</th>' . "\n";
         $strResultado .= '<th class="infraTh" width="5%">Código de Classificação</th>' . "\n";
         $strResultado .= '<th class="infraTh" width="10%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdArquivamentoDTO, 'Tipo de Processo', 'NomeTipoProcedimento', $arrObjMdGdArquivamentoDTO) . '</th>' . "\n";
@@ -282,16 +276,13 @@ PaginaSEI::getInstance()->abrirStyle();
 #lblSelAssunto {position:absolute;left:0%;top:50%;width:20%;}
 #selAssunto {position:absolute;left:0%;top:70%;width:38%;}
 
-#lblDestinacaoFinal {position:absolute;left:21%;top:0%;width:20%;}
-#selDestinacaoFinal {position:absolute;left:21%;top:20%;width:20%;}
+#lblPeriodoDe {position:absolute;left:21%;top:0%;width:18%;}
+#txtPeriodoDe {position:absolute;left:21%;top:20%;width:18%;}
+#imgCalPeriodoD {position:absolute;left:39%;top:20%;}
 
-#lblPeriodoDe {position:absolute;left:42%;top:0%;width:18%;}
-#txtPeriodoDe {position:absolute;left:42%;top:20%;width:18%;}
-#imgCalPeriodoD {position:absolute;left:60%;top:20%;}
-
-#lblPeriodoA {position:absolute;left:63%;top:0%;width:18%;}
-#txtPeriodoA {position:absolute;left:63%;top:20%;width:18%;}
-#imgCalPeriodoA {position:absolute;left:81%;top:20%;}
+#lblPeriodoA {position:absolute;left:42%;top:0%;width:18%;}
+#txtPeriodoA {position:absolute;left:42%;top:20%;width:18%;}
+#imgCalPeriodoA {position:absolute;left:60%;top:20%;}
 
 #lblJustificativa {position:absolute;left:40%;top:50%;width:20%;}
 #selJustificativa {position:absolute;left:40%;top:70%;width:38%;}
@@ -381,10 +372,6 @@ PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
             onchange="this.form.submit();"
             tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>">
                 <?= $strItensSelJustificativas ?>
-    </select>
-
-    <label id="lblDestinacaoFinal" for="selDestinacaoFinal" accesskey="" class="infraLabelOpcional">Destinação Final:</label>
-    <select id="selDestinacaoFinal" name="selDestinacaoFinal" onchange="this.form.submit();" class="infraSelect" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>" >
     </select>
 
     <label id="lblPeriodoDe" for="txtPeriodoDe" accesskey="" class="infraLabelOpcional">Data de Arquivamento de:</label>

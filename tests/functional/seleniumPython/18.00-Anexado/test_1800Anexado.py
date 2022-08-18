@@ -201,7 +201,7 @@ class Test1800Anexado():
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivistaorg2")
     self.vars["window_handles"] = self.driver.window_handles
-    self.driver.find_element(By.ID, "sbmSalvar").click()
+    self.driver.find_element(By.ID, "btnAssinar").click()
     self.vars["win1700"] = self.wait_for_window(5)
     self.driver.switch_to.window(self.vars["win1700"])
     self.driver.close()

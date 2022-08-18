@@ -114,7 +114,7 @@ try {
         $strResultado .= '<tr>';
         $strResultado .= '<th class="infraTh" width="1%">' . PaginaSEI::getInstance()->getThCheck() . '</th>' . "\n";
         $strResultado .= '<th class="infraTh" width="10%">' . PaginaSEI::getInstance()->getThOrdenacao($objArquivamentoDTO, 'Unidade', 'SiglaUnidadeArquivamento', $arrObjArquivamentoDTO) . '</th>' . "\n";
-        $strResultado .= '<th class="infraTh" width="10%">' . PaginaSEI::getInstance()->getThOrdenacao($objArquivamentoDTO, 'Processo', 'ProtocoloFormatadoProcedimento', $arrObjArquivamentoDTO) . '</th>' . "\n";
+        $strResultado .= '<th class="infraTh" width="10%">' . PaginaSEI::getInstance()->getThOrdenacao($objArquivamentoDTO, 'Nº do Processo', 'ProtocoloFormatadoProcedimento', $arrObjArquivamentoDTO) . '</th>' . "\n";
         $strResultado .= '<th class="infraTh" width="19%">' . PaginaSEI::getInstance()->getThOrdenacao($objArquivamentoDTO, 'Tipo de Processo', 'NomeTipoProcedimento', $arrObjArquivamentoDTO) . '</th>' . "\n";
         $strResultado .= '<th class="infraTh" width="10%">' . PaginaSEI::getInstance()->getThOrdenacao($objArquivamentoDTO, 'Unidade', 'ProtocoloFormatadoDocumento', $arrObjArquivamentoDTO) . '</th>' . "\n";
         $strResultado .= '<th class="infraTh" width="10%">Local</th>' . "\n";
