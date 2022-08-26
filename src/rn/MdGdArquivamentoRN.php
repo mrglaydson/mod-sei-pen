@@ -48,10 +48,11 @@ class MdGdArquivamentoRN extends InfraRN {
         //Valida Permissao
         SessaoSEI::getInstance()->validarAuditarPermissao('gd_procedimento_arquivar', __METHOD__, $objMdGdArquivamentoDTO);
 
-        // Validações para arquivamento
-        $this->validarArquivamento($objMdGdArquivamentoDTO);
-
         try {
+
+            // Validações para arquivamento
+            $this->validarArquivamento($objMdGdArquivamentoDTO);
+
             // Reabre o processo caso esteja fechado TODO: REVER ESSA IMPLEMENTAÇÃO
             if ($objMdGdArquivamentoDTO->reabrirProcedimentoGeracao) {
                 $objReabrirProcessoDTO = new ReabrirProcessoDTO();
@@ -262,6 +263,39 @@ class MdGdArquivamentoRN extends InfraRN {
         if(!$objMdGdUnidadeArquivamentoRN->getNumIdUnidadeArquivamentoAtual()){
             throw new InfraException('A unidade atual não possui unidade de arquivamento configurada');
         }
+
+        // Valida se o processo está com retorno programado
+        $objRetornoProgramadoDTO = new RetornoProgramadoDTO();
+        $objRetornoProgramadoDTO->setDblIdProtocolo($objMdGdArquivamentoDTO->getDblIdProcedimento());
+        $objRetornoProgramadoDTO->retDtaProgramada();
+
+        $objRetornoProgramadoRN = new RetornoProgramadoRN();
+        $objRetornoProgramadoDTO = $objRetornoProgramadoRN->consultar($objRetornoProgramadoDTO);
+
+        if(isset($objRetornoProgramadoDTO)){
+            throw new InfraException('Processo(s) não pode(m) ser aquivado(s) pois possui(em) retorno programado.');
+        }
+
+        // Validar se há ação antes da data informada para arquivamento
+        if(!$objMdGdArquivamentoDTO->isSetDthDataArquivamento()){
+            $dthArquivamento = InfraData::getStrDataHoraAtual();
+        }else{
+            $arrDtaDataArquivamento = explode('/', str_replace(['00:00:00', ' '], ['', ''], $objMdGdArquivamentoDTO->getDthDataArquivamento()));
+            $dthArquivamento = $arrDtaDataArquivamento[0].'-'.$arrDtaDataArquivamento[1].'-'.$arrDtaDataArquivamento[2].' '.date('H:i:s');
+        }
+
+        $objAtividadeDTO = new AtividadeDTO();
+        $objAtividadeDTO->retNumIdTarefa();
+        $objAtividadeDTO->setDthAbertura($dthArquivamento, infraDTO::$OPER_MAIOR);
+        $objAtividadeDTO->setDblIdProtocolo($objMdGdArquivamentoDTO->getDblIdProcedimento());
+
+        $objAtividadeRN = new AtividadeRN();
+        $qtdeTaferas = $objAtividadeRN->contarRN0035($objAtividadeDTO);
+
+        $objMdGdUnidadeArquivamentoRN = new MdGdUnidadeArquivamentoRN();
+        if($qtdeTaferas > 0){
+            throw new InfraException('Processo(s) não pode(m) ser arquivado(s), pois possui andamento posterior à data informada.');
+        }
     }
     
     /**
@@ -334,7 +368,7 @@ class MdGdArquivamentoRN extends InfraRN {
 
         $arrVariaveisModelo = [
             '@motivo@' => $objMdGdJustificativaDTO->getStrNome(),
-            '@data_arquivamento@' => $dthArquivamento,
+            '@data_arquivamento@' => substr($dthArquivamento, 0, 10),
             '@responsavel_arquivamento@' => $strResponsavelArquivamento,
             '@base_legal@' => $objMdGdJustificativaDTO->getStrDescricao()
         ];
@@ -537,7 +571,7 @@ class MdGdArquivamentoRN extends InfraRN {
 
         $arrVariaveisModelo = [
             '@motivo@' => $objMdGdJustificativaDTO->getStrNome(),
-            '@data_desarquivamento@' => $dthArquivamento,
+            '@data_desarquivamento@' => substr($dthArquivamento, 0, 10),
             '@responsavel_desarquivamento@' => $strResponsavelArquivamento,
             '@base_legal@' => $objMdGdJustificativaDTO->getStrDescricao()
         ];

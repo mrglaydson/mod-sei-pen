@@ -11,7 +11,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
-class Test0270SEIGDDuplicaMassa2():
+class Test0275SEIGDDuplicaMassa2():
   def setup_method(self, method):
     if ("LOCAL" == os.environ["SELENIUMTEST_MODALIDADE"]):
         self.driver = webdriver.Chrome()

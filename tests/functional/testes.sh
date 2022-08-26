@@ -18,34 +18,14 @@ rodar_teste 02.10-SEI-GD-CadProcEventoInst
 
 rodar_teste 02.20-SEI-GD-CadProcEventoInst-Aut
 
-rodar_teste 02.50-SEI-GD-DuplicaMassa
-rodar_teste 02.50-SEI-GD-DuplicaMassa
-rodar_teste 02.50-SEI-GD-DuplicaMassa
-rodar_teste 02.50-SEI-GD-DuplicaMassa
-rodar_teste 02.50-SEI-GD-DuplicaMassa
-rodar_teste 02.50-SEI-GD-DuplicaMassa
-rodar_teste 02.70-SEI-GD-DuplicaMassa2
-rodar_teste 02.70-SEI-GD-DuplicaMassa2
-rodar_teste 02.70-SEI-GD-DuplicaMassa2
-rodar_teste 02.70-SEI-GD-DuplicaMassa2
-rodar_teste 02.70-SEI-GD-DuplicaMassa2
-rodar_teste 02.70-SEI-GD-DuplicaMassa2
+rodar_teste_paralelo 02.50-SEI-GD-DuplicaMassa 5
+rodar_teste_paralelo 02.70-SEI-GD-DuplicaMassa2 5
 
 rodar_teste 02.30-SEI-GD-CadProcAcessoInf
 rodar_teste 02.40-SEI-GD-CadProcAcessoInf-Aut
 
-rodar_teste 02.50-SEI-GD-DuplicaMassa
-rodar_teste 02.50-SEI-GD-DuplicaMassa
-rodar_teste 02.50-SEI-GD-DuplicaMassa
-rodar_teste 02.50-SEI-GD-DuplicaMassa
-rodar_teste 02.50-SEI-GD-DuplicaMassa
-rodar_teste 02.50-SEI-GD-DuplicaMassa
-rodar_teste 02.70-SEI-GD-DuplicaMassa2
-rodar_teste 02.70-SEI-GD-DuplicaMassa2
-rodar_teste 02.70-SEI-GD-DuplicaMassa2
-rodar_teste 02.70-SEI-GD-DuplicaMassa2
-rodar_teste 02.70-SEI-GD-DuplicaMassa2
-rodar_teste 02.70-SEI-GD-DuplicaMassa2
+rodar_teste_paralelo 02.50-SEI-GD-DuplicaMassa 5
+rodar_teste_paralelo 02.70-SEI-GD-DuplicaMassa2 5
 
 
 if [ "$SELENIUMTEST_BACKUP" == "true" ]; then
@@ -66,35 +46,19 @@ fi
 
 rodar_teste 02.15-SEI-GD-CadProcEventoInst
 
-rodar_teste 02.75-SEI-GD-DuplicaMassa2
-rodar_teste 02.75-SEI-GD-DuplicaMassa2
-rodar_teste 02.75-SEI-GD-DuplicaMassa2
-rodar_teste 02.75-SEI-GD-DuplicaMassa2
-rodar_teste 02.75-SEI-GD-DuplicaMassa2
+rodar_teste_paralelo 02.75-SEI-GD-DuplicaMassa2 4
 
 rodar_teste 02.25-SEI-GD-CadProcEventoInst-Aut
 
-rodar_teste 02.75-SEI-GD-DuplicaMassa2
-rodar_teste 02.75-SEI-GD-DuplicaMassa2
-rodar_teste 02.75-SEI-GD-DuplicaMassa2
-rodar_teste 02.75-SEI-GD-DuplicaMassa2
-rodar_teste 02.75-SEI-GD-DuplicaMassa2
+rodar_teste_paralelo 02.75-SEI-GD-DuplicaMassa2 4
 
 rodar_teste 02.35-SEI-GD-CadProcAcessoInf
 
-rodar_teste 02.75-SEI-GD-DuplicaMassa2
-rodar_teste 02.75-SEI-GD-DuplicaMassa2
-rodar_teste 02.75-SEI-GD-DuplicaMassa2
-rodar_teste 02.75-SEI-GD-DuplicaMassa2
-rodar_teste 02.75-SEI-GD-DuplicaMassa2
+rodar_teste_paralelo 02.75-SEI-GD-DuplicaMassa2 4
 
 rodar_teste 02.45-SEI-GD-CadProcAcessoInf-Aut
 
-rodar_teste 02.75-SEI-GD-DuplicaMassa2
-rodar_teste 02.75-SEI-GD-DuplicaMassa2
-rodar_teste 02.75-SEI-GD-DuplicaMassa2
-rodar_teste 02.75-SEI-GD-DuplicaMassa2
-rodar_teste 02.75-SEI-GD-DuplicaMassa2
+rodar_teste_paralelo 02.75-SEI-GD-DuplicaMassa2 4
 
 backup "dmpPosFlood2.dmp"
 
@@ -128,17 +92,18 @@ rodar_teste 06-SEI-GD-ListagemEliminacao
 
 rodar_teste 02.85-SEI-GD-ConcluirMassa2
 
-rodar_teste 13.00-ArquivamentoLegado
-
-
-backup "dmpPos13.dmp"
-
 
 data_alterar "2025-03-06 11:00:00"
 
 standalone_destruir
 
 db_restart
+
+
+rodar_teste 13.00-ArquivamentoLegado
+
+
+backup "dmpPos13.dmp"
 
 # pular
 # rodar_teste 06.20-SEI-GD-VerificarPrazos/

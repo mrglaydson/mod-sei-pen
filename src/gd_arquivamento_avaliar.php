@@ -37,6 +37,8 @@ try {
             foreach($arrObjMdGdrquivamentoDTO as $objMdGdArquivamentoDTO){
                 $objMdGdArquivamentoRN->enviarEliminacao($objMdGdArquivamentoDTO);
             }
+
+            header('Location: ' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . $_GET['acao_origem'] . '&acao_origem=' . $_GET['acao']));
             break;
 
         case 'gd_arquivamento_recolhimento_enviar':
@@ -56,6 +58,7 @@ try {
                 $objMdGdArquivamentoRN->enviarRecolhimento($objMdGdArquivamentoDTO);
             }
             
+            header('Location: ' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . $_GET['acao_origem'] . '&acao_origem=' . $_GET['acao']));
             break;
         default:
             throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
@@ -261,7 +264,7 @@ try {
             $strResultado .= $strCssTr;
 
             if (InfraData::compararDatas($arrObjMdGdArquivamentoDTO[$i]->getDthDataGuardaIntermediaria(), date('d/m/Y H:i:s')) >= 0) {
-                $strResultado .= '<td><a id="lnkInfraID-'.$arrObjMdGdArquivamentoDTO[$i]->getDblIdProcedimento().'" name="ID-'.$arrObjMdGdArquivamentoDTO[$i]->getDblIdProcedimento().'">' . str_replace(PaginaSEI::getInstance()->getTrCheck($i, $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento(), $arrObjMdGdArquivamentoDTO[$i]->getStrProtocoloFormatado()),'<a id="lnkInfraID-'.$arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento().'" name="ID-'.$arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento().'"></a>','') . '</td>';
+                $strResultado .= '<td><a id="lnkInfraID-'.$arrObjMdGdArquivamentoDTO[$i]->getDblIdProcedimento().'" name="ID-'.$arrObjMdGdArquivamentoDTO[$i]->getDblIdProcedimento().'">' . PaginaSEI::getInstance()->getTrCheck($i, $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento(),'<a id="lnkInfraID-'.$arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento().'" name="ID-'.$arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento().'"></a>','') . '</td>';
             }else{
                 $strResultado .= '<td><a id="lnkInfraID-'.$arrObjMdGdArquivamentoDTO[$i]->getDblIdProcedimento().'" name="ID-'.$arrObjMdGdArquivamentoDTO[$i]->getDblIdProcedimento().'"/></td>';
             }
@@ -298,7 +301,7 @@ try {
 
                 // Ação de edição de metadados
                 if($bolAcaoDevolverArquivamento){
-                    $strLinkDevolver = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_arquivamento_devolver&acao_origem=' . $_GET['acao'] . '&id_arquivamento=' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento());
+                    $strLinkDevolver = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_arquivamento_devolver&acao_origem=gd_arquivamento_avaliar&id_arquivamento=' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento());
                     $strAcoes .= '<a style="position: relative; left: 0px;" href="#ID-' . $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento() . '" onclick="acaoDevolver(\'' . $strLinkDevolver . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="' . MdGestaoDocumentalIntegracao::getDiretorio() . '/imagens/icone_devolver_para_correcao.png" title="Devolver para Correção" title="Devolver para Correção" class="infraImg" style="width: 25px; height: 25px;" /></a>';
 
                     // Funcionalidade entrará em versão futura
@@ -443,7 +446,7 @@ PaginaSEI::getInstance()->fecharHead();
 PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
 ?>
 <form id="frmAvaliacaoProcessoLista" method="post"
-      action="<?= SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . $_GET['acao'] . '&acao_origem=' . $_GET['acao']) ?>">
+      action="<?= SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . $_GET['acao'] . '&acao_origem=' . $_GET['acao_origem']) ?>">
           <?
           PaginaSEI::getInstance()->montarBarraComandosSuperior($arrComandos);
           PaginaSEI::getInstance()->abrirAreaDados('13em');

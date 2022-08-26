@@ -105,18 +105,20 @@ try {
                        $prb->moverProximo();
                     }
 
-                    PaginaSEI::getInstance()->setStrMensagem('Arquivamento realizado com sucesso!');
+                    $prb->setStrRotulo('Arquivamento realizado com sucesso!');
 
                     if ($_POST['hdnOrigem'] == 'gd_pendencia_arquivamento_listar') {
-                       PaginaSEI::getInstance()->finalizarBarraProgresso2(SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_pendencia_arquivamento_listar&acao_origem=' . $_GET['acao']), true);
-                    } else if ($_POST['hdnOrigem'] == 'procedimento_controlar') {
+                        PaginaSEI::getInstance()->finalizarBarraProgresso2(SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_pendencia_arquivamento_listar&acao_origem=' . $_GET['acao']), true);
+                     } else if ($_POST['hdnOrigem'] == 'procedimento_controlar') {
                         PaginaSEI::getInstance()->finalizarBarraProgresso2(SessaoSEI::getInstance()->assinarLink('controlador.php?acao=procedimento_controlar&acao_origem=' . $_GET['acao']), true);
-                    } else {
-                      PaginaSEI::getInstance()->finalizarBarraProgresso2(SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_procedimento_arquivar&acao_origem=' . $_GET['acao'] . '&id_procedimento='.$arrProtocolosOrigem[0].'&arvore=1&redirect=true'), true);
+                     } else {
+                        PaginaSEI::getInstance()->finalizarBarraProgresso2(SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_procedimento_arquivar&acao_origem=' . $_GET['acao'] . '&id_procedimento='.$arrProtocolosOrigem[0].'&arvore=1&redirect=true'), true);
                     }
                     die;
+
                 } catch (Exception $e) {
                     PaginaSEI::getInstance()->processarExcecao($e);
+                    PaginaSEI::getInstance()->finalizarBarraProgresso2(null, true);
                 }
             }
 
@@ -388,7 +390,7 @@ PaginaSEI::getInstance()->abrirJavaScript();
             dataArquivamento = new Number(dataArquivamento);
 
             if(dataArquivamento < dataMinima) {
-                alert('Não existe andamento registrado no(s) processo(s) selecionado(s) na data de arquivamento informada.');
+                alert('Processo(s) não pode(m) ser arquivado(s), pois possui andamento posterior à data informada.');
                 return false;
             }
 
