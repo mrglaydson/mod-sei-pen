@@ -82,8 +82,43 @@ rodar_teste(){
             --network=host linhares/pytestseleniumdocker:latest bash -c \
             "echo '127.0.0.1 seleniumchrome' >> /etc/hosts && pytest --disable-pytest-warnings -W ignore::DeprecationWarning -o junit_family=xunit2 --junitxml=/resultado/resultado.xml -x --tb=short seleniumPython/$1"
     fi
-    
+}
 
+rodar_teste_paralelo(){
+    
+    if [ "$SELENIUMTEST_MODALIDADE" == "LOCAL" ]; then
+        pytest -n 3 -x --tb=short seleniumPython/$1
+    fi
+    
+    if [ "$SELENIUMTEST_MODALIDADE" == "STANDALONE" ] || [ "$SELENIUMTEST_MODALIDADE" == "REMOTE" ]; then
+
+        if [ "$SELENIUMTEST_MODALIDADE" == "STANDALONE" ]; then
+
+            standalone_verificar
+            
+        fi
+        
+        arq=$1
+        replace=""
+        arq2=${arq//./$replace}
+        for (( i=1; i<=$2; i++ ))
+        do  
+            cp -p seleniumPython/$1/"test_"${arq2//-/$replace}.py seleniumPython/$1/"test_"${arq2//-/$replace}$i.py
+        done
+        
+        docker run --rm -t -v "$PWD":/t -w /t \
+            -e "SELENIUMTEST_SISTEMA_URL=$SELENIUMTEST_SISTEMA_URL" \
+            -e "SELENIUMTEST_SISTEMA_ORGAO=$SELENIUMTEST_SISTEMA_ORGAO" \
+            -e "SELENIUMTEST_MODALIDADE=$SELENIUMTEST_MODALIDADE" \
+            -e "SELENIUMTEST_SELENIUMHOST_URL=$SELENIUMTEST_SELENIUMHOST_URL" \
+            --network=host linhares/pytestseleniumdocker:latest bash -c \
+            "echo '127.0.0.1 seleniumchrome' >> /etc/hosts && pytest -n auto --dist loadfile --disable-pytest-warnings -W ignore::DeprecationWarning -o junit_family=xunit2 --junitxml=/resultado/resultado.xml -x --tb=short seleniumPython/$1"
+
+        for (( j=1; j<=$2; j++ ))
+        do 
+            rm -f seleniumPython/$1/"test_"${arq2//-/$replace}$j.py
+        done
+    fi
 }
 
 paralelizar(){

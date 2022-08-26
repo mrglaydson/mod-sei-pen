@@ -523,105 +523,146 @@ class MdGdListaEliminacaoRN extends InfraRN {
     }
 
     public function gerarPdfConectado($numIdListagem) {
-        $objMdGdListaElimProcedimentoDTO = new MdGdListaElimProcedimentoDTO();
-        $objMdGdListaElimProcedimentoDTO->setNumIdListaEliminacao($numIdListagem);
- 
-        if($_POST['hdnInfraItensSelecionados']){
-            $arrIdsProcedimentos = explode(',', $_POST['hdnInfraItensSelecionados']);
-            $objMdGdListaElimProcedimentoDTO->setDblIdProcedimento($arrIdsProcedimentos, InfraDTO::$OPER_IN);
-        }
-        
-        $objMdGdListaElimProcedimentoDTO->retDblIdProcedimento();
-
-        $objMdGdListaElimProcedimentoRN = new MdGdListaElimProcedimentoRN();
-        $arrObjMdGdListaElimProcedimentoDTO = $objMdGdListaElimProcedimentoRN->listar($objMdGdListaElimProcedimentoDTO);
-
-        
-        $arrIdsEliminacao = explode(',', InfraArray::implodeArrInfraDTO($arrObjMdGdListaElimProcedimentoDTO, 'IdProcedimento'));
-
-        // Busca todos os arquivamentos dos processos daquela listagem
-        $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
-        $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
-
-        $objMdGdArquivamentoDTO->retNumIdArquivamento();
-        $objMdGdArquivamentoDTO->retDthDataArquivamento();
-        $objMdGdArquivamentoDTO->retStrProtocoloFormatado();
-        $objMdGdArquivamentoDTO->retStrNomeTipoProcedimento();
-        $objMdGdArquivamentoDTO->retStrDescricaoUnidadeCorrente();
-        $objMdGdArquivamentoDTO->retStrObservacaoEliminacao();
-        $objMdGdArquivamentoDTO->retDblIdProtocoloProcedimento();
-        $objMdGdArquivamentoDTO->setStrSinAtivo('S');
-        $objMdGdArquivamentoDTO->setDblIdProcedimento($arrIdsEliminacao, InfraDTO::$OPER_IN);
-
-        $arrObjMdGdArquivamentoDTO = $objMdGdArquivamentoRN->listar($objMdGdArquivamentoDTO);
-        $numRegistros = count($arrObjMdGdArquivamentoDTO);
-
-        if ($numRegistros > 0) {
-            $strResultado = '';
-
-            $strSumarioTabela = 'Lista de Processos';
-            $strCaptionTabela = 'Processos';
-
-            $strResultado .= '<table width="99%" class="infraTable" border="1">';
-            $strResultado .= '<tr>';
-            $strResultado .= '<th class="infraTh" width="13%">Descrição Unidade Corrente</th>';
-            $strResultado .= '<th class="infraTh" width="10%">Código de Classificação</th>';
-            $strResultado .= '<th class="infraTh" width="20%">Descritor do Código</th>';
-            $strResultado .= '<th class="infraTh" width="14%">Nº do Processo</th>';
-            $strResultado .= '<th class="infraTh" width="15%">Tipo de Processo</th>';
-            $strResultado .= '<th class="infraTh" width="10%">Data de arquivamento</th>';
-            $strResultado .= '<th class="infraTh" width="10%">Observações e/ou Justificativas</th>';
-            $strResultado .= '</tr>';
-            $strCssTr = '';
-
-            $objRelProtocoloAssuntoRN = new RelProtocoloAssuntoRN();
-
-            for ($i = 0; $i < $numRegistros; $i++) {
-
-                // Obtem os dados do assunto
-                $objRelProtocoloAssuntoDTO = new RelProtocoloAssuntoDTO();
-                $objRelProtocoloAssuntoDTO->setDblIdProtocolo($arrObjMdGdArquivamentoDTO[$i]->getDblIdProtocoloProcedimento());
-                $objRelProtocoloAssuntoDTO->retStrCodigoEstruturadoAssunto();
-                $objRelProtocoloAssuntoDTO->retStrDescricaoAssunto();
-
-                $arrObjRelProtocoloAssuntoDTO = $objRelProtocoloAssuntoRN->listarRN0188($objRelProtocoloAssuntoDTO);
-
-                $strCodigoClassificacao = '';
-                $strDescritorCodigo = '';
-
-                foreach ($arrObjRelProtocoloAssuntoDTO as $key => $objRelProtocoloAssuntoDTO) {
-                    if ($key + 1 == count($arrObjRelProtocoloAssuntoDTO)) {
-                        $strCodigoClassificacao .= $objRelProtocoloAssuntoDTO->getStrCodigoEstruturadoAssunto();
-                        $strDescritorCodigo .= $objRelProtocoloAssuntoDTO->getStrDescricaoAssunto();
-                    } else {
-                        $strCodigoClassificacao .= $objRelProtocoloAssuntoDTO->getStrCodigoEstruturadoAssunto() . " <br><br> ";
-                        $strDescritorCodigo .= $objRelProtocoloAssuntoDTO->getStrDescricaoAssunto() . " <br><br> ";
-                    }
-                }
-
-                $strCssTr = ($strCssTr == '<tr class="infraTrClara">') ? '<tr class="infraTrEscura">' : '<tr class="infraTrClara">';
-                $strResultado .= $strCssTr;
-
-                $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getStrDescricaoUnidadeCorrente()) . '</td>';
-                $strResultado .= '<td>' . $strCodigoClassificacao . '</td>';
-                $strResultado .= '<td>' . $strDescritorCodigo . '</td>';
-                $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getStrProtocoloFormatado()) . '</td>';
-                $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getStrNomeTipoProcedimento()) . '</td>';
-                $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getDthDataArquivamento()) . '</td>';
-                $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getStrObservacaoEliminacao()) . '</td>';
-                $strResultado .= '</tr>';
+        try{
+            $objMdGdListaElimProcedimentoDTO = new MdGdListaElimProcedimentoDTO();
+            $objMdGdListaElimProcedimentoDTO->setNumIdListaEliminacao($numIdListagem);
+            $objSessaoSEI = SessaoSEI::getInstance();
+    
+            if($_POST['hdnInfraItensSelecionados']){
+                $arrIdsProcedimentos = explode(',', $_POST['hdnInfraItensSelecionados']);
+                $objMdGdListaElimProcedimentoDTO->setDblIdProcedimento($arrIdsProcedimentos, InfraDTO::$OPER_IN);
             }
-            $strResultado .= '</table>';
+            
+            $objMdGdListaElimProcedimentoDTO->retDblIdProcedimento();
+
+            $objMdGdListaElimProcedimentoRN = new MdGdListaElimProcedimentoRN();
+            $arrObjMdGdListaElimProcedimentoDTO = $objMdGdListaElimProcedimentoRN->listar($objMdGdListaElimProcedimentoDTO);
+
+            
+            $arrIdsEliminacao = explode(',', InfraArray::implodeArrInfraDTO($arrObjMdGdListaElimProcedimentoDTO, 'IdProcedimento'));
+
+            // Busca todos os arquivamentos dos processos daquela listagem
+            $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
+            $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
+
+            $objMdGdArquivamentoDTO->retNumIdArquivamento();
+            $objMdGdArquivamentoDTO->retDthDataArquivamento();
+            $objMdGdArquivamentoDTO->retDthDataGuardaIntermediaria();
+            $objMdGdArquivamentoDTO->retStrProtocoloFormatado();
+            $objMdGdArquivamentoDTO->retStrNomeTipoProcedimento();
+            $objMdGdArquivamentoDTO->retStrDescricaoUnidadeCorrente();
+            $objMdGdArquivamentoDTO->retStrObservacaoEliminacao();
+            $objMdGdArquivamentoDTO->retDblIdProtocoloProcedimento();
+            $objMdGdArquivamentoDTO->setStrSinAtivo('S');
+            $objMdGdArquivamentoDTO->setDblIdProcedimento($arrIdsEliminacao, InfraDTO::$OPER_IN);
+            $objMdGdArquivamentoDTO->retStrNomeJustificativa();
+            $objMdGdArquivamentoDTO->retStrDescricaoJustificativa();
+            $objMdGdArquivamentoDTO->retStrDescricao();
+
+            $arrObjMdGdArquivamentoDTO = $objMdGdArquivamentoRN->listar($objMdGdArquivamentoDTO);
+            $numRegistros = count($arrObjMdGdArquivamentoDTO);
+
+            $objMdGdListaEliminacaoDTO = new MdGdListaEliminacaoDTO();
+            $objMdGdListaEliminacaoDTO->setNumIdListaEliminacao($numIdListagem);
+            $objMdGdListaEliminacaoDTO->retStrNumero();
+            $objMdGdListaEliminacaoDTO = $this->consultar($objMdGdListaEliminacaoDTO);
+
+            $objUnidadeDTO = new UnidadeDTO();
+            $objUnidadeDTO->retStrTimbreOrgao();
+            $objUnidadeDTO->setNumIdUnidade($objSessaoSEI->getNumIdUnidadeAtual());
+
+            $objUnidadeRN = new UnidadeRN();
+            $objUnidadeDTO = $objUnidadeRN->consultarRN0125($objUnidadeDTO);
+
+            if ($numRegistros > 0) {
+                $strResultado = '';
+
+                $strSumarioTabela = 'Lista de Processos';
+
+                $strResultado = '<meta http-equiv="Pragma" content="no-cache" /><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+                                <style type="text/css">p.Citacao {font-size:10pt;font-family:Calibri;word-wrap:normal;margin:4pt 0 4pt 160px;text-align:justify;} p.Item_Alinea_Letra {font-size:12pt;font-family:Calibri;text-indent:0mm;text-align:justify;word-wrap:normal;margin:6pt 6pt 6pt 120px;counter-increment:letra_minuscula;} p.Item_Alinea_Letra:before {content:counter(letra_minuscula, lower-latin) ") ";display:inline-block;width:5mm;font-weight:normal;} p.Item_Inciso_Romano {font-size:12pt;font-family:Calibri;text-align:justify;word-wrap:normal;text-indent:0mm;margin:6pt 6pt 6pt 120px;counter-increment:romano_maiusculo;counter-reset:letra_minuscula;} p.Item_Inciso_Romano:before {content:counter(romano_maiusculo, upper-roman) " - ";display:inline-block;width:15mm;font-weight:normal;} p.Item_Nivel1 {text-transform:uppercase;font-weight:bold;background-color:#e6e6e6;font-size:12pt;font-family:Calibri;text-align:justify;word-wrap:normal;text-indent:0;margin:6pt;counter-increment:item-n1;counter-reset:item-n2 item-n3 item-n4 romano_maiusculo letra_minuscula;} p.Item_Nivel1:before {content:counter(item-n1) ".";display:inline-block;width:25mm;font-weight:normal;} p.Item_Nivel2 {font-size:12pt;font-family:Calibri;text-indent:0mm;text-align:justify;word-wrap:normal;margin:6pt;counter-increment:item-n2;counter-reset:item-n3 item-n4 romano_maiusculo letra_minuscula;} p.Item_Nivel2:before {content:counter(item-n1) "." counter(item-n2) ".";display:inline-block;width:25mm;font-weight:normal;} p.Item_Nivel3 {font-size:12pt;font-family:Calibri;text-indent:0mm;text-align:justify;word-wrap:normal;margin:6pt;counter-increment:item-n3;counter-reset:item-n4 romano_maiusculo letra_minuscula;} p.Item_Nivel3:before {content:counter(item-n1) "." counter(item-n2) "." counter(item-n3) ".";display:inline-block;width:25mm;font-weight:normal;} p.Item_Nivel4 {font-size:12pt;font-family:Calibri;text-indent:0mm;text-align:justify;word-wrap:normal;margin:6pt;counter-increment:item-n4;counter-reset:romano_maiusculo letra_minuscula;} p.Item_Nivel4:before {content:counter(item-n1) "." counter(item-n2) "." counter(item-n3) "."  counter(item-n4) ".";display:inline-block;width:25mm;font-weight:normal;} p.Paragrafo_Numerado_Nivel1 {font-size:12pt;font-family:Calibri;text-align:justify;word-wrap:normal;text-indent:0mm;margin:6pt;counter-increment:paragrafo-n1;counter-reset:paragrafo-n2 paragrafo-n3 paragrafo-n4 romano_maiusculo letra_minuscula;} p.Paragrafo_Numerado_Nivel1:before {content:counter(paragrafo-n1) ".";display:inline-block;width:25mm;font-weight:normal;} p.Paragrafo_Numerado_Nivel2 {font-size:12pt;font-family:Calibri;text-indent:0mm;text-align:justify;word-wrap:normal;margin:6pt;counter-increment:paragrafo-n2;counter-reset:paragrafo-n3 paragrafo-n4 romano_maiusculo letra_minuscula;} p.Paragrafo_Numerado_Nivel2:before {content:counter(paragrafo-n1) "." counter(paragrafo-n2) ".";display:inline-block;width:25mm;font-weight:normal;} p.Paragrafo_Numerado_Nivel3 {font-size:12pt;font-family:Calibri;text-indent:0mm;text-align:justify;word-wrap:normal;margin:6pt;counter-increment:paragrafo-n3;counter-reset:paragrafo-n4 romano_maiusculo letra_minuscula;} p.Paragrafo_Numerado_Nivel3:before {content:counter(paragrafo-n1) "." counter(paragrafo-n2) "." counter(paragrafo-n3) ".";display:inline-block;width:25mm;font-weight:normal;} p.Paragrafo_Numerado_Nivel4 {font-size:12pt;font-family:Calibri;text-indent:0mm;text-align:justify;word-wrap:normal;margin:6pt;counter-increment:paragrafo-n4;counter-reset:romano_maiusculo letra_minuscula;} p.Paragrafo_Numerado_Nivel4:before {content:counter(paragrafo-n1) "." counter(paragrafo-n2) "." counter(paragrafo-n3) "." counter(paragrafo-n4) ".";display:inline-block;width:25mm;font-weight:normal;} p.Tabela_Texto_8 {font-size:8pt;font-family:Calibri;text-align:left;word-wrap:normal;margin:0 3pt 0 3pt;} p.Tabela_Texto_Alinhado_Direita {font-size:11pt;font-family:Calibri;text-align:right;word-wrap:normal;margin:0 3pt 0 3pt;} p.Tabela_Texto_Alinhado_Esquerda {font-size:11pt;font-family:Calibri;text-align:left;word-wrap:normal;margin:0 3pt 0 3pt;} p.Tabela_Texto_Centralizado {font-size:11pt;font-family:Calibri;text-align:center;word-wrap:normal;margin:0 3pt 0;} p.Texto_Alinhado_Direita {font-size:12pt;font-family:Calibri;text-align:right;word-wrap:normal;margin:6pt;} p.Texto_Alinhado_Esquerda {font-size:12pt;font-family:Calibri;text-align:left;word-wrap:normal;margin:6pt;} p.Texto_Alinhado_Esquerda_Espacamento_Simples {font-size:12pt;font-family:Calibri;text-align:left;word-wrap:normal;margin:0;} p.Texto_Alinhado_Esquerda_Espacamento_Simples_Maiusc {font-size:12pt;font-family:Calibri;text-align:left;text-transform:uppercase;word-wrap:normal;margin:0;} p.Texto_Centralizado {font-size:12pt;font-family:Calibri;text-align:center;word-wrap:normal;margin:6pt;} p.Texto_Centralizado_Maiusculas {font-size:13pt;font-family:Calibri;text-align:center;text-transform:uppercase;word-wrap:normal;} p.Texto_Centralizado_Maiusculas_Negrito {font-weight:bold;font-size:13pt;font-family:Calibri;text-align:center;text-transform:uppercase;word-wrap:normal;} p.Texto_Espaco_Duplo_Recuo_Primeira_Linha {letter-spacing:0.2em;font-weight:bold;font-size:12pt;font-family:Calibri;text-indent:25mm;text-align:justify;word-wrap:normal;margin:6pt;} p.Texto_Fundo_Cinza_Maiusculas_Negrito {text-transform:uppercase;font-weight:bold;background-color:#e6e6e6;font-size:12pt;font-family:Calibri;text-align:justify;word-wrap:normal;text-indent:0;margin:6pt;} p.Texto_Fundo_Cinza_Negrito {font-weight:bold;background-color:#e6e6e6;font-size:12pt;font-family:Calibri;text-align:justify;word-wrap:normal;text-indent:0;margin:6pt;} p.Texto_Justificado {font-size:12pt;font-family:Calibri;text-align:justify;word-wrap:normal;text-indent:0;margin:6pt;} p.Texto_Justificado_Maiusculas {font-size:12pt;font-family:Calibri;text-align:justify;word-wrap:normal;text-indent:0;margin:6pt;text-transform:uppercase;} p.Texto_Justificado_Recuo_Primeira_Linha {font-size:12pt;font-family:Calibri;text-indent:25mm;text-align:justify;word-wrap:normal;margin:6pt;} p.Texto_Justificado_Recuo_Primeira_Linha_Esp_Simples {font-size:12pt;font-family:Calibri;text-indent:25mm;text-align:justify;word-wrap:normal;margin:0 0 0 6pt;}
+                                </style>
+                                <title></title></div>
+                                
+                                <div align="center" wfd-id="1">&nbsp;</div>
+
+                                <p class="Texto_Centralizado_Maiusculas"><img alt="Timbre" src="data:image/png;base64,' . $objUnidadeDTO->getStrTimbreOrgao() . '" /></p>
+                                
+                                <p class="Texto_Centralizado_Maiusculas">'.$objSessaoSEI->getStrDescricaoOrgaoUsuario().'</p>
+                                
+                                <p class="Texto_Centralizado_Maiusculas">LISTAGEM DE ELIMINAÇÃO DE DOCUMENTOS Nº '.$objMdGdListaEliminacaoDTO->getStrNumero().'</p>
+                                
+                                <p class="Texto_Centralizado">Relação de Processos</p>';
+
+                $strResultado .= '<table width="99%" class="infraTable" border="1" summary="' . $strSumarioTabela . '">' . "\n";
+                $strResultado .= '<tr>';
+                $strResultado .= '<th class="infraTh" width="13%">Unidade</th>';
+                $strResultado .= '<th class="infraTh" width="10%">Código de Classificação</th>';
+                $strResultado .= '<th class="infraTh" width="14%">Nº do Processo</th>';
+                $strResultado .= '<th class="infraTh" width="15%">Tipo de Processo</th>';
+                $strResultado .= '<th class="infraTh" width="13%">Especificação</th>';
+                $strResultado .= '<th class="infraTh" width="13%">Justificativa de Arquivamento</th>';
+                $strResultado .= '<th class="infraTh" width="13%">Base Legal</th>';
+                $strResultado .= '<th class="infraTh" width="10%">Data de Arquivamento</th>';
+                $strResultado .= '<th class="infraTh" width="13%">Data de Destinação</th>';
+                $strResultado .= '<th class="infraTh" width="10%">Observações e/ou Justificativas</th>';
+                $strResultado .= '</tr>';
+                $strCssTr = '';
+
+                $objRelProtocoloAssuntoRN = new RelProtocoloAssuntoRN();
+
+                for ($i = 0; $i < $numRegistros; $i++) {
+
+                    // Obtem os dados do assunto
+                    $objRelProtocoloAssuntoDTO = new RelProtocoloAssuntoDTO();
+                    $objRelProtocoloAssuntoDTO->setDblIdProtocolo($arrObjMdGdArquivamentoDTO[$i]->getDblIdProtocoloProcedimento());
+                    $objRelProtocoloAssuntoDTO->retStrCodigoEstruturadoAssunto();
+                    $objRelProtocoloAssuntoDTO->retStrDescricaoAssunto();
+
+                    $arrObjRelProtocoloAssuntoDTO = $objRelProtocoloAssuntoRN->listarRN0188($objRelProtocoloAssuntoDTO);
+
+                    $strCodigoClassificacao = '';
+                    $strDescritorCodigo = '';
+
+                    foreach ($arrObjRelProtocoloAssuntoDTO as $key => $objRelProtocoloAssuntoDTO) {
+                        if ($key + 1 == count($arrObjRelProtocoloAssuntoDTO)) {
+                            $strCodigoClassificacao .= $objRelProtocoloAssuntoDTO->getStrCodigoEstruturadoAssunto();
+                            $strDescritorCodigo .= $objRelProtocoloAssuntoDTO->getStrDescricaoAssunto();
+                        } else {
+                            $strCodigoClassificacao .= $objRelProtocoloAssuntoDTO->getStrCodigoEstruturadoAssunto() . " <br><br> ";
+                            $strDescritorCodigo .= $objRelProtocoloAssuntoDTO->getStrDescricaoAssunto() . " <br><br> ";
+                        }
+                    }
+
+                    $strCssTr = ($strCssTr == '<tr class="infraTrClara">') ? '<tr class="infraTrEscura">' : '<tr class="infraTrClara">';
+                    $strResultado .= $strCssTr;
+
+                    $strResultado .= '<td align="center">' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getStrDescricaoUnidadeCorrente()) . '</td>';
+                    $strResultado .= '<td align="center">' . $strCodigoClassificacao . '</td>';
+                    $strResultado .= '<td align="center">' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getStrProtocoloFormatado()) . '</td>';
+                    $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getStrNomeTipoProcedimento()) . '</td>';
+                    $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getStrDescricao()) . '</td>';
+                    $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getStrNomeJustificativa()) . '</td>';
+                    $strResultado .= '<td align="center">' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getStrDescricaoJustificativa()) . '</td>';
+                    $strResultado .= '<td align="center">' . PaginaSEI::tratarHTML(substr($arrObjMdGdArquivamentoDTO[$i]->getDthDataArquivamento(), 0, 10)) . '</td>';
+                    $strResultado .= '<td align="center">' . PaginaSEI::tratarHTML(substr($arrObjMdGdArquivamentoDTO[$i]->getDthDataGuardaIntermediaria(), 0, 10)) . '</td>';
+                    $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getStrObservacaoEliminacao()) . '</td>';
+                    $strResultado .= '</tr>';
+                }
+                $strResultado .= '</table>';
+            }
+
+            $strCaminhoArquivoHtml = DIR_SEI_TEMP . '/gerar-pdf-listagem-eliminacao-' . date('YmdHis') . '.html';
+            $strCaminhoArquivoPdf = DIR_SEI_TEMP . '/gerar-pdf-listagem-eliminacao-' . date('YmdHis') . '.pdf';
+            $strCaminhoArquivoPdfRelativo = 'gerar-pdf-listagem-eliminacao-' . date('YmdHis') . '.pdf';
+            file_put_contents($strCaminhoArquivoHtml, $strResultado);
+
+            $strComandoGerarPdf = 'wkhtmltopdf --quiet --orientation \'landscape\' --title md_gd_pdf_listagem_eliminacao-' . InfraUtil::retirarFormatacao('1123123', false) . ' ' . $strCaminhoArquivoHtml . '  ' . $strCaminhoArquivoPdf . ' 2>&1';
+            shell_exec($strComandoGerarPdf);
+            SeiINT::download(null, null, $strCaminhoArquivoPdfRelativo, null,'attachment');
+        } catch (Exception $e) {
+            throw new InfraException('Erro ao gerar pdf.', $e);
         }
-
-        $strCaminhoArquivoHtml = DIR_SEI_TEMP . '/gerar-pdf-listagem-eliminacao-' . date('YmdHis') . '.html';
-        $strCaminhoArquivoPdf = DIR_SEI_TEMP . '/gerar-pdf-listagem-eliminacao-' . date('YmdHis') . '.pdf';
-        $strCaminhoArquivoPdfRelativo = 'gerar-pdf-listagem-eliminacao-' . date('YmdHis') . '.pdf';
-        file_put_contents($strCaminhoArquivoHtml, $strResultado);
-
-        $strComandoGerarPdf = 'wkhtmltopdf --quiet --orientation \'landscape\' --title md_gd_pdf_listagem_eliminacao-' . InfraUtil::retirarFormatacao('1123123', false) . ' ' . $strCaminhoArquivoHtml . '  ' . $strCaminhoArquivoPdf . ' 2>&1';
-        shell_exec($strComandoGerarPdf);
-        SeiINT::download(null, null, $strCaminhoArquivoPdfRelativo, null,'attachment');
     }
 
     

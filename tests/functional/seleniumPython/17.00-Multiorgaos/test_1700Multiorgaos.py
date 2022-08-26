@@ -191,10 +191,9 @@ class Test1700Multiorgaos():
     self.driver.find_element(By.ID, "pwdSenha").click()
     self.driver.find_element(By.ID, "pwdSenha").send_keys("arquivistaorg2")
     self.driver.find_element(By.CSS_SELECTOR, "#btnAssinar > .infraTeclaAtalho").click()
-    assert self.driver.switch_to.alert.text == "Não existe andamento registrado no(s) processo(s) selecionado(s) na data de arquivamento informada."
+    assert self.driver.switch_to.alert.text == "Processo(s) não pode(m) ser arquivado(s), pois possui andamento posterior à data informada."
     self.driver.switch_to.alert.accept()
     #elements = self.driver.find_elements(By.ID, "divInfraBarraLocalizacao")
     #assert len(elements) > 0
     elements = self.driver.find_elements(By.XPATH, "//div[contains(.,\'Arquivar Processo\')]")
     assert len(elements) > 0
-  

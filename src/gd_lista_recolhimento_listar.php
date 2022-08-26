@@ -114,8 +114,6 @@ try {
         $objMdGdListaRecolhimentoDTO->setNumAnoLimiteFim($txtAnoLimiteAte, InfraDTO::$OPER_MAIOR_IGUAL);
     }
 
-
-    PaginaSEI::getInstance()->prepararOrdenacao($objMdGdListaRecolhimentoDTO, 'EmissaoListagem', InfraDTO::$TIPO_ORDENACAO_DESC);
     PaginaSEI::getInstance()->prepararPaginacao($objMdGdListaRecolhimentoDTO);
 
     $arrObjMdGdListaRecolhimentoDTO = $objMdGdListaRecolhimentoRN->listar($objMdGdListaRecolhimentoDTO);

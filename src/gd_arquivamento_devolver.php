@@ -91,7 +91,7 @@ PaginaSEI::getInstance()->abrirStyle();
 <?
 PaginaSEI::getInstance()->fecharStyle();
 ?>
-<form id="frmDevolver" method="post" action="<?= SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . $_GET['acao'] . '&acao_origem=' . $_GET['acao'] . '&id_arquivamento=' . $_GET['id_arquivamento']) ?>">
+<form id="frmDevolver" method="post" action="<?= SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . $_GET['acao'] . '&acao_origem=' . $_GET['acao_origem'] . '&id_arquivamento=' . $_GET['id_arquivamento']) ?>">
     <?
     PaginaSEI::getInstance()->montarBarraComandosSuperior($arrComandos);
     PaginaSEI::getInstance()->abrirAreaDados('20em');
