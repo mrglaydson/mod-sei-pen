@@ -1120,6 +1120,10 @@ class VersaoSeiRN extends InfraScriptVersao
     public function versao_1_2_6($strVersaoAtual)
     {
     }
+
+    public function versao_1_2_7($strVersaoAtual)
+    {
+    }
 }
 
 try {
@@ -1147,6 +1151,7 @@ try {
             '1.2.4' => 'versao_1_2_4',
             '1.2.5' => 'versao_1_2_5',
             '1.2.6' => 'versao_1_2_6',
+            '1.2.7' => 'versao_1_2_7',
         )
     );
 
