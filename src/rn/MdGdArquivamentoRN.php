@@ -267,12 +267,13 @@ class MdGdArquivamentoRN extends InfraRN {
         // Valida se o processo está com retorno programado
         $objRetornoProgramadoDTO = new RetornoProgramadoDTO();
         $objRetornoProgramadoDTO->setDblIdProtocolo($objMdGdArquivamentoDTO->getDblIdProcedimento());
-        $objRetornoProgramadoDTO->retDtaProgramada();
+        $objRetornoProgramadoDTO->setNumIdAtividadeRetorno(null);
+        $objRetornoProgramadoDTO->retNumIdRetornoProgramado();
 
         $objRetornoProgramadoRN = new RetornoProgramadoRN();
-        $objRetornoProgramadoDTO = $objRetornoProgramadoRN->consultar($objRetornoProgramadoDTO);
+        $arrObjRetornoProgramadoDTO = $objRetornoProgramadoDTO = $objRetornoProgramadoRN->listar($objRetornoProgramadoDTO);
 
-        if(isset($objRetornoProgramadoDTO)){
+        if(count($arrObjRetornoProgramadoDTO) > 0){
             throw new InfraException('Processo(s) não pode(m) ser aquivado(s) pois possui(em) retorno programado.');
         }
 
