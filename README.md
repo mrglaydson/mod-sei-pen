@@ -19,7 +19,6 @@ As instruções de instalação e atualização do módulo, assim com o manual d
 
 - **[MANUAL DE INSTALAÇÃO](docs/INSTALL.md)**
 - **[MANUAL DE ATUALIZAÇÃO](docs/UPGRADE.md)**
-- **[MANUAL DE UTILIZAÇÃO](docs/USAGE.md)**
 
 
 ## TESTES
