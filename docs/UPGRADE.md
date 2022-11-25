@@ -74,7 +74,7 @@ $ unzip **mod-gestao-documental**-VERSAO.zip
 
 ### 1.6. Atualizar a base de dados do SIP com as tabelas do **mod-gestao-documental**
 
-A atualização realizada no SIP não cria nenhuma tabela específica para o módulo, apenas é aplicada a criarção os recursos, permissões e menus de sistema utilizados pelo **mod-gestao-documental**. Todos os novos recursos criados possuem o prefixo **md_assinavc\_** para fácil localização pelas funcionalidades de gerenciamento de recursos do SIP.
+A atualização realizada no SIP não cria nenhuma tabela específica para o módulo, apenas é aplicada a criarção os recursos, permissões e menus de sistema utilizados pelo **mod-gestao-documental**. Todos os novos recursos criados possuem o prefixo **gd\_** para fácil localização pelas funcionalidades de gerenciamento de recursos do SIP.
 
 O script de atualização da base de dados do SIP fica localizado em `<DIRETÓRIO RAIZ DE INSTALAÇÃO DO SEI E SIP>/sip/scripts/mod-assinatura-avancada/sip_atualizar_versao_modulo_documental.php`
 
