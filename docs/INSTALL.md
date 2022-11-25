@@ -96,16 +96,16 @@ Adicionar a referência ao módulo LoginUnico na array da chave 'Modulos' indica
 
 A instalação da nova versão do **mod-gestao-documental** cria um arquivo de configuração específico para o módulo dentro da pasta de configuração do SEI (**<DIRETÓRIO RAIZ DE INSTALAÇÃO DO SEI>/sei/config/gestao-documental/**).
 
-O arquivo de configuração padrão criado **ConfiguracaoModAssinaturaAvancada.exemplo.php** vem com o sufixo **exemplo** justamente para não substituir o arquivo principal contendo as configurações vigentes do módulo.
+O arquivo de configuração padrão criado **ConfiguracaoMdGestaoDocumental.exemplo.php** vem com o sufixo **exemplo** justamente para não substituir o arquivo principal contendo as configurações vigentes do módulo.
 
-Caso não exista o arquivo principal de configurações do módulo criado em **<DIRETÓRIO RAIZ DE INSTALAÇÃO DO SEI E SIP>/sei/config/gestao-documental/ConfiguracaoModAssinaturaAvancada.php**, renomeie o arquivo de exemplo para iniciar a parametrização da integração.
+Caso não exista o arquivo principal de configurações do módulo criado em **<DIRETÓRIO RAIZ DE INSTALAÇÃO DO SEI E SIP>/sei/config/gestao-documental/ConfiguracaoMdGestaoDocumental.php**, renomeie o arquivo de exemplo para iniciar a parametrização da integração.
 
 ```
 cd <DIRETÓRIO RAIZ DE INSTALAÇÃO DO SEI>/sei/config/gestao-documental/
-mv ConfiguracaoModAssinaturaAvancada.exemplo.php ConfiguracaoModAssinaturaAvancada.php
+mv ConfiguracaoMdGestaoDocumental.php ConfiguracaoMdGestaoDocumental.php
 ```
 
-Altere o arquivo de configuração específico do módulo em **<DIRETÓRIO RAIZ DE INSTALAÇÃO DO SEI E SIP>/sei/config/gestao-documental/ConfiguracaoModAssinaturaAvancada.php** e defina as configurações do módulo, conforme apresentado abaixo:
+Altere o arquivo de configuração específico do módulo em **<DIRETÓRIO RAIZ DE INSTALAÇÃO DO SEI E SIP>/sei/config/gestao-documental/ConfiguracaoMdGestaoDocumental.php** e defina as configurações do módulo, conforme apresentado abaixo:
 
 - **parametro**
   Descrição da função do parâmetro, exemplo de valores possíveis e mudança de comportamento causada no sistema.
