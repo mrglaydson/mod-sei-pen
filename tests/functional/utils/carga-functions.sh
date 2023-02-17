@@ -42,7 +42,7 @@ standalone_subir(){
     standalone_destruir
 
     echo "Vamos subir um container de Seleniumchrome standalone"
-    docker run -d --rm --name seleniumchrome  -p 4444:4444 --network=host -v /dev/shm:/dev/shm selenium/standalone-chrome:4.1.3-20220405
+    docker run -d --rm --name seleniumchrome  -p 4444:4444 -p 5900:5900 --network=host -v /dev/shm:/dev/shm selenium/standalone-chrome:4.1.3-20220405
 
     standalone_pingar
 
