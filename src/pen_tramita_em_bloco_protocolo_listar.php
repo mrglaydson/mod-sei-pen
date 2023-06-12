@@ -54,10 +54,6 @@ try {
       throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
   }
 
-  $arrComandos = array();
-  $arrComandos[] = '<button type="button" accesskey="T" id="sbmTramitarBloco" value="Tramitar processos selecionados" onclick="onClickBtnTramitarProcessos();" class="infraButton"><span class="infraTeclaAtalho">T</span>ramitar processo(s) selecionado(s)</button>';
-  $arrComandos[] = '<button type="submit" accesskey="P" id="sbmPesquisar" value="Pesquisar" class="infraButton"><span class="infraTeclaAtalho">P</span>esquisar</button>';
-
   $objTramitaEmBlocoProtocoloDTO = new TramitaEmBlocoProtocoloDTO();
   $objTramitaEmBlocoProtocoloDTO->retNumId();
   $objTramitaEmBlocoProtocoloDTO->retDblIdProtocolo();
@@ -79,6 +75,7 @@ try {
   $arrComandos = array();
   
   $arrComandos[] = '<button type="button" accesskey="I" id="btnImprimir" value="Imprimir" onclick="infraImprimirTabela();" class="infraButton"><span class="infraTeclaAtalho">I</span>mprimir</button>';
+  $arrComandos[] = '<button type="button" accesskey="T" id="sbmTramitarBloco" value="Tramitar processos selecionados" onclick="onClickBtnTramitarProcessos();" class="infraButton"><span class="infraTeclaAtalho">T</span>ramitar processo(s) selecionado(s)</button>';
   $arrComandos[] = '<button type="submit" accesskey="P" onclick="onClickBtnPesquisar()" id="sbmPesquisar" value="Pesquisar" class="infraButton"><span class="infraTeclaAtalho">P</span>esquisar</button>';
 
   $objPaginaSEI->prepararPaginacao($objTramitaEmBlocoProtocoloDTO);
@@ -266,7 +263,7 @@ infraEfeitoTabelas();
     try {
       var len = jQuery('input[name*=chkInfraItem]:checked').length;
       if (len > 0) {
-        var form = jQuery('#frmLoteListar');
+        var form = jQuery('#frmProcessosListar');
         form.attr('action', '<?php print $objSessaoSEI->assinarLink('controlador.php?acao=pen_expedir_lote&acao_origem=pen_tramita_em_bloco_protocolo_listar&acao_retorno=pen_tramita_em_bloco_protocolo_listar&tramite_em_bloco=1'); ?>');
         form.submit();
       } else {

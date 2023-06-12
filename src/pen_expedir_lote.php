@@ -26,9 +26,12 @@ try {
             $objTramitaEmBlocoProtocoloDTO->retDblIdProtocolo();
             $objTramitaEmBlocoProtocoloDTO->retNumIdTramitaEmBloco();
         } else {
-            $arrIdRelBlocoProtocoloSelecionado = $objPaginaSEI->getArrStrItensSelecionados();
+            $arridTramiteEmBlocoProtocolo = array();
+            foreach ($objPaginaSEI->getArrStrItensSelecionados() as $itensSelecionado) {
+                $arridTramiteEmBlocoProtocolo[] = explode("-", $itensSelecionado)[0];
+            }
             $objTramitaEmBlocoProtocoloDTO = new TramitaEmBlocoProtocoloDTO();
-            $objTramitaEmBlocoProtocoloDTO->setNumId($arrIdRelBlocoProtocoloSelecionado, InfraDTO::$OPER_IN);
+            $objTramitaEmBlocoProtocoloDTO->setNumId($arridTramiteEmBlocoProtocolo, InfraDTO::$OPER_IN);
             $objTramitaEmBlocoProtocoloDTO->retDblIdProtocolo();
             $objTramitaEmBlocoProtocoloDTO->retNumIdTramitaEmBloco();
         }
