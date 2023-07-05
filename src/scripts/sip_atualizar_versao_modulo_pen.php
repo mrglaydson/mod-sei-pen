@@ -2020,6 +2020,8 @@ class PenAtualizarSipRN extends InfraRN
     ScriptSip::adicionarRecursoPerfil($numIdSistema, $numIdPerfilSeiTramitador, 'pen_tramite_em_bloco_alterar');
     ScriptSip::adicionarRecursoPerfil($numIdSistema, $numIdPerfilSeiTramitador, 'pen_tramite_em_bloco_consultar');
     ScriptSip::adicionarRecursoPerfil($numIdSistema, $numIdPerfilSeiTramitador, 'pen_tramite_em_bloco_cancelar');
+    ScriptSip::adicionarRecursoPerfil($numIdSistema, $numIdPerfilSeiTramitador, 'pen_tramita_em_bloco_protocolo_listar');
+    ScriptSip::adicionarRecursoPerfil($numIdSistema, $numIdPerfilSeiTramitador, 'pen_tramita_em_bloco_protocolo_excluir');
 
     ScriptSip::adicionarRecursoPerfil($numIdSistema, $numIdPerfilSeiTramitador, 'pen_incluir_processo_em_bloco_tramite');
 
