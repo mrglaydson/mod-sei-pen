@@ -840,6 +840,12 @@ class CenarioBaseTestCase extends Selenium2TestCase
         $this->paginaTramitarProcessoEmLote->navegarProcessoEmLote($selAndamento, $numProtocolo);
     }
 
+    protected function navegarMapeamentoUnidade () {
+        $this->frame(null);
+        $this->byXPath("//img[contains(@title, 'Controle de Processos')]")->click();
+        $this->paginaMapeamentoUnidade->navegarMapeamentoUnidade();
+    }
+
     public function atualizarTramitesPEN($bolOrg1 = true, $bolOrg2 = true, $org2Primeiro = true, $quantidade = 1)
     {
         /*for($i=0;$i<$quantidade;$i++){
