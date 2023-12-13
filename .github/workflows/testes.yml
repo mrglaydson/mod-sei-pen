@@ -7,7 +7,9 @@ env: # Or as an environment variable
   GIT_ACTION_SENHA_ORG1: ${{ secrets.GIT_ACTION_SENHA_ORG1 }}
   GIT_ACTION_SENHA_ORG2: ${{ secrets.GIT_ACTION_SENHA_ORG2 }}
 
-  
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -23,7 +25,7 @@ jobs:
         with:
             path: sei/src/sei/web/modulos/mod-sei-pen
 
-      - name: Run make test
+      - name: Configura e sobe o ambiente
         run: | 
              cd sei/src/sei/web/modulos/mod-sei-pen
              make config
@@ -41,6 +43,13 @@ jobs:
              echo $CERTIFICADO_ORG2 | base64 --decode > tests_super/funcional/assets/config/certificado_org2.pem
              sed -i 's/exec/exec \-T/' Makefile
              make up
+
+      - name: Executa update, install e tramita silent
+        run: |
+             cd sei/src/sei/web/modulos/mod-sei-pen
              make update
-             make install 
-             make test-functional
+             make install
+             make tramitar-pendencias-silent &
+
+      - name: Testes funcionais
+        run: cd sei/src/sei/web/modulos/mod-sei-pen; make test-functional-parallel
