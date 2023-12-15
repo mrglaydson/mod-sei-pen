@@ -20,8 +20,9 @@ class MapeamentoTipoProcessoRelacionamentoOrgaosCadastroTest extends CenarioBase
         
         $penMapUnidadesFixture = new PenMapUnidadesFixture(CONTEXTO_ORGAO_A);
         $penMapUnidadesFixture->cadastrar([
-            'idOrgaoDestino' => self::$remetente['ID_UNIDADE_ORGAO_DESTINO'],
-            'nomeOrgaoDestino' => self::$remetente['NOME_UNIDADE_ORGAO_DESTINO']
+            'id' => self::$remetente['ID_UNIDADE_ESTRUTURA'],
+            'sigla' => self::$remetente['SIGLA_UNIDADE_ESTRUTURAS'],
+            'nome' => self::$remetente['NOME_UNIDADE_ESTRUTURA']
         ]);
     }
 
@@ -44,13 +45,13 @@ class MapeamentoTipoProcessoRelacionamentoOrgaosCadastroTest extends CenarioBase
         $this->paginaCadastroOrgaoExterno->novoMapOrgao();
         $this->paginaCadastroOrgaoExterno->setarParametros(
             self::$remetente['REP_ESTRUTURAS'],
-            self::$remetente['NOME_UNIDADE_ESTRUTURA'],
-            self::$remetente['NOME_UNIDADE_ORGAO_DESTINO']
+            self::$remetente['NOME_UNIDADE_MAPEAMENTO_ORGAO_ORIGEM'],
+            self::$remetente['NOME_UNIDADE_ESTRUTURA']
         );
         $this->paginaCadastroOrgaoExterno->salvar();
 
-        $orgaoOrigem = $this->paginaCadastroOrgaoExterno->buscarOrgaoOrigem(self::$remetente['NOME_UNIDADE_ESTRUTURA']);
-        $orgaoDestino = $this->paginaCadastroOrgaoExterno->buscarOrgaoDestino(self::$remetente['NOME_UNIDADE_ORGAO_DESTINO']);
+        $orgaoOrigem = $this->paginaCadastroOrgaoExterno->buscarOrgaoOrigem(self::$remetente['NOME_UNIDADE_MAPEAMENTO_ORGAO_ORIGEM']);
+        $orgaoDestino = $this->paginaCadastroOrgaoExterno->buscarOrgaoDestino(self::$remetente['NOME_UNIDADE_ESTRUTURA']);
 
         $this->assertNotNull($orgaoOrigem);
         $this->assertNotNull($orgaoDestino);
@@ -82,8 +83,8 @@ class MapeamentoTipoProcessoRelacionamentoOrgaosCadastroTest extends CenarioBase
         $this->paginaCadastroOrgaoExterno->novoMapOrgao();
         $this->paginaCadastroOrgaoExterno->setarParametros(
             self::$remetente['REP_ESTRUTURAS'],
-            self::$remetente['NOME_UNIDADE_ESTRUTURA'],
-            self::$remetente['NOME_UNIDADE_ORGAO_DESTINO']
+            self::$remetente['NOME_UNIDADE_MAPEAMENTO_ORGAO_ORIGEM'],
+            self::$remetente['NOME_UNIDADE_ESTRUTURA']
         );
         $this->paginaCadastroOrgaoExterno->salvar();
 
@@ -116,14 +117,14 @@ class MapeamentoTipoProcessoRelacionamentoOrgaosCadastroTest extends CenarioBase
 
         $this->paginaCadastroOrgaoExterno->editarMapOrgao();
         $this->paginaCadastroOrgaoExterno->setarParametros(
-            self::$remetenteB['REP_ESTRUTURAS'],
-            self::$remetenteB['NOME_UNIDADE_ESTRUTURA'],
-            self::$remetente['NOME_UNIDADE_ORGAO_DESTINO']
+            self::$remetente['REP_ESTRUTURAS'],
+            self::$remetente['NOME_UNIDADE_MAPEAMENTO_ORGAO_ORIGEM'],
+            self::$remetente['NOME_UNIDADE_ESTRUTURA']
         );
         $this->paginaCadastroOrgaoExterno->salvar();
 
-        $orgaoOrigem = $this->paginaCadastroOrgaoExterno->buscarOrgaoOrigem(self::$remetenteB['NOME_UNIDADE_ESTRUTURA']);
-        $orgaoDestino = $this->paginaCadastroOrgaoExterno->buscarOrgaoDestino(self::$remetente['NOME_UNIDADE_ORGAO_DESTINO']);
+        $orgaoOrigem = $this->paginaCadastroOrgaoExterno->buscarOrgaoOrigem(self::$remetenteB['NOME_UNIDADE_MAPEAMENTO_ORGAO_ORIGEM']);
+        $orgaoDestino = $this->paginaCadastroOrgaoExterno->buscarOrgaoDestino(self::$remetente['NOME_UNIDADE_ESTRUTURA']);
 
         $this->assertNotNull($orgaoOrigem);
         $this->assertNotNull($orgaoDestino);

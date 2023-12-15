@@ -21,12 +21,13 @@ class MapeamentoTipoProcessoRelacionamentoOrgaosListagemImportacaoTest extends C
 
         $penOrgaoExternoFixture = new PenOrgaoExternoFixture(CONTEXTO_ORGAO_A);
         self::$penOrgaoExternoId = $penOrgaoExternoFixture->cadastrar([
-            'idRepositorioOrigem' => self::$remetente['ID_REP_ESTRUTURAS'],
-            'repositorioEstruturasOrigem' => self::$remetente['REP_ESTRUTURAS'],
-            'idOrgaoOrigem' => self::$remetente['ID_ESTRUTURA'],
-            'nomeOrgaoOrigem' => self::$remetente['NOME_UNIDADE_ESTRUTURA'],
-            'idOrgaoDestino' => 110000001,
-            'nomeOrgaoDestino' => 'TESTE-Unidade de Teste 1',
+            'idRepositorio' => self::$remetente['ID_REP_ESTRUTURAS'],
+            'repositorioEstruturas' => self::$remetente['REP_ESTRUTURAS'],
+            'id' => self::$remetente['ID_UNIDADE_ESTRUTURA'],
+            'sigla' => self::$remetente['SIGLA_UNIDADE_ESTRUTURAS'],
+            'nome' => self::$remetente['NOME_UNIDADE_ESTRUTURA'],
+            'idOrigem' => self::$remetente['ID_UNIDADE_MAPEAMENTO_ORGAO_ORIGEM'],
+            'nomeOrigem' => self::$remetente['NOME_UNIDADE_MAPEAMENTO_ORGAO_ORIGEM']
         ]);
     }
 
@@ -49,13 +50,21 @@ class MapeamentoTipoProcessoRelacionamentoOrgaosListagemImportacaoTest extends C
         $this->paginaCadastroOrgaoExterno->navegarCadastroOrgaoExterno();
 
         // Buscar pesquisa vazia
-        $this->paginaCadastroOrgaoExterno->selecionarPesquisa(self::$remetente['NOME_UNIDADE_ESTRUTURA'] . 'B');
-        $nomeRepositorioCadastrado = $this->paginaCadastroOrgaoExterno->buscarNome(self::$remetente['NOME_UNIDADE_ESTRUTURA']);
+        $this->paginaCadastroOrgaoExterno->selecionarPesquisa(self::$remetente['NOME_UNIDADE_MAPEAMENTO_ORGAO_ORIGEM'] . 'B');
+        $nomeRepositorioCadastrado = $this->paginaCadastroOrgaoExterno->buscarNome(self::$remetente['NOME_UNIDADE_MAPEAMENTO_ORGAO_ORIGEM']);
         $this->assertNull($nomeRepositorioCadastrado);
 
         // Buscar pesquisa com sucesso
-        $this->paginaCadastroOrgaoExterno->selecionarPesquisa(self::$remetente['NOME_UNIDADE_ESTRUTURA']);
-        $nomeRepositorioCadastrado = $this->paginaCadastroOrgaoExterno->buscarNome(self::$remetente['NOME_UNIDADE_ESTRUTURA']);
+        $this->paginaCadastroOrgaoExterno->selecionarPesquisa(self::$remetente['NOME_UNIDADE_MAPEAMENTO_ORGAO_ORIGEM']);
+        $nomeRepositorioCadastrado = $this->paginaCadastroOrgaoExterno->buscarNome(self::$remetente['NOME_UNIDADE_MAPEAMENTO_ORGAO_ORIGEM']);
         $this->assertNotNull($nomeRepositorioCadastrado);
+    }
+
+    function tearDown(): void
+    {
+        $penOrgaoExternoFixture = new PenOrgaoExternoFixture(CONTEXTO_ORGAO_A);
+        $penOrgaoExternoFixture->deletar(self::$penOrgaoExternoId);
+
+        parent::tearDown();
     }
 }

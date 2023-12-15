@@ -18,9 +18,9 @@ class PenMapUnidadesFixture
     {
         $bancoOrgaoA = new DatabaseUtils(self::$contexto);
         $bancoOrgaoA->execute(
-            "INSERT INTO md_pen_unidade (id_unidade, id_unidade_rh, nome_unidade_rh) ".
-            "VALUES(?, ?, ?)",
-            array(110000001, $dados['idOrgaoDestino'], $dados['nomeOrgaoDestino'])
+            "INSERT INTO md_pen_unidade (id_unidade, id_unidade_rh, sigla_unidade_rh, nome_unidade_rh) ".
+            "VALUES(?, ?, ?, ?)",
+            array(110000001, $dados['id'], $dados['sigla'], $dados['nome'])
         );
     }
 
@@ -29,7 +29,7 @@ class PenMapUnidadesFixture
         $bancoOrgaoA = new DatabaseUtils(self::$contexto);
         $bancoOrgaoA->execute(
             "DELETE FROM md_pen_unidade WHERE id_unidade = ? and id_unidade_rh = ?",
-            array(110000001, $dados['idOrgaoDestino'])
+            array(110000001, $dados['id'])
         );
     }
 }
