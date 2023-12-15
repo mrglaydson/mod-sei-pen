@@ -1,7 +1,7 @@
 <?php
 
 // Identificação da versão do módulo. Este deverá ser atualizado e sincronizado com constante VERSAO_MODULO
-define("VERSAO_MODULO_PEN", "3.4.0");
+define("VERSAO_MODULO_PEN", "3.5.0");
 
 class PENIntegracao extends SeiIntegracao
 {
@@ -202,6 +202,10 @@ class PENIntegracao extends SeiIntegracao
         }
       }
     }
+
+    //Apresenta o botão de incluir processo no bloco de trâmite
+    $numTabBotao = $objPaginaSEI->getProxTabBarraComandosSuperior();
+    $strAcoesProcedimento .= '<a href="' . $objPaginaSEI->formatarXHTML($objSessaoSEI->assinarLink('controlador.php?acao=pen_incluir_processo_em_bloco_tramite&acao_origem=procedimento_visualizar&acao_retorno=arvore_visualizar&id_procedimento=' . $dblIdProcedimento . '&arvore=1')) . '" tabindex="' . $numTabBotao . '" class="botaoSEI"> <img src="'.ProcessoEletronicoINT::getCaminhoIcone("/pen_processo_bloco.svg", $this->getDiretorioImagens()) .'" title="Incluir Processo no Bloco de Trâmite" alt="Incluir Processo no Bloco de Trâmite"/></a>';
 
     return $arrStrIcone;
   }
@@ -596,6 +600,35 @@ class PENIntegracao extends SeiIntegracao
       case 'pen_procedimento_expedir':
         require_once dirname(__FILE__) . '/pen_procedimento_expedir.php';
           break;
+      
+      case 'pen_tramite_bloco_listar':
+        require_once dirname(__FILE__) . '/pen_tramite_bloco_listar.php';
+        break;
+
+      case 'md_pen_tramita_em_bloco':
+      case 'md_pen_tramita_em_bloco_excluir':
+      case 'pen_tramite_em_bloco_cancelar':
+        require_once dirname(__FILE__) . '/pen_tramite_bloco_listar.php';
+        break;
+
+      case 'pen_tramite_em_bloco_cadastrar':
+        require_once dirname(__FILE__) . '/pen_tramite_em_bloco_cadastrar.php';
+        break;
+
+      case 'pen_tramite_em_bloco_alterar':
+        require_once dirname(__FILE__) . '/pen_tramite_em_bloco_cadastrar.php';
+        break;
+
+      case 'pen_tramita_em_bloco_protocolo_excluir':
+      case 'pen_tramita_em_bloco_protocolo_listar':
+      case 'pen_tramita_em_bloco_protocolo_cancelar':
+          require_once dirname(__FILE__) . '/pen_tramita_em_bloco_protocolo_listar.php';
+          break;
+
+      case 'pen_incluir_processo_em_bloco_tramite':
+        require_once dirname(__FILE__) . '/pen_tramite_processo_em_bloco_cadastrar.php';
+        break;
+          
 
       case 'pen_unidade_sel_expedir_procedimento':
         require_once dirname(__FILE__) . '/pen_unidade_sel_expedir_procedimento.php';
