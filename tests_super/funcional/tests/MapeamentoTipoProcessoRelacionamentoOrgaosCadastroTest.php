@@ -136,8 +136,8 @@ class MapeamentoTipoProcessoRelacionamentoOrgaosCadastroTest extends CenarioBase
         );
     }
 
-    function tearDown(): void
+    public static function tearDownAfterClass(): void
     {
-        parent::tearDown();
+        parent::tearDownAfterClass();
     }
 }

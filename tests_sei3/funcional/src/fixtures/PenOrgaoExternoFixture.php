@@ -26,8 +26,8 @@ class PenOrgaoExternoFixture
             "values (?,?,?,?,?,?,?,?,?,?) ",
             array(
                 999999,
-                $dados['idOrgaoOrigem'], $dados['nomeOrgaoOrigem'], $dados['idRepositorioOrigem'], $dados['repositorioEstruturasOrigem'],
-                $dados['idOrgaoDestino'], $dados['nomeOrgaoDestino'],
+                $dados['idOrigem'], $dados['nomeOrigem'], $dados['idRepositorio'], $dados['repositorioEstruturas'],
+                $dados['id'], $dados['nome'],
                 'S', 110000001, date('Y-m-d H:i:s')
             )
         );

@@ -16,8 +16,8 @@ class PenOrgaoExternoFixture
 
     public function cadastrar($dados = [])
     {
-        $penMapUnidadesFixture = new PenMapUnidadesFixture(self::$contexto);
-        $penMapUnidadesFixture->cadastrar($dados);
+        $penMapUnidadesFixture = new PenMapUnidadesFixture(self::$contexto, $dados);
+        $penMapUnidadesFixture->gravar();
 
         $bancoOrgaoA = new DatabaseUtils(self::$contexto);
         $bancoOrgaoA->execute(

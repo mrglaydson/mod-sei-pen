@@ -138,11 +138,11 @@ class MapeamentoTipoProcessoDesativarReativarTest extends CenarioBaseTestCase
         }, PEN_WAIT_TIMEOUT);
     }
 
-    function tearDown(): void
+    public static function tearDownAfterClass(): void
     {
         $penOrgaoExternoFixture = new PenOrgaoExternoFixture(CONTEXTO_ORGAO_A);
         $penOrgaoExternoFixture->deletar(self::$penOrgaoExternoId);
 
-        parent::tearDown();
+        parent::tearDownAfterClass();
     }
 }

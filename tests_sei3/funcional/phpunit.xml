@@ -5,8 +5,8 @@
   backupGlobals="true"
   colors="true"
   verbose="true"
-  cacheResult="false">
-
+  cacheResult="false"
+>
   <php>
     <const name="PHPUNIT_HOST" value="selenium" />
     <const name="PHPUNIT_PORT" value="4444" />
@@ -19,6 +19,8 @@
     <const name="PEN_WAIT_TIMEOUT" value="360000" />
     <const name="PEN_WAIT_TIMEOUT_ARQUIVOS_GRANDES" value="7200000" />
     <const name="PEN_WAIT_TIMEOUT_PROCESSAMENTO_EM_LOTE" value="10800000" />
+    <const name="PEN_SCRIPT_MONITORAMENTO_ORG1" value=" " />
+    <const name="PEN_SCRIPT_MONITORAMENTO_ORG2" value=" " />
 
     <!-- Chaves de configuração dos diferentes ambientes envolvidos no teste do Barramento de
     Serviços do PEN -->
@@ -29,23 +31,28 @@
     <const name="CONTEXTO_ORGAO_A_NUMERO_SEI" value="971" />
     <const name="CONTEXTO_ORGAO_A_ID_REP_ESTRUTURAS" value="5" />
     <const name="CONTEXTO_ORGAO_A_REP_ESTRUTURAS" value="RE CGPRO" />
-    <const name="CONTEXTO_ORGAO_A_NOME_UNIDADE_ESTRUTURAS" 
-      value="[INFORME O NOME DA UNIDADE DA ESTRUTURA UTILIZADO PARA RE CGPRO]" />
-    <const name="CONTEXTO_ORGAO_A_ID_UNIDADE_MAPEAMENTO_ORGAO_ORIGEM" 
-      value="[INFORME O ID DA UNIDADE DA ESTRUTURA UTILIZADO PARA RE CGPRO]" />
-    <const name="CONTEXTO_ORGAO_A_NOME_UNIDADE_MAPEAMENTO_ORGAO_DESTINO" 
-      value="[INFORME O NOME DA UNIDADE DE DESTINO PARA RELACIONAMENTO ENTRE ORGÃOS]" />
+    <!--Início Configuração de mapeamento de unidades-->
+    <const name="CONTEXTO_ORGAO_A_ID_UNIDADE_ESTRUTURAS" value="152257" />
+    <const name="CONTEXTO_ORGAO_A_SIGLA_UNIDADE_ESTRUTURAS" value="ORG1" />
+    <const name="CONTEXTO_ORGAO_A_NOME_UNIDADE_ESTRUTURAS" value="Unidade de Teste Mauro ORG1" />
+    <!--Fim Configuração de mapeamento de unidades-->
+    <!--Início Configuração de mapeamento entre orgãos origem-->
+    <const name="CONTEXTO_ORGAO_A_ID_UNIDADE_MAPEAMENTO_ORGAO_ORIGEM" value="152258" />
+    <const name="CONTEXTO_ORGAO_A_NOME_UNIDADE_MAPEAMENTO_ORGAO_ORIGEM" value="Unidade de Teste Mauro ORG2" />
+    <!--Fim Configuração de mapeamento entre orgãos origem-->
+
+
     <const name="CONTEXTO_ORGAO_A_SIGLA_UNIDADE" value="TESTE" />
     <const name="CONTEXTO_ORGAO_A_ID_ESTRUTURA"
-      value="[INFORME O ID DE ESTRUTURA UTILIZADO PARA TESTE ORG1]" />
+      value="[INFORME O ID DE ESTRUTURA UTILIZADO PARA TESTE ORG 1]" />
     <const name="CONTEXTO_ORGAO_A_SIGLA_UNIDADE_HIERARQUIA" value="" />
     <const name="CONTEXTO_ORGAO_A_NOME_UNIDADE"
-      value="[INFORME O NOME DA ESTRUTURA UTILIZADO PARA TESTE ORG1]" />
+      value="[INFORME O NOME DA ESTRUTURA UTILIZADO PARA TESTE ORG 1]" />
     <const name="CONTEXTO_ORGAO_A_SIGLA_UNIDADE_SECUNDARIA" value="TESTE_1_1" />
     <const name="CONTEXTO_ORGAO_A_ID_ESTRUTURA_SECUNDARIA"
       value="[INFORME O ID DE ESTRUTURA UTILIZADO PARA TESTE ORG 1.1]" />
     <const name="CONTEXTO_ORGAO_A_NOME_UNIDADE_SECUNDARIA"
-      value="[INFORME O NOME DA ESTRUTURA UTILIZADO PARA TESTE ORG 1.1]" />
+      value="[INFORME O ID DE ESTRUTURA UTILIZADO PARA TESTE ORG 1.1]" />
     <const name="CONTEXTO_ORGAO_A_SIGLA_UNIDADE_SECUNDARIA_HIERARQUIA" value="" />
     <const name="CONTEXTO_ORGAO_A_USUARIO_LOGIN" value="teste" />
     <const name="CONTEXTO_ORGAO_A_USUARIO_SENHA" value="teste" />
@@ -68,29 +75,33 @@
     <const name="CONTEXTO_ORGAO_A_HIPOTESE_SIGILOSO"
       value="Sigilo do Inquérito Policial (Art. 20 do Código de Processo Penal)" />
 
-    <!-- CONFIGURAÇÕES DE TESTE ÓRGÃO 2 -->
+    <!-- CONFIGURAÃÃES DE TESTE ÃRGÃO 2 -->
     <const name="CONTEXTO_ORGAO_B" value="CONTEXTO_ORGAO_B" />
     <const name="CONTEXTO_ORGAO_B_URL" value="http://org2-http/sei" />
     <const name="CONTEXTO_ORGAO_B_SIGLA_ORGAO" value="ABC" />
     <const name="CONTEXTO_ORGAO_B_NUMERO_SEI" value="179" />
     <const name="CONTEXTO_ORGAO_B_ID_REP_ESTRUTURAS" value="5" />
     <const name="CONTEXTO_ORGAO_B_REP_ESTRUTURAS" value="RE CGPRO" />
-    <const name="CONTEXTO_ORGAO_B_NOME_UNIDADE_ESTRUTURAS" 
-      value="[INFORME O NOME DA UNIDADE DA ESTRUTURA UTILIZADO PARA RE CGPRO]" />
-    <const name="CONTEXTO_ORGAO_B_ID_UNIDADE_MAPEAMENTO_ORGAO_ORIGEM" 
-      value="[INFORME O ID DA UNIDADE DA ESTRUTURA UTILIZADO PARA RE CGPRO]" />
-    <const name="CONTEXTO_ORGAO_B_NOME_UNIDADE_MAPEAMENTO_ORGAO_DESTINO" 
-      value="[INFORME O NOME DA UNIDADE DE DESTINO PARA RELACIONAMENTO ENTRE ORGÃOS]" />
+    <!--Fim Configuração de mapeamento de unidades-->
+    <!--Início Configuração de mapeamento entre orgãos origem-->
+    <const name="CONTEXTO_ORGAO_B_ID_UNIDADE_ESTRUTURAS" value="152258" />
+    <const name="CONTEXTO_ORGAO_B_SIGLA_UNIDADE_ESTRUTURAS" value="ORG2" />
+    <const name="CONTEXTO_ORGAO_B_NOME_UNIDADE_ESTRUTURAS" value="Unidade de Teste Mauro ORG2" />
+    <!--Fim Configuração de mapeamento de unidades-->
+    <!--Início Configuração de mapeamento entre orgãos origem-->
+    <const name="CONTEXTO_ORGAO_B_ID_UNIDADE_MAPEAMENTO_ORGAO_ORIGEM" value="152257" />
+    <const name="CONTEXTO_ORGAO_B_NOME_UNIDADE_MAPEAMENTO_ORGAO_ORIGEM" value="Unidade de Teste Mauro ORG2" />
+    <!--Fim Configuração de mapeamento entre orgãos origem-->
     <const name="CONTEXTO_ORGAO_B_SIGLA_UNIDADE" value="TESTE" />
     <const name="CONTEXTO_ORGAO_B_ID_ESTRUTURA"
-      value="[INFORME O ID DE ESTRUTURA UTILIZADO PARA TESTE ORG2]" />
+      value="[INFORME O ID DE ESTRUTURA UTILIZADO PARA TESTE ORG 2]" />
     <const name="CONTEXTO_ORGAO_B_SIGLA_UNIDADE_HIERARQUIA" value="" />
     <const name="CONTEXTO_ORGAO_B_NOME_UNIDADE"
-      value="[INFORME O NOME DA ESTRUTURA UTILIZADO PARA TESTE ORG2]" />
+      value="[INFORME O NOME DA ESTRUTURA UTILIZADO PARA TESTE ORG 2]" />
     <const name="CONTEXTO_ORGAO_B_USUARIO_LOGIN" value="teste" />
     <const name="CONTEXTO_ORGAO_B_USUARIO_SENHA" value="teste" />
-    <const name="CONTEXTO_ORGAO_B_ID_ESTRUTURA_SECUNDARIA" value="XXXXXXXXXXX" />
-    <const name="CONTEXTO_ORGAO_B_NOME_UNIDADE_SECUNDARIA" value="XXXXXXXXXXX" />
+    <const name="CONTEXTO_ORGAO_B_ID_ESTRUTURA_SECUNDARIA" value="XXXXXXXXXXXXXX" />
+    <const name="CONTEXTO_ORGAO_B_NOME_UNIDADE_SECUNDARIA" value="XXXXXXXXXXXXXX" />
     <const name="CONTEXTO_ORGAO_B_SIGLA_UNIDADE_SECUNDARIA" value="" />
     <const name="CONTEXTO_ORGAO_B_SIGLA_UNIDADE_SECUNDARIA_HIERARQUIA" value="" />
     <const name="CONTEXTO_ORGAO_B_TIPO_PROCESSO" value="Arrecadação: Cobrança" />
@@ -121,7 +132,7 @@
     <const name="CONTEXTO_ORGAO_C_ID_REP_ESTRUTURAS" value="5" />
     <const name="CONTEXTO_ORGAO_C_REP_ESTRUTURAS" value="RE CGPRO" />
     <const name="CONTEXTO_ORGAO_C_SIGLA_UNIDADE" value="TESTE" />
-    <const name="CONTEXTO_ORGAO_C_ID_ESTRUTURA" value="121390" />
+    <const name="CONTEXTO_ORGAO_C_ID_ESTRUTURA" value="152007" />
     <const name="CONTEXTO_ORGAO_C_SIGLA_UNIDADE_HIERARQUIA" value="" />
     <const name="CONTEXTO_ORGAO_C_NOME_UNIDADE" value="SEGES TESTE SEM PAI" />
     <const name="CONTEXTO_ORGAO_C_USUARIO_LOGIN" value="teste" />

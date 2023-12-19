@@ -88,7 +88,7 @@ class MapeamentoTipoProcessoReativarTest extends CenarioBaseTestCase
         }, PEN_WAIT_TIMEOUT);
     }
 
-    function tearDown(): void
+    public static function tearDownAfterClass(): void
     {
         $importacaoTiposProcessoFixture = new ImportacaoTiposProcessoFixture(CONTEXTO_ORGAO_A);
         $importacaoTiposProcessoFixture->deletar(['idMapeamento' => self::$penOrgaoExternoId]);
@@ -96,6 +96,6 @@ class MapeamentoTipoProcessoReativarTest extends CenarioBaseTestCase
         $penOrgaoExternoFixture = new PenOrgaoExternoFixture(CONTEXTO_ORGAO_A);
         $penOrgaoExternoFixture->deletar(self::$penOrgaoExternoId);
 
-        parent::tearDown();
+        parent::tearDownAfterClass();
     }
 }

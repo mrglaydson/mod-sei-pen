@@ -17,6 +17,23 @@ class MapeamentoTipoProcessoReativarTest extends CenarioBaseTestCase
     {
         parent::setUp();
         self::$remetente = $this->definirContextoTeste(CONTEXTO_ORGAO_A);
+
+        $penOrgaoExternoFixture = new PenOrgaoExternoFixture(CONTEXTO_ORGAO_A);
+        self::$penOrgaoExternoId = $penOrgaoExternoFixture->cadastrar([
+            'idRepositorio' => self::$remetente['ID_REP_ESTRUTURAS'],
+            'repositorioEstruturas' => self::$remetente['REP_ESTRUTURAS'],
+            'id' => self::$remetente['ID_UNIDADE_ESTRUTURA'],
+            'sigla' => self::$remetente['SIGLA_UNIDADE_ESTRUTURAS'],
+            'nome' => self::$remetente['NOME_UNIDADE_ESTRUTURA'],
+            'idOrigem' => self::$remetente['ID_UNIDADE_MAPEAMENTO_ORGAO_ORIGEM'],
+            'nomeOrigem' => self::$remetente['NOME_UNIDADE_MAPEAMENTO_ORGAO_ORIGEM']
+        ]);
+
+        $importacaoTiposProcessoFixture = new ImportacaoTiposProcessoFixture(CONTEXTO_ORGAO_A);
+        $importacaoTiposProcessoFixture->cadastrar([
+            'idMapeamento' => self::$penOrgaoExternoId,
+            'sinAtivo' => 'N'
+        ]);
     }
 
     /**
@@ -71,5 +88,16 @@ class MapeamentoTipoProcessoReativarTest extends CenarioBaseTestCase
             $this->assertStringContainsString($menssagemValidacao, $testCase->byId('divInfraMsg0')->text());
             return true;
         }, PEN_WAIT_TIMEOUT);
+    }
+
+    public static function tearDownAfterClass(): void
+    {
+        $importacaoTiposProcessoFixture = new ImportacaoTiposProcessoFixture(CONTEXTO_ORGAO_A);
+        $importacaoTiposProcessoFixture->deletar(['idMapeamento' => self::$penOrgaoExternoId]);
+
+        $penOrgaoExternoFixture = new PenOrgaoExternoFixture(CONTEXTO_ORGAO_A);
+        $penOrgaoExternoFixture->deletar(self::$penOrgaoExternoId);
+
+        parent::tearDownAfterClass();
     }
 }

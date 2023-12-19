@@ -18,11 +18,12 @@ class MapeamentoTipoProcessoRelacionamentoOrgaosCadastroTest extends CenarioBase
         parent::setUp();
         self::$remetente = $this->definirContextoTeste(CONTEXTO_ORGAO_A);
         
-        $penMapUnidadesFixture = new PenMapUnidadesFixture(CONTEXTO_ORGAO_A);
-        $penMapUnidadesFixture->cadastrar([
-            'idOrgaoDestino' => self::$remetente['ID_UNIDADE_ORGAO_DESTINO'],
-            'nomeOrgaoDestino' => self::$remetente['NOME_UNIDADE_ORGAO_DESTINO']
+        $penMapUnidadesFixture = new PenMapUnidadesFixture(CONTEXTO_ORGAO_A, [
+            'id' => self::$remetente['ID_UNIDADE_ESTRUTURA'],
+            'sigla' => self::$remetente['SIGLA_UNIDADE_ESTRUTURAS'],
+            'nome' => self::$remetente['NOME_UNIDADE_ESTRUTURA']
         ]);
+        $penMapUnidadesFixture->gravar();
     }
     
     /**
@@ -44,21 +45,21 @@ class MapeamentoTipoProcessoRelacionamentoOrgaosCadastroTest extends CenarioBase
         $this->paginaCadastroOrgaoExterno->novoMapOrgao();
         $this->paginaCadastroOrgaoExterno->setarParametros(
             self::$remetente['REP_ESTRUTURAS'],
-            self::$remetente['NOME_UNIDADE_ESTRUTURA'],
-            self::$remetente['NOME_UNIDADE_ORGAO_DESTINO']
+            self::$remetente['NOME_UNIDADE_MAPEAMENTO_ORGAO_ORIGEM'],
+            self::$remetente['NOME_UNIDADE_ESTRUTURA']
         );
         $this->paginaCadastroOrgaoExterno->salvar();
 
-        $orgaoOrigem = $this->paginaCadastroOrgaoExterno->buscarOrgaoOrigem(self::$remetente['NOME_UNIDADE_ESTRUTURA']);
-        $orgaoDestino = $this->paginaCadastroOrgaoExterno->buscarOrgaoDestino(self::$remetente['NOME_UNIDADE_ORGAO_DESTINO']);
+        $orgaoOrigem = $this->paginaCadastroOrgaoExterno->buscarOrgaoOrigem(self::$remetente['NOME_UNIDADE_MAPEAMENTO_ORGAO_ORIGEM']);
+        $orgaoDestino = $this->paginaCadastroOrgaoExterno->buscarOrgaoDestino(self::$remetente['NOME_UNIDADE_ESTRUTURA']);
 
         $this->assertNotNull($orgaoOrigem);
         $this->assertNotNull($orgaoDestino);
         sleep(1);
-        $mensagemRetornoAlert = $this->paginaCadastroOrgaoExterno->buscarMensagemAlerta();
+        $mensagem = $this->paginaCadastroOrgaoExterno->buscarMensagemAlerta();
         $this->assertStringContainsString(
             utf8_encode('Relacionamento entre Órgãos cadastrado com sucesso.'),
-            $mensagemRetornoAlert
+            $mensagem
         );
     }
 
@@ -82,15 +83,16 @@ class MapeamentoTipoProcessoRelacionamentoOrgaosCadastroTest extends CenarioBase
         $this->paginaCadastroOrgaoExterno->novoMapOrgao();
         $this->paginaCadastroOrgaoExterno->setarParametros(
             self::$remetente['REP_ESTRUTURAS'],
-            self::$remetente['NOME_UNIDADE_ESTRUTURA'],
-            self::$remetente['NOME_UNIDADE_ORGAO_DESTINO']
+            self::$remetente['NOME_UNIDADE_MAPEAMENTO_ORGAO_ORIGEM'],
+            self::$remetente['NOME_UNIDADE_ESTRUTURA']
         );
         $this->paginaCadastroOrgaoExterno->salvar();
+
         sleep(1);
-        $mensagemRetornoAlert = $this->paginaCadastroOrgaoExterno->buscarMensagemAlerta();
+        $mensagem = $this->paginaCadastroOrgaoExterno->buscarMensagemAlerta();
         $this->assertStringContainsString(
             utf8_encode('Cadastro de relacionamento entre órgãos já existente.'),
-            $mensagemRetornoAlert
+            $mensagem
         );
     }
 
@@ -115,27 +117,27 @@ class MapeamentoTipoProcessoRelacionamentoOrgaosCadastroTest extends CenarioBase
 
         $this->paginaCadastroOrgaoExterno->editarMapOrgao();
         $this->paginaCadastroOrgaoExterno->setarParametros(
-            self::$remetenteB['REP_ESTRUTURAS'],
-            self::$remetenteB['NOME_UNIDADE_ESTRUTURA'],
-            self::$remetente['NOME_UNIDADE_ORGAO_DESTINO']
+            self::$remetente['REP_ESTRUTURAS'],
+            self::$remetente['NOME_UNIDADE_MAPEAMENTO_ORGAO_ORIGEM'],
+            self::$remetente['NOME_UNIDADE_ESTRUTURA']
         );
         $this->paginaCadastroOrgaoExterno->salvar();
 
-        $orgaoOrigem = $this->paginaCadastroOrgaoExterno->buscarOrgaoOrigem(self::$remetenteB['NOME_UNIDADE_ESTRUTURA']);
-        $orgaoDestino = $this->paginaCadastroOrgaoExterno->buscarOrgaoDestino(self::$remetente['NOME_UNIDADE_ORGAO_DESTINO']);
+        $orgaoOrigem = $this->paginaCadastroOrgaoExterno->buscarOrgaoOrigem(self::$remetenteB['NOME_UNIDADE_MAPEAMENTO_ORGAO_ORIGEM']);
+        $orgaoDestino = $this->paginaCadastroOrgaoExterno->buscarOrgaoDestino(self::$remetente['NOME_UNIDADE_ESTRUTURA']);
 
         $this->assertNotNull($orgaoOrigem);
         $this->assertNotNull($orgaoDestino);
         sleep(1);
-        $mensagemRetornoAlert = $this->paginaCadastroOrgaoExterno->buscarMensagemAlerta();
+        $mensagem = $this->paginaCadastroOrgaoExterno->buscarMensagemAlerta();
         $this->assertStringContainsString(
             utf8_encode('Relacionamento entre Órgãos atualizado com sucesso.'),
-            $mensagemRetornoAlert
+            $mensagem
         );
     }
 
-    function tearDown(): void
+    public static function tearDownAfterClass(): void
     {
-        parent::tearDown();
+        parent::tearDownAfterClass();
     }
 }

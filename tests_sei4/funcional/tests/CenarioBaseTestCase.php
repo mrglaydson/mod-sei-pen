@@ -42,6 +42,8 @@ class CenarioBaseTestCase extends Selenium2TestCase
     protected $paginaCadastroOrgaoExterno = null;
     protected $paginaCadastroMapEnvioCompDigitais = null;
     protected $paginaExportarTiposProcesso = null;
+    protected $paginaTipoProcessoReativar = null;
+    
 
     public function setUpPage(): void
     {
@@ -63,6 +65,7 @@ class CenarioBaseTestCase extends Selenium2TestCase
         $this->paginaTramiteMapeamentoOrgaoExterno = new PaginaTramiteMapeamentoOrgaoExterno($this);
         $this->paginaCadastroOrgaoExterno = new PaginaCadastroOrgaoExterno($this);
         $this->paginaExportarTiposProcesso = new PaginaExportarTiposProcesso($this);
+        $this->paginaTipoProcessoReativar = new PaginaTipoProcessoReativar($this);
         $this->currentWindow()->maximize();
     }
 
@@ -199,9 +202,13 @@ class CenarioBaseTestCase extends Selenium2TestCase
             'HIPOTESE_RESTRICAO_PADRAO' => constant($nomeContexto . '_HIPOTESE_RESTRICAO_PADRAO'),
             'ID_REP_ESTRUTURAS' => constant($nomeContexto . '_ID_REP_ESTRUTURAS'),
             'ID_ESTRUTURA' => constant($nomeContexto . '_ID_ESTRUTURA'),
+
+            'ID_UNIDADE_ESTRUTURA' => constant($nomeContexto . '_ID_UNIDADE_ESTRUTURAS'),
+            'SIGLA_UNIDADE_ESTRUTURAS' => constant($nomeContexto . '_SIGLA_UNIDADE_ESTRUTURAS'),
             'NOME_UNIDADE_ESTRUTURA' => constant($nomeContexto . '_NOME_UNIDADE_ESTRUTURAS'),
-            'NOME_UNIDADE_ORGAO_DESTINO' => constant($nomeContexto . '_NOME_UNIDADE_MAPEAMENTO_ORGAO_DESTINO'),
-            'ID_UNIDADE_ORGAO_DESTINO' => constant($nomeContexto . '_ID_UNIDADE_MAPEAMENTO_ORGAO_ORIGEM'),
+            'ID_UNIDADE_MAPEAMENTO_ORGAO_ORIGEM' => constant($nomeContexto . '_ID_UNIDADE_MAPEAMENTO_ORGAO_ORIGEM'),
+            'NOME_UNIDADE_MAPEAMENTO_ORGAO_ORIGEM' => constant($nomeContexto . '_NOME_UNIDADE_MAPEAMENTO_ORGAO_ORIGEM'),
+            
             'HIPOTESE_RESTRICAO_INATIVA' => constant($nomeContexto . '_HIPOTESE_RESTRICAO_INATIVA'),
             'TIPO_PROCESSO_SIGILOSO' => constant($nomeContexto . '_TIPO_PROCESSO_SIGILOSO'),
             'HIPOTESE_SIGILOSO' => constant($nomeContexto . '_HIPOTESE_SIGILOSO'),
