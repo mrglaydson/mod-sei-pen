@@ -1,5 +1,4 @@
 <?php
-
 require_once __DIR__ . '/vendor/autoload.php';
 
 require_once __DIR__ . '/sei/src/sei/web/SEI.php';
@@ -12,11 +11,11 @@ define("DIR_INFRA", __DIR__ . '/../src/infra/infra_php' );
 error_reporting(E_ERROR);
 restore_error_handler();
 
-//Classes utilitárias para manipulação dos dados do SEI
+//Classes utilitÃ¡rias para manipulaÃ§Ã£o dos dados do SEI
 require_once __DIR__ . '/src/utils/DatabaseUtils.php';
 require_once __DIR__ . '/src/utils/ParameterUtils.php';
 
-//Representação das páginas sob teste
+//RepresentaÃ§Ã£o das pÃ¡ginas sob teste
 require_once __DIR__ . '/src/paginas/PaginaTeste.php';
 require_once __DIR__ . '/src/paginas/PaginaLogin.php';
 require_once __DIR__ . '/src/paginas/PaginaControleProcesso.php';
