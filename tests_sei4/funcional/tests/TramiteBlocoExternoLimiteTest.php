@@ -3,7 +3,7 @@
 class TramiteBlocoExternoLimiteTest extends CenarioBaseTestCase
 {
     protected static $numQtyProcessos = 2; // max: 99
-    protected static $tramitar = false; // mude para false, caso queira rodar o script sem o tramite final
+    protected static $tramitar = true; // mude para false, caso queira rodar o script sem o tramite final
 
     public static $remetente;
     public static $destinatario;
@@ -15,14 +15,6 @@ class TramiteBlocoExternoLimiteTest extends CenarioBaseTestCase
         parent::setUp();
         self::$remetente = $this->definirContextoTeste(CONTEXTO_ORGAO_A);
         self::$destinatario = $this->definirContextoTeste(CONTEXTO_ORGAO_B);
-
-        // $penMapUnidadesFixture = new \PenMapUnidadesFixture(CONTEXTO_ORGAO_A, [
-        //     'id' => self::$remetente['ID_ESTRUTURA'],
-        //     'sigla' => self::$remetente['SIGLA_ESTRUTURA'],
-        //     'nome' => self::$remetente['NOME_UNIDADE']
-        // ]);
-        // $penMapUnidadesFixture->cadastrar();
-
     }
 
     public function teste_tramite_bloco_externo()
@@ -107,6 +99,8 @@ class TramiteBlocoExternoLimiteTest extends CenarioBaseTestCase
             
             $this->assertEquals($qtyProcessos, self::$numQtyProcessos);
         }
+
+        $this->sairSistema();
     }
 
      /**
@@ -132,6 +126,8 @@ class TramiteBlocoExternoLimiteTest extends CenarioBaseTestCase
         }, PEN_WAIT_TIMEOUT_PROCESSAMENTO_EM_LOTE);
         
         sleep(5);
+
+        $this->sairSistema();
     }
 
     /**
@@ -159,6 +155,9 @@ class TramiteBlocoExternoLimiteTest extends CenarioBaseTestCase
             $this->assertNotEquals('Aberto', $novoStatus);
         } else {
             $this->assertEquals('Aberto', $novoStatus);
-        }  
+        }
+
+        
+        $this->sairSistema();
     }
 }

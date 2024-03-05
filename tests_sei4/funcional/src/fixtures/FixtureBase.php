@@ -35,7 +35,7 @@ abstract class FixtureBase extends \InfraRN
         $resultado = [];
         foreach ($dados as $dado) {
             $resultado[] = $this->carregar($dado);
-        }  
+        }
 
         return $resultado;
     }
@@ -53,6 +53,24 @@ abstract class FixtureBase extends \InfraRN
     public function buscar($dados = null, $callback = null){
         $dados = $dados ?: [];
         return $this->listarInterno([
+            'dados' => $dados,
+            'callback' => $callback
+        ]);
+    }
+
+    protected function removerInternoControlado($parametros){
+        $dto = $this->excluir($parametros["dados"]);
+
+        if (isset($parametros["callback"])) {
+            $parametros["callback"]($dto);
+        }
+
+        return $dto;
+    }
+
+    public function remover($dados = null, $callback = null){
+        $dados = $dados ?: [];
+        return $this->removerInterno([
             'dados' => $dados,
             'callback' => $callback
         ]);
