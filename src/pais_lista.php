@@ -31,7 +31,7 @@ try {
       try{
         $arrStrIds = PaginaSEI::getInstance()->getArrStrItensSelecionados();
         $arrObjPaisDTO = array();
-        for ($i=0;$i<count($arrStrIds);$i++){
+        for ($i=0; $i<count($arrStrIds); $i++){
           $objPaisDTO = new PaisDTO();
           $objPaisDTO->setNumIdPais($arrStrIds[$i]);
           $arrObjPaisDTO[] = $objPaisDTO;
@@ -43,7 +43,7 @@ try {
         PaginaSEI::getInstance()->processarExcecao($e);
       } 
       header('Location: '.SessaoSEI::getInstance()->assinarLink('controlador.php?acao='.$_GET['acao_origem'].'&acao_origem='.$_GET['acao']));
-      die;
+        die;
 
 /* 
     case 'pais_desativar':
@@ -88,7 +88,7 @@ try {
 
  */
     case 'pais_selecionar':
-      $strTitulo = PaginaSEI::getInstance()->getTituloSelecao('Selecionar País','Selecionar Países');
+      $strTitulo = PaginaSEI::getInstance()->getTituloSelecao('Selecionar País', 'Selecionar Países');
 
       //Se cadastrou alguem
       if ($_GET['acao_origem']=='pais_cadastrar'){
@@ -96,14 +96,14 @@ try {
           PaginaSEI::getInstance()->adicionarSelecionado($_GET['id_pais']);
         }
       }
-      break;
+        break;
 
     case 'pais_listar':
       $strTitulo = 'Países';
-      break;
+        break;
 
     default:
-      throw new InfraException("Ação '".$_GET['acao']."' não reconhecida.");
+        throw new InfraException("Ação '".$_GET['acao']."' não reconhecida.");
   }
 
   $arrComandos = array();
@@ -113,9 +113,9 @@ try {
 
   /* if ($_GET['acao'] == 'pais_listar' || $_GET['acao'] == 'pais_selecionar'){ */
     $bolAcaoCadastrar = SessaoSEI::getInstance()->verificarPermissao('pais_cadastrar');
-    if ($bolAcaoCadastrar){
-      $arrComandos[] = '<button type="button" accesskey="N" id="btnNovo" value="Novo" onclick="location.href=\''.SessaoSEI::getInstance()->assinarLink('controlador.php?acao=pais_cadastrar&acao_origem='.$_GET['acao'].'&acao_retorno='.$_GET['acao']).'\'" class="infraButton"><span class="infraTeclaAtalho">N</span>ovo</button>';
-    }
+  if ($bolAcaoCadastrar){
+    $arrComandos[] = '<button type="button" accesskey="N" id="btnNovo" value="Novo" onclick="location.href=\''.SessaoSEI::getInstance()->assinarLink('controlador.php?acao=pais_cadastrar&acao_origem='.$_GET['acao'].'&acao_retorno='.$_GET['acao']).'\'" class="infraButton"><span class="infraTeclaAtalho">N</span>ovo</button>';
+  }
   /* } */
 
   $objPaisDTO = new PaisDTO();
@@ -166,7 +166,7 @@ try {
       //$bolAcaoGerarPlanilha = SessaoSEI::getInstance()->verificarPermissao('infra_gerar_planilha_tabela');
       $bolAcaoExcluir = SessaoSEI::getInstance()->verificarPermissao('pais_excluir');
       $bolAcaoDesativar = SessaoSEI::getInstance()->verificarPermissao('pais_desativar');
-    }
+}
 
     /* 
     if ($bolAcaoDesativar){
@@ -182,11 +182,11 @@ try {
     }
      */
 
-    if ($bolAcaoExcluir){
-      $bolCheck = true;
-      $arrComandos[] = '<button type="button" accesskey="E" id="btnExcluir" value="Excluir" onclick="acaoExclusaoMultipla();" class="infraButton"><span class="infraTeclaAtalho">E</span>xcluir</button>';
-      $strLinkExcluir = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=pais_excluir&acao_origem='.$_GET['acao']);
-    }
+if ($bolAcaoExcluir){
+  $bolCheck = true;
+  $arrComandos[] = '<button type="button" accesskey="E" id="btnExcluir" value="Excluir" onclick="acaoExclusaoMultipla();" class="infraButton"><span class="infraTeclaAtalho">E</span>xcluir</button>';
+  $strLinkExcluir = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=pais_excluir&acao_origem='.$_GET['acao']);
+}
 
     /*
     if ($bolAcaoGerarPlanilha){
@@ -206,56 +206,56 @@ try {
     } */
 
     $strResultado .= '<table width="99%" class="infraTable" summary="'.$strSumarioTabela.'">'."\n";
-    $strResultado .= '<caption class="infraCaption">'.PaginaSEI::getInstance()->gerarCaptionTabela($strCaptionTabela,$numRegistros).'</caption>';
+    $strResultado .= '<caption class="infraCaption">'.PaginaSEI::getInstance()->gerarCaptionTabela($strCaptionTabela, $numRegistros).'</caption>';
     $strResultado .= '<tr>';
-    if ($bolCheck) {
-      $strResultado .= '<th class="infraTh" width="1%">'.PaginaSEI::getInstance()->getThCheck().'</th>'."\n";
-    }
-    $strResultado .= '<th class="infraTh">'.PaginaSEI::getInstance()->getThOrdenacao($objPaisDTO,'País','Nome',$arrObjPaisDTO).'</th>'."\n";
+if ($bolCheck) {
+  $strResultado .= '<th class="infraTh" width="1%">'.PaginaSEI::getInstance()->getThCheck().'</th>'."\n";
+}
+    $strResultado .= '<th class="infraTh">'.PaginaSEI::getInstance()->getThOrdenacao($objPaisDTO, 'País', 'Nome', $arrObjPaisDTO).'</th>'."\n";
     $strResultado .= '<th class="infraTh" width="10%">Ações</th>'."\n";
     $strResultado .= '</tr>'."\n";
     $strCssTr='';
-    for($i = 0;$i < $numRegistros; $i++){
+for($i = 0; $i < $numRegistros; $i++){
 
-      $strCssTr = ($strCssTr=='<tr class="infraTrClara">')?'<tr class="infraTrEscura">':'<tr class="infraTrClara">';
-      $strResultado .= $strCssTr;
+  $strCssTr = ($strCssTr=='<tr class="infraTrClara">')?'<tr class="infraTrEscura">':'<tr class="infraTrClara">';
+  $strResultado .= $strCssTr;
 
-      if ($bolCheck){
-        $strResultado .= '<td valign="top">'.PaginaSEI::getInstance()->getTrCheck($i,$arrObjPaisDTO[$i]->getNumIdPais(),$arrObjPaisDTO[$i]->getStrNome()).'</td>';
-      }
-      $strResultado .= '<td>'.PaginaSEI::tratarHTML($arrObjPaisDTO[$i]->getStrNome()).'</td>';
-      $strResultado .= '<td align="center">';
+  if ($bolCheck){
+    $strResultado .= '<td valign="top">'.PaginaSEI::getInstance()->getTrCheck($i, $arrObjPaisDTO[$i]->getNumIdPais(), $arrObjPaisDTO[$i]->getStrNome()).'</td>';
+  }
+  $strResultado .= '<td>'.PaginaSEI::tratarHTML($arrObjPaisDTO[$i]->getStrNome()).'</td>';
+  $strResultado .= '<td align="center">';
 
-      $strResultado .= PaginaSEI::getInstance()->getAcaoTransportarItem($i,$arrObjPaisDTO[$i]->getNumIdPais());
+  $strResultado .= PaginaSEI::getInstance()->getAcaoTransportarItem($i, $arrObjPaisDTO[$i]->getNumIdPais());
 
-      if ($bolAcaoConsultar){
-        $strResultado .= '<a href="'.SessaoSEI::getInstance()->assinarLink('controlador.php?acao=pais_consultar&acao_origem='.$_GET['acao'].'&acao_retorno='.$_GET['acao'].'&id_pais='.$arrObjPaisDTO[$i]->getNumIdPais()).'" tabindex="'.PaginaSEI::getInstance()->getProxTabTabela().'"><img src="'.PaginaSEI::getInstance()->getDiretorioImagensGlobal().'/consultar.gif" title="Consultar País" alt="Consultar País" class="infraImg" /></a>&nbsp;';
-      }
+  if ($bolAcaoConsultar){
+    $strResultado .= '<a href="'.SessaoSEI::getInstance()->assinarLink('controlador.php?acao=pais_consultar&acao_origem='.$_GET['acao'].'&acao_retorno='.$_GET['acao'].'&id_pais='.$arrObjPaisDTO[$i]->getNumIdPais()).'" tabindex="'.PaginaSEI::getInstance()->getProxTabTabela().'"><img src="'.PaginaSEI::getInstance()->getDiretorioImagensGlobal().'/consultar.gif" title="Consultar País" alt="Consultar País" class="infraImg" /></a>&nbsp;';
+  }
 
-      if ($bolAcaoAlterar){
-        $strResultado .= '<a href="'.SessaoSEI::getInstance()->assinarLink('controlador.php?acao=pais_alterar&acao_origem='.$_GET['acao'].'&acao_retorno='.$_GET['acao'].'&id_pais='.$arrObjPaisDTO[$i]->getNumIdPais()).'" tabindex="'.PaginaSEI::getInstance()->getProxTabTabela().'"><img src="'.PaginaSEI::getInstance()->getDiretorioImagensGlobal().'/alterar.gif" title="Alterar País" alt="Alterar País" class="infraImg" /></a>&nbsp;';
-      }
+  if ($bolAcaoAlterar){
+    $strResultado .= '<a href="'.SessaoSEI::getInstance()->assinarLink('controlador.php?acao=pais_alterar&acao_origem='.$_GET['acao'].'&acao_retorno='.$_GET['acao'].'&id_pais='.$arrObjPaisDTO[$i]->getNumIdPais()).'" tabindex="'.PaginaSEI::getInstance()->getProxTabTabela().'"><img src="'.PaginaSEI::getInstance()->getDiretorioImagensGlobal().'/alterar.gif" title="Alterar País" alt="Alterar País" class="infraImg" /></a>&nbsp;';
+  }
 
-      if ($bolAcaoDesativar || $bolAcaoReativar || $bolAcaoExcluir){
-        $strId = $arrObjPaisDTO[$i]->getNumIdPais();
-        $strDescricao = PaginaSEI::getInstance()->formatarParametrosJavaScript($arrObjPaisDTO[$i]->getStrNome());
-      }
+  if ($bolAcaoDesativar || $bolAcaoReativar || $bolAcaoExcluir){
+    $strId = $arrObjPaisDTO[$i]->getNumIdPais();
+    $strDescricao = PaginaSEI::getInstance()->formatarParametrosJavaScript($arrObjPaisDTO[$i]->getStrNome());
+  }
 /* 
-      if ($bolAcaoDesativar){
-        $strResultado .= '<a href="'.PaginaSEI::getInstance()->montarAncora($strId).'" onclick="acaoDesativar(\''.$strId.'\',\''.$strDescricao.'\');" tabindex="'.PaginaSEI::getInstance()->getProxTabTabela().'"><img src="'.PaginaSEI::getInstance()->getDiretorioImagensGlobal().'/desativar.gif" title="Desativar País" alt="Desativar País" class="infraImg" /></a>&nbsp;';
-      }
+  if ($bolAcaoDesativar){
+    $strResultado .= '<a href="'.PaginaSEI::getInstance()->montarAncora($strId).'" onclick="acaoDesativar(\''.$strId.'\',\''.$strDescricao.'\');" tabindex="'.PaginaSEI::getInstance()->getProxTabTabela().'"><img src="'.PaginaSEI::getInstance()->getDiretorioImagensGlobal().'/desativar.gif" title="Desativar País" alt="Desativar País" class="infraImg" /></a>&nbsp;';
+  }
 
-      if ($bolAcaoReativar){
-        $strResultado .= '<a href="'.PaginaSEI::getInstance()->montarAncora($strId).'" onclick="acaoReativar(\''.$strId.'\',\''.$strDescricao.'\');" tabindex="'.PaginaSEI::getInstance()->getProxTabTabela().'"><img src="'.PaginaSEI::getInstance()->getDiretorioImagensGlobal().'/reativar.gif" title="Reativar País" alt="Reativar País" class="infraImg" /></a>&nbsp;';
-      }
+  if ($bolAcaoReativar){
+    $strResultado .= '<a href="'.PaginaSEI::getInstance()->montarAncora($strId).'" onclick="acaoReativar(\''.$strId.'\',\''.$strDescricao.'\');" tabindex="'.PaginaSEI::getInstance()->getProxTabTabela().'"><img src="'.PaginaSEI::getInstance()->getDiretorioImagensGlobal().'/reativar.gif" title="Reativar País" alt="Reativar País" class="infraImg" /></a>&nbsp;';
+  }
  */
 
-      if ($bolAcaoExcluir){
-        $strResultado .= '<a href="'.PaginaSEI::getInstance()->montarAncora($strId).'" onclick="acaoExcluir(\''.$strId.'\',\''.$strDescricao.'\');" tabindex="'.PaginaSEI::getInstance()->getProxTabTabela().'"><img src="'.PaginaSEI::getInstance()->getDiretorioImagensGlobal().'/excluir.gif" title="Excluir País" alt="Excluir País" class="infraImg" /></a>&nbsp;';
-      }
+  if ($bolAcaoExcluir){
+    $strResultado .= '<a href="'.PaginaSEI::getInstance()->montarAncora($strId).'" onclick="acaoExcluir(\''.$strId.'\',\''.$strDescricao.'\');" tabindex="'.PaginaSEI::getInstance()->getProxTabTabela().'"><img src="'.PaginaSEI::getInstance()->getDiretorioImagensGlobal().'/excluir.gif" title="Excluir País" alt="Excluir País" class="infraImg" /></a>&nbsp;';
+  }
 
-      $strResultado .= '</td></tr>'."\n";
-    }
+  $strResultado .= '</td></tr>'."\n";
+}
     $strResultado .= '</table>';
   }
   if ($_GET['acao'] == 'pais_selecionar'){
@@ -361,14 +361,14 @@ function acaoExclusaoMultipla(){
 <?
 PaginaSEI::getInstance()->fecharJavaScript();
 PaginaSEI::getInstance()->fecharHead();
-PaginaSEI::getInstance()->abrirBody($strTitulo,'onload="inicializar();"');
+PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
 ?>
 <form id="frmPaisLista" method="post" action="<?=SessaoSEI::getInstance()->assinarLink('controlador.php?acao='.$_GET['acao'].'&acao_origem='.$_GET['acao'])?>">
   <?
   PaginaSEI::getInstance()->montarBarraComandosSuperior($arrComandos);
   //PaginaSEI::getInstance()->abrirAreaDados('5em');
   //PaginaSEI::getInstance()->fecharAreaDados();
-  PaginaSEI::getInstance()->montarAreaTabela($strResultado,$numRegistros);
+  PaginaSEI::getInstance()->montarAreaTabela($strResultado, $numRegistros);
   //PaginaSEI::getInstance()->montarAreaDebug();
   PaginaSEI::getInstance()->montarBarraComandosInferior($arrComandos);
   ?>

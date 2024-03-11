@@ -46,9 +46,9 @@ try {
 
     $objInfraSequencia = new InfraSequencia($objBanco);
 
-    if (!$objInfraSequencia->verificarSequencia('md_gd_justificativa')) {
-        $objInfraSequencia->criarSequencia('md_gd_justificativa', '1', '1', '9999999999');
-    }
+  if (!$objInfraSequencia->verificarSequencia('md_gd_justificativa')) {
+      $objInfraSequencia->criarSequencia('md_gd_justificativa', '1', '1', '9999999999');
+  }
 
     // Criação da tabela de arquivamentos
     $objBanco->executarSql(' CREATE TABLE md_gd_arquivamento (
@@ -81,9 +81,9 @@ try {
 
     $objInfraSequencia = new InfraSequencia($objBanco);
 
-    if (!$objInfraSequencia->verificarSequencia('md_gd_arquivamento')) {
-        $objInfraSequencia->criarSequencia('md_gd_arquivamento', '1', '1', '9999999999');
-    }
+  if (!$objInfraSequencia->verificarSequencia('md_gd_arquivamento')) {
+      $objInfraSequencia->criarSequencia('md_gd_arquivamento', '1', '1', '9999999999');
+  }
 
     // Criação da tabela de desarquivamento
     $objBanco->executarSql(' CREATE TABLE md_gd_desarquivamento (
@@ -104,9 +104,9 @@ try {
 
     $objInfraSequencia = new InfraSequencia($objBanco);
 
-    if (!$objInfraSequencia->verificarSequencia('md_gd_desarquivamento')) {
-        $objInfraSequencia->criarSequencia('md_gd_desarquivamento', '1', '1', '9999999999');
-    }
+  if (!$objInfraSequencia->verificarSequencia('md_gd_desarquivamento')) {
+      $objInfraSequencia->criarSequencia('md_gd_desarquivamento', '1', '1', '9999999999');
+  }
 
     // Função anonima para inserção dos parãmetros
     $fnParametroIncluir = function($nome, $valor) use($objBanco) {
@@ -144,9 +144,9 @@ try {
 
     $objInfraSequencia = new InfraSequencia($objBanco);
 
-    if (!$objInfraSequencia->verificarSequencia('md_gd_unidade_arquivamento')) {
-        $objInfraSequencia->criarSequencia('md_gd_unidade_arquivamento', '1', '1', '9999999999');
-    }
+  if (!$objInfraSequencia->verificarSequencia('md_gd_unidade_arquivamento')) {
+      $objInfraSequencia->criarSequencia('md_gd_unidade_arquivamento', '1', '1', '9999999999');
+  }
 
     // Função anonima para inserção dos parãmetros
     $fnParametroModeloDocumento = function($nome, $valor) use($objBanco) {
@@ -179,9 +179,9 @@ try {
 
     $objInfraSequencia = new InfraSequencia($objBanco);
 
-    if (!$objInfraSequencia->verificarSequencia('md_gd_lista_eliminacao')) {
-        $objInfraSequencia->criarSequencia('md_gd_lista_eliminacao', '1', '1', '9999999999');
-    }
+  if (!$objInfraSequencia->verificarSequencia('md_gd_lista_eliminacao')) {
+      $objInfraSequencia->criarSequencia('md_gd_lista_eliminacao', '1', '1', '9999999999');
+  }
 
     // Cria a tabela ternária entre a listagem de eliminação e os procedimentos
     $objBanco->executarSql('CREATE TABLE md_gd_lista_elim_procedimento (
@@ -208,9 +208,9 @@ try {
 
     $objInfraSequencia = new InfraSequencia($objBanco);
 
-    if (!$objInfraSequencia->verificarSequencia('md_gd_lista_recolhimento')) {
-        $objInfraSequencia->criarSequencia('md_gd_lista_recolhimento', '1', '1', '9999999999');
-    }
+  if (!$objInfraSequencia->verificarSequencia('md_gd_lista_recolhimento')) {
+      $objInfraSequencia->criarSequencia('md_gd_lista_recolhimento', '1', '1', '9999999999');
+  }
 
     // Cria a tabela ternária entre a listagem de recolhimento
     $objBanco->executarSql('CREATE TABLE md_gd_lista_recol_procedimento (

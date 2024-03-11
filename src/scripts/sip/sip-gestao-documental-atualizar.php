@@ -29,9 +29,9 @@ try {
     $sistemaRN = new SistemaRN();
     $sistemaDTO = $sistemaRN->consultar($sistemaDTO);
 
-    if (!empty($sistemaDTO)) {
-        $id_sistema = $sistemaDTO->getNumIdSistema();
-    }
+  if (!empty($sistemaDTO)) {
+      $id_sistema = $sistemaDTO->getNumIdSistema();
+  }
 
     //Consulta do Menu
     $menuDTO = new MenuDTO();
@@ -42,9 +42,9 @@ try {
     $menuRN = new MenuRN();
     $menuDTO = $menuRN->consultar($menuDTO);
 
-    if (!empty($menuDTO)) {
-        $id_menu = $menuDTO->getNumIdMenu();
-    }
+  if (!empty($menuDTO)) {
+      $id_menu = $menuDTO->getNumIdMenu();
+  }
 
     //Consulta do Perfil
     $perfilDTO = new PerfilDTO();
@@ -56,9 +56,9 @@ try {
     $perfilRN = new PerfilRN();
     $perfilDTO = $perfilRN->consultar($perfilDTO);
 
-    if (!empty($perfilDTO)) {
-        $id_perfil = $perfilDTO->getNumIdPerfil();
-    }
+  if (!empty($perfilDTO)) {
+      $id_perfil = $perfilDTO->getNumIdPerfil();
+  }
 
     //Consulta do Item de menu pai
     $itemMenuDTO = new ItemMenuDTO();
@@ -70,9 +70,9 @@ try {
     $itemMenuRN = new ItemMenuRN();
     $itemMenuDTO = $itemMenuRN->consultar($itemMenuDTO);
 
-    if (!empty($itemMenuDTO)) {
-        $id_item_menu_pai = $itemMenuDTO->getNumIdItemMenu();
-    }
+  if (!empty($itemMenuDTO)) {
+      $id_item_menu_pai = $itemMenuDTO->getNumIdItemMenu();
+  }
 
     //Cria função genérica de cadastro de recursos
     $fnCadastrarRecurso = function ($id_sistema, $nome, $descricao, $caminho, $ativo) {
@@ -326,9 +326,9 @@ try {
     echo "ATUALIZAO FINALIZADA COM SUCESSO! ";
 } catch (Exception $e) {
     echo(InfraException::inspecionar($e));
-    try {
-        LogSip::getInstance()->gravar(InfraException::inspecionar($e));
-    } catch (Exception $e) {
+  try {
+      LogSip::getInstance()->gravar(InfraException::inspecionar($e));
+  } catch (Exception $e) {
         
-    }
+  }
 }

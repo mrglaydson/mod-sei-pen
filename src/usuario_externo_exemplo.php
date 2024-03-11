@@ -10,17 +10,17 @@ try {
   InfraDebug::getInstance()->setBolDebugInfra(true);
   InfraDebug::getInstance()->limpar();
   //////////////////////////////////////////////////////////////////////////////
-	
+    
   SessaoSEIExterna::getInstance()->validarLink();
 
   switch($_GET['acao']){
     
-      case 'md_abc_usuario_externo_exemplo':
-        $strTitulo = 'Usuário Externo ABC';
+    case 'md_abc_usuario_externo_exemplo':
+      $strTitulo = 'Usuário Externo ABC';
         break;
 
     default:
-      throw new InfraException("Ação '".$_GET['acao']."' não reconhecida.");
+        throw new InfraException("Ação '".$_GET['acao']."' não reconhecida.");
   }
 
 }catch(Exception $e){
@@ -53,7 +53,7 @@ function onSubmitForm(){
 <?
 PaginaSEIExterna::getInstance()->fecharJavaScript();
 PaginaSEIExterna::getInstance()->fecharHead();
-PaginaSEIExterna::getInstance()->abrirBody($strTitulo,'onload="inicializar();"');
+PaginaSEIExterna::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
 ?>
 <form id="frmUsuarioExternoExemplo" method="post" onsubmit="return onSubmitForm();" action="<?=SessaoSEIExterna::getInstance()->assinarLink('controlador_externo.php?acao='.$_GET['acao'].'&acao_origem='.$_GET['acao'])?>">
 <?

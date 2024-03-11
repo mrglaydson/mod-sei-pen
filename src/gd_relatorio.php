@@ -16,16 +16,16 @@ try {
 
     PaginaSEI::getInstance()->salvarCamposPost(array('selUnidade', 'selTipoProcedimento', 'selDestinacaoFinal', 'selCondicionante', 'selFaseGestaoDocumental', 'txtPeriodoDe', 'txtPeriodoA'));
 
-    switch ($_GET['acao']) {
+  switch ($_GET['acao']) {
 
-        case 'gd_relatorio':
-            $strTitulo = 'Relatório de Gestão Documental';
+    case 'gd_relatorio':
+        $strTitulo = 'Relatório de Gestão Documental';
 
-            break;
+        break;
 
-        default:
-            throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
-    }
+    default:
+        throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
+  }
 
     $arrComandos = array();
     $arrComandos[] = '<button type="submit" accesskey="P" id="sbmPesquisar" value="Pesquisar" class="infraButton"><span class="infraTeclaAtalho">P</span>esquisar</button>';
@@ -47,39 +47,39 @@ try {
     $objMdGdArquivamentoDTO->setStrSinAtivo('S');
 
     $selUnidade = PaginaSEI::getInstance()->recuperarCampo('selUnidade');
-    if ($selUnidade && $selUnidade !== 'null') {
-        $objMdGdArquivamentoDTO->setNumIdUnidadeCorrente($selUnidade);
-    }
+  if ($selUnidade && $selUnidade !== 'null') {
+      $objMdGdArquivamentoDTO->setNumIdUnidadeCorrente($selUnidade);
+  }
 
     $selTipoProcedimento = PaginaSEI::getInstance()->recuperarCampo('selTipoProcedimento');
-    if ($selTipoProcedimento && $selTipoProcedimento !== 'null') {
-        $objMdGdArquivamentoDTO->setNumIdTipoProcedimento($selTipoProcedimento);
-    }
+  if ($selTipoProcedimento && $selTipoProcedimento !== 'null') {
+      $objMdGdArquivamentoDTO->setNumIdTipoProcedimento($selTipoProcedimento);
+  }
 
     $selDestinacaoFinal = PaginaSEI::getInstance()->recuperarCampo('selDestinacaoFinal');
-    if ($selDestinacaoFinal && $selDestinacaoFinal !== 'null') {
-        $objMdGdArquivamentoDTO->setStrStaDestinacaoFinal($selDestinacaoFinal);
-    }
+  if ($selDestinacaoFinal && $selDestinacaoFinal !== 'null') {
+      $objMdGdArquivamentoDTO->setStrStaDestinacaoFinal($selDestinacaoFinal);
+  }
 
     $selFaseGestaoDocumental = PaginaSEI::getInstance()->recuperarCampo('selFaseGestaoDocumental');
-    if ($selFaseGestaoDocumental && $selFaseGestaoDocumental !== 'null') {
-        $objMdGdArquivamentoDTO->setStrStaGuarda($selFaseGestaoDocumental);
-    }
+  if ($selFaseGestaoDocumental && $selFaseGestaoDocumental !== 'null') {
+      $objMdGdArquivamentoDTO->setStrStaGuarda($selFaseGestaoDocumental);
+  }
 
     $selCondicionante = PaginaSEI::getInstance()->recuperarCampo('selCondicionante');
-    if ($selCondicionante && $selCondicionante !== 'null') {
-        $objMdGdArquivamentoDTO->setStrSinCondicionante($selCondicionante);
-    }
+  if ($selCondicionante && $selCondicionante !== 'null') {
+      $objMdGdArquivamentoDTO->setStrSinCondicionante($selCondicionante);
+  }
 
     $txtPeriodoDe = PaginaSEI::getInstance()->recuperarCampo('txtPeriodoDe');
-    if ($txtPeriodoDe) {
-        $objMdGdArquivamentoDTO->setDthDataArquivamento($txtPeriodoDe, InfraDTO::$OPER_MAIOR_IGUAL);
-    }
+  if ($txtPeriodoDe) {
+      $objMdGdArquivamentoDTO->setDthDataArquivamento($txtPeriodoDe, InfraDTO::$OPER_MAIOR_IGUAL);
+  }
 
     $txtPeriodoA = PaginaSEI::getInstance()->recuperarCampo('txtPeriodoA');
-    if ($txtPeriodoA) {
-        $objMdGdArquivamentoDTO->setDthDataArquivamento($txtPeriodoA, InfraDTO::$OPER_MENOR_IGUAL);
-    }
+  if ($txtPeriodoA) {
+      $objMdGdArquivamentoDTO->setDthDataArquivamento($txtPeriodoA, InfraDTO::$OPER_MENOR_IGUAL);
+  }
 
     $arrComandos[] = '<button type="button" accesskey="I" id="btnImprimir" value="Imprimir" onclick="infraImprimirTabela();" class="infraButton"><span class="infraTeclaAtalho">I</span>mprimir</button>';
 
@@ -92,54 +92,54 @@ try {
     $arrContadores = [];
     $arrSituacoesArquivamento = MdGdArquivamentoRN::obterSituacoesArquivamento();
 
-    foreach($arrSituacoesArquivamento as $sit => $label){
-        $objMdGdArquivamentoDTO->setStrSituacao($sit);
-        $arrContadores[$sit] = $objMdGdArquivamentoRN->contar($objMdGdArquivamentoDTO);
-    }
+  foreach($arrSituacoesArquivamento as $sit => $label){
+      $objMdGdArquivamentoDTO->setStrSituacao($sit);
+      $arrContadores[$sit] = $objMdGdArquivamentoRN->contar($objMdGdArquivamentoDTO);
+  }
 
     PaginaSEI::getInstance()->processarPaginacao($objMdGdArquivamentoDTO);
     $numRegistros = count($arrObjMdGdArquivamentoDTO);
 
-    if ($numRegistros > 0) {
-        $strResultado = '';
+  if ($numRegistros > 0) {
+      $strResultado = '';
 
-        $strSumarioTabela = 'Processos Arquivados';
-        $strCaptionTabela = 'Processos Arquivados';
+      $strSumarioTabela = 'Processos Arquivados';
+      $strCaptionTabela = 'Processos Arquivados';
 
-        $strResultado .= '<table width="99%" class="infraTable" summary="' . $strSumarioTabela . '">' . "\n";
-        $strResultado .= '<caption class="infraCaption">' . PaginaSEI::getInstance()->gerarCaptionTabela($strCaptionTabela, $numRegistros) . '</caption>';
-        $strResultado .= '<tr>';
-        $strResultado .= '<th class="infraTh" width="1%">' . PaginaSEI::getInstance()->getThCheck() . '</th>' . "\n";
-        $strResultado .= '<th class="infraTh" width="9%">Órgão</th>' . "\n";
-        $strResultado .= '<th class="infraTh" width="15%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdArquivamentoDTO, 'Unidade', 'DescricaoUnidadeCorrente', $arrObjMdGdArquivamentoDTO) . '</th>' . "\n";
-        $strResultado .= '<th class="infraTh" width="15%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdArquivamentoDTO, 'Nº do Processo', 'ProtocoloFormatado', $arrObjMdGdArquivamentoDTO) . '</th>' . "\n";
-        $strResultado .= '<th class="infraTh" width="20%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdArquivamentoDTO, 'Tipo de Processo', 'NomeTipoProcedimento', $arrObjMdGdArquivamentoDTO) . '</th>' . "\n";
-        $strResultado .= '<th class="infraTh" width="15%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdArquivamentoDTO, 'Usuário', 'NomeUsuario', $arrObjMdGdArquivamentoDTO) . '</th>' . "\n";
-        $strResultado .= '<th class="infraTh" width="10%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdArquivamentoDTO, 'Data de arquivamento', 'DataArquivamento', $arrObjMdGdArquivamentoDTO) . '</th>' . "\n";
-        $strResultado .= '<th class="infraTh" width="10%">Fase Corrente</th>' . "\n";
-        $strResultado .= '<th class="infraTh" width="10%">Fase Intermediária</th>' . "\n";
-        $strResultado .= '<th class="infraTh" width="10%">Destinação Final</th>' . "\n";
-        $strResultado .= '</tr>' . "\n";
-        $strCssTr = '';
+      $strResultado .= '<table width="99%" class="infraTable" summary="' . $strSumarioTabela . '">' . "\n";
+      $strResultado .= '<caption class="infraCaption">' . PaginaSEI::getInstance()->gerarCaptionTabela($strCaptionTabela, $numRegistros) . '</caption>';
+      $strResultado .= '<tr>';
+      $strResultado .= '<th class="infraTh" width="1%">' . PaginaSEI::getInstance()->getThCheck() . '</th>' . "\n";
+      $strResultado .= '<th class="infraTh" width="9%">Órgão</th>' . "\n";
+      $strResultado .= '<th class="infraTh" width="15%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdArquivamentoDTO, 'Unidade', 'DescricaoUnidadeCorrente', $arrObjMdGdArquivamentoDTO) . '</th>' . "\n";
+      $strResultado .= '<th class="infraTh" width="15%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdArquivamentoDTO, 'Nº do Processo', 'ProtocoloFormatado', $arrObjMdGdArquivamentoDTO) . '</th>' . "\n";
+      $strResultado .= '<th class="infraTh" width="20%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdArquivamentoDTO, 'Tipo de Processo', 'NomeTipoProcedimento', $arrObjMdGdArquivamentoDTO) . '</th>' . "\n";
+      $strResultado .= '<th class="infraTh" width="15%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdArquivamentoDTO, 'Usuário', 'NomeUsuario', $arrObjMdGdArquivamentoDTO) . '</th>' . "\n";
+      $strResultado .= '<th class="infraTh" width="10%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdArquivamentoDTO, 'Data de arquivamento', 'DataArquivamento', $arrObjMdGdArquivamentoDTO) . '</th>' . "\n";
+      $strResultado .= '<th class="infraTh" width="10%">Fase Corrente</th>' . "\n";
+      $strResultado .= '<th class="infraTh" width="10%">Fase Intermediária</th>' . "\n";
+      $strResultado .= '<th class="infraTh" width="10%">Destinação Final</th>' . "\n";
+      $strResultado .= '</tr>' . "\n";
+      $strCssTr = '';
 
-        for ($i = 0; $i < $numRegistros; $i++) {
+    for ($i = 0; $i < $numRegistros; $i++) {
 
-            $strCssTr = ($strCssTr == '<tr class="infraTrClara">') ? '<tr class="infraTrEscura">' : '<tr class="infraTrClara">';
-            $strResultado .= $strCssTr;
+        $strCssTr = ($strCssTr == '<tr class="infraTrClara">') ? '<tr class="infraTrEscura">' : '<tr class="infraTrClara">';
+        $strResultado .= $strCssTr;
 
-            $strResultado .= '<td valign="top">' . PaginaSEI::getInstance()->getTrCheck($i, $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento(), $arrObjMdGdArquivamentoDTO[$i]->getStrProtocoloFormatado()) . '</td>';
-            $strResultado .= '<td>' . PaginaSEI::tratarHTML(SessaoSEI::getInstance()->getStrDescricaoOrgaoSistema()) . '</td>';
-            $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getStrDescricaoUnidadeCorrente()) . '</td>';
-            $strResultado .= '<td><a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=procedimento_trabalhar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao'] . '&id_procedimento=' . $arrObjMdGdArquivamentoDTO[$i]->getDblIdProcedimento()) . '" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . ' " target="_blank">' . $arrObjMdGdArquivamentoDTO[$i]->getStrProtocoloFormatado() . '</a></td>';
-            $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getStrNomeTipoProcedimento()) . '</td>';
-            $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getStrNomeUsuario()) . '</td>';
-            $strResultado .= '<td>' . PaginaSEI::tratarHTML(substr($arrObjMdGdArquivamentoDTO[$i]->getDthDataArquivamento(), 0, 10)) . '</td>';
-            $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getNumGuardaCorrente()) . 'a</td>';
-            $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getNumGuardaIntermediaria()) . 'a</td>';
-            $strResultado .= '<td>' . PaginaSEI::tratarHTML(MdGdArquivamentoRN::obterDestinacoesFinalArquivamento()[$arrObjMdGdArquivamentoDTO[$i]->getStrStaDestinacaoFinal()]) . '</td>';
-        }
-        $strResultado .= '</table>';
+        $strResultado .= '<td valign="top">' . PaginaSEI::getInstance()->getTrCheck($i, $arrObjMdGdArquivamentoDTO[$i]->getNumIdArquivamento(), $arrObjMdGdArquivamentoDTO[$i]->getStrProtocoloFormatado()) . '</td>';
+        $strResultado .= '<td>' . PaginaSEI::tratarHTML(SessaoSEI::getInstance()->getStrDescricaoOrgaoSistema()) . '</td>';
+        $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getStrDescricaoUnidadeCorrente()) . '</td>';
+        $strResultado .= '<td><a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=procedimento_trabalhar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao'] . '&id_procedimento=' . $arrObjMdGdArquivamentoDTO[$i]->getDblIdProcedimento()) . '" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . ' " target="_blank">' . $arrObjMdGdArquivamentoDTO[$i]->getStrProtocoloFormatado() . '</a></td>';
+        $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getStrNomeTipoProcedimento()) . '</td>';
+        $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getStrNomeUsuario()) . '</td>';
+        $strResultado .= '<td>' . PaginaSEI::tratarHTML(substr($arrObjMdGdArquivamentoDTO[$i]->getDthDataArquivamento(), 0, 10)) . '</td>';
+        $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getNumGuardaCorrente()) . 'a</td>';
+        $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrObjMdGdArquivamentoDTO[$i]->getNumGuardaIntermediaria()) . 'a</td>';
+        $strResultado .= '<td>' . PaginaSEI::tratarHTML(MdGdArquivamentoRN::obterDestinacoesFinalArquivamento()[$arrObjMdGdArquivamentoDTO[$i]->getStrStaDestinacaoFinal()]) . '</td>';
     }
+      $strResultado .= '</table>';
+  }
 
     $strResultado .= '<table width="20%" class="infraTable" summary="" style="float: left; margin-top: 10px;">' . "\n";
     $strResultado .= '<tr>';

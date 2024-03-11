@@ -20,30 +20,29 @@ try {
     $arrObjMdGdParametroDTO = InfraArray::indexarArrInfraDTO($objMdGdParametroRN->listar($objMdGdParametroDTO), 'Nome');
     $arrComandos = array();
 
-    switch ($_GET['acao']) {
+  switch ($_GET['acao']) {
 
-        // Ação de alteração
-        case 'gd_parametro_alterar':
-            
-            $strTitulo = 'Configurações da Gestão Documental';
+      // Ação de alteração
+    case 'gd_parametro_alterar':
+        $strTitulo = 'Configurações da Gestão Documental';
 
-            if (isset($_POST['sbmSalvarParametro'])) {
-                try {
+      if (isset($_POST['sbmSalvarParametro'])) {
+        try {
 
-                    foreach ($arrObjMdGdParametroDTO as $objMdGdParametroDTO) {
-                        $objMdGdParametroDTO->setStrValor($_POST['sel' . $objMdGdParametroDTO->getStrNome()]);
-                        $objMdGdParametroRN->alterar($objMdGdParametroDTO);
-                    }
+          foreach ($arrObjMdGdParametroDTO as $objMdGdParametroDTO) {
+            $objMdGdParametroDTO->setStrValor($_POST['sel' . $objMdGdParametroDTO->getStrNome()]);
+            $objMdGdParametroRN->alterar($objMdGdParametroDTO);
+          }
 
-                    PaginaSEI::getInstance()->adicionarMensagem('Parâmetros alterados com sucesso!');
-                } catch (Exception $e) {
-                    PaginaSEI::getInstance()->processarExcecao($e);
-                }
-            }
-            break;
-        default:
-            throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
-    }
+            PaginaSEI::getInstance()->adicionarMensagem('Parâmetros alterados com sucesso!');
+        } catch (Exception $e) {
+            PaginaSEI::getInstance()->processarExcecao($e);
+        }
+      }
+        break;
+    default:
+        throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
+  }
     
     // Cria os botões de salvar e cancelar
     $arrComandos[] = '<button type="submit" accesskey="S" id="sbmSalvarParametro" name="sbmSalvarParametro" value="Salvar" class="infraButton"><span class="infraTeclaAtalho">S</span>alvar</button>';

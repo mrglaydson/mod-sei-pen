@@ -14,42 +14,42 @@ try {
     SessaoSEI::getInstance()->validarPermissao($_GET['acao']);
     PaginaSEI::getInstance()->salvarCamposPost(array('txtNomeJustificativaPesquisa', 'txtDescricaoJustificativaPesquisa', 'selTipoJustificativaPesquisa'));
 
-    switch ($_GET['acao']) {
-        case 'gd_justificativa_excluir':
-            try {
-                $arrStrIds = PaginaSEI::getInstance()->getArrStrItensSelecionados();
+  switch ($_GET['acao']) {
+    case 'gd_justificativa_excluir':
+      try {
+        $arrStrIds = PaginaSEI::getInstance()->getArrStrItensSelecionados();
 
-                $arrObjMdGdJustificativa = array();
+        $arrObjMdGdJustificativa = array();
 
-                for ($i = 0; $i < count($arrStrIds); $i++) {
-                    $objMdGdJustificativaDTO = new MdGdJustificativaDTO();
-                    $objMdGdJustificativaDTO->setNumIdJustificativa($arrStrIds[$i]);
-                    $arrObjMdGdJustificativa[] = $objMdGdJustificativaDTO;
-                }
+        for ($i = 0; $i < count($arrStrIds); $i++) {
+            $objMdGdJustificativaDTO = new MdGdJustificativaDTO();
+            $objMdGdJustificativaDTO->setNumIdJustificativa($arrStrIds[$i]);
+            $arrObjMdGdJustificativa[] = $objMdGdJustificativaDTO;
+        }
 
-                $objMdGdJustificativaRN = new MdGdJustificativaRN();
-                $objMdGdJustificativaRN->excluir($arrObjMdGdJustificativa);
+        $objMdGdJustificativaRN = new MdGdJustificativaRN();
+        $objMdGdJustificativaRN->excluir($arrObjMdGdJustificativa);
 
-                PaginaSEI::getInstance()->setStrMensagem('Operação realizada com sucesso.');
-            } catch (Exception $e) {
-                PaginaSEI::getInstance()->processarExcecao($e);
-            }
-            header('Location: ' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . $_GET['acao_origem'] . '&acao_origem=' . $_GET['acao']));
-            die;
+        PaginaSEI::getInstance()->setStrMensagem('Operação realizada com sucesso.');
+      } catch (Exception $e) {
+          PaginaSEI::getInstance()->processarExcecao($e);
+      }
+        header('Location: ' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . $_GET['acao_origem'] . '&acao_origem=' . $_GET['acao']));
+        die;
 
 
-        case 'gd_justificativa_listar':
-            $strTitulo = 'Justificativas de Arquivamento / Desarquivamento';
-            if ($_GET['acao_origem'] == 'gd_justificativa_cadastrar') {
-                if (isset($_GET['id_justificativa'])) {
-                    PaginaSEI::getInstance()->adicionarSelecionado($_GET['id_justificativa']);
-                }
-            }
-            break;
+    case 'gd_justificativa_listar':
+        $strTitulo = 'Justificativas de Arquivamento / Desarquivamento';
+      if ($_GET['acao_origem'] == 'gd_justificativa_cadastrar') {
+        if (isset($_GET['id_justificativa'])) {
+          PaginaSEI::getInstance()->adicionarSelecionado($_GET['id_justificativa']);
+        }
+      }
+        break;
 
-        default:
-            throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
-    }
+    default:
+        throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
+  }
 
     $arrComandos = array();
     $arrComandos[] = '<button type="submit" accesskey="P" id="sbmPesquisar" value="Pesquisar" class="infraButton"><span class="infraTeclaAtalho">P</span>esquisar</button>';
@@ -57,9 +57,9 @@ try {
     // Ação de cadastro
     $bolAcaoCadastrar = SessaoSEI::getInstance()->verificarPermissao('gd_justificativa_cadastrar');
 
-    if ($bolAcaoCadastrar) {
-        $arrComandos[] = '<button type="button" accesskey="N" id="btnNova" value="Nova" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_justificativa_cadastrar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao']) . '\'" class="infraButton"><span class="infraTeclaAtalho">N</span>ovo</button>';
-    }
+  if ($bolAcaoCadastrar) {
+      $arrComandos[] = '<button type="button" accesskey="N" id="btnNova" value="Nova" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_justificativa_cadastrar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao']) . '\'" class="infraButton"><span class="infraTeclaAtalho">N</span>ovo</button>';
+  }
 
     $objMdGdJustificativaRN = new MdGdJustificativaRN();
     $objMdGdJustificativaDTO = new MdGdJustificativaDTO();
@@ -71,24 +71,24 @@ try {
     // Busca pelo nome
     $strNome = PaginaSEI::getInstance()->recuperarCampo('txtNomeJustificativaPesquisa');
 
-    if ($strNome !== '') {
+  if ($strNome !== '') {
 
-        $objMdGdJustificativaDTO->setStrNome('%' . $strNome . '%', InfraDTO::$OPER_LIKE);
-    }
+      $objMdGdJustificativaDTO->setStrNome('%' . $strNome . '%', InfraDTO::$OPER_LIKE);
+  }
 
     // Busca pelo descrição
     $strDescricao = PaginaSEI::getInstance()->recuperarCampo('txtDescricaoJustificativaPesquisa');
 
-    if ($strDescricao !== '') {
-        $objMdGdJustificativaDTO->setStrDescricao('%' . $strDescricao . '%', InfraDTO::$OPER_LIKE);
-    }
+  if ($strDescricao !== '') {
+      $objMdGdJustificativaDTO->setStrDescricao('%' . $strDescricao . '%', InfraDTO::$OPER_LIKE);
+  }
 
     // Busca pelo tipo de justificativa
     $strTipo = PaginaSEI::getInstance()->recuperarCampo('selTipoJustificativaPesquisa');
 
-    if ($strTipo !== '') {
-        $objMdGdJustificativaDTO->setStrStaTipo($strTipo);
-    }
+  if ($strTipo !== '') {
+      $objMdGdJustificativaDTO->setStrStaTipo($strTipo);
+  }
 
     // Valida as permissões das ações
     $bolAcaoAlterar = SessaoSEI::getInstance()->verificarPermissao('gd_justificativa_alterar');
@@ -96,10 +96,10 @@ try {
     $bolAcaoConsultar = SessaoSEI::getInstance()->verificarPermissao('gd_justificativa_visualizar');
 
     // Ação de exclusão
-    if ($bolAcaoExcluir) {
-        $arrComandos[] = '<button type="button" accesskey="E" id="btnExcluir" value="Excluir" onclick="acaoExclusaoMultipla();" class="infraButton"><span class="infraTeclaAtalho">E</span>xcluir</button>';
-        $strLinkExcluir = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_justificativa_excluir&acao_origem=' . $_GET['acao']);
-    }
+  if ($bolAcaoExcluir) {
+      $arrComandos[] = '<button type="button" accesskey="E" id="btnExcluir" value="Excluir" onclick="acaoExclusaoMultipla();" class="infraButton"><span class="infraTeclaAtalho">E</span>xcluir</button>';
+      $strLinkExcluir = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_justificativa_excluir&acao_origem=' . $_GET['acao']);
+  }
 
     // Ação de impressão
     $arrComandos[] = '<button type="button" accesskey="I" id="btnImprimir" value="Imprimir" onclick="infraImprimirTabela();" class="infraButton"><span class="infraTeclaAtalho">I</span>mprimir</button>';
@@ -113,49 +113,49 @@ try {
     PaginaSEI::getInstance()->processarPaginacao($objMdGdJustificativaDTO);
     $numRegistros = count($arrMdGdJustificativaDTO);
 
-    if ($numRegistros > 0) {
-        $strResultado = '';
+  if ($numRegistros > 0) {
+      $strResultado = '';
 
-        $strSumarioTabela = 'Tabela de Justificativas.';
-        $strCaptionTabela = 'Justificativas de Arquivamento / Desarquivamento';
+      $strSumarioTabela = 'Tabela de Justificativas.';
+      $strCaptionTabela = 'Justificativas de Arquivamento / Desarquivamento';
 
-        $strResultado .= '<table width="99%" class="infraTable" summary="' . $strSumarioTabela . '">' . "\n";
-        $strResultado .= '<caption class="infraCaption">' . PaginaSEI::getInstance()->gerarCaptionTabela($strCaptionTabela, $numRegistros) . '</caption>';
-        $strResultado .= '<tr>';
-        $strResultado .= '<th class="infraTh" width="1%">' . PaginaSEI::getInstance()->getThCheck() . '</th>' . "\n";
-        $strResultado .= '<th class="infraTh" width="29%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdJustificativaDTO, 'Nome', 'Nome', $arrMdGdJustificativaDTO) . '</th>' . "\n";
-        $strResultado .= '<th class="infraTh" width="15%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdJustificativaDTO, 'Tipo', 'StaTipo', $arrMdGdJustificativaDTO) . '</th>' . "\n";
-        $strResultado .= '<th class="infraTh" width="40%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdJustificativaDTO, 'Base Legal', 'Descricao', $arrMdGdJustificativaDTO) . '</th>' . "\n";
-        $strResultado .= '<th class="infraTh" width="15%">Ações</th>' . "\n";
-        $strResultado .= '</tr>' . "\n";
-        $strCssTr = '';
-        for ($i = 0; $i < $numRegistros; $i++) {
+      $strResultado .= '<table width="99%" class="infraTable" summary="' . $strSumarioTabela . '">' . "\n";
+      $strResultado .= '<caption class="infraCaption">' . PaginaSEI::getInstance()->gerarCaptionTabela($strCaptionTabela, $numRegistros) . '</caption>';
+      $strResultado .= '<tr>';
+      $strResultado .= '<th class="infraTh" width="1%">' . PaginaSEI::getInstance()->getThCheck() . '</th>' . "\n";
+      $strResultado .= '<th class="infraTh" width="29%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdJustificativaDTO, 'Nome', 'Nome', $arrMdGdJustificativaDTO) . '</th>' . "\n";
+      $strResultado .= '<th class="infraTh" width="15%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdJustificativaDTO, 'Tipo', 'StaTipo', $arrMdGdJustificativaDTO) . '</th>' . "\n";
+      $strResultado .= '<th class="infraTh" width="40%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdJustificativaDTO, 'Base Legal', 'Descricao', $arrMdGdJustificativaDTO) . '</th>' . "\n";
+      $strResultado .= '<th class="infraTh" width="15%">Ações</th>' . "\n";
+      $strResultado .= '</tr>' . "\n";
+      $strCssTr = '';
+    for ($i = 0; $i < $numRegistros; $i++) {
 
-            $strCssTr = ($strCssTr == '<tr class="infraTrClara">') ? '<tr class="infraTrEscura">' : '<tr class="infraTrClara">';
-            $strResultado .= $strCssTr;
+        $strCssTr = ($strCssTr == '<tr class="infraTrClara">') ? '<tr class="infraTrEscura">' : '<tr class="infraTrClara">';
+        $strResultado .= $strCssTr;
 
-            $strResultado .= '<td valign="top">' . PaginaSEI::getInstance()->getTrCheck($i, $arrMdGdJustificativaDTO[$i]->getNumIdJustificativa(), $arrMdGdJustificativaDTO[$i]->getStrNome()) . '</td>';
-            $strResultado .= '<td>' . $arrMdGdJustificativaDTO[$i]->getStrNome() . '</td>';
-            $strResultado .= '<td>' . MdGdJustificativaRN::obterTituloJustificativa(PaginaSEI::tratarHTML($arrMdGdJustificativaDTO[$i]->getStrStaTipo())) . '</td>';
-            $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrMdGdJustificativaDTO[$i]->getStrDescricao()) . '</td>';
-            $strResultado .= '<td align="center">';
+        $strResultado .= '<td valign="top">' . PaginaSEI::getInstance()->getTrCheck($i, $arrMdGdJustificativaDTO[$i]->getNumIdJustificativa(), $arrMdGdJustificativaDTO[$i]->getStrNome()) . '</td>';
+        $strResultado .= '<td>' . $arrMdGdJustificativaDTO[$i]->getStrNome() . '</td>';
+        $strResultado .= '<td>' . MdGdJustificativaRN::obterTituloJustificativa(PaginaSEI::tratarHTML($arrMdGdJustificativaDTO[$i]->getStrStaTipo())) . '</td>';
+        $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrMdGdJustificativaDTO[$i]->getStrDescricao()) . '</td>';
+        $strResultado .= '<td align="center">';
 
-            if ($bolAcaoConsultar) {
-                $strResultado .= '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_justificativa_visualizar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao'] . '&id_justificativa=' . $arrMdGdJustificativaDTO[$i]->getNumIdJustificativa()) . '" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="/infra_css/svg/consultar.svg" title="Consultar Justificativa" alt="Consultar Justificativa" class="infraImg" /></a>&nbsp;';
-            }
+      if ($bolAcaoConsultar) {
+        $strResultado .= '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_justificativa_visualizar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao'] . '&id_justificativa=' . $arrMdGdJustificativaDTO[$i]->getNumIdJustificativa()) . '" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="/infra_css/svg/consultar.svg" title="Consultar Justificativa" alt="Consultar Justificativa" class="infraImg" /></a>&nbsp;';
+      }
 
-            if ($bolAcaoAlterar) {
-                $strResultado .= '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_justificativa_alterar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao'] . '&id_justificativa=' . $arrMdGdJustificativaDTO[$i]->getNumIdJustificativa()) . '" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="/infra_css/svg/alterar.svg" title="Alterar Justificativa" alt="Alterar Justificativa" class="infraImg" /></a>&nbsp;';
-            }
+      if ($bolAcaoAlterar) {
+          $strResultado .= '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_justificativa_alterar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao'] . '&id_justificativa=' . $arrMdGdJustificativaDTO[$i]->getNumIdJustificativa()) . '" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="/infra_css/svg/alterar.svg" title="Alterar Justificativa" alt="Alterar Justificativa" class="infraImg" /></a>&nbsp;';
+      }
 
-            if ($bolAcaoExcluir) {
-                $strResultado .= '<a href="#ID-' . $arrMdGdJustificativaDTO[$i]->getNumIdJustificativa() . '" onclick="acaoExcluir(\'' . $arrMdGdJustificativaDTO[$i]->getNumIdJustificativa() . '\',\'' . $arrMdGdJustificativaDTO[$i]->getStrNome() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="/infra_css/svg/excluir.svg" title="Excluir Justificativa" alt="Excluir Justificativa" class="infraImg" /></a>&nbsp;';
-            }
+      if ($bolAcaoExcluir) {
+          $strResultado .= '<a href="#ID-' . $arrMdGdJustificativaDTO[$i]->getNumIdJustificativa() . '" onclick="acaoExcluir(\'' . $arrMdGdJustificativaDTO[$i]->getNumIdJustificativa() . '\',\'' . $arrMdGdJustificativaDTO[$i]->getStrNome() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="/infra_css/svg/excluir.svg" title="Excluir Justificativa" alt="Excluir Justificativa" class="infraImg" /></a>&nbsp;';
+      }
 
-            $strResultado .= '</td></tr>' . "\n";
-        }
-        $strResultado .= '</table>';
+        $strResultado .= '</td></tr>' . "\n";
     }
+      $strResultado .= '</table>';
+  }
 
     //  $arrComandos[] = '<button type="button" accesskey="F" id="btnFechar" value="Fechar" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . PaginaSEI::getInstance()->getAcaoRetorno() . '&acao_origem=' . $_GET['acao'] . '\'" class="infraButton"><span class="infraTeclaAtalho">F</span>echar</button>';
 

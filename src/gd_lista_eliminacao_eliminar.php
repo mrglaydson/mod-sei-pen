@@ -24,50 +24,49 @@ try {
 
     $arrComandos[] = '<button type="submit" accesskey="P" id="sbmEliminar" name="sbmEliminar" value="Eliminar" class="infraButton"><span class="infraTeclaAtalho">E</span>liminar</button>';
 
-    switch ($_GET['acao']) {
+  switch ($_GET['acao']) {
 
-        case 'gd_lista_eliminacao_eliminar':
+    case 'gd_lista_eliminacao_eliminar':
+      try {
+        $strTitulo = 'Confirmar Eliminação de Processos';
 
-            try {
-                $strTitulo = 'Confirmar Eliminação de Processos';
-
-                if (isset($_POST['sbmEliminar'])) {
+        if (isset($_POST['sbmEliminar'])) {
        
-                    // Monta a assinatura
-                   /* $objAssinaturaDTO = new AssinaturaDTO();
-                    $objAssinaturaDTO->setStrStaFormaAutenticacao(AssinaturaRN::$TA_SENHA);
-                    $objAssinaturaDTO->setNumIdOrgaoUsuario($_POST['selOrgao']);
-                    $objAssinaturaDTO->setNumIdUsuario(SessaoSEI::getInstance()->getNumIdUsuario());
-                    $objAssinaturaDTO->setNumIdContextoUsuario(SessaoSEI::getInstance()->getNumIdContextoUsuario());
-                    $objAssinaturaDTO->setStrSenhaUsuario($_POST['pwdSenha']);
-                    $objAssinaturaDTO->setStrCargoFuncao($_POST['selCargoFuncao']);*/
+            // Monta a assinatura
+           /* $objAssinaturaDTO = new AssinaturaDTO();
+            $objAssinaturaDTO->setStrStaFormaAutenticacao(AssinaturaRN::$TA_SENHA);
+            $objAssinaturaDTO->setNumIdOrgaoUsuario($_POST['selOrgao']);
+            $objAssinaturaDTO->setNumIdUsuario(SessaoSEI::getInstance()->getNumIdUsuario());
+            $objAssinaturaDTO->setNumIdContextoUsuario(SessaoSEI::getInstance()->getNumIdContextoUsuario());
+            $objAssinaturaDTO->setStrSenhaUsuario($_POST['pwdSenha']);
+            $objAssinaturaDTO->setStrCargoFuncao($_POST['selCargoFuncao']);*/
                     
-                    // Registra a eliminação
-                    $objMdGdEliminacaoDTO = new MdGdEliminacaoDTO();
-                    $objMdGdEliminacaoDTO->setNumIdListaEliminacao($_POST['hdnIdListagemEliminacao']);
-                    $objMdGdEliminacaoDTO->setNumIdUsuario(SessaoSEI::getInstance()->getNumIdUsuario());
-                    $objMdGdEliminacaoDTO->setStrAssinante($_POST['selCargoFuncao']);
-                    $objMdGdEliminacaoDTO->setNumIdUnidade(SessaoSEI::getInstance()->getNumIdUnidadeAtual());
-                    $objMdGdEliminacaoDTO->setNumIdSecaoImprensaNacional($_POST['selSecaoImprensaNacional']);
-                    $objMdGdEliminacaoDTO->setNumIdVeiculoPublicacao($_POST['selVeiculoPublicacao']);
-                    $objMdGdEliminacaoDTO->setNumPagina($_POST['txtPagina']);
-                    $objMdGdEliminacaoDTO->setDthDataImprensa($_POST['txtData']);
-                    $objMdGdEliminacaoDTO->setDthDataEliminacao(date('d/m/Y'));
-                    // $objMdGdEliminacaoDTO->setObjAssinaturaDTO($objAssinaturaDTO);
+            // Registra a eliminação
+            $objMdGdEliminacaoDTO = new MdGdEliminacaoDTO();
+            $objMdGdEliminacaoDTO->setNumIdListaEliminacao($_POST['hdnIdListagemEliminacao']);
+            $objMdGdEliminacaoDTO->setNumIdUsuario(SessaoSEI::getInstance()->getNumIdUsuario());
+            $objMdGdEliminacaoDTO->setStrAssinante($_POST['selCargoFuncao']);
+            $objMdGdEliminacaoDTO->setNumIdUnidade(SessaoSEI::getInstance()->getNumIdUnidadeAtual());
+            $objMdGdEliminacaoDTO->setNumIdSecaoImprensaNacional($_POST['selSecaoImprensaNacional']);
+            $objMdGdEliminacaoDTO->setNumIdVeiculoPublicacao($_POST['selVeiculoPublicacao']);
+            $objMdGdEliminacaoDTO->setNumPagina($_POST['txtPagina']);
+            $objMdGdEliminacaoDTO->setDthDataImprensa($_POST['txtData']);
+            $objMdGdEliminacaoDTO->setDthDataEliminacao(date('d/m/Y'));
+            // $objMdGdEliminacaoDTO->setObjAssinaturaDTO($objAssinaturaDTO);
 
-                    $objMdGdEliminacaoRN = new MdGdEliminacaoRN();
-                    $objMdGdEliminacaoRN->cadastrar($objMdGdEliminacaoDTO);
-                }
-            } catch (Exception $e) {
-                die($e->getMessage());
-                PaginaSEI::getInstance()->setStrMensagem($e->getMessage());
-                //PaginaSEI::getInstance()->processarExcecao($e);
-            }
-            break;
+            $objMdGdEliminacaoRN = new MdGdEliminacaoRN();
+            $objMdGdEliminacaoRN->cadastrar($objMdGdEliminacaoDTO);
+        }
+      } catch (Exception $e) {
+          die($e->getMessage());
+          PaginaSEI::getInstance()->setStrMensagem($e->getMessage());
+          //PaginaSEI::getInstance()->processarExcecao($e);
+      }
+        break;
 
-        default:
-            throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
-    }
+    default:
+        throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
+  }
     $strItensSelCargoFuncao = AssinanteINT::montarSelectCargoFuncaoUnidadeUsuarioRI1344('null', '&nbsp;', 'null', SessaoSEI::getInstance()->getNumIdUsuario());
     $selSecaoImprensaNacional = SecaoImprensaNacionalINT::montarSelectNome('null', '&nbsp;', '');
 

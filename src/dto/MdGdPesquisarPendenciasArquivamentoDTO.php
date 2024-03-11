@@ -14,14 +14,14 @@ require_once dirname(__FILE__) . '/../../../SEI.php';
 class MdGdPesquisarPendenciasArquivamentoDTO extends InfraDTO {
 
   public function getStrNomeTabela() {
-  	 return null;
+     return null;
   }
 
   public function montar() {
-    $this->adicionarAtributo(InfraDTO::$PREFIXO_DTH,'PeriodoInicial');
-    $this->adicionarAtributo(InfraDTO::$PREFIXO_DTH,'PeriodoFinal');
-    $this->adicionarAtributo(InfraDTO::$PREFIXO_NUM,'IdTipoProcedimento');
-    $this->adicionarAtributo(InfraDTO::$PREFIXO_NUM,'IdProtocoloAssunto');
+    $this->adicionarAtributo(InfraDTO::$PREFIXO_DTH, 'PeriodoInicial');
+    $this->adicionarAtributo(InfraDTO::$PREFIXO_DTH, 'PeriodoFinal');
+    $this->adicionarAtributo(InfraDTO::$PREFIXO_NUM, 'IdTipoProcedimento');
+    $this->adicionarAtributo(InfraDTO::$PREFIXO_NUM, 'IdProtocoloAssunto');
     
   }
 }

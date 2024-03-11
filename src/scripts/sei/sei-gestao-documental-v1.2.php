@@ -43,9 +43,9 @@ try {
 
     $objInfraSequencia = new InfraSequencia($objBanco);
 
-    if (!$objInfraSequencia->verificarSequencia('md_gd_lista_eliminacao')) {
-        $objInfraSequencia->criarSequencia('md_gd_lista_eliminacao', '1', '1', '9999999999');
-    }
+  if (!$objInfraSequencia->verificarSequencia('md_gd_lista_eliminacao')) {
+      $objInfraSequencia->criarSequencia('md_gd_lista_eliminacao', '1', '1', '9999999999');
+  }
 
     // Cria a tabela ternária entre a listagem de eliminação e os procedimentos
     $objBanco->executarSql('CREATE TABLE md_gd_lista_elim_procedimento (
@@ -72,9 +72,9 @@ try {
 
     $objInfraSequencia = new InfraSequencia($objBanco);
 
-    if (!$objInfraSequencia->verificarSequencia('md_gd_lista_recolhimento')) {
-        $objInfraSequencia->criarSequencia('md_gd_lista_recolhimento', '1', '1', '9999999999');
-    }
+  if (!$objInfraSequencia->verificarSequencia('md_gd_lista_recolhimento')) {
+      $objInfraSequencia->criarSequencia('md_gd_lista_recolhimento', '1', '1', '9999999999');
+  }
 
     // Cria a tabela ternária entre a listagem de recolhimento
     $objBanco->executarSql('CREATE TABLE md_gd_lista_recol_procedimento (
@@ -87,7 +87,7 @@ try {
     $objMetaBD->adicionarChaveEstrangeira('md_gd_lista_recol_procedimento_procedimento', 'md_gd_lista_recol_procedimento', array('id_procedimento'), 'procedimento', array('id_procedimento'));
     
     
-    $objMetaBD->adicionarChaveEstrangeira('fk_md_gd_arquivamento_lista_eliminacao',   'md_gd_arquivamento', array('id_lista_eliminacao'), 'md_gd_lista_eliminacao', array('id_lista_eliminacao'));
+    $objMetaBD->adicionarChaveEstrangeira('fk_md_gd_arquivamento_lista_eliminacao', 'md_gd_arquivamento', array('id_lista_eliminacao'), 'md_gd_lista_eliminacao', array('id_lista_eliminacao'));
     $objMetaBD->adicionarChaveEstrangeira('fk_md_gd_arquivamento_lista_recolhimento', 'md_gd_arquivamento', array('id_lista_recolhimento'), 'md_gd_lista_recolhimento', array('id_lista_recolhimento'));
 
     $objBanco->fecharConexao();

@@ -25,14 +25,14 @@ try {
     PaginaSEI::getInstance()->salvarCamposPost(array('txtSiglaUnidade', 'txtDescricaoUnidade'));
 
 
-    switch ($_GET['acao']) {
+  switch ($_GET['acao']) {
 
-        case 'gd_unidade_arquivamento_selecionar':
-            $strTitulo = PaginaSEI::getInstance()->getTituloSelecao('Selecionar Unidade', 'Selecionar Unidades');
-            break;
-        default:
-            throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
-    }
+    case 'gd_unidade_arquivamento_selecionar':
+        $strTitulo = PaginaSEI::getInstance()->getTituloSelecao('Selecionar Unidade', 'Selecionar Unidades');
+        break;
+    default:
+        throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
+  }
 
     $arrComandos = array();
 
@@ -54,19 +54,19 @@ try {
     $objUnidadeDTO->retStrSigla();
     $objUnidadeDTO->retStrDescricao();
 
-    if ($arrIdUnidades) {
-        $objUnidadeDTO->setNumIdUnidade($arrIdUnidades, InfraDTO::$OPER_NOT_IN);
-    }
+  if ($arrIdUnidades) {
+      $objUnidadeDTO->setNumIdUnidade($arrIdUnidades, InfraDTO::$OPER_NOT_IN);
+  }
 
     $strSiglaPesquisa = PaginaSEI::getInstance()->recuperarCampo('txtSiglaUnidade');
-    if ($strSiglaPesquisa !== '') {
-        $objUnidadeDTO->setStrSigla($strSiglaPesquisa);
-    }
+  if ($strSiglaPesquisa !== '') {
+      $objUnidadeDTO->setStrSigla($strSiglaPesquisa);
+  }
 
     $strDescricaoPesquisa = PaginaSEI::getInstance()->recuperarCampo('txtDescricaoUnidade');
-    if ($strDescricaoPesquisa !== '') {
-        $objUnidadeDTO->setStrDescricao($strDescricaoPesquisa);
-    }
+  if ($strDescricaoPesquisa !== '') {
+      $objUnidadeDTO->setStrDescricao($strDescricaoPesquisa);
+  }
 
     PaginaSEI::getInstance()->prepararOrdenacao($objUnidadeDTO, 'Sigla', InfraDTO::$TIPO_ORDENACAO_ASC);
     PaginaSEI::getInstance()->prepararPaginacao($objUnidadeDTO);
@@ -77,44 +77,44 @@ try {
     PaginaSEI::getInstance()->processarPaginacao($objUnidadeDTO);
     $numRegistros = count($arrObjUnidadeDTO);
 
-    if ($numRegistros > 0) {
+  if ($numRegistros > 0) {
 
-        $bolCheck = true;
+      $bolCheck = true;
 
-        $strResultado = '';
+      $strResultado = '';
 
-        $strSumarioTabela = 'Tabela de Unidades.';
-        $strCaptionTabela = 'Unidades';
+      $strSumarioTabela = 'Tabela de Unidades.';
+      $strCaptionTabela = 'Unidades';
 
-        $strResultado .= '<table width="99%" class="infraTable" summary="' . $strSumarioTabela . '">' . "\n";
-        $strResultado .= '<caption class="infraCaption">' . PaginaSEI::getInstance()->gerarCaptionTabela($strCaptionTabela, $numRegistros) . '</caption>';
-        $strResultado .= '<tr>';
-        if ($bolCheck) {
-            $strResultado .= '<th class="infraTh" width="1%">' . PaginaSEI::getInstance()->getThCheck() . '</th>' . "\n";
-        }
-        $strResultado .= '<th class="infraTh">' . PaginaSEI::getInstance()->getThOrdenacao($objUnidadeDTO, 'Sigla', 'Sigla', $arrObjUnidadeDTO) . '</th>' . "\n";
-        $strResultado .= '<th class="infraTh">' . PaginaSEI::getInstance()->getThOrdenacao($objUnidadeDTO, 'Descrição', 'Descricao', $arrObjUnidadeDTO) . '</th>' . "\n";
-
-        //$strResultado .= '<th align="left" class="infraTh">Sigla</th>'."\n";
-        $strResultado .= '<th class="infraTh">Ações</th>' . "\n";
-        $strResultado .= '</tr>' . "\n";
-        $strCssTr = '';
-        for ($i = 0; $i < $numRegistros; $i++) {
-
-            $strCssTr = ($strCssTr == '<tr class="infraTrClara">') ? '<tr class="infraTrEscura">' : '<tr class="infraTrClara">';
-            $strResultado .= $strCssTr;
-
-            if ($bolCheck) {
-                $strResultado .= '<td valign="top">' . PaginaSEI::getInstance()->getTrCheck($i, $arrObjUnidadeDTO[$i]->getNumIdUnidade(), UnidadeINT::formatarSiglaDescricao($arrObjUnidadeDTO[$i]->getStrSigla(), $arrObjUnidadeDTO[$i]->getStrDescricao())) . '</td>';
-            }
-            $strResultado .= '<td width="15%">' . $arrObjUnidadeDTO[$i]->getStrSigla() . '</td>';
-            $strResultado .= '<td>' . $arrObjUnidadeDTO[$i]->getStrDescricao() . '</td>';
-            $strResultado .= '<td align="center">';
-            $strResultado .= PaginaSEI::getInstance()->getAcaoTransportarItem($i, $arrObjUnidadeDTO[$i]->getNumIdUnidade());
-            $strResultado .= '</td></tr>' . "\n";
-        }
-        $strResultado .= '</table>';
+      $strResultado .= '<table width="99%" class="infraTable" summary="' . $strSumarioTabela . '">' . "\n";
+      $strResultado .= '<caption class="infraCaption">' . PaginaSEI::getInstance()->gerarCaptionTabela($strCaptionTabela, $numRegistros) . '</caption>';
+      $strResultado .= '<tr>';
+    if ($bolCheck) {
+        $strResultado .= '<th class="infraTh" width="1%">' . PaginaSEI::getInstance()->getThCheck() . '</th>' . "\n";
     }
+      $strResultado .= '<th class="infraTh">' . PaginaSEI::getInstance()->getThOrdenacao($objUnidadeDTO, 'Sigla', 'Sigla', $arrObjUnidadeDTO) . '</th>' . "\n";
+      $strResultado .= '<th class="infraTh">' . PaginaSEI::getInstance()->getThOrdenacao($objUnidadeDTO, 'Descrição', 'Descricao', $arrObjUnidadeDTO) . '</th>' . "\n";
+
+      //$strResultado .= '<th align="left" class="infraTh">Sigla</th>'."\n";
+      $strResultado .= '<th class="infraTh">Ações</th>' . "\n";
+      $strResultado .= '</tr>' . "\n";
+      $strCssTr = '';
+    for ($i = 0; $i < $numRegistros; $i++) {
+
+        $strCssTr = ($strCssTr == '<tr class="infraTrClara">') ? '<tr class="infraTrEscura">' : '<tr class="infraTrClara">';
+        $strResultado .= $strCssTr;
+
+      if ($bolCheck) {
+          $strResultado .= '<td valign="top">' . PaginaSEI::getInstance()->getTrCheck($i, $arrObjUnidadeDTO[$i]->getNumIdUnidade(), UnidadeINT::formatarSiglaDescricao($arrObjUnidadeDTO[$i]->getStrSigla(), $arrObjUnidadeDTO[$i]->getStrDescricao())) . '</td>';
+      }
+        $strResultado .= '<td width="15%">' . $arrObjUnidadeDTO[$i]->getStrSigla() . '</td>';
+        $strResultado .= '<td>' . $arrObjUnidadeDTO[$i]->getStrDescricao() . '</td>';
+        $strResultado .= '<td align="center">';
+        $strResultado .= PaginaSEI::getInstance()->getAcaoTransportarItem($i, $arrObjUnidadeDTO[$i]->getNumIdUnidade());
+        $strResultado .= '</td></tr>' . "\n";
+    }
+      $strResultado .= '</table>';
+  }
     $arrComandos[] = '<button type="button" accesskey="F" id="btnFecharSelecao" value="Fechar" onclick="window.close();" class="infraButton"><span class="infraTeclaAtalho">F</span>echar</button>';
 } catch (Exception $e) {
     PaginaSEI::getInstance()->processarExcecao($e);

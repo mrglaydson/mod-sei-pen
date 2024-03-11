@@ -29,82 +29,82 @@ try {
 
     $arrComandos = array();
 
-    switch($_GET['acao']){
-        case 'gd_justificativa_cadastrar':
-            $strTitulo = 'Nova Justificativa de Arquivamento / Desarquivamento';
-            $arrComandos[] = '<button type="submit" accesskey="S" name="sbmCadastrarJustificativa" value="Salvar" class="infraButton"><span class="infraTeclaAtalho">S</span>alvar</button>';
-            $arrComandos[] = '<button type="button" accesskey="C" name="btnCancelar" id="btnCancelar" value="Cancelar" onclick="location.href=\''.SessaoSEI::getInstance()->assinarLink('controlador.php?acao='.PaginaSEI::getInstance()->getAcaoRetorno().'&acao_origem='.$_GET['acao']).'\';" class="infraButton"><span class="infraTeclaAtalho">C</span>ancelar</button>';
+  switch($_GET['acao']){
+    case 'gd_justificativa_cadastrar':
+        $strTitulo = 'Nova Justificativa de Arquivamento / Desarquivamento';
+        $arrComandos[] = '<button type="submit" accesskey="S" name="sbmCadastrarJustificativa" value="Salvar" class="infraButton"><span class="infraTeclaAtalho">S</span>alvar</button>';
+        $arrComandos[] = '<button type="button" accesskey="C" name="btnCancelar" id="btnCancelar" value="Cancelar" onclick="location.href=\''.SessaoSEI::getInstance()->assinarLink('controlador.php?acao='.PaginaSEI::getInstance()->getAcaoRetorno().'&acao_origem='.$_GET['acao']).'\';" class="infraButton"><span class="infraTeclaAtalho">C</span>ancelar</button>';
 
-            $objMdGdJustificativaDTO->setNumIdJustificativa(null);
-            $objMdGdJustificativaDTO->setStrNome($_POST['txtNome']);
-            $objMdGdJustificativaDTO->setStrStaTipo($_POST['selTipo']);
-            $objMdGdJustificativaDTO->setStrDescricao($_POST['txaDescricao']);
+        $objMdGdJustificativaDTO->setNumIdJustificativa(null);
+        $objMdGdJustificativaDTO->setStrNome($_POST['txtNome']);
+        $objMdGdJustificativaDTO->setStrStaTipo($_POST['selTipo']);
+        $objMdGdJustificativaDTO->setStrDescricao($_POST['txaDescricao']);
 
-            if (isset($_POST['sbmCadastrarJustificativa'])) {
-                try{
-                    $objMdGdJustificativaRN = new MdGdJustificativaRN();
-                    $objMdGdJustificativaDTO = $objMdGdJustificativaRN->cadastrar($objMdGdJustificativaDTO);
-                    PaginaSEI::getInstance()->adicionarMensagem('Justificativa "'.$objMdGdJustificativaDTO->getStrNome().'" cadastrada com sucesso.');
-                    header('Location: '.SessaoSEI::getInstance()->assinarLink('controlador.php?acao='.PaginaSEI::getInstance()->getAcaoRetorno().'&acao_origem='.$_GET['acao'].'&id_justificativa='.$objMdGdJustificativaDTO->getNumIdJustificativa().PaginaSEI::getInstance()->montarAncora($objMdGdJustificativaDTO->getNumIdJustificativa())));
-                    die;
-                }catch(Exception $e){
-                    PaginaSEI::getInstance()->processarExcecao($e);
-                }
-            }
-            break;
-
-        case 'gd_justificativa_alterar':
-            $strTitulo = 'Alterar Justificativa de Arquivamento / Desarquivamento';
-            $arrComandos[] = '<button type="submit" accesskey="S" name="sbmAlterarJustificativa" value="Salvar" class="infraButton"><span class="infraTeclaAtalho">S</span>alvar</button>';
-            $strDesabilitar = 'disabled="disabled"';
-
-            if (isset($_GET['id_justificativa'])){
-                $objMdGdJustificativaDTO->setNumIdJustificativa($_GET['id_justificativa']);
-                $objMdGdJustificativaDTO->retTodos();
-
-                $objMdGdJustificativaRN = new MdGdJustificativaRN();
-                $objMdGdJustificativaDTO = $objMdGdJustificativaRN->consultar($objMdGdJustificativaDTO);
-                if ($objMdGdJustificativaDTO==null){
-                    throw new InfraException("Registro não encontrado.");
-                }
-            } else {
-                $objMdGdJustificativaDTO->setNumIdJustificativa($_POST['hdnIdJustificativa']);
-                $objMdGdJustificativaDTO->setStrNome($_POST['txtNome']);
-                $objMdGdJustificativaDTO->setStrStaTipo($_POST['selTipo']);
-                $objMdGdJustificativaDTO->setStrDescricao($_POST['txaDescricao']);
-            }
-
-            $arrComandos[] = '<button type="button" accesskey="C" name="btnCancelar" id="btnCancelar" value="Cancelar" onclick="location.href=\''.SessaoSEI::getInstance()->assinarLink('controlador.php?acao='.PaginaSEI::getInstance()->getAcaoRetorno().'&acao_origem='.$_GET['acao'].PaginaSEI::getInstance()->montarAncora($objMdGdJustificativaDTO->getNumIdJustificativa())).'\';" class="infraButton"><span class="infraTeclaAtalho">C</span>ancelar</button>';
-
-            if (isset($_POST['sbmAlterarJustificativa'])) {
-                try{
-                    $objMdGdJustificativaRN = new MdGdJustificativaRN();
-                    $objMdGdJustificativaRN->alterar($objMdGdJustificativaDTO);
-                    PaginaSEI::getInstance()->adicionarMensagem('Justificativa "'.$objMdGdJustificativaDTO->getStrNome().'" alterada com sucesso.');
-                    header('Location: '.SessaoSEI::getInstance()->assinarLink('controlador.php?acao='.PaginaSEI::getInstance()->getAcaoRetorno().'&acao_origem='.$_GET['acao'].PaginaSEI::getInstance()->montarAncora($objMdGdJustificativaDTO->getNumIdJustificativa())));
-                    die;
-                }catch(Exception $e){
-                    PaginaSEI::getInstance()->processarExcecao($e);
-                }
-            }
-            break;
-
-        case 'gd_justificativa_visualizar':
-            $strTitulo = 'Consultar Justificativa de Arquivamento / Desarquivamento';
-            $arrComandos[] = '<button type="button" accesskey="F" name="btnFechar" value="Fechar" onclick="location.href=\''.SessaoSEI::getInstance()->assinarLink('controlador.php?acao='.PaginaSEI::getInstance()->getAcaoRetorno().'&acao_origem='.$_GET['acao'].PaginaSEI::getInstance()->montarAncora($_GET['id_justificativa'])).'\';" class="infraButton"><span class="infraTeclaAtalho">F</span>echar</button>';
-            $objMdGdJustificativaDTO->setNumIdJustificativa($_GET['id_justificativa']);
-            $objMdGdJustificativaDTO->retTodos();
-
+      if (isset($_POST['sbmCadastrarJustificativa'])) {
+        try{
             $objMdGdJustificativaRN = new MdGdJustificativaRN();
-            $objMdGdJustificativaDTO = $objMdGdJustificativaRN->consultar($objMdGdJustificativaDTO);
-            if ($objMdGdJustificativaDTO===null){
-                throw new InfraException("Registro não encontrado.");
-            }
-            break;
+            $objMdGdJustificativaDTO = $objMdGdJustificativaRN->cadastrar($objMdGdJustificativaDTO);
+            PaginaSEI::getInstance()->adicionarMensagem('Justificativa "'.$objMdGdJustificativaDTO->getStrNome().'" cadastrada com sucesso.');
+            header('Location: '.SessaoSEI::getInstance()->assinarLink('controlador.php?acao='.PaginaSEI::getInstance()->getAcaoRetorno().'&acao_origem='.$_GET['acao'].'&id_justificativa='.$objMdGdJustificativaDTO->getNumIdJustificativa().PaginaSEI::getInstance()->montarAncora($objMdGdJustificativaDTO->getNumIdJustificativa())));
+            die;
+        }catch(Exception $e){
+            PaginaSEI::getInstance()->processarExcecao($e);
+        }
+      }
+        break;
 
-        default:
-            throw new InfraException("Ação '".$_GET['acao']."' não reconhecida.");
-    }
+    case 'gd_justificativa_alterar':
+        $strTitulo = 'Alterar Justificativa de Arquivamento / Desarquivamento';
+        $arrComandos[] = '<button type="submit" accesskey="S" name="sbmAlterarJustificativa" value="Salvar" class="infraButton"><span class="infraTeclaAtalho">S</span>alvar</button>';
+        $strDesabilitar = 'disabled="disabled"';
+
+      if (isset($_GET['id_justificativa'])){
+          $objMdGdJustificativaDTO->setNumIdJustificativa($_GET['id_justificativa']);
+          $objMdGdJustificativaDTO->retTodos();
+
+          $objMdGdJustificativaRN = new MdGdJustificativaRN();
+          $objMdGdJustificativaDTO = $objMdGdJustificativaRN->consultar($objMdGdJustificativaDTO);
+        if ($objMdGdJustificativaDTO==null){
+          throw new InfraException("Registro não encontrado.");
+        }
+      } else {
+          $objMdGdJustificativaDTO->setNumIdJustificativa($_POST['hdnIdJustificativa']);
+          $objMdGdJustificativaDTO->setStrNome($_POST['txtNome']);
+          $objMdGdJustificativaDTO->setStrStaTipo($_POST['selTipo']);
+          $objMdGdJustificativaDTO->setStrDescricao($_POST['txaDescricao']);
+      }
+
+        $arrComandos[] = '<button type="button" accesskey="C" name="btnCancelar" id="btnCancelar" value="Cancelar" onclick="location.href=\''.SessaoSEI::getInstance()->assinarLink('controlador.php?acao='.PaginaSEI::getInstance()->getAcaoRetorno().'&acao_origem='.$_GET['acao'].PaginaSEI::getInstance()->montarAncora($objMdGdJustificativaDTO->getNumIdJustificativa())).'\';" class="infraButton"><span class="infraTeclaAtalho">C</span>ancelar</button>';
+
+      if (isset($_POST['sbmAlterarJustificativa'])) {
+        try{
+            $objMdGdJustificativaRN = new MdGdJustificativaRN();
+            $objMdGdJustificativaRN->alterar($objMdGdJustificativaDTO);
+            PaginaSEI::getInstance()->adicionarMensagem('Justificativa "'.$objMdGdJustificativaDTO->getStrNome().'" alterada com sucesso.');
+            header('Location: '.SessaoSEI::getInstance()->assinarLink('controlador.php?acao='.PaginaSEI::getInstance()->getAcaoRetorno().'&acao_origem='.$_GET['acao'].PaginaSEI::getInstance()->montarAncora($objMdGdJustificativaDTO->getNumIdJustificativa())));
+            die;
+        }catch(Exception $e){
+            PaginaSEI::getInstance()->processarExcecao($e);
+        }
+      }
+        break;
+
+    case 'gd_justificativa_visualizar':
+        $strTitulo = 'Consultar Justificativa de Arquivamento / Desarquivamento';
+        $arrComandos[] = '<button type="button" accesskey="F" name="btnFechar" value="Fechar" onclick="location.href=\''.SessaoSEI::getInstance()->assinarLink('controlador.php?acao='.PaginaSEI::getInstance()->getAcaoRetorno().'&acao_origem='.$_GET['acao'].PaginaSEI::getInstance()->montarAncora($_GET['id_justificativa'])).'\';" class="infraButton"><span class="infraTeclaAtalho">F</span>echar</button>';
+        $objMdGdJustificativaDTO->setNumIdJustificativa($_GET['id_justificativa']);
+        $objMdGdJustificativaDTO->retTodos();
+
+        $objMdGdJustificativaRN = new MdGdJustificativaRN();
+        $objMdGdJustificativaDTO = $objMdGdJustificativaRN->consultar($objMdGdJustificativaDTO);
+      if ($objMdGdJustificativaDTO===null){
+          throw new InfraException("Registro não encontrado.");
+      }
+        break;
+
+    default:
+        throw new InfraException("Ação '".$_GET['acao']."' não reconhecida.");
+  }
 
 
 }catch(Exception $e){
@@ -176,7 +176,7 @@ PaginaSEI::getInstance()->abrirJavaScript();
 <?
 PaginaSEI::getInstance()->fecharJavaScript();
 PaginaSEI::getInstance()->fecharHead();
-PaginaSEI::getInstance()->abrirBody($strTitulo,'onload="inicializar();"');
+PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
 ?>
     <form id="frmPaisJustificativa" method="post" onsubmit="return OnSubmitForm();" action="<?=SessaoSEI::getInstance()->assinarLink('controlador.php?acao='.$_GET['acao'].'&acao_origem='.$_GET['acao'])?>">
         <?

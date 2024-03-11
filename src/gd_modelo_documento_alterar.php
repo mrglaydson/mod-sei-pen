@@ -10,55 +10,55 @@ try {
     $objSessao->validarLink();
     $objSessao->validarPermissao($_GET['acao']);
     
-    if (isset($_POST['selModeloDocumento']) && !empty($_POST['selModeloDocumento'])) {
-        $arrComandos[] = '<button type="submit" accesskey="S" name="sbmAlterarModeloAlterar" value="Salvar" class="infraButton"><span class="infraTeclaAtalho">S</span>alvar</button>';
-    }
+  if (isset($_POST['selModeloDocumento']) && !empty($_POST['selModeloDocumento'])) {
+      $arrComandos[] = '<button type="submit" accesskey="S" name="sbmAlterarModeloAlterar" value="Salvar" class="infraButton"><span class="infraTeclaAtalho">S</span>alvar</button>';
+  }
 
     $arrComandos[] = '<button type="button" accesskey="C" name="btnCancelar" id="btnCancelar" value="Cancelar" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . PaginaSEI::getInstance()->getAcaoRetorno() . '&acao_origem=' . $_GET['acao']) . '\';" class="infraButton"><span class="infraTeclaAtalho">C</span>ancelar</button>';
-    if ($_GET['acao'] != 'gd_modelo_documento_alterar') {
+  if ($_GET['acao'] != 'gd_modelo_documento_alterar') {
 
-        throw new InfraException("Ao '" . $_GET['acao'] . "' no reconhecida.");
-    }
+      throw new InfraException("Ao '" . $_GET['acao'] . "' no reconhecida.");
+  }
 
     $objMdGdModeloDocumentoDTO = new MdGdModeloDocumentoDTO();
     $objMdGdModeloDocumentoRN = new MdGdModeloDocumentoRN();
 
-    if (isset($_POST['selModeloDocumento']) && !empty($_POST['selModeloDocumento'])) {
-        $objMdGdModeloDocumentoDTO->setStrNome($_POST['selModeloDocumento']);
-        $objMdGdModeloDocumentoDTO->retTodos();
+  if (isset($_POST['selModeloDocumento']) && !empty($_POST['selModeloDocumento'])) {
+      $objMdGdModeloDocumentoDTO->setStrNome($_POST['selModeloDocumento']);
+      $objMdGdModeloDocumentoDTO->retTodos();
 
-        $objMdGdModeloDocumentoDTO = $objMdGdModeloDocumentoRN->consultar($objMdGdModeloDocumentoDTO);
-    }
+      $objMdGdModeloDocumentoDTO = $objMdGdModeloDocumentoRN->consultar($objMdGdModeloDocumentoDTO);
+  }
 
-    if (isset($_POST['hdnSalvamento']) && $_POST['hdnSalvamento'] == '1') {
-        try {
-            $objMdGdModeloDocumentoDTO->setStrValor($_POST['txaConteudo']);
-            $objMdGdModeloDocumentoRN->alterar($objMdGdModeloDocumentoDTO);
-        } catch (Exception $e) {
-            PaginaSEI::getInstance()->processarExcecao($e);
-        }
+  if (isset($_POST['hdnSalvamento']) && $_POST['hdnSalvamento'] == '1') {
+    try {
+        $objMdGdModeloDocumentoDTO->setStrValor($_POST['txaConteudo']);
+        $objMdGdModeloDocumentoRN->alterar($objMdGdModeloDocumentoDTO);
+    } catch (Exception $e) {
+        PaginaSEI::getInstance()->processarExcecao($e);
     }
+  }
 
-    switch ($_POST['selModeloDocumento']) {
-        case MdGdModeloDocumentoRN::MODELO_DESPACHO_ARQUIVAMENTO:
-            $link = 'gd_ajuda_variaveis_modelo_arquivamento';
-            break;
-        case MdGdModeloDocumentoRN::MODELO_DESPACHO_DESARQUIVAMENTO:
-            $link = 'gd_ajuda_variaveis_modelo_desarquivamento';
-            break;
-        case MdGdModeloDocumentoRN::MODELO_LISTAGEM_ELIMINACAO:
-            $link = 'gd_ajuda_variaveis_modelo_listagem_eliminacao';
-            break;
-        case MdGdModeloDocumentoRN::MODELO_DOCUMENTO_ELIMINACAO:
-            $link = 'gd_ajuda_variaveis_modelo_documento_eliminacao';
-            break;
-        case MdGdModeloDocumentoRN::MODELO_LISTAGEM_RECOLHIMENTO:
-            $link = 'gd_ajuda_variaveis_modelo_listagem_recolhimento';
-            break;
-        case MdGdModeloDocumentoRN::MODELO_DOCUMENTO_RECOLHIMENTO:
-            $link = 'gd_ajuda_variaveis_modelo_documento_recolhimento';
-            break;
-    }
+  switch ($_POST['selModeloDocumento']) {
+    case MdGdModeloDocumentoRN::MODELO_DESPACHO_ARQUIVAMENTO:
+        $link = 'gd_ajuda_variaveis_modelo_arquivamento';
+        break;
+    case MdGdModeloDocumentoRN::MODELO_DESPACHO_DESARQUIVAMENTO:
+        $link = 'gd_ajuda_variaveis_modelo_desarquivamento';
+        break;
+    case MdGdModeloDocumentoRN::MODELO_LISTAGEM_ELIMINACAO:
+        $link = 'gd_ajuda_variaveis_modelo_listagem_eliminacao';
+        break;
+    case MdGdModeloDocumentoRN::MODELO_DOCUMENTO_ELIMINACAO:
+        $link = 'gd_ajuda_variaveis_modelo_documento_eliminacao';
+        break;
+    case MdGdModeloDocumentoRN::MODELO_LISTAGEM_RECOLHIMENTO:
+        $link = 'gd_ajuda_variaveis_modelo_listagem_recolhimento';
+        break;
+    case MdGdModeloDocumentoRN::MODELO_DOCUMENTO_RECOLHIMENTO:
+        $link = 'gd_ajuda_variaveis_modelo_documento_recolhimento';
+        break;
+  }
     //Cria o editor que ir ser exibido na tela
     $objEditorRN = new EditorRN();
     $objEditorDTO = new EditorDTO();
@@ -124,7 +124,7 @@ $objPagina->montarJavaScript();
                 <div id="divEditores" style="overflow: auto;">
                     <textarea id="txaConteudo" name="txaConteudo" rows="10" class="infraTextarea" tabindex="<?= PaginaSEI::getInstance()->getProxTabDados() ?>"><?= $objMdGdModeloDocumentoDTO->getStrValor(); ?></textarea>
                     <script type="text/javascript">
-    <?= $retEditor->getStrEditores(); ?>
+          <?= $retEditor->getStrEditores(); ?>
                     </script>
                 </div>
             </td>

@@ -49,7 +49,7 @@ class MdAbcTesteRN extends InfraRN {
         BancoSEI::getInstance()->fecharConexao();
       }catch(Exception $e2){}
       
-      throw new InfraException('Erro lançando andamentos do módulo ABC.',$e);
+      throw new InfraException('Erro lançando andamentos do módulo ABC.', $e);
     }  
   }
 
@@ -83,7 +83,7 @@ class MdAbcTesteRN extends InfraRN {
       }
 
     }catch(Exception $e){
-      throw new InfraException('Erro lançando andamentos do módulo ABC.',$e);
+      throw new InfraException('Erro lançando andamentos do módulo ABC.', $e);
     }
   }
 }

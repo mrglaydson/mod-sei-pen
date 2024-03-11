@@ -14,35 +14,35 @@ try {
     SessaoSEI::getInstance()->validarPermissao($_GET['acao']);
     PaginaSEI::getInstance()->salvarCamposPost(array('selUnidadeOrigem', 'selUnidadeDestino'));
 
-    switch ($_GET['acao']) {
-        case 'gd_unidade_arquivamento_listar':
-            $strTitulo = 'Unidades de Arquivamento';
-            break;
+  switch ($_GET['acao']) {
+    case 'gd_unidade_arquivamento_listar':
+        $strTitulo = 'Unidades de Arquivamento';
+        break;
 
-        case 'gd_unidade_arquivamento_excluir':
-            try {
-                $arrStrIds = PaginaSEI::getInstance()->getArrStrItensSelecionados();
+    case 'gd_unidade_arquivamento_excluir':
+      try {
+          $arrStrIds = PaginaSEI::getInstance()->getArrStrItensSelecionados();
 
-                $arrObjMdGdJustificativa = array();
+          $arrObjMdGdJustificativa = array();
 
-                for ($i = 0; $i < count($arrStrIds); $i++) {
-                    $objMdGdUnidadeArquivamentoDTO = new MdGdUnidadeArquivamentoDTO();
-                    $objMdGdUnidadeArquivamentoDTO->setNumIdUnidadeArquivamento($arrStrIds[$i]);
-                    $arrObjMdGdUnidadeArquivamento[] = $objMdGdUnidadeArquivamentoDTO;
-                }
+        for ($i = 0; $i < count($arrStrIds); $i++) {
+          $objMdGdUnidadeArquivamentoDTO = new MdGdUnidadeArquivamentoDTO();
+          $objMdGdUnidadeArquivamentoDTO->setNumIdUnidadeArquivamento($arrStrIds[$i]);
+          $arrObjMdGdUnidadeArquivamento[] = $objMdGdUnidadeArquivamentoDTO;
+        }
 
-                $objMdGdUnidadeArquivamentoRN = new MdGdUnidadeArquivamentoRN();
-                $objMdGdUnidadeArquivamentoRN->excluir($arrObjMdGdUnidadeArquivamento);
+          $objMdGdUnidadeArquivamentoRN = new MdGdUnidadeArquivamentoRN();
+          $objMdGdUnidadeArquivamentoRN->excluir($arrObjMdGdUnidadeArquivamento);
 
-                PaginaSEI::getInstance()->setStrMensagem('Operação realizada com sucesso.');
-            } catch (Exception $e) {
-                PaginaSEI::getInstance()->processarExcecao($e);
-            }
-            header('Location: ' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . $_GET['acao_origem'] . '&acao_origem=' . $_GET['acao']));
-            die;
-        default:
-            throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
-    }
+          PaginaSEI::getInstance()->setStrMensagem('Operação realizada com sucesso.');
+      } catch (Exception $e) {
+          PaginaSEI::getInstance()->processarExcecao($e);
+      }
+        header('Location: ' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . $_GET['acao_origem'] . '&acao_origem=' . $_GET['acao']));
+        die;
+    default:
+        throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
+  }
 
     $arrComandos = array();
     $arrComandos[] = '<button type="submit" accesskey="P" id="sbmPesquisar" value="Pesquisar" class="infraButton"><span class="infraTeclaAtalho">P</span>esquisar</button>';
@@ -50,9 +50,9 @@ try {
     // Ação de cadastro
     $bolAcaoCadastrar = SessaoSEI::getInstance()->verificarPermissao('gd_unidade_arquivamento_cadastrar');
 
-    if ($bolAcaoCadastrar) {
-        $arrComandos[] = '<button type="button" accesskey="N" id="btnNova" value="Nova" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_unidade_arquivamento_cadastrar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao']) . '\'" class="infraButton"><span class="infraTeclaAtalho">N</span>ovo</button>';
-    }
+  if ($bolAcaoCadastrar) {
+      $arrComandos[] = '<button type="button" accesskey="N" id="btnNova" value="Nova" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_unidade_arquivamento_cadastrar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao']) . '\'" class="infraButton"><span class="infraTeclaAtalho">N</span>ovo</button>';
+  }
 
     $objMdGdUnidadeArquivamentoRN = new MdGdUnidadeArquivamentoRN();
     $objMdGdUnidadeArquivamentoDTO = new MdGdUnidadeArquivamentoDTO();
@@ -64,14 +64,14 @@ try {
     $objMdGdUnidadeArquivamentoDTO->retStrDescricaoUnidadeDestino();
     
     $selUnidadeOrigem = PaginaSEI::getInstance()->recuperarCampo('selUnidadeOrigem');
-    if ($selUnidadeOrigem && $selUnidadeOrigem !== 'null') {
-        $objMdGdUnidadeArquivamentoDTO->setNumIdUnidadeOrigem($selUnidadeOrigem);
-    }
+  if ($selUnidadeOrigem && $selUnidadeOrigem !== 'null') {
+      $objMdGdUnidadeArquivamentoDTO->setNumIdUnidadeOrigem($selUnidadeOrigem);
+  }
 
     $selUnidadeDestino = PaginaSEI::getInstance()->recuperarCampo('selUnidadeDestino');
-    if ($selUnidadeDestino && $selUnidadeDestino !== 'null') {
-        $objMdGdUnidadeArquivamentoDTO->setNumIdUnidadeDestino($selUnidadeDestino);
-    }
+  if ($selUnidadeDestino && $selUnidadeDestino !== 'null') {
+      $objMdGdUnidadeArquivamentoDTO->setNumIdUnidadeDestino($selUnidadeDestino);
+  }
 
     // Valida as permissões das ações
     $bolAcaoAlterar = SessaoSEI::getInstance()->verificarPermissao('gd_unidade_arquivamento_alterar');
@@ -79,10 +79,10 @@ try {
     $bolAcaoConsultar = SessaoSEI::getInstance()->verificarPermissao('gd_unidade_arquivamento_visualizar');
 
     // Ação de exclusão
-    if ($bolAcaoExcluir) {
-        $arrComandos[] = '<button type="button" accesskey="E" id="btnExcluir" value="Excluir" onclick="acaoExclusaoMultipla();" class="infraButton"><span class="infraTeclaAtalho">E</span>xcluir</button>';
-        $strLinkExcluir = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_unidade_arquivamento_excluir&acao_origem=' . $_GET['acao']);
-    }
+  if ($bolAcaoExcluir) {
+      $arrComandos[] = '<button type="button" accesskey="E" id="btnExcluir" value="Excluir" onclick="acaoExclusaoMultipla();" class="infraButton"><span class="infraTeclaAtalho">E</span>xcluir</button>';
+      $strLinkExcluir = SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_unidade_arquivamento_excluir&acao_origem=' . $_GET['acao']);
+  }
 
     // Ação de impressão
     $arrComandos[] = '<button type="button" accesskey="I" id="btnImprimir" value="Imprimir" onclick="infraImprimirTabela();" class="infraButton"><span class="infraTeclaAtalho">I</span>mprimir</button>';
@@ -95,48 +95,48 @@ try {
     PaginaSEI::getInstance()->processarPaginacao($objMdGdUnidadeArquivamentoDTO);
     $numRegistros = count($arrMdGdUnidadeArquivamentoDTO);
 
-    if ($numRegistros > 0) {
-        $strResultado = '';
+  if ($numRegistros > 0) {
+      $strResultado = '';
 
-        $strSumarioTabela = 'Tabela de Unidades de Arquivo.';
-        $strCaptionTabela = 'Unidades de Arquivamento';
+      $strSumarioTabela = 'Tabela de Unidades de Arquivo.';
+      $strCaptionTabela = 'Unidades de Arquivamento';
 
-        $strResultado .= '<table width="99%" class="infraTable" summary="' . $strSumarioTabela . '">' . "\n";
-        $strResultado .= '<caption class="infraCaption">' . PaginaSEI::getInstance()->gerarCaptionTabela($strCaptionTabela, $numRegistros) . '</caption>';
-        $strResultado .= '<tr>';
-        $strResultado .= '<th class="infraTh" width="1%">' . PaginaSEI::getInstance()->getThCheck() . '</th>' . "\n";
-        $strResultado .= '<th class="infraTh" width="40%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdUnidadeArquivamentoDTO, 'Unidade de Arquivamento', 'DescricaoUnidadeOrigem', $arrMdGdUnidadeArquivamentoDTO) . '</th>' . "\n";
-        $strResultado .= '<th class="infraTh" width="40%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdUnidadeArquivamentoDTO, 'Unidade de Avaliação', 'DescricaoUnidadeDestino', $arrMdGdUnidadeArquivamentoDTO) . '</th>' . "\n";
-        $strResultado .= '<th class="infraTh" width="15%">Ações</th>' . "\n";
-        $strResultado .= '</tr>' . "\n";
-        $strCssTr = '';
+      $strResultado .= '<table width="99%" class="infraTable" summary="' . $strSumarioTabela . '">' . "\n";
+      $strResultado .= '<caption class="infraCaption">' . PaginaSEI::getInstance()->gerarCaptionTabela($strCaptionTabela, $numRegistros) . '</caption>';
+      $strResultado .= '<tr>';
+      $strResultado .= '<th class="infraTh" width="1%">' . PaginaSEI::getInstance()->getThCheck() . '</th>' . "\n";
+      $strResultado .= '<th class="infraTh" width="40%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdUnidadeArquivamentoDTO, 'Unidade de Arquivamento', 'DescricaoUnidadeOrigem', $arrMdGdUnidadeArquivamentoDTO) . '</th>' . "\n";
+      $strResultado .= '<th class="infraTh" width="40%">' . PaginaSEI::getInstance()->getThOrdenacao($objMdGdUnidadeArquivamentoDTO, 'Unidade de Avaliação', 'DescricaoUnidadeDestino', $arrMdGdUnidadeArquivamentoDTO) . '</th>' . "\n";
+      $strResultado .= '<th class="infraTh" width="15%">Ações</th>' . "\n";
+      $strResultado .= '</tr>' . "\n";
+      $strCssTr = '';
 
-        for ($i = 0; $i < $numRegistros; $i++) {
+    for ($i = 0; $i < $numRegistros; $i++) {
 
-            $strCssTr = ($strCssTr == '<tr class="infraTrClara">') ? '<tr class="infraTrEscura">' : '<tr class="infraTrClara">';
-            $strResultado .= $strCssTr;
+        $strCssTr = ($strCssTr == '<tr class="infraTrClara">') ? '<tr class="infraTrEscura">' : '<tr class="infraTrClara">';
+        $strResultado .= $strCssTr;
 
-            $strResultado .= '<td valign="top">' . PaginaSEI::getInstance()->getTrCheck($i, $arrMdGdUnidadeArquivamentoDTO[$i]->getNumIdUnidadeArquivamento(), $arrMdGdUnidadeArquivamentoDTO[$i]->getStrSiglaUnidadeOrigem()) . '</td>';
-            $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrMdGdUnidadeArquivamentoDTO[$i]->getStrSiglaUnidadeOrigem() . ' - ' . $arrMdGdUnidadeArquivamentoDTO[$i]->getStrDescricaoUnidadeOrigem()) . '</td>';
-            $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrMdGdUnidadeArquivamentoDTO[$i]->getStrSiglaUnidadeDestino() . ' - ' . $arrMdGdUnidadeArquivamentoDTO[$i]->getStrDescricaoUnidadeDestino()) . '</td>';
-            $strResultado .= '<td align="center">';
+        $strResultado .= '<td valign="top">' . PaginaSEI::getInstance()->getTrCheck($i, $arrMdGdUnidadeArquivamentoDTO[$i]->getNumIdUnidadeArquivamento(), $arrMdGdUnidadeArquivamentoDTO[$i]->getStrSiglaUnidadeOrigem()) . '</td>';
+        $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrMdGdUnidadeArquivamentoDTO[$i]->getStrSiglaUnidadeOrigem() . ' - ' . $arrMdGdUnidadeArquivamentoDTO[$i]->getStrDescricaoUnidadeOrigem()) . '</td>';
+        $strResultado .= '<td>' . PaginaSEI::tratarHTML($arrMdGdUnidadeArquivamentoDTO[$i]->getStrSiglaUnidadeDestino() . ' - ' . $arrMdGdUnidadeArquivamentoDTO[$i]->getStrDescricaoUnidadeDestino()) . '</td>';
+        $strResultado .= '<td align="center">';
 
-            if ($bolAcaoConsultar) {
-                $strResultado .= '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_unidade_arquivamento_visualizar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao'] . '&id_unidade_arquivamento=' . $arrMdGdUnidadeArquivamentoDTO[$i]->getNumIdUnidadeArquivamento()) . '" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="/infra_css/svg/consultar.svg" title="Consultar Unidade de Arquivamento" alt="Consultar Unidade de Arquivamento" class="infraImg" /></a>&nbsp;';
-            }
+      if ($bolAcaoConsultar) {
+        $strResultado .= '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_unidade_arquivamento_visualizar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao'] . '&id_unidade_arquivamento=' . $arrMdGdUnidadeArquivamentoDTO[$i]->getNumIdUnidadeArquivamento()) . '" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="/infra_css/svg/consultar.svg" title="Consultar Unidade de Arquivamento" alt="Consultar Unidade de Arquivamento" class="infraImg" /></a>&nbsp;';
+      }
 
-            if ($bolAcaoAlterar) {
-                $strResultado .= '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_unidade_arquivamento_alterar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao'] . '&id_unidade_arquivamento=' . $arrMdGdUnidadeArquivamentoDTO[$i]->getNumIdUnidadeArquivamento()) . '" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="/infra_css/svg/alterar.svg" title="Alterar Unidade de Arquivamento" alt="Alterar Unidade de Arquivamento" class="infraImg" /></a>&nbsp;';
-            }
+      if ($bolAcaoAlterar) {
+          $strResultado .= '<a href="' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_unidade_arquivamento_alterar&acao_origem=' . $_GET['acao'] . '&acao_retorno=' . $_GET['acao'] . '&id_unidade_arquivamento=' . $arrMdGdUnidadeArquivamentoDTO[$i]->getNumIdUnidadeArquivamento()) . '" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="/infra_css/svg/alterar.svg" title="Alterar Unidade de Arquivamento" alt="Alterar Unidade de Arquivamento" class="infraImg" /></a>&nbsp;';
+      }
 
-            if ($bolAcaoExcluir) {
-                $strResultado .= '<a href="#ID-' . $arrMdGdUnidadeArquivamentoDTO[$i]->getNumIdUnidadeArquivamento() . '" onclick="acaoExcluir(\'' . $arrMdGdUnidadeArquivamentoDTO[$i]->getNumIdUnidadeArquivamento() . '\',\'' . $arrMdGdUnidadeArquivamentoDTO[$i]->getStrSiglaUnidadeOrigem() . '\',\'' . $arrMdGdUnidadeArquivamentoDTO[$i]->getStrDescricaoUnidadeOrigem() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="/infra_css/svg/excluir.svg" title="Excluir Unidade de Arquivamento" alt="Excluir Unidade de Arquivamento" class="infraImg" /></a>&nbsp;';
-            }
+      if ($bolAcaoExcluir) {
+          $strResultado .= '<a href="#ID-' . $arrMdGdUnidadeArquivamentoDTO[$i]->getNumIdUnidadeArquivamento() . '" onclick="acaoExcluir(\'' . $arrMdGdUnidadeArquivamentoDTO[$i]->getNumIdUnidadeArquivamento() . '\',\'' . $arrMdGdUnidadeArquivamentoDTO[$i]->getStrSiglaUnidadeOrigem() . '\',\'' . $arrMdGdUnidadeArquivamentoDTO[$i]->getStrDescricaoUnidadeOrigem() . '\');" tabindex="' . PaginaSEI::getInstance()->getProxTabTabela() . '"><img src="/infra_css/svg/excluir.svg" title="Excluir Unidade de Arquivamento" alt="Excluir Unidade de Arquivamento" class="infraImg" /></a>&nbsp;';
+      }
 
-            $strResultado .= '</td></tr>' . "\n";
-        }
-        $strResultado .= '</table>';
+        $strResultado .= '</td></tr>' . "\n";
     }
+      $strResultado .= '</table>';
+  }
 
     // Busca uma lista de unidades
     $strItensSelUnidadesOrigem = UnidadeINT::montarSelectSiglaDescricao('null', '&nbsp;', $selUnidadeOrigem);

@@ -28,97 +28,97 @@ try {
 
     $arrComandos = array();
        
-    switch ($_GET['acao']) {
-        case 'gd_unidade_arquivamento_cadastrar':
-            SessaoSEI::getInstance()->validarPermissao('gd_unidade_arquivamento_cadastrar');
+  switch ($_GET['acao']) {
+    case 'gd_unidade_arquivamento_cadastrar':
+        SessaoSEI::getInstance()->validarPermissao('gd_unidade_arquivamento_cadastrar');
 
-            $objMdGdUnidadeArquivamentoDTO->setNumIdUnidadeOrigem(null);
-            $objMdGdUnidadeArquivamentoDTO->setNumIdUnidadeDestino(null);
+        $objMdGdUnidadeArquivamentoDTO->setNumIdUnidadeOrigem(null);
+        $objMdGdUnidadeArquivamentoDTO->setNumIdUnidadeDestino(null);
+        $objMdGdUnidadeArquivamentoDTO->setNumIdUnidadeArquivamento(null);
+
+        $strTitulo = 'Nova Unidade de Arquivamento';
+        $arrComandos[] = '<button type="submit" accesskey="S" name="sbmCadastrarUnidadeArquivamento" value="Salvar" class="infraButton"><span class="infraTeclaAtalho">S</span>alvar</button>';
+        $arrComandos[] = '<button type="button" accesskey="C" name="btnCancelar" id="btnCancelar" value="Cancelar" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . PaginaSEI::getInstance()->getAcaoRetorno() . '&acao_origem=' . $_GET['acao']) . '\';" class="infraButton"><span class="infraTeclaAtalho">C</span>ancelar</button>';
+
+
+      if (isset($_POST['sbmCadastrarUnidadeArquivamento'])) {
+        $arrUnidadesOrigem = PaginaSEI::getInstance()->getArrValuesSelect($_POST['hdnUnidadesOrigem']);
+
+        try {
+          foreach ($arrUnidadesOrigem as $numIdUnidadeOrigem) {
+            $objMdGdUnidadeArquivamentoDTO = new MdGdUnidadeArquivamentoDTO();
             $objMdGdUnidadeArquivamentoDTO->setNumIdUnidadeArquivamento(null);
-
-            $strTitulo = 'Nova Unidade de Arquivamento';
-            $arrComandos[] = '<button type="submit" accesskey="S" name="sbmCadastrarUnidadeArquivamento" value="Salvar" class="infraButton"><span class="infraTeclaAtalho">S</span>alvar</button>';
-            $arrComandos[] = '<button type="button" accesskey="C" name="btnCancelar" id="btnCancelar" value="Cancelar" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . PaginaSEI::getInstance()->getAcaoRetorno() . '&acao_origem=' . $_GET['acao']) . '\';" class="infraButton"><span class="infraTeclaAtalho">C</span>ancelar</button>';
-
-
-            if (isset($_POST['sbmCadastrarUnidadeArquivamento'])) {
-                $arrUnidadesOrigem = PaginaSEI::getInstance()->getArrValuesSelect($_POST['hdnUnidadesOrigem']);
-
-                try {
-                    foreach ($arrUnidadesOrigem as $numIdUnidadeOrigem) {
-                        $objMdGdUnidadeArquivamentoDTO = new MdGdUnidadeArquivamentoDTO();
-                        $objMdGdUnidadeArquivamentoDTO->setNumIdUnidadeArquivamento(null);
-                        $objMdGdUnidadeArquivamentoDTO->setNumIdUnidadeOrigem($numIdUnidadeOrigem);
-                        $objMdGdUnidadeArquivamentoDTO->setNumIdUnidadeDestino($_POST['selUnidadeDestino']);
-
-                        $objMdGdUnidadeArquivamentoRN = new MdGdUnidadeArquivamentoRN();
-                        $objMdGdUnidadeArquivamentoDTO = $objMdGdUnidadeArquivamentoRN->cadastrar($objMdGdUnidadeArquivamentoDTO);
-                    }
-
-                    PaginaSEI::getInstance()->adicionarMensagem('Unidade de arquivo cadastrada com sucesso.');
-                    header('Location: ' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . PaginaSEI::getInstance()->getAcaoRetorno() . '&acao_origem=' . $_GET['acao'] . '&id_unidade_arquivamento=' . $objMdGdUnidadeArquivamentoDTO->getNumIdUnidadeArquivamento() . PaginaSEI::getInstance()->montarAncora($objMdGdUnidadeArquivamentoDTO->getNumIdUnidadeArquivamento())));
-                    die;
-                } catch (Exception $e) {
-                    PaginaSEI::getInstance()->processarExcecao($e);
-                }
-            }
-            break;
-
-        case 'gd_unidade_arquivamento_alterar':
-            SessaoSEI::getInstance()->validarPermissao('gd_unidade_arquivamento_alterar');
-
-            $strTitulo = 'Alterar Unidade de Arquivamento';
-            $arrComandos[] = '<button type="submit" accesskey="S" name="sbmAlterarJustificativa" value="Salvar" class="infraButton"><span class="infraTeclaAtalho">S</span>alvar</button>';
-            $strDesabilitar = 'disabled="disabled"';
-
-            if (isset($_GET['id_unidade_arquivamento'])) {
-                $objMdGdUnidadeArquivamentoDTO->setNumIdUnidadeArquivamento($_GET['id_unidade_arquivamento']);
-                $objMdGdUnidadeArquivamentoDTO->retTodos();
-
-                $objMdGdUnidadeArquivamentoRN = new MdGdUnidadeArquivamentoRN();
-                $objMdGdUnidadeArquivamentoDTO = $objMdGdUnidadeArquivamentoRN->consultar($objMdGdUnidadeArquivamentoDTO);
-                if ($objMdGdUnidadeArquivamentoDTO == null) {
-                    throw new InfraException("Registro não encontrado.");
-                }
-            } else {
-                $objMdGdUnidadeArquivamentoDTO->setNumIdUnidadeArquivamento($_POST['hdnIdUnidadeArquivamento']);
-                $objMdGdUnidadeArquivamentoDTO->setNumIdUnidadeOrigem($_POST['selUnidadeOrigem']);
-                $objMdGdUnidadeArquivamentoDTO->setNumIdUnidadeDestino($_POST['selUnidadeDestino']);
-            }
-
-            $arrComandos[] = '<button type="button" accesskey="C" name="btnCancelar" id="btnCancelar" value="Cancelar" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . PaginaSEI::getInstance()->getAcaoRetorno() . '&acao_origem=' . $_GET['acao'] . PaginaSEI::getInstance()->montarAncora($objMdGdUnidadeArquivamentoDTO->getNumIdUnidadeArquivamento())) . '\';" class="infraButton"><span class="infraTeclaAtalho">C</span>ancelar</button>';
-
-            if (isset($_POST['sbmAlterarJustificativa'])) {
-                try {
-                    $objMdGdUnidadeArquivamentoRN = new MdGdUnidadeArquivamentoRN();
-                    $objMdGdUnidadeArquivamentoRN->alterar($objMdGdUnidadeArquivamentoDTO);
-                    PaginaSEI::getInstance()->adicionarMensagem('Unidade de arquivo alterado com sucesso.');
-                    header('Location: ' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . PaginaSEI::getInstance()->getAcaoRetorno() . '&acao_origem=' . $_GET['acao'] . PaginaSEI::getInstance()->montarAncora($objMdGdUnidadeArquivamentoDTO->getNumIdUnidadeArquivamento())));
-                    die;
-                } catch (Exception $e) {
-                    PaginaSEI::getInstance()->processarExcecao($e);
-                }
-            }
-            break;
-
-        case 'gd_unidade_arquivamento_visualizar':
-            SessaoSEI::getInstance()->validarPermissao('gd_unidade_arquivamento_visualizar');
-
-            $strTitulo = 'Consultar Unidade de Arquivamento';
-            $arrComandos[] = '<button type="button" accesskey="F" name="btnFechar" value="Fechar" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . PaginaSEI::getInstance()->getAcaoRetorno() . '&acao_origem=' . $_GET['acao'] . PaginaSEI::getInstance()->montarAncora($_GET['id_justificativa'])) . '\';" class="infraButton"><span class="infraTeclaAtalho">F</span>echar</button>';
-            $objMdGdUnidadeArquivamentoDTO->setNumIdUnidadeArquivamento($_GET['id_unidade_arquivamento']);
-            $objMdGdUnidadeArquivamentoDTO->retTodos();
+            $objMdGdUnidadeArquivamentoDTO->setNumIdUnidadeOrigem($numIdUnidadeOrigem);
+            $objMdGdUnidadeArquivamentoDTO->setNumIdUnidadeDestino($_POST['selUnidadeDestino']);
 
             $objMdGdUnidadeArquivamentoRN = new MdGdUnidadeArquivamentoRN();
-            $objMdGdUnidadeArquivamentoDTO = $objMdGdUnidadeArquivamentoRN->consultar($objMdGdUnidadeArquivamentoDTO);
-            if ($objMdGdUnidadeArquivamentoDTO === null) {
-                throw new InfraException("Registro não encontrado.");
-            }
-            break;
+            $objMdGdUnidadeArquivamentoDTO = $objMdGdUnidadeArquivamentoRN->cadastrar($objMdGdUnidadeArquivamentoDTO);
+          }
 
-        default:
-            throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
-    }
+            PaginaSEI::getInstance()->adicionarMensagem('Unidade de arquivo cadastrada com sucesso.');
+            header('Location: ' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . PaginaSEI::getInstance()->getAcaoRetorno() . '&acao_origem=' . $_GET['acao'] . '&id_unidade_arquivamento=' . $objMdGdUnidadeArquivamentoDTO->getNumIdUnidadeArquivamento() . PaginaSEI::getInstance()->montarAncora($objMdGdUnidadeArquivamentoDTO->getNumIdUnidadeArquivamento())));
+            die;
+        } catch (Exception $e) {
+            PaginaSEI::getInstance()->processarExcecao($e);
+        }
+      }
+        break;
+
+    case 'gd_unidade_arquivamento_alterar':
+        SessaoSEI::getInstance()->validarPermissao('gd_unidade_arquivamento_alterar');
+
+        $strTitulo = 'Alterar Unidade de Arquivamento';
+        $arrComandos[] = '<button type="submit" accesskey="S" name="sbmAlterarJustificativa" value="Salvar" class="infraButton"><span class="infraTeclaAtalho">S</span>alvar</button>';
+        $strDesabilitar = 'disabled="disabled"';
+
+      if (isset($_GET['id_unidade_arquivamento'])) {
+          $objMdGdUnidadeArquivamentoDTO->setNumIdUnidadeArquivamento($_GET['id_unidade_arquivamento']);
+          $objMdGdUnidadeArquivamentoDTO->retTodos();
+
+          $objMdGdUnidadeArquivamentoRN = new MdGdUnidadeArquivamentoRN();
+          $objMdGdUnidadeArquivamentoDTO = $objMdGdUnidadeArquivamentoRN->consultar($objMdGdUnidadeArquivamentoDTO);
+        if ($objMdGdUnidadeArquivamentoDTO == null) {
+          throw new InfraException("Registro não encontrado.");
+        }
+      } else {
+          $objMdGdUnidadeArquivamentoDTO->setNumIdUnidadeArquivamento($_POST['hdnIdUnidadeArquivamento']);
+          $objMdGdUnidadeArquivamentoDTO->setNumIdUnidadeOrigem($_POST['selUnidadeOrigem']);
+          $objMdGdUnidadeArquivamentoDTO->setNumIdUnidadeDestino($_POST['selUnidadeDestino']);
+      }
+
+        $arrComandos[] = '<button type="button" accesskey="C" name="btnCancelar" id="btnCancelar" value="Cancelar" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . PaginaSEI::getInstance()->getAcaoRetorno() . '&acao_origem=' . $_GET['acao'] . PaginaSEI::getInstance()->montarAncora($objMdGdUnidadeArquivamentoDTO->getNumIdUnidadeArquivamento())) . '\';" class="infraButton"><span class="infraTeclaAtalho">C</span>ancelar</button>';
+
+      if (isset($_POST['sbmAlterarJustificativa'])) {
+        try {
+            $objMdGdUnidadeArquivamentoRN = new MdGdUnidadeArquivamentoRN();
+            $objMdGdUnidadeArquivamentoRN->alterar($objMdGdUnidadeArquivamentoDTO);
+            PaginaSEI::getInstance()->adicionarMensagem('Unidade de arquivo alterado com sucesso.');
+            header('Location: ' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . PaginaSEI::getInstance()->getAcaoRetorno() . '&acao_origem=' . $_GET['acao'] . PaginaSEI::getInstance()->montarAncora($objMdGdUnidadeArquivamentoDTO->getNumIdUnidadeArquivamento())));
+            die;
+        } catch (Exception $e) {
+            PaginaSEI::getInstance()->processarExcecao($e);
+        }
+      }
+        break;
+
+    case 'gd_unidade_arquivamento_visualizar':
+        SessaoSEI::getInstance()->validarPermissao('gd_unidade_arquivamento_visualizar');
+
+        $strTitulo = 'Consultar Unidade de Arquivamento';
+        $arrComandos[] = '<button type="button" accesskey="F" name="btnFechar" value="Fechar" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . PaginaSEI::getInstance()->getAcaoRetorno() . '&acao_origem=' . $_GET['acao'] . PaginaSEI::getInstance()->montarAncora($_GET['id_justificativa'])) . '\';" class="infraButton"><span class="infraTeclaAtalho">F</span>echar</button>';
+        $objMdGdUnidadeArquivamentoDTO->setNumIdUnidadeArquivamento($_GET['id_unidade_arquivamento']);
+        $objMdGdUnidadeArquivamentoDTO->retTodos();
+
+        $objMdGdUnidadeArquivamentoRN = new MdGdUnidadeArquivamentoRN();
+        $objMdGdUnidadeArquivamentoDTO = $objMdGdUnidadeArquivamentoRN->consultar($objMdGdUnidadeArquivamentoDTO);
+      if ($objMdGdUnidadeArquivamentoDTO === null) {
+          throw new InfraException("Registro não encontrado.");
+      }
+        break;
+
+    default:
+        throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
+  }
 
     // Busca uma lista de unidades
     $strItensSelUnidadesOrigem = MdGdArquivamentoINT::montarSelectUnidadesArquivamento($objMdGdUnidadeArquivamentoDTO->getNumIdUnidadeOrigem());

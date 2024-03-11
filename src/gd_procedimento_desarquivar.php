@@ -28,90 +28,89 @@ try {
 
     $strParametros = '';
 
-    if (isset($_GET['id_procedimento']) && !empty($_GET['id_procedimento'])) {
-        $strParametros .= "&id_procedimento=" . $_GET['id_procedimento'];
-    }
+  if (isset($_GET['id_procedimento']) && !empty($_GET['id_procedimento'])) {
+      $strParametros .= "&id_procedimento=" . $_GET['id_procedimento'];
+  }
 
-    if (isset($_GET['arvore'])) {
-        PaginaSEI::getInstance()->setBolArvore($_GET['arvore']);
-        $strParametros .= '&arvore=' . $_GET['arvore'];
-    }
+  if (isset($_GET['arvore'])) {
+      PaginaSEI::getInstance()->setBolArvore($_GET['arvore']);
+      $strParametros .= '&arvore=' . $_GET['arvore'];
+  }
 
-    if(isset($_GET['redirect']) && $_GET['redirect']){
-        header('Location: ' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao='.PaginaSEI::getInstance()->getAcaoRetorno().'&acao_origem=' . $_GET['acao'].$strParametros.'&atualizar_arvore=1'));
-        die();
-    }
+  if(isset($_GET['redirect']) && $_GET['redirect']){
+      header('Location: ' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao='.PaginaSEI::getInstance()->getAcaoRetorno().'&acao_origem=' . $_GET['acao'].$strParametros.'&atualizar_arvore=1'));
+      die();
+  }
 
     $strTitulo = 'Desarquivar Processo';
 
-    switch ($_GET['acao']) {
-        case 'gd_procedimento_desarquivar':
+  switch ($_GET['acao']) {
+    case 'gd_procedimento_desarquivar':
+        $arrComandos[] = '<button type="button" accesskey="A" name="btnAssinar" id="btnAssinar" value="Assinar" class="infraButton"  onclick="infraAbrirBarraProgresso(this.form,\''.SessaoSEI::getInstance()->assinarLink('controlador.php?acao='.$_GET['acao'].'&acao_origem='.$_GET['acao']).'\', 600, 250);" ><span class="infraTeclaAtalho">A</span>ssinar</button>';
 
-            $arrComandos[] = '<button type="button" accesskey="A" name="btnAssinar" id="btnAssinar" value="Assinar" class="infraButton"  onclick="infraAbrirBarraProgresso(this.form,\''.SessaoSEI::getInstance()->assinarLink('controlador.php?acao='.$_GET['acao'].'&acao_origem='.$_GET['acao']).'\', 600, 250);" ><span class="infraTeclaAtalho">A</span>ssinar</button>';
+      if ($_GET['acao_origem'] == 'gd_arquivamento_listar') {
+        $arrComandos[] = '<button type="button" accesskey="C" id="btnCancelar" name="btnCancelar" value="Cancelar" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_arquivamento_listar&acao_origem=' . $_GET['acao'] . $strParametros) . '\';" class="infraButton"><span class="infraTeclaAtalho">C</span>ancelar</button>';
+      } else {
+          $arrComandos[] = '<button type="button" accesskey="C" id="btnCancelar" name="btnCancelar" value="Cancelar" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . PaginaSEI::getInstance()->getAcaoRetorno() . '&acao_origem=' . $_GET['acao'] . $strParametros) . '\';" class="infraButton"><span class="infraTeclaAtalho">C</span>ancelar</button>';
+      }
 
-            if ($_GET['acao_origem'] == 'gd_arquivamento_listar') {
-                $arrComandos[] = '<button type="button" accesskey="C" id="btnCancelar" name="btnCancelar" value="Cancelar" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_arquivamento_listar&acao_origem=' . $_GET['acao'] . $strParametros) . '\';" class="infraButton"><span class="infraTeclaAtalho">C</span>ancelar</button>';
-            } else {
-                $arrComandos[] = '<button type="button" accesskey="C" id="btnCancelar" name="btnCancelar" value="Cancelar" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . PaginaSEI::getInstance()->getAcaoRetorno() . '&acao_origem=' . $_GET['acao'] . $strParametros) . '\';" class="infraButton"><span class="infraTeclaAtalho">C</span>ancelar</button>';
-            }
+      if ($_GET['acao_origem'] == 'gd_arquivamento_listar') {
+          $arrProtocolosOrigem = PaginaSEI::getInstance()->getArrStrItensSelecionados();
+      } else {
+          $arrProtocolosOrigem = array($_GET['id_procedimento']);
+      }
 
-            if ($_GET['acao_origem'] == 'gd_arquivamento_listar') {
-                $arrProtocolosOrigem = PaginaSEI::getInstance()->getArrStrItensSelecionados();
-            } else {
-                $arrProtocolosOrigem = array($_GET['id_procedimento']);
-            }
-
-            if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_GET['acao_origem'] == 'gd_procedimento_desarquivar') {
-                try {
-                    $arrProtocolosOrigem = explode(',', $_POST['hdnIdProtocolos']);
+      if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_GET['acao_origem'] == 'gd_procedimento_desarquivar') {
+        try {
+            $arrProtocolosOrigem = explode(',', $_POST['hdnIdProtocolos']);
                     
-                    ini_set('max_execution_time','0');
-                    ini_set('memory_limit','2048M');
+            ini_set('max_execution_time', '0');
+            ini_set('memory_limit', '2048M');
                     
-                    PaginaSEI::getInstance()->prepararBarraProgresso2($strTitulo);
-                    $prb = InfraBarraProgresso2::newInstance('DesarquivarProcessos', array('cor_fundo'=>'#5c9ccc','cor_borda'=>'#4297d7'));
-                    $prb->setStrRotulo('Desarquivar Processos');
-                    $prb->setNumMin(0);
-                    $prb->setNumMax(count($arrProtocolosOrigem));
+            PaginaSEI::getInstance()->prepararBarraProgresso2($strTitulo);
+            $prb = InfraBarraProgresso2::newInstance('DesarquivarProcessos', array('cor_fundo'=>'#5c9ccc','cor_borda'=>'#4297d7'));
+            $prb->setStrRotulo('Desarquivar Processos');
+            $prb->setNumMin(0);
+            $prb->setNumMax(count($arrProtocolosOrigem));
 
-                    $objAssinaturaDTO = new AssinaturaDTO();
-                    $objAssinaturaDTO->setStrStaFormaAutenticacao(AssinaturaRN::$TA_SENHA);
-                    $objAssinaturaDTO->setNumIdOrgaoUsuario($_POST['selOrgao']);
-                    $objAssinaturaDTO->setNumIdUsuario(SessaoSEI::getInstance()->getNumIdUsuario());
-                    $objAssinaturaDTO->setNumIdContatoUsuario(SessaoSEI::getInstance()->getNumIdContextoUsuario());
-                    $objAssinaturaDTO->setStrSenhaUsuario($_POST['pwdSenha']);
-                    $objAssinaturaDTO->setStrCargoFuncao($_POST['selCargoFuncao']);
+            $objAssinaturaDTO = new AssinaturaDTO();
+            $objAssinaturaDTO->setStrStaFormaAutenticacao(AssinaturaRN::$TA_SENHA);
+            $objAssinaturaDTO->setNumIdOrgaoUsuario($_POST['selOrgao']);
+            $objAssinaturaDTO->setNumIdUsuario(SessaoSEI::getInstance()->getNumIdUsuario());
+            $objAssinaturaDTO->setNumIdContatoUsuario(SessaoSEI::getInstance()->getNumIdContextoUsuario());
+            $objAssinaturaDTO->setStrSenhaUsuario($_POST['pwdSenha']);
+            $objAssinaturaDTO->setStrCargoFuncao($_POST['selCargoFuncao']);
 
-                    $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
+            $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
 
-                    foreach ($arrProtocolosOrigem as $key => $numIdProcedimento) {
-                        $objMdGdDesarquivamentoDTO = new MdGdDesarquivamentoDTO();
-                        $objMdGdDesarquivamentoDTO->setDblIdProcedimento($numIdProcedimento);
-                        $objMdGdDesarquivamentoDTO->setNumIdJustificativa($_POST['selJustificativa']);
-                        $objMdGdDesarquivamentoDTO->setObjAssinaturaDTO($objAssinaturaDTO);
+          foreach ($arrProtocolosOrigem as $key => $numIdProcedimento) {
+            $objMdGdDesarquivamentoDTO = new MdGdDesarquivamentoDTO();
+            $objMdGdDesarquivamentoDTO->setDblIdProcedimento($numIdProcedimento);
+            $objMdGdDesarquivamentoDTO->setNumIdJustificativa($_POST['selJustificativa']);
+            $objMdGdDesarquivamentoDTO->setObjAssinaturaDTO($objAssinaturaDTO);
 
-                        $objMdGdArquivamentoRN->desarquivar($objMdGdDesarquivamentoDTO);
-                        $prb->setStrRotulo('Desarquivamento '.($key + 1) .' de '.count($arrProtocolosOrigem));
-                        $prb->moverProximo();
-                    }
+            $objMdGdArquivamentoRN->desarquivar($objMdGdDesarquivamentoDTO);
+            $prb->setStrRotulo('Desarquivamento '.($key + 1) .' de '.count($arrProtocolosOrigem));
+            $prb->moverProximo();
+          }
 
-                    PaginaSEI::getInstance()->setStrMensagem('Desarquivamento realizado com sucesso!');
-                    if(count($arrProtocolosOrigem) > 1){
-                        PaginaSEI::getInstance()->finalizarBarraProgresso2(SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_arquivamento_listar&acao_origem=' . $_GET['acao']), true);
-                    }else{
-                        PaginaSEI::getInstance()->finalizarBarraProgresso2(SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_procedimento_desarquivar&acao_origem=' . $_GET['acao'] . '&id_procedimento='.$arrProtocolosOrigem[0].'&arvore=1&redirect=true'), true);
-                    }
-                    die;
-                } catch (Exception $e) {
-                    PaginaSEI::getInstance()->processarExcecao($e);
-                }
-            }
+            PaginaSEI::getInstance()->setStrMensagem('Desarquivamento realizado com sucesso!');
+          if(count($arrProtocolosOrigem) > 1){
+              PaginaSEI::getInstance()->finalizarBarraProgresso2(SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_arquivamento_listar&acao_origem=' . $_GET['acao']), true);
+          }else{
+              PaginaSEI::getInstance()->finalizarBarraProgresso2(SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_procedimento_desarquivar&acao_origem=' . $_GET['acao'] . '&id_procedimento='.$arrProtocolosOrigem[0].'&arvore=1&redirect=true'), true);
+          }
+            die;
+        } catch (Exception $e) {
+            PaginaSEI::getInstance()->processarExcecao($e);
+        }
+      }
 
-            break;
+        break;
 
-        default:
-            throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
-    }
+    default:
+        throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
+  }
 
     // Busca as justificativas
     $objMdGdJustificativaDTO = new MdGdJustificativaDTO();

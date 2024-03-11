@@ -14,34 +14,34 @@ try {
     PaginaSEI::getInstance()->setTipoPagina(InfraPagina::$TIPO_PAGINA_SIMPLES);
     SessaoSEI::getInstance()->validarPermissao($_GET['acao']);
 
-    switch ($_GET['acao']) {
+  switch ($_GET['acao']) {
 
-        case 'gd_arquivamento_devolver':
-            $strTitulo = 'Devolver para Correção';
+    case 'gd_arquivamento_devolver':
+        $strTitulo = 'Devolver para Correção';
 
-            if($_POST['sbmDevolver']){
+      if($_POST['sbmDevolver']){
 
-                if (trim($_REQUEST['txtObservacaoDevolucao']) == ""){
-                    $objInfraException = new InfraException();
-                    $objInfraException->lancarValidacao('Informe o motivo da devolução.');
-                }
+        if (trim($_REQUEST['txtObservacaoDevolucao']) == ""){
+            $objInfraException = new InfraException();
+            $objInfraException->lancarValidacao('Informe o motivo da devolução.');
+        }
 
-                $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
-                $objMdGdArquivamentoDTO->setNumIdArquivamento((int) $_REQUEST['id_arquivamento']);
-                $objMdGdArquivamentoDTO->setStrObservacaoDevolucao($_REQUEST['txtObservacaoDevolucao']);
-                $objMdGdArquivamentoDTO->retDblIdProcedimento();
-                $objMdGdArquivamentoDTO->retNumIdUnidadeCorrente();
+        $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
+        $objMdGdArquivamentoDTO->setNumIdArquivamento((int) $_REQUEST['id_arquivamento']);
+        $objMdGdArquivamentoDTO->setStrObservacaoDevolucao($_REQUEST['txtObservacaoDevolucao']);
+        $objMdGdArquivamentoDTO->retDblIdProcedimento();
+        $objMdGdArquivamentoDTO->retNumIdUnidadeCorrente();
                 
-                // Muda a situação do arquivamento para editado
-                $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
-                $dlbIdProtocolo = $objMdGdArquivamentoRN->devolverArquivamento($objMdGdArquivamentoDTO);
+        // Muda a situação do arquivamento para editado
+        $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
+        $dlbIdProtocolo = $objMdGdArquivamentoRN->devolverArquivamento($objMdGdArquivamentoDTO);
 
-            }
-            break;
+      }
+        break;
 
-        default:
-            throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
-    }
+    default:
+        throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
+  }
 } catch (Exception $e) {
     PaginaSEI::getInstance()->processarExcecao($e);
 }

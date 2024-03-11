@@ -43,14 +43,14 @@ try {
     )');
 
     $objMetaBD->adicionarChavePrimaria('md_gd_unidade_arquivamento', 'pk_md_gd_justificativa_id_unidade_arquivamento', array('id_unidade_arquivamento'));
-    $objMetaBD->adicionarChaveEstrangeira('fk_md_gd_unidade_arquivamento_origem',  'md_gd_unidade_arquivamento', array('id_unidade_origem'), 'unidade', array('id_unidade'));
-    $objMetaBD->adicionarChaveEstrangeira('fk_md_gd_unidade_arquivamento_destino',  'md_gd_unidade_arquivamento', array('id_unidade_destino'), 'unidade', array('id_unidade'));
+    $objMetaBD->adicionarChaveEstrangeira('fk_md_gd_unidade_arquivamento_origem', 'md_gd_unidade_arquivamento', array('id_unidade_origem'), 'unidade', array('id_unidade'));
+    $objMetaBD->adicionarChaveEstrangeira('fk_md_gd_unidade_arquivamento_destino', 'md_gd_unidade_arquivamento', array('id_unidade_destino'), 'unidade', array('id_unidade'));
 
     $objInfraSequencia = new InfraSequencia($objBanco);
 
-    if (!$objInfraSequencia->verificarSequencia('md_gd_unidade_arquivamento')) {
-        $objInfraSequencia->criarSequencia('md_gd_unidade_arquivamento', '1', '1', '9999999999');
-    }
+  if (!$objInfraSequencia->verificarSequencia('md_gd_unidade_arquivamento')) {
+      $objInfraSequencia->criarSequencia('md_gd_unidade_arquivamento', '1', '1', '9999999999');
+  }
     
      // Função anonima para inserção dos parãmetros
     $fnParametroModeloDocumento = function($nome, $valor) use($objBanco){

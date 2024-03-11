@@ -52,7 +52,7 @@ try {
           PaginaSEI::getInstance()->processarExcecao($e);
         }
       }
-      break;
+        break;
 
     case 'pais_alterar':
       $strTitulo = 'Alterar País';
@@ -85,7 +85,7 @@ try {
           PaginaSEI::getInstance()->processarExcecao($e);
         }
       }
-      break;
+        break;
 
     case 'pais_consultar':
       $strTitulo = 'Consultar País';
@@ -98,10 +98,10 @@ try {
       if ($objPaisDTO===null){
         throw new InfraException("Registro não encontrado.");
       }
-      break;
+        break;
 
     default:
-      throw new InfraException("Ação '".$_GET['acao']."' não reconhecida.");
+        throw new InfraException("Ação '".$_GET['acao']."' não reconhecida.");
   }
 
 
@@ -153,7 +153,7 @@ function OnSubmitForm() {
 <?
 PaginaSEI::getInstance()->fecharJavaScript();
 PaginaSEI::getInstance()->fecharHead();
-PaginaSEI::getInstance()->abrirBody($strTitulo,'onload="inicializar();"');
+PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
 ?>
 <form id="frmPaisCadastro" method="post" onsubmit="return OnSubmitForm();" action="<?=SessaoSEI::getInstance()->assinarLink('controlador.php?acao='.$_GET['acao'].'&acao_origem='.$_GET['acao'])?>">
 <?

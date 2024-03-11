@@ -14,14 +14,14 @@ try {
     SessaoSEI::getInstance()->validarLink();
     SessaoSEI::getInstance()->validarPermissao($_GET['acao']);
 
-    switch ($_GET['acao']) {
-        case 'gd_arquivamento_historico_listar':
-            $strTitulo = 'Histórico de arquivamento';
-            break;
+  switch ($_GET['acao']) {
+    case 'gd_arquivamento_historico_listar':
+        $strTitulo = 'Histórico de arquivamento';
+        break;
 
-        default:
-            throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
-    }
+    default:
+        throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
+  }
 
 
     // Busca os arquivamentos dos processos
@@ -34,54 +34,54 @@ try {
     $arrObjMdGdArquivamentoDTO = InfraArray::indexarArrInfraDTO($objMdGdArquivamentoRN->listar($objMdGdArquivamentoDTO), 'IdArquivamento');
     $arrIdArquivamentos = array_keys($arrObjMdGdArquivamentoDTO);
 
-    if ($arrIdArquivamentos) {
-        // Lista o histórico de arquivamento do processo
-        $objMdGdHistoricoArquivamentoDTO = new MdGdArquivamentoHistoricoDTO();
-        $objMdGdHistoricoArquivamentoDTO->setNumIdArquivamento($arrIdArquivamentos, InfraDTO::$OPER_IN);
-        $objMdGdHistoricoArquivamentoDTO->retStrNomeUsuario();
-        $objMdGdHistoricoArquivamentoDTO->retStrSiglaUnidade();
-        $objMdGdHistoricoArquivamentoDTO->retStrDescricaoUnidade();
-        $objMdGdHistoricoArquivamentoDTO->retStrSituacaoAntiga();
-        $objMdGdHistoricoArquivamentoDTO->retStrSituacaoAtual();
-        $objMdGdHistoricoArquivamentoDTO->retStrDescricao();
-        $objMdGdHistoricoArquivamentoDTO->retDthHistorico();
-        $objMdGdHistoricoArquivamentoDTO->setOrdDthHistorico(InfraDTO::$TIPO_ORDENACAO_DESC);
+  if ($arrIdArquivamentos) {
+      // Lista o histórico de arquivamento do processo
+      $objMdGdHistoricoArquivamentoDTO = new MdGdArquivamentoHistoricoDTO();
+      $objMdGdHistoricoArquivamentoDTO->setNumIdArquivamento($arrIdArquivamentos, InfraDTO::$OPER_IN);
+      $objMdGdHistoricoArquivamentoDTO->retStrNomeUsuario();
+      $objMdGdHistoricoArquivamentoDTO->retStrSiglaUnidade();
+      $objMdGdHistoricoArquivamentoDTO->retStrDescricaoUnidade();
+      $objMdGdHistoricoArquivamentoDTO->retStrSituacaoAntiga();
+      $objMdGdHistoricoArquivamentoDTO->retStrSituacaoAtual();
+      $objMdGdHistoricoArquivamentoDTO->retStrDescricao();
+      $objMdGdHistoricoArquivamentoDTO->retDthHistorico();
+      $objMdGdHistoricoArquivamentoDTO->setOrdDthHistorico(InfraDTO::$TIPO_ORDENACAO_DESC);
 
-        $objMdGdHistoricoArquivamentoRN = new MdGdArquivamentoHistoricoRN();
-        $arrMdGdHistoricoArquivamentoDTO = $objMdGdHistoricoArquivamentoRN->listar($objMdGdHistoricoArquivamentoDTO);
-        $numRegistros = count($arrMdGdHistoricoArquivamentoDTO);
+      $objMdGdHistoricoArquivamentoRN = new MdGdArquivamentoHistoricoRN();
+      $arrMdGdHistoricoArquivamentoDTO = $objMdGdHistoricoArquivamentoRN->listar($objMdGdHistoricoArquivamentoDTO);
+      $numRegistros = count($arrMdGdHistoricoArquivamentoDTO);
         
-        $strResultado = '';
+      $strResultado = '';
 
-        $strSumarioTabela = 'Histórico de Arquivamento.';
-        $strCaptionTabela = 'Histórico de Arquivamento do Processo';
+      $strSumarioTabela = 'Histórico de Arquivamento.';
+      $strCaptionTabela = 'Histórico de Arquivamento do Processo';
 
-        $strResultado .= '<table width="99%" class="infraTable" summary="' . $strSumarioTabela . '">' . "\n";
-        $strResultado .= '<caption class="infraCaption">' . PaginaSEI::getInstance()->gerarCaptionTabela($strCaptionTabela, $numRegistros) . '</caption>';
-        $strResultado .= '<tr>';
-        $strResultado .= '<th class="infraTh" width="25%">Descrição do Histórico</th>' . "\n";
-        $strResultado .= '<th class="infraTh" width="10%">Situação Antiga</th>' . "\n";
-        $strResultado .= '<th class="infraTh" width="10%">Situação Atual</th>' . "\n";
-        $strResultado .= '<th class="infraTh" width="15%">Unidade</th>' . "\n";
-        $strResultado .= '<th class="infraTh" width="15%">Usuário Responsável</th>' . "\n";
-        $strResultado .= '<th class="infraTh" width="15%">Data e Hora</th>' . "\n"; 
+      $strResultado .= '<table width="99%" class="infraTable" summary="' . $strSumarioTabela . '">' . "\n";
+      $strResultado .= '<caption class="infraCaption">' . PaginaSEI::getInstance()->gerarCaptionTabela($strCaptionTabela, $numRegistros) . '</caption>';
+      $strResultado .= '<tr>';
+      $strResultado .= '<th class="infraTh" width="25%">Descrição do Histórico</th>' . "\n";
+      $strResultado .= '<th class="infraTh" width="10%">Situação Antiga</th>' . "\n";
+      $strResultado .= '<th class="infraTh" width="10%">Situação Atual</th>' . "\n";
+      $strResultado .= '<th class="infraTh" width="15%">Unidade</th>' . "\n";
+      $strResultado .= '<th class="infraTh" width="15%">Usuário Responsável</th>' . "\n";
+      $strResultado .= '<th class="infraTh" width="15%">Data e Hora</th>' . "\n"; 
+      $strResultado .= '</tr>' . "\n";
+        
+      $strCssTr = '';
+    for ($i = 0; $i < $numRegistros; $i++) {
+
+        $strCssTr = ($strCssTr == '<tr class="infraTrClara">') ? '<tr class="infraTrEscura">' : '<tr class="infraTrClara">';
+        $strResultado .= $strCssTr;
+        $strResultado .= '<td>' . $arrMdGdHistoricoArquivamentoDTO[$i]->getStrDescricao() . '</td>';
+        $strResultado .= '<td>' . MdGdArquivamentoRN::obterSituacoesArquivamento()[$arrMdGdHistoricoArquivamentoDTO[$i]->getStrSituacaoAntiga()] . '</td>';
+        $strResultado .= '<td>' . MdGdArquivamentoRN::obterSituacoesArquivamento()[$arrMdGdHistoricoArquivamentoDTO[$i]->getStrSituacaoAtual()] . '</td>';
+        $strResultado .= '<td>' . $arrMdGdHistoricoArquivamentoDTO[$i]->getStrSiglaUnidade() . ' - ' . $arrMdGdHistoricoArquivamentoDTO[$i]->getStrDescricaoUnidade() . '</td>';
+        $strResultado .= '<td>' . $arrMdGdHistoricoArquivamentoDTO[$i]->getStrNomeUsuario() . '</td>';
+        $strResultado .= '<td>' . substr($arrMdGdHistoricoArquivamentoDTO[$i]->getDthHistorico(), 0, 16) . '</td>';
         $strResultado .= '</tr>' . "\n";
-        
-        $strCssTr = '';
-        for ($i = 0; $i < $numRegistros; $i++) {
-
-            $strCssTr = ($strCssTr == '<tr class="infraTrClara">') ? '<tr class="infraTrEscura">' : '<tr class="infraTrClara">';
-            $strResultado .= $strCssTr;
-            $strResultado .= '<td>' . $arrMdGdHistoricoArquivamentoDTO[$i]->getStrDescricao() . '</td>';
-            $strResultado .= '<td>' . MdGdArquivamentoRN::obterSituacoesArquivamento()[$arrMdGdHistoricoArquivamentoDTO[$i]->getStrSituacaoAntiga()] . '</td>';
-            $strResultado .= '<td>' . MdGdArquivamentoRN::obterSituacoesArquivamento()[$arrMdGdHistoricoArquivamentoDTO[$i]->getStrSituacaoAtual()] . '</td>';
-            $strResultado .= '<td>' . $arrMdGdHistoricoArquivamentoDTO[$i]->getStrSiglaUnidade() . ' - ' . $arrMdGdHistoricoArquivamentoDTO[$i]->getStrDescricaoUnidade() . '</td>';
-            $strResultado .= '<td>' . $arrMdGdHistoricoArquivamentoDTO[$i]->getStrNomeUsuario() . '</td>';
-            $strResultado .= '<td>' . substr($arrMdGdHistoricoArquivamentoDTO[$i]->getDthHistorico(), 0, 16) . '</td>';
-            $strResultado .= '</tr>' . "\n";
-        }
-        $strResultado .= '</table>';
     }
+      $strResultado .= '</table>';
+  }
 
     //  $arrComandos[] = '<button type="button" accesskey="F" id="btnFechar" value="Fechar" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . PaginaSEI::getInstance()->getAcaoRetorno() . '&acao_origem=' . $_GET['acao'] . '\'" class="infraButton"><span class="infraTeclaAtalho">F</span>echar</button>';
 

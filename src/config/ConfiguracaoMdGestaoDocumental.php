@@ -9,30 +9,30 @@
 
 class ConfiguracaoMdGestaoDocumental extends InfraConfiguracao
 {
-    private static $instance = null;
+  private static $instance = null;
 
     /**
      * Obtém instância única (singleton) dos dados de configuração do módulo de integração com a Conta gov.br
      *
      * @return ConfiguracaoMdGestaoDocumental
      */
-    public static function getInstance()
+  public static function getInstance()
     {
-        if (ConfiguracaoMdGestaoDocumental::$instance == null) {
-            ConfiguracaoMdGestaoDocumental::$instance = new ConfiguracaoMdGestaoDocumental();
-        }
-        return ConfiguracaoMdGestaoDocumental::$instance;
+    if (ConfiguracaoMdGestaoDocumental::$instance == null) {
+        ConfiguracaoMdGestaoDocumental::$instance = new ConfiguracaoMdGestaoDocumental();
     }
+      return ConfiguracaoMdGestaoDocumental::$instance;
+  }
 
     /**
      * Definição dos parâmetros de configuração do módulo
      *
      * @return array
      */
-    public function getArrConfiguracoes()
+  public function getArrConfiguracoes()
     {
-        return array(
-            'GestaoDocumental' => array(),
-        );
-    }
+      return array(
+          'GestaoDocumental' => array(),
+      );
+  }
 }

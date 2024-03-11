@@ -11,18 +11,18 @@ class MdGdAnotacaoPendenciaRN extends InfraRN {
     /**
      * Construtor
      */
-    public function __construct() {
-        parent::__construct();
-    }
+  public function __construct() {
+      parent::__construct();
+  }
 
     /**
      * Inicializa instância com banco de dados
      *
      * @return BancoSEI
      */
-    protected function inicializarObjInfraIBanco() {
-        return BancoSEI::getInstance();
-    }
+  protected function inicializarObjInfraIBanco() {
+      return BancoSEI::getInstance();
+  }
 
     /**
      * Cadastro de anotações das pendências de arquivamento
@@ -30,19 +30,19 @@ class MdGdAnotacaoPendenciaRN extends InfraRN {
      * @param MdGdAnotacaoPendenciaDTO $objMdGdAnotacaoPendenciaDTO
      * @return boolean|InfraException
      */
-    protected function cadastrarControlado(MdGdAnotacaoPendenciaDTO $objMdGdAnotacaoPendenciaDTO) {
-        try {
+  protected function cadastrarControlado(MdGdAnotacaoPendenciaDTO $objMdGdAnotacaoPendenciaDTO) {
+    try {
 
-            //Valida Permissao
-            SessaoSEI::getInstance()->validarAuditarPermissao('gd_pendencia_arquivamento_anotar', __METHOD__, $objMdGdAnotacaoPendenciaDTO);
+        //Valida Permissao
+        SessaoSEI::getInstance()->validarAuditarPermissao('gd_pendencia_arquivamento_anotar', __METHOD__, $objMdGdAnotacaoPendenciaDTO);
 
-            $objMdGdAnotacaoPendenciaBD = new MdGdAnotacaoPendenciaBD($this->inicializarObjInfraIBanco());
-            $objMdGdUnidadeArquivamentoDTO = $objMdGdAnotacaoPendenciaBD->cadastrar($objMdGdAnotacaoPendenciaDTO);
-            return $objMdGdUnidadeArquivamentoDTO;
-        } catch (Exception $e) {
-            throw new InfraException('Erro cadastrando a anotação da pendência de arquivamento.', $e);
-        }
+        $objMdGdAnotacaoPendenciaBD = new MdGdAnotacaoPendenciaBD($this->inicializarObjInfraIBanco());
+        $objMdGdUnidadeArquivamentoDTO = $objMdGdAnotacaoPendenciaBD->cadastrar($objMdGdAnotacaoPendenciaDTO);
+        return $objMdGdUnidadeArquivamentoDTO;
+    } catch (Exception $e) {
+        throw new InfraException('Erro cadastrando a anotação da pendência de arquivamento.', $e);
     }
+  }
 
     /**
      * Alterações de anotações das pendências de arquivamento
@@ -50,19 +50,19 @@ class MdGdAnotacaoPendenciaRN extends InfraRN {
      * @param MdGdAnotacaoPendenciaDTO $objMdGdAnotacaoPendenciaDTO
      * @return boolean|InfraException
      */
-    protected function alterarControlado(MdGdAnotacaoPendenciaDTO $objMdGdAnotacaoPendenciaDTO) {
-        try {
+  protected function alterarControlado(MdGdAnotacaoPendenciaDTO $objMdGdAnotacaoPendenciaDTO) {
+    try {
 
-            //Valida Permissao
-            SessaoSEI::getInstance()->validarAuditarPermissao('gd_pendencia_arquivamento_anotar', __METHOD__, $objMdGdAnotacaoPendenciaDTO);
+        //Valida Permissao
+        SessaoSEI::getInstance()->validarAuditarPermissao('gd_pendencia_arquivamento_anotar', __METHOD__, $objMdGdAnotacaoPendenciaDTO);
 
-            $objMdGdAnotacaoPendenciaBD = new MdGdAnotacaoPendenciaBD($this->inicializarObjInfraIBanco());
-            $objMdGdAnotacaoPendenciaDTO = $objMdGdAnotacaoPendenciaBD->alterar($objMdGdAnotacaoPendenciaDTO);
-            return $objMdGdAnotacaoPendenciaDTO;
-        } catch (Exception $e) {
-            throw new InfraException('Erro alterando a anotação da pendência de arquivamento.', $e);
-        }
+        $objMdGdAnotacaoPendenciaBD = new MdGdAnotacaoPendenciaBD($this->inicializarObjInfraIBanco());
+        $objMdGdAnotacaoPendenciaDTO = $objMdGdAnotacaoPendenciaBD->alterar($objMdGdAnotacaoPendenciaDTO);
+        return $objMdGdAnotacaoPendenciaDTO;
+    } catch (Exception $e) {
+        throw new InfraException('Erro alterando a anotação da pendência de arquivamento.', $e);
     }
+  }
 
     /**
      * Consulta de anotações das pendências de arquivamento
@@ -70,16 +70,16 @@ class MdGdAnotacaoPendenciaRN extends InfraRN {
      * @param MdGdAnotacaoPendenciaDTO $objMdGdAnotacaoPendenciaDTO
      * @return boolean|InfraException
      */
-    protected function consultarConectado(MdGdAnotacaoPendenciaDTO $objMdGdAnotacaoPendenciaDTO) {
-        try {
-            $objMdGdAnotacaoPendenciaBD = new MdGdAnotacaoPendenciaBD($this->inicializarObjInfraIBanco());
-            $objMdGdAnotacaoPendenciaDTO = $objMdGdAnotacaoPendenciaBD->consultar($objMdGdAnotacaoPendenciaDTO);
+  protected function consultarConectado(MdGdAnotacaoPendenciaDTO $objMdGdAnotacaoPendenciaDTO) {
+    try {
+        $objMdGdAnotacaoPendenciaBD = new MdGdAnotacaoPendenciaBD($this->inicializarObjInfraIBanco());
+        $objMdGdAnotacaoPendenciaDTO = $objMdGdAnotacaoPendenciaBD->consultar($objMdGdAnotacaoPendenciaDTO);
 
-            return $objMdGdAnotacaoPendenciaDTO;
-        } catch (Exception $e) {
-            throw new InfraException('Erro consultando a anotação da pendência de arquivamento.', $e);
-        }
+        return $objMdGdAnotacaoPendenciaDTO;
+    } catch (Exception $e) {
+        throw new InfraException('Erro consultando a anotação da pendência de arquivamento.', $e);
     }
+  }
 
     /**
      * Listagem de anotações das pendências de arquivamento
@@ -87,17 +87,17 @@ class MdGdAnotacaoPendenciaRN extends InfraRN {
      * @param MdGdAnotacaoPendenciaDTO $objMdGdAnotacaoPendenciaDTO
      * @return boolean|InfraException
      */
-    protected function listarConectado(MdGdAnotacaoPendenciaDTO $objMdGdAnotacaoPendenciaDTO) {
-        try {
+  protected function listarConectado(MdGdAnotacaoPendenciaDTO $objMdGdAnotacaoPendenciaDTO) {
+    try {
 
-            $objMdGdAnotacaoPendenciaBD = new MdGdUnidadeArquivamentoBD($this->inicializarObjInfraIBanco());
-            $arrObjMdGdAnotacaoPendenciaDTO = $objMdGdAnotacaoPendenciaBD->listar($objMdGdAnotacaoPendenciaDTO);
+        $objMdGdAnotacaoPendenciaBD = new MdGdUnidadeArquivamentoBD($this->inicializarObjInfraIBanco());
+        $arrObjMdGdAnotacaoPendenciaDTO = $objMdGdAnotacaoPendenciaBD->listar($objMdGdAnotacaoPendenciaDTO);
 
-            return $arrObjMdGdAnotacaoPendenciaDTO;
-        } catch (Exception $e) {
-            throw new InfraException('Erro listando a anotação da pendência de arquivamento.', $e);
-        }
+        return $arrObjMdGdAnotacaoPendenciaDTO;
+    } catch (Exception $e) {
+        throw new InfraException('Erro listando a anotação da pendência de arquivamento.', $e);
     }
+  }
 
 }
 

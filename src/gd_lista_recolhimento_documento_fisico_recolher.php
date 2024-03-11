@@ -25,44 +25,43 @@ try {
 
     $arrComandos[] = '<button type="submit" accesskey="P" id="sbmRecolher" name="sbmRecolher" value="Recolher" class="infraButton"><span class="infraTeclaAtalho">R</span>ecolher Documentos Físicos</button>';
 
-    switch ($_GET['acao']) {
+  switch ($_GET['acao']) {
 
-        case 'gd_lista_recolhimento_documentos_fisicos_recolher':
+    case 'gd_lista_recolhimento_documentos_fisicos_recolher':
+        $strTitulo = 'Confirmar Recolhimento de Documentos Físicos';
 
-            $strTitulo = 'Confirmar Recolhimento de Documentos Físicos';
+      if (isset($_POST['pwdSenha'])) {
 
-            if (isset($_POST['pwdSenha'])) {
+        try {
 
-                try {
+            $objInfraSip = new InfraSip(SessaoSEI::getInstance());
+            $objAuthSip = $objInfraSip->autenticar(SessaoSEI::getInstance()->getNumIdOrgaoUsuario(), null, SessaoSEI::getInstance()->getStrSiglaUsuario(), $_POST['pwdSenha']);
 
-                    $objInfraSip = new InfraSip(SessaoSEI::getInstance());
-                    $objAuthSip = $objInfraSip->autenticar(SessaoSEI::getInstance()->getNumIdOrgaoUsuario(), null, SessaoSEI::getInstance()->getStrSiglaUsuario(), $_POST['pwdSenha']);
+          if ($objAuthSip) {
+            $numIdListagemRecolhimento = $_POST['hdnIdListagemRecolhimento'];
+            $arrIdsDocumentos = explode(',', $_POST['hdnIdsDocumentos']);
 
-                    if ($objAuthSip) {
-                        $numIdListagemRecolhimento = $_POST['hdnIdListagemRecolhimento'];
-                        $arrIdsDocumentos = explode(',', $_POST['hdnIdsDocumentos']);
+            $objMdGdDocumentoFisicoRecolRN = new MdGdDocumentoFisicoRecolRN();
 
-                        $objMdGdDocumentoFisicoRecolRN = new MdGdDocumentoFisicoRecolRN();
+            foreach ($arrIdsDocumentos as $dblIdDocumento) {
+                  $objMdGdDocumentoFisicoRecolDTO = new MdGdDocumentoFisicoRecolDTO();
+                  $objMdGdDocumentoFisicoRecolDTO->setDblIdDocumento($dblIdDocumento);
+                  $objMdGdDocumentoFisicoRecolDTO->setNumIdListaRecolhimento($numIdListagemRecolhimento);
 
-                        foreach ($arrIdsDocumentos as $dblIdDocumento) {
-                            $objMdGdDocumentoFisicoRecolDTO = new MdGdDocumentoFisicoRecolDTO();
-                            $objMdGdDocumentoFisicoRecolDTO->setDblIdDocumento($dblIdDocumento);
-                            $objMdGdDocumentoFisicoRecolDTO->setNumIdListaRecolhimento($numIdListagemRecolhimento);
-
-                            $objMdGdDocumentoFisicoRecolRN->cadastrar($objMdGdDocumentoFisicoRecolDTO);
-                        }
-                    }
-                } catch (Exception $e) {
-                    PaginaSEI::getInstance()->processarExcecao($e, true);
-                }
+                  $objMdGdDocumentoFisicoRecolRN->cadastrar($objMdGdDocumentoFisicoRecolDTO);
             }
+          }
+        } catch (Exception $e) {
+            PaginaSEI::getInstance()->processarExcecao($e, true);
+        }
+      }
 
 
-            break;
+        break;
 
-        default:
-            throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
-    }
+    default:
+        throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
+  }
 } catch (Exception $e) {
     PaginaSEI::getInstance()->processarExcecao($e);
 }

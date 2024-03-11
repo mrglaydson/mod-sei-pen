@@ -11,59 +11,59 @@ class MdGdModeloDocumentoRN extends InfraRN {
     const MODELO_LISTAGEM_RECOLHIMENTO = 'MODELO_LISTAGEM_RECOLHIMENTO';
     const MODELO_DOCUMENTO_RECOLHIMENTO = 'MODELO_DOCUMENTO_RECOLHIMENTO';
 
-    public function __construct() {
-        parent::__construct();
+  public function __construct() {
+      parent::__construct();
+  }
+
+  protected function inicializarObjInfraIBanco() {
+      return BancoSEI::getInstance();
+  }
+
+  protected function cadastrarControlado(MdGdModeloDocumentoDTO $objMdGdModeloDocumentoDTO) {
+    try {
+
+        $objMdGdModeloDocumentoBD = new MdGdModeloDocumentoBD($this->inicializarObjInfraIBanco());
+        $objMdGdModeloDocumentoDTO = $objMdGdModeloDocumentoBD->cadastrar($objMdGdModeloDocumentoDTO);
+        return $objMdGdModeloDocumentoDTO;
+    } catch (Exception $e) {
+        throw new InfraException('Erro alterando o modelo de documento.', $e);
     }
+  }
 
-    protected function inicializarObjInfraIBanco() {
-        return BancoSEI::getInstance();
+  protected function alterarControlado(MdGdModeloDocumentoDTO $objMdGdModeloDocumentoDTO) {
+    try {
+
+        //Valida Permissao
+        $objMdGdModeloDocumentoBD = new MdGdModeloDocumentoBD($this->inicializarObjInfraIBanco());
+        $objMdGdModeloDocumentoDTO = $objMdGdModeloDocumentoBD->alterar($objMdGdModeloDocumentoDTO);
+        return $objMdGdModeloDocumentoDTO;
+    } catch (Exception $e) {
+        throw new InfraException('Erro alterando o modelo de documento.', $e);
     }
+  }
 
-    protected function cadastrarControlado(MdGdModeloDocumentoDTO $objMdGdModeloDocumentoDTO) {
-        try {
+  protected function consultarConectado(MdGdModeloDocumentoDTO $objMdGdModeloDocumentoDTO) {
+    try {
+        $objMdGdModeloDocumentoBD = new MdGdModeloDocumentoBD($this->inicializarObjInfraIBanco());
+        $objMdGdModeloDocumentoDTO = $objMdGdModeloDocumentoBD->consultar($objMdGdModeloDocumentoDTO);
 
-            $objMdGdModeloDocumentoBD = new MdGdModeloDocumentoBD($this->inicializarObjInfraIBanco());
-            $objMdGdModeloDocumentoDTO = $objMdGdModeloDocumentoBD->cadastrar($objMdGdModeloDocumentoDTO);
-            return $objMdGdModeloDocumentoDTO;
-        } catch (Exception $e) {
-            throw new InfraException('Erro alterando o modelo de documento.', $e);
-        }
+        return $objMdGdModeloDocumentoDTO;
+    } catch (Exception $e) {
+        throw new InfraException('Erro consultando o modelo de documento.', $e);
     }
+  }
 
-    protected function alterarControlado(MdGdModeloDocumentoDTO $objMdGdModeloDocumentoDTO) {
-        try {
+  protected function listarConectado(MdGdModeloDocumentoDTO $objMdGdModeloDocumentoDTO) {
+    try {
 
-            //Valida Permissao
-            $objMdGdModeloDocumentoBD = new MdGdModeloDocumentoBD($this->inicializarObjInfraIBanco());
-            $objMdGdModeloDocumentoDTO = $objMdGdModeloDocumentoBD->alterar($objMdGdModeloDocumentoDTO);
-            return $objMdGdModeloDocumentoDTO;
-        } catch (Exception $e) {
-            throw new InfraException('Erro alterando o modelo de documento.', $e);
-        }
+        $objMdGdModeloDocumentoBD = new MdGdModeloDocumentoBD($this->inicializarObjInfraIBanco());
+        $arrObjMdGdModeloDocumentoDTO = $objMdGdModeloDocumentoBD->listar($objMdGdModeloDocumentoDTO);
+
+        return $arrObjMdGdModeloDocumentoDTO;
+    } catch (Exception $e) {
+        throw new InfraException('Erro listando os modelo de documento.', $e);
     }
-
-    protected function consultarConectado(MdGdModeloDocumentoDTO $objMdGdModeloDocumentoDTO) {
-        try {
-            $objMdGdModeloDocumentoBD = new MdGdModeloDocumentoBD($this->inicializarObjInfraIBanco());
-            $objMdGdModeloDocumentoDTO = $objMdGdModeloDocumentoBD->consultar($objMdGdModeloDocumentoDTO);
-
-            return $objMdGdModeloDocumentoDTO;
-        } catch (Exception $e) {
-            throw new InfraException('Erro consultando o modelo de documento.', $e);
-        }
-    }
-
-    protected function listarConectado(MdGdModeloDocumentoDTO $objMdGdModeloDocumentoDTO) {
-        try {
-
-            $objMdGdModeloDocumentoBD = new MdGdModeloDocumentoBD($this->inicializarObjInfraIBanco());
-            $arrObjMdGdModeloDocumentoDTO = $objMdGdModeloDocumentoBD->listar($objMdGdModeloDocumentoDTO);
-
-            return $arrObjMdGdModeloDocumentoDTO;
-        } catch (Exception $e) {
-            throw new InfraException('Erro listando os modelo de documento.', $e);
-        }
-    }
+  }
 
 }
 

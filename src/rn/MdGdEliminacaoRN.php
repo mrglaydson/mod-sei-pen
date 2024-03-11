@@ -4,13 +4,13 @@ require_once dirname(__FILE__) . '/../../../SEI.php';
 
 class MdGdEliminacaoRN extends InfraRN {
 
-    public function __construct() {
-        parent::__construct();
-    }
+  public function __construct() {
+      parent::__construct();
+  }
 
-    protected function inicializarObjInfraIBanco() {
-        return BancoSEI::getInstance();
-    }
+  protected function inicializarObjInfraIBanco() {
+      return BancoSEI::getInstance();
+  }
 
     /**
      * Undocumented function
@@ -18,103 +18,103 @@ class MdGdEliminacaoRN extends InfraRN {
      * @param MdGdEliminacaoDTO $objMdGdEliminacaoDTO
      * @return void
      */
-    protected function cadastrarControlado(MdGdEliminacaoDTO $objMdGdEliminacaoDTO) {
-        try {
+  protected function cadastrarControlado(MdGdEliminacaoDTO $objMdGdEliminacaoDTO) {
+    try {
 
-            //Valida Permissão
-            SessaoSEI::getInstance()->validarAuditarPermissao('gd_procedimento_arquivar', __METHOD__, $objMdGdEliminacaoDTO);
+        //Valida Permissão
+        SessaoSEI::getInstance()->validarAuditarPermissao('gd_procedimento_arquivar', __METHOD__, $objMdGdEliminacaoDTO);
 
-            // Altera a situação da eliminação para eliminado
-            $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
-            $objMdGdArquivamentoDTO->setNumIdListaEliminacao($objMdGdEliminacaoDTO->getNumIdListaEliminacao());
-            $objMdGdArquivamentoDTO->retNumIdArquivamento();
+        // Altera a situação da eliminação para eliminado
+        $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
+        $objMdGdArquivamentoDTO->setNumIdListaEliminacao($objMdGdEliminacaoDTO->getNumIdListaEliminacao());
+        $objMdGdArquivamentoDTO->retNumIdArquivamento();
 
-            $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
-            $arrObjMdGdArquivamentoDTO = $objMdGdArquivamentoRN->listar($objMdGdArquivamentoDTO);
+        $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
+        $arrObjMdGdArquivamentoDTO = $objMdGdArquivamentoRN->listar($objMdGdArquivamentoDTO);
 
-            foreach ($arrObjMdGdArquivamentoDTO as $objMdGdArquivamentoDTO) {
-                $objMdGdArquivamentoDTO->setStrSituacao(MdGdArquivamentoRN::$ST_ELIMINADO);
-                $objMdGdArquivamentoRN->alterar($objMdGdArquivamentoDTO);
-            }
+      foreach ($arrObjMdGdArquivamentoDTO as $objMdGdArquivamentoDTO) {
+        $objMdGdArquivamentoDTO->setStrSituacao(MdGdArquivamentoRN::$ST_ELIMINADO);
+        $objMdGdArquivamentoRN->alterar($objMdGdArquivamentoDTO);
+      }
 
-            // Altera a situação da listagem para eliminada
-            $objMdGdListaEliminacaoDTO = new MdGdListaEliminacaoDTO();
-            $objMdGdListaEliminacaoDTO->setNumIdListaEliminacao($objMdGdEliminacaoDTO->getNumIdListaEliminacao());
-            $objMdGdListaEliminacaoDTO->setStrSituacao(MdGdListaEliminacaoRN::$ST_ELIMINADA);
-            $objMdGdListaEliminacaoDTO->retDblIdProcedimentoEliminacao();
+        // Altera a situação da listagem para eliminada
+        $objMdGdListaEliminacaoDTO = new MdGdListaEliminacaoDTO();
+        $objMdGdListaEliminacaoDTO->setNumIdListaEliminacao($objMdGdEliminacaoDTO->getNumIdListaEliminacao());
+        $objMdGdListaEliminacaoDTO->setStrSituacao(MdGdListaEliminacaoRN::$ST_ELIMINADA);
+        $objMdGdListaEliminacaoDTO->retDblIdProcedimentoEliminacao();
 
-            $objMdGdListaEliminacaoRN = new MdGdListaEliminacaoRN();
-            $objMdGdListaEliminacaoRN->alterar($objMdGdListaEliminacaoDTO);
+        $objMdGdListaEliminacaoRN = new MdGdListaEliminacaoRN();
+        $objMdGdListaEliminacaoRN->alterar($objMdGdListaEliminacaoDTO);
 
-            // Obtem os parâmetros para criação do processo e documento de eliminação
-            $objMdGdParametroRN = new MdGdParametroRN();
-            $numIdSerie = $objMdGdParametroRN->obterParametro(MdGdParametroRN::$PAR_TIPO_DOCUMENTO_ELIMINACAO);
-            $strConteudo = $this->obterConteudoDocumentoEliminacao();
+        // Obtem os parâmetros para criação do processo e documento de eliminação
+        $objMdGdParametroRN = new MdGdParametroRN();
+        $numIdSerie = $objMdGdParametroRN->obterParametro(MdGdParametroRN::$PAR_TIPO_DOCUMENTO_ELIMINACAO);
+        $strConteudo = $this->obterConteudoDocumentoEliminacao();
 
-            // Obtem a listagem de eliminação
-            $objMdGdListaEliminacaoDTO = $objMdGdListaEliminacaoRN->consultar($objMdGdListaEliminacaoDTO);
+        // Obtem a listagem de eliminação
+        $objMdGdListaEliminacaoDTO = $objMdGdListaEliminacaoRN->consultar($objMdGdListaEliminacaoDTO);
 
-            // Gera o protocolo do despacho de arquivamento
-            $objProtocoloDTO = new ProtocoloDTO();
-            $objProtocoloDTO->setDblIdProtocolo(null);
-            $objProtocoloDTO->setStrStaProtocolo('G');
-            $objProtocoloDTO->setStrStaNivelAcessoLocal(ProtocoloRN::$NA_PUBLICO);
-            $objProtocoloDTO->setStrDescricao('Termo de Eliminação');
-            $objProtocoloDTO->setArrObjParticipanteDTO(array());
-            $objProtocoloDTO->setArrObjObservacaoDTO(array());
+        // Gera o protocolo do despacho de arquivamento
+        $objProtocoloDTO = new ProtocoloDTO();
+        $objProtocoloDTO->setDblIdProtocolo(null);
+        $objProtocoloDTO->setStrStaProtocolo('G');
+        $objProtocoloDTO->setStrStaNivelAcessoLocal(ProtocoloRN::$NA_PUBLICO);
+        $objProtocoloDTO->setStrDescricao('Termo de Eliminação');
+        $objProtocoloDTO->setArrObjParticipanteDTO(array());
+        $objProtocoloDTO->setArrObjObservacaoDTO(array());
 
-            // Gera o documento do termo de eliminação
-            $objDocumentoDTO = new DocumentoDTO();
-            $objDocumentoDTO->setDblIdDocumento(null);
-            $objDocumentoDTO->setDblIdProcedimento($objMdGdListaEliminacaoDTO->getDblIdProcedimentoEliminacao());
-            $objDocumentoDTO->setNumIdSerie($numIdSerie);
-            $objDocumentoDTO->setStrStaDocumento(DocumentoRN::$TD_EDITOR_INTERNO);
-            $objDocumentoDTO->setDblIdDocumentoEdoc(null);
-            // $objDocumentoDTO->setNumIdUsuario(SessaoSEI::getInstance()->getNumIdUsuario());
-            $objDocumentoDTO->setDblIdDocumentoEdocBase(null);
-            $objDocumentoDTO->setNumIdUnidadeResponsavel(SessaoSEI::getInstance()->getNumIdUnidadeAtual());
-            $objDocumentoDTO->setNumIdTipoConferencia(null);
-            $objDocumentoDTO->setStrNumero('');
-            $objDocumentoDTO->setStrConteudo($strConteudo);
-            $objDocumentoDTO->setObjProtocoloDTO($objProtocoloDTO);
+        // Gera o documento do termo de eliminação
+        $objDocumentoDTO = new DocumentoDTO();
+        $objDocumentoDTO->setDblIdDocumento(null);
+        $objDocumentoDTO->setDblIdProcedimento($objMdGdListaEliminacaoDTO->getDblIdProcedimentoEliminacao());
+        $objDocumentoDTO->setNumIdSerie($numIdSerie);
+        $objDocumentoDTO->setStrStaDocumento(DocumentoRN::$TD_EDITOR_INTERNO);
+        $objDocumentoDTO->setDblIdDocumentoEdoc(null);
+        // $objDocumentoDTO->setNumIdUsuario(SessaoSEI::getInstance()->getNumIdUsuario());
+        $objDocumentoDTO->setDblIdDocumentoEdocBase(null);
+        $objDocumentoDTO->setNumIdUnidadeResponsavel(SessaoSEI::getInstance()->getNumIdUnidadeAtual());
+        $objDocumentoDTO->setNumIdTipoConferencia(null);
+        $objDocumentoDTO->setStrNumero('');
+        $objDocumentoDTO->setStrConteudo($strConteudo);
+        $objDocumentoDTO->setObjProtocoloDTO($objProtocoloDTO);
 
-            $objDocumentoRN = new DocumentoRN();
-            $objDocumentoDTO = $objDocumentoRN->cadastrarRN0003($objDocumentoDTO);
+        $objDocumentoRN = new DocumentoRN();
+        $objDocumentoDTO = $objDocumentoRN->cadastrarRN0003($objDocumentoDTO);
 
-            // Assinatura do documento termo de eliminação
-            /*$objAssinaturaDTO = $objMdGdEliminacaoDTO->getObjAssinaturaDTO();
-            $objAssinaturaDTO->setArrObjDocumentoDTO([$objDocumentoDTO]);
-            $objDocumentoRN->assinar($objAssinaturaDTO);*/
+        // Assinatura do documento termo de eliminação
+        /*$objAssinaturaDTO = $objMdGdEliminacaoDTO->getObjAssinaturaDTO();
+        $objAssinaturaDTO->setArrObjDocumentoDTO([$objDocumentoDTO]);
+        $objDocumentoRN->assinar($objAssinaturaDTO);*/
             
-            // Registra a eliminação
-            $objMdGdEliminacaoBD = new MdGdEliminacaoBD($this->inicializarObjInfraIBanco());
-            return $objMdGdEliminacaoBD->cadastrar($objMdGdEliminacaoDTO);
-        } catch (Exception $e) {
-            throw new InfraException('Erro ao cadatrar eliminação.', $e);
-        }
+        // Registra a eliminação
+        $objMdGdEliminacaoBD = new MdGdEliminacaoBD($this->inicializarObjInfraIBanco());
+        return $objMdGdEliminacaoBD->cadastrar($objMdGdEliminacaoDTO);
+    } catch (Exception $e) {
+        throw new InfraException('Erro ao cadatrar eliminação.', $e);
     }
+  }
 
-    protected function consultarConectado(MdGdEliminacaoDTO $objMdGdEliminacaoDTO) {
-        try {
-            //Valida Permissao
+  protected function consultarConectado(MdGdEliminacaoDTO $objMdGdEliminacaoDTO) {
+    try {
+        //Valida Permissao
 
-            $objMdGdEliminacaoBD = new MdGdEliminacaoBD($this->inicializarObjInfraIBanco());
-            return $objMdGdEliminacaoBD->consultar($objMdGdEliminacaoDTO);
-        } catch (Exception $e) {
-            throw new InfraException('Erro ao consultar eliminação.', $e);
-        }
+        $objMdGdEliminacaoBD = new MdGdEliminacaoBD($this->inicializarObjInfraIBanco());
+        return $objMdGdEliminacaoBD->consultar($objMdGdEliminacaoDTO);
+    } catch (Exception $e) {
+        throw new InfraException('Erro ao consultar eliminação.', $e);
     }
+  }
 
-    protected function listarConectado(MdGdEliminacaoDTO $objMdGdEliminacaoDTO) {
-        try {
-            //Valida Permissao
+  protected function listarConectado(MdGdEliminacaoDTO $objMdGdEliminacaoDTO) {
+    try {
+        //Valida Permissao
 
-            $objMdGdEliminacaoBD = new MdGdEliminacaoBD($this->inicializarObjInfraIBanco());
-            return $objMdGdEliminacaoBD->listar($objMdGdEliminacaoDTO);
-        } catch (Exception $e) {
-            throw new InfraException('Erro ao listar eliminações.', $e);
-        }
+        $objMdGdEliminacaoBD = new MdGdEliminacaoBD($this->inicializarObjInfraIBanco());
+        return $objMdGdEliminacaoBD->listar($objMdGdEliminacaoDTO);
+    } catch (Exception $e) {
+        throw new InfraException('Erro ao listar eliminações.', $e);
     }
+  }
 
     /**
      * Obtem o conteúdo do documento de eliminação
@@ -122,32 +122,32 @@ class MdGdEliminacaoRN extends InfraRN {
      * @param string $strNumeroListagem
      * @return string
      */
-    public function obterConteudoDocumentoEliminacao() {
-        $objUnidadeDTO = new UnidadeDTO();
-        $objUnidadeDTO->retStrDescricao();
-        $objUnidadeDTO->retStrSigla();
-        $objUnidadeDTO->setNumIdUnidade(SessaoSEI::getInstance()->getNumIdUnidadeAtual());
+  public function obterConteudoDocumentoEliminacao() {
+      $objUnidadeDTO = new UnidadeDTO();
+      $objUnidadeDTO->retStrDescricao();
+      $objUnidadeDTO->retStrSigla();
+      $objUnidadeDTO->setNumIdUnidade(SessaoSEI::getInstance()->getNumIdUnidadeAtual());
 
-        $objUnidadeRN = new UnidadeRN();
-        $objUnidadeDTO = $objUnidadeRN->consultarRN0125($objUnidadeDTO);
+      $objUnidadeRN = new UnidadeRN();
+      $objUnidadeDTO = $objUnidadeRN->consultarRN0125($objUnidadeDTO);
         
-        $arrVariaveisModelo = [
-            '@unidade@' => $objUnidadeDTO->getStrSigla()." - ".$objUnidadeDTO->getStrDescricao(),
-            '@data_eliminacao@' => date('d/m/Y H:i:s'),
-            '@responsavel_eliminacao@' => SessaoSEI::getInstance()->getStrNomeUsuario()
-        ];
+      $arrVariaveisModelo = [
+          '@unidade@' => $objUnidadeDTO->getStrSigla()." - ".$objUnidadeDTO->getStrDescricao(),
+          '@data_eliminacao@' => date('d/m/Y H:i:s'),
+          '@responsavel_eliminacao@' => SessaoSEI::getInstance()->getStrNomeUsuario()
+      ];
 
-        $objMdGdModeloDocumentoDTO = new MdGdModeloDocumentoDTO();
-        $objMdGdModeloDocumentoDTO->setStrNome(MdGdModeloDocumentoRN::MODELO_DOCUMENTO_ELIMINACAO);
-        $objMdGdModeloDocumentoDTO->retTodos();
+      $objMdGdModeloDocumentoDTO = new MdGdModeloDocumentoDTO();
+      $objMdGdModeloDocumentoDTO->setStrNome(MdGdModeloDocumentoRN::MODELO_DOCUMENTO_ELIMINACAO);
+      $objMdGdModeloDocumentoDTO->retTodos();
 
-        $objMdGdModeloDocumentoRN = new MdGdModeloDocumentoRN();
-        $objMdGdModeloDocumentoDTO = $objMdGdModeloDocumentoRN->consultar($objMdGdModeloDocumentoDTO);
+      $objMdGdModeloDocumentoRN = new MdGdModeloDocumentoRN();
+      $objMdGdModeloDocumentoDTO = $objMdGdModeloDocumentoRN->consultar($objMdGdModeloDocumentoDTO);
 
-        $str = $objMdGdModeloDocumentoDTO->getStrValor();
-        $str = strtr($str, $arrVariaveisModelo);
-        return $str;
-    }
+      $str = $objMdGdModeloDocumentoDTO->getStrValor();
+      $str = strtr($str, $arrVariaveisModelo);
+      return $str;
+  }
 
 }
 

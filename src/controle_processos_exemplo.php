@@ -27,13 +27,12 @@ try {
   switch($_GET['acao']){
     
     case 'md_abc_andamento_lancar':
-      
       $strTitulo = 'Formulário Controle de Processos ABC';
 
       if ($_GET['acao_origem']=='procedimento_controlar'){
         $arrIdProtocolo = array_merge(PaginaSEI::getInstance()->getArrStrItensSelecionados('Gerados'), PaginaSEI::getInstance()->getArrStrItensSelecionados('Recebidos'), PaginaSEI::getInstance()->getArrStrItensSelecionados('Detalhado'));
       }else{
-        $arrIdProtocolo = explode(',',$_POST['hdnIdProtocolo']);
+        $arrIdProtocolo = explode(',', $_POST['hdnIdProtocolo']);
       }
 
       $arrComandos[] = '<button type="submit" name="sbmSalvarManual" value="Salvar (Controle Manual de Transação)" class="infraButton">Salvar (Controle Manual de Transação)</button>';
@@ -58,10 +57,10 @@ try {
           PaginaSEI::getInstance()->processarExcecao($e);
         }
       }
-      break;
+        break;
 
     default:
-      throw new InfraException("Ação '".$_GET['acao']."' não reconhecida.");
+        throw new InfraException("Ação '".$_GET['acao']."' não reconhecida.");
   }
 
   $objSeiRN = new SeiRN();
@@ -155,7 +154,7 @@ function OnSubmitForm() {
 <?
 PaginaSEI::getInstance()->fecharJavaScript();
 PaginaSEI::getInstance()->fecharHead();
-PaginaSEI::getInstance()->abrirBody($strTitulo,'onload="inicializar();"');
+PaginaSEI::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
 ?>
 <form id="frmFormularioTeste" method="post" onsubmit="return OnSubmitForm();" action="<?=PaginaSEI::getInstance()->formatarXHTML(SessaoSEI::getInstance()->assinarLink('controlador.php?acao='.$_GET['acao'].'&acao_origem='.$_GET['acao']))?>">
 <?
@@ -174,7 +173,7 @@ PaginaSEI::getInstance()->abrirAreaDados('5em');
   //PaginaSEI::getInstance()->montarBarraComandosInferior($arrComandos);
   ?>
 
-  <input type="hidden" id="hdnIdProtocolo" name="hdnIdProtocolo" value="<?=implode(',',$arrIdProtocolo);?>" />
+  <input type="hidden" id="hdnIdProtocolo" name="hdnIdProtocolo" value="<?=implode(',', $arrIdProtocolo);?>" />
 
 </form>
 <?

@@ -4,33 +4,32 @@ try {
 
   require_once dirname(__FILE__).'/../../../SEI.php';
 
-	session_start();
-	
-	//////////////////////////////////////////////////////////////////////////////
-	InfraDebug::getInstance()->setBolLigado(false);
-	InfraDebug::getInstance()->setBolDebugInfra(false);
-	InfraDebug::getInstance()->limpar();
-	//////////////////////////////////////////////////////////////////////////////
+    session_start();
+    
+    //////////////////////////////////////////////////////////////////////////////
+    InfraDebug::getInstance()->setBolLigado(false);
+    InfraDebug::getInstance()->setBolDebugInfra(false);
+    InfraDebug::getInstance()->limpar();
+    //////////////////////////////////////////////////////////////////////////////
 
-	SessaoPublicacoes::getInstance()->validarLink();
-	
-	SessaoPublicacoes::getInstance()->validarPermissao($_GET['acao']);
+    SessaoPublicacoes::getInstance()->validarLink();
+    
+    SessaoPublicacoes::getInstance()->validarPermissao($_GET['acao']);
 
-	switch($_GET['acao']){
+  switch($_GET['acao']){
 
-	  case 'md_abc_publicacao_exemplo':
+    case 'md_abc_publicacao_exemplo':
+      $strTitulo = 'Publicação ABC';
 
-	    $strTitulo = 'Publicação ABC';
+        break;
 
-	    break;
-
-	  default:
-	    throw new InfraException("Ação '".$_GET['acao']."' não reconhecida.");
-	}
+    default:
+        throw new InfraException("Ação '".$_GET['acao']."' não reconhecida.");
+  }
 
 
 } catch(Exception $e) { 
-	PaginaPublicacoes::getInstance()->processarExcecao($e);
+    PaginaPublicacoes::getInstance()->processarExcecao($e);
 }
 
 PaginaPublicacoes::getInstance()->montarDocType();
@@ -60,7 +59,7 @@ function onSubmitForm(){
 <?
 PaginaPublicacoes::getInstance()->fecharJavaScript();
 PaginaPublicacoes::getInstance()->fecharHead();
-PaginaPublicacoes::getInstance()->abrirBody($strTitulo,'onload="inicializar();"');
+PaginaPublicacoes::getInstance()->abrirBody($strTitulo, 'onload="inicializar();"');
 ?>
 <form id="frmPublicacaoExemplo" method="post" onsubmit="return onSubmitForm();" action="<?=SessaoPublicacoes::getInstance()->assinarLink('controlador_publicacoes.php?acao='.$_GET['acao'].'&acao_origem='.$_GET['acao'])?>">
 <?

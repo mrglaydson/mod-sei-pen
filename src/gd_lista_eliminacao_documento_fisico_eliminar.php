@@ -25,44 +25,43 @@ try {
 
     $arrComandos[] = '<button type="submit" accesskey="P" id="sbmEliminar" name="sbmEliminar" value="Eliminar" class="infraButton"><span class="infraTeclaAtalho">E</span>liminar Documentos Físicos</button>';
 
-    switch ($_GET['acao']) {
+  switch ($_GET['acao']) {
 
-        case 'gd_lista_eliminacao_documentos_fisicos_eliminar':
+    case 'gd_lista_eliminacao_documentos_fisicos_eliminar':
+        $strTitulo = 'Confirmar Eliminação de Documentos Físicos';
 
-            $strTitulo = 'Confirmar Eliminação de Documentos Físicos';
+      if (isset($_POST['pwdSenha'])) {
 
-            if (isset($_POST['pwdSenha'])) {
+        try {
 
-                try {
+            $objInfraSip = new InfraSip(SessaoSEI::getInstance());
+            $objAuthSip = $objInfraSip->autenticar(SessaoSEI::getInstance()->getNumIdOrgaoUsuario(), null, SessaoSEI::getInstance()->getStrSiglaUsuario(), $_POST['pwdSenha']);
 
-                    $objInfraSip = new InfraSip(SessaoSEI::getInstance());
-                    $objAuthSip = $objInfraSip->autenticar(SessaoSEI::getInstance()->getNumIdOrgaoUsuario(), null, SessaoSEI::getInstance()->getStrSiglaUsuario(), $_POST['pwdSenha']);
+          if ($objAuthSip) {
+            $numIdListagemEliminacao = $_POST['hdnIdListagemEliminacao'];
+            $arrIdsDocumentos = explode(',', $_POST['hdnIdsDocumentos']);
 
-                    if ($objAuthSip) {
-                        $numIdListagemEliminacao = $_POST['hdnIdListagemEliminacao'];
-                        $arrIdsDocumentos = explode(',', $_POST['hdnIdsDocumentos']);
+            $objMdGdDocumentoFisicoElimRN = new MdGdDocumentoFisicoElimRN();
 
-                        $objMdGdDocumentoFisicoElimRN = new MdGdDocumentoFisicoElimRN();
+            foreach ($arrIdsDocumentos as $dblIdDocumento) {
+                  $objMdGdDocumentoFisicoElimDTO = new MdGdDocumentoFisicoElimDTO();
+                  $objMdGdDocumentoFisicoElimDTO->setDblIdDocumento($dblIdDocumento);
+                  $objMdGdDocumentoFisicoElimDTO->setNumIdListaEliminacao($numIdListagemEliminacao);
 
-                        foreach ($arrIdsDocumentos as $dblIdDocumento) {
-                            $objMdGdDocumentoFisicoElimDTO = new MdGdDocumentoFisicoElimDTO();
-                            $objMdGdDocumentoFisicoElimDTO->setDblIdDocumento($dblIdDocumento);
-                            $objMdGdDocumentoFisicoElimDTO->setNumIdListaEliminacao($numIdListagemEliminacao);
-
-                            $objMdGdDocumentoFisicoElimRN->cadastrar($objMdGdDocumentoFisicoElimDTO);
-                        }
-                    }
-                } catch (Exception $e) {
-                    PaginaSEI::getInstance()->processarExcecao($e, true);
-                }
+                  $objMdGdDocumentoFisicoElimRN->cadastrar($objMdGdDocumentoFisicoElimDTO);
             }
+          }
+        } catch (Exception $e) {
+            PaginaSEI::getInstance()->processarExcecao($e, true);
+        }
+      }
 
 
-            break;
+        break;
 
-        default:
-            throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
-    }
+    default:
+        throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
+  }
 } catch (Exception $e) {
     PaginaSEI::getInstance()->processarExcecao($e);
 }

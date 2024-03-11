@@ -14,33 +14,33 @@ try {
     PaginaSEI::getInstance()->setTipoPagina(InfraPagina::$TIPO_PAGINA_SIMPLES);
     SessaoSEI::getInstance()->validarPermissao($_GET['acao']);
 
-    switch ($_GET['acao']) {
+  switch ($_GET['acao']) {
 
-        case 'gd_listar_eliminacao_anotar':
-            $strTitulo = 'Realizar Anotação';
-            $objMdGdListaEliminacaoDTO = new MdGdListaEliminacaoDTO();
-            $objMdGdListaEliminacaoDTO->setNumIdListaEliminacao($_GET['id_lista_eliminacao']);
-            $objMdGdListaEliminacaoDTO->retStrAnotacao();
+    case 'gd_listar_eliminacao_anotar':
+        $strTitulo = 'Realizar Anotação';
+        $objMdGdListaEliminacaoDTO = new MdGdListaEliminacaoDTO();
+        $objMdGdListaEliminacaoDTO->setNumIdListaEliminacao($_GET['id_lista_eliminacao']);
+        $objMdGdListaEliminacaoDTO->retStrAnotacao();
             
-            $objMdGdListaEliminacaoRN = new MdGdListaEliminacaoRN();
-            $objMdGdListaEliminacaoDTO = $objMdGdListaEliminacaoRN->consultar($objMdGdListaEliminacaoDTO);
+        $objMdGdListaEliminacaoRN = new MdGdListaEliminacaoRN();
+        $objMdGdListaEliminacaoDTO = $objMdGdListaEliminacaoRN->consultar($objMdGdListaEliminacaoDTO);
 
-            $strAnotacao = '';
-            if($objMdGdListaEliminacaoDTO){
-                $strAnotacao = $objMdGdListaEliminacaoDTO->getStrAnotacao();
-            }
+        $strAnotacao = '';
+      if($objMdGdListaEliminacaoDTO){
+        $strAnotacao = $objMdGdListaEliminacaoDTO->getStrAnotacao();
+      }
 
-            if ($_POST['sbmAnotar']) {
-                $objMdGdListaEliminacaoDTO = new MdGdListaEliminacaoDTO();
-                $objMdGdListaEliminacaoDTO->setNumIdListaEliminacao($_GET['id_lista_eliminacao']);
-                $objMdGdListaEliminacaoDTO->setStrAnotacao($_POST['txaAnotacao']);
-                $objMdGdListaEliminacaoRN->alterar($objMdGdListaEliminacaoDTO);
-            }
-            break;
+      if ($_POST['sbmAnotar']) {
+          $objMdGdListaEliminacaoDTO = new MdGdListaEliminacaoDTO();
+          $objMdGdListaEliminacaoDTO->setNumIdListaEliminacao($_GET['id_lista_eliminacao']);
+          $objMdGdListaEliminacaoDTO->setStrAnotacao($_POST['txaAnotacao']);
+          $objMdGdListaEliminacaoRN->alterar($objMdGdListaEliminacaoDTO);
+      }
+        break;
 
-        default:
-            throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
-    }
+    default:
+        throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
+  }
 } catch (Exception $e) {
     PaginaSEI::getInstance()->processarExcecao($e);
 }

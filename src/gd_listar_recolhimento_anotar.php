@@ -14,33 +14,33 @@ try {
     PaginaSEI::getInstance()->setTipoPagina(InfraPagina::$TIPO_PAGINA_SIMPLES);
     SessaoSEI::getInstance()->validarPermissao($_GET['acao']);
 
-    switch ($_GET['acao']) {
+  switch ($_GET['acao']) {
 
-        case 'gd_listar_recolhimento_anotar':
-            $strTitulo = 'Realizar Anotação';
-            $objMdGdListaRecolhimentoDTO = new MdGdListaRecolhimentoDTO();
-            $objMdGdListaRecolhimentoDTO->setNumIdListaRecolhimento($_GET['id_lista_recolhimento']);
-            $objMdGdListaRecolhimentoDTO->retStrAnotacao();
+    case 'gd_listar_recolhimento_anotar':
+        $strTitulo = 'Realizar Anotação';
+        $objMdGdListaRecolhimentoDTO = new MdGdListaRecolhimentoDTO();
+        $objMdGdListaRecolhimentoDTO->setNumIdListaRecolhimento($_GET['id_lista_recolhimento']);
+        $objMdGdListaRecolhimentoDTO->retStrAnotacao();
             
-            $objMdGdListaRecolhimentoRN = new MdGdListaRecolhimentoRN();
-            $objMdGdListaRecolhimentoDTO = $objMdGdListaRecolhimentoRN->consultar($objMdGdListaRecolhimentoDTO);
+        $objMdGdListaRecolhimentoRN = new MdGdListaRecolhimentoRN();
+        $objMdGdListaRecolhimentoDTO = $objMdGdListaRecolhimentoRN->consultar($objMdGdListaRecolhimentoDTO);
 
-            $strAnotacao = '';
-            if($objMdGdListaRecolhimentoDTO){
-                $strAnotacao = $objMdGdListaRecolhimentoDTO->getStrAnotacao();
-            }
+        $strAnotacao = '';
+      if($objMdGdListaRecolhimentoDTO){
+        $strAnotacao = $objMdGdListaRecolhimentoDTO->getStrAnotacao();
+      }
 
-            if ($_POST['sbmAnotar']) {
-                $objMdGdListaRecolhimentoDTO = new MdGdListaRecolhimentoDTO();
-                $objMdGdListaRecolhimentoDTO->setNumIdListaRecolhimento($_GET['id_lista_recolhimento']);
-                $objMdGdListaRecolhimentoDTO->setStrAnotacao($_POST['txaAnotacao']);
-                $objMdGdListaRecolhimentoRN->alterar($objMdGdListaRecolhimentoDTO);
-            }
-            break;
+      if ($_POST['sbmAnotar']) {
+          $objMdGdListaRecolhimentoDTO = new MdGdListaRecolhimentoDTO();
+          $objMdGdListaRecolhimentoDTO->setNumIdListaRecolhimento($_GET['id_lista_recolhimento']);
+          $objMdGdListaRecolhimentoDTO->setStrAnotacao($_POST['txaAnotacao']);
+          $objMdGdListaRecolhimentoRN->alterar($objMdGdListaRecolhimentoDTO);
+      }
+        break;
 
-        default:
-            throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
-    }
+    default:
+        throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
+  }
 } catch (Exception $e) {
     PaginaSEI::getInstance()->processarExcecao($e);
 }

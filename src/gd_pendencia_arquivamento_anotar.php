@@ -14,42 +14,42 @@ try {
     PaginaSEI::getInstance()->setTipoPagina(InfraPagina::$TIPO_PAGINA_SIMPLES);
     SessaoSEI::getInstance()->validarPermissao($_GET['acao']);
 
-    switch ($_GET['acao']) {
+  switch ($_GET['acao']) {
 
-        case 'gd_pendencia_arquivamento_anotar':
-            $strTitulo = 'Realizar Anotação';
+    case 'gd_pendencia_arquivamento_anotar':
+        $strTitulo = 'Realizar Anotação';
+        $objMdGdAnotacaoPendenciaDTO = new MdGdAnotacaoPendenciaDTO();
+        $objMdGdAnotacaoPendenciaDTO->setDblIdProcedimento($_GET['id_procedimento']);
+        $objMdGdAnotacaoPendenciaDTO->retStrAnotacao();
+        $objMdGdAnotacaoPendenciaDTO->retNumIdAnotacaoPendencia();
+            
+        $objMdGdAnotacaoPendenciaRN = new MdGdAnotacaoPendenciaRN();
+        $objMdGdAnotacaoPendenciaDTO = $objMdGdAnotacaoPendenciaRN->consultar($objMdGdAnotacaoPendenciaDTO);
+
+        $strAnotacao = '';
+      if($objMdGdAnotacaoPendenciaDTO){
+        $strAnotacao = $objMdGdAnotacaoPendenciaDTO->getStrAnotacao();
+      }
+
+      if ($_POST['sbmAnotar']) {
+                
+        if($objMdGdAnotacaoPendenciaDTO){
+          $objMdGdAnotacaoPendenciaDTO->setDblIdProcedimento($_GET['id_procedimento']);
+          $objMdGdAnotacaoPendenciaDTO->setStrAnotacao($_POST['txaAnotacao']);
+          $objMdGdAnotacaoPendenciaRN->alterar($objMdGdAnotacaoPendenciaDTO);
+        }else{
             $objMdGdAnotacaoPendenciaDTO = new MdGdAnotacaoPendenciaDTO();
             $objMdGdAnotacaoPendenciaDTO->setDblIdProcedimento($_GET['id_procedimento']);
-            $objMdGdAnotacaoPendenciaDTO->retStrAnotacao();
-            $objMdGdAnotacaoPendenciaDTO->retNumIdAnotacaoPendencia();
-            
-            $objMdGdAnotacaoPendenciaRN = new MdGdAnotacaoPendenciaRN();
-            $objMdGdAnotacaoPendenciaDTO = $objMdGdAnotacaoPendenciaRN->consultar($objMdGdAnotacaoPendenciaDTO);
+            $objMdGdAnotacaoPendenciaDTO->setStrAnotacao($_POST['txaAnotacao']);
+            $objMdGdAnotacaoPendenciaRN->cadastrar($objMdGdAnotacaoPendenciaDTO);
+        }
 
-            $strAnotacao = '';
-            if($objMdGdAnotacaoPendenciaDTO){
-                $strAnotacao = $objMdGdAnotacaoPendenciaDTO->getStrAnotacao();
-            }
+      }
+        break;
 
-            if ($_POST['sbmAnotar']) {
-                
-                if($objMdGdAnotacaoPendenciaDTO){
-                    $objMdGdAnotacaoPendenciaDTO->setDblIdProcedimento($_GET['id_procedimento']);
-                    $objMdGdAnotacaoPendenciaDTO->setStrAnotacao($_POST['txaAnotacao']);
-                    $objMdGdAnotacaoPendenciaRN->alterar($objMdGdAnotacaoPendenciaDTO);
-                }else{
-                    $objMdGdAnotacaoPendenciaDTO = new MdGdAnotacaoPendenciaDTO();
-                    $objMdGdAnotacaoPendenciaDTO->setDblIdProcedimento($_GET['id_procedimento']);
-                    $objMdGdAnotacaoPendenciaDTO->setStrAnotacao($_POST['txaAnotacao']);
-                    $objMdGdAnotacaoPendenciaRN->cadastrar($objMdGdAnotacaoPendenciaDTO);
-                }
-
-            }
-            break;
-
-        default:
-            throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
-    }
+    default:
+        throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
+  }
 } catch (Exception $e) {
     PaginaSEI::getInstance()->processarExcecao($e);
 }

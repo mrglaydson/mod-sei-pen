@@ -26,228 +26,227 @@ try {
 
     $strParametros = '';
 
-    if (isset($_GET['id_procedimento'])) {
-        $strParametros .= "&id_procedimento=" . $_GET['id_procedimento'];
-    }
+  if (isset($_GET['id_procedimento'])) {
+      $strParametros .= "&id_procedimento=" . $_GET['id_procedimento'];
+  }
 
-    if (isset($_GET['arvore'])) {
-        PaginaSEI::getInstance()->setBolArvore($_GET['arvore']);
-        $strParametros .= '&arvore=' . $_GET['arvore'];
-    }
+  if (isset($_GET['arvore'])) {
+      PaginaSEI::getInstance()->setBolArvore($_GET['arvore']);
+      $strParametros .= '&arvore=' . $_GET['arvore'];
+  }
 
-    if(isset($_GET['redirect']) && $_GET['redirect']){
-        header('Location: ' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao='.PaginaSEI::getInstance()->getAcaoRetorno().'&acao_origem=' . $_GET['acao'].$strParametros.'&atualizar_arvore=1'));
-        die();
-    }
+  if(isset($_GET['redirect']) && $_GET['redirect']){
+      header('Location: ' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao='.PaginaSEI::getInstance()->getAcaoRetorno().'&acao_origem=' . $_GET['acao'].$strParametros.'&atualizar_arvore=1'));
+      die();
+  }
 
     $strTitulo = 'Arquivar Processo';
     $objMdArquivamentoRN = new MdGdArquivamentoRN();
 
-    switch ($_GET['acao']) {
-        case 'gd_procedimento_arquivar':
+  switch ($_GET['acao']) {
+    case 'gd_procedimento_arquivar':
+        $arrComandos[] = '<button type="button" accesskey="A" name="btnAssinar" id="btnAssinar" value="Assinar" class="infraButton"  onclick="infraAbrirBarraProgresso(this.form,\''.SessaoSEI::getInstance()->assinarLink('controlador.php?acao='.$_GET['acao'].'&acao_origem='.$_GET['acao']).'\', 600, 250);" ><span class="infraTeclaAtalho">A</span>ssinar</button>';
 
-            $arrComandos[] = '<button type="button" accesskey="A" name="btnAssinar" id="btnAssinar" value="Assinar" class="infraButton"  onclick="infraAbrirBarraProgresso(this.form,\''.SessaoSEI::getInstance()->assinarLink('controlador.php?acao='.$_GET['acao'].'&acao_origem='.$_GET['acao']).'\', 600, 250);" ><span class="infraTeclaAtalho">A</span>ssinar</button>';
-
-            if ($_GET['acao_origem'] == 'gd_pendencia_arquivamento_listar') {
-                $arrComandos[] = '<button type="button" accesskey="C" id="btnCancelar" name="btnCancelar" value="Cancelar" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_pendencia_arquivamento_listar&acao_origem=' . $_GET['acao'] . $strParametros) . '\';" class="infraButton"><span class="infraTeclaAtalho">C</span>ancelar</button>';
-            } else if($_GET['acao_origem'] == 'procedimento_controlar') {
-                $arrComandos[] = '<button type="button" accesskey="C" id="btnCancelar" name="btnCancelar" value="Cancelar" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=procedimento_controlar&acao_origem=' . $_GET['acao'] . $strParametros) . '\';" class="infraButton"><span class="infraTeclaAtalho">C</span>ancelar</button>';
-            } else {
-                $arrComandos[] = '<button type="button" accesskey="C" id="btnCancelar" name="btnCancelar" value="Cancelar" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . PaginaSEI::getInstance()->getAcaoRetorno() . '&acao_origem=' . $_GET['acao'] . $strParametros) . '\';" class="infraButton"><span class="infraTeclaAtalho">C</span>ancelar</button>';
-            }
+      if ($_GET['acao_origem'] == 'gd_pendencia_arquivamento_listar') {
+        $arrComandos[] = '<button type="button" accesskey="C" id="btnCancelar" name="btnCancelar" value="Cancelar" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_pendencia_arquivamento_listar&acao_origem=' . $_GET['acao'] . $strParametros) . '\';" class="infraButton"><span class="infraTeclaAtalho">C</span>ancelar</button>';
+      } else if($_GET['acao_origem'] == 'procedimento_controlar') {
+          $arrComandos[] = '<button type="button" accesskey="C" id="btnCancelar" name="btnCancelar" value="Cancelar" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=procedimento_controlar&acao_origem=' . $_GET['acao'] . $strParametros) . '\';" class="infraButton"><span class="infraTeclaAtalho">C</span>ancelar</button>';
+      } else {
+          $arrComandos[] = '<button type="button" accesskey="C" id="btnCancelar" name="btnCancelar" value="Cancelar" onclick="location.href=\'' . SessaoSEI::getInstance()->assinarLink('controlador.php?acao=' . PaginaSEI::getInstance()->getAcaoRetorno() . '&acao_origem=' . $_GET['acao'] . $strParametros) . '\';" class="infraButton"><span class="infraTeclaAtalho">C</span>ancelar</button>';
+      }
      
-            if ($_GET['acao_origem'] == 'gd_pendencia_arquivamento_listar') {
-                $arrProtocolosOrigem = PaginaSEI::getInstance()->getArrStrItensSelecionados();
-            } else if($_GET['acao_origem'] == 'procedimento_controlar') {
-                $arrProtocolosOrigem = array_merge(PaginaSEI::getInstance()->getArrStrItensSelecionados('Gerados'), PaginaSEI::getInstance()->getArrStrItensSelecionados('Recebidos'), PaginaSEI::getInstance()->getArrStrItensSelecionados('Detalhado'));
-            } else {
-                $arrProtocolosOrigem = array($_GET['id_procedimento']);
-            }
+      if ($_GET['acao_origem'] == 'gd_pendencia_arquivamento_listar') {
+          $arrProtocolosOrigem = PaginaSEI::getInstance()->getArrStrItensSelecionados();
+      } else if($_GET['acao_origem'] == 'procedimento_controlar') {
+          $arrProtocolosOrigem = array_merge(PaginaSEI::getInstance()->getArrStrItensSelecionados('Gerados'), PaginaSEI::getInstance()->getArrStrItensSelecionados('Recebidos'), PaginaSEI::getInstance()->getArrStrItensSelecionados('Detalhado'));
+      } else {
+          $arrProtocolosOrigem = array($_GET['id_procedimento']);
+      }
         
-            if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_GET['acao_origem'] == 'gd_procedimento_arquivar') {
-                try {
-                    $arrProtocolosOrigem = explode(',', $_POST['hdnIdProtocolos']);
+      if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_GET['acao_origem'] == 'gd_procedimento_arquivar') {
+        try {
+            $arrProtocolosOrigem = explode(',', $_POST['hdnIdProtocolos']);
 
-                    ini_set('max_execution_time','0');
-                    ini_set('memory_limit','2048M');
+            ini_set('max_execution_time', '0');
+            ini_set('memory_limit', '2048M');
                     
-                    PaginaSEI::getInstance()->prepararBarraProgresso2($strTitulo);
-                    $prb = InfraBarraProgresso2::newInstance('ArquivarProcessos', array('cor_fundo'=>'#5c9ccc','cor_borda'=>'#4297d7'));
-                    $prb->setStrRotulo('Aguarde o Arquivamento dos Processos');
-                    $prb->setNumMin(0);
-                    $prb->setNumMax(count($arrProtocolosOrigem));
+            PaginaSEI::getInstance()->prepararBarraProgresso2($strTitulo);
+            $prb = InfraBarraProgresso2::newInstance('ArquivarProcessos', array('cor_fundo'=>'#5c9ccc','cor_borda'=>'#4297d7'));
+            $prb->setStrRotulo('Aguarde o Arquivamento dos Processos');
+            $prb->setNumMin(0);
+            $prb->setNumMax(count($arrProtocolosOrigem));
                     
-                    $objAssinaturaDTO = new AssinaturaDTO();
-                    $objAssinaturaDTO->setStrStaFormaAutenticacao(AssinaturaRN::$TA_SENHA);
-                    $objAssinaturaDTO->setNumIdOrgaoUsuario($_POST['selOrgao']);
-                    $objAssinaturaDTO->setNumIdUsuario(SessaoSEI::getInstance()->getNumIdUsuario());
-                    $objAssinaturaDTO->setNumIdContatoUsuario(SessaoSEI::getInstance()->getNumIdContextoUsuario());
-                    $objAssinaturaDTO->setStrSenhaUsuario($_POST['pwdSenha']);
-                    $objAssinaturaDTO->setStrCargoFuncao($_POST['selCargoFuncao']);
+            $objAssinaturaDTO = new AssinaturaDTO();
+            $objAssinaturaDTO->setStrStaFormaAutenticacao(AssinaturaRN::$TA_SENHA);
+            $objAssinaturaDTO->setNumIdOrgaoUsuario($_POST['selOrgao']);
+            $objAssinaturaDTO->setNumIdUsuario(SessaoSEI::getInstance()->getNumIdUsuario());
+            $objAssinaturaDTO->setNumIdContatoUsuario(SessaoSEI::getInstance()->getNumIdContextoUsuario());
+            $objAssinaturaDTO->setStrSenhaUsuario($_POST['pwdSenha']);
+            $objAssinaturaDTO->setStrCargoFuncao($_POST['selCargoFuncao']);
                     
 
-                    foreach ($arrProtocolosOrigem as $key => $numIdProcedimento) {
-                        $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
-                        $objMdGdArquivamentoDTO->setDblIdProcedimento($numIdProcedimento);
-                        $objMdGdArquivamentoDTO->setNumIdJustificativa($_POST['selJustificativa']);
-                        $objMdGdArquivamentoDTO->setObjAssinaturaDTO($objAssinaturaDTO);
+          foreach ($arrProtocolosOrigem as $key => $numIdProcedimento) {
+            $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
+            $objMdGdArquivamentoDTO->setDblIdProcedimento($numIdProcedimento);
+            $objMdGdArquivamentoDTO->setNumIdJustificativa($_POST['selJustificativa']);
+            $objMdGdArquivamentoDTO->setObjAssinaturaDTO($objAssinaturaDTO);
 
-                        if(isset($_POST['txtDataArquivamento'])){
-                            $objMdGdArquivamentoDTO->setDthDataArquivamento($_POST['txtDataArquivamento'].' 00:00:00');
-                        }
-                        
-                        if ($_POST['hdnOrigem'] == 'gd_pendencia_arquivamento_listar') {
-                            $objMdGdArquivamentoDTO->reabrirProcedimentoGeracao = true;
-                        }
-                        $objMdArquivamentoRN->arquivar($objMdGdArquivamentoDTO);
-                        
-                       $prb->setStrRotulo('Arquivando '.($key + 1) .' de '.count($arrProtocolosOrigem));
-                       $prb->moverProximo();
-                    }
-
-                    $prb->setStrRotulo('Arquivamento realizado com sucesso!');
-
-                    if ($_POST['hdnOrigem'] == 'gd_pendencia_arquivamento_listar') {
-                        PaginaSEI::getInstance()->finalizarBarraProgresso2(SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_pendencia_arquivamento_listar&acao_origem=' . $_GET['acao']), true);
-                     } else if ($_POST['hdnOrigem'] == 'procedimento_controlar') {
-                        PaginaSEI::getInstance()->finalizarBarraProgresso2(SessaoSEI::getInstance()->assinarLink('controlador.php?acao=procedimento_controlar&acao_origem=' . $_GET['acao']), true);
-                     } else {
-                        PaginaSEI::getInstance()->finalizarBarraProgresso2(SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_procedimento_arquivar&acao_origem=' . $_GET['acao'] . '&id_procedimento='.$arrProtocolosOrigem[0].'&arvore=1&redirect=true'), true);
-                    }
-                    die;
-
-                } catch (Exception $e) {
-                    PaginaSEI::getInstance()->processarExcecao($e);
-                    PaginaSEI::getInstance()->finalizarBarraProgresso2(null, true);
-                }
+            if(isset($_POST['txtDataArquivamento'])){
+                  $objMdGdArquivamentoDTO->setDthDataArquivamento($_POST['txtDataArquivamento'].' 00:00:00');
             }
+                        
+            if ($_POST['hdnOrigem'] == 'gd_pendencia_arquivamento_listar') {
+                    $objMdGdArquivamentoDTO->reabrirProcedimentoGeracao = true;
+            }
+              $objMdArquivamentoRN->arquivar($objMdGdArquivamentoDTO);
+                        
+              $prb->setStrRotulo('Arquivando '.($key + 1) .' de '.count($arrProtocolosOrigem));
+              $prb->moverProximo();
+          }
 
-            // Verifica se não existem andamentos abertos em mais de uma unidade nos processos selecionados
-            $arrProtocolosAndamentosAbertos = [];
-            $strProtocolosAndamentosAbertos = null;
+            $prb->setStrRotulo('Arquivamento realizado com sucesso!');
 
-            foreach($arrProtocolosOrigem as $k => $protocoloValidacao) {
-                $objAtividadeDTO = new AtividadeDTO();
-                $objAtividadeDTO->setDistinct(true);
-                $objAtividadeDTO->setDblIdProtocolo($protocoloValidacao);
-                $objAtividadeDTO->setDthConclusao(null);
-                $objAtividadeDTO->retNumIdUnidade();
-                $objAtividadeDTO->retStrProtocoloFormatadoProtocolo();
+          if ($_POST['hdnOrigem'] == 'gd_pendencia_arquivamento_listar') {
+              PaginaSEI::getInstance()->finalizarBarraProgresso2(SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_pendencia_arquivamento_listar&acao_origem=' . $_GET['acao']), true);
+          } else if ($_POST['hdnOrigem'] == 'procedimento_controlar') {
+                 PaginaSEI::getInstance()->finalizarBarraProgresso2(SessaoSEI::getInstance()->assinarLink('controlador.php?acao=procedimento_controlar&acao_origem=' . $_GET['acao']), true);
+          } else {
+                     PaginaSEI::getInstance()->finalizarBarraProgresso2(SessaoSEI::getInstance()->assinarLink('controlador.php?acao=gd_procedimento_arquivar&acao_origem=' . $_GET['acao'] . '&id_procedimento='.$arrProtocolosOrigem[0].'&arvore=1&redirect=true'), true);
+          }
+                die;
+
+        } catch (Exception $e) {
+            PaginaSEI::getInstance()->processarExcecao($e);
+            PaginaSEI::getInstance()->finalizarBarraProgresso2(null, true);
+        }
+      }
+
+        // Verifica se não existem andamentos abertos em mais de uma unidade nos processos selecionados
+        $arrProtocolosAndamentosAbertos = [];
+        $strProtocolosAndamentosAbertos = null;
+
+      foreach($arrProtocolosOrigem as $k => $protocoloValidacao) {
+          $objAtividadeDTO = new AtividadeDTO();
+          $objAtividadeDTO->setDistinct(true);
+          $objAtividadeDTO->setDblIdProtocolo($protocoloValidacao);
+          $objAtividadeDTO->setDthConclusao(null);
+          $objAtividadeDTO->retNumIdUnidade();
+          $objAtividadeDTO->retStrProtocoloFormatadoProtocolo();
         
-                $objAtividadeRN = new AtividadeRN();
-                $arrObjAtividadeDTO = $objAtividadeRN->listarRN0036($objAtividadeDTO);
+          $objAtividadeRN = new AtividadeRN();
+          $arrObjAtividadeDTO = $objAtividadeRN->listarRN0036($objAtividadeDTO);
 
-                if(count($arrObjAtividadeDTO) > 1) {
-                    $arrProtocolosAndamentosAbertos[$protocoloValidacao] = $arrObjAtividadeDTO[0]->getStrProtocoloFormatadoProtocolo();
-                }
-            }
+        if(count($arrObjAtividadeDTO) > 1) {
+            $arrProtocolosAndamentosAbertos[$protocoloValidacao] = $arrObjAtividadeDTO[0]->getStrProtocoloFormatadoProtocolo();
+        }
+      }
 
-            if($arrProtocolosAndamentosAbertos) {
-                $strProtocolosAndamentosAbertos = implode(',', $arrProtocolosAndamentosAbertos);
-            }
+      if($arrProtocolosAndamentosAbertos) {
+          $strProtocolosAndamentosAbertos = implode(',', $arrProtocolosAndamentosAbertos);
+      }
 
-            // Verifica se algum dos processos não está anexado ou não possuí anexos
-            $arrProtocolosAnexos = [];
-            $strProtocolosAnexos = null;
+        // Verifica se algum dos processos não está anexado ou não possuí anexos
+        $arrProtocolosAnexos = [];
+        $strProtocolosAnexos = null;
 
-            foreach($arrProtocolosOrigem as $k => $protocoloValidacao) {
-                $objRelProtocoloProtocoloDTO = new RelProtocoloProtocoloDTO();
-                $objRelProtocoloProtocoloDTO->adicionarCriterio(array('IdProtocolo1','IdProtocolo2'),
-                                                                    array(InfraDTO::$OPER_IGUAL,InfraDTO::$OPER_IGUAL),
-                                                                    array($protocoloValidacao, $protocoloValidacao),
-                                                                    InfraDTO::$OPER_LOGICO_OR);
-                $objRelProtocoloProtocoloDTO->setStrStaAssociacao(RelProtocoloProtocoloRN::$TA_PROCEDIMENTO_ANEXADO);
-                $objRelProtocoloProtocoloDTO->retDblIdProtocolo1();
-                $objRelProtocoloProtocoloDTO->retDblIdProtocolo2();
-                $objRelProtocoloProtocoloDTO->retStrProtocoloFormatadoProtocolo1();
-                $objRelProtocoloProtocoloDTO->retStrProtocoloFormatadoProtocolo2();
+      foreach($arrProtocolosOrigem as $k => $protocoloValidacao) {
+          $objRelProtocoloProtocoloDTO = new RelProtocoloProtocoloDTO();
+          $objRelProtocoloProtocoloDTO->adicionarCriterio(array('IdProtocolo1','IdProtocolo2'),
+                                                              array(InfraDTO::$OPER_IGUAL,InfraDTO::$OPER_IGUAL),
+                                                              array($protocoloValidacao, $protocoloValidacao),
+                                                              InfraDTO::$OPER_LOGICO_OR);
+          $objRelProtocoloProtocoloDTO->setStrStaAssociacao(RelProtocoloProtocoloRN::$TA_PROCEDIMENTO_ANEXADO);
+          $objRelProtocoloProtocoloDTO->retDblIdProtocolo1();
+          $objRelProtocoloProtocoloDTO->retDblIdProtocolo2();
+          $objRelProtocoloProtocoloDTO->retStrProtocoloFormatadoProtocolo1();
+          $objRelProtocoloProtocoloDTO->retStrProtocoloFormatadoProtocolo2();
                 
 
-                $objRelProtocoloProtocoloRN = new RelProtocoloProtocoloRN();
-                $arrObjRelProtocoloProtocoloDTO = $objRelProtocoloProtocoloRN->listarRN0187($objRelProtocoloProtocoloDTO);
+          $objRelProtocoloProtocoloRN = new RelProtocoloProtocoloRN();
+          $arrObjRelProtocoloProtocoloDTO = $objRelProtocoloProtocoloRN->listarRN0187($objRelProtocoloProtocoloDTO);
                 
-                // if($arrObjAtividadeDTO) {
-                    foreach($arrObjRelProtocoloProtocoloDTO as $objRelProtocoloProtocoloDTO) {
-                        if($protocoloValidacao == $objRelProtocoloProtocoloDTO->getDblIdProtocolo1()) {
-                            $arrProtocolosAnexos[$objRelProtocoloProtocoloDTO->getDblIdProtocolo1()] = $objRelProtocoloProtocoloDTO->getStrProtocoloFormatadoProtocolo1();
-                        }
+          // if($arrObjAtividadeDTO) {
+        foreach($arrObjRelProtocoloProtocoloDTO as $objRelProtocoloProtocoloDTO) {
+          if($protocoloValidacao == $objRelProtocoloProtocoloDTO->getDblIdProtocolo1()) {
+                        $arrProtocolosAnexos[$objRelProtocoloProtocoloDTO->getDblIdProtocolo1()] = $objRelProtocoloProtocoloDTO->getStrProtocoloFormatadoProtocolo1();
+          }
                         
-                        if($protocoloValidacao == $objRelProtocoloProtocoloDTO->getDblIdProtocolo2()) {
-                            $arrProtocolosAnexos[$objRelProtocoloProtocoloDTO->getDblIdProtocolo2()] = $objRelProtocoloProtocoloDTO->getStrProtocoloFormatadoProtocolo2();
-                        }
-                    }
-                // }
-            }
+          if($protocoloValidacao == $objRelProtocoloProtocoloDTO->getDblIdProtocolo2()) {
+                          $arrProtocolosAnexos[$objRelProtocoloProtocoloDTO->getDblIdProtocolo2()] = $objRelProtocoloProtocoloDTO->getStrProtocoloFormatadoProtocolo2();
+          }
+        }
+          // }
+      }
 
-            if($arrProtocolosAnexos) {
-                $strProtocolosAnexos = implode(', ', $arrProtocolosAnexos);
-            }
-            // Remove os processos que possuem anexos e/ou estão abertos em mais de uma unidade
-            // foreach($arrProtocolosAnexos as $k => $protocoloAnexo){
-            //     foreach($arrProtocolosOrigem as $x => $protocoloOrigem){
-            //         if($protocoloOrigem == $k){
-            //             unset($arrProtocolosOrigem[$x]);
-            //         }
-            //     }
-            // }
+      if($arrProtocolosAnexos) {
+          $strProtocolosAnexos = implode(', ', $arrProtocolosAnexos);
+      }
+        // Remove os processos que possuem anexos e/ou estão abertos em mais de uma unidade
+        // foreach($arrProtocolosAnexos as $k => $protocoloAnexo){
+        //     foreach($arrProtocolosOrigem as $x => $protocoloOrigem){
+        //         if($protocoloOrigem == $k){
+        //             unset($arrProtocolosOrigem[$x]);
+        //         }
+        //     }
+        // }
 
 
-            foreach($arrProtocolosAndamentosAbertos as $k => $protocoloAndamento){
-                foreach($arrProtocolosOrigem as $x => $protocoloOrigem){
-                    if($protocoloOrigem == $k){
-                        unset($arrProtocolosOrigem[$x]);
-                    }
-                }
-            }
+      foreach($arrProtocolosAndamentosAbertos as $k => $protocoloAndamento){
+        foreach($arrProtocolosOrigem as $x => $protocoloOrigem){
+          if($protocoloOrigem == $k){
+            unset($arrProtocolosOrigem[$x]);
+          }
+        }
+      }
 
-            // Verifica o último andamento de cada processo
-            $arrIdsProtocolosValidacao = [];
-            foreach($arrProtocolosOrigem as $k => $protocoloValidacao) {
-                $arrIdsProtocolosValidacao[$k] = 0;
+        // Verifica o último andamento de cada processo
+        $arrIdsProtocolosValidacao = [];
+      foreach($arrProtocolosOrigem as $k => $protocoloValidacao) {
+          $arrIdsProtocolosValidacao[$k] = 0;
 
-                // Busca os documentos vinculados
-                $objDocumentoDTO = new DocumentoDTO();
-                $objDocumentoDTO->setDblIdProcedimento($protocoloValidacao);
-                $objDocumentoDTO->retDblIdDocumento();
+          // Busca os documentos vinculados
+          $objDocumentoDTO = new DocumentoDTO();
+          $objDocumentoDTO->setDblIdProcedimento($protocoloValidacao);
+          $objDocumentoDTO->retDblIdDocumento();
 
-                $objDocumentoRN = new DocumentoRN();
-                $arrObjDocumentoDTO = $objDocumentoRN->listarRN0008($objDocumentoDTO);
+          $objDocumentoRN = new DocumentoRN();
+          $arrObjDocumentoDTO = $objDocumentoRN->listarRN0008($objDocumentoDTO);
 
-                $arrIdsProtocolos = [$protocoloValidacao];
+          $arrIdsProtocolos = [$protocoloValidacao];
 
-                if($arrObjDocumentoDTO){
-                    foreach($arrObjDocumentoDTO as $objDocumentoDTO) {
-                        $arrIdsProtocolos[] = $objDocumentoDTO->getDblIdDocumento();
-                    }
-                }
+        if($arrObjDocumentoDTO){
+          foreach($arrObjDocumentoDTO as $objDocumentoDTO) {
+            $arrIdsProtocolos[] = $objDocumentoDTO->getDblIdDocumento();
+          }
+        }
 
-                $objAtividadeDTO = new AtividadeDTO();
-                $objAtividadeDTO->setDblIdProtocolo($arrIdsProtocolos, InfraDTO::$OPER_IN);
-                $objAtividadeDTO->setOrdDthAbertura(InfraDTO::$TIPO_ORDENACAO_ASC);
-                $objAtividadeDTO->retDthAbertura();
+          $objAtividadeDTO = new AtividadeDTO();
+          $objAtividadeDTO->setDblIdProtocolo($arrIdsProtocolos, InfraDTO::$OPER_IN);
+          $objAtividadeDTO->setOrdDthAbertura(InfraDTO::$TIPO_ORDENACAO_ASC);
+          $objAtividadeDTO->retDthAbertura();
 
-                $objAtividadeRN = new AtividadeRN();
-                $arrObjAtividadeDTO = $objAtividadeRN->listarRN0036($objAtividadeDTO);
+          $objAtividadeRN = new AtividadeRN();
+          $arrObjAtividadeDTO = $objAtividadeRN->listarRN0036($objAtividadeDTO);
 
-                $dthPrimeiroAndamento = $arrObjAtividadeDTO[0]->getDthAbertura();
-                $dthPrimeiroAndamento = explode(' ', $dthPrimeiroAndamento);
-                $dthPrimeiroAndamento = explode('/', $dthPrimeiroAndamento[0]);
+          $dthPrimeiroAndamento = $arrObjAtividadeDTO[0]->getDthAbertura();
+          $dthPrimeiroAndamento = explode(' ', $dthPrimeiroAndamento);
+          $dthPrimeiroAndamento = explode('/', $dthPrimeiroAndamento[0]);
 
-                $arrIdsProtocolosValidacao[$k] = $dthPrimeiroAndamento[2].$dthPrimeiroAndamento[1].$dthPrimeiroAndamento[0];
-            }
+          $arrIdsProtocolosValidacao[$k] = $dthPrimeiroAndamento[2].$dthPrimeiroAndamento[1].$dthPrimeiroAndamento[0];
+      }
 
             
-            arsort($arrIdsProtocolosValidacao);
-            $arrIdsProtocolosValidacao = array_values($arrIdsProtocolosValidacao);
-            $dataMinima = $arrIdsProtocolosValidacao[0];
-            $dataMaxima = date('Ymd');
+        arsort($arrIdsProtocolosValidacao);
+        $arrIdsProtocolosValidacao = array_values($arrIdsProtocolosValidacao);
+        $dataMinima = $arrIdsProtocolosValidacao[0];
+        $dataMaxima = date('Ymd');
 
 
-            break;
+        break;
 
-        default:
-            throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
-    }
+    default:
+        throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
+  }
 
     // Busca as justificativas
     $objMdGdJustificativaDTO = new MdGdJustificativaDTO();
@@ -265,9 +264,9 @@ try {
     $strIdProtocolos = implode(',', $arrProtocolosOrigem);
 
     $numTotalCondicionantes = 0;
-    foreach ($arrProtocolosOrigem as $numIdProtocolo) {
-        $numTotalCondicionantes += $objMdArquivamentoRN->contarCondicionantes($numIdProtocolo);
-    }
+  foreach ($arrProtocolosOrigem as $numIdProtocolo) {
+      $numTotalCondicionantes += $objMdArquivamentoRN->contarCondicionantes($numIdProtocolo);
+  }
 } catch (Exception $e) {
     PaginaSEI::getInstance()->processarExcecao($e);
 }

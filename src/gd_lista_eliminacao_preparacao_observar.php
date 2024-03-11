@@ -14,27 +14,27 @@ try {
     PaginaSEI::getInstance()->setTipoPagina(InfraPagina::$TIPO_PAGINA_SIMPLES);
     SessaoSEI::getInstance()->validarPermissao($_GET['acao']);
 
-    switch ($_GET['acao']) {
+  switch ($_GET['acao']) {
 
-        case 'gd_lista_eliminacao_preparacao_observar':
-            $strTitulo = 'Observações e/ou Justificativas';
-            $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
-            $objMdGdArquivamentoDTO->setNumIdArquivamento($_GET['id_arquivamento']);
-            $objMdGdArquivamentoDTO->retStrObservacaoEliminacao();
+    case 'gd_lista_eliminacao_preparacao_observar':
+        $strTitulo = 'Observações e/ou Justificativas';
+        $objMdGdArquivamentoDTO = new MdGdArquivamentoDTO();
+        $objMdGdArquivamentoDTO->setNumIdArquivamento($_GET['id_arquivamento']);
+        $objMdGdArquivamentoDTO->retStrObservacaoEliminacao();
             
-            $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
-            $objMdGdArquivamentoDTO = $objMdGdArquivamentoRN->consultar($objMdGdArquivamentoDTO);
+        $objMdGdArquivamentoRN = new MdGdArquivamentoRN();
+        $objMdGdArquivamentoDTO = $objMdGdArquivamentoRN->consultar($objMdGdArquivamentoDTO);
             
-            if ($_POST['sbmObservar']) {
-                $objMdGdArquivamentoDTO->setNumIdArquivamento($_GET['id_arquivamento']);
-                $objMdGdArquivamentoDTO->setStrObservacaoEliminacao($_POST['txaObservacao']);
-                $objMdGdArquivamentoRN->alterar($objMdGdArquivamentoDTO);
-            }
-            break;
+      if ($_POST['sbmObservar']) {
+        $objMdGdArquivamentoDTO->setNumIdArquivamento($_GET['id_arquivamento']);
+        $objMdGdArquivamentoDTO->setStrObservacaoEliminacao($_POST['txaObservacao']);
+        $objMdGdArquivamentoRN->alterar($objMdGdArquivamentoDTO);
+      }
+        break;
 
-        default:
-            throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
-    }
+    default:
+        throw new InfraException("Ação '" . $_GET['acao'] . "' não reconhecida.");
+  }
 } catch (Exception $e) {
     PaginaSEI::getInstance()->processarExcecao($e);
 }
