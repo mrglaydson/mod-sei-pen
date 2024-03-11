@@ -597,25 +597,28 @@ class VersaoSeiRN extends InfraScriptVersao
      */
   protected function cadastrarTipoDocumento($numIdGrupoSerie, $strNome, $strDescricao, $strStaAplicabilidade, $numIdModelo, $strStaNumeracao)
     {
-      $objSerieDTO = new SerieDTO();
-      $objSerieDTO->setNumIdSerie(null);
-      $objSerieDTO->setNumIdGrupoSerie($numIdGrupoSerie);
-      $objSerieDTO->setStrNome($strNome);
-      $objSerieDTO->setStrDescricao($strDescricao);
-      $objSerieDTO->setStrStaAplicabilidade($strStaAplicabilidade);
-      $objSerieDTO->setNumIdModelo($numIdModelo);
-      $objSerieDTO->setNumIdModeloEdoc(null);
-      $objSerieDTO->setNumIdTipoFormulario(null);
-      $objSerieDTO->setStrStaNumeracao($strStaNumeracao);
-      $objSerieDTO->setStrSinAssinaturaPublicacao('S');
-      $objSerieDTO->setStrSinInteressado('N');
-      $objSerieDTO->setStrSinDestinatario('N');
-      $objSerieDTO->setStrSinInterno('N');
-      $objSerieDTO->setStrSinAtivo('S');
-      $objSerieDTO->setStrSinUsuarioExterno('N');
-      $objSerieDTO->setArrObjRelSerieAssuntoDTO(array());
-      $objSerieDTO->setArrObjSerieRestricaoDTO(array());
-      $objSerieDTO->setArrObjRelSerieVeiculoPublicacaoDTO(array());
+        $objSerieDTO = new SerieDTO();
+        $objSerieDTO->setNumIdSerie(null);
+        $objSerieDTO->setNumIdGrupoSerie($numIdGrupoSerie);
+        $objSerieDTO->setStrNome($strNome);
+        $objSerieDTO->setStrDescricao($strDescricao);
+        $objSerieDTO->setStrStaAplicabilidade($strStaAplicabilidade);
+        $objSerieDTO->setNumIdModelo($numIdModelo);
+        $objSerieDTO->setNumIdModeloEdoc(null);
+        $objSerieDTO->setNumIdTipoFormulario(null);
+        $objSerieDTO->setStrStaNumeracao($strStaNumeracao);
+        $objSerieDTO->setStrSinAssinaturaPublicacao('S');
+        $objSerieDTO->setStrSinInteressado('N');
+        $objSerieDTO->setStrSinDestinatario('N');
+        $objSerieDTO->setStrSinInterno('N');
+        $objSerieDTO->setStrSinAtivo('S');
+        $objSerieDTO->setStrSinUsuarioExterno('N');
+    if (InfraUtil::compararVersoes(SEI_VERSAO, ">=", "4.1.1")) {
+        $objSerieDTO->setStrSinValorMonetario('N');
+    }
+        $objSerieDTO->setArrObjRelSerieAssuntoDTO(array());
+        $objSerieDTO->setArrObjSerieRestricaoDTO(array());
+        $objSerieDTO->setArrObjRelSerieVeiculoPublicacaoDTO(array());
 
       $objSerieRN = new SerieRN();
       $objSerieDTO = $objSerieRN->cadastrarRN0642($objSerieDTO);
@@ -657,8 +660,11 @@ class VersaoSeiRN extends InfraScriptVersao
 
       $objTipoProcedimentoDTO->setArrObjNivelAcessoPermitidoDTO($arrObjNivelAcessoPermitidoDTO);
 
-      $objTipoProcedimentoDTO->setStrStaNivelAcessoSugestao(ProtocoloRN::$NA_PUBLICO);
-      $objTipoProcedimentoDTO->setStrSinAtivo('S');
+        $objTipoProcedimentoDTO->setStrStaNivelAcessoSugestao(ProtocoloRN::$NA_PUBLICO);
+        $objTipoProcedimentoDTO->setStrSinAtivo('S');
+    if (InfraUtil::compararVersoes(SEI_VERSAO, ">=", "4.1.1")) {
+        $objTipoProcedimentoDTO->setNumIdPlanoTrabalho(null);
+    }
 
       $objTipoProcedimentoRN = new TipoProcedimentoRN();
       $objTipoProcedimentoDTO = $objTipoProcedimentoRN->cadastrarRN0265($objTipoProcedimentoDTO);
@@ -1010,15 +1016,18 @@ class VersaoSeiRN extends InfraScriptVersao
               $objUltimaTarefaDTO->setOrd('IdTarefa', InfraDTO::$TIPO_ORDENACAO_DESC);
               $objUltimaTarefaDTO = $objBD->consultar($objUltimaTarefaDTO);
 
-              $objDTO->setNumIdTarefa($objUltimaTarefaDTO->getNumIdTarefa() + 1);
-              $objDTO->setStrNome($strNome);
-              $objDTO->setStrSinHistoricoResumido($strHistoricoResumido);
-              $objDTO->setStrSinHistoricoCompleto($strHistoricoCompleto);
-              $objDTO->setStrSinFecharAndamentosAbertos($strFecharAndamentosAbertos);
-              $objDTO->setStrSinLancarAndamentoFechado($strLancarAndamentoFechado);
-              $objDTO->setStrSinPermiteProcessoFechado($strPermiteProcessoFechado);
-              $objDTO->setStrIdTarefaModulo($strIdTarefaModulo);
-              $objBD->cadastrar($objDTO);
+                    $objDTO->setNumIdTarefa($objUltimaTarefaDTO->getNumIdTarefa() + 1);
+                    $objDTO->setStrNome($strNome);
+                    $objDTO->setStrSinHistoricoResumido($strHistoricoResumido);
+                    $objDTO->setStrSinHistoricoCompleto($strHistoricoCompleto);
+                    $objDTO->setStrSinFecharAndamentosAbertos($strFecharAndamentosAbertos);
+                    $objDTO->setStrSinLancarAndamentoFechado($strLancarAndamentoFechado);
+                    $objDTO->setStrSinPermiteProcessoFechado($strPermiteProcessoFechado);
+                    $objDTO->setStrIdTarefaModulo($strIdTarefaModulo);
+            if (InfraUtil::compararVersoes(SEI_VERSAO, ">=", "4.1.1")) {
+                $objDTO->setStrSinConsultaProcessual('N');
+            }
+                    $objBD->cadastrar($objDTO);
           }
         };
 

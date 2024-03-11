@@ -606,8 +606,14 @@ class MdGdArquivamentoRN extends InfraRN {
       $objProcedimentoRN = new ProcedimentoRN();
       $objProcedimentoDTO = $objProcedimentoRN->consultarRN0201($objProcedimentoDTO);
         
-      // Conclui o processo
-      $objProcedimentoRN->concluir([$objProcedimentoDTO]);
+        // Conclui o processo
+    if (InfraUtil::compararVersoes(SEI_VERSAO, ">=", "4.1.1")) {
+        $objConcluirProcessoDTO = new ConcluirProcessoDTO();
+        $objConcluirProcessoDTO->setDblIdProcedimento($objProcedimentoDTO->getDblIdProcedimento());
+        $objProcedimentoRN->concluir($objConcluirProcessoDTO);
+    }else{
+      $objProcedimentoRN->concluir(array($objProcedimentoDTO));
+    }
   }
 
     /**

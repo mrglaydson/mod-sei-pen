@@ -35,9 +35,12 @@ SIP_SCRIPTS_DIR = dist/sip/scripts/$(MODULO_PASTAS_CONFIG)
 
 ARQUIVO_CONFIG_SEI=$(SEI_PATH)/sei/config/ConfiguracaoSEI.php
 ARQUIVO_ENV_ASSINATURA=.modulo.env
+CMD_INSTALACAO_SEI = echo -ne '$(SEI_DATABASE_USER)\n$(SEI_DATABASE_PASSWORD)\n' | php atualizar_versao_sei.php
+CMD_INSTALACAO_SIP = echo -ne '$(SIP_DATABASE_USER)\n$(SIP_DATABASE_PASSWORD)\n' | php atualizar_versao_sip.php
+CMD_INSTALACAO_RECURSOS_SEI = echo -ne '$(SIP_DATABASE_USER)\n$(SIP_DATABASE_PASSWORD)\n' | php atualizar_recursos_sei.php
 MODULO_COMPACTADO = mod-$(MODULO_NOME)-$(VERSAO_MODULO).zip
-CMD_INSTALACAO_SEI = echo -ne '$(SEI_DATABASE_USER)\n$(SEI_DATABASE_PASSWORD)\n' | php sei_atualizar_versao_modulo_documental.php
-CMD_INSTALACAO_SIP = echo -ne '$(SIP_DATABASE_USER)\n$(SIP_DATABASE_PASSWORD)\n' | php sip_atualizar_versao_modulo_documental.php
+CMD_INSTALACAO_SEI_MODULO = echo -ne '$(SEI_DATABASE_USER)\n$(SEI_DATABASE_PASSWORD)\n' | php sei_atualizar_versao_modulo_documental.php
+CMD_INSTALACAO_SIP_MODULO = echo -ne '$(SIP_DATABASE_USER)\n$(SIP_DATABASE_PASSWORD)\n' | php sip_atualizar_versao_modulo_documental.php
 
 RED=\033[0;31m
 NC=\033[0m
@@ -62,6 +65,17 @@ Pressione y para continuar [y/n]...
 endef
 export TESTS_MENSAGEM_ORIENTACAO
 
+ifeq (, $(shell groups |grep docker))
+ CMD_DOCKER_SUDO=sudo
+else
+ CMD_DOCKER_SUDO=
+endif
+
+ifeq (, $(shell which docker-compose))
+ CMD_DOCKER_COMPOSE=$(CMD_DOCKER_SUDO) docker compose
+else
+ CMD_DOCKER_COMPOSE=$(CMD_DOCKER_SUDO) docker-compose
+endif
 
 all: clean dist
 
@@ -149,8 +163,8 @@ prerequisites-modulo-instalar: check-super-path check-module-config check-super-
 
 
 install: prerequisites-modulo-instalar
-	$(CMD_DOCKER_COMPOSE) exec -T -w /opt/sei/scripts/$(MODULO_PASTAS_CONFIG) httpd bash -c "$(CMD_INSTALACAO_SEI)";
-	$(CMD_DOCKER_COMPOSE) exec -T -w /opt/sip/scripts/$(MODULO_PASTAS_CONFIG) httpd bash -c "$(CMD_INSTALACAO_SIP)";
+	$(CMD_DOCKER_COMPOSE) exec -T -w /opt/sei/scripts/$(MODULO_PASTAS_CONFIG) httpd bash -c "$(CMD_INSTALACAO_SEI_MODULO)";
+	$(CMD_DOCKER_COMPOSE) exec -T -w /opt/sip/scripts/$(MODULO_PASTAS_CONFIG) httpd bash -c "$(CMD_INSTALACAO_SIP_MODULO)";
 	@echo "==================================================================================================="
 	@echo ""
 	@echo "Fim da instalação do módulo"
@@ -208,3 +222,8 @@ tests-functional: tests-functional-prerequisites check-super-isalive
 tests-functional-loop: tests-functional-prerequisites
 	@echo "Vamos iniciar a execucao completa com loop"
 	@cd tests/functional && ./testes-completo-loop.sh
+
+update: ## Atualiza banco de dados através dos scripts de atualização do sistema
+	$(CMD_DOCKER_COMPOSE) run --rm -w /opt/sei/scripts/ httpd sh -c "$(CMD_INSTALACAO_SEI)"; true
+	$(CMD_DOCKER_COMPOSE) run --rm -w /opt/sip/scripts/ httpd sh -c "$(CMD_INSTALACAO_SIP)"; true
+	$(CMD_DOCKER_COMPOSE) run --rm -w /opt/sip/scripts/ httpd sh -c "$(CMD_INSTALACAO_RECURSOS_SEI)"; true

@@ -530,20 +530,24 @@ class VersaoSipRN extends InfraScriptVersao
         $numIdSistema = $sistemaDTO->getNumIdSistema();
     }
 
-      //Cria função genérica de cadastro de perfil
-      $fnCadastrarPerfil = function ($numIdSistema, $nome, $descricao, $coordenado, $ativo) {
-          $objPerfilDTO = new PerfilDTO();
-          $objPerfilDTO->setNumIdSistema($numIdSistema);
-          $objPerfilDTO->setStrNome($nome);
-          $objPerfilDTO->setStrDescricao($descricao);
-          $objPerfilDTO->setStrSinCoordenado($coordenado);
-          $objPerfilDTO->setStrSinAtivo($ativo);
+        //Cria função genérica de cadastro de perfil
+        $fnCadastrarPerfil = function ($numIdSistema, $nome, $descricao, $coordenado, $ativo) {
+            $objPerfilDTO = new PerfilDTO();
+            $objPerfilDTO->setNumIdSistema($numIdSistema);
+            $objPerfilDTO->setStrNome($nome);
+            $objPerfilDTO->setStrDescricao($descricao);
+            $objPerfilDTO->setStrSinCoordenado($coordenado);
+            $objPerfilDTO->setStrSinAtivo($ativo);
+
+          if (InfraUtil::compararVersoes(SIP_VERSAO, ">=", "3.1.1")) {
+              $objPerfilDTO->setStrSin2Fatores('N');
+          }
 
           $objPerfilRN = new PerfilRN();
           $objPerfilDTO = $objPerfilRN->cadastrar($objPerfilDTO);
 
           return $objPerfilDTO->getNumIdPerfil();
-      };
+        };
 
       //Cadastrar os perfis
       $id_perfil_arquivamento = $fnCadastrarPerfil($numIdSistema, 'GD Arquivamento', 'Acesso aos recursos de arquivamento e desarquivamento de processos, Pendências de Arquivamento e Arquivo da Unidade. Também possibilita consultar a lista de Unidades de Arquivamento e as Justificativas de Arquivamento e Desarquivamento.', 'N', 'S');
