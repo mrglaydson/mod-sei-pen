@@ -52,6 +52,8 @@ services:
       - ./src/config:/opt/sei/config/mod-gestao-documental
       - ./src/scripts:/opt/sei/scripts/mod-gestao-documental
       - ./src/scripts:/opt/sip/scripts/mod-gestao-documental
+      - ./src/config/ConfiguracaoSEI.php:/opt/sei/config/ConfiguracaoSEI.php
+      - ./src/config/ConfiguracaoSip.php:/opt/sip/config/ConfiguracaoSip.php
 
     environment:
       - LANG=pt_BR.ISO-8859-1
