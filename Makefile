@@ -41,6 +41,7 @@ CMD_INSTALACAO_RECURSOS_SEI = echo -ne '$(SIP_DATABASE_USER)\n$(SIP_DATABASE_PAS
 MODULO_COMPACTADO = mod-$(MODULO_NOME)-$(VERSAO_MODULO).zip
 CMD_INSTALACAO_SEI_MODULO = echo -ne '$(SEI_DATABASE_USER)\n$(SEI_DATABASE_PASSWORD)\n' | php sei_atualizar_versao_modulo_documental.php
 CMD_INSTALACAO_SIP_MODULO = echo -ne '$(SIP_DATABASE_USER)\n$(SIP_DATABASE_PASSWORD)\n' | php sip_atualizar_versao_modulo_documental.php
+CMD_ATUALIZACAO_SEQ_SEI = echo -ne '$(SEI_DATABASE_USER)\n$(SEI_DATABASE_PASSWORD)\n' | php atualizar_sequencias.php
 
 RED=\033[0;31m
 NC=\033[0m
@@ -163,6 +164,7 @@ prerequisites-modulo-instalar: check-super-path check-module-config check-super-
 
 
 install: prerequisites-modulo-instalar
+	$(CMD_DOCKER_COMPOSE) run --rm -w /opt/sei/scripts/ httpd bash -c "$(CMD_ATUALIZACAO_SEQ_SEI)"; true
 	$(CMD_DOCKER_COMPOSE) exec -T -w /opt/sei/scripts/$(MODULO_PASTAS_CONFIG) httpd bash -c "$(CMD_INSTALACAO_SEI_MODULO)";
 	$(CMD_DOCKER_COMPOSE) exec -T -w /opt/sip/scripts/$(MODULO_PASTAS_CONFIG) httpd bash -c "$(CMD_INSTALACAO_SIP_MODULO)";
 	@echo "==================================================================================================="
