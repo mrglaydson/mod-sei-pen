@@ -5,7 +5,7 @@ use PHPUnit\Extensions\Selenium2TestCase;
 use Tests\Funcional\Sei\Fixtures\{ProtocoloFixture,ProcedimentoFixture,AtividadeFixture,ContatoFixture};
 use Tests\Funcional\Sei\Fixtures\{ParticipanteFixture,RelProtocoloAssuntoFixture,AtributoAndamentoFixture};
 use Tests\Funcional\Sei\Fixtures\{DocumentoFixture,AssinaturaFixture,AnexoFixture,AnexoProcessoFixture};
-use Tests\Funcional\Sei\Fixtures\{HipoteseLegalFixture};
+use Tests\Funcional\Sei\Fixtures\{HipoteseLegalFixture,TipoProcedimentoFixture};
 
 use function PHPSTORM_META\map;
 /**
@@ -13,16 +13,10 @@ use function PHPSTORM_META\map;
  */
 class FixtureCenarioBaseTestCase extends CenarioBaseTestCase
 {
-    protected function cadastrarProcessoFixture(&$dadosProcesso)
+    protected function cadastrarProcessoFixture(&$dadosProcesso, $cadastrarParticipante = true)
     {
-
         if (!is_null($dadosProcesso['HIPOTESE_LEGAL'])){
-            $param = [
-                'Nome' => trim(explode('(',$dadosProcesso['HIPOTESE_LEGAL'])[0]),
-                'BaseLegal' => explode(')',trim(explode('(',$dadosProcesso['HIPOTESE_LEGAL'])[1]))[0]
-            ];
-            $objHipLegalFixture = new HipoteseLegalFixture();
-            $objHipLegalDTO = $objHipLegalFixture->buscar($param)[0];
+            $objHipLegalDTO = $this->buscarHipoteseLegal($dadosProcesso);
         }
 
         $parametros = [
@@ -36,14 +30,17 @@ class FixtureCenarioBaseTestCase extends CenarioBaseTestCase
         $objProtocoloDTO = $objProtocoloFixture->carregar($parametros);
         $objProcedimentoFixture = new ProcedimentoFixture();
 
-        $objProcedimentoDTO = $objProcedimentoFixture->carregar([
-            'IdProtocolo' => $objProtocoloDTO->getDblIdProtocolo()
-        ]);
+        $parametrosProcedimento = [
+          'IdProtocolo' => $objProtocoloDTO->getDblIdProtocolo()
+        ];
+        if (!is_null($dadosProcesso['ID_TIPO_PROCESSO'])) {
+          $parametrosProcedimento['IdTipoProcedimento'] = $dadosProcesso['ID_TIPO_PROCESSO'];
+        }
+        $objProcedimentoDTO = $objProcedimentoFixture->carregar($parametrosProcedimento);
 
         $objAtividadeFixture = new AtividadeFixture();
         $objAtividadeDTO = $objAtividadeFixture->carregar([
             'IdProtocolo' => $objProtocoloDTO->getDblIdProtocolo(),
-            'Conclusao' => \InfraData::getStrDataHoraAtual(),
             'IdTarefa' => \TarefaRN::$TI_GERACAO_PROCEDIMENTO,
             'IdUsuarioConclusao' => 100000001
         ]);
@@ -53,11 +50,13 @@ class FixtureCenarioBaseTestCase extends CenarioBaseTestCase
             'Nome' => $parametros['Interessados']
         ]);
 
-        $objParticipanteFixture = new ParticipanteFixture();
-        $objParticipanteDTO = $objParticipanteFixture->carregar([
-            'IdProtocolo' => $objProtocoloDTO->getDblIdProtocolo(),
-            'IdContato' => $objContatoDTO->getNumIdContato()
-        ]);
+        if ($cadastrarParticipante) {
+            $objParticipanteFixture = new ParticipanteFixture();
+            $objParticipanteDTO = $objParticipanteFixture->carregar([
+                'IdProtocolo' => $objProtocoloDTO->getDblIdProtocolo(),
+                'IdContato' => $objContatoDTO->getNumIdContato()
+            ]);
+        }
 
         $objProtocoloAssuntoFixture = new RelProtocoloAssuntoFixture();
         $objProtocoloAssuntoFixture->carregar([
@@ -75,15 +74,31 @@ class FixtureCenarioBaseTestCase extends CenarioBaseTestCase
         return $objProtocoloDTO;
     }
 
-    protected function cadastrarDocumentoInternoFixture($dadosDocumentoInterno, $idProtocolo)
+    protected function buscarHipoteseLegal($dados)
     {
+        $param = [
+            'Nome' => trim(explode('(',$dados['HIPOTESE_LEGAL'])[0]),
+            'BaseLegal' => explode(')',trim(explode('(',$dados['HIPOTESE_LEGAL'])[1]))[0]
+        ];
+        $objHipLegalFixture = new HipoteseLegalFixture();     
+        return $objHipLegalFixture->buscar($param)[0];
+    }
+
+    protected function cadastrarDocumentoInternoFixture($dadosDocumentoInterno, $idProtocolo, $assinarDocumento = true)
+    {
+
+        if (!is_null($dadosDocumentoInterno['HIPOTESE_LEGAL'])){
+            $objHipLegalDTO = $this->buscarHipoteseLegal($dadosDocumentoInterno);
+        }
+
         $dadosDocumentoDTO = [
             'IdProtocolo' => $idProtocolo,
             'IdProcedimento' => $idProtocolo,
             'Descricao' => $dadosDocumentoInterno['DESCRICAO'],
-            'IdHipoteseLegal' => $dadosDocumentoInterno["HIPOTESE_LEGAL"] ?: null,
+            'IdHipoteseLegal' => $dadosDocumentoInterno["HIPOTESE_LEGAL"] ? $objHipLegalDTO->getNumIdHipoteseLegal() : null,
             'StaNivelAcessoGlobal' => $dadosDocumentoInterno["RESTRICAO"] ?: \ProtocoloRN::$NA_PUBLICO,
             'StaNivelAcessoLocal' => $dadosDocumentoInterno["RESTRICAO"] ?: \ProtocoloRN::$NA_PUBLICO,
+            'IdUnidadeResponsavel' => $dadosDocumentoInterno["UNIDADE_RESPONSAVEL"] ?: null
         ];
 
         if ($serieDTO = $this->buscarIdSerieDoDocumento($dadosDocumentoInterno['TIPO_DOCUMENTO'])) {
@@ -93,12 +108,16 @@ class FixtureCenarioBaseTestCase extends CenarioBaseTestCase
         $objDocumentoFixture = new DocumentoFixture();
         $objDocumentoDTO = $objDocumentoFixture->carregar($dadosDocumentoDTO);
 
-        //Adicionar assinatura ao documento
-        $objAssinaturaFixture = new AssinaturaFixture();
-        $objAssinaturaFixture->carregar([
-            'IdProtocolo' => $idProtocolo,
-            'IdDocumento' => $objDocumentoDTO->getDblIdDocumento(),
-        ]);
+        if ($assinarDocumento) {
+            //Adicionar assinatura ao documento
+            $objAssinaturaFixture = new AssinaturaFixture();
+            $objAssinaturaFixture->carregar([
+                'IdProtocolo' => $idProtocolo,
+                'IdDocumento' => $objDocumentoDTO->getDblIdDocumento(),
+            ]);
+        }
+
+        return $objDocumentoDTO;
 
     }
 
@@ -154,7 +173,7 @@ class FixtureCenarioBaseTestCase extends CenarioBaseTestCase
         ]);
     }
     
-    protected function consultarProcessoFixture($protocoloFormatado, $staProtocolo)
+    protected function consultarProcessoFixture($protocoloFormatado, $staProtocolo = null)
     {
         $objProtocoloFixture = new ProtocoloFixture();
         $objProtocoloDTO = $objProtocoloFixture->buscar([
@@ -168,16 +187,10 @@ class FixtureCenarioBaseTestCase extends CenarioBaseTestCase
     {
         $orgaosDiferentes = $remetente['URL'] != $destinatario['URL'];
 
-        $buscar = false;
         // 1 - Cadastrar novo processo de teste
         if (isset($processoTeste['PROTOCOLO'])) {
             $strProtocoloTeste = $processoTeste['PROTOCOLO'];
-
-            $parametros = [
-                'ProtocoloFormatado' => $strProtocoloTeste,
-            ];
-            $objProtocoloFixture = new ProtocoloFixture();
-            $objProtocoloDTO = $objProtocoloFixture->buscar($parametros)[0];
+            $objProtocoloDTO = $this->consultarProcessoFixture($strProtocoloTeste, \ProtocoloRN::$TP_PROCEDIMENTO);
 
         } else {
             $objProtocoloDTO  = $this->cadastrarProcessoFixture($processoTeste);
@@ -212,7 +225,7 @@ class FixtureCenarioBaseTestCase extends CenarioBaseTestCase
                 sleep(5);
                 $testCase->refresh();
                 $paginaProcesso = new PaginaProcesso($testCase);
-                $testCase->assertStringNotContainsString(utf8_encode("Processo em trâmite externo para "), $paginaProcesso->informacao());
+                $testCase->assertStringNotContainsString(mb_convert_encoding("Processo em trâmite externo para ", 'UTF-8', 'ISO-8859-1'), $paginaProcesso->informacao());
                 $testCase->assertFalse($paginaProcesso->processoAberto());
                 $testCase->assertEquals($orgaosDiferentes, $paginaProcesso->processoBloqueado());
                 return true;
@@ -237,7 +250,7 @@ class FixtureCenarioBaseTestCase extends CenarioBaseTestCase
         $this->realizarTramiteExternoFixture($processoTeste, $documentosTeste, $remetente, $destinatario, true);
     }
 
-    public function realizarTramiteExternoSemvalidacaoNoRemetenteFixture(&$processoTeste, $documentosTeste, $remetente, $destinatario)
+    public function realizarTramiteExternoSemValidacaoNoRemetenteFixture(&$processoTeste, $documentosTeste, $remetente, $destinatario)
     {
         $this->realizarTramiteExternoFixture($processoTeste, $documentosTeste, $remetente, $destinatario, false);
     }
@@ -251,6 +264,68 @@ class FixtureCenarioBaseTestCase extends CenarioBaseTestCase
 
         $objBD = new \SerieBD(\BancoSEI::getInstance());
         return $objBD->consultar($serieDTO);
+    }
+
+    protected function atualizarProcessoFixture($objProtocoloDTO, $dadosProcesso = [])
+    {
+        if (!is_null($dadosProcesso['DESCRICAO'])) {
+            $parametros['Descricao'] = $dadosProcesso['DESCRICAO'];
+        }
+
+        if (!is_null($dadosProcesso['INTERESSADOS'])) {
+            $parametros['Interessados'] = $dadosProcesso['INTERESSADOS'];
+        }
+
+        $parametros['IdProtocolo'] = $objProtocoloDTO->getDblIdProtocolo();
+        $objProtocoloFixture = new ProtocoloFixture();
+
+        return $objProtocoloFixture->atualizar($parametros);
+    }
+  /**
+   * Método cadastrarHipoteseLegal
+   * 
+   * Este método realiza o cadastro de uma hipótese legal para testes de trâmite de processos e documentos.
+   * Ele recebe um array com os dados da hipótese legal, cria uma nova instância de `HipoteseLegalFixture`, 
+   * e utiliza esses dados para carregar a hipótese legal no sistema.
+   * 
+   * @param array $hipotesLegal Um array contendo os dados da hipótese legal a ser cadastrada, com as seguintes chaves:
+   * - `HIPOTESE_LEGAL` (string): O nome da hipótese legal.
+   * - `HIPOTESE_LEGAL_BASE_LEGAL` (string): A base legal associada à hipótese.
+   * - `HIPOTESE_LEGAL_DESCRICAO` (string) [opcional]: Uma descrição para a hipótese legal (padrão: 'Nova hipotese legal para testes').
+   * - `HIPOTESE_LEGAL_STA_NIVEL_ACESSO` (int) [opcional]: O nível de acesso para a hipótese legal (padrão: nível restrito).
+   * - `HIPOTESE_LEGAL_SIN_ATIVO` (string) [opcional]: Indicador de atividade da hipótese legal ('S' para ativo por padrão).
+   * 
+   * @return object $objHipoteseLegalDTO Retorna um objeto `HipoteseLegalDTO` contendo os dados da hipótese legal cadastrada.
+   */
+  protected function cadastrarHipoteseLegal($hipotesLegal)
+  {
+    // Criação de uma nova instância de HipoteseLegalFixture
+    $objHipLegalFixture = new HipoteseLegalFixture();
+
+    // Definição dos parâmetros para cadastro da hipótese legal
+    $param = [
+      'Nome' => $hipotesLegal['HIPOTESE_LEGAL'],
+      'BaseLegal' => $hipotesLegal['HIPOTESE_LEGAL_BASE_LEGAL'],
+      'Descricao' => $hipotesLegal['HIPOTESE_LEGAL_DESCRICAO'] ?? 'Nova hipotese legal para testes',
+      'StaNivelAcesso' => $hipotesLegal['HIPOTESE_LEGAL_STA_NIVEL_ACESSO'] ?? \ProtocoloRN::$NA_RESTRITO,
+      'SinAtivo' => $hipotesLegal['HIPOTESE_LEGAL_SIN_ATIVO'] ?? "S"
+    ];
+
+    // Carregar a hipótese legal com os parâmetros fornecidos
+    $objHipoteseLegalDTO = $objHipLegalFixture->carregar($param);
+
+    // Retorna o objeto DTO da hipótese legal cadastrada
+    return $objHipoteseLegalDTO;
+  }
+
+    protected function cadastrarTipoProcedimentoFixture($dados = [])
+    {
+      $objTipoProcedimentoFixture = new TipoProcedimentoFixture();
+      $objTipoProcedimentoDTO = $objTipoProcedimentoFixture->carregar([
+        'Nome' => $dados['NOME']
+      ]);
+
+      return $objTipoProcedimentoDTO;
     }
 
 }

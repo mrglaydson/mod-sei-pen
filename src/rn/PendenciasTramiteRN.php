@@ -128,6 +128,13 @@ class PendenciasTramiteRN extends InfraRN
         return self::CODIGO_EXECUCAO_ERRO;
     }
 
+    try {      
+      $objPenBlocoProcessoRN = new PenBlocoProcessoRN();      
+      $objPenBlocoProcessoRN->validarBlocosEmAndamento();    
+    } catch(Exception $e) {        
+      $this->gravarLogDebug(InfraException::inspecionar($e));    
+    }
+    
       // Caso não esteja sendo realizado o monitoramente de pendências, lança exceção diretamente na página para apresentação ao usuário
     if(!$parBolMonitorarPendencias){
         $this->salvarLogDebug($parBolDebug);
@@ -166,7 +173,7 @@ class PendenciasTramiteRN extends InfraRN
     if($parBolDebugAtivado){
         $strTextoDebug = InfraDebug::getInstance()->getStrDebug();
       if(!InfraString::isBolVazia($strTextoDebug)){
-        LogSEI::getInstance()->gravar(utf8_decode($strTextoDebug), LogSEI::$DEBUG);
+        LogSEI::getInstance()->gravar(mb_convert_encoding($strTextoDebug, 'ISO-8859-1', 'UTF-8'), LogSEI::$DEBUG);
       }
     }
   }
