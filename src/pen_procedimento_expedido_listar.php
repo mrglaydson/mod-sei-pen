@@ -13,7 +13,7 @@ try {
 
     $objSessaoSEI->validarLink();
     $objSessaoSEI->validarPermissao($_GET['acao']);
-    $arrComandos = array();
+    $arrComandos = [];
 
     $strTitulo = 'Processos em Tramitação Externa';
 
@@ -47,7 +47,7 @@ try {
        $strSumarioTabela = 'Tabela de Processos';
        $strCaptionTabela = 'Processos';
 
-       $strResultado .= "<table width='99%' id='tblBlocos' class='infraTable' summary='{$strSumarioTabela}'>" . "\n";
+       $strResultado .= '<table width="99%" id="tblBlocos" class="infraTable infraTableResponsiva" summary="'.$strSumarioTabela.'">' . "\n";
        $strResultado .= '<caption class="infraCaption">' . $objPaginaSEI->gerarCaptionTabela($strCaptionTabela, $numRegistros) . '</caption>';
       
        $strResultado .= "<thead>";
@@ -205,7 +205,7 @@ a.processoNaoVisualizado{
   }
 
   .dataTables_paginate .paginate_button.current {
-    background-color: var(--color-primary-default);
+    background-color: var(--infra-esquema-cor-clara);
     color: #fff;
   }
 
@@ -214,6 +214,9 @@ a.processoNaoVisualizado{
     position: absolute;
     opacity: 0;
   }
+  
+  #frmProcedimentoExpedido #tblBlocos_wrapper label:first-of-type{font-size: 12px;}
+  #frmProcedimentoExpedido #tblBlocos_wrapper select:first-of-type{font-size: 11px;}
   
 </style>
 <?php $objPaginaSEI->montarJavaScript(); ?>

@@ -92,13 +92,7 @@ class ProcessoEletronicoRN extends InfraRN
     */
     const MTV_RCSR_TRAM_CD_OUTROU = '99';
 
-  public static $MOTIVOS_RECUSA = array(
-        "01"  => "Formato de componente digital não suportado",
-        "02" => "Componente digital corrompido",
-        "03" => "Falta de componentes digitais",
-        "04" => "Espécie documental não mapeada no destinatário",
-        "99" => "Outro"
-    );
+  public static $MOTIVOS_RECUSA = ["01"  => "Formato de componente digital não suportado", "02" => "Componente digital corrompido", "03" => "Falta de componentes digitais", "04" => "Espécie documental não mapeada no destinatário", "99" => "Outro"];
 
     private $strEnderecoWebService;
     private $numTentativasErro;
@@ -123,14 +117,12 @@ class ProcessoEletronicoRN extends InfraRN
     $this->strLocalCertPassword = $strSenhaCertificadoDigital;
     $this->numTentativasErro = $numTentativasErro;
 
-  
-    // TODO: lembrar de pegar url dinamicamente quando SOAP for removido
     $this->strBaseUri = $strEnderecoWebService;
     $this->arrheaders = [
       'Accept' => '*/*',
       'Content-Type' => 'application/json',
-    ];
-    
+      ];
+      
     $this->strClientGuzzle = new Client([
       'base_uri' => $this->strBaseUri,
       'timeout'  => self::WS_TIMEOUT_CONEXAO,
@@ -144,11 +136,6 @@ class ProcessoEletronicoRN extends InfraRN
     return BancoSEI::getInstance();
   }
 
-
-    /**
-     * Construtor do objeto SoapClien utilizado para comunicação Webservice 
-     *
-     */
   private function getObjPenWs()
     {
     if (InfraString::isBolVazia($this->strEnderecoWebService)) {
@@ -222,7 +209,7 @@ class ProcessoEletronicoRN extends InfraRN
     
     try {
         $parametros = [
-            'ativos' => $ativo
+                'ativos' => $ativo
         ];
     
         $arrResultado = $this->get($endpoint, $parametros);
@@ -291,13 +278,12 @@ class ProcessoEletronicoRN extends InfraRN
   }
 
       /**
-    * Método responsável por recuperar pela estutura pai a estrutura de filhos de uma unidade
-    * @param $idRepositorioEstrutura
-    * @param null $numeroDeIdentificacaoDaEstrutura
-    * @param bool $bolRetornoRaw
-    * @return array
-    * @throws InfraException
-    */
+   * Método responsável por recuperar pela estutura pai a estrutura de filhos de uma unidade
+   * @param $idRepositorioEstrutura
+   * @param bool $bolRetornoRaw
+   * @return array
+   * @throws InfraException
+   */
   public function consultarEstruturasPorEstruturaPai($idRepositorioEstrutura, $numeroDeIdentificacaoDaEstrutura = null, $bolRetornoRaw = false)
     {
     try {
@@ -432,7 +418,6 @@ class ProcessoEletronicoRN extends InfraRN
     $parBolPermiteRecebimento = null,
     $parBolPermiteEnvio = null
   ) {
-    $arrObjEstruturaDTO = [];
     try {
         $idRepositorioEstrutura = filter_var($idRepositorioEstrutura, FILTER_SANITIZE_NUMBER_INT);
       if (!$idRepositorioEstrutura) {
@@ -466,8 +451,6 @@ class ProcessoEletronicoRN extends InfraRN
     } catch (Exception $e) {
         throw new InfraException("Falha na obtenção de unidades externas");
     }
-
-    return $arrObjEstruturaDTO;
   }
 
     /**
@@ -502,7 +485,7 @@ class ProcessoEletronicoRN extends InfraRN
       $restricaoCadastrada = $restricaoCadastrada > 0;
 
       if ($restricaoCadastrada) {
-        $arrEstruturasCadastradas = array();
+        $arrEstruturasCadastradas = [];
         $arrEstruturas = $objPenUnidadeRestricaoRN->listar($objPenUnidadeRestricaoDTO);
         $parametros = new stdClass();
         $parametros->filtroDeEstruturas = new stdClass();
@@ -559,7 +542,7 @@ class ProcessoEletronicoRN extends InfraRN
 
     return is_array($result->estruturasEncontradasNoFiltroPorEstruturaPai->estrutura)
       ? $result->estruturasEncontradasNoFiltroPorEstruturaPai->estrutura
-      : array($result->estruturasEncontradasNoFiltroPorEstruturaPai->estrutura);
+      : [$result->estruturasEncontradasNoFiltroPorEstruturaPai->estrutura];
   }
 
 
@@ -574,7 +557,7 @@ class ProcessoEletronicoRN extends InfraRN
     $parBolPermiteRecebimento = null,
     $parBolPermiteEnvio = null
   ) {
-    $arrObjEstruturaDTO = array();
+    $arrObjEstruturaDTO = [];
 
     try {
         $idRepositorioEstrutura = filter_var($idRepositorioEstrutura, FILTER_SANITIZE_NUMBER_INT);
@@ -625,53 +608,6 @@ class ProcessoEletronicoRN extends InfraRN
 
       return $arrObjEstruturaDTO;
   }
-  
-  private function buscarListaEstruturas(
-    $idRepositorioEstrutura,
-    $filtro = array()
-  ) {
-    $parametros = new stdClass();
-    $parametros->filtroDeEstruturas = new stdClass();
-    $parametros->filtroDeEstruturas->identificacaoDoRepositorioDeEstruturas = $idRepositorioEstrutura;
-    $parametros->filtroDeEstruturas->apenasAtivas = true;
-
-    if (!is_null($filtro['numeroDeIdentificacaoDaEstruturaRaizDaConsulta'])) {
-      $parametros->filtroDeEstruturas->numeroDeIdentificacaoDaEstruturaRaizDaConsulta = $filtro['numeroDeIdentificacaoDaEstruturaRaizDaConsulta'];
-    } else {
-      $nome = trim($filtro['nome']);
-      if (is_numeric($nome)) {
-        $parametros->filtroDeEstruturas->numeroDeIdentificacaoDaEstrutura = intval($nome);
-      } else {
-        $parametros->filtroDeEstruturas->nome = mb_convert_encoding($nome, 'UTF-8', 'ISO-8859-1');
-      }
-    }
-
-    if (!is_null($filtro['siglaUnidade'])) {
-      $parametros->filtroDeEstruturas->sigla = $filtro['siglaUnidade'];
-    }
-
-    if (!is_null($filtro['nomeUnidade'])) {
-      $parametros->filtroDeEstruturas->nome = mb_convert_encoding($filtro['nomeUnidade'], 'UTF-8', 'ISO-8859-1');
-    }
-
-    if (!is_null($filtro['registrosPorPagina']) && !is_null($filtro['offset'])) {
-      $parametros->filtroDeEstruturas->paginacao = new stdClass();
-      $parametros->filtroDeEstruturas->paginacao->registroInicial = $filtro['offset'];
-      $parametros->filtroDeEstruturas->paginacao->quantidadeDeRegistros = $filtro['registrosPorPagina'];
-    }
-
-    if (!is_null($filtro['parBolPermiteRecebimento']) && $filtro['parBolPermiteRecebimento'] === true) {
-      $parametros->filtroDeEstruturas->permiteRecebimento = true;
-    }
-
-    if (!is_null($filtro['parBolPermiteEnvio']) && $filtro['parBolPermiteEnvio'] === true) {
-      $parametros->filtroDeEstruturas->permiteEnvio = true;
-    }
-
-    return $this->tentarNovamenteSobErroHTTP(function ($objPenWs) use ($parametros) {
-      return $objPenWs->consultarEstruturas($parametros);
-    });
-  }
 
   public function listarEstruturasAutoCompletar(
         $idRepositorioEstrutura,
@@ -684,7 +620,7 @@ class ProcessoEletronicoRN extends InfraRN
         $parBolPermiteRecebimento = null,
         $parBolPermiteEnvio = null
       ) {
-      $arrObjEstruturaDTO = array('diferencaDeRegistros' => 0, 'itens' => array());
+      $arrObjEstruturaDTO = ['diferencaDeRegistros' => 0, 'itens' => []];
     
     try {
         $idRepositorioEstrutura = filter_var($idRepositorioEstrutura, FILTER_SANITIZE_NUMBER_INT);
@@ -806,9 +742,7 @@ class ProcessoEletronicoRN extends InfraRN
   {       
     $endpoint = "tramites/processo";
     try {
-        $arrResultado = $this->post($endpoint, $parametros['novoTramiteDeProcesso']);
-            
-        return $arrResultado;
+        return $this->post($endpoint, $parametros['novoTramiteDeProcesso']);
 
     } catch (Exception $e) {
 
@@ -823,24 +757,6 @@ class ProcessoEletronicoRN extends InfraRN
         throw new InfraException($mensagem, $e, $detalhes);
 
     }
-  }
-
-  private function validarTramitaEmAndamento($parametros, $strMensagem)
-    {
-    if (strpos($strMensagem, 'já possui trâmite em andamento')) {
-        $objProcessoEletronicoDTO = new ProcessoEletronicoDTO();
-        $objProcessoEletronicoDTO->setDblIdProcedimento($parametros->dblIdProcedimento);
-
-        $objProcessoEletronicoRN = new ProcessoEletronicoRN();
-        $objUltimoTramiteDTO = $objProcessoEletronicoRN->consultarUltimoTramite($objProcessoEletronicoDTO);
-        $numIdTramite = $objUltimoTramiteDTO->getNumIdTramite();
-
-      if (!is_null($numIdTramite) && $numIdTramite > 0) {
-        $strMensagem = "O trâmite ainda não foi concluído. Acompanhe no Painel de Controle o andamento da tramitação, antes de realizar uma nova tentativa. NRE: " . $objUltimoTramiteDTO->getStrNumeroRegistro() . ". Processo: " . $parametros->novoTramiteDeProcesso->processo->protocolo . ".";
-      }
-    }
-      return $strMensagem;
-
   }
 
   public function listarPendencias($bolTodasPendencias)
@@ -923,36 +839,36 @@ class ProcessoEletronicoRN extends InfraRN
       }
 
 
-      $atribuirInformacoes = $this->atribuirInformacoesAssuntoREST($cabecalho, $dblIdProcedimento);
-      $atribuirInfoModulo = $this->atribuirInformacoesModuloREST($cabecalho);
+      $atribuirInformacoes = $this->atribuirInformacoesAssuntoREST($dblIdProcedimento);
+      $atribuirInfoModulo = $this->atribuirInformacoesModuloREST();
 
       $cabecalho['propriedadesAdicionais'] = array_merge($atribuirInformacoes, $atribuirInfoModulo);
 
       return $cabecalho;
   }
 
-  private function atribuirInformacoesModuloREST($objCabecalho)
-    {
-    try{
-        $arrInformacoeesModulo = [];
-        $objInfraParametro = new InfraParametro(BancoSEI::getInstance());
-       
-        $arrInformacoeesModulo[] = [
-            'chave' => 'MODULO_PEN_VERSAO',
-            'valor' => $objInfraParametro->getValor('VERSAO_MODULO_PEN')
-        ];
-
-        return $arrInformacoeesModulo;
-
-    }catch(Exception $e){
-        $mensagem = "Erro ao obter versão do módulo PEN";
-        throw new InfraException($mensagem, $e);
-    }
+  private function atribuirInformacoesModuloREST()
+  {
+      try{
+          $arrInformacoeesModulo = [];
+          $objInfraParametro = new InfraParametro(BancoSEI::getInstance());
+         
+          $arrInformacoeesModulo[] = [
+              'chave' => 'MODULO_PEN_VERSAO',
+              'valor' => $objInfraParametro->getValor('VERSAO_MODULO_PEN')
+          ];
+  
+          return $arrInformacoeesModulo;
+  
+      }catch(Exception $e){
+          $mensagem = "Erro ao obter versão do módulo PEN";
+          throw new InfraException($mensagem, $e);
+      }
   }
 
 
 
-  private function atribuirInformacoesAssuntoREST($objCabecalho, $dblIdProcedimento)
+  private function atribuirInformacoesAssuntoREST($dblIdProcedimento)
     {
 
     try{
@@ -970,7 +886,7 @@ class ProcessoEletronicoRN extends InfraRN
         $objRelProtocoloAssuntoRN = new RelProtocoloAssuntoRN();
         $arrobjRelProtocoloAssuntoDTO = $objRelProtocoloAssuntoRN->listarRN0188($objRelProtocoloAssuntoDTO);
 
-        $arrDadosAssunto = array();
+        $arrDadosAssunto = [];
         $contagem=1;
         $objProcessoEletronicoRN = new ProcessoEletronicoRN();
 
@@ -1314,7 +1230,7 @@ class ProcessoEletronicoRN extends InfraRN
         throw new InfraException('Parâmetro $parStrNumeroRegistro não informado.');
     }
 
-    if(!isset($parStrStaTipoTramite) || !in_array($parStrStaTipoTramite, array(ProcessoEletronicoRN::$STA_TIPO_TRAMITE_ENVIO, ProcessoEletronicoRN::$STA_TIPO_TRAMITE_RECEBIMENTO))) {
+    if(!isset($parStrStaTipoTramite) || !in_array($parStrStaTipoTramite, [ProcessoEletronicoRN::$STA_TIPO_TRAMITE_ENVIO, ProcessoEletronicoRN::$STA_TIPO_TRAMITE_RECEBIMENTO])) {
         throw new InfraException('Parâmetro $parStrStaTipoTramite inválio');
     }
 
@@ -1351,10 +1267,10 @@ class ProcessoEletronicoRN extends InfraRN
       //Montar dados dos procedimentos apensados
     if (isset($parObjProtocolo->processoApensado)) {
       if (!is_array($parObjProtocolo->processoApensado)) {
-          $parObjProtocolo->processoApensado = array($parObjProtocolo->processoApensado);
+          $parObjProtocolo->processoApensado = [$parObjProtocolo->processoApensado];
       }
 
-        $arrObjRelProcessoEletronicoApensadoDTO = array();
+        $arrObjRelProcessoEletronicoApensadoDTO = [];
         $objRelProcessoEletronicoApensadoDTO = null;
       foreach ($parObjProtocolo->processoApensado as $objProcessoApensado) {
           $objRelProcessoEletronicoApensadoDTO = new RelProcessoEletronicoApensadoDTO();
@@ -1372,7 +1288,7 @@ class ProcessoEletronicoRN extends InfraRN
       $objTramiteDTO->setStrNumeroRegistro($parStrNumeroRegistro);
       $objTramiteDTO->setNumIdTramite($parNumIdentificacaoTramite);
       $objTramiteDTO->setNumTicketEnvioComponentes($parNumTicketComponentesDigitais);
-      $objTramiteDTO->setDthRegistro($this->converterDataSEI($parDthRegistroTramite));
+      $objTramiteDTO->setDthRegistro(static::converterDataSEI($parDthRegistroTramite));
     if($bolSinProcessamentoEmBloco){
         $objTramiteDTO->setNumIdUnidade($numIdUnidade);
     }else{
@@ -1384,7 +1300,7 @@ class ProcessoEletronicoRN extends InfraRN
       $objTramiteDTO->setNumIdRepositorioDestino($parNumIdRepositorioDestino);
       $objTramiteDTO->setNumIdEstruturaDestino($parNumIdEstruturaDestino);
       $objTramiteDTO->setStrStaTipoTramite($parStrStaTipoTramite);
-      $objProcessoEletronicoDTO->setArrObjTramiteDTO(array($objTramiteDTO));
+      $objProcessoEletronicoDTO->setArrObjTramiteDTO([$objTramiteDTO]);
 
       //Monta dados dos componentes digitais
       $parObjProtocoloDesmembrado = ProcessoEletronicoRN::desmembrarProcessosAnexados($parObjProtocolo);
@@ -1448,13 +1364,13 @@ class ProcessoEletronicoRN extends InfraRN
         $objTramiteDTO = $objTramiteBD->cadastrar($parObjTramiteDTO);
     }
 
-      $objProcessoEletronicoDTO->setArrObjTramiteDTO(array($objTramiteDTO));
+      $objProcessoEletronicoDTO->setArrObjTramiteDTO([$objTramiteDTO]);
 
       //Registra informações sobre o componente digital do documento
-      $arrObjComponenteDigitalDTO = array();
+      $arrObjComponenteDigitalDTO = [];
       $objComponenteDigitalBD = new ComponenteDigitalBD($this->getObjInfraIBanco());
 
-      $arrObjComponenteDigitalDTO = array();
+      $arrObjComponenteDigitalDTO = [];
     foreach ($parObjTramiteDTO->getArrObjComponenteDigitalDTO() as $objComponenteDigitalDTO) {
 
         //Verifica se o documento foi inserido pelo trâmite atual
@@ -1504,8 +1420,8 @@ class ProcessoEletronicoRN extends InfraRN
       if(is_string($objMeta)){
         $strHashConteudo = $objMeta;
       } else {
-          $matches = array();
-          $strHashConteudo = (isset($objMeta->enc_value)) ? $objMeta->enc_value : $objMeta->conteudo;
+          $matches = [];
+          $strHashConteudo = $objMeta->enc_value ?? $objMeta->conteudo;
 
         if (preg_match('/^<hash.*>(.*)<\/hash>$/', $strHashConteudo, $matches, PREG_OFFSET_CAPTURE)) {
           $strHashConteudo = $matches[1][0];
@@ -1523,7 +1439,7 @@ class ProcessoEletronicoRN extends InfraRN
       if(is_string($objMeta)){
         $strHashConteudo = $objMeta;
       } else {
-          $strHashConteudo = (isset($objMeta['conteudo'])) ? $objMeta['conteudo'] : $objMetaconteudo;
+          $strHashConteudo = $objMeta['conteudo'] ?? $objMetaconteudo;
       }
     }
       return $strHashConteudo;
@@ -1531,12 +1447,16 @@ class ProcessoEletronicoRN extends InfraRN
 
   private function montarDadosMaisDeUmComponenteDigital($objDocumento, $parStrNumeroRegistro, $parNumIdentificacaoTramite, $parObjProtocolo, $parObjComponentesDigitaisSolicitados)
     {
-      $arrayComponentesDigitais = $objDocumento->componenteDigital;
-      $arrObjComponenteDigitalDTO = array();
-      $arrayTeste = array();
+      $arrayComponentesDigitais = $objDocumento->componentesDigitais;
+      $arrObjComponenteDigitalDTO = [];
       $contComponentes = 0;
 
-    foreach ($arrayComponentesDigitais as $indice => $objComponenteDigital){
+    foreach ($arrayComponentesDigitais as $objComponenteDigital){
+
+      if (is_array($objComponenteDigital)) {
+        $objComponenteDigital = (object) $objComponenteDigital;
+      } 
+
         $contComponentes++;
         $objComponenteDigitalDTO = new ComponenteDigitalDTO();
         $objComponenteDigitalDTO->setStrNumeroRegistro($parStrNumeroRegistro);
@@ -1555,8 +1475,8 @@ class ProcessoEletronicoRN extends InfraRN
       }
 
 
-        $objComponenteDigitalDTO->setStrNome($objComponenteDigital->nome);
-        $strHashConteudo = static::getHashFromMetaDados($objComponenteDigital->hash);
+      $objComponenteDigitalDTO->setStrNome($objComponenteDigital->nome);
+      $strHashConteudo = static::getHashFromMetaDados($objComponenteDigital->hash);
 
         $objComponenteDigitalDTO->setStrHashConteudo($strHashConteudo);
         $objComponenteDigitalDTO->setStrAlgoritmoHash(self::ALGORITMO_HASH_DOCUMENTO);
@@ -1565,15 +1485,14 @@ class ProcessoEletronicoRN extends InfraRN
         $objComponenteDigitalDTO->setStrDadosComplementares($objComponenteDigital->dadosComplementaresDoTipoDeArquivo);
 
         //Registrar componente digital necessita ser enviado pelo trâmite específico      //TODO: Teste $parObjComponentesDigitaisSolicitados aqui
-      if(isset($parObjComponentesDigitaisSolicitados)){
-          $arrObjItensSolicitados = is_array($parObjComponentesDigitaisSolicitados->processo) ? $parObjComponentesDigitaisSolicitados->processo : array($parObjComponentesDigitaisSolicitados->processo);
-
+      if(isset($parObjComponentesDigitaisSolicitados)) {
+          $arrObjItensSolicitados = $parObjComponentesDigitaisSolicitados ?? [$parObjComponentesDigitaisSolicitados];
         foreach ($arrObjItensSolicitados as $objItemSolicitado) {
           if(!is_null($objItemSolicitado)){
-              $objItemSolicitado->hash = is_array($objItemSolicitado->hash) ? $objItemSolicitado->hash : array($objItemSolicitado->hash);
-
-            if($objItemSolicitado->protocolo == $objComponenteDigitalDTO->getStrProtocolo() && in_array($strHashConteudo, $objItemSolicitado->hash) && !$objDocumento->retirado) {
-              $objComponenteDigitalDTO->setStrSinEnviar("S");
+            $objItemSolicitado['hashes'] = is_array($objItemSolicitado['hashes']) ? $objItemSolicitado['hashes'] : [$objItemSolicitado['hashes']];
+    
+            if($objItemSolicitado['protocolo'] == $objComponenteDigitalDTO->getStrProtocolo() && in_array($strHashConteudo, $objItemSolicitado['hashes']) && !$objDocumento->retirado) {
+                    $objComponenteDigitalDTO->setStrSinEnviar("S");
             }
           }
         }
@@ -1593,10 +1512,10 @@ class ProcessoEletronicoRN extends InfraRN
   private function montarDadosComponenteDigital($parStrNumeroRegistro, $parNumIdentificacaoTramite, $parObjProtocolo, $parObjComponentesDigitaisSolicitados)
     {
       //Monta dados dos componentes digitais
-      $arrObjComponenteDigitalDTO = array();
+      $arrObjComponenteDigitalDTO = [];
       $arrObjDocumento = self::obterDocumentosProtocolo($parObjProtocolo, true);
 
-      $arrObjComponenteDigitalDTOAux = array();
+      $arrObjComponenteDigitalDTOAux = [];
     foreach ($arrObjDocumento as $objDocumento) {
         $quantidadeDeComponentesDigitais = count($objDocumento->componentesDigitais);
       if($quantidadeDeComponentesDigitais > 1){
@@ -1651,10 +1570,10 @@ class ProcessoEletronicoRN extends InfraRN
 
           //Registrar componente digital necessita ser enviado pelo trâmite específico      //TODO: Teste $parObjComponentesDigitaisSolicitados aqui
         if(isset($parObjComponentesDigitaisSolicitados)){
-            $arrObjItensSolicitados = is_array($parObjComponentesDigitaisSolicitados) ? $parObjComponentesDigitaisSolicitados : array($parObjComponentesDigitaisSolicitados);
+            $arrObjItensSolicitados = $parObjComponentesDigitaisSolicitados ?? [$parObjComponentesDigitaisSolicitados];
           foreach ($arrObjItensSolicitados as $objItemSolicitado) {
             if(!is_null($objItemSolicitado)){
-              $objItemSolicitado['hashes'] = is_array($objItemSolicitado['hashes']) ? $objItemSolicitado['hashes'] : array($objItemSolicitado['hashes']);
+              $objItemSolicitado['hashes'] = is_array($objItemSolicitado['hashes']) ? $objItemSolicitado['hashes'] : [$objItemSolicitado['hashes']];
 
               if($objItemSolicitado['protocolo'] == $objComponenteDigitalDTO->getStrProtocolo() && in_array($strHashConteudo, $objItemSolicitado['hashes']) && !$objDocumento->retirado) {
                       $objComponenteDigitalDTO->setStrSinEnviar("S");
@@ -1722,7 +1641,7 @@ class ProcessoEletronicoRN extends InfraRN
       $endpoint = 'tramites';
     try
       {
-        $arrObjTramite = array();
+        $arrObjTramite = [];
         $parametros = [
             'IDT' => $parNumIdTramite
         ];
@@ -1774,7 +1693,7 @@ class ProcessoEletronicoRN extends InfraRN
 
   public function consultarTramitesProtocolo($parProtocoloFormatado)
     {
-      $arrObjTramite = array();
+      $arrObjTramite = [];
     try
       {
         $parametros = [
@@ -1803,9 +1722,7 @@ class ProcessoEletronicoRN extends InfraRN
         $parametros = [
             'IDT' => $parNumIdTramite
         ];
-
-        $arrResultado = $this->get($endpoint, $parametros);
-        return $arrResultado;
+        return $this->get($endpoint, $parametros);
 
     } catch (\Exception $e) {
         $mensagem = "Falha no registro de ciência da recusa de trâmite";
@@ -1900,7 +1817,6 @@ class ProcessoEletronicoRN extends InfraRN
 
       case static::$STA_SITUACAO_TRAMITE_RECIBO_RECEBIDO_REMETENTE:
           throw new InfraException(mb_convert_encoding('O trâmite externo deste processo já foi concluído', 'UTF-8', 'ISO-8859-1'));
-        break;
 
       default:
         $objAtividadeDTO = new AtividadeDTO();
@@ -1908,7 +1824,7 @@ class ProcessoEletronicoRN extends InfraRN
         $objAtividadeDTO->setNumIdUnidade(SessaoSEI::getInstance()->getNumIdUnidadeAtual());
         $objAtividadeDTO->setNumIdUsuario(SessaoSEI::getInstance()->getNumIdUsuario());
         $objAtividadeDTO->setNumIdTarefa(ProcessoEletronicoRN::$TI_PROCESSO_ELETRONICO_PROCESSO_ABORTADO);
-        $objAtividadeDTO->setArrObjAtributoAndamentoDTO(array());
+        $objAtividadeDTO->setArrObjAtributoAndamentoDTO([]);
 
         $objAtividadeRN = new AtividadeRN();
         $objAtividadeRN->gerarInternaRN0727($objAtividadeDTO);
@@ -2015,7 +1931,7 @@ class ProcessoEletronicoRN extends InfraRN
       $objOperacaoDTO = new OperacaoDTO();
       $objOperacaoDTO->setStrCodigo(mb_convert_encoding($objOperacaoPEN->codigo, 'ISO-8859-1', 'UTF-8'));
       $objOperacaoDTO->setStrComplemento(mb_convert_encoding($objOperacaoPEN->complemento, 'ISO-8859-1', 'UTF-8'));
-      $objOperacaoDTO->setDthOperacao($this->converterDataSEI($objOperacaoPEN->dataHora));
+      $objOperacaoDTO->setDthOperacao(static::converterDataSEI($objOperacaoPEN->dataHora));
 
       $strIdPessoa =  ($objOperacaoPEN->pessoa->numeroDeIdentificacao) ?: null;
       $objOperacaoDTO->setStrIdentificacaoPessoaOrigem(mb_convert_encoding($strIdPessoa, 'ISO-8859-1', 'UTF-8'));
@@ -2025,6 +1941,7 @@ class ProcessoEletronicoRN extends InfraRN
 
     switch ($objOperacaoPEN->codigo) {
       case "01":
+      default:
             $objOperacaoDTO->setStrNome("Registro");
           break;
       case "02":
@@ -2078,9 +1995,6 @@ class ProcessoEletronicoRN extends InfraRN
       case "18":
             $objOperacaoDTO->setStrNome("Registro de extravio");
           break;
-      default:
-            $objOperacaoDTO->setStrNome("Registro");
-          break;
     }
 
       return $objOperacaoDTO;
@@ -2112,15 +2026,13 @@ class ProcessoEletronicoRN extends InfraRN
 
 
     /**
-    * Cancela um tramite externo de um procedimento para outra unidade, gera
-    * falha caso a unidade de destino já tenha começado a receber o procedimento.
-    *
-    * @param type $idTramite
-    * @param type $idProtocolo
-    * @throws Exception|InfraException
-    * @return null
-    */
-
+   * Cancela um tramite externo de um procedimento para outra unidade, gera
+   * falha caso a unidade de destino já tenha começado a receber o procedimento.
+   *
+   * @param type $idTramite
+   * @param type $idProtocolo
+   * @throws Exception|InfraException
+   */
   public function cancelarTramite($idTramite)
     {
       $endpoint = "tramites/{$idTramite}";
@@ -2232,13 +2144,10 @@ class ProcessoEletronicoRN extends InfraRN
       });
 
       if($objMeta->tramitesEncontrados) {
-        $arrObjMetaTramite = !is_array($objMeta->tramitesEncontrados->tramite) ? array($objMeta->tramitesEncontrados->tramite) : $objMeta->tramitesEncontrados->tramite;
+        $arrObjMetaTramite = !is_array($objMeta->tramitesEncontrados->tramite) ? [$objMeta->tramitesEncontrados->tramite] : $objMeta->tramitesEncontrados->tramite;
         $objMetaTramite = $arrObjMetaTramite[0];
 
-        $strSituacoesDisponíveisCancelamento = array(
-          static::$STA_SITUACAO_TRAMITE_INICIADO, static::$STA_SITUACAO_TRAMITE_COMPONENTES_ENVIADOS_REMETENTE,
-          static::$STA_SITUACAO_TRAMITE_METADADOS_RECEBIDO_DESTINATARIO, static::$STA_SITUACAO_TRAMITE_COMPONENTES_RECEBIDOS_DESTINATARIO
-        );
+        $strSituacoesDisponíveisCancelamento = [static::$STA_SITUACAO_TRAMITE_INICIADO, static::$STA_SITUACAO_TRAMITE_COMPONENTES_ENVIADOS_REMETENTE, static::$STA_SITUACAO_TRAMITE_METADADOS_RECEBIDO_DESTINATARIO, static::$STA_SITUACAO_TRAMITE_COMPONENTES_RECEBIDOS_DESTINATARIO];
 
         if(in_array($objMetaTramite->situacaoAtual, $strSituacoesDisponíveisCancelamento)){
           return true;
@@ -2247,10 +2156,7 @@ class ProcessoEletronicoRN extends InfraRN
 
       return false;
     }
-    catch(SoapFault $e) {
-      return false;
-    }
-    catch(Exception $e) {
+    catch(SoapFault|Exception $e) {
       return false;
     }
   }
@@ -2297,7 +2203,7 @@ class ProcessoEletronicoRN extends InfraRN
     try {
         return $callback($this->getObjPenWs());
     } catch (\SoapFault $fault) {
-      if(in_array($fault->faultcode, array("HTTP", "WSDL")) && $this->numTentativasErro >= $numTentativa){
+      if(in_array($fault->faultcode, ["HTTP", "WSDL"]) && $this->numTentativasErro >= $numTentativa){
           sleep(self::WS_ESPERA_RECONEXAO);
           return $this->tentarNovamenteSobErroHTTP($callback, ++$numTentativa);
       } else {
@@ -2321,20 +2227,29 @@ class ProcessoEletronicoRN extends InfraRN
 
   public static function comparacaoOrdemAjustadaDocumentos($parDocumento1, $parDocumento2)
     {
-      if (is_array($parDocumento1)){
-        $numOrdemDocumento1 = isset($parDocumento1['ordemAjustada']) ? intval($parDocumento1['ordemAjustada']) : intval($parDocumento1['ordem']);
-        $numOrdemDocumento2 = isset($parDocumento2['ordemAjustada']) ? intval($parDocumento2['ordemAjustada']) : intval($parDocumento2['ordem']);
-      }
-      else{
-        $numOrdemDocumento1 = isset($parDocumento1->ordemAjustada) ? intval($parDocumento1->ordemAjustada) : intval($parDocumento1->ordem);
-        $numOrdemDocumento2 = isset($parDocumento2->ordemAjustada) ? intval($parDocumento2->ordemAjustada) : intval($parDocumento2->ordem);
-      }
+    if (is_array($parDocumento1)){
+      $numOrdemDocumento1 = isset($parDocumento1['ordemAjustada']) ? intval($parDocumento1['ordemAjustada']) : intval($parDocumento1['ordem']);
+      $numOrdemDocumento2 = isset($parDocumento2['ordemAjustada']) ? intval($parDocumento2['ordemAjustada']) : intval($parDocumento2['ordem']);
+    }
+    else{
+      $numOrdemDocumento1 = isset($parDocumento1->ordemAjustada) ? intval($parDocumento1->ordemAjustada) : intval($parDocumento1->ordem);
+      $numOrdemDocumento2 = isset($parDocumento2->ordemAjustada) ? intval($parDocumento2->ordemAjustada) : intval($parDocumento2->ordem);
+    }
 
       return $numOrdemDocumento1 - $numOrdemDocumento2;
   }
 
   public static function comparacaoOrdemDocumentos($parDocumento1, $parDocumento2)
     {
+
+    if (is_array($parDocumento1))  {
+      $parDocumento1 = (object) $parDocumento1;
+    }
+
+    if (is_array($parDocumento2))  {
+      $parDocumento2 = (object) $parDocumento2;
+    }
+
       $numOrdemDocumento1 = intval($parDocumento1->ordem);
       $numOrdemDocumento2 = intval($parDocumento2->ordem);
       return $numOrdemDocumento1 - $numOrdemDocumento2;
@@ -2342,6 +2257,14 @@ class ProcessoEletronicoRN extends InfraRN
 
   public static function comparacaoOrdemComponenteDigitais($parComponenteDigital1, $parComponenteDigital2)
     {
+    if (is_array($parComponenteDigital1))  {
+      $parComponenteDigital1 = (object) $parComponenteDigital1;
+    }
+
+    if (is_array($parComponenteDigital2))  {
+      $parComponenteDigital2 = (object) $parComponenteDigital2;
+    }
+
       $numOrdemComponenteDigital1 = intval($parComponenteDigital1->ordem);
       $numOrdemComponenteDigital2 = intval($parComponenteDigital2->ordem);
       return $numOrdemComponenteDigital1 - $numOrdemComponenteDigital2;
@@ -2349,10 +2272,10 @@ class ProcessoEletronicoRN extends InfraRN
 
   public static function obterDocumentosProtocolo($parObjProtocolo, $parBolExtrairAnexados = false)
     {
-      $arrObjDocumento = array();
+      $arrObjDocumento = [];
     if(isset($parObjProtocolo->documentos)){
-        $arrObjProtocolo = is_array($parObjProtocolo->documentos) ? $parObjProtocolo->documentos : array($parObjProtocolo->documentos);
-        usort($arrObjProtocolo, array("ProcessoEletronicoRN", "comparacaoOrdemAjustadaDocumentos"));
+        $arrObjProtocolo = is_array($parObjProtocolo->documentos) ? $parObjProtocolo->documentos : [$parObjProtocolo->documentos];
+        usort($arrObjProtocolo, ["ProcessoEletronicoRN", "comparacaoOrdemAjustadaDocumentos"]);
 
         //Tratamento recursivo para processos anexados
       foreach ($arrObjProtocolo as $objProtocolo) {
@@ -2378,11 +2301,11 @@ class ProcessoEletronicoRN extends InfraRN
         $parObjProtocolo->ordem = 1;
         $parObjProtocolo->ordemAjustada = 1;
         $parObjProtocolo->componentesDigitais = self::obterComponentesDocumentos($parObjProtocolo);
-        return array($parObjProtocolo);
+        return [$parObjProtocolo];
     }
 
     if($parBolExtrairAnexados){
-        usort($arrObjDocumento, array("ProcessoEletronicoRN", "comparacaoOrdemDocumentos"));
+        usort($arrObjDocumento, ["ProcessoEletronicoRN", "comparacaoOrdemDocumentos"]);
     }
 
       $arrObjDocumentoPadronizados = ($parBolExtrairAnexados) ? $arrObjDocumento : $arrObjProtocolo;
@@ -2401,10 +2324,10 @@ class ProcessoEletronicoRN extends InfraRN
   public static function obterComponentesDocumentos($parObjDocumento)
     {
              
-      $arrObjComponenteDigital = array();
+      $arrObjComponenteDigital = [];
     if (isset($parObjDocumento->componentesDigitais)) {
-          $arrObjComponenteDigital = is_array($parObjDocumento->componentesDigitais) ? $parObjDocumento->componentesDigitais : array($parObjDocumento->componentesDigitais);
-          usort($arrObjComponenteDigital, array("ProcessoEletronicoRN", "comparacaoOrdemComponenteDigitais"));
+          $arrObjComponenteDigital = is_array($parObjDocumento->componentesDigitais) ? $parObjDocumento->componentesDigitais : [$parObjDocumento->componentesDigitais];
+          usort($arrObjComponenteDigital, ["ProcessoEletronicoRN", "comparacaoOrdemComponenteDigitais"]);
     }
   
         return $arrObjComponenteDigital;
@@ -2420,7 +2343,7 @@ class ProcessoEletronicoRN extends InfraRN
     {
       $objProcesso = $parobjMetadadosProcedimento->metadados->processo;
       $objDocumento = $parobjMetadadosProcedimento->metadados->documento;
-      $objProtocolo = isset($objProcesso) ? $objProcesso : $objDocumento;
+      $objProtocolo = $objProcesso ?? $objDocumento;
 
       //Caso seja processo receberá em staTipoProtocolo P e caso seja documento avulso receberá D
       $objProtocolo->staTipoProtocolo = isset($objProcesso) ? ProcessoEletronicoRN::$STA_TIPO_PROTOCOLO_PROCESSO : ProcessoEletronicoRN::$STA_TIPO_PROTOCOLO_DOCUMENTO_AVULSO;
@@ -2462,9 +2385,9 @@ class ProcessoEletronicoRN extends InfraRN
     */
   public static function obterComponentesDigitaisDocumento($parObjDocumento)
     {
-    $arrObjComponenteDigital = array();
+    $arrObjComponenteDigital = [];
     if(isset($parObjDocumento->componentesDigitais)){
-        $arrObjComponenteDigital = is_array($parObjDocumento->componentesDigitais) ? $parObjDocumento->componentesDigitais : array($parObjDocumento->componentesDigitais);
+        $arrObjComponenteDigital = is_array($parObjDocumento->componentesDigitais) ? $parObjDocumento->componentesDigitais : [$parObjDocumento->componentesDigitais];
     }
 
     return $arrObjComponenteDigital;
@@ -2489,11 +2412,11 @@ class ProcessoEletronicoRN extends InfraRN
       return $parObjProtocolo;
     }
 
-    $arrObjRefProcessosAnexados = array();
+    $arrObjRefProcessosAnexados = [];
     $objProcessoPrincipal = clone $parObjProtocolo;
-    $objProcessoPrincipal->documentos = array();
+    $objProcessoPrincipal->documentos = [];
     $arrObjDocumentosOrdenados = ProcessoEletronicoRN::obterDocumentosProtocolo($parObjProtocolo, true);
-    usort($arrObjDocumentosOrdenados, array("ProcessoEletronicoRN", "comparacaoOrdemDocumentos"));
+    usort($arrObjDocumentosOrdenados, ["ProcessoEletronicoRN", "comparacaoOrdemDocumentos"]);
 
     // Agrupamento dos documentos por processo
     foreach ($arrObjDocumentosOrdenados as $objDocumento) {
@@ -2505,7 +2428,7 @@ class ProcessoEletronicoRN extends InfraRN
         // existe apenas o número do protocolo de referência
       if($bolDocumentoAnexado && !array_key_exists($strProtocoloProcAnexado, $arrObjRefProcessosAnexados)){
           $objProcessoAnexado = clone $objProcessoPrincipal;
-          $objProcessoAnexado->documentos = array();
+          $objProcessoAnexado->documentos = [];
           $objProcessoAnexado->protocolo = $strProtocoloProcAnexado;
           $objProcessoAnexado->ordemAjustada = count($objProcessoPrincipal->documentos) + 1;
           $objProcessoPrincipal->documentos[] = $objProcessoAnexado;
@@ -2578,7 +2501,7 @@ class ProcessoEletronicoRN extends InfraRN
       return (
         isset($parObjDocumento->protocoloDoProcessoAnexado) &&
         !empty($parObjDocumento->protocoloDoProcessoAnexado) &&
-        $parObjProtocolo->protocolo != $parObjDocumento->protocoloDoProcessoAnexado
+        $parObjProtocolo?->protocolo != $parObjDocumento?->protocoloDoProcessoAnexado
     );
   }
 
@@ -2598,11 +2521,10 @@ class ProcessoEletronicoRN extends InfraRN
   }
 
     /**
-     * Recupera os dados do último trâmite de recebimento válido realizado para determinado número de processo eletrônico
-     *
-     * @param ProcessoEletronicoDTO $parObjProcessoEletronicoDTO
-     * @return void
-     */
+   * Recupera os dados do último trâmite de recebimento válido realizado para determinado número de processo eletrônico
+   *
+   * @return void
+   */
   protected function consultarUltimoTramiteRecebidoConectado(ProcessoEletronicoDTO $parObjProcessoEletronicoDTO)
     {
       $objTramiteBD = new TramiteBD($this->getObjInfraIBanco());
@@ -2610,11 +2532,10 @@ class ProcessoEletronicoRN extends InfraRN
   }
 
     /**
-     * Recupera os dados do último trâmite válido realizado para determinado número de processo eletrônico
-     *
-     * @param ProcessoEletronicoDTO $parObjProcessoEletronicoDTO
-     * @return void
-     */
+   * Recupera os dados do último trâmite válido realizado para determinado número de processo eletrônico
+   *
+   * @return void
+   */
   protected function consultarUltimoTramiteConectado(ProcessoEletronicoDTO $parObjProcessoEletronicoDTO)
     {
       $objTramiteBD = new TramiteBD($this->getObjInfraIBanco());
@@ -2623,11 +2544,10 @@ class ProcessoEletronicoRN extends InfraRN
 
 
     /**
-     * Lista componentes digitais de determinado trâmite
-     *
-     * @param TramiteDTO $parObjTramiteDTO
-     * @return void
-     */
+   * Lista componentes digitais de determinado trâmite
+   *
+   * @return void
+   */
   protected function listarComponentesDigitaisConectado(TramiteDTO $parObjTramiteDTO, $dblIdDocumento = null)
     {
       $objComponenteDigitalBD = new ComponenteDigitalBD($this->getObjInfraIBanco());
@@ -2635,11 +2555,10 @@ class ProcessoEletronicoRN extends InfraRN
   }
 
     /**
-     * Verifica a existência de algum documento contendo outro referenciado no próprio processo
-     *
-     * @param TramiteDTO $parObjTramiteDTO
-     * @return void
-     */
+   * Verifica a existência de algum documento contendo outro referenciado no próprio processo
+   *
+   * @return void
+   */
   protected function possuiComponentesComDocumentoReferenciadoConectado(TramiteDTO $parObjTramiteDTO)
     {
       $objComponenteDigitalBD = new ComponenteDigitalBD($this->getObjInfraIBanco());
@@ -2682,7 +2601,7 @@ class ProcessoEletronicoRN extends InfraRN
       $objAnexoRN = new AnexoRN();
       $strNomeArquivoTemporario = DIR_SEI_TEMP . '/' . $objAnexoRN->gerarNomeArquivoTemporario();
 
-      $arrStrNomeArquivos = array();
+      $arrStrNomeArquivos = [];
       $zipArchive = new ZipArchive();
     if($zipArchive->open($strCaminhoAnexoCompactado)){
       try {
@@ -2719,9 +2638,7 @@ class ProcessoEletronicoRN extends InfraRN
     }
 
       //Recupera toda a lista de documentos vinculados ao processo, considerando a ordenação definida pelo usuário
-      $arrTipoAssociacao = array(
-          RelProtocoloProtocoloRN::$TA_DOCUMENTO_ASSOCIADO, RelProtocoloProtocoloRN::$TA_DOCUMENTO_MOVIDO, RelProtocoloProtocoloRN::$TA_PROCEDIMENTO_ANEXADO
-      );
+      $arrTipoAssociacao = [RelProtocoloProtocoloRN::$TA_DOCUMENTO_ASSOCIADO, RelProtocoloProtocoloRN::$TA_DOCUMENTO_MOVIDO, RelProtocoloProtocoloRN::$TA_PROCEDIMENTO_ANEXADO];
 
       $objRelProtocoloProtocoloDTO = new RelProtocoloProtocoloDTO();
       $objRelProtocoloProtocoloDTO->retDblIdRelProtocoloProtocolo();
@@ -2735,11 +2652,11 @@ class ProcessoEletronicoRN extends InfraRN
       $objRelProtocoloProtocoloRN = new RelProtocoloProtocoloRN();
       $arrObjRelProtocoloProtocoloDTO = $objRelProtocoloProtocoloRN->listarRN0187($objRelProtocoloProtocoloDTO);
 
-      $arrIdDocumentos = array();
+      $arrIdDocumentos = [];
       foreach($arrObjRelProtocoloProtocoloDTO as $objRelProtocoloProtocoloDTO) {
         if (in_array($objRelProtocoloProtocoloDTO->getStrStaAssociacao(), [RelProtocoloProtocoloRN::$TA_DOCUMENTO_ASSOCIADO, RelProtocoloProtocoloRN::$TA_DOCUMENTO_MOVIDO])) {
             // Adiciona documentos em ordem presentes diretamente ao processo
-            $arrIdDocumentos[] = array("IdProtocolo" => $objRelProtocoloProtocoloDTO->getDblIdProtocolo2(), "StaAssociacao" => $objRelProtocoloProtocoloDTO->getStrStaAssociacao());
+            $arrIdDocumentos[] = ["IdProtocolo" => $objRelProtocoloProtocoloDTO->getDblIdProtocolo2(), "StaAssociacao" => $objRelProtocoloProtocoloDTO->getStrStaAssociacao()];
         } elseif($objRelProtocoloProtocoloDTO->getStrStaAssociacao() == RelProtocoloProtocoloRN::$TA_PROCEDIMENTO_ANEXADO) {
             // Adiciona documentos presente no processo anexado, mantendo a ordem de todo o conjunto
             $numIdProtocoloAnexado = $objRelProtocoloProtocoloDTO->getDblIdProtocolo2();
@@ -2790,8 +2707,7 @@ class ProcessoEletronicoRN extends InfraRN
     {
       $endpoint = "repositorios-de-estruturas/{$idRepositorioEstrutura}/estruturas-organizacionais";
     try {
-        $arrResultado = $this->get($endpoint, $parametros);
-        return $arrResultado;
+        return $this->get($endpoint, $parametros);
     } catch (Exception $e) {
         $mensagem = "Falha na obtenção de unidades externas";
         $detalhes = InfraString::formatarJavaScript($this->tratarFalhaWebService($e));
@@ -2811,8 +2727,7 @@ class ProcessoEletronicoRN extends InfraRN
     {
     $endpoint = "repositorios-de-estruturas/{$idRepositorioEstrutura}/estruturas-organizacionais/{$idUnidadeRH}";
     try {
-        $arrResultado = $this->get($endpoint);
-        return $arrResultado;
+        return $this->get($endpoint);
     } catch (Exception $e) {
         $mensagem = "Falha na obtenção de unidades externas";
         $detalhes = InfraString::formatarJavaScript($this->tratarFalhaWebService($e));

@@ -51,6 +51,7 @@ services:
       - ${SEI_PATH}/sei:/opt/sei
       - ${SEI_PATH}/sip:/opt/sip
       - ${SEI_PATH}/infra:/opt/infra
+      - ./assets/config/ConfiguracaoSip.php:/opt/sip/config/ConfiguracaoSip.php:ro
       - .:/tests
       - ${SEI_PATH}/../tests:/tests/sei
       - ${SEI_PATH}/../src:/tests/sei/src
@@ -82,10 +83,12 @@ services:
       - DATABASE_PORT=${ORG1_DATABASE_GUEST_PORT}
       - SEI_CHAVE_ACESSO=${ORG1_APP_SEI_CHAVE_ACESSO}
       - SEI_DATABASE_NAME=${SEI_DATABASE_NAME}
+      - APP_SIP_CHAVE_ACESSO=${ORG1_APP_SIP_CHAVE_ACESSO}
       - SIP_CHAVE_ACESSO=${ORG1_APP_SIP_CHAVE_ACESSO}
       - SIP_DATABASE_NAME=${SIP_DATABASE_NAME}
       - SIP_DATABASE_USER=${SIP_DATABASE_USER}
       - SIP_DATABASE_PASSWORD=${SIP_DATABASE_PASSWORD}
+      - HOST_URL=http://${ORG1_HOSTNAME}:${ORG1_PORT}
     extra_hosts:
       - "host.docker.internal:host-gateway"
     links:
@@ -124,7 +127,7 @@ services:
   ### CONTAINERS DO AMBIENTE DO ÓRGÃO 1 ###
 
   org1-database:
-    image: ${ORG1_DATABASE_IMAGE}:${ENVIRONMENT_VERSION}
+    image: ${ORG1_DATABASE_IMAGE}
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: P@ssword
@@ -148,7 +151,7 @@ services:
       - ../../src/scripts:/opt/sip/scripts/mod-pen
       - ../../src/bin:/opt/sei/bin/mod-pen
       - ../../src:/opt/sei/web/modulos/pen
-      - /tmp/sei_arquivos_1:/var/sei/arquivos
+      - .tmp/sei_arquivos_1:/var/sei/arquivos
       - ./assets/config/composer.json:/opt/sei/web/modulos/pen/composer.json
       - ./composer.phar:/opt/sei/web/modulos/pen/composer.phar
       - ../../vendor:/opt/sei/web/modulos/pen/vendor
@@ -184,7 +187,7 @@ services:
   ### CONTAINERS DO AMBIENTE DO ÓRGÃO 2 ###
 
   org2-database:
-    image: ${ORG2_DATABASE_IMAGE}:${ENVIRONMENT_VERSION}
+    image: ${ORG2_DATABASE_IMAGE}
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: P@ssword
@@ -208,7 +211,7 @@ services:
       - ../../src:/opt/sei/web/modulos/pen
       - ./assets/config/ConfiguracaoSEI.php:/opt/sei/config/ConfiguracaoSEI.php:ro
       - ./assets/config/ConfiguracaoSip.php:/opt/sip/config/ConfiguracaoSip.php:ro
-      - /tmp/sei_arquivos_2:/var/sei/arquivos
+      - .tmp/sei_arquivos_2:/var/sei/arquivos
       - ./assets/config/composer.json:/opt/sei/web/modulos/pen/composer.json
       - ./composer.phar:/opt/sei/web/modulos/pen/composer.phar
       - ../../vendor:/opt/sei/web/modulos/pen/vendor

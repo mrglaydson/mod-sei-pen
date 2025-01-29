@@ -44,7 +44,7 @@ class TramiteRecebimentoInteressadosDuplicadosTest extends FixtureCenarioBaseTes
         // Atribui dois interessados utilizando o mesmo nome
         self::$processoTeste['INTERESSADOS'] = array("Interessado com mesmo nome", "Interessado com mesmo nome");
 
-        // Instanciar objeto de teste utilizando o BeSimpleSoap
+        // Instanciar objeto de teste utilizando o Guzzle
         $localCertificado = self::$remetente['LOCALIZACAO_CERTIFICADO_DIGITAL'];
         $senhaCertificado = self::$remetente['SENHA_CERTIFICADO_DIGITAL'];
         self::$servicoPEN = $this->instanciarApiDeIntegracao($localCertificado, $senhaCertificado);
@@ -76,8 +76,7 @@ class TramiteRecebimentoInteressadosDuplicadosTest extends FixtureCenarioBaseTes
         
         $strClientGuzzle = new GuzzleHttp\Client([
             'base_uri' => PEN_ENDERECO_WEBSERVICE,
-            'handler' => GuzzleHttp\HandlerStack::create(),
-            'timeout'  => 5.0,
+            'timeout'  => ProcessoEletronicoRN::WS_TIMEOUT_CONEXAO,
             'headers'  => $arrheaders,
             'cert'     => [$localCertificado, $senhaCertificado],
         ]);
@@ -116,6 +115,14 @@ class TramiteRecebimentoInteressadosDuplicadosTest extends FixtureCenarioBaseTes
     {
         $idt = $novoTramite['IDT'];
         return $this->receberReciboDeEnvioAPI($idt);
+    }
+
+    private function receberReciboTramite($servicoPEN, $novoTramite)
+    {
+        $dadosTramite = $novoTramite->dadosTramiteDeProcessoCriado;
+        $parametros = new StdClass();
+        $parametros->IDT = $dadosTramite->IDT;
+        return $servicoPEN->receberReciboDeTramite($parametros);
     }
 
     private function construirCabecalhoTeste($remetente, $destinatario)
@@ -267,6 +274,7 @@ class TramiteRecebimentoInteressadosDuplicadosTest extends FixtureCenarioBaseTes
     
         } catch (\Exception $e) {
             $mensagem = "Falha no envio de processo";
+            $this->fail($mensagem . " - " . $e->getMessage());
         }
     }
 
@@ -307,6 +315,7 @@ class TramiteRecebimentoInteressadosDuplicadosTest extends FixtureCenarioBaseTes
     
         } catch (\Exception $e) {
             $mensagem = "Falha no envio de de componentes no documento";
+            $this->fail($mensagem . " - " . $e->getMessage());
         }
     }
 
@@ -325,6 +334,7 @@ class TramiteRecebimentoInteressadosDuplicadosTest extends FixtureCenarioBaseTes
             return json_decode($response->getBody(), true);
         } catch (\Exception $e) {
             $mensagem = "Falha no recebimento de recibo de trâmite de envio.";
+            $this->fail($mensagem . " - " . $e->getMessage());
         }
     }
 }
